@@ -24,9 +24,9 @@ export const S08Retro70s = () => {
             </span>
           </div>
           <nav className="hidden md:flex gap-8 text-sm uppercase tracking-[0.15em] text-[#5D4037] font-sans font-medium">
-            <span className="cursor-default">首頁</span>
-            <span className="cursor-default">作品</span>
-            <span className="cursor-default">聯繫</span>
+            <span className="cursor-default">Home</span>
+            <span className="cursor-default">Works</span>
+            <span className="cursor-default">Contact</span>
           </nav>
         </header>
 
@@ -48,17 +48,17 @@ export const S08Retro70s = () => {
                 60s-70s Print Aesthetic
               </div>
               <h1 className="text-4xl md:text-6xl font-black text-[#5D4037] mb-6 leading-[1.1] tracking-tight">
-                復古印刷<br />風格設計
+                Retro Print<br />Style Design
               </h1>
               <p className="text-[#6D4C41] max-w-md leading-relaxed mb-8 text-lg">
-                回到 60-70 年代的印刷美學，溫暖的大地色調、顆粒質感與復古字體的完美結合。
+                Return to the 60s-70s print aesthetics, perfect fusion of warm earth tones, grain texture, and vintage typography.
               </p>
               <div className="flex flex-col md:flex-row gap-3 md:gap-4">
                 <button className="px-8 py-4 bg-[#E65100] text-white font-bold uppercase tracking-wider text-sm hover:bg-[#BF360C] transition-colors rounded-full">
-                  探索作品
+                  Explore Works
                 </button>
                 <button className="px-8 py-4 border-2 border-[#5D4037] text-[#5D4037] font-bold uppercase tracking-wider text-sm hover:bg-[#5D4037] hover:text-white transition-colors rounded-full">
-                  了解更多
+                  Learn More
                 </button>
               </div>
             </div>
@@ -68,9 +68,9 @@ export const S08Retro70s = () => {
         {/* Feature Cards */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mb-10 md:mb-16">
           {[
-            { title: '大地色系', desc: '溫暖的橘棕色調', color: '#E65100' },
-            { title: '顆粒質感', desc: '手工印刷的觸感', color: '#5D4037' },
-            { title: '復古字體', desc: '經典的襯線設計', color: '#FF8F00' },
+            { title: 'Earth Tones', desc: 'Warm orange-brown palette', color: '#E65100' },
+            { title: 'Grain Texture', desc: 'Hand-printed tactile feel', color: '#5D4037' },
+            { title: 'Vintage Typography', desc: 'Classic serif design', color: '#FF8F00' },
           ].map((item, i) => (
             <div key={i} className="p-8 rounded-2xl relative overflow-hidden group" 
               style={{ backgroundColor: item.color }}>
@@ -90,10 +90,10 @@ export const S08Retro70s = () => {
           <div className="max-w-2xl mx-auto text-center">
             <div className="text-6xl text-[#E65100]/30 mb-4">"</div>
             <blockquote className="text-3xl italic text-[#5D4037] leading-relaxed mb-6">
-              設計是時代的鏡子，反映著我們的夢想與渴望。
+              Design is a mirror of the times, reflecting our dreams and aspirations.
             </blockquote>
             <cite className="text-sm text-[#8D6E63] uppercase tracking-[0.2em] not-italic font-sans">
-              — 復古設計哲學
+              — Retro Design Philosophy
             </cite>
           </div>
         </section>
@@ -101,10 +101,10 @@ export const S08Retro70s = () => {
         {/* Stats */}
         <section className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mb-12">
           {[
-            { num: '1965', label: '黃金年代' },
-            { num: '∞', label: '創意無限' },
-            { num: '100%', label: '手工質感' },
-            { num: '70s', label: '經典風格' },
+            { num: '1965', label: 'Golden Era' },
+            { num: '∞', label: 'Infinite Creativity' },
+            { num: '100%', label: 'Handcrafted' },
+            { num: '70s', label: 'Classic Style' },
           ].map((item, i) => (
             <div key={i} className="text-center p-6 rounded-xl" style={{ backgroundColor: 'rgba(93,64,55,0.05)' }}>
               <div className="text-4xl font-black text-[#E65100] mb-2">{item.num}</div>

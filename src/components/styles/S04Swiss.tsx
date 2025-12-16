@@ -19,15 +19,15 @@ export const S04Swiss = () => {
         <header className="flex md:grid md:grid-cols-12 gap-4 mb-12 md:mb-16 pb-6 border-b-2 border-black justify-between items-end">
           <div className="md:col-span-8">
             <div className="text-[10px] tracking-[0.4em] uppercase text-[#999] mb-2">International Typographic Style</div>
-            <div className="text-3xl md:text-5xl font-black tracking-[-0.02em]">瑞士設計</div>
+            <div className="text-3xl md:text-5xl font-black tracking-[-0.02em]">Swiss Design</div>
           </div>
           
           {/* Desktop Nav */}
           <nav className="hidden md:flex md:col-span-4 flex-col items-end justify-end">
             <div className="flex gap-8 text-sm font-medium">
-              <span className="cursor-default">作品</span>
-              <span className="cursor-default">理念</span>
-              <span className="cursor-default">聯繫</span>
+              <span className="cursor-default">Works</span>
+              <span className="cursor-default">Philosophy</span>
+              <span className="cursor-default">Contact</span>
             </div>
           </nav>
 
@@ -44,9 +44,9 @@ export const S04Swiss = () => {
         {menuOpen && (
           <div className="md:hidden mb-8 p-4 border-2 border-black">
             <nav className="flex flex-col gap-2 text-sm font-medium">
-              <span className="py-2 cursor-default">作品</span>
-              <span className="py-2 cursor-default">理念</span>
-              <span className="py-2 cursor-default">聯繫</span>
+              <span className="py-2 cursor-default">Works</span>
+              <span className="py-2 cursor-default">Philosophy</span>
+              <span className="py-2 cursor-default">Contact</span>
             </nav>
           </div>
         )}
@@ -62,19 +62,19 @@ export const S04Swiss = () => {
           <div className="col-span-7 pt-4">
             <div className="text-[10px] tracking-[0.4em] uppercase text-[#999] mb-6">Helvetica · Grid · Clarity</div>
             <h1 className="text-3xl font-bold leading-[1.2] mb-6 tracking-[-0.01em]">
-              清晰、客觀、<br />
-              功能導向的設計
+              Clear, Objective,<br />
+              Function-Driven Design
             </h1>
             <p className="text-sm leading-[1.8] text-[#555] max-w-md mb-8">
-              瑞士國際字體風格強調嚴謹的網格系統、無襯線字體的運用，
-              以及資訊的清晰傳達。設計應該是普遍的、永恆的、超越文化的。
+              Swiss International Typographic style emphasizes rigorous grid systems, sans-serif typography,
+              and clear information communication. Design should be universal, timeless, and transcultural.
             </p>
             <div className="flex gap-4">
               <button className="px-6 py-3 bg-black text-white text-xs font-bold tracking-wider hover:bg-[#333] transition-colors">
-                探索作品
+                Explore Works
               </button>
               <button className="px-6 py-3 border-2 border-black text-xs font-bold tracking-wider hover:bg-black hover:text-white transition-colors">
-                了解更多
+                Learn More
               </button>
             </div>
           </div>
@@ -85,21 +85,21 @@ export const S04Swiss = () => {
           <div className="col-span-4 bg-black text-white p-8 flex flex-col justify-between min-h-[200px]">
             <div>
               <div className="text-[10px] tracking-[0.3em] uppercase text-[#666] mb-1">Principle 01</div>
-              <div className="text-2xl font-bold mb-2">網格系統</div>
+              <div className="text-2xl font-bold mb-2">Grid System</div>
             </div>
             <div className="text-xs text-[#888] tracking-wider">GRID SYSTEM</div>
           </div>
           <div className="col-span-4 bg-[#E53935] text-white p-8 flex flex-col justify-between min-h-[200px]">
             <div>
               <div className="text-[10px] tracking-[0.3em] uppercase text-white/60 mb-1">Principle 02</div>
-              <div className="text-2xl font-bold mb-2">無襯線字體</div>
+              <div className="text-2xl font-bold mb-2">Sans Serif</div>
             </div>
             <div className="text-xs text-white/70 tracking-wider">SANS-SERIF</div>
           </div>
           <div className="col-span-4 border-2 border-black p-8 flex flex-col justify-between min-h-[200px]">
             <div>
               <div className="text-[10px] tracking-[0.3em] uppercase text-[#999] mb-1">Principle 03</div>
-              <div className="text-2xl font-bold mb-2">負空間</div>
+              <div className="text-2xl font-bold mb-2">Negative Space</div>
             </div>
             <div className="text-xs text-[#999] tracking-wider">WHITE SPACE</div>
           </div>
@@ -108,10 +108,10 @@ export const S04Swiss = () => {
         {/* Stats */}
         <div className="grid grid-cols-12 gap-4 mb-12 py-8 border-t-2 border-b-2 border-black">
           {[
-            { num: '1950', label: '起源年代' },
-            { num: '12', label: '欄網格' },
-            { num: '∞', label: '影響力' },
-            { num: '100%', label: '功能性' },
+            { num: '1950', label: 'Origin Era' },
+            { num: '12', label: 'Column Grid' },
+            { num: '∞', label: 'Influence' },
+            { num: '100%', label: 'Functionality' },
           ].map((item, i) => (
             <div key={i} className="col-span-3 text-center">
               <div className="text-4xl font-black mb-2">{item.num}</div>

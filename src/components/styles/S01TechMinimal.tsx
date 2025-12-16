@@ -30,9 +30,9 @@ export const S01TechMinimal = () => {
         
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
-          <span className="text-sm text-zinc-400 cursor-default">產品</span>
-          <span className="text-sm text-zinc-400 cursor-default">方案</span>
-          <span className="text-sm text-zinc-400 cursor-default">關於</span>
+          <span className="text-sm text-zinc-400 cursor-default">Products</span>
+          <span className="text-sm text-zinc-400 cursor-default">Solutions</span>
+          <span className="text-sm text-zinc-400 cursor-default">About</span>
           <button className="px-4 py-2 bg-white/10 hover:bg-white/15 rounded-lg text-sm font-medium transition-colors backdrop-blur-sm">
             聯繫我們
           </button>
@@ -51,11 +51,11 @@ export const S01TechMinimal = () => {
       {menuOpen && (
         <div className="md:hidden relative z-20 mb-8 p-4 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl">
           <nav className="flex flex-col gap-2">
-            <span className="px-4 py-3 text-sm text-zinc-300 rounded-lg cursor-default">產品</span>
-            <span className="px-4 py-3 text-sm text-zinc-300 rounded-lg cursor-default">方案</span>
-            <span className="px-4 py-3 text-sm text-zinc-300 rounded-lg cursor-default">關於</span>
+            <span className="px-4 py-3 text-sm text-zinc-300 rounded-lg cursor-default">Products</span>
+            <span className="px-4 py-3 text-sm text-zinc-300 rounded-lg cursor-default">Solutions</span>
+            <span className="px-4 py-3 text-sm text-zinc-300 rounded-lg cursor-default">About</span>
             <button className="mt-2 px-4 py-3 bg-white/10 hover:bg-white/15 rounded-lg text-sm font-medium transition-colors">
-              聯繫我們
+              Contact Us
             </button>
           </nav>
         </div>
@@ -65,24 +65,21 @@ export const S01TechMinimal = () => {
       <section className="relative z-10 mb-24">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-500/10 border border-blue-500/20 rounded-full text-xs text-blue-400 mb-6">
           <Activity className="w-3 h-3" />
-          <span>全新 2.0 版本已發布</span>
+          <span>New Version 2.0 Released</span>
         </div>
         <h1 className="text-6xl font-bold leading-[1.1] mb-6 tracking-tight">
-          打造下一代<br />
-          <span className="bg-gradient-to-r from-blue-400 via-violet-400 to-purple-400 bg-clip-text text-transparent">
-            數位基礎設施
-          </span>
+          Building the next<br />generation of<br />digital infrastructure
         </h1>
         <p className="text-zinc-400 max-w-lg mb-10 text-lg leading-relaxed">
-          運用最先進的雲端技術，為您的企業打造高效能、高可用性的數位解決方案。
+          Leverage cutting-edge cloud technology to build high-performance, high-availability digital solutions for your business.
         </p>
         <div className="flex gap-4">
           <button className="group px-6 py-3 bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 rounded-lg text-sm font-semibold transition-all flex items-center gap-2">
-            免費開始
+            Start Free
             <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
           </button>
           <button className="px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm font-medium transition-colors">
-            查看演示
+            View Demo
           </button>
         </div>
       </section>
@@ -90,9 +87,9 @@ export const S01TechMinimal = () => {
       {/* Features */}
       <section className="relative z-10 grid grid-cols-3 gap-6 mb-20">
         {[
-          { icon: <Zap className="w-5 h-5" />, title: '極速效能', desc: '毫秒級響應，99.99% 可用性保證', gradient: 'from-amber-500 to-orange-600' },
-          { icon: <Shield className="w-5 h-5" />, title: '企業級安全', desc: 'SOC 2 認證，端對端加密保護', gradient: 'from-emerald-500 to-teal-600' },
-          { icon: <Globe className="w-5 h-5" />, title: '全球部署', desc: '30+ 數據中心，邊緣運算支援', gradient: 'from-blue-500 to-cyan-600' },
+          { icon: <Zap className="w-5 h-5" />, title: 'Extreme Speed', desc: 'Millisecond response, 99.99% uptime guarantee', gradient: 'from-amber-500 to-orange-600' },
+          { icon: <Shield className="w-5 h-5" />, title: 'Enterprise Security', desc: 'SOC 2 certified, end-to-end encryption protection', gradient: 'from-emerald-500 to-teal-600' },
+          { icon: <Globe className="w-5 h-5" />, title: 'Global Deployment', desc: '30+ data centers, edge computing support', gradient: 'from-blue-500 to-cyan-600' },
         ].map((item, i) => (
           <div key={i} className="group p-6 bg-white/[0.02] hover:bg-white/[0.05] border border-white/5 hover:border-white/10 rounded-2xl transition-all">
             <div className={`w-10 h-10 bg-gradient-to-br ${item.gradient} rounded-xl flex items-center justify-center mb-4`}>
@@ -108,10 +105,10 @@ export const S01TechMinimal = () => {
       <section className="relative z-10 p-8 bg-gradient-to-r from-white/[0.02] to-transparent border border-white/5 rounded-2xl">
         <div className="grid grid-cols-4 gap-8">
           {[
-            { value: '99.99%', label: '服務可用性', icon: <Server className="w-4 h-4" /> },
-            { value: '<10ms', label: '平均延遲', icon: <Zap className="w-4 h-4" /> },
-            { value: '50K+', label: '活躍開發者', icon: <Activity className="w-4 h-4" /> },
-            { value: '30+', label: '全球節點', icon: <Globe className="w-4 h-4" /> },
+            { value: '99.99%', label: 'Service Uptime', icon: <Server className="w-4 h-4" /> },
+            { value: '<10ms', label: 'Avg Latency', icon: <Zap className="w-4 h-4" /> },
+            { value: '50K+', label: 'Active Developers', icon: <Activity className="w-4 h-4" /> },
+            { value: '30+', label: 'Global Nodes', icon: <Globe className="w-4 h-4" /> },
           ].map((item, i) => (
             <div key={i} className="text-center">
               <div className="flex items-center justify-center gap-2 text-zinc-500 mb-2">

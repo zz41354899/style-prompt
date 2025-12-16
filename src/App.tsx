@@ -154,7 +154,7 @@ function App() {
       } catch (e) {
         if (e instanceof DOMException && e.name === 'AbortError') return;
         setPromptText(fallbackPrompt);
-        setPromptError('載入 Prompt 失敗');
+        setPromptError('Failed to load Prompt');
       } finally {
         setPromptLoading(false);
       }
@@ -199,7 +199,7 @@ function App() {
             }`}
           >
             <Monitor className="w-3 h-3 md:w-4 md:h-4" />
-            <span className="hidden sm:inline">電腦</span>
+            <span className="hidden sm:inline">Desktop</span>
           </button>
           <button
             onClick={() => setDeviceMode('mobile')}
@@ -210,7 +210,7 @@ function App() {
             }`}
           >
             <Smartphone className="w-3 h-3 md:w-4 md:h-4" />
-            <span className="hidden sm:inline">手機</span>
+            <span className="hidden sm:inline">Mobile</span>
           </button>
         </div>
 
@@ -236,8 +236,8 @@ function App() {
         {/* 左側樣式列表 - 桌面版 */}
         <aside className="hidden lg:flex flex-col w-72 border-r border-white/10 bg-[#0a0a0a]">
           <div className="p-4 border-b border-white/10">
-            <h2 className="text-sm font-medium text-white/80">設計風格</h2>
-            <p className="text-xs text-white/40 mt-1">共 {styles.length} 種風格</p>
+            <h2 className="text-sm font-medium text-white/80">Design Styles</h2>
+            <p className="text-xs text-white/40 mt-1">{styles.length} styles available</p>
           </div>
           <div className="flex-1 overflow-y-auto">
             {styles.map((style) => (
@@ -278,8 +278,8 @@ function App() {
             <aside className="relative w-72 max-w-[80vw] bg-[#0a0a0a] border-r border-white/10 flex flex-col">
               <div className="p-4 border-b border-white/10 flex items-center justify-between">
                 <div>
-                  <h2 className="text-sm font-medium text-white/80">設計風格</h2>
-                  <p className="text-xs text-white/40 mt-1">共 {styles.length} 種風格</p>
+                  <h2 className="text-sm font-medium text-white/80">Design Styles</h2>
+                  <p className="text-xs text-white/40 mt-1">{styles.length} styles available</p>
                 </div>
                 <button
                   onClick={() => setSidebarOpen(false)}
@@ -328,7 +328,7 @@ function App() {
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-2 mb-3 md:mb-4">
             <div className="flex items-center gap-2 text-white/40 text-[10px] md:text-xs">
               <Info className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
-              <span className="leading-tight">預覽畫面僅供參考，實際效果可能因實作方式而異</span>
+              <span className="leading-tight">Preview is for reference only, actual results may vary based on implementation</span>
             </div>
             <button
               onClick={() => setShowPromptModal(true)}
@@ -421,7 +421,7 @@ function App() {
                 {/* Terminal Content - Scrollable */}
                 <div className="overflow-y-auto p-5 bg-[#1e1e1e]" style={{ maxHeight: 'calc(50vh - 44px)' }}>
                   {promptLoading ? (
-                    <pre className="text-white/60 font-mono text-sm leading-[1.75] whitespace-pre-wrap break-words">載入中...</pre>
+                    <pre className="text-white/60 font-mono text-sm leading-[1.75] whitespace-pre-wrap break-words">Loading...</pre>
                   ) : (
                     <pre className="text-white/90 font-mono text-sm leading-[1.75] whitespace-pre-wrap break-words">{promptText}</pre>
                   )}

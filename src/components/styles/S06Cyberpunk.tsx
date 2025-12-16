@@ -80,22 +80,22 @@ export const S06Cyberpunk = () => {
           <span className="text-[10px] md:text-xs">// SYSTEM_INITIALIZATION_COMPLETE</span>
         </div>
         <h1 className="text-4xl md:text-5xl font-black mb-6 leading-tight">
-          <span className="text-cyan-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]">賽博</span>
-          <span className="text-pink-500 drop-shadow-[0_0_10px_rgba(236,72,153,0.5)]">龐克</span>
+          <span className="text-cyan-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]">CYBER</span>
+          <span className="text-pink-500 drop-shadow-[0_0_10px_rgba(236,72,153,0.5)]">PUNK</span>
           <br />
           <span className="text-yellow-400 drop-shadow-[0_0_10px_rgba(250,204,21,0.5)]">2077</span>
         </h1>
         <p className="text-gray-400 text-sm max-w-lg leading-relaxed mb-8">
-          在霓虹燈閃爍的夜城中，科技與人性交織。高科技，低生活。
-          歡迎來到未來，歡迎來到黑暗。
+          In the neon-lit night city, technology and humanity intertwine. High tech, low life.
+          Welcome to the future, welcome to the dark.
         </p>
         <div className="flex gap-4">
           <button className="group px-6 py-3 bg-gradient-to-r from-cyan-500 to-cyan-400 text-black font-bold text-sm hover:from-cyan-400 hover:to-cyan-300 transition-all flex items-center gap-2">
-            <span>&gt; 進入系統</span>
+            <span>&gt; Enter System</span>
             <div className="w-4 h-4 border-2 border-black group-hover:rotate-90 transition-transform" />
           </button>
           <button className="px-6 py-3 border border-pink-500/50 text-pink-400 text-sm hover:bg-pink-500/20 hover:border-pink-500 transition-all">
-            &gt; 了解更多_
+            &gt; Learn More_
           </button>
         </div>
       </section>
@@ -103,9 +103,9 @@ export const S06Cyberpunk = () => {
       {/* Stats Grid */}
       <section className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-3 mb-8">
         {[
-          { icon: <Wifi className="w-4 h-4" />, label: '連線狀態', value: 'ONLINE', color: 'emerald', border: 'rgba(16,185,129,0.3)' },
-          { icon: <AlertTriangle className="w-4 h-4" />, label: '威脅等級', value: 'HIGH', color: 'red', border: 'rgba(239,68,68,0.3)' },
-          { icon: <CreditCard className="w-4 h-4" />, label: '信用點數', value: '¥89,420', color: 'yellow', border: 'rgba(250,204,21,0.3)' },
+          { icon: <Wifi className="w-4 h-4" />, label: 'Connection', value: 'ONLINE', color: 'emerald', border: 'rgba(16,185,129,0.3)' },
+          { icon: <AlertTriangle className="w-4 h-4" />, label: 'Threat Level', value: 'HIGH', color: 'red', border: 'rgba(239,68,68,0.3)' },
+          { icon: <CreditCard className="w-4 h-4" />, label: 'Credits', value: '¥89,420', color: 'yellow', border: 'rgba(250,204,21,0.3)' },
         ].map((item, i) => (
           <div key={i} className="border p-4 bg-black/30 backdrop-blur-sm" style={{ borderColor: item.border }}>
             <div className="flex items-center gap-2 text-xs text-gray-500 uppercase mb-2">
@@ -128,10 +128,10 @@ export const S06Cyberpunk = () => {
         </div>
         <div className="grid grid-cols-2 gap-4">
           {[
-            { icon: <Cpu className="w-4 h-4" />, label: '神經連結', status: 'ACTIVE' },
-            { icon: <Eye className="w-4 h-4" />, label: '義體改造', status: 'READY' },
-            { icon: <Database className="w-4 h-4" />, label: '資料駭入', status: 'STANDBY' },
-            { icon: <ShieldAlert className="w-4 h-4" />, label: '黑市交易', status: 'LOCKED' },
+            { icon: <Cpu className="w-4 h-4" />, label: 'Neural Link', status: 'ACTIVE' },
+            { icon: <Eye className="w-4 h-4" />, label: 'Cybernetics', status: 'READY' },
+            { icon: <Database className="w-4 h-4" />, label: 'Data Hack', status: 'STANDBY' },
+            { icon: <ShieldAlert className="w-4 h-4" />, label: 'Black Market', status: 'LOCKED' },
           ].map((item, i) => (
             <div key={i} className="flex items-center justify-between p-3 border border-cyan-500/20 bg-cyan-500/5">
               <div className="flex items-center gap-3">

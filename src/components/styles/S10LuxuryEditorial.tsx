@@ -19,16 +19,16 @@ export const S10LuxuryEditorial = () => {
         <div className="md:col-span-5 flex flex-col justify-center">
           <div className="text-[10px] tracking-[0.4em] uppercase text-[#9a8b7a] mb-6">The Art of Living</div>
           <h1 className="text-4xl md:text-6xl font-light leading-[1.1] mb-6 md:mb-8 tracking-[-0.02em]">
-            奢華<br />
-            <em className="font-normal italic text-[#9a8b7a]">編輯美學</em>
+            Luxury<br />
+            <em className="font-normal italic text-[#9a8b7a]">Editorial Aesthetics</em>
           </h1>
           <p className="text-[#666] leading-[1.9] mb-10 text-[15px]">
-            在細節中發現永恆的優雅。每一個選擇都是品味的展現，
-            每一個瞬間都值得被珍藏。我們相信，真正的奢華來自於對完美的不懈追求。
+            Discover eternal elegance in the details. Every choice is a display of taste,
+            every moment deserves to be cherished. We believe true luxury comes from the relentless pursuit of perfection.
           </p>
           <span className="inline-flex items-center gap-3 text-[11px] tracking-[0.3em] uppercase cursor-default">
             <span className="border-b border-[#1a1a1a] pb-1">
-              探索系列
+              Explore Collection
             </span>
             <ArrowUpRight className="w-4 h-4" />
           </span>
@@ -55,9 +55,9 @@ export const S10LuxuryEditorial = () => {
       <section className="py-16 border-t border-b border-[#e0d5c7] mb-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           {[
-            { num: 'I', title: '精緻工藝', desc: 'Craftsmanship', detail: '每一件作品都經過匠人之手精心打造' },
-            { num: 'II', title: '永恆設計', desc: 'Timeless Design', detail: '超越時代的美學，歷久彌新的魅力' },
-            { num: 'III', title: '獨特體驗', desc: 'Unique Experience', detail: '為您打造專屬的奢華生活方式' },
+            { num: 'I', title: 'Exquisite Craftsmanship', desc: 'Craftsmanship', detail: 'Every piece is meticulously crafted by artisans' },
+            { num: 'II', title: 'Timeless Design', desc: 'Timeless Design', detail: 'Aesthetics that transcend time,魅力 that endures' },
+            { num: 'III', title: 'Unique Experience', desc: 'Unique Experience', detail: 'Creating an exclusive luxury lifestyle for you' },
           ].map((item, i) => (
             <div key={i} className="text-center group">
               <div className="text-4xl font-light text-[#c4b5a5] mb-6 group-hover:text-[#9a8b7a] transition-colors">
@@ -76,7 +76,7 @@ export const S10LuxuryEditorial = () => {
         <div className="max-w-3xl mx-auto text-center">
           <Gem className="w-8 h-8 text-[#c4b5a5] mx-auto mb-8" />
           <blockquote className="text-3xl font-light italic leading-[1.6] mb-8 text-[#333]">
-            "真正的奢華不在於擁有，而在於體驗生活中每一個精心雕琢的時刻。"
+            "True luxury lies not in possession, but in experiencing every meticulously crafted moment of life."
           </blockquote>
           <cite className="text-[10px] tracking-[0.4em] uppercase text-[#9a8b7a] not-italic">
             — Editorial Philosophy

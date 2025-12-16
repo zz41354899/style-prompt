@@ -30,9 +30,9 @@ export const S09Memphis = () => {
         </div>
         <nav className="hidden md:flex gap-3">
           {[
-            { label: '首頁', color: '#FFE135' },
-            { label: '設計', color: '#00D4AA' },
-            { label: '關於', color: '#FF6B9D' },
+            { label: 'Home', color: '#FFE135' },
+            { label: 'Design', color: '#00D4AA' },
+            { label: 'About', color: '#FF6B9D' },
           ].map((item, i) => (
             <span key={i}
               className="px-5 py-2.5 border-[3px] border-black font-bold text-sm cursor-default"
@@ -52,23 +52,23 @@ export const S09Memphis = () => {
               <span>Post-Modern Design</span>
             </div>
             <h1 className="text-4xl md:text-7xl font-black leading-[0.95] mb-6 md:mb-8">
-              <span className="text-[#FF6B9D]">玩樂</span>
-              <span className="text-[#00D4AA]">設計</span>
+              <span className="text-[#FF6B9D]">Playful</span>
+              <span className="text-[#00D4AA]">Design</span>
               <br />
-              <span className="text-[#7C4DFF]">無限</span>
-              <span className="text-[#FFE135]" style={{ textShadow: '3px 3px 0 #000' }}>可能</span>
+              <span className="text-[#7C4DFF]">Infinite</span>
+              <span className="text-[#FFE135]" style={{ textShadow: '3px 3px 0 #000' }}>Possibilities</span>
             </h1>
             <p className="text-lg max-w-md mb-8 font-medium text-gray-700 leading-relaxed">
-              Memphis 設計打破規則，用大膽的色彩和幾何圖形創造歡樂的視覺體驗！
-              擁抱混亂，拒絕無聊。
+              Memphis design breaks rules, creating joyful visual experiences with bold colors and geometric shapes!
+              Embrace chaos, reject boredom.
             </p>
             <div className="flex flex-col md:flex-row gap-3 md:gap-4">
               <button className="px-8 py-4 bg-[#FF6B9D] text-white font-black text-lg border-[3px] border-black hover:translate-x-1 hover:-translate-y-1 transition-transform flex items-center gap-2"
                 style={{ boxShadow: '5px 5px 0 #000' }}>
-                <span>開始探索</span>
+                <span>Start Exploring</span>
                 <span className="text-xl">→</span>
               </button>
-              <button className="px-8 py-4 bg-white font-black text-lg border-[3px] border-black hover:translate-x-1 hover:-translate-y-1 transition-transform"
+              <button className="px-8 py-4 bg-white font-black text-lg text-black border-[3px] border-black hover:translate-x-1 hover:-translate-y-1 transition-transform"
                 style={{ boxShadow: '5px 5px 0 #7C4DFF' }}>
                 了解更多
               </button>
@@ -88,9 +88,9 @@ export const S09Memphis = () => {
       {/* Features */}
       <section className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mb-12">
         {[
-          { icon: <Circle className="w-8 h-8" />, title: '幾何圖形', desc: '圓形、三角、方形的狂歡', color: '#00D4AA' },
-          { icon: <Triangle className="w-8 h-8" />, title: '鮮豔色彩', desc: '大膽撞色，拒絕平淡', color: '#FFE135' },
-          { icon: <Square className="w-8 h-8" />, title: '不對稱', desc: '打破平衡，創造張力', color: '#7C4DFF' },
+          { icon: <Circle className="w-8 h-8" />, title: 'Geometric Shapes', desc: 'A carnival of circles, triangles, and squares', color: '#00D4AA' },
+          { icon: <Triangle className="w-8 h-8" />, title: 'Vibrant Colors', desc: 'Bold color clashes, reject the mundane', color: '#FFE135' },
+          { icon: <Square className="w-8 h-8" />, title: 'Asymmetry', desc: 'Break balance, create tension', color: '#7C4DFF' },
         ].map((item, i) => (
           <div key={i} className="p-6 bg-white border-[3px] border-black group hover:translate-x-1 hover:-translate-y-1 transition-transform"
             style={{ boxShadow: '6px 6px 0 #000' }}>

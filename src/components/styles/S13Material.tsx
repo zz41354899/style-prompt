@@ -25,7 +25,7 @@ export const S13Material = () => {
             style={{ background: 'linear-gradient(135deg, #6750A4 0%, #7F67BE 50%, #D0BCFF 100%)' }}>
             <div className="absolute bottom-4 left-6 right-6">
               <div className="text-white/60 text-xs font-medium mb-1">Material Design 3</div>
-              <h1 className="text-2xl font-medium text-white">質感設計系統</h1>
+              <h1 className="text-2xl font-medium text-white">Material Design System</h1>
             </div>
             {/* 裝飾圓形 */}
             <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-white/10" />
@@ -33,14 +33,14 @@ export const S13Material = () => {
           </div>
           <div className="p-6">
             <p className="text-[#49454F] mb-6 leading-relaxed">
-              基於動態色彩的設計系統，強調個人化、無障礙與表達性。讓每個介面都獨一無二。
+              A design system based on dynamic colors, emphasizing personalization, accessibility, and expression. Making every interface unique.
             </p>
             <div className="flex gap-3">
               <button className="px-6 py-3 bg-[#6750A4] text-white rounded-full font-medium text-sm hover:shadow-lg hover:shadow-[#6750A4]/30 transition-all">
-                開始使用
+                Get Started
               </button>
               <button className="px-6 py-3 text-[#6750A4] font-medium text-sm border border-[#79747E] rounded-full hover:bg-[#6750A4]/5 transition-colors">
-                了解更多
+                Learn More
               </button>
             </div>
           </div>
@@ -49,10 +49,10 @@ export const S13Material = () => {
         {/* Feature Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
           {[
-            { icon: <Grid3X3 className="w-6 h-6" />, title: '網格系統', desc: '4dp 基準網格', color: '#6750A4', bg: '#EADDFF' },
-            { icon: <Palette className="w-6 h-6" />, title: '動態色彩', desc: '從桌布提取主題', color: '#7D5260', bg: '#FFD8E4' },
-            { icon: <Layers className="w-6 h-6" />, title: '高度系統', desc: '色調陰影層次', color: '#006A6A', bg: '#A8EFF0' },
-            { icon: <Type className="w-6 h-6" />, title: '字體比例', desc: 'Roboto 字體家族', color: '#7D5700', bg: '#FFDDB3' },
+            { icon: <Grid3X3 className="w-6 h-6" />, title: 'Grid System', desc: '4dp baseline grid', color: '#6750A4', bg: '#EADDFF' },
+            { icon: <Palette className="w-6 h-6" />, title: 'Dynamic Colors', desc: 'Theme from wallpaper', color: '#7D5260', bg: '#FFD8E4' },
+            { icon: <Layers className="w-6 h-6" />, title: 'Elevation System', desc: 'Tone shadow layers', color: '#006A6A', bg: '#A8EFF0' },
+            { icon: <Type className="w-6 h-6" />, title: 'Type Scale', desc: 'Roboto font family', color: '#7D5700', bg: '#FFDDB3' },
           ].map((item, i) => (
             <div key={i} className="bg-white rounded-2xl p-5 hover:shadow-md transition-shadow">
               <div className="w-12 h-12 rounded-2xl mb-4 flex items-center justify-center"
@@ -67,14 +67,14 @@ export const S13Material = () => {
 
         {/* Chips */}
         <div className="mb-6">
-          <div className="text-xs font-medium text-[#49454F] mb-3 uppercase tracking-wider">標籤</div>
+          <div className="text-xs font-medium text-[#49454F] mb-3 uppercase tracking-wider">Tags</div>
           <div className="flex gap-2 flex-wrap">
             {[
-              { label: '元件', active: true },
-              { label: '佈局', active: false },
-              { label: '色彩', active: false },
-              { label: '字體', active: false },
-              { label: '圖標', active: false },
+              { label: 'Components', active: true },
+              { label: 'Layout', active: false },
+              { label: 'Color', active: false },
+              { label: 'Typography', active: false },
+              { label: 'Icons', active: false },
             ].map((chip, i) => (
               <span key={i} className={`px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer ${
                 chip.active 
@@ -91,9 +91,9 @@ export const S13Material = () => {
         <div className="bg-[#EADDFF] rounded-2xl p-6 mb-20">
           <div className="grid grid-cols-3 gap-2 md:gap-4 text-center">
             {[
-              { num: '3.0', label: '版本' },
-              { num: '1000+', label: '元件' },
-              { num: '∞', label: '可能性' },
+              { num: '3.0', label: 'Version' },
+              { num: '1000+', label: 'Components' },
+              { num: '∞', label: 'Possibilities' },
             ].map((item, i) => (
               <div key={i}>
                 <div className="text-2xl font-medium text-[#6750A4] mb-1">{item.num}</div>
@@ -113,10 +113,10 @@ export const S13Material = () => {
       <nav className="absolute bottom-0 left-0 right-0 bg-[#F3EDF7] px-2 py-2">
         <div className="flex justify-around">
           {[
-            { icon: <Home className="w-6 h-6" />, label: '首頁', active: true },
-            { icon: <Search className="w-6 h-6" />, label: '搜尋', active: false },
-            { icon: <Heart className="w-6 h-6" />, label: '收藏', active: false },
-            { icon: <User className="w-6 h-6" />, label: '個人', active: false },
+            { icon: <Home className="w-6 h-6" />, label: 'Home', active: true },
+            { icon: <Search className="w-6 h-6" />, label: 'Search', active: false },
+            { icon: <Heart className="w-6 h-6" />, label: 'Favorites', active: false },
+            { icon: <User className="w-6 h-6" />, label: 'Profile', active: false },
           ].map((item, i) => (
             <button key={i} className="flex flex-col items-center py-2 px-5 rounded-2xl transition-colors">
               <div className={`p-1 rounded-full ${item.active ? 'bg-[#EADDFF]' : ''}`}>

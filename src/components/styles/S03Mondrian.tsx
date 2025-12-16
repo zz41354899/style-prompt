@@ -21,9 +21,9 @@ export const S03Mondrian = () => {
       {menuOpen && (
         <div className="md:hidden mb-4 p-4 bg-[#1a1a1a]">
           <nav className="flex flex-col gap-3 text-xs font-bold tracking-wider">
-            <span className="py-2 text-[#DD0100] cursor-default">作品</span>
-            <span className="py-2 text-[#0047AB] cursor-default">理念</span>
-            <span className="py-2 text-[#FADA00] cursor-default">聯繫</span>
+            <span className="py-2 text-[#DD0100] cursor-default">Works</span>
+            <span className="py-2 text-[#0047AB] cursor-default">Philosophy</span>
+            <span className="py-2 text-[#FADA00] cursor-default">Contact</span>
           </nav>
         </div>
       )}
@@ -36,9 +36,9 @@ export const S03Mondrian = () => {
         <div className="col-span-5 row-span-1 bg-[#F8F4E3] flex items-center justify-between px-6">
           <span className="text-xl font-black tracking-[0.2em] hidden md:block">DE STIJL</span>
           <nav className="hidden md:flex gap-6 text-xs font-bold tracking-wider">
-            <span className="cursor-default">作品</span>
-            <span className="cursor-default">理念</span>
-            <span className="cursor-default">聯繫</span>
+            <span className="cursor-default">Works</span>
+            <span className="cursor-default">Philosophy</span>
+            <span className="cursor-default">Contact</span>
           </nav>
         </div>
         <div className="col-span-2 row-span-1 bg-[#DD0100]" />
@@ -46,7 +46,7 @@ export const S03Mondrian = () => {
 
         {/* 主要內容區 */}
         <div className="col-span-2 row-span-4 bg-[#0047AB] flex items-center justify-center relative overflow-hidden">
-          <span className="text-white text-6xl font-black rotate-[-90deg] tracking-wider opacity-90">藝術</span>
+          <span className="text-white text-6xl font-black rotate-[-90deg] tracking-wider opacity-90">ART</span>
           <div className="absolute bottom-4 left-4 right-4">
             <div className="text-white/60 text-[10px] tracking-[0.3em]">NEOPLASTICISM</div>
           </div>
@@ -54,11 +54,11 @@ export const S03Mondrian = () => {
         <div className="col-span-4 row-span-3 bg-[#F8F4E3] p-8 flex flex-col justify-center">
           <div className="text-[10px] tracking-[0.3em] text-[#666] mb-4">MONDRIAN / DE STIJL</div>
           <h1 className="text-4xl font-black leading-tight mb-4 tracking-tight">
-            新造型<br />主義美學
+            Neo-Plasticism<br />Aesthetics
           </h1>
           <p className="text-sm leading-relaxed text-[#444] max-w-sm">
-            以垂直與水平線條、三原色與非色彩構成的純粹幾何美學。
-            追求藝術的普遍性與絕對性。
+            Pure geometric aesthetics composed of vertical and horizontal lines, primary colors, and non-colors.
+            Pursuing universality and absoluteness in art.
           </p>
         </div>
         <div className="col-span-1 row-span-3 bg-[#F8F4E3]" />
@@ -77,9 +77,9 @@ export const S03Mondrian = () => {
         <div className="col-span-4 row-span-3 bg-[#F8F4E3] p-6 flex flex-col justify-between">
           <div className="grid grid-cols-3 gap-6">
             {[
-              { num: '1917', label: '風格派創立' },
-              { num: '3', label: '原色系統' },
-              { num: '90°', label: '直角構成' },
+              { num: '1917', label: 'Style Founded' },
+              { num: '3', label: 'Primary Colors' },
+              { num: '90°', label: 'Right Angles' },
             ].map((item, i) => (
               <div key={i} className="text-center">
                 <div className="text-3xl font-black mb-1">{item.num}</div>
@@ -89,10 +89,10 @@ export const S03Mondrian = () => {
           </div>
           <div className="flex gap-3 mt-4">
             <button className="flex-1 py-3 bg-[#1a1a1a] text-white text-xs font-bold tracking-wider hover:bg-[#333] transition-colors">
-              探索作品
+              Explore Works
             </button>
             <button className="flex-1 py-3 border-3 border-[#1a1a1a] text-xs font-bold tracking-wider hover:bg-[#1a1a1a] hover:text-white transition-colors">
-              了解更多
+              Learn More
             </button>
           </div>
         </div>

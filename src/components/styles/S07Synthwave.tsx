@@ -52,7 +52,7 @@ export const S07Synthwave = () => {
           </span>
         </div>
         <nav className="hidden md:flex gap-8 text-sm uppercase tracking-[0.2em]">
-          {['首頁', '音樂', '關於'].map((item, i) => (
+          {['Home', 'Music', 'About'].map((item, i) => (
             <span key={i} className="cursor-default">
               {item}
             </span>
@@ -72,11 +72,11 @@ export const S07Synthwave = () => {
             WebkitTextFillColor: 'transparent',
           }}
         >
-          復古未來
+          Retro Future
         </h1>
         <p className="text-purple-300/80 max-w-lg mx-auto mb-10 leading-relaxed">
-          回到 1980 年代的未來想像，霓虹燈光與電子合成器的完美結合。
-          讓我們一起駕駛 DeLorean 穿越時空。
+          Return to the 1980s vision of the future, perfect fusion of neon lights and electronic synthesizers.
+          Let's drive the DeLorean through time together.
         </p>
         <div className="flex flex-col md:flex-row justify-center gap-3 md:gap-4">
           <button className="group px-6 py-3 md:px-8 md:py-4 font-bold uppercase tracking-wider rounded-lg flex items-center justify-center gap-3"
@@ -86,10 +86,10 @@ export const S07Synthwave = () => {
             }}
           >
             <Play className="w-5 h-5 group-hover:scale-110 transition-transform" fill="white" />
-            <span>開始旅程</span>
+            <span>Start Journey</span>
           </button>
           <button className="px-6 py-3 md:px-8 md:py-4 font-bold uppercase tracking-wider rounded-lg border-2 border-purple-500/50 text-purple-300 hover:bg-purple-500/20 hover:border-purple-400 transition-all">
-            探索更多
+            Explore More
           </button>
         </div>
       </section>
@@ -97,9 +97,9 @@ export const S07Synthwave = () => {
       {/* Features */}
       <section className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mb-12">
         {[
-          { icon: <Sunset className="w-10 h-10" />, title: '日落漸層', desc: '橘紅紫的經典配色', color: '#ff6b6b' },
-          { icon: <Music className="w-10 h-10" />, title: '合成器', desc: '電子音樂的靈魂', color: '#feca57' },
-          { icon: <Car className="w-10 h-10" />, title: '復古跑車', desc: 'DeLorean 風格', color: '#ff9ff3' },
+          { icon: <Sunset className="w-10 h-10" />, title: 'Sunset Gradient', desc: 'Classic orange-red-purple palette', color: '#ff6b6b' },
+          { icon: <Music className="w-10 h-10" />, title: 'Synthesizer', desc: 'Soul of electronic music', color: '#feca57' },
+          { icon: <Car className="w-10 h-10" />, title: 'Retro Sports Car', desc: 'DeLorean style', color: '#ff9ff3' },
         ].map((item, i) => (
           <div key={i} className="group text-center p-4 md:p-8 rounded-xl flex flex-col items-center transition-all hover:scale-105"
             style={{ 

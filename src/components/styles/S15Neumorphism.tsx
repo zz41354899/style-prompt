@@ -27,7 +27,7 @@ export const S15Neumorphism = () => {
           <span className="text-xl font-semibold text-[#4b5563]">Neumorphism</span>
         </div>
         <nav className="hidden md:flex gap-2">
-          {['首頁', '設計', '關於'].map((item, i) => (
+          {['Home', 'Design', 'About'].map((item, i) => (
             <span key={i}
               className="px-5 py-2.5 rounded-xl text-sm text-[#6b7280] cursor-default"
               style={i === 0 ? neumorphInset : {}}>
@@ -42,28 +42,28 @@ export const S15Neumorphism = () => {
         <div className="md:col-span-7 p-6 md:p-10 rounded-3xl" style={neumorph}>
           <div className="text-xs uppercase tracking-[0.2em] text-[#9ca3af] mb-6">Soft UI Design</div>
           <h1 className="text-3xl md:text-4xl font-bold text-[#374151] mb-6 leading-tight">
-            新擬態<br />
-            <span className="text-[#6b7280]">設計美學</span>
+            Neumorphism<br />
+            <span className="text-[#6b7280]">Design Aesthetics</span>
           </h1>
           <p className="text-[#6b7280] mb-10 max-w-md leading-relaxed">
-            柔和的陰影創造出凸起或凹陷的效果，讓元素彷彿從背景中浮現。
-            這是一種介於扁平化與擬物化之間的設計風格。
+            Soft shadows create raised or depressed effects, making elements appear to emerge from the background.
+            This is a design style between flat design and skeuomorphism.
           </p>
           <div className="flex flex-col md:flex-row gap-3 md:gap-4">
             <button className="px-8 py-4 rounded-2xl text-[#4b5563] font-semibold transition-all hover:scale-[1.02] active:scale-[0.98]"
               style={neumorph}>
-              開始使用
+              Get Started
             </button>
             <button className="px-8 py-4 rounded-2xl text-[#9ca3af] font-medium"
               style={neumorphInset}>
-              了解更多
+              Learn More
             </button>
           </div>
         </div>
         
         {/* 控制面板示範 */}
         <div className="md:col-span-5 p-6 md:p-8 rounded-3xl" style={neumorph}>
-          <div className="text-sm text-[#9ca3af] mb-6 uppercase tracking-wider">控制面板</div>
+          <div className="text-sm text-[#9ca3af] mb-6 uppercase tracking-wider">Control Panel</div>
           
           {/* 音量控制 */}
           <div className="mb-8">
@@ -110,9 +110,9 @@ export const S15Neumorphism = () => {
       {/* Feature Cards */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-12">
         {[
-          { icon: <Sun className="w-7 h-7" />, title: '光源一致', desc: '左上角光源，創造統一的視覺效果' },
-          { icon: <Palette className="w-7 h-7" />, title: '單色系統', desc: '背景與元素使用相同色系' },
-          { icon: <Sparkles className="w-7 h-7" />, title: '柔和過渡', desc: '漸進的陰影創造自然的深度' },
+          { icon: <Sun className="w-7 h-7" />, title: 'Consistent Light Source', desc: 'Top-left light source creates unified visual effects' },
+          { icon: <Palette className="w-7 h-7" />, title: 'Monochrome System', desc: 'Background and elements use same color scheme' },
+          { icon: <Sparkles className="w-7 h-7" />, title: 'Soft Transitions', desc: 'Gradual shadows create natural depth' },
         ].map((item, i) => (
           <div key={i} className="p-8 rounded-3xl text-center" style={neumorph}>
             <div className="w-16 h-16 rounded-2xl mx-auto mb-6 flex items-center justify-center text-[#6366f1]"

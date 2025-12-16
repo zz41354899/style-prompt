@@ -45,14 +45,14 @@ export const S02MinimalistMonochrome = () => {
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-8">
             <h1 className="text-[5.5rem] font-light leading-[0.85] tracking-[-0.03em] mb-12">
-              極簡<br />
-              <span className="text-[#666]">黑白美學</span>
+              Minimalist<br />
+              <span className="text-[#666]">Black & White Aesthetics</span>
             </h1>
           </div>
           <div className="col-span-4 flex flex-col justify-end pb-4">
             <p className="text-sm leading-[1.8] text-[#555] mb-6 font-sans">
-              透過純粹的黑與白，探索設計的本質。
-              每一個留白都是刻意的選擇，每一條線都有其意義。
+              Through pure black and white, explore the essence of design.
+              Every whitespace is a deliberate choice, every line has its meaning.
             </p>
             <span className="inline-flex items-center gap-2 text-xs tracking-[0.15em] uppercase font-sans cursor-default">
               <span>Explore</span>
@@ -91,7 +91,7 @@ export const S02MinimalistMonochrome = () => {
           </div>
           <div className="col-span-8 pt-8">
             <blockquote className="text-3xl font-light leading-[1.4] tracking-[-0.01em] mb-8">
-              設計不是添加更多，而是去除多餘，直到只剩下本質。
+              Design is not about adding more, but removing the unnecessary until only the essence remains.
             </blockquote>
             <cite className="text-xs tracking-[0.2em] uppercase font-sans not-italic text-[#888]">
               — Design Philosophy
