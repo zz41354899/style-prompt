@@ -171,11 +171,11 @@ tokens:
   typography:
     font:
       sans:
-        primary: "Inter"
+        primary: "Playfair Display"
         fallback:
-          - "system-ui"
-          - "-apple-system"
-          - "Segoe UI"
+          - "Georgia"
+          - "Times New Roman"
+          - "serif"
       mono:
         primary: "JetBrains Mono"
         fallback:
@@ -263,11 +263,11 @@ tokens:
   typography:
     font:
       sans:
-        primary: "Inter"
+        primary: "Bebas Neue"
         fallback:
-          - "system-ui"
-          - "-apple-system"
-          - "Segoe UI"
+          - "Impact"
+          - "Arial Black"
+          - "sans-serif"
       mono:
         primary: "JetBrains Mono"
         fallback:
@@ -354,11 +354,11 @@ tokens:
   typography:
     font:
       sans:
-        primary: "Inter"
+        primary: "Helvetica Neue"
         fallback:
-          - "system-ui"
-          - "-apple-system"
-          - "Segoe UI"
+          - "Helvetica"
+          - "Arial"
+          - "sans-serif"
       mono:
         primary: "JetBrains Mono"
         fallback:
@@ -446,16 +446,15 @@ tokens:
   typography:
     font:
       sans:
-        primary: "Inter"
+        primary: "Courier New"
         fallback:
-          - "system-ui"
-          - "-apple-system"
-          - "Segoe UI"
+          - "Courier"
+          - "monospace"
       mono:
-        primary: "JetBrains Mono"
+        primary: "Courier New"
         fallback:
-          - "ui-monospace"
-          - "SFMono-Regular"
+          - "Courier"
+          - "monospace"
     scale:
       h1: { size: 56, line: 64, weight: 800, tracking: -0.02 }
       h2: { size: 40, line: 48, weight: 800, tracking: -0.01 }
@@ -539,17 +538,16 @@ tokens:
   typography:
     font:
       sans:
-        primary: "Inter"
+        primary: "Orbitron"
         fallback:
-          - "system-ui"
-          - "-apple-system"
-          - "Segoe UI"
-          - "Roboto"
+          - "Share Tech"
+          - "Rajdhani"
+          - "sans-serif"
       mono:
-        primary: "JetBrains Mono"
+        primary: "Share Tech Mono"
         fallback:
-          - "ui-monospace"
-          - "SFMono-Regular"
+          - "JetBrains Mono"
+          - "monospace"
     scale:
       h1: { size: 56, line: 64, weight: 700, tracking: -0.02 }
       h2: { size: 40, line: 48, weight: 700, tracking: -0.01 }
@@ -636,11 +634,11 @@ tokens:
   typography:
     font:
       sans:
-        primary: "Inter"
+        primary: "Outrun Future"
         fallback:
-          - "system-ui"
-          - "-apple-system"
-          - "Segoe UI"
+          - "Audiowide"
+          - "Orbitron"
+          - "sans-serif"
       mono:
         primary: "JetBrains Mono"
         fallback:
@@ -732,11 +730,11 @@ tokens:
   typography:
     font:
       sans:
-        primary: "Inter"
+        primary: "Groovy"
         fallback:
-          - "system-ui"
-          - "-apple-system"
-          - "Segoe UI"
+          - "Cooper Black"
+          - "Rockwell"
+          - "serif"
       mono:
         primary: "JetBrains Mono"
         fallback:
@@ -833,11 +831,11 @@ tokens:
   typography:
     font:
       sans:
-        primary: "Inter"
+        primary: "Fredoka One"
         fallback:
-          - "system-ui"
-          - "-apple-system"
-          - "Segoe UI"
+          - "Baloo 2"
+          - "Comic Neue"
+          - "sans-serif"
       mono:
         primary: "JetBrains Mono"
         fallback:
@@ -925,11 +923,11 @@ tokens:
   typography:
     font:
       sans:
-        primary: "Inter"
+        primary: "Cormorant Garamond"
         fallback:
-          - "system-ui"
-          - "-apple-system"
-          - "Segoe UI"
+          - "Playfair Display"
+          - "Georgia"
+          - "serif"
       mono:
         primary: "JetBrains Mono"
         fallback:
@@ -1018,11 +1016,11 @@ tokens:
   typography:
     font:
       sans:
-        primary: "Inter"
+        primary: "Noto Sans JP"
         fallback:
-          - "system-ui"
-          - "-apple-system"
-          - "Segoe UI"
+          - "Hiragino Sans"
+          - "Yu Gothic"
+          - "sans-serif"
       mono:
         primary: "JetBrains Mono"
         fallback:
@@ -1113,12 +1111,11 @@ tokens:
   typography:
     font:
       sans:
-        primary: "Inter"
+        primary: "Nunito"
         fallback:
-          - "system-ui"
-          - "-apple-system"
-          - "Segoe UI"
-          - "Roboto"
+          - "Quicksand"
+          - "Poppins"
+          - "sans-serif"
       mono:
         primary: "JetBrains Mono"
         fallback:
@@ -1309,11 +1306,11 @@ tokens:
   typography:
     font:
       sans:
-        primary: "Inter"
+        primary: "SF Pro Display"
         fallback:
+          - "Inter"
           - "system-ui"
-          - "-apple-system"
-          - "Segoe UI"
+          - "sans-serif"
       mono:
         primary: "JetBrains Mono"
         fallback:
@@ -1403,11 +1400,11 @@ tokens:
   typography:
     font:
       sans:
-        primary: "Inter"
+        primary: "Quicksand"
         fallback:
+          - "Nunito"
           - "system-ui"
-          - "-apple-system"
-          - "Segoe UI"
+          - "sans-serif"
       mono:
         primary: "JetBrains Mono"
         fallback:
