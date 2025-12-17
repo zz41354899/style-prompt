@@ -14,3 +14,5 @@ export { S13Material } from './S13Material';
 export { S14Glassmorphism } from './S14Glassmorphism';
 export { S15Neumorphism } from './S15Neumorphism';
 export { S16Terminal } from './S16Terminal';
+export { S17BauhausModernism } from './S17BauhausModernism';
+export { S18RetroPixelUI } from './S18RetroPixelUI';

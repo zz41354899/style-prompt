@@ -103,4 +103,16 @@ export const styles: StyleData[] = [
     description: 'Terminal style, green text and hacker aesthetic',
     promptPath: '/md/s_16_saa_s_full_landing_page.md',
   },
+  { 
+    id: 'S17', 
+    name: 'Bauhaus Modernism', 
+    description: 'Bauhaus style, geometric forms and functional design',
+    promptPath: '/md/s_17_saa_s_full_landing_page.md',
+  },
+  { 
+    id: 'S18', 
+    name: 'Retro Pixel UI', 
+    description: 'Retro Pixel UI style, 8-bit aesthetic with pixel grid and dither vibes',
+    promptPath: '/md/s_18_saa_s_full_landing_page.md',
+  },
 ];

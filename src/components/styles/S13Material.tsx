@@ -1,4 +1,4 @@
-import { Palette, Home, Search, Heart, User, Menu, Bell, Plus, Layers, Grid3X3, Type } from 'lucide-react';
+import { Palette, Home, Search, Heart, User, Menu, Bell, Plus, Layers, Grid3X3, Type, Shield, Check, Mail } from 'lucide-react';
 
 export const S13Material = () => {
   return (
@@ -87,19 +87,159 @@ export const S13Material = () => {
           </div>
         </div>
 
-        {/* Stats Card */}
-        <div className="bg-[#EADDFF] rounded-2xl p-6 mb-20">
-          <div className="grid grid-cols-3 gap-2 md:gap-4 text-center">
+        {/* Value Proposition */}
+        <div className="bg-white rounded-2xl p-6 mb-6 shadow-sm">
+          <h2 className="text-xl font-medium text-[#1D1B20] mb-4">Why Material Design?</h2>
+          <p className="text-[#49454F] mb-6 leading-relaxed">
+            Material Design 3 creates adaptive, accessible, and expressive interfaces. 
+            It brings your brand to life through dynamic color, motion, and components.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
-              { num: '3.0', label: 'Version' },
-              { num: '1000+', label: 'Components' },
-              { num: '∞', label: 'Possibilities' },
+              { title: 'Adaptive Design', desc: 'Adapts to any screen size' },
+              { title: 'Accessibility First', desc: 'WCAG compliant out of the box' },
+              { title: 'Personalization', desc: 'Dynamic theming for everyone' }
             ].map((item, i) => (
-              <div key={i}>
-                <div className="text-2xl font-medium text-[#6750A4] mb-1">{item.num}</div>
+              <div key={i} className="text-center p-4 rounded-2xl bg-[#F7F2FA]">
+                <div className="w-10 h-10 rounded-full bg-[#6750A4] mx-auto mb-3" />
+                <h3 className="font-medium text-sm mb-1">{item.title}</h3>
+                <p className="text-xs text-[#49454F]">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Features */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+          {[
+            { title: 'Component Library', desc: 'Pre-built UI components', detail: 'Buttons, cards, dialogs, and more' },
+            { title: 'Motion System', desc: 'Meaningful transitions', detail: 'Smooth, purposeful animations' },
+            { title: 'Color System', desc: 'Dynamic color schemes', detail: 'Automatically generated themes' },
+            { title: 'Typography', desc: 'Clear hierarchy', detail: 'Roboto font with scale system' }
+          ].map((item, i) => (
+            <div key={i} className="bg-white rounded-2xl p-5 shadow-sm">
+              <h3 className="font-medium text-[#1D1B20] mb-2">{item.title}</h3>
+              <p className="text-sm text-[#49454F] mb-1">{item.desc}</p>
+              <p className="text-xs text-[#79747E]">{item.detail}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Integrations */}
+        <div className="bg-white rounded-2xl p-6 mb-6 shadow-sm">
+          <h2 className="text-xl font-medium text-[#1D1B20] mb-4">Platform Support</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {['Android', 'iOS', 'Web', 'Flutter'].map((item) => (
+              <div key={item} className="p-4 rounded-2xl bg-[#F7F2FA] text-center">
+                <div className="text-sm font-medium text-[#6750A4]">{item}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Metrics */}
+        <div className="bg-white rounded-2xl p-6 mb-6 shadow-sm">
+          <h2 className="text-xl font-medium text-[#1D1B20] mb-4">By the Numbers</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { value: '50M+', label: 'Apps using Material' },
+              { value: '100+', label: 'Countries' },
+              { value: '4.8★', label: 'Developer rating' },
+              { value: '24/7', label: 'Support' }
+            ].map((item, i) => (
+              <div key={i} className="text-center">
+                <div className="text-2xl font-medium text-[#6750A4] mb-1">{item.value}</div>
                 <div className="text-xs text-[#49454F]">{item.label}</div>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Security */}
+        <div className="bg-[#E8DEF8] rounded-2xl p-6 mb-6">
+          <div className="flex items-start gap-4">
+            <Shield className="w-6 h-6 text-[#6750A4] mt-1" />
+            <div className="flex-1">
+              <h2 className="text-xl font-medium text-[#1D1B20] mb-2">Security & Privacy</h2>
+              <p className="text-[#49454F] mb-4">
+                Built with security best practices. Your data and designs are always protected.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                {[
+                  'End-to-end encryption',
+                  'SOC 2 compliant',
+                  'Regular security audits'
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-[#6750A4]" />
+                    <span className="text-sm">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Pricing */}
+        <div className="bg-white rounded-2xl p-6 mb-6 shadow-sm">
+          <h2 className="text-xl font-medium text-[#1D1B20] mb-4">Pricing Plans</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              { name: 'Community', price: 'Free', features: ['Open source', 'Basic components', 'Community support'] },
+              { name: 'Professional', price: '$29/mo', features: ['All components', 'Premium support', 'Custom themes'] },
+              { name: 'Enterprise', price: 'Custom', features: ['Everything', 'Dedicated team', 'SLA guarantee'] }
+            ].map((plan) => (
+              <div key={plan.name} className="p-5 rounded-2xl border border-[#E7E0EC]">
+                <h3 className="font-medium mb-2">{plan.name}</h3>
+                <div className="text-2xl font-medium text-[#6750A4] mb-4">{plan.price}</div>
+                <ul className="space-y-2 mb-4">
+                  {plan.features.map((feature) => (
+                    <li key={feature} className="text-sm text-[#49454F] flex items-center gap-2">
+                      <Check className="w-4 h-4 text-[#6750A4]" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                <button className="w-full py-3 bg-[#6750A4] text-white rounded-full font-medium text-sm hover:bg-[#6750A4]/90 transition-colors">
+                  Get Started
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* FAQ */}
+        <div className="bg-white rounded-2xl p-6 mb-6 shadow-sm">
+          <h2 className="text-xl font-medium text-[#1D1B20] mb-4">Frequently Asked</h2>
+          <div className="space-y-4">
+            {[
+              { q: 'What is Material Design 3?', a: 'The latest evolution of Material Design, focusing on personalization and dynamic color.' },
+              { q: 'Can I use it in my project?', a: 'Yes! Material Design is open source and free to use in any project.' },
+              { q: 'Is it accessible?', a: 'Accessibility is built into every component with WCAG AA compliance.' },
+              { q: 'How do I get started?', a: 'Check out our documentation and component library to begin building.' }
+            ].map((item, i) => (
+              <div key={i} className="border-b border-[#E7E0EC] pb-4 last:border-0">
+                <h3 className="font-medium text-[#1D1B20] mb-2">{item.q}</h3>
+                <p className="text-sm text-[#49454F]">{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Contact */}
+        <div className="bg-[#6750A4] rounded-2xl p-6 mb-20 text-white">
+          <Mail className="w-8 h-8 mb-4" />
+          <h2 className="text-xl font-medium mb-2">Get in Touch</h2>
+          <p className="text-white/80 mb-6">Have questions? We're here to help.</p>
+          <div className="flex gap-3">
+            <input 
+              type="email" 
+              placeholder="your@email.com"
+              className="flex-1 px-4 py-3 rounded-full bg-white/20 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:border-white"
+            />
+            <button className="px-6 py-3 bg-white text-[#6750A4] rounded-full font-medium text-sm hover:bg-white/90 transition-colors">
+              Send
+            </button>
           </div>
         </div>
       </div>

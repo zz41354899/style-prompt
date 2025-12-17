@@ -1,4 +1,4 @@
-import { Terminal, Cpu, HardDrive, Wifi, Activity, FolderOpen, FileCode, GitBranch } from 'lucide-react';
+import { Terminal, Cpu, HardDrive, Wifi, Activity, FolderOpen, FileCode, GitBranch, Shield, Mail } from 'lucide-react';
 
 export const S16Terminal = () => {
   return (
@@ -131,15 +131,180 @@ export const S16Terminal = () => {
             ))}
           </div>
 
-          {/* 當前命令行 */}
-          <div className="flex items-center gap-1 pt-2">
-            <span className="text-[#58a6ff]">hacker</span>
-            <span className="text-white">@</span>
-            <span className="text-[#7ee787]">matrix</span>
-            <span className="text-white">:</span>
-            <span className="text-[#79c0ff]">~</span>
-            <span className="text-white">$ </span>
-            <span className="w-2 h-5 bg-[#00ff41] animate-pulse" />
+          {/* Value Proposition */}
+          <div className="mt-6 p-4 border border-[#00ff41]/20 rounded bg-[#00ff41]/5">
+            <div className="text-[#8b949e] mb-2">// VALUE_PROPOSITION</div>
+            <div className="space-y-2">
+              <div><span className="text-[#58a6ff]">$</span> <span className="text-[#00ff41]">echo "Terminal Aesthetics"</span></div>
+              <div className="text-[#8b949e]">{'> Where code meets art'}</div>
+              <div className="text-[#8b949e]">{'> Minimalist. Powerful. Authentic.'}</div>
+            </div>
+          </div>
+
+          {/* Features */}
+          <div className="mt-4">
+            <div className="flex items-center gap-1 mb-3">
+              <span className="text-[#58a6ff]">hacker</span>
+              <span className="text-white">@</span>
+              <span className="text-[#7ee787]">matrix</span>
+              <span className="text-white">:</span>
+              <span className="text-[#79c0ff]">~</span>
+              <span className="text-white">$ </span>
+              <span className="text-[#00ff41]">cat features.txt</span>
+            </div>
+            <div className="p-4 border border-[#00ff41]/20 rounded bg-[#0d1117]">
+              <pre className="text-[#00ff41] text-xs">{`
+┌─────────────────────────────┐
+│ MATRIX TERMINAL FEATURES    │
+├─────────────────────────────┤
+│ • Real-time syntax highlight │
+│ • Command history           │
+│ • Custom themes             │
+│ • SSH integration           │
+│ • Plugin system             │
+└─────────────────────────────┘`}</pre>
+            </div>
+          </div>
+
+          {/* Integrations */}
+          <div className="mt-4">
+            <div className="flex items-center gap-1 mb-3">
+              <span className="text-[#58a6ff]">hacker</span>
+              <span className="text-white">@</span>
+              <span className="text-[#7ee787]">matrix</span>
+              <span className="text-white">:</span>
+              <span className="text-[#79c0ff]">~</span>
+              <span className="text-white">$ </span>
+              <span className="text-[#00ff41]">ls /integrations/</span>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+              {['Git', 'Docker', 'K8s', 'AWS'].map((item) => (
+                <div key={item} className="p-2 border border-[#00ff41]/20 rounded text-center text-[#00ff41]">
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Metrics */}
+          <div className="mt-4 p-4 border border-[#00ff41]/20 rounded bg-[#00ff41]/5">
+            <div className="text-[#8b949e] mb-3">// SYSTEM_METRICS</div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+              {[
+                { value: '10K+', label: 'USERS' },
+                { value: '99.9%', label: 'UPTIME' },
+                { value: '<1ms', label: 'LATENCY' },
+                { value: '∞', label: 'COMMANDS' }
+              ].map((item, i) => (
+                <div key={i}>
+                  <div className="text-[#00ff41] text-lg font-bold">{item.value}</div>
+                  <div className="text-[#8b949e] text-xs">{item.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Security */}
+          <div className="mt-4">
+            <div className="flex items-center gap-1 mb-3">
+              <span className="text-[#58a6ff]">hacker</span>
+              <span className="text-white">@</span>
+              <span className="text-[#7ee787]">matrix</span>
+              <span className="text-white">:</span>
+              <span className="text-[#79c0ff]">~</span>
+              <span className="text-white">$ </span>
+              <span className="text-[#00ff41]">sudo security-check</span>
+            </div>
+            <div className="p-4 border border-[#00ff41]/20 rounded bg-[#0d1117]">
+              <div className="flex items-start gap-3">
+                <Shield className="w-4 h-4 text-[#58a6ff] mt-0.5" />
+                <div className="flex-1">
+                  <div className="text-[#00ff41] mb-2">[✓] Security Status: SECURE</div>
+                  <div className="space-y-1 text-xs">
+                    <div className="text-[#7ee787]">[✓] 256-bit AES encryption</div>
+                    <div className="text-[#7ee787]">[✓] SSH key authentication</div>
+                    <div className="text-[#7ee787]">[✓] Zero-knowledge architecture</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Pricing */}
+          <div className="mt-4">
+            <div className="flex items-center gap-1 mb-3">
+              <span className="text-[#58a6ff]">hacker</span>
+              <span className="text-white">@</span>
+              <span className="text-[#7ee787]">matrix</span>
+              <span className="text-white">:</span>
+              <span className="text-[#79c0ff]">~</span>
+              <span className="text-white">$ </span>
+              <span className="text-[#00ff41]">pricing --list</span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {[
+                { name: 'FREE', price: '$0', features: ['Basic terminal', 'Limited themes'] },
+                { name: 'PRO', price: '$29/mo', features: ['All features', 'Premium support', 'Custom themes'] },
+                { name: 'ENTERPRISE', price: 'Custom', features: ['Everything', 'SLA guarantee', 'On-premise'] }
+              ].map((plan) => (
+                <div key={plan.name} className="p-3 border border-[#00ff41]/20 rounded">
+                  <div className="text-[#58a6ff] mb-2">{plan.name}</div>
+                  <div className="text-[#00ff41] mb-2">{plan.price}</div>
+                  <div className="space-y-1 text-xs text-[#8b949e]">
+                    {plan.features.map((feature) => (
+                      <div key={feature}>• {feature}</div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* FAQ */}
+          <div className="mt-4 p-4 border border-[#00ff41]/20 rounded bg-[#00ff41]/5">
+            <div className="text-[#8b949e] mb-3">// FAQ_DATABASE</div>
+            <div className="space-y-3">
+              {[
+                { q: 'Q: Is it cross-platform?', a: 'A: Yes. Linux, macOS, Windows.' },
+                { q: 'Q: Can I customize?', a: 'A: Fully. Colors, fonts, layouts.' },
+                { q: 'Q: Open source?', a: 'A: MIT license. Contribute!' }
+              ].map((item, i) => (
+                <div key={i} className="text-xs">
+                  <div className="text-[#58a6ff]">{item.q}</div>
+                  <div className="text-[#00ff41]">{item.a}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Contact */}
+          <div className="mt-4">
+            <div className="flex items-center gap-1 mb-3">
+              <span className="text-[#58a6ff]">hacker</span>
+              <span className="text-white">@</span>
+              <span className="text-[#7ee787]">matrix</span>
+              <span className="text-white">:</span>
+              <span className="text-[#79c0ff]">~</span>
+              <span className="text-white">$ </span>
+              <span className="text-[#00ff41]">./contact.sh</span>
+            </div>
+            <div className="p-4 border border-[#00ff41]/20 rounded bg-[#0d1117]">
+              <div className="text-[#8b949e] mb-3"># CONTACT_MATRIX</div>
+              <div className="flex items-center gap-2 mb-3">
+                <Mail className="w-4 h-4 text-[#58a6ff]" />
+                <span className="text-[#00ff41]">echo "hello@matrix.terminal" | mail</span>
+              </div>
+              <div className="flex gap-2">
+                <input 
+                  type="text" 
+                  placeholder="Enter message..."
+                  className="flex-1 px-3 py-2 bg-[#0d1117] border border-[#00ff41]/20 rounded text-[#00ff41] placeholder-[#8b949e] focus:outline-none focus:border-[#00ff41]"
+                />
+                <button className="px-4 py-2 border border-[#00ff41]/20 rounded text-[#00ff41] hover:bg-[#00ff41]/10 transition-colors">
+                  SEND
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

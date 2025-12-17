@@ -1,4 +1,4 @@
-import { Gem, Wind, Sparkles, Layers, ArrowRight, Circle } from 'lucide-react';
+import { Gem, Wind, Sparkles, Layers, ArrowRight, Circle, Shield, Check, Mail } from 'lucide-react';
 
 export const S14Glassmorphism = () => {
   return (
@@ -104,26 +104,254 @@ export const S14Glassmorphism = () => {
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="relative z-10 p-8 rounded-2xl"
+      {/* Value Proposition */}
+      <section className="relative z-10 p-8 rounded-3xl mb-10"
+        style={{
+          background: 'rgba(255, 255, 255, 0.08)',
+          backdropFilter: 'blur(24px)',
+          border: '1px solid rgba(255, 255, 255, 0.15)'
+        }}
+      >
+        <div className="text-center mb-8">
+          <div className="flex items-center justify-center gap-2 text-purple-300 text-xs mb-6">
+            <Sparkles className="w-3 h-3" />
+            <span className="uppercase tracking-[0.2em]">Design Philosophy</span>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+            Depth Through<br />
+            <span className="text-white/60">Transparency</span>
+          </h2>
+          <p className="text-white/60 max-w-2xl mx-auto leading-relaxed">
+            Glassmorphism creates visual hierarchy through layered transparency. 
+            Each glass element floats above the background, creating depth while maintaining clarity.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            { title: 'Visual Depth', desc: 'Multi-layered glass effects' },
+            { title: 'Soft Focus', desc: 'Gentle blur for elegance' },
+            { title: 'Light Play', desc: 'Subtle reflections and shine' }
+          ].map((item, i) => (
+            <div key={i} className="p-6 rounded-2xl text-center"
+              style={{
+                background: 'rgba(255, 255, 255, 0.05)',
+                backdropFilter: 'blur(16px)',
+                border: '1px solid rgba(255, 255, 255, 0.1)'
+              }}
+            >
+              <h3 className="text-white font-medium mb-2">{item.title}</h3>
+              <p className="text-white/40 text-sm">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+        {[
+          { title: 'Backdrop Filter', desc: 'CSS blur for glass effect', detail: '24px optimal blur radius' },
+          { title: 'Layer System', desc: 'Stacked glass elements', detail: 'Creates visual hierarchy' },
+          { title: 'Light Effects', desc: 'Subtle highlights', detail: 'Border and inner shadows' },
+          { title: 'Color Theory', desc: 'Semi-transparent layers', detail: '0.1-0.3 opacity range' }
+        ].map((item, i) => (
+          <div key={i} className="p-6 rounded-2xl"
+            style={{
+              background: 'rgba(255, 255, 255, 0.08)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.15)'
+            }}
+          >
+            <h3 className="text-white font-medium mb-2">{item.title}</h3>
+            <p className="text-white/60 text-sm mb-1">{item.desc}</p>
+            <p className="text-white/40 text-xs">{item.detail}</p>
+          </div>
+        ))}
+      </section>
+
+      {/* Integrations */}
+      <section className="relative z-10 p-8 rounded-3xl mb-10"
         style={{
           background: 'rgba(255, 255, 255, 0.05)',
           backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(255, 255, 255, 0.08)'
+          border: '1px solid rgba(255, 255, 255, 0.1)'
         }}
       >
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+        <div className="text-center mb-8">
+          <h2 className="text-2xl font-bold text-white mb-4">Platform Support</h2>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {['Figma', 'Sketch', 'Adobe XD', 'Framer'].map((item) => (
+            <div key={item} className="p-4 rounded-xl text-center text-white font-medium"
+              style={{
+                background: 'rgba(255, 255, 255, 0.08)',
+                backdropFilter: 'blur(16px)',
+                border: '1px solid rgba(255, 255, 255, 0.1)'
+              }}
+            >
+              {item}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Metrics */}
+      <section className="relative z-10 p-8 rounded-2xl mb-10"
+        style={{
+          background: 'rgba(255, 255, 255, 0.08)',
+          backdropFilter: 'blur(24px)',
+          border: '1px solid rgba(255, 255, 255, 0.15)'
+        }}
+      >
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {[
-            { num: '2020', label: 'Trending Year' },
-            { num: '24px', label: 'Recommended Blur' },
-            { num: '0.15', label: 'Optimal Transparency' },
-            { num: '∞', label: 'Design Possibilities' },
+            { value: '10M+', label: 'Designs Created' },
+            { value: '95%', label: 'User Satisfaction' },
+            { value: '50+', label: 'Templates' },
+            { value: '24/7', label: 'Support' }
           ].map((item, i) => (
             <div key={i} className="text-center">
-              <div className="text-3xl font-bold text-white mb-2">{item.num}</div>
+              <div className="text-3xl font-bold text-white mb-2">{item.value}</div>
               <div className="text-white/40 text-xs uppercase tracking-wider">{item.label}</div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Security */}
+      <section className="relative z-10 p-8 rounded-3xl mb-10"
+        style={{
+          background: 'rgba(255, 255, 255, 0.08)',
+          backdropFilter: 'blur(24px)',
+          border: '1px solid rgba(255, 255, 255, 0.15)'
+        }}
+      >
+        <div className="flex items-start gap-6">
+          <div className="w-12 h-12 rounded-xl flex items-center justify-center text-white"
+            style={{ background: 'rgba(255,255,255,0.1)' }}>
+            <Shield className="w-6 h-6" />
+          </div>
+          <div className="flex-1">
+            <h2 className="text-2xl font-bold text-white mb-4">Crystal Clear Security</h2>
+            <p className="text-white/60 mb-6">
+              Your designs are protected with enterprise-grade security. 
+              Transparent as glass, secure as a vault.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {[
+                '256-bit encryption',
+                'GDPR compliant',
+                'Regular audits'
+              ].map((item) => (
+                <div key={item} className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-purple-400" />
+                  <span className="text-white/80 text-sm">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing */}
+      <section className="relative z-10 mb-10">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold text-white mb-4">Pricing Plans</h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            { name: 'Starter', price: '$19/mo', features: ['Basic templates', 'Community support'] },
+            { name: 'Professional', price: '$49/mo', features: ['All templates', 'Priority support', 'Custom exports'] },
+            { name: 'Enterprise', price: 'Custom', features: ['Everything', 'Dedicated support', 'White label'] }
+          ].map((plan) => (
+            <div key={plan.name} className="p-6 rounded-3xl text-center"
+              style={{
+                background: 'rgba(255, 255, 255, 0.08)',
+                backdropFilter: 'blur(24px)',
+                border: '1px solid rgba(255, 255, 255, 0.15)'
+              }}
+            >
+              <h3 className="text-white font-medium mb-2">{plan.name}</h3>
+              <div className="text-3xl font-bold text-white mb-6">{plan.price}</div>
+              <ul className="space-y-3 mb-6 text-white/60 text-sm">
+                {plan.features.map((feature) => (
+                  <li key={feature}>{feature}</li>
+                ))}
+              </ul>
+              <button className="w-full py-3 rounded-xl font-medium text-white transition-all"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05))',
+                  backdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(255,255,255,0.2)'
+                }}
+              >
+                Get Started
+              </button>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="relative z-10 p-8 rounded-3xl mb-10"
+        style={{
+          background: 'rgba(255, 255, 255, 0.05)',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid rgba(255, 255, 255, 0.1)'
+        }}
+      >
+        <div className="text-center mb-8">
+          <h2 className="text-2xl font-bold text-white mb-4">Frequently Asked</h2>
+        </div>
+        <div className="max-w-3xl mx-auto space-y-6">
+          {[
+            { q: 'What browsers support glassmorphism?', a: 'Modern browsers with backdrop-filter support. Chrome, Safari, Firefox, Edge.' },
+            { q: 'Is it accessible?', a: 'Yes! We ensure WCAG AA compliance with proper contrast ratios.' },
+            { q: 'Can I customize the blur?', a: 'Absolutely! Adjust blur radius from 0-100px to your preference.' },
+            { q: 'Performance impact?', a: 'Minimal with GPU acceleration. Use sparingly for best results.' }
+          ].map((item, i) => (
+            <div key={i} className="p-6 rounded-2xl"
+              style={{
+                background: 'rgba(255, 255, 255, 0.05)',
+                backdropFilter: 'blur(16px)',
+                border: '1px solid rgba(255, 255, 255, 0.1)'
+              }}
+            >
+              <h3 className="text-white font-medium mb-2">{item.q}</h3>
+              <p className="text-white/60 text-sm">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section className="relative z-10 p-8 rounded-3xl mb-20"
+        style={{
+          background: 'rgba(255, 255, 255, 0.08)',
+          backdropFilter: 'blur(24px)',
+          border: '1px solid rgba(255, 255, 255, 0.15)'
+        }}
+      >
+        <div className="text-center">
+          <Mail className="w-8 h-8 text-white/60 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-white mb-4">Get in Touch</h2>
+          <p className="text-white/60 mb-8">Ready to create stunning glass designs?</p>
+          <div className="flex flex-col md:flex-row justify-center gap-4 max-w-md mx-auto">
+            <input 
+              type="email" 
+              placeholder="your@email.com"
+              className="flex-1 px-6 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:border-white/40"
+              style={{ backdropFilter: 'blur(10px)' }}
+            />
+            <button className="px-8 py-3 rounded-xl font-medium text-white transition-all"
+              style={{
+                background: 'linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05))',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255,255,255,0.2)'
+              }}
+            >
+              Send
+            </button>
+          </div>
         </div>
       </section>
     </div>

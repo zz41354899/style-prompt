@@ -65,24 +65,181 @@ export const S08Retro70s = () => {
           </div>
         </section>
 
-        {/* Feature Cards */}
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mb-10 md:mb-16">
+        {/* Value Proposition */}
+        <section className="mb-10 md:mb-16">
+          <div className="text-center mb-8">
+            <div className="text-xs uppercase tracking-[0.3em] text-[#8D6E63] mb-4 font-sans">
+              Editorial Excellence
+            </div>
+            <h2 className="text-3xl md:text-4xl font-black text-[#5D4037] mb-6 leading-[1.1]" style={{ fontFamily: 'Georgia, serif' }}>
+              Timeless Design<br/>Modern Purpose
+            </h2>
+            <p className="text-[#6D4C41] max-w-3xl mx-auto leading-relaxed text-lg">
+              Our editorial approach brings warmth and confidence to digital products. 
+              Through careful typography and thoughtful composition, we create experiences 
+              that feel both familiar and fresh.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { title: 'Human-Centered', desc: 'Design that speaks to people, not machines' },
+              { title: 'Editorial Clarity', desc: 'Clear hierarchy through typography' },
+              { title: 'Warm Confidence', desc: 'Trust through restraint and proportion' }
+            ].map((item, i) => (
+              <div key={i} className="p-6 rounded-xl" style={{ backgroundColor: 'rgba(93,64,55,0.05)' }}>
+                <h3 className="text-xl font-bold text-[#5D4037] mb-3">{item.title}</h3>
+                <p className="text-[#6D4C41] leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Features */}
+        <section className="mb-10 md:mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              { title: 'Print-Inspired Layouts', desc: 'Editorial design principles adapted for digital', highlight: true },
+              { title: 'Comfortable Reading', desc: 'Optimized line lengths and generous leading' },
+              { title: 'Muted Color Palette', desc: 'Earthy tones that please the eye' },
+              { title: 'Subtle Texture', desc: 'Light grain for tactile warmth' }
+            ].map((item, i) => (
+              <div key={i} className={`p-6 rounded-xl ${item.highlight ? 'border-2 border-[#E65100]' : ''}`} 
+                style={{ backgroundColor: item.highlight ? 'rgba(230,81,0,0.05)' : 'rgba(93,64,55,0.05)' }}>
+                <h3 className="text-xl font-bold text-[#5D4037] mb-3">{item.title}</h3>
+                <p className="text-[#6D4C41] leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Integrations */}
+        <section className="mb-10 md:mb-16">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-black text-[#5D4037] mb-6" style={{ fontFamily: 'Georgia, serif' }}>
+              Trusted Partners
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {['Adobe', 'Sketch', 'Figma', 'InDesign'].map((item) => (
+              <div key={item} className="p-6 rounded-xl text-center font-bold text-lg text-[#5D4037]" 
+                style={{ backgroundColor: 'rgba(93,64,55,0.05)' }}>
+                {item}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Metrics */}
+        <section className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mb-12">
           {[
-            { title: 'Earth Tones', desc: 'Warm orange-brown palette', color: '#E65100' },
-            { title: 'Grain Texture', desc: 'Hand-printed tactile feel', color: '#5D4037' },
-            { title: 'Vintage Typography', desc: 'Classic serif design', color: '#FF8F00' },
+            { num: '50K+', label: 'Happy Readers' },
+            { num: '500+', label: 'Publications' },
+            { num: '99%', label: 'Satisfaction' },
+            { num: '24/7', label: 'Support' }
           ].map((item, i) => (
-            <div key={i} className="p-8 rounded-2xl relative overflow-hidden group" 
-              style={{ backgroundColor: item.color }}>
-              <div className="absolute top-4 right-4 text-white/20 text-6xl font-black">
-                0{i + 1}
-              </div>
-              <div className="relative">
-                <div className="text-white text-xl font-bold mb-3">{item.title}</div>
-                <div className="text-white/80 text-sm leading-relaxed">{item.desc}</div>
-              </div>
+            <div key={i} className="text-center p-6 rounded-xl" style={{ backgroundColor: 'rgba(93,64,55,0.05)' }}>
+              <div className="text-4xl font-black text-[#E65100] mb-2">{item.num}</div>
+              <div className="text-xs text-[#8D6E63] uppercase tracking-[0.2em] font-sans">{item.label}</div>
             </div>
           ))}
+        </section>
+
+        {/* Security */}
+        <section className="mb-10 md:mb-16">
+          <div className="p-8 rounded-xl" style={{ backgroundColor: 'rgba(93,64,55,0.05)' }}>
+            <h2 className="text-2xl font-black text-[#5D4037] mb-4" style={{ fontFamily: 'Georgia, serif' }}>
+              Privacy & Reliability
+            </h2>
+            <p className="text-[#6D4C41] mb-6 leading-relaxed">
+              Your data deserves the same care as editorial content. We protect it with 
+              industry-standard security while maintaining the warm, human touch you expect.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {[
+                'End-to-end encryption',
+                'GDPR compliant',
+                'Regular security audits'
+              ].map((item) => (
+                <div key={item} className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-[#E65100]" />
+                  <span className="text-[#5D4037]">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Pricing */}
+        <section className="mb-10 md:mb-16">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-black text-[#5D4037] mb-6" style={{ fontFamily: 'Georgia, serif' }}>
+              Simple Pricing
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { name: 'Editorial', price: '$19/mo', features: ['Basic templates', '5 projects', 'Email support'] },
+              { name: 'Professional', price: '$49/mo', features: ['All templates', 'Unlimited projects', 'Priority support', 'Custom fonts'] },
+              { name: 'Enterprise', price: '$99/mo', features: ['Everything', 'Team collaboration', 'Dedicated support', 'Custom branding'] }
+            ].map((plan) => (
+              <div key={plan.name} className="p-6 rounded-xl text-center" style={{ backgroundColor: 'rgba(93,64,55,0.05)' }}>
+                <h3 className="text-xl font-bold text-[#5D4037] mb-2">{plan.name}</h3>
+                <div className="text-3xl font-black text-[#E65100] mb-4">{plan.price}</div>
+                <ul className="space-y-2 mb-6 text-[#6D4C41]">
+                  {plan.features.map((feature) => (
+                    <li key={feature}>{feature}</li>
+                  ))}
+                </ul>
+                <button className="w-full py-3 bg-[#E65100] text-white font-bold uppercase tracking-wider text-sm hover:bg-[#BF360C] transition-colors rounded-full">
+                  Start Free Trial
+                </button>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="mb-10 md:mb-16">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-black text-[#5D4037] mb-6" style={{ fontFamily: 'Georgia, serif' }}>
+              Common Questions
+            </h2>
+          </div>
+          <div className="max-w-3xl mx-auto space-y-4">
+            {[
+              { q: 'Can I import my existing designs?', a: 'Yes! We support all major design formats.' },
+              { q: 'Is there a learning curve?', a: 'Our editorial approach is intuitive for designers.' },
+              { q: 'Can I customize templates?', a: 'Every template is fully customizable.' },
+              { q: 'Do you offer training?', a: 'We provide comprehensive onboarding for teams.' }
+            ].map((item, i) => (
+              <div key={i} className="p-6 rounded-xl" style={{ backgroundColor: 'rgba(93,64,55,0.05)' }}>
+                <h3 className="text-lg font-bold text-[#5D4037] mb-2">{item.q}</h3>
+                <p className="text-[#6D4C41]">{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Contact */}
+        <section className="mb-10 md:mb-16">
+          <div className="p-8 rounded-xl text-center" style={{ backgroundColor: 'rgba(230,81,0,0.1)' }}>
+            <h2 className="text-2xl font-black text-[#5D4037] mb-4" style={{ fontFamily: 'Georgia, serif' }}>
+              Let's Create Together
+            </h2>
+            <p className="text-[#6D4C41] mb-6">
+              Ready to bring editorial excellence to your designs?
+            </p>
+            <div className="flex flex-col md:flex-row justify-center gap-4 max-w-md mx-auto">
+              <input 
+                type="email" 
+                placeholder="your@email.com"
+                className="flex-1 px-6 py-3 rounded-full border border-[#D7CCC8] text-[#5D4037] placeholder-[#8D6E63] focus:outline-none focus:border-[#E65100]"
+              />
+              <button className="px-8 py-3 bg-[#E65100] text-white font-bold uppercase tracking-wider text-sm hover:bg-[#BF360C] transition-colors rounded-full">
+                Get Started
+              </button>
+            </div>
+          </div>
         </section>
 
         {/* Quote */}

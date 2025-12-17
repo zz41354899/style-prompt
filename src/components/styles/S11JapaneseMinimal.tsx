@@ -60,23 +60,173 @@ export const S11JapaneseMinimal = () => {
         <div className="w-2 h-2 rounded-full bg-[#d4d0c8]" />
       </div>
 
-      {/* Features */}
-      <section className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 mb-16 md:mb-24">
-        {[
-          { jp: '間', title: 'Space', desc: 'The art of empty space', en: 'Ma' },
-          { jp: '侘', title: 'Wabi-Sabi', desc: 'Beauty in imperfection', en: 'Wabi' },
-          { jp: '禅', title: 'Zen', desc: 'Inner peace', en: 'Zen' },
-        ].map((item, i) => (
-          <div key={i} className="group">
-            <div className="text-5xl font-light text-[#e0dcd6] mb-6 group-hover:text-[#c4c0b8] transition-colors" 
-              style={{ fontFamily: 'serif' }}>
-              {item.jp}
+      {/* Value Proposition */}
+      <section className="relative z-10 mb-20">
+        <div className="text-center mb-16">
+          <div className="text-[10px] tracking-[0.4em] uppercase text-[#999] mb-8">Philosophy</div>
+          <h2 className="text-2xl md:text-3xl font-light leading-[1.4] mb-8 tracking-wide">
+            The Way of<br />
+            <span className="text-[#a0a0a0]">Less is More</span>
+          </h2>
+          <p className="text-sm leading-[2.2] text-[#666] max-w-2xl mx-auto">
+            In the pursuit of minimalism, we discover true abundance. 
+            Each element serves a purpose, each space carries meaning.
+            This is the essence of Japanese design philosophy.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          {[
+            { title: 'Clarity', desc: 'Clear mind, clear design' },
+            { title: 'Balance', desc: 'Harmony in asymmetry' },
+            { title: 'Stillness', desc: 'Finding peace in simplicity' }
+          ].map((item, i) => (
+            <div key={i} className="text-center group">
+              <div className="w-8 h-px bg-[#2d2d2d] mx-auto mb-6 group-hover:w-16 transition-all duration-700" />
+              <h3 className="text-sm font-medium mb-2">{item.title}</h3>
+              <p className="text-xs text-[#666] leading-relaxed">{item.desc}</p>
             </div>
-            <div className="text-sm mb-2 font-medium">{item.title}</div>
-            <div className="text-xs text-[#999] mb-1">{item.desc}</div>
-            <div className="text-[10px] tracking-[0.3em] text-[#ccc] uppercase">{item.en}</div>
+          ))}
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="relative z-10 mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+          {[
+            { title: 'Intentional Whitespace', desc: 'Every space has purpose', detail: 'Breathing room for the mind' },
+            { title: 'Natural Materials', desc: 'Connection to nature', detail: 'Wood, stone, and paper textures' },
+            { title: 'Subtle Gradients', desc: 'Gentle transitions', detail: 'Soft as morning mist' },
+            { title: 'Functional Beauty', desc: 'Purpose in every element', detail: 'Form follows function' }
+          ].map((item, i) => (
+            <div key={i} className="group">
+              <h3 className="text-sm font-medium mb-2">{item.title}</h3>
+              <p className="text-xs text-[#666] mb-1">{item.desc}</p>
+              <p className="text-[10px] tracking-[0.3em] text-[#999] uppercase">{item.detail}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Integrations */}
+      <section className="relative z-10 py-12 border-t border-[#e8e4de] mb-20">
+        <div className="text-center mb-12">
+          <h2 className="text-lg font-light tracking-wide">Partners</h2>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
+          {['Muji', 'Uniqlo', 'Issey Miyake', 'Yoshoku'].map((item) => (
+            <div key={item} className="text-center">
+              <div className="text-xs font-light">{item}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Metrics */}
+      <section className="relative z-10 mb-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {[
+            { value: '1000+', label: 'Projects' },
+            { value: '50+', label: 'Awards' },
+            { value: '99%', label: 'Satisfaction' },
+            { value: '24/7', label: 'Support' }
+          ].map((item, i) => (
+            <div key={i} className="text-center">
+              <div className="text-2xl font-light text-[#666] mb-2">{item.value}</div>
+              <div className="text-[10px] tracking-[0.3em] text-[#999] uppercase">{item.label}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Security */}
+      <section className="relative z-10 mb-20">
+        <div className="p-12 border border-[#e8e4de]">
+          <h2 className="text-lg font-light mb-4 tracking-wide">Privacy & Trust</h2>
+          <p className="text-sm leading-[2.2] text-[#666] mb-8 max-w-2xl">
+            Your privacy is as important as the air we breathe. 
+            We protect your data with the same care we bring to our design.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              'End-to-end encryption',
+              'GDPR compliant',
+              'Regular audits'
+            ].map((item) => (
+              <div key={item} className="flex items-center gap-2">
+                <div className="w-1 h-1 bg-[#666]" />
+                <span className="text-xs text-[#666]">{item}</span>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+      </section>
+
+      {/* Pricing */}
+      <section className="relative z-10 mb-20">
+        <div className="text-center mb-12">
+          <h2 className="text-lg font-light tracking-wide mb-2">Investment</h2>
+          <p className="text-xs text-[#999]">Simple, transparent pricing</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[
+            { name: 'Basic', price: '$29/mo', features: ['Essential features', 'Email support'] },
+            { name: 'Professional', price: '$79/mo', features: ['All features', 'Priority support', 'Custom designs'] },
+            { name: 'Enterprise', price: 'Custom', features: ['Everything', 'Dedicated team', 'White glove'] }
+          ].map((plan) => (
+            <div key={plan.name} className="p-8 border border-[#e8e4de] text-center group hover:border-[#d4d0c8] transition-colors">
+              <h3 className="text-sm font-medium mb-2">{plan.name}</h3>
+              <div className="text-xl font-light mb-4">{plan.price}</div>
+              <ul className="space-y-2 mb-6 text-xs text-[#666]">
+                {plan.features.map((feature) => (
+                  <li key={feature}>{feature}</li>
+                ))}
+              </ul>
+              <button className="text-xs tracking-[0.25em] border-b border-[#2d2d2d] pb-1 hover:opacity-40 transition-opacity">
+                Get Started
+              </button>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="relative z-10 mb-20">
+        <div className="text-center mb-12">
+          <h2 className="text-lg font-light tracking-wide">Questions</h2>
+        </div>
+        <div className="max-w-2xl mx-auto space-y-8">
+          {[
+            { q: 'What is your design philosophy?', a: 'We believe in the power of simplicity and the beauty of empty space.' },
+            { q: 'How long does a project take?', a: 'Projects typically take 4-6 weeks, allowing time for thoughtful refinement.' },
+            { q: 'Can you work with our brand?', a: 'We adapt our minimal approach to enhance your unique brand identity.' },
+            { q: 'What makes you different?', a: 'Our commitment to stillness and purpose in every design decision.' }
+          ].map((item, i) => (
+            <div key={i} className="border-b border-[#e8e4de] pb-6">
+              <h3 className="text-sm font-medium mb-2">{item.q}</h3>
+              <p className="text-xs text-[#666] leading-relaxed">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section className="relative z-10 mb-20">
+        <div className="p-12 border border-[#e8e4de] text-center">
+          <h2 className="text-lg font-light mb-4 tracking-wide">Let\'s Talk</h2>
+          <p className="text-sm leading-[2.2] text-[#666] mb-8 max-w-md mx-auto">
+            Ready to bring minimal elegance to your project?
+          </p>
+          <div className="flex flex-col md:flex-row justify-center gap-4 max-w-md mx-auto">
+            <input 
+              type="email" 
+              placeholder="your@email.com"
+              className="flex-1 px-4 py-3 border border-[#d4d0c8] text-[#2d2d2d] placeholder-[#999] focus:outline-none focus:border-[#666]"
+            />
+            <button className="px-8 py-3 text-xs tracking-[0.25em] border border-[#2d2d2d] hover:bg-[#2d2d2d] hover:text-[#FAFAF8] transition-colors">
+              Send
+            </button>
+          </div>
+        </div>
       </section>
 
       {/* Quote */}

@@ -1,110 +1,954 @@
 import { useState } from 'react';
-import { ArrowUpRight, Circle, Menu, X } from 'lucide-react';
+import { ArrowUpRight, Menu, X, Check } from 'lucide-react';
 
 export const S02MinimalistMonochrome = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // Design tokens from S02 specification
+  const colors = {
+    bg: {
+      default: '#FFFFFF',
+      inverse: '#000000',
+    },
+    text: {
+      primary: '#0A0A0A',
+      secondary: '#4B4B4B',
+    },
+    border: '#E0E0E0',
+    accent: '#1A1A1A',
+    success: '#1F7A3F',
+    danger: '#B42318',
+  };
+
+  const typography = {
+    primaryFont: '"Inter", system-ui, sans-serif',
+    secondaryFont: '"Source Serif 4", serif',
+  };
+
+  const spacing = {
+    xs: '4px',
+    sm: '8px',
+    md: '16px',
+    lg: '24px',
+    xl: '32px',
+    xxl: '48px',
+    xxxl: '64px',
+    section: '96px',
+    sectionXL: '128px',
+  };
+
+  const radius = {
+    none: '0',
+    sm: '4px',
+  };
+
   return (
-    <div className="min-h-full bg-[#fafafa] text-[#0a0a0a] p-6 md:p-10 font-serif">
-      {/* Header */}
-      <header className="flex justify-between items-center mb-16 md:mb-24">
-        <div className="flex items-center gap-3">
-          <Circle className="w-3 h-3 fill-black" />
-          <span className="text-xs tracking-[0.3em] uppercase font-sans">Studio</span>
-        </div>
-        
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex gap-10 text-xs tracking-[0.15em] uppercase font-sans">
-          <span className="cursor-default">Work</span>
-          <span className="cursor-default">About</span>
-          <span className="cursor-default">Contact</span>
-        </nav>
-
-        {/* Mobile Menu Button */}
-        <button 
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden p-2 hover:bg-black/5 rounded-lg transition-colors"
-        >
-          {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
-      </header>
-
-      {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="md:hidden mb-8 py-4 border-t border-b border-[#e0e0e0]">
-          <nav className="flex flex-col gap-4 text-xs tracking-[0.15em] uppercase font-sans">
-            <span className="py-2 cursor-default">Work</span>
-            <span className="py-2 cursor-default">About</span>
-            <span className="py-2 cursor-default">Contact</span>
-          </nav>
-        </div>
-      )}
-
-      {/* Hero */}
-      <section className="mb-32">
-        <div className="grid grid-cols-12 gap-4">
-          <div className="col-span-8">
-            <h1 className="text-[5.5rem] font-light leading-[0.85] tracking-[-0.03em] mb-12">
-              Minimalist<br />
-              <span className="text-[#666]">Black & White Aesthetics</span>
-            </h1>
-          </div>
-          <div className="col-span-4 flex flex-col justify-end pb-4">
-            <p className="text-sm leading-[1.8] text-[#555] mb-6 font-sans">
-              Through pure black and white, explore the essence of design.
-              Every whitespace is a deliberate choice, every line has its meaning.
-            </p>
-            <span className="inline-flex items-center gap-2 text-xs tracking-[0.15em] uppercase font-sans cursor-default">
-              <span>Explore</span>
-              <ArrowUpRight className="w-3 h-3" />
+    <div 
+      className="min-h-screen"
+      style={{ 
+        backgroundColor: colors.bg.default,
+        color: colors.text.primary,
+        fontFamily: typography.primaryFont,
+        fontSize: '16px',
+        lineHeight: 1.6,
+      }}
+    >
+      {/* Top Navigation */}
+      <header style={{ 
+        padding: `${spacing.lg} 0`,
+        borderBottom: `1px solid ${colors.border}`,
+      }}>
+        <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            {/* Logo */}
+            <div 
+              className="flex items-center justify-center"
+              style={{
+                width: '12px',
+                height: '12px',
+                backgroundColor: colors.text.primary,
+                borderRadius: radius.none,
+              }}
+            />
+            <span 
+              style={{
+                fontSize: '12px',
+                letterSpacing: '0.3em',
+                textTransform: 'uppercase',
+                fontFamily: typography.primaryFont,
+                fontWeight: '400',
+              }}
+            >
+              Studio
             </span>
           </div>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-10">
+            {['Work', 'About', 'Contact'].map((item) => (
+              <span 
+                key={item}
+                className="cursor-pointer"
+                style={{
+                  fontSize: '12px',
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
+                  fontFamily: typography.primaryFont,
+                  fontWeight: '400',
+                  color: colors.text.secondary,
+                  transition: 'color 100ms ease-out',
+                }}
+                onMouseEnter={(e) => {
+                  const target = e.target as HTMLElement;
+                  target.style.color = colors.text.primary;
+                }}
+                onMouseLeave={(e) => {
+                  const target = e.target as HTMLElement;
+                  target.style.color = colors.text.secondary;
+                }}
+              >
+                {item}
+              </span>
+            ))}
+            <button
+              style={{
+                backgroundColor: colors.accent,
+                color: colors.bg.default,
+                border: 'none',
+                borderRadius: radius.none,
+                padding: `${spacing.sm} ${spacing.md}`,
+                fontSize: '12px',
+                letterSpacing: '0.15em',
+                textTransform: 'uppercase',
+                fontFamily: typography.primaryFont,
+                fontWeight: '400',
+                cursor: 'pointer',
+                transition: 'all 100ms ease-out',
+              }}
+              onMouseEnter={(e) => {
+                const target = e.target as HTMLElement;
+                target.style.backgroundColor = colors.text.primary;
+              }}
+              onMouseLeave={(e) => {
+                const target = e.target as HTMLElement;
+                target.style.backgroundColor = colors.accent;
+              }}
+            >
+              Contact Us
+            </button>
+          </nav>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="md:hidden"
+            style={{
+              backgroundColor: 'transparent',
+              border: 'none',
+              padding: spacing.sm,
+              cursor: 'pointer',
+              color: colors.text.secondary,
+            }}
+          >
+            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        {menuOpen && (
+          <div 
+            style={{
+              borderTop: `1px solid ${colors.border}`,
+              borderBottom: `1px solid ${colors.border}`,
+              padding: spacing.md,
+              backgroundColor: colors.bg.default,
+            }}
+          >
+            <div className="max-w-6xl mx-auto px-6 space-y-4">
+              {['Work', 'About', 'Contact'].map((item) => (
+                <span 
+                  key={item}
+                  className="block cursor-pointer"
+                  style={{
+                    fontSize: '12px',
+                    letterSpacing: '0.15em',
+                    textTransform: 'uppercase',
+                    fontFamily: typography.primaryFont,
+                    fontWeight: '400',
+                    color: colors.text.secondary,
+                    padding: `${spacing.sm} 0`,
+                  }}
+                >
+                  {item}
+                </span>
+              ))}
+              <button
+                style={{
+                  backgroundColor: colors.accent,
+                  color: colors.bg.default,
+                  border: 'none',
+                  borderRadius: radius.none,
+                  padding: `${spacing.sm} ${spacing.md}`,
+                  fontSize: '12px',
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
+                  fontFamily: typography.primaryFont,
+                  fontWeight: '400',
+                  cursor: 'pointer',
+                  width: '100%',
+                  marginTop: spacing.sm,
+                }}
+              >
+                Contact Us
+              </button>
+            </div>
+          </div>
+        )}
+      </header>
+
+      {/* Hero Section */}
+      <section style={{ padding: `${spacing.sectionXL} ${spacing.md}` }}>
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            {/* Left Column */}
+            <div className="md:col-span-8">
+              <h1 
+                className="text-5xl md:text-7xl lg:text-[88px]"
+                style={{
+                  fontWeight: '300',
+                  lineHeight: 0.85,
+                  letterSpacing: '-0.03em',
+                  marginBottom: spacing.lg,
+                  fontFamily: typography.primaryFont,
+                  color: colors.text.primary,
+                  maxWidth: '64ch',
+                }}
+              >
+                Minimalist
+                <br />
+                <span style={{ color: colors.text.secondary }}>
+                  Black & White Aesthetics
+                </span>
+              </h1>
+
+              <p 
+                className="text-base md:text-lg"
+                style={{
+                  color: colors.text.secondary,
+                  lineHeight: 1.6,
+                  marginBottom: spacing.xl,
+                  fontFamily: typography.primaryFont,
+                  maxWidth: '64ch',
+                }}
+              >
+                Clarity through restraint. Editorial design principles applied to digital products, where every element serves a purpose and nothing is left to chance.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button
+                  style={{
+                    backgroundColor: colors.accent,
+                    color: colors.bg.default,
+                    border: 'none',
+                    borderRadius: radius.none,
+                    padding: `${spacing.md} ${spacing.lg}`,
+                    fontSize: '12px',
+                    letterSpacing: '0.15em',
+                    textTransform: 'uppercase',
+                    fontFamily: typography.primaryFont,
+                    fontWeight: '400',
+                    cursor: 'pointer',
+                    transition: 'all 100ms ease-out',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: spacing.sm,
+                  }}
+                  onMouseEnter={(e) => {
+                    const target = e.target as HTMLElement;
+                    target.style.backgroundColor = colors.text.primary;
+                  }}
+                  onMouseLeave={(e) => {
+                    const target = e.target as HTMLElement;
+                    target.style.backgroundColor = colors.accent;
+                  }}
+                >
+                  Start Free Trial
+                  <ArrowUpRight size={16} />
+                </button>
+                <button
+                  style={{
+                    backgroundColor: 'transparent',
+                    color: colors.text.primary,
+                    border: `1px solid ${colors.border}`,
+                    borderRadius: radius.none,
+                    padding: `${spacing.md} ${spacing.lg}`,
+                    fontSize: '12px',
+                    letterSpacing: '0.15em',
+                    textTransform: 'uppercase',
+                    fontFamily: typography.primaryFont,
+                    fontWeight: '400',
+                    cursor: 'pointer',
+                    transition: 'all 100ms ease-out',
+                  }}
+                  onMouseEnter={(e) => {
+                    const target = e.target as HTMLElement;
+                    target.style.backgroundColor = colors.bg.default;
+                    target.style.borderColor = colors.text.secondary;
+                  }}
+                  onMouseLeave={(e) => {
+                    const target = e.target as HTMLElement;
+                    target.style.backgroundColor = 'transparent';
+                    target.style.borderColor = colors.border;
+                  }}
+                >
+                  View Portfolio
+                </button>
+              </div>
+            </div>
+
+            {/* Right Column - Visual Element */}
+            <div className="md:col-span-4">
+              <div 
+                style={{
+                  border: `1px solid ${colors.border}`,
+                  borderRadius: radius.none,
+                  padding: spacing.xl,
+                  height: '300px',
+                  minHeight: '250px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <div style={{ textAlign: 'center' }}>
+                  <div 
+                    className="text-6xl md:text-8xl lg:text-[120px]"
+                    style={{
+                      fontWeight: '300',
+                      lineHeight: 1,
+                      color: colors.border,
+                      marginBottom: spacing.lg,
+                    }}
+                  >
+                    "
+                  </div>
+                  <blockquote 
+                    className="text-lg md:text-xl lg:text-2xl"
+                    style={{
+                      fontWeight: '300',
+                      lineHeight: 1.4,
+                      letterSpacing: '-0.01em',
+                      marginBottom: spacing.md,
+                      fontFamily: typography.secondaryFont,
+                      fontStyle: 'italic',
+                      color: colors.text.primary,
+                    }}
+                  >
+                    Design is not about adding more, but removing the unnecessary until only the essence remains.
+                  </blockquote>
+                  <cite 
+                    style={{
+                      fontSize: '12px',
+                      letterSpacing: '0.2em',
+                      textTransform: 'uppercase',
+                      fontFamily: typography.primaryFont,
+                      fontWeight: '400',
+                      color: colors.text.secondary,
+                      fontStyle: 'normal',
+                    }}
+                  >
+                    — Design Philosophy
+                  </cite>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Featured Grid */}
-      <section className="grid grid-cols-12 gap-4 mb-24">
-        <div className="col-span-7 bg-[#0a0a0a] aspect-[4/3] relative group overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-          <div className="absolute bottom-6 left-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity">
-            <div className="text-white text-xs tracking-[0.15em] uppercase font-sans mb-2">01 / Featured</div>
-            <div className="text-white text-xl font-light">Monochrome Series</div>
-          </div>
-        </div>
-        <div className="col-span-5 flex flex-col gap-4">
-          <div className="flex-1 bg-[#e8e8e8] p-6 flex flex-col justify-between">
-            <div className="text-xs tracking-[0.15em] uppercase font-sans text-[#888]">02 / Archive</div>
-            <div className="text-xl font-light">Editorial Design</div>
-          </div>
-          <div className="flex-1 bg-[#0a0a0a] p-6 flex flex-col justify-between">
-            <div className="text-xs tracking-[0.15em] uppercase font-sans text-[#666]">03 / Process</div>
-            <div className="text-xl font-light text-white">Typography Study</div>
+      {/* Metrics / Social Proof */}
+      <section style={{ padding: `${spacing.xl} ${spacing.md}` }}>
+        <div className="max-w-6xl mx-auto">
+          <div 
+            className="grid grid-cols-2 md:grid-cols-4 gap-6"
+            style={{
+              border: `1px solid ${colors.border}`,
+              borderRadius: radius.none,
+              padding: spacing.xl,
+            }}
+          >
+            {[
+              { value: '5,000+', label: 'Clients' },
+              { value: '100%', label: 'Uptime' },
+              { value: '24h', label: 'Response' },
+              { value: '50+', label: 'Countries' },
+            ].map((metric) => (
+              <div key={metric.label} className="text-center">
+                <div 
+                  className="text-2xl md:text-3xl"
+                  style={{
+                    fontWeight: '300',
+                    color: colors.text.primary,
+                    marginBottom: spacing.xs,
+                    fontFamily: typography.primaryFont,
+                  }}
+                >
+                  {metric.value}
+                </div>
+                <div 
+                  style={{
+                    fontSize: '12px',
+                    letterSpacing: '0.15em',
+                    textTransform: 'uppercase',
+                    color: colors.text.secondary,
+                    fontFamily: typography.primaryFont,
+                    fontWeight: '400',
+                  }}
+                >
+                  {metric.label}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Quote */}
-      <section className="py-16 border-t border-[#e0e0e0]">
-        <div className="grid grid-cols-12 gap-4">
-          <div className="col-span-2">
-            <div className="text-[120px] font-light leading-none text-[#e8e8e8]">"</div>
+      {/* Features */}
+      <section style={{ padding: `${spacing.section} ${spacing.md}` }}>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center" style={{ marginBottom: spacing.section }}>
+            <h2 
+              className="text-3xl md:text-4xl lg:text-[48px]"
+              style={{
+                fontWeight: '300',
+                lineHeight: 1.25,
+                marginBottom: spacing.lg,
+                fontFamily: typography.primaryFont,
+                color: colors.text.primary,
+              }}
+            >
+              Essential Features
+            </h2>
+            <p 
+              className="text-sm md:text-base"
+              style={{
+                color: colors.text.secondary,
+                fontFamily: typography.primaryFont,
+                maxWidth: '64ch',
+                margin: '0 auto',
+              }}
+            >
+              Everything you need, nothing you don't. Thoughtfully designed tools that enhance productivity without adding complexity.
+            </p>
           </div>
-          <div className="col-span-8 pt-8">
-            <blockquote className="text-3xl font-light leading-[1.4] tracking-[-0.01em] mb-8">
-              Design is not about adding more, but removing the unnecessary until only the essence remains.
-            </blockquote>
-            <cite className="text-xs tracking-[0.2em] uppercase font-sans not-italic text-[#888]">
-              — Design Philosophy
-            </cite>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                title: 'Clean Interface',
+                description: 'Distraction-free environment designed for focus and productivity.',
+              },
+              {
+                title: 'Fast Performance',
+                description: 'Optimized for speed with minimal load times and smooth interactions.',
+              },
+              {
+                title: 'Reliable Security',
+                description: 'Enterprise-grade security with regular updates and monitoring.',
+              },
+            ].map((feature) => (
+              <div
+                key={feature.title}
+                style={{
+                  border: `1px solid ${colors.border}`,
+                  borderRadius: radius.none,
+                  padding: spacing.xl,
+                  transition: 'all 100ms ease-out',
+                }}
+                onMouseEnter={(e) => {
+                  const target = e.currentTarget as HTMLElement;
+                  target.style.borderColor = colors.text.secondary;
+                }}
+                onMouseLeave={(e) => {
+                  const target = e.currentTarget as HTMLElement;
+                  target.style.borderColor = colors.border;
+                }}
+              >
+                <h3 
+                  style={{
+                    fontSize: '20px',
+                    fontWeight: '400',
+                    marginBottom: spacing.md,
+                    fontFamily: typography.primaryFont,
+                    color: colors.text.primary,
+                  }}
+                >
+                  {feature.title}
+                </h3>
+                <p 
+                  style={{
+                    fontSize: '14px',
+                    color: colors.text.secondary,
+                    lineHeight: 1.6,
+                    fontFamily: typography.primaryFont,
+                  }}
+                >
+                  {feature.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Integrations */}
+      <section style={{ padding: `${spacing.section} ${spacing.md}` }}>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center" style={{ marginBottom: spacing.section }}>
+            <h2 
+              className="text-2xl md:text-3xl lg:text-[32px]"
+              style={{
+                fontWeight: '300',
+                marginBottom: spacing.lg,
+                fontFamily: typography.primaryFont,
+                color: colors.text.primary,
+              }}
+            >
+              Trusted Integrations
+            </h2>
+          </div>
+          
+          <div 
+            className="grid grid-cols-2 md:grid-cols-4 gap-6"
+            style={{
+              border: `1px solid ${colors.border}`,
+              borderRadius: radius.none,
+              padding: spacing.xl,
+            }}
+          >
+            {['GitHub', 'Slack', 'Notion', 'Figma', 'Linear', 'Vercel', 'Stripe', 'AWS'].map((integration) => (
+              <div
+                key={integration}
+                style={{
+                  border: `1px solid ${colors.border}`,
+                  borderRadius: radius.none,
+                  padding: spacing.md,
+                  textAlign: 'center',
+                  fontSize: '12px',
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
+                  fontFamily: typography.primaryFont,
+                  fontWeight: '400',
+                  color: colors.text.secondary,
+                  cursor: 'pointer',
+                  transition: 'all 100ms ease-out',
+                }}
+                onMouseEnter={(e) => {
+                  const target = e.currentTarget as HTMLElement;
+                  target.style.borderColor = colors.text.primary;
+                  target.style.color = colors.text.primary;
+                }}
+                onMouseLeave={(e) => {
+                  const target = e.currentTarget as HTMLElement;
+                  target.style.borderColor = colors.border;
+                  target.style.color = colors.text.secondary;
+                }}
+              >
+                {integration}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing */}
+      <section style={{ padding: `${spacing.section} ${spacing.md}` }}>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center" style={{ marginBottom: spacing.section }}>
+            <h2 
+              className="text-3xl md:text-4xl lg:text-[48px]"
+              style={{
+                fontWeight: '300',
+                lineHeight: 1.25,
+                marginBottom: spacing.lg,
+                fontFamily: typography.primaryFont,
+                color: colors.text.primary,
+              }}
+            >
+              Simple Pricing
+            </h2>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                name: 'Basic',
+                price: '$0',
+                description: 'For individuals getting started',
+                features: ['Up to 3 projects', 'Basic features', 'Email support'],
+                popular: false,
+              },
+              {
+                name: 'Professional',
+                price: '$29',
+                description: 'For growing teams and agencies',
+                features: ['Unlimited projects', 'Advanced features', 'Priority support', 'API access'],
+                popular: true,
+              },
+              {
+                name: 'Enterprise',
+                price: 'Custom',
+                description: 'For large organizations',
+                features: ['Custom solutions', 'Dedicated support', 'SLA guarantee'],
+                popular: false,
+              },
+            ].map((plan) => (
+              <div
+                key={plan.name}
+                style={{
+                  border: plan.popular 
+                    ? `2px solid ${colors.text.primary}` 
+                    : `1px solid ${colors.border}`,
+                  borderRadius: radius.none,
+                  padding: `${spacing.lg} ${spacing.md} ${spacing.xl} ${spacing.md}`,
+                  position: 'relative',
+                  backgroundColor: plan.popular ? colors.bg.default : 'transparent',
+                }}
+              >
+                {plan.popular && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: '-12px',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      backgroundColor: colors.text.primary,
+                      color: colors.bg.default,
+                      padding: `${spacing.xs} ${spacing.sm}`,
+                      fontSize: '12px',
+                      letterSpacing: '0.15em',
+                      textTransform: 'uppercase',
+                      fontFamily: typography.primaryFont,
+                      fontWeight: '400',
+                    }}
+                  >
+                    Most Popular
+                  </div>
+                )}
+                
+                <div style={{ textAlign: 'center', marginBottom: spacing.xl, marginTop: plan.popular ? '8px' : '0' }}>
+                  <h3 
+                    className="text-xl md:text-2xl"
+                    style={{
+                      fontWeight: '400',
+                      marginBottom: spacing.sm,
+                      fontFamily: typography.primaryFont,
+                      color: colors.text.primary,
+                    }}
+                  >
+                    {plan.name}
+                  </h3>
+                  <div 
+                    className="text-3xl md:text-4xl lg:text-[48px]"
+                    style={{
+                      fontWeight: '300',
+                      color: colors.text.primary,
+                      marginBottom: spacing.sm,
+                      fontFamily: typography.primaryFont,
+                    }}
+                  >
+                    {plan.price}
+                  </div>
+                  <p className="text-sm" style={{ 
+                    color: colors.text.secondary, 
+                    fontFamily: typography.primaryFont,
+                  }}>
+                    {plan.description}
+                  </p>
+                </div>
+                
+                <div style={{ marginBottom: spacing.xl }}>
+                  {plan.features.map((feature) => (
+                    <div 
+                      key={feature}
+                      className="flex items-center gap-3"
+                      style={{ marginBottom: spacing.md }}
+                    >
+                      <Check size={16} style={{ color: colors.success }} />
+                      <span style={{ 
+                        fontSize: '14px', 
+                        color: colors.text.primary,
+                        fontFamily: typography.primaryFont,
+                      }}>
+                        {feature}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                
+                <button
+                  style={{
+                    width: '100%',
+                    backgroundColor: plan.popular 
+                      ? colors.text.primary 
+                      : 'transparent',
+                    color: plan.popular 
+                      ? colors.bg.default 
+                      : colors.text.primary,
+                    border: plan.popular 
+                      ? `1px solid ${colors.text.primary}` 
+                      : `1px solid ${colors.border}`,
+                    borderRadius: radius.none,
+                    padding: `${spacing.md} 0`,
+                    fontSize: '12px',
+                    letterSpacing: '0.15em',
+                    textTransform: 'uppercase',
+                    fontFamily: typography.primaryFont,
+                    fontWeight: '400',
+                    cursor: 'pointer',
+                    transition: 'all 100ms ease-out',
+                  }}
+                  onMouseEnter={(e) => {
+                    const target = e.target as HTMLElement;
+                    if (plan.popular) {
+                      target.style.backgroundColor = colors.accent;
+                      target.style.color = colors.bg.default;
+                    } else {
+                      target.style.backgroundColor = colors.bg.default;
+                      target.style.borderColor = colors.text.secondary;
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    const target = e.target as HTMLElement;
+                    if (plan.popular) {
+                      target.style.backgroundColor = colors.text.primary;
+                      target.style.color = colors.bg.default;
+                    } else {
+                      target.style.backgroundColor = 'transparent';
+                      target.style.borderColor = colors.border;
+                    }
+                  }}
+                >
+                  {plan.popular ? 'Start Free Trial' : 'Contact Sales'}
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section style={{ padding: `${spacing.section} ${spacing.md}` }}>
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center" style={{ marginBottom: spacing.section }}>
+            <h2 
+              className="text-2xl md:text-3xl lg:text-[32px]"
+              style={{
+                fontWeight: '300',
+                marginBottom: spacing.lg,
+                fontFamily: typography.primaryFont,
+                color: colors.text.primary,
+              }}
+            >
+              Questions
+            </h2>
+          </div>
+          
+          <div className="space-y-6">
+            {[
+              {
+                question: 'What makes your approach different?',
+                answer: 'We focus on essential functionality and remove unnecessary complexity, resulting in tools that are both powerful and easy to use.',
+              },
+              {
+                question: 'Can I change plans anytime?',
+                answer: 'Yes, you can upgrade or downgrade your plan at any time. Changes take effect at the next billing cycle.',
+              },
+              {
+                question: 'Do you offer custom solutions?',
+                answer: 'Yes, we work with enterprise clients to create custom solutions tailored to their specific needs.',
+              },
+            ].map((faq, index) => (
+              <div
+                key={index}
+                style={{
+                  border: `1px solid ${colors.border}`,
+                  borderRadius: radius.none,
+                  padding: spacing.xl,
+                }}
+              >
+                <h3 
+                  style={{
+                    fontSize: '18px',
+                    fontWeight: '400',
+                    marginBottom: spacing.md,
+                    fontFamily: typography.primaryFont,
+                    color: colors.text.primary,
+                  }}
+                >
+                  {faq.question}
+                </h3>
+                <p style={{ 
+                  color: colors.text.secondary, 
+                  fontSize: '14px', 
+                  lineHeight: 1.6,
+                  fontFamily: typography.primaryFont,
+                }}>
+                  {faq.answer}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact CTA */}
+      <section style={{ padding: `${spacing.section} ${spacing.md}` }}>
+        <div className="max-w-4xl mx-auto">
+          <div 
+            className="text-center"
+            style={{
+              border: `1px solid ${colors.border}`,
+              borderRadius: radius.none,
+              padding: `${spacing.section} ${spacing.md} ${spacing.sectionXL} ${spacing.md}`,
+            }}
+          >
+            <h2 
+              className="text-3xl md:text-4xl lg:text-[48px]"
+              style={{
+                fontWeight: '300',
+                lineHeight: 1.25,
+                marginBottom: spacing.lg,
+                fontFamily: typography.primaryFont,
+                color: colors.text.primary,
+              }}
+            >
+              Ready to begin?
+            </h2>
+            <p 
+              className="text-sm md:text-base"
+              style={{
+                color: colors.text.secondary,
+                marginBottom: spacing.xl,
+                fontFamily: typography.primaryFont,
+              }}
+            >
+              Join thousands of professionals who have embraced minimalist design.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button
+                style={{
+                  backgroundColor: colors.accent,
+                  color: colors.bg.default,
+                  border: 'none',
+                  borderRadius: radius.none,
+                  padding: `${spacing.sm} ${spacing.lg} ${spacing.sm} ${spacing.xl}`,
+                  fontSize: '12px',
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
+                  fontFamily: typography.primaryFont,
+                  fontWeight: '400',
+                  cursor: 'pointer',
+                  transition: 'all 100ms ease-out',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: spacing.sm,
+                }}
+                onMouseEnter={(e) => {
+                  const target = e.target as HTMLElement;
+                  target.style.backgroundColor = colors.text.primary;
+                }}
+                onMouseLeave={(e) => {
+                  const target = e.target as HTMLElement;
+                  target.style.backgroundColor = colors.accent;
+                }}
+              >
+                Start Free Trial
+                <ArrowUpRight size={16} />
+              </button>
+              <button
+                style={{
+                  backgroundColor: 'transparent',
+                  color: colors.text.primary,
+                  border: `1px solid ${colors.border}`,
+                  borderRadius: radius.none,
+                  padding: `${spacing.sm} ${spacing.lg} ${spacing.sm} ${spacing.xl}`,
+                  fontSize: '12px',
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
+                  fontFamily: typography.primaryFont,
+                  fontWeight: '400',
+                  cursor: 'pointer',
+                  transition: 'all 100ms ease-out',
+                }}
+                onMouseEnter={(e) => {
+                  const target = e.target as HTMLElement;
+                  target.style.backgroundColor = colors.bg.default;
+                  target.style.borderColor = colors.text.secondary;
+                }}
+                onMouseLeave={(e) => {
+                  const target = e.target as HTMLElement;
+                  target.style.backgroundColor = 'transparent';
+                  target.style.borderColor = colors.border;
+                }}
+              >
+                Schedule Demo
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="flex justify-between items-center text-xs tracking-[0.15em] uppercase font-sans text-[#888] pt-8 border-t border-[#e0e0e0]">
-        <span>© 2024</span>
-        <span>Taipei, Taiwan</span>
-        <span>All Rights Reserved</span>
+      <footer 
+        style={{
+          borderTop: `1px solid ${colors.border}`,
+          padding: `${spacing.xl} ${spacing.md}`,
+          backgroundColor: colors.bg.default,
+        }}
+      >
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div style={{ 
+              fontSize: '12px', 
+              letterSpacing: '0.15em',
+              textTransform: 'uppercase',
+              fontFamily: typography.primaryFont,
+              fontWeight: '400',
+              color: colors.text.secondary,
+            }}>
+              © 2025 Studio
+            </div>
+            <div className="flex gap-8">
+              {['Privacy', 'Terms', 'Security'].map((item) => (
+                <span 
+                  key={item}
+                  className="cursor-pointer"
+                  style={{
+                    fontSize: '12px',
+                    letterSpacing: '0.15em',
+                    textTransform: 'uppercase',
+                    fontFamily: typography.primaryFont,
+                    fontWeight: '400',
+                    color: colors.text.secondary,
+                    transition: 'color 100ms ease-out',
+                  }}
+                  onMouseEnter={(e) => {
+                    const target = e.target as HTMLElement;
+                    target.style.color = colors.text.primary;
+                  }}
+                  onMouseLeave={(e) => {
+                    const target = e.target as HTMLElement;
+                    target.style.color = colors.text.secondary;
+                  }}
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
       </footer>
     </div>
   );

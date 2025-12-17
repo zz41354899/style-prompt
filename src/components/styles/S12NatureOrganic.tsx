@@ -1,4 +1,4 @@
-import { Leaf, Sprout, TreeDeciduous, Wind, Droplets, Sun } from 'lucide-react';
+import { Leaf, Sprout, TreeDeciduous, Wind, Shield, Check, Mail } from 'lucide-react';
 
 export const S12NatureOrganic = () => {
   return (
@@ -63,22 +63,189 @@ export const S12NatureOrganic = () => {
         </div>
       </section>
 
-      {/* Features */}
-      <section className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-10 md:mb-16">
-        {[
-          { icon: <Droplets className="w-6 h-6" />, title: 'Organic Curves', desc: 'Flowing natural lines, like meandering streams', color: '#8FA67A' },
-          { icon: <Sun className="w-6 h-6" />, title: 'Earth Tones', desc: 'Warm natural colors from soil and sunlight', color: '#C4A77D' },
-          { icon: <Sprout className="w-6 h-6" />, title: 'Sustainable Design', desc: 'Eco-friendly design philosophy, protecting our home', color: '#5D7052' },
-        ].map((item, i) => (
-          <div key={i} className="bg-white/80 backdrop-blur-sm p-8 rounded-[2rem] shadow-sm hover:shadow-md transition-shadow group">
-            <div className="w-14 h-14 rounded-2xl mb-6 flex items-center justify-center text-white transition-transform group-hover:scale-110" 
-              style={{ backgroundColor: item.color }}>
-              {item.icon}
-            </div>
-            <div className="text-lg text-[#3D4A35] mb-3 font-medium">{item.title}</div>
-            <div className="text-sm text-[#6B7B5E] leading-relaxed">{item.desc}</div>
+      {/* Value Proposition */}
+      <section className="relative z-10 mb-16">
+        <div className="text-center mb-12">
+          <div className="flex items-center justify-center gap-2 text-[#8FA67A] mb-6">
+            <Leaf className="w-5 h-5" />
+            <span className="text-xs tracking-[0.2em] uppercase">Our Promise</span>
           </div>
-        ))}
+          <h2 className="text-3xl md:text-4xl font-light text-[#3D4A35] leading-[1.2] mb-8">
+            Grounded in Nature<br />
+            <span className="text-[#8FA67A] font-normal">Designed for Life</span>
+          </h2>
+          <p className="text-[#6B7B5E] leading-[1.9] max-w-3xl mx-auto">
+            We believe in creating spaces that nurture the human spirit. 
+            Our organic approach brings the calming essence of nature into every design,
+            fostering wellbeing and connection.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[
+            { title: 'Biophilic Design', desc: 'Connecting people with nature through design', color: '#8FA67A' },
+            { title: 'Natural Materials', desc: 'Sustainably sourced, always earth-friendly', color: '#C4A77D' },
+            { title: 'Harmonious Spaces', desc: 'Creating balance between form and function', color: '#5D7052' }
+          ].map((item, i) => (
+            <div key={i} className="bg-white/80 backdrop-blur-sm p-8 rounded-[2rem] text-center">
+              <div className="w-12 h-12 rounded-full mx-auto mb-4" style={{ backgroundColor: `${item.color}20` }} />
+              <h3 className="text-lg text-[#3D4A35] mb-3 font-medium">{item.title}</h3>
+              <p className="text-sm text-[#6B7B5E]">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="relative z-10 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {[
+            { title: 'Living Walls', desc: 'Vertical gardens that breathe life into spaces', detail: 'Natural air purification' },
+            { title: 'Earth Tones', desc: 'Colors inspired by soil, stone, and sky', detail: 'Calming psychological effects' },
+            { title: 'Organic Forms', desc: 'Shapes that echo nature\'s curves', detail: 'Fluid, flowing designs' },
+            { title: 'Sustainable Materials', desc: 'Bamboo, cork, and reclaimed wood', detail: 'Zero waste philosophy' }
+          ].map((item, i) => (
+            <div key={i} className="bg-white/60 backdrop-blur-sm p-8 rounded-[2rem]">
+              <h3 className="text-lg text-[#3D4A35] mb-3 font-medium">{item.title}</h3>
+              <p className="text-sm text-[#6B7B5E] mb-2">{item.desc}</p>
+              <p className="text-xs text-[#8FA67A]">{item.detail}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Integrations */}
+      <section className="relative z-10 mb-16">
+        <div className="text-center mb-12">
+          <h2 className="text-2xl md:text-3xl font-light text-[#3D4A35] mb-4">Eco Partners</h2>
+          <p className="text-sm text-[#6B7B5E]">Working with nature-forward brands</p>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {['Patagonia', 'Whole Earth', 'TerraCycle', 'Ecosia'].map((item) => (
+            <div key={item} className="bg-white/80 backdrop-blur-sm p-6 rounded-[1.5rem] text-center">
+              <div className="text-sm text-[#5D7052] font-medium">{item}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Metrics */}
+      <section className="relative z-10 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {[
+            { value: '10K+', label: 'Happy Clients', color: '#8FA67A' },
+            { value: '500', label: 'Projects', color: '#C4A77D' },
+            { value: '100%', label: 'Sustainable', color: '#5D7052' },
+            { value: '24/7', label: 'Nature Support', color: '#6B7B5E' }
+          ].map((item, i) => (
+            <div key={i} className="bg-white/80 backdrop-blur-sm p-6 rounded-[1.5rem] text-center">
+              <div className="text-3xl font-light mb-2" style={{ color: item.color }}>{item.value}</div>
+              <div className="text-xs text-[#6B7B5E] uppercase tracking-[0.15em]">{item.label}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Security */}
+      <section className="relative z-10 mb-16">
+        <div className="bg-gradient-to-r from-[#D4E2C8] to-[#E8E2D5] p-10 rounded-[2rem]">
+          <div className="flex items-start gap-6">
+            <div className="w-12 h-12 bg-white/80 rounded-full flex items-center justify-center">
+              <Shield className="w-6 h-6 text-[#5D7052]" />
+            </div>
+            <div className="flex-1">
+              <h2 className="text-2xl font-light text-[#3D4A35] mb-4">Earth-Safe Protection</h2>
+              <p className="text-[#6B7B5E] leading-[1.9] mb-6">
+                Your data is protected with the same care we give to the planet. 
+                We use renewable energy for our servers and plant a tree for every new client.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {[
+                  'Green hosting',
+                  'Carbon neutral',
+                  'Privacy first'
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-[#8FA67A]" />
+                    <span className="text-sm text-[#5D7052]">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing */}
+      <section className="relative z-10 mb-16">
+        <div className="text-center mb-12">
+          <h2 className="text-2xl md:text-3xl font-light text-[#3D4A35] mb-4">Investment in Nature</h2>
+          <p className="text-sm text-[#6B7B5E]">Plans that grow with you</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[
+            { name: 'Seedling', price: '$49/mo', features: ['Basic designs', 'Email support', '3 revisions'] },
+            { name: 'Growth', price: '$149/mo', features: ['All features', 'Priority support', 'Unlimited revisions', 'Source files'] },
+            { name: 'Forest', price: '$399/mo', features: ['Everything', 'Dedicated designer', 'Workshops', 'Planting initiative'] }
+          ].map((plan) => (
+            <div key={plan.name} className="bg-white/80 backdrop-blur-sm p-8 rounded-[2rem] text-center hover:bg-white transition-colors">
+              <h3 className="text-lg text-[#3D4A35] mb-3 font-medium">{plan.name}</h3>
+              <div className="text-3xl font-light text-[#5D7052] mb-6">{plan.price}</div>
+              <ul className="space-y-3 mb-8 text-sm text-[#6B7B5E]">
+                {plan.features.map((feature) => (
+                  <li key={feature} className="flex items-center justify-center gap-2">
+                    <Leaf className="w-4 h-4 text-[#8FA67A]" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <button className="w-full py-3 bg-gradient-to-r from-[#5D7052] to-[#6B7B5E] text-white rounded-full text-sm font-medium hover:shadow-lg transition-all">
+                Start Growing
+              </button>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="relative z-10 mb-16">
+        <div className="text-center mb-12">
+          <h2 className="text-2xl md:text-3xl font-light text-[#3D4A35] mb-4">Natural Questions</h2>
+        </div>
+        <div className="max-w-3xl mx-auto space-y-6">
+          {[
+            { q: 'How sustainable are your materials?', a: 'All materials are 100% sustainably sourced with full traceability.' },
+            { q: 'Can you work with existing spaces?', a: 'Yes! We transform any space into a natural oasis.' },
+            { q: 'What is your design process?', a: 'We begin with understanding your connection to nature.' },
+            { q: 'Do you offer maintenance?', a: 'We provide ongoing care for all living installations.' }
+          ].map((item, i) => (
+            <div key={i} className="bg-white/60 backdrop-blur-sm p-6 rounded-[1.5rem]">
+              <h3 className="text-lg text-[#3D4A35] mb-3 font-medium flex items-center gap-2">
+                <Sprout className="w-4 h-4 text-[#8FA67A]" />
+                {item.q}
+              </h3>
+              <p className="text-sm text-[#6B7B5E]">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section className="relative z-10 mb-16">
+        <div className="bg-gradient-to-r from-[#5D7052] to-[#6B7B5E] p-10 rounded-[2rem] text-center text-white">
+          <Mail className="w-8 h-8 mx-auto mb-4 text-[#B8C9A9]" />
+          <h2 className="text-2xl font-light mb-4">Connect with Nature</h2>
+          <p className="text-[#B8C9A9] mb-8">Ready to bring organic harmony to your space?</p>
+          <div className="flex flex-col md:flex-row justify-center gap-4 max-w-md mx-auto">
+            <input 
+              type="email" 
+              placeholder="your@email.com"
+              className="flex-1 px-6 py-3 rounded-full bg-white/20 border border-white/30 text-white placeholder-[#B8C9A9] focus:outline-none focus:border-white"
+            />
+            <button className="px-8 py-3 bg-white text-[#5D7052] rounded-full text-sm font-medium hover:shadow-lg transition-all">
+              Send Message
+            </button>
+          </div>
+        </div>
       </section>
 
       {/* Stats */}

@@ -1,106 +1,783 @@
 import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Check, ArrowRight } from 'lucide-react';
 
 export const S03Mondrian = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // Design tokens from S03 specification
+  const colors = {
+    bg: '#F8F4E3',
+    primary: '#1a1a1a',
+    red: '#DD0100',
+    blue: '#0047AB',
+    yellow: '#FADA00',
+    white: '#FFFFFF',
+  };
+
+  const typography = {
+    fontFamily: '"Helvetica Neue", Arial, sans-serif',
+  };
+
+  const spacing = {
+    xs: '8px',
+    sm: '16px',
+    md: '24px',
+    lg: '32px',
+    xl: '48px',
+    xxl: '64px',
+    section: '96px',
+  };
+
+  const border = {
+    width: '2px',
+    style: 'solid',
+    color: '#000000',
+  };
+
   return (
-    <div className="min-h-full bg-[#F8F4E3] p-4 font-sans">
-      {/* Mobile Header */}
-      <div className="md:hidden flex justify-between items-center mb-4 px-2">
-        <span className="text-lg font-black tracking-[0.2em]">DE STIJL</span>
-        <button 
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="p-2 hover:bg-black/5 rounded transition-colors"
-        >
-          {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
-      </div>
+    <div 
+      className="min-h-screen"
+      style={{ 
+        backgroundColor: colors.bg,
+        color: colors.primary,
+        fontFamily: typography.fontFamily,
+        fontSize: '16px',
+        lineHeight: 1.6,
+      }}
+    >
+      {/* Top Navigation */}
+      <header style={{ 
+        padding: `${spacing.md} 0`,
+        borderBottom: `${border.width} ${border.style} ${border.color}`,
+      }}>
+        <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            {/* Mondrian Logo */}
+            <div className="flex gap-1">
+              <div style={{ width: '12px', height: '12px', backgroundColor: colors.red }} />
+              <div style={{ width: '12px', height: '12px', backgroundColor: colors.blue }} />
+              <div style={{ width: '12px', height: '12px', backgroundColor: colors.yellow }} />
+            </div>
+            <span 
+              style={{
+                fontSize: '14px',
+                fontWeight: '700',
+                letterSpacing: '0.2em',
+                textTransform: 'uppercase',
+              }}
+            >
+              DE STIJL
+            </span>
+          </div>
 
-      {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="md:hidden mb-4 p-4 bg-[#1a1a1a]">
-          <nav className="flex flex-col gap-3 text-xs font-bold tracking-wider">
-            <span className="py-2 text-[#DD0100] cursor-default">Works</span>
-            <span className="py-2 text-[#0047AB] cursor-default">Philosophy</span>
-            <span className="py-2 text-[#FADA00] cursor-default">Contact</span>
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-8">
+            {['Works', 'Philosophy', 'Contact'].map((item) => (
+              <span 
+                key={item}
+                className="cursor-pointer"
+                style={{
+                  fontSize: '12px',
+                  fontWeight: '700',
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
+                }}
+              >
+                {item}
+              </span>
+            ))}
+            <button
+              style={{
+                backgroundColor: colors.primary,
+                color: colors.white,
+                border: 'none',
+                padding: '8px 16px',
+                fontSize: '12px',
+                fontWeight: '700',
+                letterSpacing: '0.15em',
+                textTransform: 'uppercase',
+                cursor: 'pointer',
+              }}
+            >
+              Start Trial
+            </button>
           </nav>
-        </div>
-      )}
 
-      {/* 蒙德里安風格網格 */}
-      <div className="grid grid-cols-8 grid-rows-8 gap-[6px] h-[calc(100vh-2rem)] min-h-[600px]" 
-        style={{ backgroundColor: '#1a1a1a' }}>
-        
-        {/* 頂部導航區 */}
-        <div className="col-span-5 row-span-1 bg-[#F8F4E3] flex items-center justify-between px-6">
-          <span className="text-xl font-black tracking-[0.2em] hidden md:block">DE STIJL</span>
-          <nav className="hidden md:flex gap-6 text-xs font-bold tracking-wider">
-            <span className="cursor-default">Works</span>
-            <span className="cursor-default">Philosophy</span>
-            <span className="cursor-default">Contact</span>
-          </nav>
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="md:hidden"
+            style={{
+              backgroundColor: 'transparent',
+              border: 'none',
+              padding: '8px',
+              cursor: 'pointer',
+            }}
+          >
+            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
-        <div className="col-span-2 row-span-1 bg-[#DD0100]" />
-        <div className="col-span-1 row-span-2 bg-[#FADA00]" />
 
-        {/* 主要內容區 */}
-        <div className="col-span-2 row-span-4 bg-[#0047AB] flex items-center justify-center relative overflow-hidden">
-          <span className="text-white text-6xl font-black rotate-[-90deg] tracking-wider opacity-90">ART</span>
-          <div className="absolute bottom-4 left-4 right-4">
-            <div className="text-white/60 text-[10px] tracking-[0.3em]">NEOPLASTICISM</div>
+        {/* Mobile Menu */}
+        {menuOpen && (
+          <div 
+            style={{
+              borderTop: `${border.width} ${border.style} ${border.color}`,
+              padding: spacing.md,
+              backgroundColor: colors.primary,
+              color: colors.white,
+            }}
+          >
+            <div className="max-w-6xl mx-auto px-6 space-y-3">
+              {['Works', 'Philosophy', 'Contact'].map((item) => (
+                <span 
+                  key={item}
+                  className="block cursor-pointer"
+                  style={{
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    letterSpacing: '0.15em',
+                    textTransform: 'uppercase',
+                    padding: '8px 0',
+                  }}
+                >
+                  {item}
+                </span>
+              ))}
+              <button
+                style={{
+                  backgroundColor: colors.red,
+                  color: colors.white,
+                  border: 'none',
+                  padding: '8px 16px',
+                  fontSize: '12px',
+                  fontWeight: '700',
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
+                  cursor: 'pointer',
+                  width: '100%',
+                  marginTop: spacing.sm,
+                }}
+              >
+                Start Trial
+              </button>
+            </div>
+          </div>
+        )}
+      </header>
+
+      {/* Hero Section with Mondrian Grid */}
+      <section style={{ padding: `${spacing.section} ${spacing.md}` }}>
+        <div className="max-w-6xl mx-auto">
+          {/* Desktop Grid */}
+          <div className="hidden md:grid grid-cols-12 gap-2" style={{ minHeight: '500px' }}>
+            {/* Large Red Block - Main Content */}
+            <div 
+              className="col-span-7 row-span-2 flex flex-col justify-center p-8"
+              style={{ backgroundColor: colors.red }}
+            >
+              <div style={{ color: colors.white }}>
+                <h1 
+                  className="text-4xl md:text-5xl lg:text-6xl"
+                  style={{
+                    fontWeight: '700',
+                    lineHeight: 1.1,
+                    marginBottom: spacing.lg,
+                    letterSpacing: '-0.01em',
+                  }}
+                >
+                  Grid-Based
+                  <br />
+                  Design System
+                </h1>
+                <p 
+                  className="text-base md:text-lg"
+                  style={{
+                    lineHeight: 1.6,
+                    marginBottom: spacing.xl,
+                    maxWidth: '68ch',
+                  }}
+                >
+                  Rational, architectural, and timeless. Transform abstract modernist principles into production-ready UI with geometric precision.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <button
+                    style={{
+                      backgroundColor: colors.white,
+                      color: colors.primary,
+                      border: 'none',
+                      padding: '12px 24px',
+                      fontSize: '12px',
+                      fontWeight: '700',
+                      letterSpacing: '0.15em',
+                      textTransform: 'uppercase',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: spacing.sm,
+                    }}
+                  >
+                    Start Free Trial
+                    <ArrowRight size={16} />
+                  </button>
+                  <button
+                    style={{
+                      backgroundColor: 'transparent',
+                      color: colors.white,
+                      border: `2px solid ${colors.white}`,
+                      padding: '12px 24px',
+                      fontSize: '12px',
+                      fontWeight: '700',
+                      letterSpacing: '0.15em',
+                      textTransform: 'uppercase',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    View Gallery
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Blue Block - Visual Element */}
+            <div 
+              className="col-span-3 row-span-1 flex items-center justify-center"
+              style={{ backgroundColor: colors.blue }}
+            >
+              <div className="text-3xl md:text-4xl lg:text-5xl" style={{ 
+                color: colors.white,
+                fontWeight: '700',
+                writingMode: 'vertical-rl',
+                textOrientation: 'mixed',
+              }}>
+                ART
+              </div>
+            </div>
+
+            {/* Yellow Block - Stats */}
+            <div 
+              className="col-span-2 row-span-1 flex flex-col justify-center items-center p-4"
+              style={{ backgroundColor: colors.yellow }}
+            >
+              <div className="text-2xl md:text-3xl" style={{ 
+                color: colors.primary,
+                fontWeight: '700',
+                marginBottom: spacing.sm,
+              }}>
+                100%
+              </div>
+              <div style={{ 
+                color: colors.primary,
+                fontSize: '10px',
+                fontWeight: '700',
+                letterSpacing: '0.15em',
+                textTransform: 'uppercase',
+                textAlign: 'center',
+              }}>
+                Grid Aligned
+              </div>
+            </div>
+
+            {/* Small White Block */}
+            <div 
+              className="col-span-2 row-span-1 flex items-center justify-center"
+              style={{ 
+                backgroundColor: colors.white,
+                border: `${border.width} ${border.style} ${border.color}`,
+              }}
+            >
+              <div style={{ 
+                color: colors.primary,
+                fontSize: '14px',
+                fontWeight: '700',
+                letterSpacing: '0.15em',
+                textTransform: 'uppercase',
+              }}>
+                Since 1917
+              </div>
+            </div>
+
+            {/* Large Blue Block - Features */}
+            <div 
+              className="col-span-3 row-span-1 flex flex-col justify-center p-6"
+              style={{ backgroundColor: colors.blue }}
+            >
+              <div style={{ color: colors.white }}>
+                <h3 
+                  style={{
+                    fontSize: '24px',
+                    fontWeight: '700',
+                    marginBottom: spacing.md,
+                  }}
+                >
+                  Core Principles
+                </h3>
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                  {['Geometric Precision', 'Primary Colors', 'Asymmetrical Balance'].map((item) => (
+                    <li 
+                      key={item}
+                      style={{ 
+                        marginBottom: spacing.sm,
+                        fontSize: '14px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: spacing.sm,
+                      }}
+                    >
+                      <Check size={16} />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Red Accent Block */}
+            <div 
+              className="col-span-5 row-span-1 flex items-center justify-center"
+              style={{ backgroundColor: colors.red }}
+            >
+              <div style={{ 
+                color: colors.white,
+                fontSize: '18px',
+                fontWeight: '700',
+                letterSpacing: '0.15em',
+                textTransform: 'uppercase',
+                textAlign: 'center',
+              }}>
+                "Less is More"
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile Grid - Stacked Layout */}
+          <div className="md:hidden space-y-2">
+            {/* Main Content Block */}
+            <div 
+              className="flex flex-col justify-center p-6"
+              style={{ backgroundColor: colors.red }}
+            >
+              <div style={{ color: colors.white }}>
+                <h1 
+                  style={{
+                    fontSize: '28px',
+                    fontWeight: '700',
+                    lineHeight: 1.1,
+                    marginBottom: spacing.md,
+                    letterSpacing: '-0.01em',
+                  }}
+                >
+                  Grid-Based
+                  <br />
+                  Design System
+                </h1>
+                <p 
+                  style={{
+                    fontSize: '16px',
+                    lineHeight: 1.6,
+                    marginBottom: spacing.lg,
+                  }}
+                >
+                  Rational, architectural, and timeless. Transform abstract modernist principles into production-ready UI.
+                </p>
+                <div className="flex flex-col gap-3">
+                  <button
+                    style={{
+                      backgroundColor: colors.white,
+                      color: colors.primary,
+                      border: 'none',
+                      padding: '12px 24px',
+                      fontSize: '12px',
+                      fontWeight: '700',
+                      letterSpacing: '0.15em',
+                      textTransform: 'uppercase',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: spacing.sm,
+                    }}
+                  >
+                    Start Free Trial
+                    <ArrowRight size={16} />
+                  </button>
+                  <button
+                    style={{
+                      backgroundColor: 'transparent',
+                      color: colors.white,
+                      border: `2px solid ${colors.white}`,
+                      padding: '12px 24px',
+                      fontSize: '12px',
+                      fontWeight: '700',
+                      letterSpacing: '0.15em',
+                      textTransform: 'uppercase',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    View Gallery
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Blue Block */}
+            <div 
+              className="flex items-center justify-center p-6"
+              style={{ backgroundColor: colors.blue }}
+            >
+              <div style={{ 
+                color: colors.white,
+                fontSize: '32px',
+                fontWeight: '700',
+                textAlign: 'center',
+              }}>
+                ART
+              </div>
+            </div>
+
+            {/* Stats Row */}
+            <div className="grid grid-cols-2 gap-2">
+              {/* Yellow Block */}
+              <div 
+                className="flex flex-col justify-center items-center p-4"
+                style={{ backgroundColor: colors.yellow }}
+              >
+                <div style={{ 
+                  color: colors.primary,
+                  fontSize: '24px',
+                  fontWeight: '700',
+                  marginBottom: spacing.sm,
+                }}>
+                  100%
+                </div>
+                <div style={{ 
+                  color: colors.primary,
+                  fontSize: '10px',
+                  fontWeight: '700',
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
+                  textAlign: 'center',
+                }}>
+                  Grid Aligned
+                </div>
+              </div>
+
+              {/* White Block */}
+              <div 
+                className="flex items-center justify-center"
+                style={{ 
+                  backgroundColor: colors.white,
+                  border: `${border.width} ${border.style} ${border.color}`,
+                }}
+              >
+                <div style={{ 
+                  color: colors.primary,
+                  fontSize: '12px',
+                  fontWeight: '700',
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
+                }}>
+                  Since 1917
+                </div>
+              </div>
+            </div>
+
+            {/* Features Block */}
+            <div 
+              className="flex flex-col justify-center p-6"
+              style={{ backgroundColor: colors.blue }}
+            >
+              <div style={{ color: colors.white }}>
+                <h3 
+                  style={{
+                    fontSize: '20px',
+                    fontWeight: '700',
+                    marginBottom: spacing.md,
+                  }}
+                >
+                  Core Principles
+                </h3>
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                  {['Geometric Precision', 'Primary Colors', 'Asymmetrical Balance'].map((item) => (
+                    <li 
+                      key={item}
+                      style={{ 
+                        marginBottom: spacing.sm,
+                        fontSize: '14px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: spacing.sm,
+                      }}
+                    >
+                      <Check size={16} />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Red Accent Block */}
+            <div 
+              className="flex items-center justify-center p-6"
+              style={{ backgroundColor: colors.red }}
+            >
+              <div style={{ 
+                color: colors.white,
+                fontSize: '16px',
+                fontWeight: '700',
+                letterSpacing: '0.15em',
+                textTransform: 'uppercase',
+                textAlign: 'center',
+              }}>
+                "Less is More"
+              </div>
+            </div>
           </div>
         </div>
-        <div className="col-span-4 row-span-3 bg-[#F8F4E3] p-8 flex flex-col justify-center">
-          <div className="text-[10px] tracking-[0.3em] text-[#666] mb-4">MONDRIAN / DE STIJL</div>
-          <h1 className="text-4xl font-black leading-tight mb-4 tracking-tight">
-            Neo-Plasticism<br />Aesthetics
-          </h1>
-          <p className="text-sm leading-relaxed text-[#444] max-w-sm">
-            Pure geometric aesthetics composed of vertical and horizontal lines, primary colors, and non-colors.
-            Pursuing universality and absoluteness in art.
-          </p>
-        </div>
-        <div className="col-span-1 row-span-3 bg-[#F8F4E3]" />
+      </section>
 
-        {/* 中間裝飾區 */}
-        <div className="col-span-3 row-span-1 bg-[#1a1a1a] flex items-center px-6">
-          <span className="text-white text-[10px] tracking-[0.4em] font-medium">PIET MONDRIAN · 1872-1944</span>
-        </div>
-        <div className="col-span-1 row-span-1 bg-[#DD0100]" />
-        <div className="col-span-1 row-span-3 bg-[#FADA00]" />
-
-        {/* 底部統計區 */}
-        <div className="col-span-1 row-span-3 bg-[#DD0100] flex items-end p-4">
-          <span className="text-white text-xs font-bold rotate-[-90deg] origin-left translate-y-full">RED</span>
-        </div>
-        <div className="col-span-4 row-span-3 bg-[#F8F4E3] p-6 flex flex-col justify-between">
-          <div className="grid grid-cols-3 gap-6">
+      {/* Metrics Grid */}
+      <section style={{ padding: `${spacing.xl} ${spacing.md}` }}>
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             {[
-              { num: '1917', label: 'Style Founded' },
-              { num: '3', label: 'Primary Colors' },
-              { num: '90°', label: 'Right Angles' },
-            ].map((item, i) => (
-              <div key={i} className="text-center">
-                <div className="text-3xl font-black mb-1">{item.num}</div>
-                <div className="text-[10px] tracking-wider text-[#666]">{item.label}</div>
+              { value: '5,000+', label: 'Designers', color: colors.red },
+              { value: '100%', label: 'Precision', color: colors.blue },
+              { value: '3', label: 'Colors', color: colors.yellow },
+              { value: '∞', label: 'Possibilities', color: colors.primary },
+            ].map((metric, index) => (
+              <div
+                key={index}
+                style={{
+                  backgroundColor: metric.color,
+                  padding: spacing.lg,
+                  textAlign: 'center',
+                  color: colors.white,
+                }}
+              >
+                <div 
+                  className="text-2xl md:text-3xl"
+                  style={{
+                    fontWeight: '700',
+                    marginBottom: spacing.sm,
+                  }}
+                >
+                  {metric.value}
+                </div>
+                <div 
+                  className="text-xs"
+                  style={{
+                    fontWeight: '700',
+                    letterSpacing: '0.15em',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  {metric.label}
+                </div>
               </div>
             ))}
           </div>
-          <div className="flex gap-3 mt-4">
-            <button className="flex-1 py-3 bg-[#1a1a1a] text-white text-xs font-bold tracking-wider hover:bg-[#333] transition-colors">
-              Explore Works
-            </button>
-            <button className="flex-1 py-3 border-3 border-[#1a1a1a] text-xs font-bold tracking-wider hover:bg-[#1a1a1a] hover:text-white transition-colors">
-              Learn More
-            </button>
+        </div>
+      </section>
+
+      {/* Features Grid */}
+      <section style={{ padding: `${spacing.xl} ${spacing.md}` }}>
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-2">
+            <div 
+              className="md:col-span-8 p-6 md:p-8"
+              style={{ 
+                backgroundColor: colors.white,
+                border: `${border.width} ${border.style} ${border.color}`,
+              }}
+            >
+              <h2 
+                className="text-2xl md:text-3xl lg:text-4xl"
+                style={{
+                  fontWeight: '700',
+                  lineHeight: 1.2,
+                  marginBottom: spacing.lg,
+                }}
+              >
+                Structured Features
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {[
+                  { title: 'Grid System', desc: '12-column responsive layout' },
+                  { title: 'Color Theory', desc: 'Primary colors only' },
+                  { title: 'Typography', desc: 'Helvetica Neue hierarchy' },
+                ].map((feature) => (
+                  <div key={feature.title}>
+                    <h3 
+                      style={{
+                        fontSize: '16px',
+                        fontWeight: '700',
+                        marginBottom: spacing.sm,
+                      }}
+                    >
+                      {feature.title}
+                    </h3>
+                    <p style={{ fontSize: '14px', color: '#666' }}>
+                      {feature.desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div 
+              className="md:col-span-4 flex items-center justify-center p-6"
+              style={{ backgroundColor: colors.blue }}
+            >
+              <div style={{ 
+                color: colors.white,
+                fontSize: '20px',
+                fontWeight: '700',
+                textAlign: 'center',
+              }}>
+                MODERN<br />
+                DESIGN
+              </div>
+            </div>
           </div>
         </div>
-        <div className="col-span-2 row-span-3 bg-[#0047AB] flex items-end justify-between p-4">
-          <span className="text-white/60 text-[10px] tracking-wider">BLUE</span>
-          <span className="text-white/60 text-[10px]">→</span>
+      </section>
+
+      {/* Pricing */}
+      <section style={{ padding: `${spacing.xl} ${spacing.md}` }}>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center" style={{ marginBottom: spacing.xl }}>
+            <h2 
+              className="text-2xl md:text-3xl lg:text-4xl"
+              style={{
+                fontWeight: '700',
+                marginBottom: spacing.lg,
+              }}
+            >
+              Pricing Plans
+            </h2>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+            {[
+              {
+                name: 'Basic',
+                price: '$0',
+                color: colors.white,
+                features: ['Grid layouts', 'Basic colors', 'Community support'],
+              },
+              {
+                name: 'Professional',
+                price: '$29',
+                color: colors.blue,
+                features: ['Advanced grids', 'Custom colors', 'Priority support'],
+              },
+              {
+                name: 'Enterprise',
+                price: 'Custom',
+                color: colors.red,
+                features: ['Unlimited projects', 'Custom solutions', 'Dedicated support'],
+              },
+            ].map((plan) => (
+              <div
+                key={plan.name}
+                style={{
+                  backgroundColor: plan.color,
+                  border: plan.color === colors.white ? `${border.width} ${border.style} ${border.color}` : 'none',
+                  padding: spacing.xl,
+                  color: plan.color === colors.white ? colors.primary : colors.white,
+                }}
+              >
+                <h3 
+                  style={{
+                    fontSize: '20px',
+                    fontWeight: '700',
+                    marginBottom: spacing.md,
+                  }}
+                >
+                  {plan.name}
+                </h3>
+                <div 
+                  style={{
+                    fontSize: '32px',
+                    fontWeight: '700',
+                    marginBottom: spacing.lg,
+                  }}
+                >
+                  {plan.price}
+                </div>
+                <div style={{ marginBottom: spacing.lg }}>
+                  {plan.features.map((feature) => (
+                    <div 
+                      key={feature}
+                      style={{ 
+                        marginBottom: spacing.sm,
+                        fontSize: '14px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: spacing.sm,
+                      }}
+                    >
+                      <Check size={16} />
+                      {feature}
+                    </div>
+                  ))}
+                </div>
+                <button
+                  style={{
+                    width: '100%',
+                    backgroundColor: plan.color === colors.white ? colors.primary : colors.white,
+                    color: plan.color === colors.white ? colors.white : colors.primary,
+                    border: 'none',
+                    padding: '12px',
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    letterSpacing: '0.15em',
+                    textTransform: 'uppercase',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Get Started
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* Footer */}
+      <footer 
+        style={{
+          borderTop: `${border.width} ${border.style} ${border.color}`,
+          padding: `${spacing.xl} ${spacing.md}`,
+          backgroundColor: colors.white,
+        }}
+      >
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-2">
+            <div className="md:col-span-4 text-center md:text-left">
+              <div className="flex gap-1 mb-4 justify-center md:justify-start">
+                <div style={{ width: '8px', height: '8px', backgroundColor: colors.red }} />
+                <div style={{ width: '8px', height: '8px', backgroundColor: colors.blue }} />
+                <div style={{ width: '8px', height: '8px', backgroundColor: colors.yellow }} />
+              </div>
+              <div style={{ fontSize: '12px', fontWeight: '700', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+                DE STIJL
+              </div>
+            </div>
+            <div className="md:col-span-4 text-center">
+              <div style={{ fontSize: '12px', color: '#666' }}>
+                © 2025 Grid Design System
+              </div>
+            </div>
+            <div className="md:col-span-4 text-center md:text-right">
+              <div style={{ fontSize: '12px', color: '#666' }}>
+                Geometric Precision
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
