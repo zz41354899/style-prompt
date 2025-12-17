@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Menu, X, Check } from 'lucide-react';
 
-export const S18RetroPixelUI = () => {
+export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const isMobile = deviceMode === 'mobile';
+  const isDesktop = deviceMode === 'desktop';
 
   // Design tokens from the specification
   const colors = {
@@ -133,7 +135,7 @@ export const S18RetroPixelUI = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className={`${isDesktop ? 'flex' : 'hidden'} items-center gap-8`}>
             {['Features', 'Pricing', 'Docs', 'About'].map((item) => (
               <span 
                 key={item}
@@ -178,9 +180,8 @@ export const S18RetroPixelUI = () => {
           </nav>
 
           {/* Mobile Menu Button */}
-          <button
+          {!isDesktop && <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden"
             style={{
               backgroundColor: colors.background.surface,
               border: `1px solid ${colors.border.default}`,
@@ -190,13 +191,12 @@ export const S18RetroPixelUI = () => {
             }}
           >
             {menuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+          </button>}
         </div>
 
         {/* Mobile Menu */}
-        {menuOpen && (
-          <div 
-            className="md:hidden"
+        {menuOpen && !isDesktop && (
+          <div
             style={{
               backgroundColor: colors.background.surface,
               borderTop: `1px solid ${colors.border.default}`,
@@ -245,9 +245,9 @@ export const S18RetroPixelUI = () => {
       {/* Hero Section */}
       <section style={{ padding: `${spacing.xl} ${spacing.sm}` }}>
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+          <div className="grid items-center" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(12, 1fr)', gap: '32px' }}>
             {/* Left Column - Content */}
-            <div className="md:col-span-7">
+            <div style={{ gridColumn: isMobile ? 'span 1' : 'span 7' }}>
               {/* Badge */}
               <div 
                 className="inline-flex items-center gap-2 mb-6"
@@ -301,7 +301,7 @@ export const S18RetroPixelUI = () => {
               </p>
 
               {/* CTAs */}
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex flex-col md:flex-row gap-3">
                 <button
                   style={{
                     backgroundColor: colors.accent.primary,
@@ -362,7 +362,7 @@ export const S18RetroPixelUI = () => {
             </div>
 
             {/* Right Column - ASCII Art / Pixel Illustration */}
-            <div className="md:col-span-5">
+            <div style={{ gridColumn: isMobile ? 'span 1' : 'span 5' }}>
               <div 
                 style={{
                   backgroundColor: colors.background.surface,
@@ -477,8 +477,9 @@ export const S18RetroPixelUI = () => {
       <section style={{ padding: `${spacing.lg} ${spacing.sm}` }}>
         <div className="max-w-6xl mx-auto">
           <div 
-            className="grid grid-cols-2 md:grid-cols-4 gap-4"
+            className="grid gap-4"
             style={{
+              gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
               backgroundColor: colors.background.surface,
               border: `1px solid ${colors.border.default}`,
               boxShadow: shadows.pixelSm,
@@ -536,7 +537,7 @@ export const S18RetroPixelUI = () => {
             </div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
             {[
               {
                 title: 'Pixel Dashboard',
@@ -651,8 +652,9 @@ export const S18RetroPixelUI = () => {
           </div>
           
           <div 
-            className="grid grid-cols-2 md:grid-cols-4 gap-4"
+            className="grid gap-4"
             style={{
+              gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
               backgroundColor: colors.background.surface,
               border: `1px solid ${colors.border.default}`,
               boxShadow: shadows.pixelSm,
@@ -723,7 +725,7 @@ export const S18RetroPixelUI = () => {
             </h2>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
             {[
               {
                 name: 'Starter',
@@ -947,7 +949,7 @@ export const S18RetroPixelUI = () => {
               Join thousands of teams already using Retro Pixel UI to build amazing products.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col md:flex-row gap-4 justify-center">
               <button
                 style={{
                   backgroundColor: colors.accent.primary,

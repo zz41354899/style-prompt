@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { X, Menu } from 'lucide-react';
 
-export const S17BauhausModernism = () => {
+export const S17BauhausModernism = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const isMobile = deviceMode === 'mobile';
+  const isDesktop = deviceMode === 'desktop';
 
   return (
-    <div className="min-h-full bg-[#F5F5F5] text-[#1a1a1a] p-4 md:p-6 lg:p-8 font-sans relative overflow-hidden">
+    <div className="min-h-full bg-[#F5F5F5] text-[#1a1a1a] font-sans relative overflow-hidden" style={{ padding: isMobile ? '16px' : '32px' }}>
       {/* 幾何背景元素 */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-[#FF6B35] rounded-full opacity-10 blur-3xl" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#004E89] rounded-full opacity-10 blur-3xl" />
@@ -20,7 +22,7 @@ export const S17BauhausModernism = () => {
         </div>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-12">
+        <nav className={`${isDesktop ? 'flex' : 'hidden'} items-center gap-12`}>
           <span className="text-sm font-bold tracking-wider uppercase cursor-default">Design</span>
           <span className="text-sm font-bold tracking-wider uppercase cursor-default">Form</span>
           <span className="text-sm font-bold tracking-wider uppercase cursor-default">Function</span>
@@ -30,17 +32,17 @@ export const S17BauhausModernism = () => {
         </nav>
 
         {/* Mobile Menu Button */}
-        <button
+        {!isDesktop && <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden p-2 border-2 border-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-white transition-colors"
+          className="p-2 border-2 border-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-white transition-colors"
         >
           {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
+        </button>}
       </header>
 
       {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="md:hidden relative z-20 mb-8 p-6 bg-[#1a1a1a] text-white border-4 border-[#1a1a1a]">
+      {menuOpen && !isDesktop && (
+        <div className="relative z-20 mb-8 p-6 bg-[#1a1a1a] text-white border-4 border-[#1a1a1a]">
           <nav className="flex flex-col gap-4">
             <span className="text-sm font-bold tracking-wider uppercase cursor-default">Design</span>
             <span className="text-sm font-bold tracking-wider uppercase cursor-default">Form</span>
@@ -53,9 +55,9 @@ export const S17BauhausModernism = () => {
       )}
 
       {/* Hero Section */}
-      <section className="relative z-10 mb-16 md:mb-24 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
+      <section className="relative z-10 grid" style={{ marginBottom: isMobile ? '64px' : '96px', gridTemplateColumns: isMobile ? '1fr' : 'repeat(12, 1fr)', gap: isMobile ? '24px' : '32px' }}>
         {/* Left Geometric Shape */}
-        <div className="md:col-span-3 flex items-center justify-center">
+        <div style={{ gridColumn: isMobile ? 'span 1' : 'span 3' }} className="flex items-center justify-center">
           <div className="relative w-full aspect-square">
             <div className="absolute inset-0 bg-[#FF6B35] transform rotate-45" />
             <div className="absolute inset-8 bg-[#F5F5F5] transform rotate-45" />
@@ -64,7 +66,7 @@ export const S17BauhausModernism = () => {
         </div>
 
         {/* Main Content */}
-        <div className="md:col-span-9 flex flex-col justify-center">
+        <div style={{ gridColumn: isMobile ? 'span 1' : 'span 9' }} className="flex flex-col justify-center">
           <div className="text-xs font-black tracking-[0.3em] uppercase text-[#FF6B35] mb-6">
             Form Follows Function
           </div>
@@ -90,7 +92,7 @@ export const S17BauhausModernism = () => {
         <div className="text-xs font-black tracking-[0.3em] uppercase text-[#999] mb-8 md:mb-12">
           Core Principles
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+        <div className="grid" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: isMobile ? '16px' : '24px' }}>
           {[
             {
               title: 'Geometry',
@@ -129,7 +131,7 @@ export const S17BauhausModernism = () => {
       </section>
 
       {/* Features Section */}
-      <section className="relative z-10 mb-16 md:mb-24 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+      <section className="relative z-10 grid" style={{ marginBottom: isMobile ? '64px' : '96px', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: isMobile ? '24px' : '32px' }}>
         {/* Left Feature */}
         <div className="bg-white border-4 border-[#1a1a1a] p-6 md:p-12 flex flex-col justify-between">
           <div>
@@ -180,7 +182,7 @@ export const S17BauhausModernism = () => {
             Every line, shape, and color has meaning.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: isMobile ? '24px' : '32px' }}>
           {[
             { title: 'Radical Simplicity', desc: 'Strip away excess to reveal truth' },
             { title: 'Material Honesty', desc: 'Let materials speak their language' },
@@ -195,7 +197,7 @@ export const S17BauhausModernism = () => {
       </section>
 
       {/* Features */}
-      <section className="relative z-10 mb-16 md:mb-24 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+      <section className="relative z-10 grid" style={{ marginBottom: isMobile ? '64px' : '96px', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: isMobile ? '24px' : '32px' }}>
         {[
           { title: 'Asymmetric Balance', desc: 'Dynamic compositions through careful imbalance', detail: 'Visual tension creates interest' },
           { title: 'Primary Colors', desc: 'Red, yellow, blue with black and white', detail: 'Maximum contrast, minimum palette' },
@@ -215,7 +217,7 @@ export const S17BauhausModernism = () => {
         <div className="text-center mb-8 md:mb-16">
           <h2 className="text-2xl md:text-3xl font-black mb-4 uppercase tracking-tight">Design Platforms</h2>
         </div>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+        <div className="grid" style={{ gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: isMobile ? '16px' : '24px' }}>
           {['Architecture', 'Industrial', 'Graphic', 'Digital'].map((item) => (
             <div key={item} className="bg-white p-4 md:p-8 text-center border-4 border-[#1a1a1a]">
               <div className="text-sm md:text-lg font-black uppercase tracking-tight">{item}</div>
@@ -226,7 +228,7 @@ export const S17BauhausModernism = () => {
 
       {/* Metrics */}
       <section className="relative z-10 mb-16 md:mb-24 bg-[#FF6B35] text-white p-6 md:p-12 border-4 border-[#1a1a1a]">
-        <div className="grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-8">
+        <div className="grid" style={{ gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: isMobile ? '24px' : '32px' }}>
           {[
             { value: '100+', label: 'Years of Influence' },
             { value: '50K+', label: 'Designers' },
@@ -253,7 +255,7 @@ export const S17BauhausModernism = () => {
               Our commitment to Bauhaus principles means uncompromising quality and authenticity.
               Every design maintains the core values of the movement.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+            <div className="grid" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: isMobile ? '16px' : '24px' }}>
               {[
                 'Authentic Bauhaus principles',
                 'Original design methodology',
@@ -274,7 +276,7 @@ export const S17BauhausModernism = () => {
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-2xl md:text-3xl font-black mb-4 uppercase tracking-tight">Design Plans</h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: isMobile ? '24px' : '32px' }}>
           {[
             { name: 'Basic', price: '$29/mo', features: ['Core principles', 'Basic templates'] },
             { name: 'Professional', price: '$99/mo', features: ['Full methodology', 'Custom projects'] },
@@ -324,7 +326,7 @@ export const S17BauhausModernism = () => {
           <p className="text-base md:text-lg mb-8 md:mb-10 text-[#ccc]">
             Join the movement that changed design forever.
           </p>
-          <div className="flex flex-col md:flex-row gap-3 md:gap-4 max-w-md mx-auto">
+          <div className="flex max-w-md mx-auto" style={{ flexDirection: isMobile ? 'column' : 'row', gap: isMobile ? '12px' : '16px' }}>
             <input 
               type="email" 
               placeholder="your@email.com"
@@ -338,7 +340,7 @@ export const S17BauhausModernism = () => {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 flex flex-col md:flex-row justify-between items-center pt-8 border-t-4 border-[#1a1a1a] text-xs font-bold tracking-[0.2em] uppercase text-[#999]">
+      <footer className="relative z-10 flex justify-between items-center pt-8 border-t-4 border-[#1a1a1a] text-xs font-bold tracking-[0.2em] uppercase text-[#999]" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
         <span>Bauhaus School · 1919-1933</span>
         <span>© 2024 Modernism Design</span>
       </footer>

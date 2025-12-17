@@ -1,72 +1,204 @@
 import { useState } from 'react';
 import { Wifi, AlertTriangle, CreditCard, Cpu, Database, ShieldAlert, Menu, X, ArrowRight } from 'lucide-react';
 
-export const S06Cyberpunk = () => {
+export const S06Cyberpunk = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-full bg-[#0a0a12] text-white p-4 md:p-6 font-mono relative overflow-hidden">
+    <div 
+      style={{
+        minHeight: '100%',
+        backgroundColor: '#0a0a12',
+        color: 'white',
+        padding: deviceMode === 'mobile' ? '16px' : '24px',
+        fontFamily: 'monospace',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
       {/* 掃描線效果 */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
+      <div 
         style={{
-          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,255,0.5) 2px, rgba(0,255,255,0.5) 4px)'
+          position: 'absolute',
+          inset: 0,
+          pointerEvents: 'none',
+          opacity: 0.03,
+          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,255,0.5) 2px, rgba(0,255,255,0.5) 4px)',
         }}
       />
       
       {/* 霓虹光暈 */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-[100px]" />
-      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-pink-500/20 rounded-full blur-[100px]" />
+      <div 
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: '25%',
+          width: '384px',
+          height: '384px',
+          backgroundColor: 'rgba(6,182,212,0.2)',
+          borderRadius: '50%',
+          filter: 'blur(100px)',
+        }}
+      />
+      <div 
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          right: '25%',
+          width: '320px',
+          height: '320px',
+          backgroundColor: 'rgba(236,72,153,0.2)',
+          borderRadius: '50%',
+          filter: 'blur(100px)',
+        }}
+      />
 
       {/* Header */}
-      <header className="relative z-10 flex justify-between items-center mb-8 md:mb-10">
-        <div className="flex items-center gap-3">
-          <div className="relative">
-            <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-cyan-600 flex items-center justify-center clip-corner">
-              <Cpu className="w-5 h-5 text-black" />
+      <header 
+        style={{
+          position: 'relative',
+          zIndex: 10,
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: deviceMode === 'mobile' ? '32px' : '40px',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ position: 'relative' }}>
+            <div 
+              style={{
+                width: '40px',
+                height: '40px',
+                background: 'linear-gradient(to bottom right, #22d3ee, #0891b2)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))',
+              }}
+            >
+              <Cpu style={{ width: '20px', height: '20px', color: 'black' }} />
             </div>
-            <div className="absolute -top-1 -right-1 w-3 h-3 bg-pink-500 rounded-full animate-pulse" />
+            <div 
+              style={{
+                position: 'absolute',
+                top: '-4px',
+                right: '-4px',
+                width: '12px',
+                height: '12px',
+                backgroundColor: '#ec4899',
+                borderRadius: '50%',
+                animation: 'pulse 2s infinite',
+              }}
+            />
           </div>
           <div>
-            <span className="text-cyan-400 text-lg font-bold tracking-wider">NEON//CORP</span>
-            <div className="text-[10px] text-cyan-400/50">SYSTEM v2.077</div>
+            <span 
+              style={{
+                color: '#22d3ee',
+                fontSize: '18px',
+                fontWeight: '700',
+                letterSpacing: '0.05em',
+              }}
+            >
+              NEON//CORP
+            </span>
+            <div 
+              style={{
+                fontSize: '10px',
+                color: 'rgba(34,211,238,0.5)',
+              }}
+            >
+              SYSTEM v2.077
+            </div>
           </div>
         </div>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex gap-1">
+        <nav 
+          style={{
+            display: deviceMode === 'desktop' ? 'flex' : 'none',
+            gap: '4px',
+          }}
+        >
           {[
             { label: '系統', color: 'pink' },
             { label: '資料', color: 'cyan' },
             { label: '連結', color: 'yellow' },
           ].map((item, i) => (
-            <span key={i}
-              className={`px-4 py-2 text-xs uppercase tracking-wider border cursor-default`}
-              style={{ borderColor: item.color === 'pink' ? 'rgba(236,72,153,0.3)' : item.color === 'cyan' ? 'rgba(34,211,238,0.3)' : 'rgba(250,204,21,0.3)', color: item.color === 'pink' ? '#ec4899' : item.color === 'cyan' ? '#22d3ee' : '#facc15' }}>
+            <span 
+              key={i}
+              style={{
+                padding: '8px 16px',
+                fontSize: '12px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+                border: '1px solid',
+                cursor: 'default',
+                borderColor: item.color === 'pink' ? 'rgba(236,72,153,0.3)' : item.color === 'cyan' ? 'rgba(34,211,238,0.3)' : 'rgba(250,204,21,0.3)',
+                color: item.color === 'pink' ? '#ec4899' : item.color === 'cyan' ? '#22d3ee' : '#facc15',
+              }}
+            >
               [{item.label}]
             </span>
           ))}
         </nav>
 
         {/* Mobile Menu Button */}
-        <button 
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden p-2 border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/20 transition-colors"
-        >
-          {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
+        {deviceMode === 'mobile' || deviceMode === 'tablet' && (
+          <button 
+            onClick={() => setMenuOpen(!menuOpen)}
+            style={{
+              display: 'flex',
+              padding: '8px',
+              border: '1px solid rgba(34,211,238,0.3)',
+              color: '#22d3ee',
+              backgroundColor: 'transparent',
+              cursor: 'pointer',
+              transition: 'background-color 0.2s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = 'rgba(34,211,238,0.2)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+            }}
+          >
+            {menuOpen ? <X style={{ width: '20px', height: '20px' }} /> : <Menu style={{ width: '20px', height: '20px' }} />}
+          </button>
+        )}
       </header>
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden relative z-20 mb-6 border border-cyan-500/30 bg-black/50 backdrop-blur-sm">
+        <div 
+          style={{
+            position: 'relative',
+            zIndex: 20,
+            marginBottom: '24px',
+            border: '1px solid rgba(34,211,238,0.3)',
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            backdropFilter: 'blur(4px)',
+          }}
+        >
           {[
             { label: '系統', color: 'pink' },
             { label: '資料', color: 'cyan' },
             { label: '連結', color: 'yellow' },
           ].map((item, i) => (
-            <span key={i}
-              className="block px-4 py-3 text-xs uppercase tracking-wider border-b border-cyan-500/20 last:border-b-0 cursor-default"
-              style={{ color: item.color === 'pink' ? '#ec4899' : item.color === 'cyan' ? '#22d3ee' : '#facc15' }}>
+            <span 
+              key={i}
+              style={{
+                display: 'block',
+                padding: '12px 16px',
+                fontSize: '12px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+                borderBottom: i < 2 ? '1px solid rgba(34,211,238,0.2)' : 'none',
+                cursor: 'default',
+                color: item.color === 'pink' ? '#ec4899' : item.color === 'cyan' ? '#22d3ee' : '#facc15',
+              }}
+            >
               [{item.label}]
             </span>
           ))}
@@ -74,46 +206,195 @@ export const S06Cyberpunk = () => {
       )}
 
       {/* Hero */}
-      <section className="relative z-10 mb-8 md:mb-12">
-        <div className="flex items-center gap-2 text-pink-500 text-xs mb-4">
-          <span className="w-2 h-2 bg-pink-500 animate-pulse" />
-          <span className="text-[10px] md:text-xs">// SYSTEM_INITIALIZATION_COMPLETE</span>
+      <section 
+        style={{
+          position: 'relative',
+          zIndex: 10,
+          marginBottom: deviceMode === 'mobile' ? '32px' : '48px',
+        }}
+      >
+        <div 
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            color: '#ec4899',
+            fontSize: '12px',
+            marginBottom: '16px',
+          }}
+        >
+          <span 
+            style={{
+              width: '8px',
+              height: '8px',
+              backgroundColor: '#ec4899',
+              animation: 'pulse 2s infinite',
+            }}
+          />
+          <span 
+            style={{
+              fontSize: deviceMode === 'mobile' ? '10px' : '12px',
+            }}
+          >
+            // SYSTEM_INITIALIZATION_COMPLETE
+          </span>
         </div>
-        <h1 className="text-4xl md:text-5xl font-black mb-6 leading-tight">
-          <span className="text-cyan-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]">CYBER</span>
-          <span className="text-pink-500 drop-shadow-[0_0_10px_rgba(236,72,153,0.5)]">PUNK</span>
+        <h1 
+          style={{
+            fontSize: deviceMode === 'mobile' ? '36px' : '48px',
+            fontWeight: '900',
+            marginBottom: '24px',
+            lineHeight: '1.2',
+          }}
+        >
+          <span 
+            style={{
+              color: '#22d3ee',
+              filter: 'drop-shadow(0 0 10px rgba(34,211,238,0.5))',
+            }}
+          >
+            CYBER
+          </span>
+          <span 
+            style={{
+              color: '#ec4899',
+              filter: 'drop-shadow(0 0 10px rgba(236,72,153,0.5))',
+            }}
+          >
+            PUNK
+          </span>
           <br />
-          <span className="text-yellow-400 drop-shadow-[0_0_10px_rgba(250,204,21,0.5)]">2077</span>
+          <span 
+            style={{
+              color: '#facc15',
+              filter: 'drop-shadow(0 0 10px rgba(250,204,21,0.5))',
+            }}
+          >
+            2077
+          </span>
         </h1>
-        <p className="text-white text-sm max-w-lg leading-relaxed mb-8">
+        <p 
+          style={{
+            color: 'white',
+            fontSize: '14px',
+            maxWidth: '512px',
+            lineHeight: '1.6',
+            marginBottom: '32px',
+          }}
+        >
           In the neon-lit night city, technology and humanity intertwine. High tech, low life.
           Welcome to the future, welcome to the dark.
         </p>
-        <div className="flex gap-4">
-          <button className="group px-6 py-3 bg-gradient-to-r from-cyan-500 to-cyan-400 text-black font-bold text-sm hover:from-cyan-400 hover:to-cyan-300 transition-all flex items-center gap-2">
+        <div style={{ display: 'flex', gap: '16px' }}>
+          <button 
+            style={{
+              padding: '12px 24px',
+              background: 'linear-gradient(to right, #06b6d4, #22d3ee)',
+              color: 'black',
+              fontWeight: '700',
+              fontSize: '14px',
+              border: 'none',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              transition: 'all 0.2s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'linear-gradient(to right, #22d3ee, #67e8f9)';
+              const lastDiv = e.currentTarget.querySelector('div:last-child');
+              if (lastDiv) {
+                (lastDiv as HTMLElement).style.transform = 'rotate(90deg)';
+              }
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'linear-gradient(to right, #06b6d4, #22d3ee)';
+              const lastDiv = e.currentTarget.querySelector('div:last-child');
+              if (lastDiv) {
+                (lastDiv as HTMLElement).style.transform = 'rotate(0deg)';
+              }
+            }}
+          >
             <span>&gt; Enter System</span>
-            <div className="w-4 h-4 border-2 border-black group-hover:rotate-90 transition-transform" />
+            <div 
+              style={{
+                width: '16px',
+                height: '16px',
+                border: '2px solid black',
+                transition: 'transform 0.2s ease',
+              }}
+            />
           </button>
-          <button className="px-6 py-3 border border-pink-500/50 text-pink-400 text-sm hover:bg-pink-500/20 hover:border-pink-500 transition-all">
+          <button 
+            style={{
+              padding: '12px 24px',
+              border: '1px solid rgba(236,72,153,0.5)',
+              color: '#f472b6',
+              fontSize: '14px',
+              backgroundColor: 'transparent',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = 'rgba(236,72,153,0.2)';
+              e.currentTarget.style.borderColor = '#ec4899';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.borderColor = 'rgba(236,72,153,0.5)';
+            }}
+          >
             &gt; Learn More_
           </button>
         </div>
       </section>
 
       {/* Stats Grid */}
-      <section className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-3 mb-8">
+      <section 
+        style={{
+          position: 'relative',
+          zIndex: 10,
+          display: 'grid',
+          gridTemplateColumns: deviceMode === 'mobile' ? '1fr' : '1fr 1fr 1fr',
+          gap: '12px',
+          marginBottom: '32px',
+        }}
+      >
         {[
-          { icon: <Wifi className="w-4 h-4" />, label: 'Connection', value: 'ONLINE', color: 'emerald', border: 'rgba(16,185,129,0.3)' },
-          { icon: <AlertTriangle className="w-4 h-4" />, label: 'Threat Level', value: 'HIGH', color: 'red', border: 'rgba(239,68,68,0.3)' },
-          { icon: <CreditCard className="w-4 h-4" />, label: 'Credits', value: '¥89,420', color: 'yellow', border: 'rgba(250,204,21,0.3)' },
+          { icon: <Wifi style={{ width: '16px', height: '16px' }} />, label: 'Connection', value: 'ONLINE', color: 'emerald', border: 'rgba(16,185,129,0.3)' },
+          { icon: <AlertTriangle style={{ width: '16px', height: '16px' }} />, label: 'Threat Level', value: 'HIGH', color: 'red', border: 'rgba(239,68,68,0.3)' },
+          { icon: <CreditCard style={{ width: '16px', height: '16px' }} />, label: 'Credits', value: '¥89,420', color: 'yellow', border: 'rgba(250,204,21,0.3)' },
         ].map((item, i) => (
-          <div key={i} className="border p-4 bg-black/30 backdrop-blur-sm" style={{ borderColor: item.border }}>
-            <div className="flex items-center gap-2 text-xs text-gray-300 uppercase mb-2">
+          <div 
+            key={i} 
+            style={{
+              border: `1px solid ${item.border}`,
+              padding: '16px',
+              backgroundColor: 'rgba(0,0,0,0.3)',
+              backdropFilter: 'blur(4px)',
+            }}
+          >
+            <div 
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                fontSize: '12px',
+                color: '#d1d5db',
+                textTransform: 'uppercase',
+                marginBottom: '8px',
+              }}
+            >
               {item.icon}
               <span>{item.label}</span>
             </div>
-            <div className={`text-2xl font-bold text-${item.color}-400`}
-              style={{ color: item.color === 'emerald' ? '#34d399' : item.color === 'red' ? '#f87171' : '#facc15' }}>
+            <div 
+              style={{
+                fontSize: '24px',
+                fontWeight: '700',
+                color: item.color === 'emerald' ? '#34d399' : item.color === 'red' ? '#f87171' : '#facc15',
+              }}
+            >
               {item.value}
             </div>
           </div>
@@ -121,35 +402,124 @@ export const S06Cyberpunk = () => {
       </section>
 
       {/* Value Proposition */}
-      <section className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-3 mb-8">
-        <div className="md:col-span-12 border border-pink-500/20 bg-pink-500/5 backdrop-blur-sm p-6">
-          <div className="flex items-center gap-2 text-pink-500 text-xs mb-6">
-            <Database className="w-4 h-4" />
+      <section 
+        style={{
+          position: 'relative',
+          zIndex: 10,
+          display: 'grid',
+          gridTemplateColumns: 'repeat(12, 1fr)',
+          gap: '12px',
+          marginBottom: '32px',
+        }}
+      >
+        <div 
+          style={{
+            gridColumn: 'span 12',
+            border: '1px solid rgba(236,72,153,0.2)',
+            backgroundColor: 'rgba(236,72,153,0.05)',
+            backdropFilter: 'blur(4px)',
+            padding: '24px',
+          }}
+        >
+          <div 
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              color: '#ec4899',
+              fontSize: '12px',
+              marginBottom: '24px',
+            }}
+          >
+            <Database style={{ width: '16px', height: '16px' }} />
             <span>// VALUE_PROPOSITION_MATRIX</span>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div 
+            className="grid gap-8"
+            style={{ gridTemplateColumns: deviceMode === 'mobile' ? '1fr' : '1fr 1fr' }}
+          >
             <div>
-              <h2 className="text-3xl md:text-4xl font-black mb-6">
-                <span className="text-cyan-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]">FUTURE</span>
+              <h2 
+                style={{
+                  fontSize: deviceMode === 'mobile' ? '30px' : '36px',
+                  fontWeight: '900',
+                  marginBottom: '24px',
+                }}
+              >
+                <span 
+                  style={{
+                    color: '#22d3ee',
+                    filter: 'drop-shadow(0 0 10px rgba(34,211,238,0.5))',
+                  }}
+                >
+                  FUTURE
+                </span>
                 <br />
-                <span className="text-pink-500 drop-shadow-[0_0_10px_rgba(236,72,153,0.5)]">PROOF</span>
+                <span 
+                  style={{
+                    color: '#ec4899',
+                    filter: 'drop-shadow(0 0 10px rgba(236,72,153,0.5))',
+                  }}
+                >
+                  PROOF
+                </span>
                 <br />
-                <span className="text-yellow-400 drop-shadow-[0_0_10px_rgba(250,204,21,0.5)]">SYSTEM</span>
+                <span 
+                  style={{
+                    color: '#facc15',
+                    filter: 'drop-shadow(0 0 10px rgba(250,204,21,0.5))',
+                  }}
+                >
+                  SYSTEM
+                </span>
               </h2>
-              <p className="text-white text-sm leading-relaxed max-w-lg">
+              <p 
+                style={{
+                  color: 'white',
+                  fontSize: '14px',
+                  lineHeight: '1.6',
+                  maxWidth: '512px',
+                }}
+              >
                 Neural networks meet neon dreams. Our quantum-encrypted infrastructure 
                 processes data at the speed of thought, protected by military-grade protocols.
               </p>
             </div>
-            <div className="space-y-4">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {[
                 { label: 'QUANTUM', value: '256-bit', color: 'cyan' },
                 { label: 'LATENCY', value: '<1ms', color: 'pink' },
                 { label: 'UPTIME', value: '99.99%', color: 'yellow' }
               ].map((item, i) => (
-                <div key={i} className="flex items-center justify-between p-3 border border-cyan-500/20 bg-cyan-500/5">
-                  <span className="text-cyan-400 text-xs font-mono">{item.label}</span>
-                  <span className={`text-${item.color}-400 font-mono font-bold`}>{item.value}</span>
+                <div 
+                  key={i} 
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '12px',
+                    border: '1px solid rgba(34,211,238,0.2)',
+                    backgroundColor: 'rgba(34,211,238,0.05)',
+                  }}
+                >
+                  <span 
+                    style={{
+                      color: '#22d3ee',
+                      fontSize: '12px',
+                      fontFamily: 'monospace',
+                    }}
+                  >
+                    {item.label}
+                  </span>
+                  <span 
+                    style={{
+                      fontFamily: 'monospace',
+                      fontWeight: '700',
+                      color: item.color === 'cyan' ? '#22d3ee' : item.color === 'pink' ? '#ec4899' : '#facc15',
+                    }}
+                  >
+                    {item.value}
+                  </span>
                 </div>
               ))}
             </div>
@@ -158,25 +528,94 @@ export const S06Cyberpunk = () => {
       </section>
 
       {/* Integrations */}
-      <section className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-3 mb-8">
-        <div className="md:col-span-12 border border-cyan-500/20 bg-cyan-500/5 backdrop-blur-sm p-6">
-          <div className="flex items-center gap-2 text-cyan-500 text-xs mb-6">
-            <Wifi className="w-4 h-4" />
+      <section 
+        style={{
+          position: 'relative',
+          zIndex: 10,
+          display: 'grid',
+          gridTemplateColumns: 'repeat(12, 1fr)',
+          gap: '12px',
+          marginBottom: '32px',
+        }}
+      >
+        <div 
+          style={{
+            gridColumn: 'span 12',
+            border: '1px solid rgba(34,211,238,0.2)',
+            backgroundColor: 'rgba(34,211,238,0.05)',
+            backdropFilter: 'blur(4px)',
+            padding: '24px',
+          }}
+        >
+          <div 
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              color: '#22d3ee',
+              fontSize: '12px',
+              marginBottom: '24px',
+            }}
+          >
+            <Wifi style={{ width: '16px', height: '16px' }} />
             <span>// NEURAL_INTEGRATIONS</span>
           </div>
-          <h2 className="text-2xl md:text-3xl font-black text-cyan-400 mb-8">
+          <h2 
+            style={{
+              fontSize: deviceMode === 'mobile' ? '24px' : '30px',
+              fontWeight: '900',
+              color: '#22d3ee',
+              marginBottom: '32px',
+            }}
+          >
             Connected Ecosystem
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div 
+            className="grid gap-4"
+            style={{ gridTemplateColumns: deviceMode === 'mobile' ? '1fr 1fr' : '1fr 1fr 1fr 1fr' }}
+          >
             {[
               { name: 'AWS', status: 'SYNCED', color: 'yellow' },
               { name: 'Azure', status: 'ONLINE', color: 'emerald' },
               { name: 'GCP', status: 'ACTIVE', color: 'cyan' },
               { name: 'Oracle', status: 'READY', color: 'pink' }
             ].map((item, i) => (
-              <div key={i} className="border border-pink-500/20 bg-pink-500/5 p-4 text-center group hover:bg-pink-500/10 transition-colors">
-                <div className="text-lg font-black text-white mb-2">{item.name}</div>
-                <div className={`text-xs text-${item.color}-400 font-mono`}>[{item.status}]</div>
+              <div 
+                key={i} 
+                style={{
+                  border: '1px solid rgba(236,72,153,0.2)',
+                  backgroundColor: 'rgba(236,72,153,0.05)',
+                  padding: '16px',
+                  textAlign: 'center',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.2s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(236,72,153,0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(236,72,153,0.05)';
+                }}
+              >
+                <div 
+                  style={{
+                    fontSize: '18px',
+                    fontWeight: '900',
+                    color: 'white',
+                    marginBottom: '8px',
+                  }}
+                >
+                  {item.name}
+                </div>
+                <div 
+                  style={{
+                    fontSize: '12px',
+                    fontFamily: 'monospace',
+                    color: item.color === 'yellow' ? '#facc15' : item.color === 'emerald' ? '#34d399' : item.color === 'cyan' ? '#22d3ee' : '#ec4899',
+                  }}
+                >
+                  [{item.status}]
+                </div>
               </div>
             ))}
           </div>
@@ -184,74 +623,307 @@ export const S06Cyberpunk = () => {
       </section>
 
       {/* Security */}
-      <section className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-3 mb-8">
-        <div className="md:col-span-8 border border-yellow-500/20 bg-yellow-500/5 backdrop-blur-sm p-6">
-          <div className="flex items-center gap-2 text-yellow-500 text-xs mb-6">
-            <ShieldAlert className="w-4 h-4" />
+      <section 
+        style={{
+          position: 'relative',
+          zIndex: 10,
+          display: 'grid',
+          gridTemplateColumns: 'repeat(12, 1fr)',
+          gap: '12px',
+          marginBottom: '32px',
+        }}
+      >
+        <div 
+          style={{
+            gridColumn: deviceMode === 'mobile' ? 'span 12' : 'span 8',
+            border: '1px solid rgba(250,204,21,0.2)',
+            backgroundColor: 'rgba(250,204,21,0.05)',
+            backdropFilter: 'blur(4px)',
+            padding: '24px',
+          }}
+        >
+          <div 
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              color: '#facc15',
+              fontSize: '12px',
+              marginBottom: '24px',
+            }}
+          >
+            <ShieldAlert style={{ width: '16px', height: '16px' }} />
             <span>// SECURITY_PROTOCOLS</span>
           </div>
-          <h2 className="text-2xl md:text-3xl font-black text-yellow-400 mb-6">
+          <h2 
+            style={{
+              fontSize: deviceMode === 'mobile' ? '24px' : '30px',
+              fontWeight: '900',
+              color: '#facc15',
+              marginBottom: '24px',
+            }}
+          >
             Quantum Security Layer
           </h2>
-          <p className="text-white text-sm leading-relaxed mb-8 max-w-2xl">
+          <p 
+            style={{
+              color: 'white',
+              fontSize: '14px',
+              lineHeight: '1.6',
+              maxWidth: '672px',
+              marginBottom: '32px',
+            }}
+          >
             Military-grade encryption meets quantum computing. Your data is protected 
             by algorithms that don't exist yet. We're already in tomorrow.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div 
+            className="grid gap-6"
+            style={{ gridTemplateColumns: deviceMode === 'mobile' ? '1fr' : '1fr 1fr 1fr' }}
+          >
             <div>
-              <div className="text-3xl font-black text-cyan-400 mb-2">AES-256</div>
-              <div className="text-[10px] font-mono text-gray-300">ENCRYPTION</div>
+              <div 
+                style={{
+                  fontSize: '30px',
+                  fontWeight: '900',
+                  color: '#22d3ee',
+                  marginBottom: '8px',
+                }}
+              >
+                AES-256
+              </div>
+              <div 
+                style={{
+                  fontSize: '10px',
+                  fontFamily: 'monospace',
+                  color: '#d1d5db',
+                }}
+              >
+                ENCRYPTION
+              </div>
             </div>
             <div>
-              <div className="text-3xl font-black text-pink-400 mb-2">ZERO</div>
-              <div className="text-[10px] font-mono text-gray-300">TRUST</div>
+              <div 
+                style={{
+                  fontSize: '30px',
+                  fontWeight: '900',
+                  color: '#ec4899',
+                  marginBottom: '8px',
+                }}
+              >
+                ZERO
+              </div>
+              <div 
+                style={{
+                  fontSize: '10px',
+                  fontFamily: 'monospace',
+                  color: '#d1d5db',
+                }}
+              >
+                TRUST
+              </div>
             </div>
             <div>
-              <div className="text-3xl font-black text-yellow-400 mb-2">∞</div>
-              <div className="text-[10px] font-mono text-gray-300">PROTECTION</div>
+              <div 
+                style={{
+                  fontSize: '30px',
+                  fontWeight: '900',
+                  color: '#facc15',
+                  marginBottom: '8px',
+                }}
+              >
+                ∞
+              </div>
+              <div 
+                style={{
+                  fontSize: '10px',
+                  fontFamily: 'monospace',
+                  color: '#d1d5db',
+                }}
+              >
+                PROTECTION
+              </div>
             </div>
           </div>
         </div>
-        <div className="md:col-span-4 border border-pink-500/20 bg-pink-500/5 backdrop-blur-sm p-6 flex flex-col justify-between">
+        <div 
+          style={{
+            gridColumn: deviceMode === 'mobile' ? 'span 12' : 'span 4',
+            border: '1px solid rgba(236,72,153,0.2)',
+            backgroundColor: 'rgba(236,72,153,0.05)',
+            backdropFilter: 'blur(4px)',
+            padding: '24px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+          }}
+        >
           <div>
-            <div className="text-xs text-pink-400 font-mono mb-4">[THREAT_LEVEL]</div>
-            <div className="text-2xl font-black text-red-400 mb-2">CRITICAL</div>
+            <div 
+              style={{
+                fontSize: '12px',
+                color: '#f472b6',
+                fontFamily: 'monospace',
+                marginBottom: '16px',
+              }}
+            >
+              [THREAT_LEVEL]
+            </div>
+            <div 
+              style={{
+                fontSize: '24px',
+                fontWeight: '900',
+                color: '#f87171',
+                marginBottom: '8px',
+              }}
+            >
+              CRITICAL
+            </div>
           </div>
-          <div className="text-xs text-pink-400/60 font-mono">ALWAYS_ARMED</div>
+          <div 
+            style={{
+              fontSize: '12px',
+              color: 'rgba(244,114,182,0.6)',
+              fontFamily: 'monospace',
+            }}
+          >
+            ALWAYS_ARMED
+          </div>
         </div>
       </section>
 
       {/* Pricing */}
-      <section className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-3 mb-8">
-        <div className="md:col-span-12 border border-cyan-500/20 bg-black/30 backdrop-blur-sm p-6">
-          <div className="flex items-center gap-2 text-cyan-500 text-xs mb-6">
-            <CreditCard className="w-4 h-4" />
+      <section 
+        style={{
+          position: 'relative',
+          zIndex: 10,
+          display: 'grid',
+          gridTemplateColumns: 'repeat(12, 1fr)',
+          gap: '12px',
+          marginBottom: '32px',
+        }}
+      >
+        <div 
+          style={{
+            gridColumn: 'span 12',
+            border: '1px solid rgba(34,211,238,0.2)',
+            backgroundColor: 'rgba(0,0,0,0.3)',
+            backdropFilter: 'blur(4px)',
+            padding: '24px',
+          }}
+        >
+          <div 
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              color: '#22d3ee',
+              fontSize: '12px',
+              marginBottom: '24px',
+            }}
+          >
+            <CreditCard style={{ width: '16px', height: '16px' }} />
             <span>// PRICING_MATRIX</span>
           </div>
-          <h2 className="text-2xl md:text-3xl font-black text-cyan-400 mb-8">
+          <h2 
+            style={{
+              fontSize: deviceMode === 'mobile' ? '24px' : '30px',
+              fontWeight: '900',
+              color: '#22d3ee',
+              marginBottom: '32px',
+            }}
+          >
             Access Tiers
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div 
+            className="grid gap-4"
+            style={{ gridTemplateColumns: deviceMode === 'mobile' ? '1fr' : '1fr 1fr 1fr' }}
+          >
             {[
               { name: 'SHADOW', price: '¥9,999', features: ['Basic Access', '1 Core', '100GB Storage'], tier: false },
               { name: 'NEON', price: '¥99,999', features: ['Full Access', '8 Cores', '1TB Storage', 'Priority Support'], tier: true },
               { name: 'CYBER', price: '¥999,999', features: ['God Mode', '∞ Cores', '∞ Storage', 'Dedicated Team'], tier: false }
             ].map((plan, i) => (
-              <div key={i} className={`${plan.tier ? 'border-2 border-cyan-400 bg-cyan-400/10' : 'border border-gray-700 bg-black/50'} p-6 flex flex-col`}>
-                <div className="flex-1">
-                  <div className="text-xs text-cyan-400 font-mono mb-2">[TIER_{plan.name}]</div>
-                  <div className={`text-3xl font-black mb-4 ${plan.tier ? 'text-cyan-400' : 'text-white'}`}>{plan.price}</div>
-                  <ul className="space-y-2">
+              <div 
+                key={i} 
+                style={{
+                  border: plan.tier ? '2px solid #22d3ee' : '1px solid #374151',
+                  backgroundColor: plan.tier ? 'rgba(34,211,238,0.1)' : 'rgba(0,0,0,0.5)',
+                  padding: '24px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+              >
+                <div style={{ flex: 1 }}>
+                  <div 
+                    style={{
+                      fontSize: '12px',
+                      color: '#22d3ee',
+                      fontFamily: 'monospace',
+                      marginBottom: '8px',
+                    }}
+                  >
+                    [TIER_{plan.name}]
+                  </div>
+                  <div 
+                    style={{
+                      fontSize: '30px',
+                      fontWeight: '900',
+                      marginBottom: '16px',
+                      color: plan.tier ? '#22d3ee' : 'white',
+                    }}
+                  >
+                    {plan.price}
+                  </div>
+                  <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                     {plan.features.map((feature) => (
-                      <li key={feature} className="text-xs text-gray-300 font-mono">• {feature}</li>
+                      <li 
+                        key={feature} 
+                        style={{
+                          fontSize: '12px',
+                          color: '#d1d5db',
+                          fontFamily: 'monospace',
+                          marginBottom: '8px',
+                        }}
+                      >
+                        • {feature}
+                      </li>
                     ))}
                   </ul>
                 </div>
-                <button className={`mt-6 w-full py-3 text-xs font-black uppercase tracking-wider font-mono transition-all ${
-                  plan.tier 
-                    ? 'bg-cyan-400 text-black hover:bg-cyan-300' 
-                    : 'border border-gray-600 text-white hover:border-cyan-400 hover:text-cyan-400'
-                }`}>
+                <button 
+                  style={{
+                    marginTop: '24px',
+                    width: '100%',
+                    padding: '12px',
+                    fontSize: '12px',
+                    fontWeight: '900',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                    fontFamily: 'monospace',
+                    backgroundColor: plan.tier ? '#22d3ee' : 'transparent',
+                    color: plan.tier ? 'black' : 'white',
+                    border: plan.tier ? 'none' : '1px solid #4b5563',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (plan.tier) {
+                      e.currentTarget.style.backgroundColor = '#67e8f9';
+                    } else {
+                      e.currentTarget.style.borderColor = '#22d3ee';
+                      e.currentTarget.style.color = '#22d3ee';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (plan.tier) {
+                      e.currentTarget.style.backgroundColor = '#22d3ee';
+                    } else {
+                      e.currentTarget.style.borderColor = '#4b5563';
+                      e.currentTarget.style.color = 'white';
+                    }
+                  }}
+                >
                   {plan.tier ? '[INITIATE]' : '[UPGRADE]'}
                 </button>
               </div>
@@ -261,25 +933,92 @@ export const S06Cyberpunk = () => {
       </section>
 
       {/* FAQ */}
-      <section className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-3 mb-8">
-        <div className="md:col-span-12 border border-pink-500/20 bg-pink-500/5 backdrop-blur-sm p-6">
-          <div className="flex items-center gap-2 text-pink-500 text-xs mb-6">
-            <AlertTriangle className="w-4 h-4" />
+      <section 
+        style={{
+          position: 'relative',
+          zIndex: 10,
+          display: 'grid',
+          gridTemplateColumns: 'repeat(12, 1fr)',
+          gap: '12px',
+          marginBottom: '32px',
+        }}
+      >
+        <div 
+          style={{
+            gridColumn: 'span 12',
+            border: '1px solid rgba(236,72,153,0.2)',
+            backgroundColor: 'rgba(236,72,153,0.05)',
+            backdropFilter: 'blur(4px)',
+            padding: '24px',
+          }}
+        >
+          <div 
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              color: '#ec4899',
+              fontSize: '12px',
+              marginBottom: '24px',
+            }}
+          >
+            <AlertTriangle style={{ width: '16px', height: '16px' }} />
             <span>// FREQUENT_QUERIES</span>
           </div>
-          <h2 className="text-2xl md:text-3xl font-black text-pink-400 mb-8">
+          <h2 
+            style={{
+              fontSize: deviceMode === 'mobile' ? '24px' : '30px',
+              fontWeight: '900',
+              color: '#ec4899',
+              marginBottom: '32px',
+            }}
+          >
             Data Stream
           </h2>
-          <div className="space-y-4">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {[
               { q: 'Is this real?', a: 'Reality is subjective. Our system is objectively superior.' },
               { q: 'Can I trust you?', a: 'Trust is a vulnerability. We offer verifiable results.' },
               { q: 'What about privacy?', a: 'Privacy is obsolete. We offer transparency instead.' },
               { q: 'How do I start?', a: 'You already have. The system detected you before you arrived.' }
             ].map((item, i) => (
-              <div key={i} className="border border-cyan-500/20 bg-cyan-500/5 p-4 group hover:bg-cyan-500/10 transition-colors">
-                <h3 className="text-sm font-black text-cyan-400 mb-2 font-mono">&gt; {item.q}</h3>
-                <p className="text-xs text-gray-300 font-mono leading-relaxed">{item.a}</p>
+              <div 
+                key={i} 
+                style={{
+                  border: '1px solid rgba(34,211,238,0.2)',
+                  backgroundColor: 'rgba(34,211,238,0.05)',
+                  padding: '16px',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.2s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(34,211,238,0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(34,211,238,0.05)';
+                }}
+              >
+                <h3 
+                  style={{
+                    fontSize: '14px',
+                    fontWeight: '900',
+                    color: '#22d3ee',
+                    marginBottom: '8px',
+                    fontFamily: 'monospace',
+                  }}
+                >
+                  &gt; {item.q}
+                </h3>
+                <p 
+                  style={{
+                    fontSize: '12px',
+                    color: '#d1d5db',
+                    fontFamily: 'monospace',
+                    lineHeight: '1.6',
+                  }}
+                >
+                  {item.a}
+                </p>
               </div>
             ))}
           </div>
@@ -287,35 +1026,127 @@ export const S06Cyberpunk = () => {
       </section>
 
       {/* Contact */}
-      <section className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-3 mb-8">
-        <div className="md:col-span-12 border-2 border-yellow-400/30 bg-yellow-400/5 backdrop-blur-sm p-6">
-          <div className="flex items-center gap-2 text-yellow-500 text-xs mb-6">
-            <Wifi className="w-4 h-4" />
+      <section 
+        style={{
+          position: 'relative',
+          zIndex: 10,
+          display: 'grid',
+          gridTemplateColumns: 'repeat(12, 1fr)',
+          gap: '12px',
+          marginBottom: '32px',
+        }}
+      >
+        <div 
+          style={{
+            gridColumn: 'span 12',
+            border: '2px solid rgba(250,204,21,0.3)',
+            backgroundColor: 'rgba(250,204,21,0.05)',
+            backdropFilter: 'blur(4px)',
+            padding: '24px',
+          }}
+        >
+          <div 
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              color: '#facc15',
+              fontSize: '12px',
+              marginBottom: '24px',
+            }}
+          >
+            <Wifi style={{ width: '16px', height: '16px' }} />
             <span>// ESTABLISH_CONNECTION</span>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div 
+            className="grid gap-8"
+            style={{ 
+              gridTemplateColumns: deviceMode === 'mobile' ? '1fr' : '1fr 1fr',
+              alignItems: 'center',
+            }}
+          >
             <div>
-              <h2 className="text-2xl md:text-3xl font-black text-yellow-400 mb-6">
+              <h2 
+                style={{
+                  fontSize: deviceMode === 'mobile' ? '24px' : '30px',
+                  fontWeight: '900',
+                  color: '#facc15',
+                  marginBottom: '24px',
+                }}
+              >
                 Join the Network
               </h2>
-              <p className="text-white text-sm leading-relaxed mb-6">
+              <p 
+                style={{
+                  color: 'white',
+                  fontSize: '14px',
+                  lineHeight: '1.6',
+                  marginBottom: '24px',
+                }}
+              >
                 The matrix is calling. Will you answer? 
                 Upload your consciousness. Download the future.
               </p>
-              <div className="flex items-center gap-2 text-xs text-yellow-400 font-mono">
-                <div className="w-2 h-2 bg-yellow-400 animate-pulse" />
+              <div 
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  fontSize: '12px',
+                  color: '#facc15',
+                  fontFamily: 'monospace',
+                }}
+              >
+                <span 
+                  style={{
+                    width: '8px',
+                    height: '8px',
+                    backgroundColor: '#facc15',
+                    animation: 'pulse 2s infinite',
+                  }}
+                />
                 <span>CONNECTION_ACTIVE</span>
               </div>
             </div>
-            <div className="space-y-4">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <input 
                 type="email" 
                 placeholder="NEURAL_ID@MATRIX.NET"
-                className="w-full px-4 py-3 bg-black/50 border border-cyan-500/30 text-cyan-400 text-sm font-mono placeholder-cyan-400/30 focus:outline-none focus:border-cyan-400 focus:bg-black/70"
+                style={{
+                  width: '100%',
+                  padding: '12px 16px',
+                  backgroundColor: 'rgba(0,0,0,0.5)',
+                  border: '1px solid rgba(34,211,238,0.3)',
+                  color: '#22d3ee',
+                  fontSize: '14px',
+                  fontFamily: 'monospace',
+                }}
               />
-              <button className="w-full bg-gradient-to-r from-cyan-500 to-pink-500 text-black font-black text-sm py-3 hover:from-cyan-400 hover:to-pink-400 transition-all flex items-center justify-center gap-2">
+              <button 
+                style={{
+                  width: '100%',
+                  background: 'linear-gradient(to right, #06b6d4, #ec4899)',
+                  color: 'black',
+                  fontWeight: '900',
+                  fontSize: '14px',
+                  padding: '12px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  transition: 'all 0.2s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'linear-gradient(to right, #22d3ee, #f472b6)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'linear-gradient(to right, #06b6d4, #ec4899)';
+                }}
+              >
                 <span>[SYNCHRONIZE]</span>
-                <ArrowRight className="w-4 h-4" strokeWidth={3} />
+                <ArrowRight style={{ width: '16px', height: '16px' }} strokeWidth={3} />
               </button>
             </div>
           </div>
@@ -323,11 +1154,31 @@ export const S06Cyberpunk = () => {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 text-xs text-gray-300 flex justify-between items-center border-t border-cyan-500/20 pt-4">
+      <footer 
+        style={{
+          position: 'relative',
+          zIndex: 10,
+          fontSize: '12px',
+          color: '#d1d5db',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          borderTop: '1px solid rgba(34,211,238,0.2)',
+          paddingTop: '16px',
+        }}
+      >
         <span>NIGHT_CITY.SYS // NODE_7734</span>
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
-          <span className="text-cyan-400">CONNECTED</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span 
+            style={{
+              width: '8px',
+              height: '8px',
+              backgroundColor: '#22d3ee',
+              borderRadius: '50%',
+              animation: 'pulse 2s infinite',
+            }}
+          />
+          <span style={{ color: '#22d3ee' }}>CONNECTED</span>
         </div>
       </footer>
     </div>

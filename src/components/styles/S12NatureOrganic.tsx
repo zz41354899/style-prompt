@@ -1,16 +1,21 @@
-import { Leaf, Sprout, TreeDeciduous, Wind, Shield, Check, Mail } from 'lucide-react';
+import { useState } from 'react';
+import { Leaf, Shield, Check, Mail, Sprout, Menu, X, Wind, TreeDeciduous } from 'lucide-react';
 
-export const S12NatureOrganic = () => {
+export const S12NatureOrganic = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const isMobile = deviceMode === 'mobile';
+  const isTablet = deviceMode === 'tablet';
+  const isDesktop = deviceMode === 'desktop';
+  
   return (
-    <div className="min-h-full p-4 md:p-8 font-sans relative overflow-hidden"
-      style={{ backgroundColor: '#F7F4EE' }}
+    <div className="min-h-full font-sans relative overflow-hidden" style={{ padding: isMobile ? '16px' : '32px', backgroundColor: '#F7F4EE' }}
     >
       {/* 有機形狀背景裝飾 */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-[#E8E2D5] opacity-50 -translate-y-1/3 translate-x-1/4" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-[#D4E2C8] opacity-30 translate-y-1/3 -translate-x-1/4" />
       
       {/* Header */}
-      <header className="relative z-10 flex justify-between items-center mb-10 md:mb-16">
+      <header className="relative z-10 flex justify-between items-center" style={{ marginBottom: isMobile ? '40px' : '64px' }}>
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-gradient-to-br from-[#8FA67A] to-[#5D7052] rounded-full flex items-center justify-center">
             <Leaf className="w-5 h-5 text-white" />
@@ -20,23 +25,43 @@ export const S12NatureOrganic = () => {
             <div className="text-[10px] tracking-[0.2em] text-[#8FA67A] uppercase">Organic Design</div>
           </div>
         </div>
-        <nav className="hidden md:flex gap-8 text-sm text-[#6B7B5E]">
+        <nav className={`${deviceMode === 'desktop' ? 'flex' : 'hidden'} gap-8 text-sm text-[#6B7B5E]`}>
           {['Home', 'Products', 'Philosophy', 'Contact'].map((item, i) => (
             <span key={i} className="cursor-default">
               {item}
             </span>
           ))}
         </nav>
+        {/* Mobile Menu Button */}
+        {(isMobile || isTablet) && (
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="w-10 h-10 bg-gradient-to-br from-[#8FA67A] to-[#5D7052] rounded-full flex items-center justify-center text-white"
+          >
+            {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        )}
       </header>
 
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <div className="relative z-10 mb-10 bg-white/80 backdrop-blur-sm rounded-[2rem] p-6">
+          {['Home', 'Products', 'Philosophy', 'Contact'].map((item, i) => (
+            <div key={i} className="py-3 text-sm text-[#6B7B5E] cursor-default hover:text-[#5D7052] transition-colors">
+              {item}
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* Hero */}
-      <section className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 mb-10 md:mb-20">
-        <div className="md:col-span-6 flex flex-col justify-center">
+      <section className="relative z-10 grid" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(12, 1fr)', gap: isMobile ? '24px' : '32px', marginBottom: isMobile ? '40px' : '80px' }}>
+        <div style={{ gridColumn: isMobile ? 'span 1' : 'span 6' }} className="flex flex-col justify-center">
           <div className="flex items-center gap-2 text-[#8FA67A] mb-6">
             <Wind className="w-4 h-4" />
             <span className="text-xs tracking-[0.2em] uppercase">Sustainable Living</span>
           </div>
-          <h1 className="text-3xl md:text-5xl font-light text-[#3D4A35] leading-[1.2] mb-6 md:mb-8">
+          <h1 style={{ fontSize: isMobile ? '30px' : '48px', marginBottom: isMobile ? '24px' : '32px' }} className="font-light text-[#3D4A35] leading-[1.2]">
             With Nature<br />
             <span className="text-[#8FA67A] font-normal">Harmonious Coexistence</span>
           </h1>
@@ -44,7 +69,7 @@ export const S12NatureOrganic = () => {
             Embrace the warmth of the earth, feel the flowing beauty of organic curves.
             Every design originates from nature's inspiration, every choice is a commitment to the planet.
           </p>
-          <div className="flex flex-col md:flex-row gap-3 md:gap-4">
+          <div className="flex gap-3" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
             <button className="px-8 py-4 bg-gradient-to-r from-[#5D7052] to-[#6B7B5E] text-white rounded-full text-sm font-medium hover:shadow-lg hover:shadow-[#5D7052]/20 transition-all">
               Explore Nature
             </button>
@@ -53,14 +78,14 @@ export const S12NatureOrganic = () => {
             </button>
           </div>
         </div>
-        <div className="hidden md:block md:col-span-6 relative">
+        {!isDesktop && <div style={{ gridColumn: isMobile ? 'span 1' : 'span 6' }} className="relative">
           {/* 有機形狀裝飾 */}
           <div className="relative w-full aspect-square">
             <div className="absolute top-0 right-0 w-4/5 h-4/5 bg-[#D4E2C8] rounded-[40%_60%_70%_30%/40%_50%_60%_50%]" />
             <div className="absolute bottom-0 left-0 w-3/5 h-3/5 bg-[#C4A77D]/30 rounded-[60%_40%_30%_70%/50%_60%_40%_50%]" />
             <div className="absolute top-1/4 left-1/4 w-1/2 h-1/2 bg-[#8FA67A]/20 rounded-full" />
           </div>
-        </div>
+        </div>}
       </section>
 
       {/* Value Proposition */}
@@ -70,7 +95,7 @@ export const S12NatureOrganic = () => {
             <Leaf className="w-5 h-5" />
             <span className="text-xs tracking-[0.2em] uppercase">Our Promise</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-light text-[#3D4A35] leading-[1.2] mb-8">
+          <h2 style={{ fontSize: isMobile ? '30px' : '36px' }} className="font-light text-[#3D4A35] leading-[1.2] mb-8">
             Grounded in Nature<br />
             <span className="text-[#8FA67A] font-normal">Designed for Life</span>
           </h2>
@@ -80,7 +105,7 @@ export const S12NatureOrganic = () => {
             fostering wellbeing and connection.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid gap-8" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
           {[
             { title: 'Biophilic Design', desc: 'Connecting people with nature through design', color: '#8FA67A' },
             { title: 'Natural Materials', desc: 'Sustainably sourced, always earth-friendly', color: '#C4A77D' },
@@ -97,7 +122,7 @@ export const S12NatureOrganic = () => {
 
       {/* Features */}
       <section className="relative z-10 mb-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid gap-8" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)' }}>
           {[
             { title: 'Living Walls', desc: 'Vertical gardens that breathe life into spaces', detail: 'Natural air purification' },
             { title: 'Earth Tones', desc: 'Colors inspired by soil, stone, and sky', detail: 'Calming psychological effects' },
@@ -119,7 +144,7 @@ export const S12NatureOrganic = () => {
           <h2 className="text-2xl md:text-3xl font-light text-[#3D4A35] mb-4">Eco Partners</h2>
           <p className="text-sm text-[#6B7B5E]">Working with nature-forward brands</p>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)' }}>
           {['Patagonia', 'Whole Earth', 'TerraCycle', 'Ecosia'].map((item) => (
             <div key={item} className="bg-white/80 backdrop-blur-sm p-6 rounded-[1.5rem] text-center">
               <div className="text-sm text-[#5D7052] font-medium">{item}</div>
@@ -130,7 +155,7 @@ export const S12NatureOrganic = () => {
 
       {/* Metrics */}
       <section className="relative z-10 mb-16">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)' }}>
           {[
             { value: '10K+', label: 'Happy Clients', color: '#8FA67A' },
             { value: '500', label: 'Projects', color: '#C4A77D' },
@@ -158,7 +183,7 @@ export const S12NatureOrganic = () => {
                 Your data is protected with the same care we give to the planet. 
                 We use renewable energy for our servers and plant a tree for every new client.
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid gap-4" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
                 {[
                   'Green hosting',
                   'Carbon neutral',
@@ -235,7 +260,7 @@ export const S12NatureOrganic = () => {
           <Mail className="w-8 h-8 mx-auto mb-4 text-[#B8C9A9]" />
           <h2 className="text-2xl font-light mb-4">Connect with Nature</h2>
           <p className="text-[#B8C9A9] mb-8">Ready to bring organic harmony to your space?</p>
-          <div className="flex flex-col md:flex-row justify-center gap-4 max-w-md mx-auto">
+          <div className="flex justify-center gap-4 max-w-md mx-auto" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
             <input 
               type="email" 
               placeholder="your@email.com"
@@ -250,7 +275,7 @@ export const S12NatureOrganic = () => {
 
       {/* Stats */}
       <section className="relative z-10 bg-gradient-to-r from-[#5D7052] to-[#6B7B5E] text-white rounded-[2rem] p-10 mb-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid" style={{ gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: isMobile ? '24px' : '32px' }}>
           {[
             { num: '100%', label: 'Natural Materials', icon: <Leaf className="w-5 h-5" /> },
             { num: '50+', label: 'Plant Inspired', icon: <Sprout className="w-5 h-5" /> },
@@ -267,7 +292,7 @@ export const S12NatureOrganic = () => {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-[#6B7B5E] pt-6 border-t border-[#E0D8C8]">
+      <footer className="relative z-10 flex justify-between items-center gap-4 text-sm text-[#6B7B5E] pt-6 border-t border-[#E0D8C8]" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
         <span>© 2024 Natura Design</span>
         <div className="flex items-center gap-6">
           {[Leaf, Sprout, TreeDeciduous].map((Icon, i) => (

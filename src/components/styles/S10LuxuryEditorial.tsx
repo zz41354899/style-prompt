@@ -1,27 +1,55 @@
 import { ArrowUpRight, Shield, Mail, Gem } from 'lucide-react';
+import { useState } from 'react';
 
-export const S10LuxuryEditorial = () => {
+export const S10LuxuryEditorial = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const isMobile = deviceMode === 'mobile';
+  const isTablet = deviceMode === 'tablet';
+  const isDesktop = deviceMode === 'desktop';
+  
   return (
-    <div className="min-h-full bg-[#FAF8F5] text-[#1a1a1a] p-4 md:p-10" style={{ fontFamily: 'Georgia, Times, serif' }}>
+    <div className="min-h-full bg-[#FAF8F5] text-[#1a1a1a]" style={{ fontFamily: 'Georgia, Times, serif', padding: isMobile ? '16px' : '40px' }}>
       {/* Header */}
-      <header className="flex flex-col md:flex-row justify-between items-center gap-4 mb-10 md:mb-20 pb-6 border-b border-[#e0d5c7]">
-        <div className="hidden md:block text-[10px] tracking-[0.5em] uppercase text-[#9a8b7a]">Est. 2024</div>
+      <header className="flex justify-between items-center gap-4 pb-6 border-b border-[#e0d5c7]" style={{ flexDirection: isMobile ? 'column' : 'row', marginBottom: isMobile ? '40px' : '80px' }}>
+        {isDesktop && <div className="text-[10px] tracking-[0.5em] uppercase text-[#9a8b7a]">Est. 2024</div>}
         <div className="flex items-center gap-4">
           <div className="w-px h-8 bg-[#d4c5b5]" />
-          <span className="text-2xl md:text-3xl tracking-[0.15em] font-light">ÉLÉGANCE</span>
+          <span style={{ fontSize: isMobile ? '24px' : '30px' }} className="tracking-[0.15em] font-light">ÉLÉGANCE</span>
           <div className="w-px h-8 bg-[#d4c5b5]" />
         </div>
-        <div className="hidden md:block text-[10px] tracking-[0.5em] uppercase text-[#9a8b7a]">Paris</div>
+        {isDesktop && <div className="text-[10px] tracking-[0.5em] uppercase text-[#9a8b7a]">Paris</div>}
+        {(isMobile || isTablet) && (
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="text-[10px] tracking-[0.3em] uppercase text-[#9a8b7a] border-b border-[#9a8b7a] pb-1"
+          >
+            {menuOpen ? 'Close' : 'Menu'}
+          </button>
+        )}
       </header>
 
+      {/* Mobile Menu */}
+      {menuOpen && (isMobile || isTablet) && (
+        <div className="mb-10 pb-6 border-b border-[#e0d5c7]">
+          <div className="space-y-4 text-center">
+            {['Collection', 'Philosophy', 'Contact'].map((item) => (
+              <div key={item} className="text-sm tracking-[0.2em] uppercase text-[#9a8b7a] cursor-default">
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Hero */}
-      <section className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 mb-10 md:mb-20">
-        <div className="md:col-span-5 flex flex-col justify-center">
+      <section className="grid gap-6" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(12, 1fr)', gap: isMobile ? '24px' : '32px', marginBottom: isMobile ? '40px' : '80px' }}>
+        <div style={{ gridColumn: isMobile ? 'span 1' : 'span 5' }} className="flex flex-col justify-center">
           <div className="text-[10px] tracking-[0.4em] uppercase text-[#9a8b7a] mb-6">The Art of Living</div>
-          <h1 className="text-4xl md:text-6xl font-light leading-[1.1] mb-6 md:mb-8 tracking-[-0.02em]">
+          <h1 style={{ fontSize: isMobile ? '36px' : '60px' }} className="font-light leading-[1.1] tracking-[-0.02em]" >
             Luxury<br />
             <em className="font-normal italic text-[#9a8b7a]">Editorial Aesthetics</em>
           </h1>
+          <div style={{ marginBottom: isMobile ? '24px' : '32px' }} />
           <p className="text-[#666] leading-[1.9] mb-10 text-[15px]">
             Discover eternal elegance in the details. Every choice is a display of taste,
             every moment deserves to be cherished. We believe true luxury comes from the relentless pursuit of perfection.
@@ -33,7 +61,7 @@ export const S10LuxuryEditorial = () => {
             <ArrowUpRight className="w-4 h-4" />
           </span>
         </div>
-        <div className="md:col-span-7 grid grid-cols-2 gap-4">
+        <div style={{ gridColumn: isMobile ? 'span 1' : 'span 7' }} className="grid grid-cols-2 gap-4">
           <div className="bg-[#e8e2da] aspect-[3/4] relative group overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             <div className="absolute bottom-6 left-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -52,10 +80,10 @@ export const S10LuxuryEditorial = () => {
       </section>
 
       {/* Value Proposition */}
-      <section className="mb-20">
+      <section style={{ marginBottom: isMobile ? '40px' : '80px' }}>
         <div className="text-center mb-12">
           <div className="text-[10px] tracking-[0.4em] uppercase text-[#9a8b7a] mb-6">Our Philosophy</div>
-          <h2 className="text-3xl md:text-4xl font-light leading-[1.2] mb-8 tracking-[-0.02em]">
+          <h2 style={{ fontSize: isMobile ? '30px' : '36px' }} className="font-light leading-[1.2] mb-8 tracking-[-0.02em]">
             The Essence of<br />
             <em className="font-normal italic text-[#9a8b7a]">Refined Living</em>
           </h2>
@@ -64,7 +92,7 @@ export const S10LuxuryEditorial = () => {
             Our editorial approach brings timeless elegance to modern digital experiences.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid gap-8" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
           {[
             { title: 'Understated Excellence', desc: 'True luxury whispers, it never shouts' },
             { title: 'Curated Selection', desc: 'Every piece chosen with intention and care' },
@@ -79,8 +107,8 @@ export const S10LuxuryEditorial = () => {
       </section>
 
       {/* Features */}
-      <section className="mb-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <section style={{ marginBottom: isMobile ? '40px' : '80px' }}>
+        <div className="grid gap-12" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)' }}>
           {[
             { title: 'Editorial Precision', desc: 'Every element meticulously placed for visual harmony', detail: 'Typography, spacing, and rhythm considered down to the pixel' },
             { title: 'Sophisticated Palette', desc: 'Muted tones that speak volumes through restraint', detail: 'Colors chosen to evoke calm and confidence' },
@@ -98,11 +126,11 @@ export const S10LuxuryEditorial = () => {
       </section>
 
       {/* Integrations */}
-      <section className="py-16 border-t border-b border-[#e0d5c7] mb-20">
+      <section className="py-16 border-t border-b border-[#e0d5c7]" style={{ marginBottom: isMobile ? '40px' : '80px' }}>
         <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-light tracking-[-0.02em]">Esteemed Partners</h2>
+          <h2 style={{ fontSize: isMobile ? '24px' : '30px' }} className="font-light tracking-[-0.02em]">Esteemed Partners</h2>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid gap-8" style={{ gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)' }}>
           {['Vogue', 'Harper\'s Bazaar', 'Elle Decor', 'Architectural Digest'].map((item) => (
             <div key={item} className="text-center">
               <div className="text-[10px] tracking-[0.4em] uppercase text-[#9a8b7a] mb-2">Featured In</div>
@@ -113,8 +141,8 @@ export const S10LuxuryEditorial = () => {
       </section>
 
       {/* Metrics */}
-      <section className="mb-20">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <section style={{ marginBottom: isMobile ? '40px' : '80px' }}>
+        <div className="grid gap-8" style={{ gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)' }}>
           {[
             { value: '150+', label: 'Editorial Features' },
             { value: '50K', label: 'Discerning Readers' },
@@ -130,9 +158,9 @@ export const S10LuxuryEditorial = () => {
       </section>
 
       {/* Security */}
-      <section className="mb-20">
-        <div className="p-12 border border-[#e0d5c7]">
-          <div className="flex items-start gap-6">
+      <section style={{ marginBottom: isMobile ? '40px' : '80px' }}>
+        <div style={{ padding: isMobile ? '24px' : '48px' }} className="border border-[#e0d5c7]">
+          <div className="flex items-start gap-6" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
             <Shield className="w-8 h-8 text-[#c4b5a5] mt-1" />
             <div className="flex-1">
               <h2 className="text-2xl font-light mb-4">Discretion & Privacy</h2>
@@ -141,7 +169,7 @@ export const S10LuxuryEditorial = () => {
                 security and confidentiality, ensuring your privacy is protected with 
                 the same care we apply to our craft.
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid gap-4" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
                 {[
                   'End-to-end encryption',
                   'Strict privacy protocols',
@@ -159,12 +187,12 @@ export const S10LuxuryEditorial = () => {
       </section>
 
       {/* Pricing */}
-      <section className="mb-20">
+      <section style={{ marginBottom: isMobile ? '40px' : '80px' }}>
         <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-light tracking-[-0.02em] mb-4">Investment Options</h2>
+          <h2 style={{ fontSize: isMobile ? '24px' : '30px' }} className="font-light tracking-[-0.02em] mb-4">Investment Options</h2>
           <p className="text-[#9a8b7a] text-sm">Choose your level of engagement</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid gap-8" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
           {[
             { name: 'Editorial', price: '$2,500', period: 'per feature', features: ['Single editorial feature', 'Basic consultation', 'Standard delivery'] },
             { name: 'Collection', price: '$8,500', period: 'per campaign', features: ['Multi-feature campaign', 'Strategic planning', 'Priority support', 'Analytics report'] },
@@ -189,9 +217,9 @@ export const S10LuxuryEditorial = () => {
       </section>
 
       {/* FAQ */}
-      <section className="mb-20">
+      <section style={{ marginBottom: isMobile ? '40px' : '80px' }}>
         <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-light tracking-[-0.02em]">Common Inquiries</h2>
+          <h2 style={{ fontSize: isMobile ? '24px' : '30px' }} className="font-light tracking-[-0.02em]">Common Inquiries</h2>
         </div>
         <div className="max-w-3xl mx-auto space-y-8">
           {[
@@ -209,14 +237,14 @@ export const S10LuxuryEditorial = () => {
       </section>
 
       {/* Contact */}
-      <section className="mb-20">
-        <div className="p-12 border border-[#e0d5c7] text-center">
+      <section style={{ marginBottom: isMobile ? '40px' : '80px' }}>
+        <div style={{ padding: isMobile ? '24px' : '48px' }} className="border border-[#e0d5c7] text-center">
           <Mail className="w-8 h-8 text-[#c4b5a5] mx-auto mb-6" />
           <h2 className="text-2xl font-light mb-4">Begin the Conversation</h2>
           <p className="text-[#666] mb-8 max-w-md mx-auto">
             Let us craft an editorial experience that reflects your commitment to excellence.
           </p>
-          <div className="flex flex-col md:flex-row justify-center gap-4 max-w-lg mx-auto">
+          <div className="flex justify-center gap-4 max-w-lg mx-auto" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
             <input 
               type="email" 
               placeholder="your@email.com"
@@ -231,7 +259,7 @@ export const S10LuxuryEditorial = () => {
       </section>
 
       {/* Quote */}
-      <section className="mb-20">
+      <section style={{ marginBottom: isMobile ? '40px' : '80px' }}>
         <div className="max-w-3xl mx-auto text-center">
           <Gem className="w-8 h-8 text-[#c4b5a5] mx-auto mb-8" />
           <blockquote className="text-3xl font-light italic leading-[1.6] mb-8 text-[#333]">
@@ -244,7 +272,7 @@ export const S10LuxuryEditorial = () => {
       </section>
 
       {/* Footer */}
-      <footer className="flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] tracking-[0.3em] uppercase text-[#9a8b7a] pt-8 border-t border-[#e0d5c7]">
+      <footer className="flex justify-between items-center gap-4 text-[10px] tracking-[0.3em] uppercase text-[#9a8b7a] pt-8 border-t border-[#e0d5c7]" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
         <span>© MMXXIV Élégance</span>
         <div className="flex items-center gap-6">
           <span className="cursor-default">Instagram</span>

@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Menu, X, Check, ArrowRight } from 'lucide-react';
+import { useResponsive } from '../../hooks/useResponsive';
 
-export const S03Mondrian = () => {
+export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const responsive = useResponsive(deviceMode);
 
   // Design tokens from S03 specification
   const colors = {
@@ -18,15 +20,7 @@ export const S03Mondrian = () => {
     fontFamily: '"Helvetica Neue", Arial, sans-serif',
   };
 
-  const spacing = {
-    xs: '8px',
-    sm: '16px',
-    md: '24px',
-    lg: '32px',
-    xl: '48px',
-    xxl: '64px',
-    section: '96px',
-  };
+  const spacing = responsive.spacing;
 
   const border = {
     width: '2px',
@@ -41,7 +35,7 @@ export const S03Mondrian = () => {
         backgroundColor: colors.bg,
         color: colors.primary,
         fontFamily: typography.fontFamily,
-        fontSize: '16px',
+        fontSize: responsive.fontSize.base,
         lineHeight: 1.6,
       }}
     >
@@ -60,7 +54,7 @@ export const S03Mondrian = () => {
             </div>
             <span 
               style={{
-                fontSize: '14px',
+                fontSize: responsive.fontSize.sm,
                 fontWeight: '700',
                 letterSpacing: '0.2em',
                 textTransform: 'uppercase',
@@ -71,13 +65,13 @@ export const S03Mondrian = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className={`${responsive.nav.showDesktop ? 'flex' : 'hidden'} items-center gap-8`}>
             {['Works', 'Philosophy', 'Contact'].map((item) => (
               <span 
                 key={item}
                 className="cursor-pointer"
                 style={{
-                  fontSize: '12px',
+                  fontSize: responsive.fontSize.xs,
                   fontWeight: '700',
                   letterSpacing: '0.15em',
                   textTransform: 'uppercase',
@@ -92,7 +86,7 @@ export const S03Mondrian = () => {
                 color: colors.white,
                 border: 'none',
                 padding: '8px 16px',
-                fontSize: '12px',
+                fontSize: responsive.fontSize.xs,
                 fontWeight: '700',
                 letterSpacing: '0.15em',
                 textTransform: 'uppercase',
@@ -104,18 +98,19 @@ export const S03Mondrian = () => {
           </nav>
 
           {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden"
-            style={{
-              backgroundColor: 'transparent',
-              border: 'none',
-              padding: '8px',
-              cursor: 'pointer',
-            }}
-          >
-            {menuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+          {responsive.nav.showMobile && (
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              style={{
+                backgroundColor: 'transparent',
+                border: 'none',
+                padding: '8px',
+                cursor: 'pointer',
+              }}
+            >
+              {menuOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          )}
         </div>
 
         {/* Mobile Menu */}
@@ -134,7 +129,7 @@ export const S03Mondrian = () => {
                   key={item}
                   className="block cursor-pointer"
                   style={{
-                    fontSize: '12px',
+                    fontSize: responsive.fontSize.xs,
                     fontWeight: '700',
                     letterSpacing: '0.15em',
                     textTransform: 'uppercase',
@@ -150,7 +145,7 @@ export const S03Mondrian = () => {
                   color: colors.white,
                   border: 'none',
                   padding: '8px 16px',
-                  fontSize: '12px',
+                  fontSize: responsive.fontSize.xs,
                   fontWeight: '700',
                   letterSpacing: '0.15em',
                   textTransform: 'uppercase',
@@ -170,7 +165,7 @@ export const S03Mondrian = () => {
       <section style={{ padding: `${spacing.section} ${spacing.md}` }}>
         <div className="max-w-6xl mx-auto">
           {/* Desktop Grid */}
-          <div className="hidden md:grid grid-cols-12 gap-2" style={{ minHeight: '500px' }}>
+          <div className="grid-cols-12 gap-2" style={{ minHeight: '500px', display: deviceMode === 'mobile' ? 'none' : 'grid' }}>
             {/* Large Red Block - Main Content */}
             <div 
               className="col-span-7 row-span-2 flex flex-col justify-center p-8"
@@ -200,14 +195,14 @@ export const S03Mondrian = () => {
                 >
                   Rational, architectural, and timeless. Transform abstract modernist principles into production-ready UI with geometric precision.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col md:flex-row gap-4">
                   <button
                     style={{
                       backgroundColor: colors.white,
                       color: colors.primary,
                       border: 'none',
                       padding: '12px 24px',
-                      fontSize: '12px',
+                      fontSize: responsive.fontSize.xs,
                       fontWeight: '700',
                       letterSpacing: '0.15em',
                       textTransform: 'uppercase',
@@ -226,7 +221,7 @@ export const S03Mondrian = () => {
                       color: colors.white,
                       border: `2px solid ${colors.white}`,
                       padding: '12px 24px',
-                      fontSize: '12px',
+                      fontSize: responsive.fontSize.xs,
                       fontWeight: '700',
                       letterSpacing: '0.15em',
                       textTransform: 'uppercase',
@@ -288,7 +283,7 @@ export const S03Mondrian = () => {
             >
               <div style={{ 
                 color: colors.primary,
-                fontSize: '14px',
+                fontSize: responsive.fontSize.sm,
                 fontWeight: '700',
                 letterSpacing: '0.15em',
                 textTransform: 'uppercase',
@@ -305,7 +300,7 @@ export const S03Mondrian = () => {
               <div style={{ color: colors.white }}>
                 <h3 
                   style={{
-                    fontSize: '24px',
+                    fontSize: responsive.fontSize['2xl'],
                     fontWeight: '700',
                     marginBottom: spacing.md,
                   }}
@@ -318,7 +313,7 @@ export const S03Mondrian = () => {
                       key={item}
                       style={{ 
                         marginBottom: spacing.sm,
-                        fontSize: '14px',
+                        fontSize: responsive.fontSize.sm,
                         display: 'flex',
                         alignItems: 'center',
                         gap: spacing.sm,
@@ -339,7 +334,7 @@ export const S03Mondrian = () => {
             >
               <div style={{ 
                 color: colors.white,
-                fontSize: '18px',
+                fontSize: responsive.fontSize.lg,
                 fontWeight: '700',
                 letterSpacing: '0.15em',
                 textTransform: 'uppercase',
@@ -351,7 +346,7 @@ export const S03Mondrian = () => {
           </div>
 
           {/* Mobile Grid - Stacked Layout */}
-          <div className="md:hidden space-y-2">
+          <div className="space-y-2" style={{ display: deviceMode === 'mobile' ? 'block' : 'none' }}>
             {/* Main Content Block */}
             <div 
               className="flex flex-col justify-center p-6"
@@ -360,7 +355,7 @@ export const S03Mondrian = () => {
               <div style={{ color: colors.white }}>
                 <h1 
                   style={{
-                    fontSize: '28px',
+                    fontSize: responsive.fontSize['3xl'],
                     fontWeight: '700',
                     lineHeight: 1.1,
                     marginBottom: spacing.md,
@@ -373,7 +368,7 @@ export const S03Mondrian = () => {
                 </h1>
                 <p 
                   style={{
-                    fontSize: '16px',
+                    fontSize: responsive.fontSize.base,
                     lineHeight: 1.6,
                     marginBottom: spacing.lg,
                   }}
@@ -387,7 +382,7 @@ export const S03Mondrian = () => {
                       color: colors.primary,
                       border: 'none',
                       padding: '12px 24px',
-                      fontSize: '12px',
+                      fontSize: responsive.fontSize.xs,
                       fontWeight: '700',
                       letterSpacing: '0.15em',
                       textTransform: 'uppercase',
@@ -407,7 +402,7 @@ export const S03Mondrian = () => {
                       color: colors.white,
                       border: `2px solid ${colors.white}`,
                       padding: '12px 24px',
-                      fontSize: '12px',
+                      fontSize: responsive.fontSize.xs,
                       fontWeight: '700',
                       letterSpacing: '0.15em',
                       textTransform: 'uppercase',
@@ -427,7 +422,7 @@ export const S03Mondrian = () => {
             >
               <div style={{ 
                 color: colors.white,
-                fontSize: '32px',
+                fontSize: responsive.fontSize['4xl'],
                 fontWeight: '700',
                 textAlign: 'center',
               }}>
@@ -444,7 +439,7 @@ export const S03Mondrian = () => {
               >
                 <div style={{ 
                   color: colors.primary,
-                  fontSize: '24px',
+                  fontSize: responsive.fontSize['2xl'],
                   fontWeight: '700',
                   marginBottom: spacing.sm,
                 }}>
@@ -472,7 +467,7 @@ export const S03Mondrian = () => {
               >
                 <div style={{ 
                   color: colors.primary,
-                  fontSize: '12px',
+                  fontSize: responsive.fontSize.xs,
                   fontWeight: '700',
                   letterSpacing: '0.15em',
                   textTransform: 'uppercase',
@@ -490,7 +485,7 @@ export const S03Mondrian = () => {
               <div style={{ color: colors.white }}>
                 <h3 
                   style={{
-                    fontSize: '20px',
+                    fontSize: responsive.fontSize.xl,
                     fontWeight: '700',
                     marginBottom: spacing.md,
                   }}
@@ -503,7 +498,7 @@ export const S03Mondrian = () => {
                       key={item}
                       style={{ 
                         marginBottom: spacing.sm,
-                        fontSize: '14px',
+                        fontSize: responsive.fontSize.sm,
                         display: 'flex',
                         alignItems: 'center',
                         gap: spacing.sm,
@@ -524,7 +519,7 @@ export const S03Mondrian = () => {
             >
               <div style={{ 
                 color: colors.white,
-                fontSize: '16px',
+                fontSize: responsive.fontSize.base,
                 fontWeight: '700',
                 letterSpacing: '0.15em',
                 textTransform: 'uppercase',
@@ -540,7 +535,7 @@ export const S03Mondrian = () => {
       {/* Metrics Grid */}
       <section style={{ padding: `${spacing.xl} ${spacing.md}` }}>
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+          <div className="grid gap-2" style={{ gridTemplateColumns: deviceMode === 'mobile' ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)' }}>
             {[
               { value: '5,000+', label: 'Designers', color: colors.red },
               { value: '100%', label: 'Precision', color: colors.blue },
@@ -584,10 +579,11 @@ export const S03Mondrian = () => {
       {/* Features Grid */}
       <section style={{ padding: `${spacing.xl} ${spacing.md}` }}>
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-2">
+          <div className="grid gap-2" style={{ gridTemplateColumns: deviceMode === 'mobile' ? '1fr' : 'repeat(12, 1fr)' }}>
             <div 
-              className="md:col-span-8 p-6 md:p-8"
               style={{ 
+                gridColumn: deviceMode === 'mobile' ? 'span 1' : 'span 8', 
+                padding: deviceMode === 'mobile' ? '24px' : '32px',
                 backgroundColor: colors.white,
                 border: `${border.width} ${border.style} ${border.color}`,
               }}
@@ -602,7 +598,7 @@ export const S03Mondrian = () => {
               >
                 Structured Features
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid gap-4" style={{ gridTemplateColumns: deviceMode === 'mobile' ? '1fr' : 'repeat(3, 1fr)' }}>
                 {[
                   { title: 'Grid System', desc: '12-column responsive layout' },
                   { title: 'Color Theory', desc: 'Primary colors only' },
@@ -611,14 +607,14 @@ export const S03Mondrian = () => {
                   <div key={feature.title}>
                     <h3 
                       style={{
-                        fontSize: '16px',
+                        fontSize: responsive.fontSize.base,
                         fontWeight: '700',
                         marginBottom: spacing.sm,
                       }}
                     >
                       {feature.title}
                     </h3>
-                    <p style={{ fontSize: '14px', color: '#666' }}>
+                    <p style={{ fontSize: responsive.fontSize.sm, color: '#666' }}>
                       {feature.desc}
                     </p>
                   </div>
@@ -626,12 +622,12 @@ export const S03Mondrian = () => {
               </div>
             </div>
             <div 
-              className="md:col-span-4 flex items-center justify-center p-6"
-              style={{ backgroundColor: colors.blue }}
+              className="flex items-center justify-center"
+              style={{ gridColumn: deviceMode === 'mobile' ? 'span 1' : 'span 4', padding: '24px', backgroundColor: colors.blue }}
             >
               <div style={{ 
                 color: colors.white,
-                fontSize: '20px',
+                fontSize: responsive.fontSize.xl,
                 fontWeight: '700',
                 textAlign: 'center',
               }}>
@@ -658,7 +654,7 @@ export const S03Mondrian = () => {
             </h2>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+          <div className="grid gap-2" style={{ gridTemplateColumns: deviceMode === 'mobile' ? '1fr' : 'repeat(3, 1fr)' }}>
             {[
               {
                 name: 'Basic',
@@ -690,7 +686,7 @@ export const S03Mondrian = () => {
               >
                 <h3 
                   style={{
-                    fontSize: '20px',
+                    fontSize: responsive.fontSize.xl,
                     fontWeight: '700',
                     marginBottom: spacing.md,
                   }}
@@ -699,7 +695,7 @@ export const S03Mondrian = () => {
                 </h3>
                 <div 
                   style={{
-                    fontSize: '32px',
+                    fontSize: responsive.fontSize['4xl'],
                     fontWeight: '700',
                     marginBottom: spacing.lg,
                   }}
@@ -712,7 +708,7 @@ export const S03Mondrian = () => {
                       key={feature}
                       style={{ 
                         marginBottom: spacing.sm,
-                        fontSize: '14px',
+                        fontSize: responsive.fontSize.sm,
                         display: 'flex',
                         alignItems: 'center',
                         gap: spacing.sm,
@@ -730,7 +726,7 @@ export const S03Mondrian = () => {
                     color: plan.color === colors.white ? colors.white : colors.primary,
                     border: 'none',
                     padding: '12px',
-                    fontSize: '12px',
+                    fontSize: responsive.fontSize.xs,
                     fontWeight: '700',
                     letterSpacing: '0.15em',
                     textTransform: 'uppercase',
@@ -761,17 +757,17 @@ export const S03Mondrian = () => {
                 <div style={{ width: '8px', height: '8px', backgroundColor: colors.blue }} />
                 <div style={{ width: '8px', height: '8px', backgroundColor: colors.yellow }} />
               </div>
-              <div style={{ fontSize: '12px', fontWeight: '700', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+              <div style={{ fontSize: responsive.fontSize.xs, fontWeight: '700', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
                 DE STIJL
               </div>
             </div>
             <div className="md:col-span-4 text-center">
-              <div style={{ fontSize: '12px', color: '#666' }}>
+              <div style={{ fontSize: responsive.fontSize.xs, color: '#666' }}>
                 © 2025 Grid Design System
               </div>
             </div>
             <div className="md:col-span-4 text-center md:text-right">
-              <div style={{ fontSize: '12px', color: '#666' }}>
+              <div style={{ fontSize: responsive.fontSize.xs, color: '#666' }}>
                 Geometric Precision
               </div>
             </div>

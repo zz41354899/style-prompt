@@ -1,6 +1,8 @@
-import { Sparkles, Shield, Check, Mail, Star, Zap, Circle, Triangle, HelpCircle, ChevronRight } from 'lucide-react';
+import { Sparkles, Shield, Check, Mail, Star, Zap, Circle, Triangle, HelpCircle, ChevronRight, Menu, X } from 'lucide-react';
+import { useState } from 'react';
 
-export const S09Memphis = () => {
+export const S09Memphis = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <div className="min-h-full bg-[#FFF5F7] p-4 md:p-8 font-sans relative overflow-hidden">
       {/* 裝飾性幾何圖形 */}
@@ -28,20 +30,47 @@ export const S09Memphis = () => {
             MEMPHIS
           </span>
         </div>
-        <nav className="hidden md:flex gap-3">
-          {[
-            { label: 'Home', color: '#FFE135' },
-            { label: 'Design', color: '#00D4AA' },
-            { label: 'About', color: '#FF6B9D' },
-          ].map((item, i) => (
-            <span key={i}
+        <nav className={`${deviceMode === 'desktop' ? 'flex' : 'hidden'} gap-3`}>
+          {['Play', 'Design', 'About'].map((item, i) => (
+            <span key={i} 
               className="px-5 py-2.5 border-[3px] border-black font-bold text-sm cursor-default text-black"
-              style={{ backgroundColor: item.color, boxShadow: '4px 4px 0 #000' }}>
-              {item.label}
+              style={{ 
+                backgroundColor: ['#FF6B9D', '#00D4AA', '#7C4DFF'][i], 
+                boxShadow: '4px 4px 0 #000' 
+              }}
+            >
+              {item}
             </span>
           ))}
         </nav>
+        {/* Mobile Menu Button */}
+        {deviceMode === 'mobile' || deviceMode === 'tablet' && (
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="px-4 py-2.5 border-[3px] border-black bg-[#FFE135] font-bold text-sm"
+            style={{ boxShadow: '4px 4px 0 #000' }}
+          >
+            {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        )}
       </header>
+
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <div className="mb-8 border-b-[3px] border-black bg-white">
+          {['Play', 'Design', 'About'].map((item, i) => (
+            <div key={i} 
+              className="px-5 py-4 border-b-[3px] border-black font-bold text-sm cursor-default text-black"
+              style={{ 
+                backgroundColor: ['#FF6B9D', '#00D4AA', '#7C4DFF'][i],
+                borderBottom: i < 2 ? '3px solid black' : 'none'
+              }}
+            >
+              {item}
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Hero */}
       <section className="relative z-10 mb-8 md:mb-16">
@@ -74,7 +103,7 @@ export const S09Memphis = () => {
               </button>
             </div>
           </div>
-          <div className="md:col-span-5 relative hidden md:block">
+          <div className="md:col-span-5 relative lg:hidden md:block">
             {/* 裝飾性堆疊圖形 */}
             <div className="relative w-full aspect-square">
               <div className="absolute top-0 right-0 w-3/4 h-3/4 bg-[#FFE135] border-[3px] border-black" style={{ boxShadow: '6px 6px 0 #000' }} />

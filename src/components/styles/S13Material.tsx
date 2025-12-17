@@ -1,6 +1,8 @@
 import { Palette, Home, Search, Heart, User, Menu, Bell, Plus, Layers, Grid3X3, Type, Shield, Check, Mail } from 'lucide-react';
 
-export const S13Material = () => {
+export const S13Material = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
+  const isMobile = deviceMode === 'mobile';
+  
   return (
     <div className="min-h-full bg-[#F5F5F5] font-sans relative">
       {/* App Bar */}
@@ -20,7 +22,7 @@ export const S13Material = () => {
 
       <div className="p-4">
         {/* Hero Card */}
-        <div className="bg-white rounded-3xl shadow-sm overflow-hidden mb-6">
+        <div className="bg-white rounded-3xl shadow-sm overflow-hidden lg:flex lg:justify-between lg:items-center lg:gap-6">
           <div className="h-44 relative overflow-hidden"
             style={{ background: 'linear-gradient(135deg, #6750A4 0%, #7F67BE 50%, #D0BCFF 100%)' }}>
             <div className="absolute bottom-4 left-6 right-6">
@@ -47,7 +49,7 @@ export const S13Material = () => {
         </div>
 
         {/* Feature Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+        <div className="grid gap-3 mb-6" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)' }}>
           {[
             { icon: <Grid3X3 className="w-6 h-6" />, title: 'Grid System', desc: '4dp baseline grid', color: '#6750A4', bg: '#EADDFF' },
             { icon: <Palette className="w-6 h-6" />, title: 'Dynamic Colors', desc: 'Theme from wallpaper', color: '#7D5260', bg: '#FFD8E4' },
@@ -94,7 +96,7 @@ export const S13Material = () => {
             Material Design 3 creates adaptive, accessible, and expressive interfaces. 
             It brings your brand to life through dynamic color, motion, and components.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid gap-4" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
             {[
               { title: 'Adaptive Design', desc: 'Adapts to any screen size' },
               { title: 'Accessibility First', desc: 'WCAG compliant out of the box' },
@@ -110,7 +112,7 @@ export const S13Material = () => {
         </div>
 
         {/* Features */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+        <div className="grid gap-3 mb-6" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)' }}>
           {[
             { title: 'Component Library', desc: 'Pre-built UI components', detail: 'Buttons, cards, dialogs, and more' },
             { title: 'Motion System', desc: 'Meaningful transitions', detail: 'Smooth, purposeful animations' },
@@ -128,7 +130,7 @@ export const S13Material = () => {
         {/* Integrations */}
         <div className="bg-white rounded-2xl p-6 mb-6 shadow-sm">
           <h2 className="text-xl font-medium text-[#1D1B20] mb-4">Platform Support</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="grid gap-3" style={{ gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)' }}>
             {['Android', 'iOS', 'Web', 'Flutter'].map((item) => (
               <div key={item} className="p-4 rounded-2xl bg-[#F7F2FA] text-center">
                 <div className="text-sm font-medium text-[#6750A4]">{item}</div>
@@ -140,7 +142,7 @@ export const S13Material = () => {
         {/* Metrics */}
         <div className="bg-white rounded-2xl p-6 mb-6 shadow-sm">
           <h2 className="text-xl font-medium text-[#1D1B20] mb-4">By the Numbers</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid gap-4" style={{ gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)' }}>
             {[
               { value: '50M+', label: 'Apps using Material' },
               { value: '100+', label: 'Countries' },
@@ -164,7 +166,7 @@ export const S13Material = () => {
               <p className="text-[#49454F] mb-4">
                 Built with security best practices. Your data and designs are always protected.
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div className="grid gap-3" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
                 {[
                   'End-to-end encryption',
                   'SOC 2 compliant',
@@ -183,7 +185,7 @@ export const S13Material = () => {
         {/* Pricing */}
         <div className="bg-white rounded-2xl p-6 mb-6 shadow-sm">
           <h2 className="text-xl font-medium text-[#1D1B20] mb-4">Pricing Plans</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid gap-4" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
             {[
               { name: 'Community', price: 'Free', features: ['Open source', 'Basic components', 'Community support'] },
               { name: 'Professional', price: '$29/mo', features: ['All components', 'Premium support', 'Custom themes'] },

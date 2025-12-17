@@ -1,11 +1,13 @@
-import { Gem, Wind, Sparkles, Layers, ArrowRight, Circle, Shield, Check, Mail } from 'lucide-react';
+import { Gem, Wind, Sparkles, Layers, ArrowRight, Circle, Shield, Check, Mail, Menu, X } from 'lucide-react';
+import { useState } from 'react';
 
-export const S14Glassmorphism = () => {
+export const S14Glassmorphism = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const isMobile = deviceMode === 'mobile';
+  const isTablet = deviceMode === 'tablet';
+  
   return (
-    <div className="min-h-full p-4 md:p-8 font-sans relative overflow-hidden"
-      style={{
-        background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)'
-      }}
+    <div className="min-h-full font-sans relative overflow-hidden" style={{ padding: isMobile ? '16px' : '32px', background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)' }}
     >
       {/* 動態背景光球 */}
       <div className="absolute top-10 left-10 w-72 h-72 bg-purple-500 rounded-full filter blur-[100px] opacity-40 animate-pulse" />
@@ -29,19 +31,52 @@ export const S14Glassmorphism = () => {
           </div>
           <span className="text-white text-xl font-semibold">Glassmorphism</span>
         </div>
-        <nav className="hidden md:flex gap-8 text-white/70 text-sm">
+        <nav className={`${deviceMode === 'desktop' ? 'flex' : 'hidden'} gap-8 text-white/70 text-sm`}>
           {['Home', 'Works', 'About', 'Contact'].map((item, i) => (
             <span key={i} className="cursor-default">
               {item}
             </span>
           ))}
         </nav>
+        {/* Mobile Menu Button */}
+        {(isMobile || isTablet) && (
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="p-2 rounded-xl"
+            style={{
+              background: 'rgba(255, 255, 255, 0.1)',
+              backdropFilter: 'blur(10px)',
+              border: '1px solid rgba(255, 255, 255, 0.2)'
+            }}
+          >
+            {menuOpen ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5 text-white" />}
+          </button>
+        )}
       </header>
 
-      {/* Main Card */}
-      <section className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 mb-10">
-        <div className="md:col-span-7 p-6 md:p-10 rounded-3xl"
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <div className="relative z-10 mb-8 p-6 rounded-3xl"
           style={{
+            background: 'rgba(255, 255, 255, 0.08)',
+            backdropFilter: 'blur(20px)',
+            border: '1px solid rgba(255, 255, 255, 0.15)'
+          }}
+        >
+          {['Home', 'Works', 'About', 'Contact'].map((item, i) => (
+            <div key={i} className="py-3 text-white/70 text-sm cursor-default hover:text-white transition-colors">
+              {item}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Main Card */}
+      <section className="relative z-10 grid mb-10" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(12, 1fr)', gap: isMobile ? '16px' : '24px' }}>
+        <div className="rounded-3xl"
+          style={{
+            gridColumn: isMobile ? 'span 1' : 'span 7',
+            padding: isMobile ? '24px' : '40px',
             background: 'rgba(255, 255, 255, 0.1)',
             backdropFilter: 'blur(24px)',
             border: '1px solid rgba(255, 255, 255, 0.15)',
@@ -52,7 +87,7 @@ export const S14Glassmorphism = () => {
             <Circle className="w-2 h-2 fill-current" />
             <span className="uppercase tracking-[0.2em]">UI Design Trend</span>
           </div>
-          <h1 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
+          <h1 style={{ fontSize: isMobile ? '30px' : '48px' }} className="font-bold text-white mb-6 leading-tight">
             Glassmorphism<br />
             <span className="text-white/60">Design Aesthetics</span>
           </h1>
@@ -60,7 +95,7 @@ export const S14Glassmorphism = () => {
             Create layers and depth through frosted glass effects, making interfaces appear like transparent glass floating in air.
             Blur, transparency, gloss - the perfect combination of three.
           </p>
-          <div className="flex flex-col md:flex-row gap-3 md:gap-4">
+          <div className="flex gap-3" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
             <button className="group px-8 py-4 rounded-xl font-semibold text-white flex items-center gap-2 transition-all hover:gap-3"
               style={{ 
                 background: 'linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05))',
@@ -77,7 +112,7 @@ export const S14Glassmorphism = () => {
           </div>
         </div>
         
-        <div className="md:col-span-5 flex flex-col gap-4">
+        <div style={{ gridColumn: isMobile ? 'span 1' : 'span 5' }} className="flex flex-col gap-4">
           {[
             { icon: <Gem className="w-6 h-6" />, title: 'Transparency', desc: '0.1 - 0.3 optimal effect', value: '20%' },
             { icon: <Wind className="w-6 h-6" />, title: 'Blur Radius', desc: 'Background blur degree', value: '24px' },
@@ -126,7 +161,7 @@ export const S14Glassmorphism = () => {
             Each glass element floats above the background, creating depth while maintaining clarity.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
           {[
             { title: 'Visual Depth', desc: 'Multi-layered glass effects' },
             { title: 'Soft Focus', desc: 'Gentle blur for elegance' },
@@ -147,7 +182,7 @@ export const S14Glassmorphism = () => {
       </section>
 
       {/* Features */}
-      <section className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+      <section className="relative z-10 grid gap-6 mb-10" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)' }}>
         {[
           { title: 'Backdrop Filter', desc: 'CSS blur for glass effect', detail: '24px optimal blur radius' },
           { title: 'Layer System', desc: 'Stacked glass elements', detail: 'Creates visual hierarchy' },
@@ -179,7 +214,7 @@ export const S14Glassmorphism = () => {
         <div className="text-center mb-8">
           <h2 className="text-2xl font-bold text-white mb-4">Platform Support</h2>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid gap-4" style={{ gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)' }}>
           {['Figma', 'Sketch', 'Adobe XD', 'Framer'].map((item) => (
             <div key={item} className="p-4 rounded-xl text-center text-white font-medium"
               style={{
@@ -202,7 +237,7 @@ export const S14Glassmorphism = () => {
           border: '1px solid rgba(255, 255, 255, 0.15)'
         }}
       >
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)' }}>
           {[
             { value: '10M+', label: 'Designs Created' },
             { value: '95%', label: 'User Satisfaction' },
@@ -236,7 +271,7 @@ export const S14Glassmorphism = () => {
               Your designs are protected with enterprise-grade security. 
               Transparent as glass, secure as a vault.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid gap-4" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
               {[
                 '256-bit encryption',
                 'GDPR compliant',
@@ -335,7 +370,7 @@ export const S14Glassmorphism = () => {
           <Mail className="w-8 h-8 text-white/60 mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-white mb-4">Get in Touch</h2>
           <p className="text-white/60 mb-8">Ready to create stunning glass designs?</p>
-          <div className="flex flex-col md:flex-row justify-center gap-4 max-w-md mx-auto">
+          <div className="flex justify-center gap-4 max-w-md mx-auto" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
             <input 
               type="email" 
               placeholder="your@email.com"

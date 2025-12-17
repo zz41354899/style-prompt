@@ -1,8 +1,14 @@
-import { Terminal, Cpu, HardDrive, Wifi, Activity, FolderOpen, FileCode, GitBranch, Shield, Mail } from 'lucide-react';
+import { useState } from 'react';
+import { Terminal, Cpu, HardDrive, Wifi, Activity, FolderOpen, FileCode, GitBranch, Shield, Mail, Menu, X } from 'lucide-react';
 
-export const S16Terminal = () => {
+export const S16Terminal = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const isMobile = deviceMode === 'mobile';
+  const isTablet = deviceMode === 'tablet';
+  const isDesktop = deviceMode === 'desktop';
+  
   return (
-    <div className="min-h-full bg-[#0d1117] text-[#00ff41] p-3 md:p-4 font-mono text-xs md:text-sm relative">
+    <div className="min-h-full bg-[#0d1117] text-[#00ff41] font-mono relative" style={{ padding: isMobile ? '12px' : isTablet ? '14px' : '16px', fontSize: isMobile ? '12px' : '14px' }}>
       {/* 掃描線效果 */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
         style={{
@@ -25,11 +31,34 @@ export const S16Terminal = () => {
               <span>hacker@matrix:~</span>
             </div>
           </div>
-          <div className="flex items-center gap-4 text-[#00ff41]/40 text-xs">
-            <span>zsh</span>
-            <span>UTF-8</span>
-          </div>
+          {isDesktop ? (
+            <div className="flex items-center gap-4 text-[#00ff41]/40 text-xs">
+              <span>zsh</span>
+              <span>UTF-8</span>
+            </div>
+          ) : (
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="p-1 text-[#00ff41]/60 hover:text-[#00ff41] transition-colors"
+            >
+              {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          )}
         </div>
+
+        {/* Mobile/Tablet Menu */}
+        {!isDesktop && menuOpen && (
+          <div className="border-b border-[#00ff41]/20 bg-[#161b22] p-4 space-y-2">
+            {['Home', 'Features', 'Pricing', 'Docs', 'Contact'].map((item) => (
+              <div
+                key={item}
+                className="text-[#00ff41]/80 hover:text-[#00ff41] cursor-pointer py-2 px-3 hover:bg-[#00ff41]/10 rounded transition-colors text-sm"
+              >
+                $ cd /{item.toLowerCase()}
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* 終端機內容 */}
         <div className="p-5 space-y-4 min-h-[400px]">
@@ -63,7 +92,7 @@ export const S16Terminal = () => {
           </div>
 
           {/* 系統資訊面板 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-2">
+          <div className="grid gap-4 py-2" style={{ gridTemplateColumns: (isMobile || isTablet) ? '1fr' : 'repeat(2, 1fr)' }}>
             <div className="space-y-3">
               {[
                 { icon: <Cpu className="w-4 h-4" />, label: 'CPU', value: 'Design Core i9', color: '#58a6ff' },
@@ -117,7 +146,7 @@ export const S16Terminal = () => {
           </div>
 
           {/* 檔案列表 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 py-2">
+          <div className="grid gap-2 py-2" style={{ gridTemplateColumns: (isMobile || isTablet) ? '1fr' : 'repeat(2, 1fr)' }}>
             {[
               { icon: <FolderOpen className="w-4 h-4" />, name: 'terminal-aesthetic/', type: 'dir', color: '#58a6ff' },
               { icon: <FileCode className="w-4 h-4" />, name: 'hacker-style.css', type: 'file', color: '#7ee787' },
@@ -177,7 +206,7 @@ export const S16Terminal = () => {
               <span className="text-white">$ </span>
               <span className="text-[#00ff41]">ls /integrations/</span>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+            <div className="grid gap-2" style={{ gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : isTablet ? 'repeat(3, 1fr)' : 'repeat(4, 1fr)' }}>
               {['Git', 'Docker', 'K8s', 'AWS'].map((item) => (
                 <div key={item} className="p-2 border border-[#00ff41]/20 rounded text-center text-[#00ff41]">
                   {item}
@@ -189,7 +218,7 @@ export const S16Terminal = () => {
           {/* Metrics */}
           <div className="mt-4 p-4 border border-[#00ff41]/20 rounded bg-[#00ff41]/5">
             <div className="text-[#8b949e] mb-3">// SYSTEM_METRICS</div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            <div className="grid gap-4 text-center" style={{ gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : isTablet ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)' }}>
               {[
                 { value: '10K+', label: 'USERS' },
                 { value: '99.9%', label: 'UPTIME' },
@@ -241,7 +270,7 @@ export const S16Terminal = () => {
               <span className="text-white">$ </span>
               <span className="text-[#00ff41]">pricing --list</span>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="grid gap-3" style={{ gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)' }}>
               {[
                 { name: 'FREE', price: '$0', features: ['Basic terminal', 'Limited themes'] },
                 { name: 'PRO', price: '$29/mo', features: ['All features', 'Premium support', 'Custom themes'] },

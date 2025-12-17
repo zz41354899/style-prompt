@@ -1,6 +1,11 @@
-import { Minus, Plus, Volume2, Power, Settings, Wifi, Shield, Check, Mail } from 'lucide-react';
+import { useState } from 'react';
+import { Minus, Plus, Volume2, Power, Settings, Wifi, Shield, Check, Mail, Menu, X } from 'lucide-react';
 
-export const S15Neumorphism = () => {
+export const S15Neumorphism = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const isMobile = deviceMode === 'mobile';
+  const isTablet = deviceMode === 'tablet';
+  
   const neumorph = {
     background: '#e4e9f0',
     boxShadow: '10px 10px 20px #c8cdd4, -10px -10px 20px #ffffff'
@@ -17,7 +22,7 @@ export const S15Neumorphism = () => {
   };
 
   return (
-    <div className="min-h-full p-4 md:p-10 font-sans" style={{ backgroundColor: '#e4e9f0' }}>
+    <div className="min-h-full font-sans" style={{ backgroundColor: '#e4e9f0', padding: isMobile ? '16px' : '40px' }}>
       {/* Header */}
       <header className="flex justify-between items-center mb-8 md:mb-16 p-4 md:p-5 rounded-2xl" style={neumorph}>
         <div className="flex items-center gap-4">
@@ -26,7 +31,7 @@ export const S15Neumorphism = () => {
           </div>
           <span className="text-xl font-semibold text-[#4b5563]">Neumorphism</span>
         </div>
-        <nav className="hidden md:flex gap-2">
+        <nav className={`${deviceMode === 'desktop' ? 'flex' : 'hidden'} gap-2`}>
           {['Home', 'Design', 'About'].map((item, i) => (
             <span key={i}
               className="px-5 py-2.5 rounded-xl text-sm text-[#6b7280] cursor-default"
@@ -35,11 +40,32 @@ export const S15Neumorphism = () => {
             </span>
           ))}
         </nav>
+        {/* Mobile Menu Button */}
+        {(isMobile || isTablet) && (
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="w-10 h-10 rounded-xl flex items-center justify-center text-[#6b7280]"
+            style={neumorphSmall}
+          >
+            {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        )}
       </header>
 
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <div className="mb-8 p-6 rounded-3xl" style={neumorph}>
+          {['Home', 'Design', 'About'].map((item, i) => (
+            <div key={i} className="py-3 text-sm text-[#6b7280] cursor-default hover:text-[#4b5563] transition-colors">
+              {item}
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* Hero */}
-      <section className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 mb-12">
-        <div className="md:col-span-7 p-6 md:p-10 rounded-3xl" style={neumorph}>
+      <section className="grid mb-12" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(12, 1fr)', gap: isMobile ? '24px' : '32px' }}>
+        <div className="rounded-3xl" style={{ ...neumorph, gridColumn: isMobile ? 'span 1' : 'span 7', padding: isMobile ? '24px' : '40px' }}>
           <div className="text-xs uppercase tracking-[0.2em] text-[#9ca3af] mb-6">Soft UI Design</div>
           <h1 className="text-3xl md:text-4xl font-bold text-[#374151] mb-6 leading-tight">
             Neumorphism<br />
@@ -49,7 +75,7 @@ export const S15Neumorphism = () => {
             Soft shadows create raised or depressed effects, making elements appear to emerge from the background.
             This is a design style between flat design and skeuomorphism.
           </p>
-          <div className="flex flex-col md:flex-row gap-3 md:gap-4">
+          <div className="flex gap-3" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
             <button className="px-8 py-4 rounded-2xl text-[#4b5563] font-semibold transition-all hover:scale-[1.02] active:scale-[0.98]"
               style={neumorph}>
               Get Started
@@ -62,7 +88,7 @@ export const S15Neumorphism = () => {
         </div>
         
         {/* 控制面板示範 */}
-        <div className="md:col-span-5 p-6 md:p-8 rounded-3xl" style={neumorph}>
+        <div className="rounded-3xl" style={{ ...neumorph, gridColumn: isMobile ? 'span 1' : 'span 5', padding: isMobile ? '24px' : '32px' }}>
           <div className="text-sm text-[#9ca3af] mb-6 uppercase tracking-wider">Control Panel</div>
           
           {/* 音量控制 */}
@@ -120,7 +146,7 @@ export const S15Neumorphism = () => {
             Through subtle shadows and soft edges, elements appear to emerge from or recede into the surface.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
           {[
             { title: 'Visual Depth', desc: 'Elements appear to float' },
             { title: 'Soft Interaction', desc: 'Gentle press/release feedback' },
@@ -135,7 +161,7 @@ export const S15Neumorphism = () => {
       </section>
 
       {/* Features */}
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <section className="grid gap-6 mb-12" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)' }}>
         {[
           { title: 'Dual Shadow System', desc: 'Light and dark shadows', detail: 'Creates depth illusion' },
           { title: 'Inset Elements', desc: 'Pressed-in appearance', detail: 'For active states' },
@@ -155,7 +181,7 @@ export const S15Neumorphism = () => {
         <div className="text-center mb-8">
           <h2 className="text-2xl font-bold text-[#374151] mb-4">Design Tools</h2>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid gap-4" style={{ gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)' }}>
           {['Figma', 'Sketch', 'Adobe XD', 'Principle'].map((item) => (
             <div key={item} className="p-4 rounded-2xl text-center text-[#6b7280] font-medium" style={neumorphSmall}>
               {item}
@@ -166,7 +192,7 @@ export const S15Neumorphism = () => {
 
       {/* Metrics */}
       <section className="p-8 rounded-3xl mb-12" style={neumorph}>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)' }}>
           {[
             { value: '2020', label: 'Trending Year' },
             { value: '100K+', label: 'Designers' },
@@ -193,7 +219,7 @@ export const S15Neumorphism = () => {
               Your designs are protected with bank-level security. 
               Soft on the eyes, hard on threats.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid gap-4" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
               {[
                 'End-to-end encryption',
                 'Regular security updates',
@@ -214,7 +240,7 @@ export const S15Neumorphism = () => {
         <div className="text-center mb-8">
           <h2 className="text-2xl font-bold text-[#374151] mb-4">Pricing Plans</h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
           {[
             { name: 'Basic', price: '$19/mo', features: ['Basic components', 'Community support'] },
             { name: 'Pro', price: '$49/mo', features: ['All components', 'Priority support', 'Source files'] },
@@ -262,7 +288,7 @@ export const S15Neumorphism = () => {
           <Mail className="w-8 h-8 text-[#6b7280] mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-[#374151] mb-4">Get in Touch</h2>
           <p className="text-[#6b7280] mb-8">Ready to create soft, beautiful interfaces?</p>
-          <div className="flex flex-col md:flex-row justify-center gap-4 max-w-md mx-auto">
+          <div className="flex justify-center gap-4 max-w-md mx-auto" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
             <input 
               type="email" 
               placeholder="your@email.com"

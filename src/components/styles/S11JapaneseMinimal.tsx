@@ -1,33 +1,66 @@
-export const S11JapaneseMinimal = () => {
+import { useState } from 'react';
+
+export const S11JapaneseMinimal = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const isMobile = deviceMode === 'mobile';
+  const isTablet = deviceMode === 'tablet';
+  const isDesktop = deviceMode === 'desktop';
+  
   return (
-    <div className="min-h-full bg-[#FAFAF8] text-[#2d2d2d] p-6 md:p-12 font-sans relative">
+    <div className="min-h-full bg-[#FAFAF8] text-[#2d2d2d] font-sans relative" style={{ padding: isMobile ? '24px' : '48px' }}>
       {/* 背景裝飾 - 淡墨圓 */}
       <div className="absolute top-1/4 right-12 w-64 h-64 rounded-full bg-[#f0ede8] opacity-60" />
       
       {/* Header */}
-      <header className="relative z-10 flex justify-between items-center mb-16 md:mb-32">
+      <header className="relative z-10 flex justify-between items-center" style={{ marginBottom: isMobile ? '64px' : '128px' }}>
         <div className="flex items-center gap-4">
           <div className="text-3xl font-light" style={{ fontFamily: 'serif' }}>Harmony</div>
           <div className="w-px h-6 bg-[#d4d0c8]" />
           <span className="text-[10px] tracking-[0.4em] uppercase text-[#999]">Wa Design</span>
         </div>
-        <nav className="hidden md:flex gap-12 text-xs tracking-[0.25em]">
+        <nav className={`${deviceMode === 'desktop' ? 'flex' : 'hidden'} gap-12 text-xs tracking-[0.25em]`}>
           <span className="cursor-default">Works</span>
           <span className="cursor-default">Philosophy</span>
           <span className="cursor-default">Contact</span>
         </nav>
+        {/* Mobile Menu Button */}
+        {(isMobile || isTablet) && (
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="text-xs tracking-[0.25em] border-b border-[#2d2d2d] pb-1.5 hover:opacity-40 transition-opacity"
+          >
+            {menuOpen ? 'Close' : 'Menu'}
+          </button>
+        )}
       </header>
 
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <div className="relative z-10 mb-16 border-b border-[#e8e4de]">
+          <div className="py-8 space-y-4">
+            <div className="text-xs tracking-[0.25em] text-[#2d2d2d] cursor-default hover:opacity-40 transition-opacity">
+              Works
+            </div>
+            <div className="text-xs tracking-[0.25em] text-[#2d2d2d] cursor-default hover:opacity-40 transition-opacity">
+              Philosophy
+            </div>
+            <div className="text-xs tracking-[0.25em] text-[#2d2d2d] cursor-default hover:opacity-40 transition-opacity">
+              Contact
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Main content */}
-      <main className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 mb-16 md:mb-24">
-        <div className="hidden md:block md:col-span-2">
+      <main className="relative z-10 grid" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(12, 1fr)', gap: isMobile ? '24px' : '32px', marginBottom: isMobile ? '64px' : '96px' }}>
+        {!isMobile && <div style={{ gridColumn: 'span 2' }}>
           <div className="text-[140px] font-light text-[#e8e4de] leading-none" style={{ fontFamily: 'serif' }}>
             静
           </div>
-        </div>
-        <div className="md:col-span-6 pt-4 md:pt-8">
+        </div>}
+        <div style={{ gridColumn: isMobile ? 'span 1' : 'span 6', paddingTop: isMobile ? '16px' : '32px' }}>
           <div className="text-[10px] tracking-[0.4em] uppercase text-[#999] mb-8">Japanese Minimalism</div>
-          <h1 className="text-3xl md:text-4xl font-light leading-[1.4] mb-8 md:mb-10 tracking-wide">
+          <h1 style={{ fontSize: isMobile ? '30px' : '36px', marginBottom: isMobile ? '32px' : '40px' }} className="font-light leading-[1.4] tracking-wide">
             Japanese Minimal<br />
             <span className="text-[#a0a0a0]">The Beauty of Empty Space</span>
           </h1>
@@ -44,14 +77,14 @@ export const S11JapaneseMinimal = () => {
             <span className="text-xs tracking-[0.2em] text-[#a0a0a0]">Learn More</span>
           </div>
         </div>
-        <div className="hidden md:flex md:col-span-4 items-end justify-end">
+        {isDesktop && <div style={{ gridColumn: 'span 4' }} className="flex items-end justify-end">
           <div className="text-right">
             <div className="text-[80px] font-light text-[#f0ede8] leading-none mb-4" style={{ fontFamily: 'serif' }}>
               美
             </div>
             <div className="text-[10px] tracking-[0.3em] text-[#bbb]">BEAUTY</div>
           </div>
-        </div>
+        </div>}
       </main>
 
       {/* Minimal divider */}
@@ -64,7 +97,7 @@ export const S11JapaneseMinimal = () => {
       <section className="relative z-10 mb-20">
         <div className="text-center mb-16">
           <div className="text-[10px] tracking-[0.4em] uppercase text-[#999] mb-8">Philosophy</div>
-          <h2 className="text-2xl md:text-3xl font-light leading-[1.4] mb-8 tracking-wide">
+          <h2 style={{ fontSize: isMobile ? '24px' : '30px' }} className="font-light leading-[1.4] mb-8 tracking-wide">
             The Way of<br />
             <span className="text-[#a0a0a0]">Less is More</span>
           </h2>
@@ -74,7 +107,7 @@ export const S11JapaneseMinimal = () => {
             This is the essence of Japanese design philosophy.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div className="grid gap-12" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
           {[
             { title: 'Clarity', desc: 'Clear mind, clear design' },
             { title: 'Balance', desc: 'Harmony in asymmetry' },
@@ -91,7 +124,7 @@ export const S11JapaneseMinimal = () => {
 
       {/* Features */}
       <section className="relative z-10 mb-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+        <div className="grid gap-16" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)' }}>
           {[
             { title: 'Intentional Whitespace', desc: 'Every space has purpose', detail: 'Breathing room for the mind' },
             { title: 'Natural Materials', desc: 'Connection to nature', detail: 'Wood, stone, and paper textures' },
@@ -112,7 +145,7 @@ export const S11JapaneseMinimal = () => {
         <div className="text-center mb-12">
           <h2 className="text-lg font-light tracking-wide">Partners</h2>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
+        <div className="grid gap-12" style={{ gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)' }}>
           {['Muji', 'Uniqlo', 'Issey Miyake', 'Yoshoku'].map((item) => (
             <div key={item} className="text-center">
               <div className="text-xs font-light">{item}</div>
@@ -123,7 +156,7 @@ export const S11JapaneseMinimal = () => {
 
       {/* Metrics */}
       <section className="relative z-10 mb-20">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid gap-8" style={{ gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)' }}>
           {[
             { value: '1000+', label: 'Projects' },
             { value: '50+', label: 'Awards' },
@@ -146,7 +179,7 @@ export const S11JapaneseMinimal = () => {
             Your privacy is as important as the air we breathe. 
             We protect your data with the same care we bring to our design.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
             {[
               'End-to-end encryption',
               'GDPR compliant',
@@ -167,7 +200,7 @@ export const S11JapaneseMinimal = () => {
           <h2 className="text-lg font-light tracking-wide mb-2">Investment</h2>
           <p className="text-xs text-[#999]">Simple, transparent pricing</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid gap-8" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
           {[
             { name: 'Basic', price: '$29/mo', features: ['Essential features', 'Email support'] },
             { name: 'Professional', price: '$79/mo', features: ['All features', 'Priority support', 'Custom designs'] },
@@ -216,7 +249,7 @@ export const S11JapaneseMinimal = () => {
           <p className="text-sm leading-[2.2] text-[#666] mb-8 max-w-md mx-auto">
             Ready to bring minimal elegance to your project?
           </p>
-          <div className="flex flex-col md:flex-row justify-center gap-4 max-w-md mx-auto">
+          <div className="flex justify-center gap-4 max-w-md mx-auto" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
             <input 
               type="email" 
               placeholder="your@email.com"
@@ -242,7 +275,7 @@ export const S11JapaneseMinimal = () => {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-2 text-[10px] tracking-[0.25em] text-[#999]">
+      <footer className="relative z-10 flex justify-between items-center gap-2 text-[10px] tracking-[0.25em] text-[#999]" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
         <span>Kyoto · Tokyo</span>
         <span>© 2024 Harmony Design</span>
         <span>Japan</span>

@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { ArrowUpRight, Menu, X, Check } from 'lucide-react';
+import { useResponsive } from '../../hooks/useResponsive';
 
-export const S02MinimalistMonochrome = () => {
+export const S02MinimalistMonochrome = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const responsive = useResponsive(deviceMode);
 
   // Design tokens from S02 specification
   const colors = {
@@ -25,17 +27,7 @@ export const S02MinimalistMonochrome = () => {
     secondaryFont: '"Source Serif 4", serif',
   };
 
-  const spacing = {
-    xs: '4px',
-    sm: '8px',
-    md: '16px',
-    lg: '24px',
-    xl: '32px',
-    xxl: '48px',
-    xxxl: '64px',
-    section: '96px',
-    sectionXL: '128px',
-  };
+  const spacing = responsive.spacing;
 
   const radius = {
     none: '0',
@@ -49,7 +41,7 @@ export const S02MinimalistMonochrome = () => {
         backgroundColor: colors.bg.default,
         color: colors.text.primary,
         fontFamily: typography.primaryFont,
-        fontSize: '16px',
+        fontSize: responsive.fontSize.base,
         lineHeight: 1.6,
       }}
     >
@@ -72,7 +64,7 @@ export const S02MinimalistMonochrome = () => {
             />
             <span 
               style={{
-                fontSize: '12px',
+                fontSize: responsive.fontSize.xs,
                 letterSpacing: '0.3em',
                 textTransform: 'uppercase',
                 fontFamily: typography.primaryFont,
@@ -84,13 +76,13 @@ export const S02MinimalistMonochrome = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-10">
+          <nav className={`${responsive.nav.showDesktop ? 'flex' : 'hidden'} items-center gap-10`}>
             {['Work', 'About', 'Contact'].map((item) => (
               <span 
                 key={item}
                 className="cursor-pointer"
                 style={{
-                  fontSize: '12px',
+                  fontSize: responsive.fontSize.xs,
                   letterSpacing: '0.15em',
                   textTransform: 'uppercase',
                   fontFamily: typography.primaryFont,
@@ -117,7 +109,7 @@ export const S02MinimalistMonochrome = () => {
                 border: 'none',
                 borderRadius: radius.none,
                 padding: `${spacing.sm} ${spacing.md}`,
-                fontSize: '12px',
+                fontSize: responsive.fontSize.xs,
                 letterSpacing: '0.15em',
                 textTransform: 'uppercase',
                 fontFamily: typography.primaryFont,
@@ -139,19 +131,20 @@ export const S02MinimalistMonochrome = () => {
           </nav>
 
           {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden"
-            style={{
-              backgroundColor: 'transparent',
-              border: 'none',
-              padding: spacing.sm,
-              cursor: 'pointer',
-              color: colors.text.secondary,
-            }}
-          >
-            {menuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+          {responsive.nav.showMobile && (
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              style={{
+                backgroundColor: 'transparent',
+                border: 'none',
+                padding: spacing.sm,
+                cursor: 'pointer',
+                color: colors.text.secondary,
+              }}
+            >
+              {menuOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          )}
         </div>
 
         {/* Mobile Menu */}
@@ -170,7 +163,7 @@ export const S02MinimalistMonochrome = () => {
                   key={item}
                   className="block cursor-pointer"
                   style={{
-                    fontSize: '12px',
+                    fontSize: responsive.fontSize.xs,
                     letterSpacing: '0.15em',
                     textTransform: 'uppercase',
                     fontFamily: typography.primaryFont,
@@ -189,7 +182,7 @@ export const S02MinimalistMonochrome = () => {
                   border: 'none',
                   borderRadius: radius.none,
                   padding: `${spacing.sm} ${spacing.md}`,
-                  fontSize: '12px',
+                  fontSize: responsive.fontSize.xs,
                   letterSpacing: '0.15em',
                   textTransform: 'uppercase',
                   fontFamily: typography.primaryFont,
@@ -207,9 +200,12 @@ export const S02MinimalistMonochrome = () => {
       </header>
 
       {/* Hero Section */}
-      <section style={{ padding: `${spacing.sectionXL} ${spacing.md}` }}>
+      <section style={{ padding: `${spacing.section} ${spacing.md}` }}>
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+          <div 
+            className="grid gap-8 items-center"
+            style={{ gridTemplateColumns: deviceMode === 'mobile' ? '1fr' : deviceMode === 'tablet' ? '1fr 1fr' : '2fr 1fr' }}
+          >
             {/* Left Column */}
             <div className="md:col-span-8">
               <h1 
@@ -244,7 +240,7 @@ export const S02MinimalistMonochrome = () => {
                 Clarity through restraint. Editorial design principles applied to digital products, where every element serves a purpose and nothing is left to chance.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex gap-4" style={{ flexDirection: deviceMode === 'mobile' ? 'column' : 'row' }}>
                 <button
                   style={{
                     backgroundColor: colors.accent,
@@ -252,7 +248,7 @@ export const S02MinimalistMonochrome = () => {
                     border: 'none',
                     borderRadius: radius.none,
                     padding: `${spacing.md} ${spacing.lg}`,
-                    fontSize: '12px',
+                    fontSize: responsive.fontSize.xs,
                     letterSpacing: '0.15em',
                     textTransform: 'uppercase',
                     fontFamily: typography.primaryFont,
@@ -282,7 +278,7 @@ export const S02MinimalistMonochrome = () => {
                     border: `1px solid ${colors.border}`,
                     borderRadius: radius.none,
                     padding: `${spacing.md} ${spacing.lg}`,
-                    fontSize: '12px',
+                    fontSize: responsive.fontSize.xs,
                     letterSpacing: '0.15em',
                     textTransform: 'uppercase',
                     fontFamily: typography.primaryFont,
@@ -348,7 +344,7 @@ export const S02MinimalistMonochrome = () => {
                   </blockquote>
                   <cite 
                     style={{
-                      fontSize: '12px',
+                      fontSize: responsive.fontSize.xs,
                       letterSpacing: '0.2em',
                       textTransform: 'uppercase',
                       fontFamily: typography.primaryFont,
@@ -370,12 +366,8 @@ export const S02MinimalistMonochrome = () => {
       <section style={{ padding: `${spacing.xl} ${spacing.md}` }}>
         <div className="max-w-6xl mx-auto">
           <div 
-            className="grid grid-cols-2 md:grid-cols-4 gap-6"
-            style={{
-              border: `1px solid ${colors.border}`,
-              borderRadius: radius.none,
-              padding: spacing.xl,
-            }}
+            className="grid gap-8 items-center"
+            style={{ gridTemplateColumns: deviceMode === 'mobile' ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)' }}
           >
             {[
               { value: '5,000+', label: 'Clients' },
@@ -397,7 +389,7 @@ export const S02MinimalistMonochrome = () => {
                 </div>
                 <div 
                   style={{
-                    fontSize: '12px',
+                    fontSize: responsive.fontSize.xs,
                     letterSpacing: '0.15em',
                     textTransform: 'uppercase',
                     color: colors.text.secondary,
@@ -442,7 +434,10 @@ export const S02MinimalistMonochrome = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div 
+            className="grid gap-8"
+            style={{ gridTemplateColumns: `repeat(${responsive.gridCols.features}, 1fr)` }}
+          >
             {[
               {
                 title: 'Clean Interface',
@@ -476,7 +471,7 @@ export const S02MinimalistMonochrome = () => {
               >
                 <h3 
                   style={{
-                    fontSize: '20px',
+                    fontSize: responsive.fontSize.xl,
                     fontWeight: '400',
                     marginBottom: spacing.md,
                     fontFamily: typography.primaryFont,
@@ -487,7 +482,7 @@ export const S02MinimalistMonochrome = () => {
                 </h3>
                 <p 
                   style={{
-                    fontSize: '14px',
+                    fontSize: responsive.fontSize.sm,
                     color: colors.text.secondary,
                     lineHeight: 1.6,
                     fontFamily: typography.primaryFont,
@@ -519,8 +514,9 @@ export const S02MinimalistMonochrome = () => {
           </div>
           
           <div 
-            className="grid grid-cols-2 md:grid-cols-4 gap-6"
-            style={{
+            className="grid gap-6" 
+            style={{ 
+              gridTemplateColumns: deviceMode === 'mobile' ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', 
               border: `1px solid ${colors.border}`,
               borderRadius: radius.none,
               padding: spacing.xl,
@@ -534,7 +530,7 @@ export const S02MinimalistMonochrome = () => {
                   borderRadius: radius.none,
                   padding: spacing.md,
                   textAlign: 'center',
-                  fontSize: '12px',
+                  fontSize: responsive.fontSize.xs,
                   letterSpacing: '0.15em',
                   textTransform: 'uppercase',
                   fontFamily: typography.primaryFont,
@@ -579,7 +575,10 @@ export const S02MinimalistMonochrome = () => {
             </h2>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div 
+            className="grid gap-8"
+            style={{ gridTemplateColumns: `repeat(${responsive.gridCols.pricing}, 1fr)` }}
+          >
             {[
               {
                 name: 'Basic',
@@ -625,7 +624,7 @@ export const S02MinimalistMonochrome = () => {
                       backgroundColor: colors.text.primary,
                       color: colors.bg.default,
                       padding: `${spacing.xs} ${spacing.sm}`,
-                      fontSize: '12px',
+                      fontSize: responsive.fontSize.xs,
                       letterSpacing: '0.15em',
                       textTransform: 'uppercase',
                       fontFamily: typography.primaryFont,
@@ -676,7 +675,7 @@ export const S02MinimalistMonochrome = () => {
                     >
                       <Check size={16} style={{ color: colors.success }} />
                       <span style={{ 
-                        fontSize: '14px', 
+                        fontSize: responsive.fontSize.sm, 
                         color: colors.text.primary,
                         fontFamily: typography.primaryFont,
                       }}>
@@ -700,7 +699,7 @@ export const S02MinimalistMonochrome = () => {
                       : `1px solid ${colors.border}`,
                     borderRadius: radius.none,
                     padding: `${spacing.md} 0`,
-                    fontSize: '12px',
+                    fontSize: responsive.fontSize.xs,
                     letterSpacing: '0.15em',
                     textTransform: 'uppercase',
                     fontFamily: typography.primaryFont,
@@ -779,7 +778,7 @@ export const S02MinimalistMonochrome = () => {
               >
                 <h3 
                   style={{
-                    fontSize: '18px',
+                    fontSize: responsive.fontSize.lg,
                     fontWeight: '400',
                     marginBottom: spacing.md,
                     fontFamily: typography.primaryFont,
@@ -790,7 +789,7 @@ export const S02MinimalistMonochrome = () => {
                 </h3>
                 <p style={{ 
                   color: colors.text.secondary, 
-                  fontSize: '14px', 
+                  fontSize: responsive.fontSize.sm, 
                   lineHeight: 1.6,
                   fontFamily: typography.primaryFont,
                 }}>
@@ -810,7 +809,7 @@ export const S02MinimalistMonochrome = () => {
             style={{
               border: `1px solid ${colors.border}`,
               borderRadius: radius.none,
-              padding: `${spacing.section} ${spacing.md} ${spacing.sectionXL} ${spacing.md}`,
+              padding: `${spacing.section} ${spacing.md} ${spacing.section} ${spacing.md}`,
             }}
           >
             <h2 
@@ -836,7 +835,7 @@ export const S02MinimalistMonochrome = () => {
               Join thousands of professionals who have embraced minimalist design.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex gap-4 justify-center" style={{ flexDirection: deviceMode === 'mobile' ? 'column' : 'row' }}>
               <button
                 style={{
                   backgroundColor: colors.accent,
@@ -844,7 +843,7 @@ export const S02MinimalistMonochrome = () => {
                   border: 'none',
                   borderRadius: radius.none,
                   padding: `${spacing.sm} ${spacing.lg} ${spacing.sm} ${spacing.xl}`,
-                  fontSize: '12px',
+                  fontSize: responsive.fontSize.xs,
                   letterSpacing: '0.15em',
                   textTransform: 'uppercase',
                   fontFamily: typography.primaryFont,
@@ -874,7 +873,7 @@ export const S02MinimalistMonochrome = () => {
                   border: `1px solid ${colors.border}`,
                   borderRadius: radius.none,
                   padding: `${spacing.sm} ${spacing.lg} ${spacing.sm} ${spacing.xl}`,
-                  fontSize: '12px',
+                  fontSize: responsive.fontSize.xs,
                   letterSpacing: '0.15em',
                   textTransform: 'uppercase',
                   fontFamily: typography.primaryFont,
@@ -911,7 +910,7 @@ export const S02MinimalistMonochrome = () => {
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div style={{ 
-              fontSize: '12px', 
+              fontSize: responsive.fontSize.xs, 
               letterSpacing: '0.15em',
               textTransform: 'uppercase',
               fontFamily: typography.primaryFont,
@@ -926,7 +925,7 @@ export const S02MinimalistMonochrome = () => {
                   key={item}
                   className="cursor-pointer"
                   style={{
-                    fontSize: '12px',
+                    fontSize: responsive.fontSize.xs,
                     letterSpacing: '0.15em',
                     textTransform: 'uppercase',
                     fontFamily: typography.primaryFont,

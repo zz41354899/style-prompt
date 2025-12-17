@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Shield, Zap, ArrowRight, Activity, Server, Globe, Menu, X, Check } from 'lucide-react';
+import { useResponsive } from '../../hooks/useResponsive';
 
-export const S01TechMinimal = () => {
+export const S01TechMinimal = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const responsive = useResponsive(deviceMode);
 
   // Design tokens from S01 specification
   const colors = {
@@ -25,16 +27,7 @@ export const S01TechMinimal = () => {
     danger: '#DC2626',
   };
 
-  const spacing = {
-    xs: '4px',
-    sm: '8px',
-    md: '16px',
-    lg: '24px',
-    xl: '32px',
-    xxl: '48px',
-    xxxl: '64px',
-    section: '96px',
-  };
+  const spacing = responsive.spacing;
 
   const radius = {
     sm: '4px',
@@ -85,7 +78,7 @@ export const S01TechMinimal = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className={`${responsive.nav.showDesktop ? 'flex' : 'hidden'} items-center gap-8`}>
             {['Products', 'Solutions', 'About'].map((item) => (
               <span 
                 key={item}
@@ -126,20 +119,21 @@ export const S01TechMinimal = () => {
           </nav>
 
           {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden"
-            style={{
-              backgroundColor: 'transparent',
-              border: `1px solid ${colors.border}`,
-              borderRadius: radius.sm,
-              padding: spacing.sm,
-              cursor: 'pointer',
-              color: colors.text.secondary,
-            }}
-          >
-            {menuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+          {responsive.nav.showMobile && (
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              style={{
+                backgroundColor: 'transparent',
+                border: `1px solid ${colors.border}`,
+                borderRadius: radius.sm,
+                padding: spacing.sm,
+                cursor: 'pointer',
+                color: colors.text.secondary,
+              }}
+            >
+              {menuOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          )}
         </div>
 
         {/* Mobile Menu */}
@@ -157,7 +151,7 @@ export const S01TechMinimal = () => {
                   key={item}
                   className="block cursor-pointer"
                   style={{
-                    fontSize: '14px',
+                    fontSize: responsive.fontSize.sm,
                     fontWeight: '500',
                     color: colors.text.secondary,
                     padding: `${spacing.sm} 0`,
@@ -190,7 +184,10 @@ export const S01TechMinimal = () => {
       {/* Hero Section */}
       <section style={{ padding: `${spacing.section} ${spacing.md}` }}>
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div 
+            className="grid gap-16 items-center"
+            style={{ gridTemplateColumns: deviceMode === 'mobile' ? '1fr' : '1fr 1fr' }}
+          >
             {/* Left Column */}
             <div>
               <div 
@@ -200,7 +197,7 @@ export const S01TechMinimal = () => {
                   border: `1px solid ${colors.border}`,
                   borderRadius: radius.sm,
                   padding: `${spacing.xs} ${spacing.sm}`,
-                  fontSize: '12px',
+                  fontSize: responsive.fontSize.sm,
                   fontWeight: '500',
                   color: colors.text.secondary,
                 }}
@@ -211,7 +208,7 @@ export const S01TechMinimal = () => {
 
               <h1 
                 style={{
-                  fontSize: '48px',
+                  fontSize: responsive.fontSize['5xl'],
                   fontWeight: '700',
                   lineHeight: 1.2,
                   marginBottom: spacing.lg,
@@ -226,7 +223,7 @@ export const S01TechMinimal = () => {
 
               <p 
                 style={{
-                  fontSize: '18px',
+                  fontSize: responsive.fontSize.base,
                   color: colors.text.secondary,
                   lineHeight: 1.6,
                   marginBottom: spacing.xl,
@@ -236,7 +233,7 @@ export const S01TechMinimal = () => {
                 Build, deploy, and scale applications with confidence. Our platform handles the complexity so you can focus on what matters.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex gap-3" style={{ flexDirection: deviceMode === 'mobile' ? 'column' : 'row' }}>
                 <button
                   style={{
                     backgroundColor: colors.primary.base,
@@ -245,7 +242,7 @@ export const S01TechMinimal = () => {
                     borderRadius: radius.sm,
                     boxShadow: shadow,
                     padding: `${spacing.md} ${spacing.lg}`,
-                    fontSize: '14px',
+                    fontSize: responsive.fontSize.sm,
                     fontWeight: '500',
                     cursor: 'pointer',
                     transition: 'all 120ms ease-out',
@@ -272,7 +269,7 @@ export const S01TechMinimal = () => {
                     border: `1px solid ${colors.border}`,
                     borderRadius: radius.sm,
                     padding: `${spacing.md} ${spacing.lg}`,
-                    fontSize: '14px',
+                    fontSize: responsive.fontSize.sm,
                     fontWeight: '500',
                     cursor: 'pointer',
                     transition: 'all 120ms ease-out',
@@ -321,7 +318,7 @@ export const S01TechMinimal = () => {
                       <stat.icon size={20} style={{ color: stat.color }} />
                       <span 
                         style={{
-                          fontSize: '14px',
+                          fontSize: responsive.fontSize.sm,
                           fontWeight: '500',
                           color: colors.text.secondary,
                         }}
@@ -350,8 +347,9 @@ export const S01TechMinimal = () => {
       <section style={{ padding: `${spacing.xl} ${spacing.md}` }}>
         <div className="max-w-6xl mx-auto">
           <div 
-            className="grid grid-cols-2 md:grid-cols-4 gap-6"
-            style={{
+            className="grid gap-6"
+            style={{ 
+              gridTemplateColumns: `repeat(${responsive.gridCols.metrics}, 1fr)`,
               backgroundColor: colors.bg.muted,
               border: `1px solid ${colors.border}`,
               borderRadius: radius.md,
@@ -367,7 +365,7 @@ export const S01TechMinimal = () => {
               <div key={metric.label} className="text-center">
                 <div 
                   style={{
-                    fontSize: '32px',
+                    fontSize: responsive.fontSize['4xl'],
                     fontWeight: '700',
                     color: colors.text.primary,
                     marginBottom: spacing.xs,
@@ -377,7 +375,7 @@ export const S01TechMinimal = () => {
                 </div>
                 <div 
                   style={{
-                    fontSize: '12px',
+                    fontSize: responsive.fontSize.xs,
                     fontWeight: '500',
                     color: colors.text.secondary,
                     textTransform: 'uppercase',
@@ -408,7 +406,7 @@ export const S01TechMinimal = () => {
             </h2>
             <p 
               style={{
-                fontSize: '16px',
+                fontSize: responsive.fontSize.base,
                 color: colors.text.secondary,
                 maxWidth: '72ch',
                 margin: '0 auto',
@@ -418,7 +416,10 @@ export const S01TechMinimal = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div 
+            className="grid gap-6"
+            style={{ gridTemplateColumns: `repeat(${responsive.gridCols.features}, 1fr)` }}
+          >
             {[
               {
                 title: 'Auto-scaling',
@@ -469,7 +470,7 @@ export const S01TechMinimal = () => {
                 
                 <h3 
                   style={{
-                    fontSize: '18px',
+                    fontSize: responsive.fontSize.lg,
                     fontWeight: '600',
                     marginBottom: spacing.sm,
                     color: colors.text.primary,
@@ -479,7 +480,7 @@ export const S01TechMinimal = () => {
                 </h3>
                 <p 
                   style={{
-                    fontSize: '14px',
+                    fontSize: responsive.fontSize.sm,
                     color: colors.text.secondary,
                     lineHeight: 1.5,
                   }}
@@ -509,13 +510,8 @@ export const S01TechMinimal = () => {
           </div>
           
           <div 
-            className="grid grid-cols-2 md:grid-cols-4 gap-4"
-            style={{
-              backgroundColor: colors.bg.surface,
-              border: `1px solid ${colors.border}`,
-              borderRadius: radius.md,
-              padding: spacing.lg,
-            }}
+            className="grid gap-4"
+            style={{ gridTemplateColumns: `repeat(${responsive.gridCols.integrations}, 1fr)` }}
           >
             {['GitHub', 'Slack', 'AWS', 'Google Cloud', 'Docker', 'Kubernetes', 'Jira', 'Notion'].map((integration) => (
               <div
@@ -526,7 +522,7 @@ export const S01TechMinimal = () => {
                   borderRadius: radius.sm,
                   padding: spacing.md,
                   textAlign: 'center',
-                  fontSize: '12px',
+                  fontSize: responsive.fontSize.sm,
                   fontWeight: '500',
                   color: colors.text.secondary,
                   cursor: 'pointer',
@@ -556,7 +552,7 @@ export const S01TechMinimal = () => {
           <div className="text-center" style={{ marginBottom: spacing.xl }}>
             <h2 
               style={{
-                fontSize: '32px',
+                fontSize: responsive.fontSize['4xl'],
                 fontWeight: '700',
                 marginBottom: spacing.md,
                 color: colors.text.primary,
@@ -566,7 +562,10 @@ export const S01TechMinimal = () => {
             </h2>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div 
+            className="grid gap-6"
+            style={{ gridTemplateColumns: `repeat(${responsive.gridCols.pricing}, 1fr)` }}
+          >
             {[
               {
                 name: 'Starter',
@@ -613,7 +612,7 @@ export const S01TechMinimal = () => {
                       backgroundColor: colors.primary.base,
                       color: 'white',
                       padding: `${spacing.xs} ${spacing.sm}`,
-                      fontSize: '12px',
+                      fontSize: responsive.fontSize.sm,
                       fontWeight: '500',
                       borderRadius: radius.sm,
                     }}
@@ -625,7 +624,7 @@ export const S01TechMinimal = () => {
                 <div style={{ textAlign: 'center', marginBottom: spacing.lg, marginTop: plan.popular ? '8px' : '0' }}>
                   <h3 
                     style={{
-                      fontSize: '20px',
+                      fontSize: responsive.fontSize.xl,
                       fontWeight: '600',
                       marginBottom: spacing.sm,
                       color: colors.text.primary,
@@ -635,7 +634,7 @@ export const S01TechMinimal = () => {
                   </h3>
                   <div 
                     style={{
-                      fontSize: '36px',
+                      fontSize: responsive.fontSize['4xl'],
                       fontWeight: '700',
                       color: colors.text.primary,
                       marginBottom: spacing.sm,
@@ -643,7 +642,7 @@ export const S01TechMinimal = () => {
                   >
                     {plan.price}
                   </div>
-                  <p style={{ color: colors.text.secondary, fontSize: '14px' }}>
+                  <p style={{ color: colors.text.secondary, fontSize: responsive.fontSize.sm }}>
                     {plan.description}
                   </p>
                 </div>
@@ -656,7 +655,7 @@ export const S01TechMinimal = () => {
                       style={{ marginBottom: spacing.sm }}
                     >
                       <Check size={16} style={{ color: colors.success }} />
-                      <span style={{ fontSize: '14px', color: colors.text.primary }}>
+                      <span style={{ fontSize: responsive.fontSize.sm, color: colors.text.primary }}>
                         {feature}
                       </span>
                     </div>
@@ -677,7 +676,7 @@ export const S01TechMinimal = () => {
                       : `1px solid ${colors.border}`,
                     borderRadius: radius.sm,
                     padding: `${spacing.md} 0`,
-                    fontSize: '14px',
+                    fontSize: responsive.fontSize.sm,
                     fontWeight: '500',
                     cursor: 'pointer',
                     transition: 'all 120ms ease-out',
@@ -713,7 +712,7 @@ export const S01TechMinimal = () => {
           <div className="text-center" style={{ marginBottom: spacing.xl }}>
             <h2 
               style={{
-                fontSize: '24px',
+                fontSize: responsive.fontSize['3xl'],
                 fontWeight: '600',
                 marginBottom: spacing.md,
                 color: colors.text.primary,
@@ -749,7 +748,7 @@ export const S01TechMinimal = () => {
               >
                 <h3 
                   style={{
-                    fontSize: '16px',
+                    fontSize: responsive.fontSize.base,
                     fontWeight: '600',
                     marginBottom: spacing.sm,
                     color: colors.text.primary,
@@ -757,7 +756,7 @@ export const S01TechMinimal = () => {
                 >
                   {faq.question}
                 </h3>
-                <p style={{ color: colors.text.secondary, fontSize: '14px', lineHeight: 1.5 }}>
+                <p style={{ color: colors.text.secondary, fontSize: responsive.fontSize.sm, lineHeight: 1.5 }}>
                   {faq.answer}
                 </p>
               </div>
@@ -781,7 +780,7 @@ export const S01TechMinimal = () => {
           >
             <h2 
               style={{
-                fontSize: '32px',
+                fontSize: responsive.fontSize['4xl'],
                 fontWeight: '700',
                 marginBottom: spacing.md,
                 color: colors.text.primary,
@@ -793,13 +792,13 @@ export const S01TechMinimal = () => {
               style={{
                 color: colors.text.secondary,
                 marginBottom: spacing.xl,
-                fontSize: '16px',
+                fontSize: responsive.fontSize.base,
               }}
             >
               Join thousands of teams already using TechFlow to build amazing products.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex gap-4 justify-center" style={{ flexDirection: deviceMode === 'mobile' ? 'column' : 'row' }}>
               <button
                 style={{
                   backgroundColor: colors.primary.base,
@@ -864,8 +863,8 @@ export const S01TechMinimal = () => {
         }}
       >
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div style={{ fontSize: '14px', color: colors.text.secondary }}>
+          <div className="flex justify-between items-center gap-4" style={{ flexDirection: deviceMode === 'mobile' ? 'column' : 'row' }}>
+            <div style={{ fontSize: responsive.fontSize.sm, color: colors.text.secondary }}>
               © 2025 TechFlow. All rights reserved.
             </div>
             <div className="flex gap-6">
@@ -874,7 +873,7 @@ export const S01TechMinimal = () => {
                   key={item}
                   className="cursor-pointer hover:text-blue-600 transition-colors"
                   style={{
-                    fontSize: '14px',
+                    fontSize: responsive.fontSize.sm,
                     color: colors.text.secondary,
                   }}
                 >
