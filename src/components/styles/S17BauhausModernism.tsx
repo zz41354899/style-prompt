@@ -25,7 +25,7 @@ export const S17BauhausModernism = () => {
           <span className="text-sm font-bold tracking-wider uppercase cursor-default">Form</span>
           <span className="text-sm font-bold tracking-wider uppercase cursor-default">Function</span>
           <button className="px-6 py-3 bg-[#1a1a1a] text-white text-xs font-bold tracking-wider uppercase hover:bg-[#333] transition-colors">
-            聯繫我們
+           Contact Us
           </button>
         </nav>
 
