@@ -786,16 +786,14 @@ export const S04Swiss = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | '
 
         {/* FAQ */}
         <div 
-          className="grid gap-4"
           style={{
-            gridTemplateColumns: 'repeat(12, 1fr)',
             marginBottom: '64px',
+            maxWidth: deviceMode === 'mobile' ? '100%' : '800px',
+            marginLeft: 'auto',
+            marginRight: 'auto',
           }}
         >
-          <div style={{ 
-            gridColumn: deviceMode === 'mobile' ? 'span 12' : 'span 8',
-            gridColumnStart: deviceMode === 'mobile' ? 'auto' : '3',
-          }}>
+          <div>
             <div 
               style={{
                 fontSize: '10px',
@@ -841,54 +839,86 @@ export const S04Swiss = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | '
         </div>
 
         {/* Contact */}
-        <div className="grid grid-cols-12 gap-4 mb-16">
-          <div className="col-span-12">
-            <div className="border-2 border-black p-8 md:p-12">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <div>
-                  <div className="text-[10px] tracking-[0.4em] uppercase text-[#999] mb-4">Get Started</div>
-                  <h2 className="text-2xl md:text-3xl font-bold mb-4 tracking-[-0.01em]">
-                    Ready to Transform<br />Your Design Process?
-                  </h2>
-                  <p className="text-sm leading-[1.8] text-[#555] mb-6">
-                    Join thousands of teams already using Swiss Design principles to create clearer, more effective communications.
-                  </p>
-                </div>
-                <div className="space-y-4">
-                  <input 
-                    type="email" 
-                    placeholder="EMAIL ADDRESS"
-                    className="w-full px-4 py-3 border-2 border-black text-sm font-medium placeholder-black/30 focus:outline-none focus:border-[#0057FF]"
-                  />
-                  <button className="w-full bg-black text-white px-6 py-3 text-xs font-bold tracking-wider uppercase hover:bg-[#333] transition-colors">
-                    Start Free Trial
-                  </button>
-                  <p className="text-[10px] tracking-[0.3em] uppercase text-[#999] text-center">
-                    No credit card required • 14-day free trial
-                  </p>
-                </div>
+        <div style={{ marginBottom: '64px' }}>
+          <div 
+            style={{
+              border: '2px solid black',
+              padding: deviceMode === 'mobile' ? '24px' : '48px',
+            }}
+          >
+            <div 
+              style={{
+                display: 'flex',
+                flexDirection: deviceMode === 'mobile' ? 'column' : 'row',
+                gap: '32px',
+                alignItems: deviceMode === 'mobile' ? 'stretch' : 'center',
+              }}
+            >
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: '10px', letterSpacing: '0.4em', textTransform: 'uppercase', color: '#999', marginBottom: '16px' }}>Get Started</div>
+                <h2 style={{ fontSize: deviceMode === 'mobile' ? '24px' : '32px', fontWeight: '700', marginBottom: '16px', letterSpacing: '-0.01em' }}>
+                  Ready to Transform Your Design Process?
+                </h2>
+                <p style={{ fontSize: '14px', lineHeight: '1.8', color: '#555', marginBottom: deviceMode === 'mobile' ? '0' : '24px' }}>
+                  Join thousands of teams already using Swiss Design principles to create clearer, more effective communications.
+                </p>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: deviceMode === 'mobile' ? '100%' : '280px', flexShrink: 0 }}>
+                <input 
+                  type="email" 
+                  placeholder="EMAIL ADDRESS"
+                  style={{ width: '100%', padding: '12px 16px', border: '2px solid black', fontSize: '14px', fontWeight: '500' }}
+                />
+                <button style={{ width: '100%', backgroundColor: 'black', color: 'white', padding: '12px 24px', fontSize: '12px', fontWeight: '700', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+                  Start Free Trial
+                </button>
+                <p style={{ fontSize: '10px', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#999', textAlign: 'center' }}>
+                  No credit card required • 14-day free trial
+                </p>
               </div>
             </div>
           </div>
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-12 gap-4 mb-12 py-8 border-t-2 border-b-2 border-black">
+        <div 
+          style={{
+            display: 'grid',
+            gridTemplateColumns: deviceMode === 'mobile' ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+            gap: '16px',
+            marginBottom: '48px',
+            padding: '32px 0',
+            borderTop: '2px solid black',
+            borderBottom: '2px solid black',
+          }}
+        >
           {[
             { num: '1950', label: 'Origin Era' },
             { num: '12', label: 'Column Grid' },
             { num: '∞', label: 'Influence' },
             { num: '100%', label: 'Functionality' },
           ].map((item, i) => (
-            <div key={i} className="col-span-6 sm:col-span-3 text-center">
-              <div className="text-2xl sm:text-3xl md:text-4xl font-black mb-2">{item.num}</div>
-              <div className="text-[10px] tracking-[0.3em] uppercase text-[#999]">{item.label}</div>
+            <div key={i} style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: deviceMode === 'mobile' ? '24px' : '36px', fontWeight: '900', marginBottom: '8px' }}>{item.num}</div>
+              <div style={{ fontSize: '10px', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#999' }}>{item.label}</div>
             </div>
           ))}
         </div>
 
         {/* Footer */}
-        <footer className="flex flex-col md:flex-row justify-between items-center gap-2 text-[10px] tracking-[0.3em] uppercase text-[#999]">
+        <footer 
+          style={{
+            display: 'flex',
+            flexDirection: deviceMode === 'mobile' ? 'column' : 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: '8px',
+            fontSize: '10px',
+            letterSpacing: '0.3em',
+            textTransform: 'uppercase',
+            color: '#999',
+          }}
+        >
           <span>Basel · Zürich · Switzerland</span>
           <span>© 2024 Swiss Design</span>
         </footer>
