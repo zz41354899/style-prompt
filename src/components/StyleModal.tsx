@@ -1,12 +1,14 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { X, ArrowRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { styles } from '../data/styles';
 import { styleComponents } from './styles';
 
 export const StyleModal: React.FC = () => {
   const { styleId } = useParams<{ styleId: string }>();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const currentStyle = styles.find(s => s.id === styleId);
   const SelectedComponent = styleComponents[styleId || 'S01'];
@@ -27,7 +29,7 @@ export const StyleModal: React.FC = () => {
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Style Component</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">{t('styleModal.styleComponent')}</h2>
             <p className="text-gray-600">
               {currentStyle.name} — {currentStyle.description}
             </p>
@@ -56,13 +58,13 @@ export const StyleModal: React.FC = () => {
         <div className="p-4 border-t border-gray-200 bg-gray-50">
           <div className="flex items-center justify-between">
             <p className="text-sm text-gray-500">
-              This is the actual React component for the {currentStyle.name} style
+              {t('styleModal.actualComponentHint', { styleName: currentStyle.name })}
             </p>
             <button
               onClick={() => navigate(`/builder/${styleId}`)}
               className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
             >
-              <span>Customize in Builder</span>
+              <span>{t('styleModal.customizeInBuilder')}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>

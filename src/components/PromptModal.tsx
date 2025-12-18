@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { X, Copy, Check, Coffee } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { styles } from '../data/styles';
 
 export const PromptModal: React.FC = () => {
   const { styleId } = useParams<{ styleId: string }>();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
   const [promptText, setPromptText] = useState('');
   const [loading, setLoading] = useState(true);
@@ -65,7 +67,7 @@ This design should embody the essence of ${currentStyle.name} while ensuring exc
 
         setPromptText(prompt);
       } catch (err) {
-        setError('Failed to generate prompt. Please try again.');
+        setError(t('promptModal.generateFailed'));
       } finally {
         setLoading(false);
       }
@@ -100,7 +102,7 @@ This design should embody the essence of ${currentStyle.name} while ensuring exc
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-white/10">
           <div>
-            <h2 className="text-2xl font-bold text-white mb-2">Design Prompt</h2>
+            <h2 className="text-2xl font-bold text-white mb-2">{t('promptModal.designPrompt')}</h2>
             <p className="text-gray-400">
               {currentStyle.name} — {currentStyle.description}
             </p>
@@ -119,7 +121,7 @@ This design should embody the essence of ${currentStyle.name} while ensuring exc
             <div className="flex items-center justify-center h-full">
               <div className="flex items-center gap-3 text-gray-400">
                 <Coffee className="w-6 h-6 animate-pulse" />
-                <span>Generating your prompt...</span>
+                <span>{t('promptModal.generatingPrompt')}</span>
               </div>
             </div>
           ) : error ? (
@@ -130,7 +132,7 @@ This design should embody the essence of ${currentStyle.name} while ensuring exc
                   onClick={() => window.location.reload()}
                   className="px-4 py-2 bg-red-500/10 text-red-400 rounded-lg hover:bg-red-500/20 transition-colors"
                 >
-                  Try Again
+                  {t('promptModal.tryAgain')}
                 </button>
               </div>
             </div>
@@ -143,7 +145,7 @@ This design should embody the essence of ${currentStyle.name} while ensuring exc
                     to={`/builder/${styleId}`}
                     className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors"
                   >
-                    Customize in Builder
+                    {t('promptModal.customizeInBuilder')}
                   </Link>
                 </div>
                 <button
@@ -153,12 +155,12 @@ This design should embody the essence of ${currentStyle.name} while ensuring exc
                   {copied ? (
                     <>
                       <Check className="w-4 h-4" />
-                      <span>Copied!</span>
+                      <span>{t('promptModal.copied')}</span>
                     </>
                   ) : (
                     <>
                       <Copy className="w-4 h-4" />
-                      <span>Copy Prompt</span>
+                      <span>{t('promptModal.copyPrompt')}</span>
                     </>
                   )}
                 </button>
@@ -177,7 +179,7 @@ This design should embody the essence of ${currentStyle.name} while ensuring exc
         {/* Footer */}
         <div className="p-4 border-t border-white/10 bg-[#0a0a0a]/50">
           <p className="text-xs text-gray-500 text-center">
-            This prompt can be used with AI design tools to generate designs based on the {currentStyle.name} style
+            {t('promptModal.promptUsageHint', { styleName: currentStyle.name })}
           </p>
         </div>
       </div>

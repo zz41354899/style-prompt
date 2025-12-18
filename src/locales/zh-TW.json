@@ -1,0 +1,166 @@
+{
+  "common": {
+    "language": "語言",
+    "switchLanguage": "切換語言",
+    "switchToEnglish": "Switch to English",
+    "switchToChinese": "切換至中文"
+  },
+  "styles": {
+    "S01": {
+      "name": "科技極簡",
+      "description": "科技極簡風格，乾淨俐落的介面設計"
+    },
+    "S02": {
+      "name": "極簡黑白",
+      "description": "極簡黑白編輯風格，強調排版與對比"
+    },
+    "S03": {
+      "name": "蒙德里安 / 風格派",
+      "description": "蒙德里安風格，幾何色塊與直線構圖"
+    },
+    "S04": {
+      "name": "瑞士 / 國際字體排印",
+      "description": "瑞士國際字體排印風格，網格系統與無襯線字體"
+    },
+    "S05": {
+      "name": "粗獷主義",
+      "description": "粗獷主義，原始、大膽、不加修飾的設計"
+    },
+    "S06": {
+      "name": "賽博龐克",
+      "description": "賽博龐克，霓虹燈光與未來科技美學"
+    },
+    "S07": {
+      "name": "80年代復古 (合成波)",
+      "description": "80年代復古合成波，漸層霓虹與網格圖案"
+    },
+    "S08": {
+      "name": "60-70年代復古 (印刷顆粒)",
+      "description": "60-70年代印刷風格，復古色彩與顆粒質感"
+    },
+    "S09": {
+      "name": "孟菲斯",
+      "description": "孟菲斯設計，幾何圖形與鮮豔色彩"
+    },
+    "S10": {
+      "name": "奢華編輯",
+      "description": "奢華編輯風格，優雅襯線字體與精緻排版"
+    },
+    "S11": {
+      "name": "日式極簡",
+      "description": "日式極簡主義，留白美學與禪意設計"
+    },
+    "S12": {
+      "name": "自然有機",
+      "description": "自然有機風格，柔和曲線與大地色調"
+    },
+    "S13": {
+      "name": "Material 風格",
+      "description": "Material Design 風格，陰影層次與色彩系統"
+    },
+    "S14": {
+      "name": "玻璃擬態",
+      "description": "玻璃擬態，毛玻璃效果與透明層次"
+    },
+    "S15": {
+      "name": "新擬態",
+      "description": "新擬態設計，柔和陰影與浮雕效果"
+    },
+    "S16": {
+      "name": "終端機 / 駭客",
+      "description": "終端機風格，綠色文字與駭客美學"
+    },
+    "S17": {
+      "name": "包浩斯現代主義",
+      "description": "包浩斯風格，幾何形式與功能性設計"
+    },
+    "S18": {
+      "name": "復古像素 UI",
+      "description": "復古像素 UI 風格，8位元美學與像素網格"
+    }
+  },
+  "industries": {
+    "SaaS": "SaaS 軟體服務",
+    "E-commerce": "電子商務",
+    "Healthcare": "醫療保健",
+    "Finance": "金融服務",
+    "Education": "教育培訓",
+    "RealEstate": "房地產",
+    "Restaurant": "餐飲美食",
+    "Travel": "旅遊觀光",
+    "Fitness": "健身養生",
+    "Legal": "法律服務",
+    "Agency": "創意代理",
+    "Nonprofit": "非營利組織"
+  },
+  "uses": {
+    "FullLandingPage": "完整登陸頁",
+    "PricingPage": "定價頁面",
+    "Dashboard": "儀表板",
+    "Onboarding": "新手引導",
+    "AboutPage": "關於我們",
+    "ContactPage": "聯絡我們",
+    "BlogPage": "部落格/文章",
+    "ProductPage": "產品頁面",
+    "PortfolioPage": "作品集/相簿",
+    "FAQPage": "常見問題",
+    "LoginSignup": "登入/註冊"
+  },
+  "layout": {
+    "designStyles": "設計風格",
+    "stylesAvailable": "{{count}} 種風格可選",
+    "currentStyle": "目前風格",
+    "preview": "預覽",
+    "promptBuilder": "提示詞建構器",
+    "desktop": "桌面版",
+    "tablet": "平板",
+    "mobile": "手機",
+    "buyMeACoffee": "請我喝杯咖啡"
+  },
+  "preview": {
+    "previewInfo": "預覽僅供參考，實際結果可能因實作方式而異",
+    "open": "開啟",
+    "styleNotFound": "找不到此風格"
+  },
+  "promptBuilder": {
+    "title": "提示詞建構器",
+    "subtitle": "拖放方塊來建構你的設計提示詞",
+    "blockLibrary": "方塊庫",
+    "assemblyArea": "組裝區 — 將方塊拖放至此",
+    "style": "風格",
+    "industry": "產業",
+    "use": "用途",
+    "generatedPrompt": "產生的提示詞",
+    "copyPrompt": "複製提示詞",
+    "downloadMD": "下載 MD",
+    "promptCopied": "提示詞已複製到剪貼簿！",
+    "copyFailed": "複製失敗，請手動複製。",
+    "assembling": "組裝中...",
+    "errorGenerating": "產生提示詞時發生錯誤，請檢查您的選擇。"
+  },
+  "promptModal": {
+    "designPrompt": "設計提示詞",
+    "generatingPrompt": "正在產生您的提示詞...",
+    "generateFailed": "產生提示詞失敗，請重試。",
+    "tryAgain": "重試",
+    "customizeInBuilder": "在建構器中自訂",
+    "copyPrompt": "複製提示詞",
+    "copied": "已複製！",
+    "promptUsageHint": "此提示詞可用於 AI 設計工具，根據 {{styleName}} 風格產生設計"
+  },
+  "styleModal": {
+    "styleComponent": "風格元件",
+    "actualComponentHint": "這是 {{styleName}} 風格的實際 React 元件",
+    "customizeInBuilder": "在建構器中自訂"
+  },
+  "stylePage": {
+    "home": "首頁",
+    "builder": "建構器",
+    "styleNotFound": "找不到此風格"
+  },
+  "deviceSwitcher": {
+    "desktop": "桌面版",
+    "tablet": "平板",
+    "mobile": "手機"
+  }
+}

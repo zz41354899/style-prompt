@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { Copy, Download, Eye, Blocks, GripVertical, X } from 'lucide-react';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { assemblePrompt, getAvailableOptions, type PromptParams } from '../lib/promptEngine';
 import { Toast } from './Toast';
 
@@ -21,11 +22,11 @@ const blockColors: Record<BlockType, { bg: string; border: string; hover: string
   use: { bg: '#8E24AA', border: '#6a1b9a', hover: '#a033c0' },
 };
 
-const blockLabels: Record<BlockType, string> = {
-  style: 'Style',
-  industry: 'Industry',
-  use: 'Use',
-};
+const getBlockLabels = (t: (key: string) => string): Record<BlockType, string> => ({
+  style: t('promptBuilder.style'),
+  industry: t('promptBuilder.industry'),
+  use: t('promptBuilder.use'),
+});
 
 interface PromptBuilderProps {
   className?: string;
@@ -36,6 +37,8 @@ interface PromptBuilderProps {
 export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', initialStyleId, onStyleChange }) => {
   // Get currently selected style from URL params
   const { styleId } = useParams<{ styleId: string }>();
+  const { t } = useTranslation();
+  const blockLabels = getBlockLabels(t);
   const selectedStyle = styleId || initialStyleId || 'S01';
   
   // Ref to mark internal changes
@@ -89,7 +92,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
       return assemblePrompt(params);
     } catch (error) {
       console.error('Error generating prompt:', error);
-      return 'Error generating prompt. Please check your selections.';
+      return t('promptBuilder.errorGenerating');
     }
   }, [params]);
   
@@ -188,13 +191,13 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
     try {
       await navigator.clipboard.writeText(generatedPrompt);
       setToast({
-        message: 'Prompt copied to clipboard!',
+        message: t('promptBuilder.promptCopied'),
         type: 'success'
       });
     } catch (error) {
       console.error('Copy failed:', error);
       setToast({
-        message: 'Copy failed, please copy manually.',
+        message: t('promptBuilder.copyFailed'),
         type: 'error'
       });
     }
@@ -216,19 +219,16 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
   // Get currently selected block info
   const getSelectedBlock = (type: BlockType): Block => {
     if (type === 'style') {
-      const style = options.styles.find(s => s.id === params.styleId);
-      return { id: params.styleId, type: 'style', value: params.styleId, label: style?.name || params.styleId };
+      return { id: params.styleId, type: 'style', value: params.styleId, label: t(`styles.${params.styleId}.name`) };
     } else if (type === 'industry') {
-      const industry = options.industries.find(i => i.id === params.industryId);
-      return { id: params.industryId, type: 'industry', value: params.industryId, label: industry?.name || params.industryId };
+      return { id: params.industryId, type: 'industry', value: params.industryId, label: t(`industries.${params.industryId}`) };
     } else {
-      const use = options.uses.find(u => u.id === params.useId);
-      return { id: params.useId, type: 'use', value: params.useId, label: use?.name || params.useId };
+      return { id: params.useId, type: 'use', value: params.useId, label: t(`uses.${params.useId}`) };
     }
   };
   
   // Render draggable block
-  const renderDraggableBlock = (block: Block, isDragging: boolean = false) => {
+  const renderDraggableBlock = (block: Block, isDragging: boolean = false, isSelected: boolean = false) => {
     const colors = blockColors[block.type];
     
     return (
@@ -237,11 +237,12 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
         onDragStart={(e) => handleDragStart(e, block)}
         onDragEnd={handleDragEnd}
         className={`
-          relative flex items-center gap-2 px-4 py-3 rounded-xl cursor-grab active:cursor-grabbing
+          relative flex items-center gap-2 px-3 py-2 md:px-4 md:py-3 rounded-xl cursor-pointer md:cursor-grab active:cursor-grabbing
           border-b-4 border-r-4 shadow-lg
           transform transition-all duration-150
           hover:-translate-y-1 hover:shadow-xl
           ${isDragging ? 'opacity-50 scale-95' : 'opacity-100'}
+          ${isSelected ? 'ring-2 ring-white ring-offset-2 ring-offset-[#1a1a1a]' : ''}
         `}
         style={{
           backgroundColor: colors.bg,
@@ -268,10 +269,10 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
       {/* Header */}
       <div className="mb-8 text-center px-4">
         <h1 className="text-3xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-          Prompt Builder
+          {t('promptBuilder.title')}
         </h1>
         <p className="text-gray-400 text-sm md:text-lg max-w-2xl mx-auto">
-          Drag and drop blocks to build your design prompt
+          {t('promptBuilder.subtitle')}
         </p>
       </div>
       
@@ -284,7 +285,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
             <div className="bg-[#1a1a1a] border border-gray-800 rounded-2xl p-4 md:p-6">
               <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                 <Blocks className="w-5 h-5" />
-                Block Library
+                {t('promptBuilder.blockLibrary')}
               </h2>
               
               {/* Category tabs */}
@@ -309,35 +310,47 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
               </div>
               
               {/* Draggable block list */}
-              <div className="space-y-2 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+              <div className="space-y-2 max-h-[250px] md:max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                 {activeTab === 'style' && options.styles.map((style) => (
-                  <div key={style.id}>
+                  <div 
+                    key={style.id}
+                    onClick={() => handleParamChange('styleId', style.id)}
+                    className="cursor-pointer"
+                  >
                     {renderDraggableBlock({
                       id: style.id,
                       type: 'style',
                       value: style.id,
-                      label: `${style.id} — ${style.name}`,
-                    }, draggedBlock?.value === style.id)}
+                      label: `${style.id} — ${t(`styles.${style.id}.name`)}`,
+                    }, draggedBlock?.value === style.id, params.styleId === style.id)}
                   </div>
                 ))}
                 {activeTab === 'industry' && options.industries.map((industry) => (
-                  <div key={industry.id}>
+                  <div 
+                    key={industry.id}
+                    onClick={() => handleParamChange('industryId', industry.id)}
+                    className="cursor-pointer"
+                  >
                     {renderDraggableBlock({
                       id: industry.id,
                       type: 'industry',
                       value: industry.id,
-                      label: industry.name,
-                    }, draggedBlock?.value === industry.id)}
+                      label: t(`industries.${industry.id}`),
+                    }, draggedBlock?.value === industry.id, params.industryId === industry.id)}
                   </div>
                 ))}
                 {activeTab === 'use' && options.uses.map((use) => (
-                  <div key={use.id}>
+                  <div 
+                    key={use.id}
+                    onClick={() => handleParamChange('useId', use.id)}
+                    className="cursor-pointer"
+                  >
                     {renderDraggableBlock({
                       id: use.id,
                       type: 'use',
                       value: use.id,
-                      label: use.name,
-                    }, draggedBlock?.value === use.id)}
+                      label: t(`uses.${use.id}`),
+                    }, draggedBlock?.value === use.id, params.useId === use.id)}
                   </div>
                 ))}
               </div>
@@ -349,11 +362,11 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
             <div className="bg-[#1a1a1a] border border-gray-800 rounded-2xl p-4 md:p-6">
               <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                 <GripVertical className="w-5 h-5" />
-                Assembly Area — Drop blocks here
+                {t('promptBuilder.assemblyArea')}
               </h2>
               
               {/* Assembly slots */}
-              <div className="space-y-4">
+              <div className="space-y-2 md:space-y-4">
                 {assembledBlocks.map((blockType, index) => {
                   const colors = blockColors[blockType];
                   const isOver = dragOverSlot === blockType;
@@ -379,7 +392,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                         }
                       }}
                       className={`
-                        relative flex items-center gap-4 p-4 rounded-xl cursor-grab active:cursor-grabbing
+                        relative flex items-center gap-2 md:gap-4 p-2 md:p-4 rounded-xl cursor-grab active:cursor-grabbing
                         border-2 border-dashed transition-all duration-200
                         ${isOver 
                           ? 'border-yellow-400 bg-yellow-400/10 scale-[1.02]' 
@@ -387,14 +400,14 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                         }
                       `}
                     >
-                      {/* Drag handle */}
-                      <div className="flex-shrink-0 p-2 bg-gray-800 rounded-lg">
+                      {/* Drag handle - hidden on mobile */}
+                      <div className="hidden md:flex flex-shrink-0 p-2 bg-gray-800 rounded-lg">
                         <GripVertical className="w-5 h-5 text-gray-500" />
                       </div>
                       
-                      {/* Slot label */}
+                      {/* Slot label - hidden on mobile */}
                       <div 
-                        className="flex-shrink-0 px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider"
+                        className="hidden md:flex flex-shrink-0 px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider"
                         style={{ backgroundColor: colors.bg + '30', color: colors.bg }}
                       >
                         {blockLabels[blockType]}
@@ -402,7 +415,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                       
                       {/* Currently selected block */}
                       <div
-                        className="flex-1 flex items-center gap-3 px-4 py-3 rounded-xl border-b-4 border-r-4 shadow-lg"
+                        className="flex-1 flex items-center gap-2 md:gap-3 px-3 py-2 md:px-4 md:py-3 rounded-xl border-b-4 border-r-4 shadow-lg"
                         style={{
                           backgroundColor: colors.bg,
                           borderBottomColor: colors.border,
@@ -411,7 +424,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                       >
                         <div className="flex flex-col min-w-0">
                           <span className="text-white/70 text-xs uppercase tracking-wider">{blockLabels[blockType]}</span>
-                          <span className="text-white font-bold text-sm truncate">{selectedBlock.label}</span>
+                          <span className="text-white font-bold text-xs md:text-sm truncate">{selectedBlock.label}</span>
                         </div>
                         {/* Block connector tab */}
                         <div 
@@ -422,7 +435,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                       
                       {/* Reset button */}
                       <button 
-                        className="flex-shrink-0 p-2 text-gray-500 hover:text-red-400 transition-colors"
+                        className="flex-shrink-0 p-1 md:p-2 text-gray-500 hover:text-red-400 transition-colors"
                         onClick={() => {
                           // Reset to default value
                           const defaultValues: Record<BlockType, string> = {
@@ -434,15 +447,15 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                           handleParamChange(paramKey as keyof PromptParams, defaultValues[blockType]);
                         }}
                       >
-                        <X className="w-5 h-5" />
+                        <X className="w-4 h-4 md:w-5 md:h-5" />
                       </button>
                     </div>
                   );
                 })}
               </div>
               
-              {/* Combination preview */}
-              <div className="mt-6 p-4 bg-[#111] rounded-xl border border-gray-800">
+              {/* Combination preview - hidden on mobile */}
+              <div className="hidden md:block mt-6 p-4 bg-[#111] rounded-xl border border-gray-800">
                 <div className="flex flex-wrap gap-2 items-center justify-center">
                   {assembledBlocks.map((blockType, index) => {
                     const colors = blockColors[blockType];
@@ -475,7 +488,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                     <div className="w-2 h-2 bg-[#0F9D58] rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
                     <div className="w-2 h-2 bg-[#8E24AA] rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                   </div>
-                  <span>Assembling...</span>
+                  <span>{t('promptBuilder.assembling')}</span>
                 </div>
               </div>
             </div>
@@ -491,7 +504,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                   <div className="w-7 h-7 md:w-8 md:h-8 bg-[#4285F4] rounded-md flex items-center justify-center border-b-2 border-[#2b65c9]">
                     <Eye className="w-3.5 h-3.5 md:w-4 md:h-4 text-white" />
                   </div>
-                  <h2 className="text-lg md:text-xl font-bold text-white">Generated Prompt</h2>
+                  <h2 className="text-lg md:text-xl font-bold text-white">{t('promptBuilder.generatedPrompt')}</h2>
                 </div>
                 {/* Action buttons */}
                 <div className="flex gap-2">
@@ -500,14 +513,14 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                     className="group relative inline-flex items-center gap-2 px-4 py-2 bg-[#4285F4] border-b-3 border-[#2b65c9] text-white rounded-lg transition-all duration-100 hover:bg-[#5294ff] active:border-b-0 active:translate-y-0.5"
                   >
                     <Copy className="w-4 h-4" />
-                    <span className="font-bold text-sm">Copy Prompt</span>
+                    <span className="font-bold text-sm">{t('promptBuilder.copyPrompt')}</span>
                   </button>
                   <button
                     onClick={handleDownload}
                     className="group relative inline-flex items-center gap-2 px-4 py-2 bg-[#0F9D58] border-b-3 border-[#0b7541] text-white rounded-lg transition-all duration-100 hover:bg-[#16b568] active:border-b-0 active:translate-y-0.5"
                   >
                     <Download className="w-4 h-4" />
-                    <span className="font-bold text-sm">Download MD</span>
+                    <span className="font-bold text-sm">{t('promptBuilder.downloadMD')}</span>
                   </button>
                 </div>
               </div>

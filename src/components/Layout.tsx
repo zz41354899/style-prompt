@@ -1,7 +1,9 @@
 import React from 'react';
 import { Outlet, useNavigate, useParams, NavLink, Link } from 'react-router-dom';
 import { X, Menu, Wand2, Monitor, Smartphone, Laptop, Eye, Coffee } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { styles } from '../data/styles';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 // 主題顏色映射
 const themeColors: Record<string, string> = {
@@ -30,6 +32,7 @@ type DeviceMode = 'desktop' | 'tablet' | 'mobile';
 export const Layout: React.FC = () => {
   const { styleId } = useParams<{ styleId: string }>();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [deviceMode, setDeviceMode] = React.useState<DeviceMode>('desktop');
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
   const [showPromptModal, setShowPromptModal] = React.useState(false);
@@ -129,7 +132,7 @@ Implementation Guidelines:
                 ? 'bg-white/10 text-white shadow-sm shadow-black/20'
                 : 'text-white/40 hover:text-white/80 hover:bg-white/5'
             }`}
-            title="Preview"
+            title={t('layout.preview')}
           >
             <Eye className="w-5 h-5" />
           </NavLink>
@@ -140,7 +143,7 @@ Implementation Guidelines:
                 ? 'bg-white/10 text-white shadow-sm shadow-black/20'
                 : 'text-white/40 hover:text-white/80 hover:bg-white/5'
             }`}
-            title="Prompt Builder"
+            title={t('layout.promptBuilder')}
           >
             <Wand2 className="w-5 h-5" />
           </NavLink>
@@ -151,7 +154,7 @@ Implementation Guidelines:
                 ? 'bg-white/10 text-white shadow-sm shadow-black/20'
                 : 'text-white/40 hover:text-white/80 hover:bg-white/5'
             }`}
-            title="Desktop"
+            title={t('layout.desktop')}
           >
             <Monitor className="w-5 h-5" />
           </button>
@@ -162,7 +165,7 @@ Implementation Guidelines:
                 ? 'bg-white/10 text-white shadow-sm shadow-black/20'
                 : 'text-white/40 hover:text-white/80 hover:bg-white/5'
             }`}
-            title="Tablet"
+            title={t('layout.tablet')}
           >
             <Laptop className="w-5 h-5" />
           </button>
@@ -173,7 +176,7 @@ Implementation Guidelines:
                 ? 'bg-white/10 text-white shadow-sm shadow-black/20'
                 : 'text-white/40 hover:text-white/80 hover:bg-white/5'
             }`}
-            title="Mobile"
+            title={t('layout.mobile')}
           >
             <Smartphone className="w-5 h-5" />
           </button>
@@ -182,22 +185,22 @@ Implementation Guidelines:
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center w-10 h-10 rounded-lg transition-colors duration-200 text-white/40 hover:text-white/80 hover:bg-white/5"
-            title="Buy me a coffee"
+            title={t('layout.buyMeACoffee')}
           >
             <Coffee className="w-5 h-5" />
           </a>
         </div>
 
         {/* Right - Style Name Display */}
-        <div className="flex items-center" style={{ minWidth: '120px' }}>
+        <div className="flex items-center">
           {currentStyle && (
             <div className="text-right">
-              <div className="text-xs text-white/60">Current Style</div>
+              <div className="text-xs text-white/60">{t('layout.currentStyle')}</div>
               <div 
                 className="text-sm font-medium text-white truncate"
                 style={{ color: themeColors[currentStyle.id] }}
               >
-                {currentStyle.name}
+                {t(`styles.${currentStyle.id}.name`)}
               </div>
             </div>
           )}
@@ -209,8 +212,8 @@ Implementation Guidelines:
         {/* Left Sidebar - Desktop */}
         <aside className="hidden lg:flex flex-col w-72 border-r border-white/10 bg-[#0a0a0a]">
           <div className="p-4 border-b border-white/10">
-            <h2 className="text-sm font-medium text-white/80">Design Styles</h2>
-            <p className="text-xs text-white/40 mt-1">{styles.length} styles available</p>
+            <h2 className="text-sm font-medium text-white/80">{t('layout.designStyles')}</h2>
+            <p className="text-xs text-white/40 mt-1">{t('layout.stylesAvailable', { count: styles.length })}</p>
           </div>
           <div className="flex-1 overflow-y-auto">
             {styles.map((style) => (
@@ -229,10 +232,10 @@ Implementation Guidelines:
                     <div className={`text-sm font-medium truncate ${
                       selectedStyle === style.id ? 'text-purple-300' : 'text-white/80'
                     }`}>
-                      {style.name}
+                      {t(`styles.${style.id}.name`)}
                     </div>
                     <div className="text-xs text-white/40 truncate mt-0.5">
-                      {style.description}
+                      {t(`styles.${style.id}.description`)}
                     </div>
                   </div>
                 </div>
@@ -247,7 +250,7 @@ Implementation Guidelines:
             <div className="fixed inset-0 bg-black/50" onClick={() => setSidebarOpen(false)} />
             <div className="fixed left-0 top-0 bottom-0 w-80 bg-[#0a0a0a] flex flex-col">
               <div className="flex items-center justify-between p-4 border-b border-white/10">
-                <h2 className="text-lg font-semibold text-white">Design Styles</h2>
+                <h2 className="text-lg font-semibold text-white">{t('layout.designStyles')}</h2>
                 <button
                   onClick={() => setSidebarOpen(false)}
                   className="p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
@@ -275,10 +278,10 @@ Implementation Guidelines:
                         <div className={`text-sm font-medium truncate ${
                           selectedStyle === style.id ? 'text-purple-300' : 'text-white/80'
                         }`}>
-                          {style.name}
+                          {t(`styles.${style.id}.name`)}
                         </div>
                         <div className="text-xs text-white/40 truncate mt-0.5">
-                          {style.description}
+                          {t(`styles.${style.id}.description`)}
                         </div>
                       </div>
                     </div>
@@ -303,7 +306,7 @@ Implementation Guidelines:
                 ? 'bg-white/20 text-white shadow-lg shadow-white/10'
                 : 'text-white/60 hover:text-white hover:bg-white/10'
             }`}
-            title="Preview"
+            title={t('layout.preview')}
           >
             <Eye className="w-4 h-4" />
           </NavLink>
@@ -314,7 +317,7 @@ Implementation Guidelines:
                 ? 'bg-white/20 text-white shadow-lg shadow-white/10'
                 : 'text-white/60 hover:text-white hover:bg-white/10'
             }`}
-            title="Prompt Builder"
+            title={t('layout.promptBuilder')}
           >
             <Wand2 className="w-4 h-4" />
           </NavLink>
@@ -325,7 +328,7 @@ Implementation Guidelines:
                 ? 'bg-white/20 text-white shadow-lg shadow-white/10'
                 : 'text-white/60 hover:text-white hover:bg-white/10'
             }`}
-            title="Desktop"
+            title={t('layout.desktop')}
           >
             <Monitor className="w-4 h-4" />
           </button>
@@ -336,7 +339,7 @@ Implementation Guidelines:
                 ? 'bg-white/20 text-white shadow-lg shadow-white/10'
                 : 'text-white/60 hover:text-white hover:bg-white/10'
             }`}
-            title="Tablet"
+            title={t('layout.tablet')}
           >
             <Laptop className="w-4 h-4" />
           </button>
@@ -347,7 +350,7 @@ Implementation Guidelines:
                 ? 'bg-white/20 text-white shadow-lg shadow-white/10'
                 : 'text-white/60 hover:text-white hover:bg-white/10'
             }`}
-            title="Mobile"
+            title={t('layout.mobile')}
           >
             <Smartphone className="w-4 h-4" />
           </button>
@@ -356,7 +359,7 @@ Implementation Guidelines:
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center w-9 h-9 rounded-lg transition-colors duration-200 text-white/60 hover:text-white hover:bg-white/10"
-            title="Buy me a coffee"
+            title={t('layout.buyMeACoffee')}
           >
             <Coffee className="w-4 h-4" />
           </a>
@@ -364,6 +367,9 @@ Implementation Guidelines:
       </div>
 
       {/* Prompt Modal - Now handled by route */}
+      
+      {/* Language Switcher */}
+      <LanguageSwitcher />
     </div>
   );
 };

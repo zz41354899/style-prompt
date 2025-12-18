@@ -1,0 +1,166 @@
+{
+  "common": {
+    "language": "Language",
+    "switchLanguage": "Switch Language",
+    "switchToEnglish": "Switch to English",
+    "switchToChinese": "切換至中文"
+  },
+  "styles": {
+    "S01": {
+      "name": "Tech Minimal",
+      "description": "Tech minimal style, clean and sleek interface design"
+    },
+    "S02": {
+      "name": "Minimalist Monochrome",
+      "description": "Minimalist black and white editorial style, emphasizing typography and contrast"
+    },
+    "S03": {
+      "name": "Mondrian / De Stijl",
+      "description": "Mondrian style, geometric color blocks and straight lines composition"
+    },
+    "S04": {
+      "name": "Swiss / International Typographic",
+      "description": "Swiss International Typographic style, grid systems and sans-serif typography"
+    },
+    "S05": {
+      "name": "Brutalist",
+      "description": "Brutalist, raw, bold, and unadorned design"
+    },
+    "S06": {
+      "name": "Cyberpunk",
+      "description": "Cyberpunk, neon lights and futuristic tech aesthetic"
+    },
+    "S07": {
+      "name": "Retro 80s (Synthwave)",
+      "description": "80s retro synthwave, gradient neons and grid patterns"
+    },
+    "S08": {
+      "name": "Retro 60s–70s (Print Grain)",
+      "description": "60s-70s print style, vintage colors and grain texture"
+    },
+    "S09": {
+      "name": "Memphis",
+      "description": "Memphis design, geometric shapes and vibrant colors"
+    },
+    "S10": {
+      "name": "Luxury Editorial",
+      "description": "Luxury editorial style, elegant serif fonts and refined typography"
+    },
+    "S11": {
+      "name": "Japanese Minimal",
+      "description": "Japanese minimalism, white space aesthetics and zen design"
+    },
+    "S12": {
+      "name": "Nature Organic",
+      "description": "Natural organic style, soft curves and earth tone colors"
+    },
+    "S13": {
+      "name": "Material-ish",
+      "description": "Material Design style, shadow layers and color systems"
+    },
+    "S14": {
+      "name": "Glassmorphism",
+      "description": "Glassmorphism, frosted glass effects and transparent layers"
+    },
+    "S15": {
+      "name": "Neumorphism",
+      "description": "Neumorphism design, soft shadows and embossed effects"
+    },
+    "S16": {
+      "name": "Terminal / Hacker",
+      "description": "Terminal style, green text and hacker aesthetic"
+    },
+    "S17": {
+      "name": "Bauhaus Modernism",
+      "description": "Bauhaus style, geometric forms and functional design"
+    },
+    "S18": {
+      "name": "Retro Pixel UI",
+      "description": "Retro Pixel UI style, 8-bit aesthetic with pixel grid and dither vibes"
+    }
+  },
+  "industries": {
+    "SaaS": "SaaS",
+    "E-commerce": "E-commerce",
+    "Healthcare": "Healthcare",
+    "Finance": "Finance",
+    "Education": "Education",
+    "RealEstate": "Real Estate",
+    "Restaurant": "Restaurant & Food",
+    "Travel": "Travel & Hospitality",
+    "Fitness": "Fitness & Wellness",
+    "Legal": "Legal Services",
+    "Agency": "Creative Agency",
+    "Nonprofit": "Nonprofit & Charity"
+  },
+  "uses": {
+    "FullLandingPage": "Full Landing Page",
+    "PricingPage": "Pricing Page",
+    "Dashboard": "Dashboard",
+    "Onboarding": "Onboarding",
+    "AboutPage": "About Page",
+    "ContactPage": "Contact Page",
+    "BlogPage": "Blog / Articles",
+    "ProductPage": "Product Page",
+    "PortfolioPage": "Portfolio / Gallery",
+    "FAQPage": "FAQ Page",
+    "LoginSignup": "Login / Signup"
+  },
+  "layout": {
+    "designStyles": "Design Styles",
+    "stylesAvailable": "{{count}} styles available",
+    "currentStyle": "Current Style",
+    "preview": "Preview",
+    "promptBuilder": "Prompt Builder",
+    "desktop": "Desktop",
+    "tablet": "Tablet",
+    "mobile": "Mobile",
+    "buyMeACoffee": "Buy me a coffee"
+  },
+  "preview": {
+    "previewInfo": "Preview is for reference only, actual results may vary based on implementation",
+    "open": "Open",
+    "styleNotFound": "Style not found"
+  },
+  "promptBuilder": {
+    "title": "Prompt Builder",
+    "subtitle": "Drag and drop blocks to build your design prompt",
+    "blockLibrary": "Block Library",
+    "assemblyArea": "Assembly Area — Drop blocks here",
+    "style": "Style",
+    "industry": "Industry",
+    "use": "Use",
+    "generatedPrompt": "Generated Prompt",
+    "copyPrompt": "Copy Prompt",
+    "downloadMD": "Download MD",
+    "promptCopied": "Prompt copied to clipboard!",
+    "copyFailed": "Copy failed, please copy manually.",
+    "assembling": "Assembling...",
+    "errorGenerating": "Error generating prompt. Please check your selections."
+  },
+  "promptModal": {
+    "designPrompt": "Design Prompt",
+    "generatingPrompt": "Generating your prompt...",
+    "generateFailed": "Failed to generate prompt. Please try again.",
+    "tryAgain": "Try Again",
+    "customizeInBuilder": "Customize in Builder",
+    "copyPrompt": "Copy Prompt",
+    "copied": "Copied!",
+    "promptUsageHint": "This prompt can be used with AI design tools to generate designs based on the {{styleName}} style"
+  },
+  "styleModal": {
+    "styleComponent": "Style Component",
+    "actualComponentHint": "This is the actual React component for the {{styleName}} style",
+    "customizeInBuilder": "Customize in Builder"
+  },
+  "stylePage": {
+    "home": "Home",
+    "builder": "Builder",
+    "styleNotFound": "Style not found"
+  },
+  "deviceSwitcher": {
+    "desktop": "Desktop",
+    "tablet": "Tablet",
+    "mobile": "Mobile"
+  }
+}

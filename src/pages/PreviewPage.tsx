@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, Outlet, useOutletContext, Link } from 'react-router-dom';
 import { Info } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { styles } from '../data/styles';
 import { styleComponents } from '../components/styles';
 
@@ -16,6 +17,7 @@ export const PreviewPage: React.FC = () => {
     generatePrompt: () => void;
   }>();
 
+  const { t } = useTranslation();
   const effectiveStyleId = styleId || 'S01';
   const currentStyle = styles.find(s => s.id === effectiveStyleId);
   void currentStyle; // Suppress unused variable warning
@@ -36,7 +38,7 @@ export const PreviewPage: React.FC = () => {
   if (!currentStyle || !SelectedComponent) {
     return (
       <main className="flex-1 bg-[#111] overflow-hidden flex items-center justify-center">
-        <div className="text-white/60">Style not found</div>
+        <div className="text-white/60">{t('preview.styleNotFound')}</div>
       </main>
     );
   }
@@ -49,13 +51,13 @@ export const PreviewPage: React.FC = () => {
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-2 mb-3 md:mb-4">
         <div className="flex items-center gap-2 text-white/40 text-xs md:text-sm">
           <Info className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
-          <span className="leading-tight">Preview is for reference only, actual results may vary based on implementation</span>
+          <span className="leading-tight">{t('preview.previewInfo')}</span>
         </div>
         <Link
           to={`/style/${effectiveStyleId}`}
           className="hidden md:flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-white hover:bg-gray-100 text-black text-xs md:text-sm font-medium rounded-lg transition-colors flex-shrink-0"
         >
-          Open
+          {t('preview.open')}
         </Link>
       </div>
 
@@ -126,7 +128,7 @@ export const PreviewPage: React.FC = () => {
           to={`/style/${effectiveStyleId}`}
           className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-white hover:bg-gray-100 text-black text-sm font-medium rounded-lg transition-colors"
         >
-          Open
+          {t('preview.open')}
         </Link>
       </div>
 

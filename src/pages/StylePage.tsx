@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Home, Wand2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { styleComponents } from '../components/styles';
 
 type DeviceMode = 'desktop' | 'tablet' | 'mobile';
 
 export const StylePage: React.FC = () => {
   const { styleId } = useParams<{ styleId: string }>();
+  const { t } = useTranslation();
   const SelectedComponent = styleComponents[styleId || 'S01'];
   const [deviceMode, setDeviceMode] = useState<DeviceMode>('desktop');
 
@@ -31,7 +33,7 @@ export const StylePage: React.FC = () => {
   if (!SelectedComponent) {
     return (
       <main className="flex-1 bg-white overflow-auto flex items-center justify-center">
-        <div className="text-gray-600">Style not found</div>
+        <div className="text-gray-600">{t('stylePage.styleNotFound')}</div>
       </main>
     );
   }
@@ -51,7 +53,7 @@ export const StylePage: React.FC = () => {
             className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 text-white/70 hover:text-white hover:bg-white/10 rounded-lg md:rounded-xl transition-colors"
           >
             <Home className="w-4 h-4 md:w-5 md:h-5" />
-            <span className="text-xs md:text-sm font-medium">Home</span>
+            <span className="text-xs md:text-sm font-medium">{t('stylePage.home')}</span>
           </Link>
           <div className="w-px h-5 md:h-6 bg-white/20" />
           <Link
@@ -59,7 +61,7 @@ export const StylePage: React.FC = () => {
             className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 text-white/70 hover:text-white hover:bg-white/10 rounded-lg md:rounded-xl transition-colors"
           >
             <Wand2 className="w-4 h-4 md:w-5 md:h-5" />
-            <span className="text-xs md:text-sm font-medium">Builder</span>
+            <span className="text-xs md:text-sm font-medium">{t('stylePage.builder')}</span>
           </Link>
         </div>
       </div>
