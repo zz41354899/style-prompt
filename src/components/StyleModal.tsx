@@ -12,7 +12,7 @@ export const StyleModal: React.FC = () => {
   const SelectedComponent = styleComponents[styleId || 'S01'];
 
   const handleClose = () => {
-    navigate(`/preview/${styleId}`);
+    navigate(`/${styleId}`);
   };
 
   if (!currentStyle || !SelectedComponent) return null;

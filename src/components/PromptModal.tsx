@@ -85,7 +85,7 @@ This design should embody the essence of ${currentStyle.name} while ensuring exc
   };
 
   const handleClose = () => {
-    navigate(`/preview/${styleId}`);
+    navigate(`/${styleId}`);
   };
 
   if (!currentStyle) return null;

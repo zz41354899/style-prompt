@@ -8,19 +8,21 @@ import { StyleModal } from '../components/StyleModal';
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <Navigate to="/preview/S01" replace />,
-  },
-  {
-    path: '/preview/:styleId',
     element: <Layout />,
     children: [
       {
         index: true,
         element: <PreviewPage />,
       },
+    ],
+  },
+  {
+    path: '/builder',
+    element: <Layout />,
+    children: [
       {
-        path: 'style',
-        element: <StyleModal />,
+        index: true,
+        element: <BuilderPage />,
       },
     ],
   },
@@ -35,11 +37,25 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: '/router/:styleId',
+    path: '/style/:styleId',
     element: <StylePage />,
   },
   {
+    path: '/:styleId',
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <PreviewPage />,
+      },
+      {
+        path: 'style',
+        element: <StyleModal />,
+      },
+    ],
+  },
+  {
     path: '*',
-    element: <Navigate to="/preview/S01" replace />,
+    element: <Navigate to="/" replace />,
   },
 ]);

@@ -16,9 +16,10 @@ export const PreviewPage: React.FC = () => {
     generatePrompt: () => void;
   }>();
 
-  const currentStyle = styles.find(s => s.id === styleId);
+  const effectiveStyleId = styleId || 'S01';
+  const currentStyle = styles.find(s => s.id === effectiveStyleId);
   void currentStyle; // Suppress unused variable warning
-  const SelectedComponent = styleComponents[styleId || 'S01'];
+  const SelectedComponent = styleComponents[effectiveStyleId];
 
   // Prevent page jump when switching device mode
   useEffect(() => {
@@ -51,7 +52,7 @@ export const PreviewPage: React.FC = () => {
           <span className="leading-tight">Preview is for reference only, actual results may vary based on implementation</span>
         </div>
         <Link
-          to={`/router/${styleId}`}
+          to={`/style/${effectiveStyleId}`}
           className="hidden md:flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-white hover:bg-gray-100 text-black text-xs md:text-sm font-medium rounded-lg transition-colors flex-shrink-0"
         >
           Open
@@ -122,7 +123,7 @@ export const PreviewPage: React.FC = () => {
       {/* Mobile Open Button */}
       <div className="lg:hidden mt-4">
         <Link
-          to={`/router/${styleId}`}
+          to={`/style/${effectiveStyleId}`}
           className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-white hover:bg-gray-100 text-black text-sm font-medium rounded-lg transition-colors"
         >
           Open

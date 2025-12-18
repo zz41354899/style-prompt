@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet, useNavigate, useParams, NavLink } from 'react-router-dom';
+import { Outlet, useNavigate, useParams, NavLink, Link } from 'react-router-dom';
 import { X, Menu, Wand2, Monitor, Smartphone, Laptop, Eye, Coffee } from 'lucide-react';
 import { styles } from '../data/styles';
 
@@ -99,7 +99,7 @@ Implementation Guidelines:
     }
     
     // In preview mode, navigate to the new style
-    navigate(`/preview/${newStyleId}`);
+    navigate(`/${newStyleId}`);
   };
 
   return (
@@ -114,16 +114,16 @@ Implementation Guidelines:
           >
             {sidebarOpen ? <X className="w-5 h-5 md:w-5 md:h-5" /> : <Menu className="w-5 h-5 md:w-5 md:h-5" />}
           </button>
-          <h1 className="text-sm md:text-lg font-semibold text-white flex items-center gap-1">
+          <Link to="/" className="text-sm md:text-lg font-semibold text-white flex items-center gap-1 hover:opacity-80 transition-opacity">
             Style<span className="transition-colors duration-300" style={{ color: themeColors[selectedStyle || 'S01'] }}>Prompts</span>
             <span className="text-2xl md:text-3xl font-black transition-colors duration-300" style={{ color: themeColors[selectedStyle || 'S01'] }}>/</span>
-          </h1>
+          </Link>
         </div>
 
         {/* Middle Dynamic Island Navigation - Desktop */}
         <div className="hidden lg:flex items-center justify-between px-4 py-2 bg-white/5 border border-white/5 rounded-xl backdrop-blur-sm flex-shrink-0" style={{ minWidth: '400px' }}>
           <NavLink
-            to={`/preview/${styleId || 'S01'}`}
+            to={styleId ? `/${styleId}` : '/'}
             className={({ isActive }) => `flex items-center justify-center w-10 h-10 rounded-lg transition-colors duration-200 ${
               isActive
                 ? 'bg-white/10 text-white shadow-sm shadow-black/20'
@@ -134,7 +134,7 @@ Implementation Guidelines:
             <Eye className="w-5 h-5" />
           </NavLink>
           <NavLink
-            to={`/builder/${styleId || 'S01'}`}
+            to={styleId ? `/builder/${styleId}` : '/builder'}
             className={({ isActive }) => `flex items-center justify-center w-10 h-10 rounded-lg transition-colors duration-200 ${
               isActive
                 ? 'bg-white/10 text-white shadow-sm shadow-black/20'
@@ -177,15 +177,15 @@ Implementation Guidelines:
           >
             <Smartphone className="w-5 h-5" />
           </button>
-          <button
-            onClick={() => {
-              console.log('Coffee clicked');
-            }}
+          <a
+            href="https://buymeacoffee.com/zz41354899y"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center justify-center w-10 h-10 rounded-lg transition-colors duration-200 text-white/40 hover:text-white/80 hover:bg-white/5"
-            title="Coffee"
+            title="Buy me a coffee"
           >
             <Coffee className="w-5 h-5" />
-          </button>
+          </a>
         </div>
 
         {/* Right - Style Name Display */}
@@ -297,7 +297,7 @@ Implementation Guidelines:
       <div className="lg:hidden fixed bottom-20 left-1/2 transform -translate-x-1/2 z-50">
         <div className="flex items-center justify-between px-2 py-1.5 bg-black/80 backdrop-blur-lg border border-white/10 rounded-2xl shadow-2xl" style={{ width: 'auto', minWidth: '320px' }}>
           <NavLink
-            to={`/preview/${styleId || 'S01'}`}
+            to={`/${styleId || 'S01'}`}
             className={({ isActive }) => `flex items-center justify-center w-9 h-9 rounded-lg transition-colors duration-200 ${
               isActive
                 ? 'bg-white/20 text-white shadow-lg shadow-white/10'
@@ -351,15 +351,15 @@ Implementation Guidelines:
           >
             <Smartphone className="w-4 h-4" />
           </button>
-          <button
-            onClick={() => {
-              console.log('Coffee clicked');
-            }}
+          <a
+            href="https://buymeacoffee.com/zz41354899y"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center justify-center w-9 h-9 rounded-lg transition-colors duration-200 text-white/60 hover:text-white hover:bg-white/10"
-            title="Coffee"
+            title="Buy me a coffee"
           >
             <Coffee className="w-4 h-4" />
-          </button>
+          </a>
         </div>
       </div>
 
