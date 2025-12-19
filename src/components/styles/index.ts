@@ -19,6 +19,12 @@ import { S15Neumorphism } from './S15Neumorphism';
 import { S16Terminal } from './S16Terminal';
 import { S17BauhausModernism } from './S17BauhausModernism';
 import { S18RetroPixelUI } from './S18RetroPixelUI';
+import { S19AestheticHarmony } from './S19AestheticHarmony';
+import { S20AuroraBorealis } from './S20AuroraBorealis';
+import { S21Claymorphism } from './S21Claymorphism';
+import { S22DarkModeElegance } from './S22DarkModeElegance';
+import { S23DoodleSketch } from './S23DoodleSketch';
+import { S24MinimalistLineArt } from './S24MinimalistLineArt';
 
 // Re-export all components
 export { S01TechMinimal } from './S01TechMinimal';
@@ -39,6 +45,12 @@ export { S15Neumorphism } from './S15Neumorphism';
 export { S16Terminal } from './S16Terminal';
 export { S17BauhausModernism } from './S17BauhausModernism';
 export { S18RetroPixelUI } from './S18RetroPixelUI';
+export { S19AestheticHarmony } from './S19AestheticHarmony';
+export { S20AuroraBorealis } from './S20AuroraBorealis';
+export { S21Claymorphism } from './S21Claymorphism';
+export { S22DarkModeElegance } from './S22DarkModeElegance';
+export { S23DoodleSketch } from './S23DoodleSketch';
+export { S24MinimalistLineArt } from './S24MinimalistLineArt';
 
 export const styleComponents: Record<string, React.FC<{ deviceMode?: 'desktop' | 'tablet' | 'mobile' }>> = {
   S01: S01TechMinimal,
@@ -59,4 +71,10 @@ export const styleComponents: Record<string, React.FC<{ deviceMode?: 'desktop' |
   S16: S16Terminal,
   S17: S17BauhausModernism,
   S18: S18RetroPixelUI,
+  S19: S19AestheticHarmony,
+  S20: S20AuroraBorealis,
+  S21: S21Claymorphism,
+  S22: S22DarkModeElegance,
+  S23: S23DoodleSketch,
+  S24: S24MinimalistLineArt,
 };

@@ -181,13 +181,23 @@ const generateStyleDNA = (styleModule: StyleModule): string => {
   return `## Style DNA (${styleModule.id} – ${styleModule.name})
 
 ### Style Seeds
-- **Palette strategy:** Defined by ${styleModule.name} aesthetic
-- **Typography:** Appropriate fonts for ${styleModule.name} style
-- **Radius policy:** Varies by style
-- **Shadow policy:** Varies by style
-- **Border language:** Varies by style
-- **Patterns/textures:** Varies by style
-- **Motion:** Varies by style`;
+${generateStyleSeeds(styleModule)}
+
+${styleModule.content}
+
+Tone: confident, precise, non-hype.`;
+};
+
+// 生成 Style Seeds 內容
+const generateStyleSeeds = (styleModule: StyleModule): string => {
+  return `### Style Seeds
+- **Palette strategy:** ${styleModule.paletteStrategy}
+- **Typography:** ${styleModule.typography}
+- **Radius policy:** ${styleModule.radiusPolicy}
+- **Shadow policy:** ${styleModule.shadowPolicy}
+- **Border language:** ${styleModule.borderLanguage}
+- **Patterns/textures:** ${styleModule.patterns}
+- **Motion:** ${styleModule.motion}`;
 };
 
 // 生成 Industry Constraints 內容
@@ -208,93 +218,13 @@ ${useModule.content}`;
 
 // 生成 Style Do/Don't 內容
 const generateStyleDoDont = (styleModule: StyleModule): string => {
-  const doDontMap: Record<string, { dos: string[]; donts: string[] }> = {
-    'Tech Minimal': {
-      dos: ['Use clean lines and ample whitespace', 'Keep typography simple and readable', 'Use subtle animations', 'Maintain consistent spacing'],
-      donts: ['Don\'t use excessive decorations', 'Don\'t overcrowd the layout', 'Don\'t use too many colors', 'Don\'t use heavy shadows'],
-    },
-    'Minimalist Monochrome': {
-      dos: ['Use strong black and white contrast', 'Emphasize typography hierarchy', 'Use bold editorial layouts', 'Keep imagery minimal'],
-      donts: ['Don\'t use colors unless intentional', 'Don\'t add unnecessary elements', 'Don\'t use rounded corners excessively', 'Don\'t use playful animations'],
-    },
-    'Mondrian / De Stijl': {
-      dos: ['Use primary colors (red, blue, yellow)', 'Create grid-based compositions', 'Use thick black lines', 'Keep shapes geometric'],
-      donts: ['Don\'t use gradients', 'Don\'t use curves or organic shapes', 'Don\'t mix too many colors', 'Don\'t break the grid'],
-    },
-    'Swiss / International Typographic': {
-      dos: ['Use grid systems rigorously', 'Emphasize sans-serif typography', 'Use asymmetric layouts', 'Keep design clean and functional'],
-      donts: ['Don\'t use decorative fonts', 'Don\'t ignore the grid', 'Don\'t use excessive imagery', 'Don\'t add unnecessary ornamentation'],
-    },
-    'Brutalist': {
-      dos: ['Use raw, unpolished aesthetics', 'Embrace bold typography', 'Use high contrast', 'Be intentionally unconventional'],
-      donts: ['Don\'t over-polish the design', 'Don\'t use subtle effects', 'Don\'t follow conventional layouts', 'Don\'t use soft colors'],
-    },
-    'Cyberpunk': {
-      dos: ['Use neon colors on dark backgrounds', 'Add glitch effects sparingly', 'Use futuristic typography', 'Create depth with layers'],
-      donts: ['Don\'t use warm, natural colors', 'Don\'t use traditional layouts', 'Don\'t make it too clean', 'Don\'t forget the tech aesthetic'],
-    },
-    'Retro 80s (Synthwave)': {
-      dos: ['Use gradient neons (pink, purple, cyan)', 'Add grid patterns', 'Use retro-futuristic imagery', 'Create depth with perspective'],
-      donts: ['Don\'t use flat colors', 'Don\'t use modern minimalism', 'Don\'t forget the sunset gradients', 'Don\'t use serif fonts'],
-    },
-    'Retro 60s–70s (Print Grain)': {
-      dos: ['Use warm, muted colors', 'Add grain textures', 'Use vintage typography', 'Create organic compositions'],
-      donts: ['Don\'t use sharp, digital aesthetics', 'Don\'t use neon colors', 'Don\'t make it too clean', 'Don\'t forget the texture'],
-    },
-    'Memphis': {
-      dos: ['Use bold, vibrant colors', 'Add geometric patterns', 'Use playful shapes', 'Create dynamic compositions'],
-      donts: ['Don\'t use muted colors', 'Don\'t be too serious', 'Don\'t use traditional layouts', 'Don\'t forget the fun'],
-    },
-    'Luxury Editorial': {
-      dos: ['Use elegant serif typography', 'Create generous whitespace', 'Use high-quality imagery', 'Maintain refined aesthetics'],
-      donts: ['Don\'t use playful elements', 'Don\'t overcrowd layouts', 'Don\'t use bright colors', 'Don\'t use casual fonts'],
-    },
-    'Japanese Minimal': {
-      dos: ['Embrace whitespace (ma)', 'Use subtle, natural colors', 'Create balance and harmony', 'Use delicate typography'],
-      donts: ['Don\'t overcrowd the design', 'Don\'t use bold, loud colors', 'Don\'t add unnecessary elements', 'Don\'t break the zen'],
-    },
-    'Nature Organic': {
-      dos: ['Use earth tones and natural colors', 'Add organic shapes and curves', 'Use natural textures', 'Create flowing layouts'],
-      donts: ['Don\'t use harsh geometric shapes', 'Don\'t use artificial colors', 'Don\'t make it too rigid', 'Don\'t forget the organic feel'],
-    },
-    'Material-ish': {
-      dos: ['Use elevation and shadows', 'Follow material principles', 'Use bold colors with purpose', 'Create clear hierarchy'],
-      donts: ['Don\'t use flat design', 'Don\'t ignore elevation', 'Don\'t use too many elevations', 'Don\'t break material guidelines'],
-    },
-    'Glassmorphism': {
-      dos: ['Use frosted glass effects', 'Add subtle transparency', 'Create depth with layers', 'Use soft shadows'],
-      donts: ['Don\'t use opaque backgrounds', 'Don\'t forget the blur effect', 'Don\'t use harsh edges', 'Don\'t overuse the effect'],
-    },
-    'Neumorphism': {
-      dos: ['Use soft shadows for depth', 'Create embossed/debossed effects', 'Use monochromatic colors', 'Keep it subtle'],
-      donts: ['Don\'t use high contrast', 'Don\'t use flat design', 'Don\'t use too many colors', 'Don\'t forget accessibility'],
-    },
-    'Terminal / Hacker': {
-      dos: ['Use monospace typography', 'Use green/amber on black', 'Add terminal-like elements', 'Create a tech atmosphere'],
-      donts: ['Don\'t use colorful palettes', 'Don\'t use rounded corners', 'Don\'t use images heavily', 'Don\'t break the terminal aesthetic'],
-    },
-    'Bauhaus Modernism': {
-      dos: ['Use bold geometry and rules', 'Keep copy concise', 'Treat layout like a poster', 'Accessibility of text must be considered'],
-      donts: ['Don\'t use gradients or glassmorphism', 'Don\'t over-animate', 'Don\'t round everything', 'Don\'t make the button text white'],
-    },
-    'Retro Pixel UI': {
-      dos: ['Use pixel-perfect grids', 'Add dither patterns', 'Use 8-bit color palettes', 'Create nostalgic interfaces'],
-      donts: ['Don\'t use smooth gradients', 'Don\'t use high-resolution imagery', 'Don\'t use modern effects', 'Don\'t forget the pixel aesthetic'],
-    },
-  };
-
-  const config = doDontMap[styleModule.name] || {
-    dos: ['Follow the style guidelines', 'Maintain consistency', 'Consider accessibility', 'Keep it user-friendly'],
-    donts: ['Don\'t break the style', 'Don\'t ignore usability', 'Don\'t overcomplicate', 'Don\'t forget the user'],
-  };
-
   return `## Do / Don't
 
 **Do**
-${config.dos.map(d => `- ${d}`).join('\n')}
+${styleModule.dos.map(d => `- ${d}`).join('\n')}
 
 **Don't**
-${config.donts.map(d => `- ${d}`).join('\n')}`;
+${styleModule.donts.map(d => `- ${d}`).join('\n')}`;
 };
 
 // 獲取可用的選項列表

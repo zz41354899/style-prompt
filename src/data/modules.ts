@@ -8,6 +8,15 @@ export interface BaseModule {
 export interface StyleModule extends BaseModule {
   type: 'style';
   dna: string; // Style DNA content
+  paletteStrategy: string;
+  typography: string;
+  radiusPolicy: string;
+  shadowPolicy: string;
+  borderLanguage: string;
+  patterns: string;
+  motion: string;
+  dos: string[];
+  donts: string[];
 }
 
 export interface IndustryModule extends BaseModule {
