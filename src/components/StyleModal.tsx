@@ -1,20 +1,23 @@
+'use client';
+
 import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useRouter } from 'next/navigation';
 import { X, ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { styles } from '../data/styles';
 import { styleComponents } from './styles';
 
 export const StyleModal: React.FC = () => {
-  const { styleId } = useParams<{ styleId: string }>();
-  const navigate = useNavigate();
+  const { styleId: styleIdParam } = useParams<{ styleId?: string | string[] }>();
+  const router = useRouter();
+  const styleId = Array.isArray(styleIdParam) ? styleIdParam[0] : styleIdParam;
   const { t } = useTranslation();
 
   const currentStyle = styles.find(s => s.id === styleId);
   const SelectedComponent = styleComponents[styleId || 'S01'];
 
   const handleClose = () => {
-    navigate(`/${styleId}`);
+    router.push(styleId ? `/${styleId}` : '/');
   };
 
   if (!currentStyle || !SelectedComponent) return null;
@@ -61,7 +64,7 @@ export const StyleModal: React.FC = () => {
               {t('styleModal.actualComponentHint', { styleName: currentStyle.name })}
             </p>
             <button
-              onClick={() => navigate(`/builder/${styleId}`)}
+              onClick={() => router.push(`/builder/${styleId}`)}
               className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
             >
               <span>{t('styleModal.customizeInBuilder')}</span>

@@ -1,12 +1,16 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import Link from 'next/link';
+import { useParams, useRouter } from 'next/navigation';
 import { X, Copy, Check, Coffee } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { styles } from '../data/styles';
 
 export const PromptModal: React.FC = () => {
-  const { styleId } = useParams<{ styleId: string }>();
-  const navigate = useNavigate();
+  const { styleId: styleIdParam } = useParams<{ styleId?: string | string[] }>();
+  const router = useRouter();
+  const styleId = Array.isArray(styleIdParam) ? styleIdParam[0] : styleIdParam;
   const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
   const [promptText, setPromptText] = useState('');
@@ -87,7 +91,7 @@ This design should embody the essence of ${currentStyle.name} while ensuring exc
   };
 
   const handleClose = () => {
-    navigate(`/${styleId}`);
+    router.push(styleId ? `/${styleId}` : '/');
   };
 
   if (!currentStyle) return null;
@@ -142,7 +146,7 @@ This design should embody the essence of ${currentStyle.name} while ensuring exc
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-4">
                   <Link
-                    to={`/builder/${styleId}`}
+                    href={`/builder/${styleId}`}
                     className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors"
                   >
                     {t('promptModal.customizeInBuilder')}
