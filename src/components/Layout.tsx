@@ -25,6 +25,12 @@ const themeColors: Record<string, string> = {
   'S16': '#58a6ff',
   'S17': '#FF0000',
   'S18': 'rgb(92, 255, 177)',
+  'S19': '#8B5CF6',
+  'S20': '#00D9FF',
+  'S21': '#D4A574',
+  'S22': '#00D9FF',
+  'S23': '#FF6B9D',
+  'S24': '#06B6D4',
 };
 
 type DeviceMode = 'desktop' | 'tablet' | 'mobile';

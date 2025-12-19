@@ -14,6 +14,8 @@ export const styleModules: Record<string, StyleModule> = styles.reduce((acc, sty
     borderLanguage: 'Varies by style',
     patterns: 'Varies by style',
     motion: 'Varies by style',
+    dos: ['Follow the style guidelines', 'Maintain consistency', 'Consider accessibility', 'Keep it user-friendly'],
+    donts: ['Don\'t break the style', 'Don\'t ignore usability', 'Don\'t overcomplicate', 'Don\'t forget the user'],
   };
 
   acc[style.id] = {
@@ -43,7 +45,16 @@ export const styleModules: Record<string, StyleModule> = styles.reduce((acc, sty
 ${config.tokens ? `
 
 ### Design Tokens (YAML)
-${config.tokens}` : ''}`
+${config.tokens}` : ''}`,
+    paletteStrategy: config.paletteStrategy,
+    typography: config.typography,
+    radiusPolicy: config.radiusPolicy,
+    shadowPolicy: config.shadowPolicy,
+    borderLanguage: config.borderLanguage,
+    patterns: config.patterns,
+    motion: config.motion,
+    dos: config.dos,
+    donts: config.donts,
   };
   return acc;
 }, {} as Record<string, StyleModule>);
