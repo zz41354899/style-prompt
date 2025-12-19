@@ -105,17 +105,11 @@
   },
   "industries": {
     "SaaS": "SaaS 軟體服務",
-    "E-commerce": "電子商務",
-    "Healthcare": "醫療保健",
-    "Finance": "金融服務",
     "Education": "教育培訓",
-    "RealEstate": "房地產",
-    "Restaurant": "餐飲美食",
-    "Travel": "旅遊觀光",
     "Fitness": "健身養生",
-    "Legal": "法律服務",
-    "Agency": "創意代理",
-    "Nonprofit": "非營利組織"
+    "Community": "社群平台",
+    "Booking": "預約平台",
+    "ContentPlatform": "內容平台"
   },
   "uses": {
     "FullLandingPage": "完整登陸頁",
@@ -154,13 +148,49 @@
     "style": "風格",
     "industry": "產業",
     "use": "用途",
+    "feature": "功能",
+    "plan": "方案",
     "generatedPrompt": "產生的提示詞",
     "copyPrompt": "複製提示詞",
     "downloadMD": "下載 MD",
     "promptCopied": "提示詞已複製到剪貼簿！",
     "copyFailed": "複製失敗，請手動複製。",
     "assembling": "組裝中...",
-    "errorGenerating": "產生提示詞時發生錯誤，請檢查您的選擇。"
+    "errorGenerating": "產生提示詞時發生錯誤，請檢查您的選擇。",
+    "featureBlocks": "功能積木",
+    "featureBlocksHint": "開啟以添加登入/後台管理等功能模組",
+    "upgradeRequired": "以下功能需要升級到 Pro 方案：",
+    "blocksApplied": "已套用 {{count}} 個功能積木",
+    "proActivated": "Pro 已啟用！",
+    "upgradeTitle": "升級到 Pro",
+    "upgradeDescription": "解鎖進階功能，獲得更強大的 Supabase 後端架構建議",
+    "proFeature1": "完整後端架構建議",
+    "proFeature2": "Supabase RLS 政策範例",
+    "proFeature3": "Edge Functions 範例程式碼",
+    "subscribe": "立即訂閱",
+    "activatePro": "馬上購買",
+    "perMonth": "/月",
+    "freeFeature1": "基礎設計提示詞",
+    "freeFeature2": "身份驗證系統",
+    "freeFeature3": "後端架構建議",
+    "currentPlan": "目前方案",
+    "recommended": "推薦",
+    "stripeSecure": "由 Stripe 提供安全付款",
+    "buyNow": "馬上購買"
+  },
+  "blocks": {
+    "auth.login": {
+      "title": "身份驗證系統",
+      "description": "完整的使用者認證流程，包含登入、註冊、忘記密碼、Session 管理"
+    },
+    "admin.users": {
+      "title": "使用者管理",
+      "description": "管理後台的使用者/成員管理功能，包含角色、權限、邀請等"
+    },
+    "backend.architecture": {
+      "title": "後端架構",
+      "description": "完整的 Supabase 後端架構，包含資料庫 Schema、RLS 政策、API 設計"
+    }
   },
   "promptModal": {
     "designPrompt": "設計提示詞",

@@ -105,17 +105,11 @@
   },
   "industries": {
     "SaaS": "SaaS",
-    "E-commerce": "E-commerce",
-    "Healthcare": "Healthcare",
-    "Finance": "Finance",
     "Education": "Education",
-    "RealEstate": "Real Estate",
-    "Restaurant": "Restaurant & Food",
-    "Travel": "Travel & Hospitality",
     "Fitness": "Fitness & Wellness",
-    "Legal": "Legal Services",
-    "Agency": "Creative Agency",
-    "Nonprofit": "Nonprofit & Charity"
+    "Community": "Community Platform",
+    "Booking": "Booking Platform",
+    "ContentPlatform": "Content Platform"
   },
   "uses": {
     "FullLandingPage": "Full Landing Page",
@@ -154,13 +148,49 @@
     "style": "Style",
     "industry": "Industry",
     "use": "Use",
+    "feature": "Feature",
+    "plan": "Plan",
     "generatedPrompt": "Generated Prompt",
     "copyPrompt": "Copy Prompt",
     "downloadMD": "Download MD",
     "promptCopied": "Prompt copied to clipboard!",
     "copyFailed": "Copy failed, please copy manually.",
     "assembling": "Assembling...",
-    "errorGenerating": "Error generating prompt. Please check your selections."
+    "errorGenerating": "Error generating prompt. Please check your selections.",
+    "featureBlocks": "Feature Blocks",
+    "featureBlocksHint": "Enable to add login/admin features",
+    "upgradeRequired": "Upgrade to Pro required:",
+    "blocksApplied": "{{count}} feature blocks applied",
+    "proActivated": "Pro activated!",
+    "upgradeTitle": "Upgrade to Pro",
+    "upgradeDescription": "Unlock advanced features and get more powerful Supabase backend architecture suggestions",
+    "proFeature1": "Complete backend architecture suggestions",
+    "proFeature2": "Supabase RLS policy examples",
+    "proFeature3": "Edge Functions sample code",
+    "subscribe": "Subscribe Now",
+    "activatePro": "Buy Now",
+    "perMonth": "/mo",
+    "freeFeature1": "Basic design prompts",
+    "freeFeature2": "Authentication system",
+    "freeFeature3": "Backend architecture",
+    "currentPlan": "Current Plan",
+    "recommended": "Recommended",
+    "stripeSecure": "Secure payment powered by Stripe",
+    "buyNow": "Buy Now"
+  },
+  "blocks": {
+    "auth.login": {
+      "title": "Authentication System",
+      "description": "Complete user authentication flow including login, signup, password reset, and session management"
+    },
+    "admin.users": {
+      "title": "User Management",
+      "description": "Admin panel user/member management with roles, permissions, and invitations"
+    },
+    "backend.architecture": {
+      "title": "Backend Architecture",
+      "description": "Comprehensive Supabase backend architecture with database schema, RLS policies, and API design"
+    }
   },
   "promptModal": {
     "designPrompt": "Design Prompt",

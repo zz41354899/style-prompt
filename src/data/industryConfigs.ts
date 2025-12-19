@@ -4,20 +4,14 @@
 // 導出所有配置（從新的模組化結構）
 export { industryModules, getAllIndustryIds, getIndustryById } from './industryConfigs/index';
 
-// 導出各組配置（可選）
+// 導出各組配置（精簡版 - 6 個最適合 Supabase 的 5 星產業）
 export { 
   SaaS_Config,
-  ECommerce_Config,
-  Healthcare_Config,
-  Finance_Config,
   Education_Config,
-  RealEstate_Config,
-  Restaurant_Config,
-  Travel_Config,
   Fitness_Config,
-  Legal_Config,
-  Agency_Config,
-  Nonprofit_Config
+  Community_Config,
+  Booking_Config,
+  ContentPlatform_Config
 } from './industryConfigs/index';
 
 // 導出型別

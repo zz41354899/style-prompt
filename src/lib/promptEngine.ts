@@ -1,8 +1,19 @@
 import type { PromptParams, Module, StyleModule, IndustryModule, UseModule } from '../data/modules';
 import { modules } from '../data/moduleData';
+import { 
+  filterBlocksByPlan, 
+  assembleBlocksPrompt, 
+  checkDependencies,
+  getBlockModules,
+  type PlanTier,
+  type AssembleResult,
+  type ExtendedPromptParams,
+  type BlockModule,
+} from '../data/blocks';
 
 // Re-export PromptParams for convenience
 export type { PromptParams } from '../data/modules';
+export type { PlanTier, AssembleResult, ExtendedPromptParams, BlockModule };
 
 // 基礎模板
 const BASE_TEMPLATE = `# {{styleName}} {{industryName}} {{useName}} Prompt ({{styleId}})
@@ -247,6 +258,89 @@ export const getAvailableOptions = () => {
 
 // 驗證參數
 export const validateParams = (params: PromptParams): boolean => {
+  try {
+    getModule('styles', params.styleId);
+    getModule('industries', params.industryId);
+    getModule('uses', params.useId);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+// ============================================
+// Blocks System
+// ============================================
+
+// Get all available blocks (for UI display)
+export { getBlockModules };
+
+// Assemble prompt with blocks (extended version)
+export const assemblePromptWithBlocks = (params: ExtendedPromptParams): AssembleResult => {
+  try {
+    // Get modules
+    const styleModule = getModule('styles', params.styleId) as StyleModule;
+    const industryModule = getModule('industries', params.industryId) as IndustryModule;
+    const useModule = getModule('uses', params.useId) as UseModule;
+    
+    // Get industry-specific CTA and target audience
+    const industryConfig = getIndustryConfig(industryModule.id);
+    
+    // Filter blocks by plan
+    const { allowedBlocks, deniedBlocks } = filterBlocksByPlan(
+      params.selectedBlockIds,
+      params.planId
+    );
+
+    // Check dependencies
+    const dependencyCheck = checkDependencies(params.selectedBlockIds);
+    
+    // Assemble blocks content (now includes useId for backend architecture)
+    const blocksContent = assembleBlocksPrompt(allowedBlocks, params.industryId, params.useId);
+    
+    // Prepare variables
+    const variables = {
+      styleId: styleModule.id,
+      styleName: styleModule.name,
+      industryName: industryModule.name,
+      useName: useModule.name,
+      primaryCTA: industryConfig.primaryCTA,
+      secondaryCTA: industryConfig.secondaryCTA,
+      targetAudience: industryConfig.targetAudience,
+      styleDNA: styleModule.dna || generateStyleDNA(styleModule),
+      industryConstraints: industryModule.considerations || generateIndustryConstraints(industryModule),
+      useDeliverables: useModule.architecture || generateUseDeliverables(useModule),
+      styleDoDont: generateStyleDoDont(styleModule),
+    };
+    
+    // Replace template variables
+    let prompt = replaceVariables(BASE_TEMPLATE, variables);
+    
+    // Append blocks content
+    if (blocksContent) {
+      prompt += '\n' + blocksContent;
+    }
+
+    // Add dependency warning if needed
+    if (!dependencyCheck.satisfied) {
+      prompt += `\n\n---\n\n⚠️ **Dependency Warning**\n${dependencyCheck.missing.map(m => `- ${m}`).join('\n')}`;
+    }
+    
+    return {
+      prompt,
+      diagnostics: {
+        deniedBlocks,
+        appliedBlocks: allowedBlocks.map(b => b.id),
+      },
+    };
+  } catch (error) {
+    console.error('Error assembling prompt with blocks:', error);
+    throw error;
+  }
+};
+
+// 驗證擴展參數
+export const validateExtendedParams = (params: ExtendedPromptParams): boolean => {
   try {
     getModule('styles', params.styleId);
     getModule('industries', params.industryId);

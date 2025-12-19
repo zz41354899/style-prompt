@@ -1,12 +1,25 @@
+'use client';
+
 import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
-import { Copy, Download, Eye, Blocks, GripVertical, X } from 'lucide-react';
-import { useParams } from 'react-router-dom';
+import { Copy, Download, Eye, Blocks, GripVertical, X, Lock, Unlock, Sparkles, Star, AlertTriangle, CreditCard } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { assemblePrompt, getAvailableOptions, type PromptParams } from '../lib/promptEngine';
+import { 
+  assemblePrompt, 
+  getAvailableOptions, 
+  assemblePromptWithBlocks,
+  getBlockModules,
+  type PromptParams,
+  type PlanTier,
+} from '../lib/promptEngine';
+import { 
+  getRecommendedUses, 
+  isUseValidForIndustry, 
+  getSupabaseScore,
+} from '../data/blocks';
 import { Toast } from './Toast';
 
 // Block type definition
-type BlockType = 'style' | 'industry' | 'use';
+type BlockType = 'style' | 'industry' | 'use' | 'feature';
 
 interface Block {
   id: string;
@@ -20,12 +33,14 @@ const blockColors: Record<BlockType, { bg: string; border: string; hover: string
   style: { bg: '#4285F4', border: '#2b65c9', hover: '#5294ff' },
   industry: { bg: '#0F9D58', border: '#0b7541', hover: '#16b568' },
   use: { bg: '#8E24AA', border: '#6a1b9a', hover: '#a033c0' },
+  feature: { bg: '#F59E0B', border: '#D97706', hover: '#FBBF24' },
 };
 
 const getBlockLabels = (t: (key: string) => string): Record<BlockType, string> => ({
   style: t('promptBuilder.style'),
   industry: t('promptBuilder.industry'),
   use: t('promptBuilder.use'),
+  feature: t('promptBuilder.feature') || 'Feature',
 });
 
 interface PromptBuilderProps {
@@ -35,11 +50,9 @@ interface PromptBuilderProps {
 }
 
 export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', initialStyleId, onStyleChange }) => {
-  // Get currently selected style from URL params
-  const { styleId } = useParams<{ styleId: string }>();
   const { t } = useTranslation();
   const blockLabels = getBlockLabels(t);
-  const selectedStyle = styleId || initialStyleId || 'S01';
+  const selectedStyle = initialStyleId || 'S01';
   
   // Ref to mark internal changes
   const isInternalChange = useRef(false);
@@ -62,6 +75,57 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
   // Assembly area block order
   const [assembledBlocks, setAssembledBlocks] = useState<BlockType[]>(['style', 'industry', 'use']);
   
+  // Feature blocks state (積木系統)
+  const [planId, setPlanId] = useState<PlanTier>('free');
+  const [selectedBlockIds, setSelectedBlockIds] = useState<string[]>([]);
+  const featureBlocks = useMemo(() => getBlockModules(), []);
+  
+  // Pro subscription state
+  const [isPro, setIsPro] = useState<boolean>(() => {
+    // Check localStorage for pro status
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('style-prompt-pro') === 'true';
+    }
+    return false;
+  });
+  const [showProModal, setShowProModal] = useState(false);
+  
+  // Handle plan switch with pro check
+  const handlePlanSwitch = (newPlan: PlanTier) => {
+    if (newPlan === 'pro' && !isPro) {
+      // Show pro modal if not subscribed
+      setShowProModal(true);
+    } else {
+      setPlanId(newPlan);
+    }
+  };
+  
+  // Handle pro subscription (for testing/demo - will be replaced by Stripe callback)
+  const handleProSubscribe = () => {
+    // Save pro status to localStorage
+    localStorage.setItem('style-prompt-pro', 'true');
+    setIsPro(true);
+    setPlanId('pro');
+    setShowProModal(false);
+    setToast({ message: t('promptBuilder.proActivated') || 'Pro 已啟用！', type: 'success' });
+  };
+  
+  // Handle Stripe checkout - redirect to Stripe payment page
+  const handleStripeCheckout = async () => {
+    // TODO: Replace with actual Stripe checkout session creation
+    // This will call your backend API to create a Stripe checkout session
+    // Example:
+    // const response = await fetch('/api/create-checkout-session', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({ priceId: 'price_xxx' })
+    // });
+    // const { url } = await response.json();
+    // window.location.href = url;
+    
+    // For now, simulate successful payment (demo mode)
+    handleProSubscribe();
+  };
   
   // Toast state
   const [toast, setToast] = useState<{
@@ -86,15 +150,44 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
     }
   }, [selectedStyle]);
   
-  // Generate Prompt
-  const generatedPrompt = useMemo(() => {
+  // Generate Prompt (使用積木系統)
+  const { generatedPrompt, diagnostics } = useMemo(() => {
     try {
-      return assemblePrompt(params);
+      if (selectedBlockIds.length > 0) {
+        // 使用帶積木的組裝器
+        const result = assemblePromptWithBlocks({
+          ...params,
+          planId,
+          selectedBlockIds,
+        });
+        return { 
+          generatedPrompt: result.prompt, 
+          diagnostics: result.diagnostics 
+        };
+      } else {
+        // 沒有選擇積木時使用原本的組裝器
+        return { 
+          generatedPrompt: assemblePrompt(params), 
+          diagnostics: { deniedBlocks: [], appliedBlocks: [] } 
+        };
+      }
     } catch (error) {
       console.error('Error generating prompt:', error);
-      return t('promptBuilder.errorGenerating');
+      return { 
+        generatedPrompt: t('promptBuilder.errorGenerating'), 
+        diagnostics: { deniedBlocks: [], appliedBlocks: [] } 
+      };
     }
-  }, [params]);
+  }, [params, planId, selectedBlockIds, t]);
+  
+  // Toggle feature block selection
+  const toggleBlockSelection = (blockId: string) => {
+    setSelectedBlockIds(prev => 
+      prev.includes(blockId) 
+        ? prev.filter(id => id !== blockId)
+        : [...prev, blockId]
+    );
+  };
   
   // Handle param change
   const handleParamChange = (key: keyof PromptParams, value: string) => {
@@ -228,19 +321,19 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
   };
   
   // Render draggable block
-  const renderDraggableBlock = (block: Block, isDragging: boolean = false, isSelected: boolean = false) => {
+  const renderDraggableBlock = (block: Block, isDragging: boolean = false, isSelected: boolean = false, disabled: boolean = false) => {
     const colors = blockColors[block.type];
     
     return (
       <div
-        draggable
-        onDragStart={(e) => handleDragStart(e, block)}
+        draggable={!disabled}
+        onDragStart={(e) => !disabled && handleDragStart(e, block)}
         onDragEnd={handleDragEnd}
         className={`
-          relative flex items-center gap-2 px-3 py-2 md:px-4 md:py-3 rounded-xl cursor-pointer md:cursor-grab active:cursor-grabbing
+          relative flex items-center gap-2 px-3 py-2 md:px-4 md:py-3 rounded-xl
           border-b-4 border-r-4 shadow-lg
           transform transition-all duration-150
-          hover:-translate-y-1 hover:shadow-xl
+          ${disabled ? 'cursor-not-allowed' : 'cursor-pointer md:cursor-grab active:cursor-grabbing hover:-translate-y-1 hover:shadow-xl'}
           ${isDragging ? 'opacity-50 scale-95' : 'opacity-100'}
           ${isSelected ? 'ring-2 ring-white ring-offset-2 ring-offset-[#1a1a1a]' : ''}
         `}
@@ -290,7 +383,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
               
               {/* Category tabs */}
               <div className="flex gap-2 mb-4 overflow-x-auto pb-2">
-                {(['style', 'industry', 'use'] as BlockType[]).map((type) => (
+                {(['style', 'industry', 'use', 'feature'] as BlockType[]).map((type) => (
                   <button
                     key={type}
                     onClick={() => setActiveTab(type)}
@@ -325,34 +418,183 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                     }, draggedBlock?.value === style.id, params.styleId === style.id)}
                   </div>
                 ))}
-                {activeTab === 'industry' && options.industries.map((industry) => (
-                  <div 
-                    key={industry.id}
-                    onClick={() => handleParamChange('industryId', industry.id)}
-                    className="cursor-pointer"
-                  >
-                    {renderDraggableBlock({
-                      id: industry.id,
-                      type: 'industry',
-                      value: industry.id,
-                      label: t(`industries.${industry.id}`),
-                    }, draggedBlock?.value === industry.id, params.industryId === industry.id)}
+                {activeTab === 'industry' && options.industries.map((industry) => {
+                  const supabaseScore = getSupabaseScore(industry.id);
+                  
+                  return (
+                    <div 
+                      key={industry.id}
+                      onClick={() => handleParamChange('industryId', industry.id)}
+                      className="cursor-pointer relative"
+                    >
+                      {renderDraggableBlock({
+                        id: industry.id,
+                        type: 'industry',
+                        value: industry.id,
+                        label: t(`industries.${industry.id}`),
+                      }, draggedBlock?.value === industry.id, params.industryId === industry.id)}
+                      {/* Supabase Score Badge - only show when feature blocks are selected */}
+                      {selectedBlockIds.length > 0 && (
+                        <div className="absolute top-1 right-6 flex items-center gap-0.5">
+                          {[...Array(5)].map((_, i) => (
+                            <Star 
+                              key={i} 
+                              className={`w-2.5 h-2.5 ${i < supabaseScore ? 'text-yellow-400 fill-yellow-400' : 'text-gray-600'}`} 
+                            />
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+                {activeTab === 'use' && options.uses.map((use) => {
+                  // Only apply validation when feature blocks are selected
+                  const isValid = selectedBlockIds.length > 0 
+                    ? isUseValidForIndustry(params.industryId, use.id) 
+                    : true;
+                  const isRecommended = getRecommendedUses(params.industryId).includes(use.id);
+                  
+                  return (
+                    <div 
+                      key={use.id}
+                      onClick={() => isValid && handleParamChange('useId', use.id)}
+                      className={`relative ${isValid ? '' : 'opacity-40'}`}
+                    >
+                      {renderDraggableBlock({
+                        id: use.id,
+                        type: 'use',
+                        value: use.id,
+                        label: t(`uses.${use.id}`),
+                      }, draggedBlock?.value === use.id, params.useId === use.id, !isValid)}
+                      {/* Recommended badge - only show when feature blocks are selected */}
+                      {selectedBlockIds.length > 0 && isRecommended && isValid && (
+                        <div className="absolute top-1 right-6">
+                          <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
+                        </div>
+                      )}
+                      {/* Not recommended warning - only show when feature blocks are selected */}
+                      {selectedBlockIds.length > 0 && !isValid && (
+                        <div className="absolute top-1 right-6">
+                          <AlertTriangle className="w-3 h-3 text-orange-400" />
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+                
+                {/* Feature Blocks Tab Content */}
+                {activeTab === 'feature' && (
+                  <div className="space-y-3">
+                    {/* Plan Toggle */}
+                    <div className="flex items-center justify-between p-2 bg-[#111] rounded-lg">
+                      <span className="text-xs text-gray-400">{t('promptBuilder.plan') || '方案'}</span>
+                      <div className="flex items-center gap-1">
+                        <button
+                          onClick={() => handlePlanSwitch('free')}
+                          className={`px-2 py-1 rounded text-xs font-medium transition-all ${
+                            planId === 'free' 
+                              ? 'bg-gray-700 text-white' 
+                              : 'text-gray-500 hover:text-white'
+                          }`}
+                        >
+                          Free
+                        </button>
+                        <button
+                          onClick={() => handlePlanSwitch('pro')}
+                          className={`px-2 py-1 rounded text-xs font-medium transition-all flex items-center gap-1 ${
+                            planId === 'pro' 
+                              ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white' 
+                              : 'text-gray-500 hover:text-white'
+                          }`}
+                        >
+                          {isPro ? <Unlock className="w-3 h-3" /> : <Lock className="w-3 h-3" />}
+                          Pro
+                        </button>
+                      </div>
+                    </div>
+                    
+                    {/* Feature Blocks List - Filter by plan */}
+                    {featureBlocks
+                      .filter((block) => {
+                        // Free mode: only show free blocks
+                        // Pro mode: only show pro blocks
+                        if (planId === 'free') return block.tier === 'free';
+                        return block.tier === 'pro';
+                      })
+                      .map((block) => {
+                      const isSelected = selectedBlockIds.includes(block.id);
+                      
+                      return (
+                        <button
+                          key={block.id}
+                          onClick={() => toggleBlockSelection(block.id)}
+                          className={`
+                            w-full flex items-start gap-3 p-3 rounded-xl border-2 transition-all text-left
+                            ${isSelected 
+                              ? 'border-yellow-500 bg-yellow-500/10' 
+                              : 'border-gray-700 hover:border-gray-600 hover:bg-gray-800/50'
+                            }
+                          `}
+                        >
+                          {/* Checkbox */}
+                          <div className={`
+                            flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center mt-0.5
+                            ${isSelected 
+                              ? 'bg-yellow-500 border-yellow-500' 
+                              : 'border-gray-600'
+                            }
+                          `}>
+                            {isSelected && (
+                              <svg className="w-3 h-3 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                              </svg>
+                            )}
+                          </div>
+                          
+                          {/* Content */}
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="font-bold text-white text-sm">{t(`blocks.${block.id}.title`) || block.title}</span>
+                              {block.tier === 'pro' && (
+                                <span className="px-1.5 py-0.5 text-[10px] font-bold uppercase rounded bg-gradient-to-r from-purple-600 to-pink-600 text-white">
+                                  Pro
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-xs text-gray-400 line-clamp-2">{t(`blocks.${block.id}.description`) || block.description}</p>
+                          </div>
+                        </button>
+                      );
+                    })}
+                    
+                    {/* Applied blocks indicator */}
+                    {diagnostics.appliedBlocks.length > 0 && (
+                      <div className="flex items-center gap-2 text-xs text-green-400 p-2 bg-green-500/10 rounded-lg">
+                        <Sparkles className="w-3 h-3" />
+                        <span>{t('promptBuilder.blocksApplied', { count: diagnostics.appliedBlocks.length })}</span>
+                      </div>
+                    )}
+                    
+                    {/* Denied blocks warning */}
+                    {diagnostics.deniedBlocks.length > 0 && (
+                      <div className="p-2 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
+                        <div className="flex items-start gap-2">
+                          <Lock className="w-3 h-3 text-yellow-500 mt-0.5 flex-shrink-0" />
+                          <div>
+                            <p className="text-yellow-500 text-xs font-medium">
+                              {t('promptBuilder.upgradeRequired') || '需要升級到 Pro：'}
+                            </p>
+                            <ul className="text-[10px] text-yellow-400/80">
+                              {diagnostics.deniedBlocks.map(b => (
+                                <li key={b.id}>• {b.title}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                ))}
-                {activeTab === 'use' && options.uses.map((use) => (
-                  <div 
-                    key={use.id}
-                    onClick={() => handleParamChange('useId', use.id)}
-                    className="cursor-pointer"
-                  >
-                    {renderDraggableBlock({
-                      id: use.id,
-                      type: 'use',
-                      value: use.id,
-                      label: t(`uses.${use.id}`),
-                    }, draggedBlock?.value === use.id, params.useId === use.id)}
-                  </div>
-                ))}
+                )}
               </div>
             </div>
           </div>
@@ -442,6 +684,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                             style: 'S01',
                             industry: 'SaaS',
                             use: 'FullLandingPage',
+                            feature: '',
                           };
                           const paramKey = blockType === 'style' ? 'styleId' : blockType === 'industry' ? 'industryId' : 'useId';
                           handleParamChange(paramKey as keyof PromptParams, defaultValues[blockType]);
@@ -562,6 +805,119 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
           background: #444;
         }
       `}</style>
+      
+      {/* Pro Subscription Modal */}
+      {showProModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 overflow-y-auto">
+          <div className="bg-[#1a1a1a] border border-gray-800 rounded-3xl p-6 md:p-8 max-w-4xl w-full shadow-2xl relative my-auto bg-gradient-to-b from-[#1a1a1a] to-[#0f0f0f]">
+            {/* Close button */}
+            <button
+              onClick={() => setShowProModal(false)}
+              className="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors z-10 p-2 rounded-full hover:bg-white/10"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            
+            <div className="text-center mb-8 md:mb-10">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 tracking-tight">
+                {t('promptBuilder.upgradeTitle') || '升級到 Pro'}
+              </h2>
+              <p className="text-gray-400 text-sm md:text-base max-w-md mx-auto leading-relaxed">
+                {t('promptBuilder.upgradeDescription') || '解鎖進階功能，獲得更強大的 Supabase 後端架構建建議'}
+              </p>
+            </div>
+            
+            {/* Pricing Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-8 md:mb-10">
+              {/* Free Plan */}
+              <div className="border border-gray-800 rounded-2xl p-6 md:p-8 bg-[#111] flex flex-col hover:border-gray-700 transition-colors">
+                <div className="mb-6">
+                  <h3 className="text-lg font-bold text-gray-300 mb-2">Free</h3>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-4xl font-bold text-white">NT$0</span>
+                  </div>
+                </div>
+                <ul className="space-y-4 mb-8 flex-1">
+                  <li className="flex items-center gap-3 text-sm text-gray-300">
+                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-green-500/10 flex items-center justify-center">
+                      <svg className="w-3 h-3 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    {t('promptBuilder.freeFeature1') || '基礎設計提示詞'}
+                  </li>
+                  <li className="flex items-center gap-3 text-sm text-gray-300">
+                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-green-500/10 flex items-center justify-center">
+                      <svg className="w-3 h-3 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    {t('promptBuilder.freeFeature2') || '身份驗證系統'}
+                  </li>
+                  <li className="flex items-center gap-3 text-sm text-gray-500">
+                    <div className="flex-shrink-0 w-5 h-5 flex items-center justify-center">
+                      <X className="w-3 h-3" />
+                    </div>
+                    {t('promptBuilder.freeFeature3') || '後端架構建議'}
+                  </li>
+                </ul>
+                <button
+                  onClick={() => setShowProModal(false)}
+                  className="w-full py-3 rounded-xl border border-gray-700 text-white font-medium hover:bg-gray-800 transition-all text-sm"
+                >
+                  {t('promptBuilder.currentPlan') || '目前方案'}
+                </button>
+              </div>
+              
+              {/* Pro Plan */}
+              <div className="relative border-2 border-purple-500/30 rounded-2xl p-6 md:p-8 bg-gradient-to-b from-purple-500/5 to-purple-500/0 flex flex-col shadow-[0_0_40px_-10px_rgba(168,85,247,0.15)]">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-[10px] font-bold text-white tracking-wide uppercase shadow-lg">
+                  {t('promptBuilder.recommended') || '推薦'}
+                </div>
+                <div className="mb-6">
+                  <h3 className="text-lg font-bold text-purple-400 mb-2">Pro</h3>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-4xl font-bold text-white">NT$2,000</span>
+                  </div>
+                </div>
+                <ul className="space-y-4 mb-8 flex-1">
+                  <li className="flex items-center gap-3 text-sm text-white font-medium">
+                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-500/20 flex items-center justify-center">
+                      <svg className="w-3 h-3 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    {t('promptBuilder.proFeature1') || '完整後端架構建議'}
+                  </li>
+                  <li className="flex items-center gap-3 text-sm text-gray-300">
+                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-500/20 flex items-center justify-center">
+                      <svg className="w-3 h-3 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    {t('promptBuilder.proFeature2') || 'Supabase RLS 政策範例'}
+                  </li>
+                  <li className="flex items-center gap-3 text-sm text-gray-300">
+                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-500/20 flex items-center justify-center">
+                      <svg className="w-3 h-3 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    {t('promptBuilder.proFeature3') || 'Edge Functions 範例程式碼'}
+                  </li>
+                </ul>
+                <button
+                  onClick={handleProSubscribe}
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold cursor-pointer flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-purple-500/25"
+                >
+                  <Sparkles className="w-4 h-4" />
+                  {t('promptBuilder.buyNow', { defaultValue: '馬上購買' })}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
