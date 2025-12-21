@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
-import { Copy, Download, Eye, Blocks, GripVertical, X, Lock, Unlock, Sparkles, Star, AlertTriangle, CreditCard } from 'lucide-react';
+import { Copy, Download, Eye, Blocks, GripVertical, X, Lock, Unlock, Sparkles, Star, AlertTriangle, CreditCard, Code, Database, Users } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { 
   assemblePrompt, 
@@ -17,6 +17,9 @@ import {
   getSupabaseScore,
 } from '../data/blocks';
 import { Toast } from './Toast';
+
+// Backend block IDs that should have their own tabs
+const BACKEND_BLOCK_IDS = ['backend.architecture', 'auth.login', 'admin.users'];
 
 // Block type definition
 type BlockType = 'style' | 'industry' | 'use' | 'feature';
@@ -79,6 +82,14 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
   const [planId, setPlanId] = useState<PlanTier>('free');
   const [selectedBlockIds, setSelectedBlockIds] = useState<string[]>([]);
   const featureBlocks = useMemo(() => getBlockModules(), []);
+  
+  // Prompt type state (frontend/backend)
+  const [activePromptType, setActivePromptType] = useState<'frontend' | 'backend'>('frontend');
+  
+  // Get selected backend blocks
+  const selectedBackendBlocks = useMemo(() => {
+    return selectedBlockIds.filter(id => BACKEND_BLOCK_IDS.includes(id));
+  }, [selectedBlockIds]);
   
   // Pro subscription state
   const [isPro, setIsPro] = useState<boolean>(() => {
@@ -151,42 +162,100 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
   }, [selectedStyle]);
   
   // Generate Prompt (使用積木系統)
-  const { generatedPrompt, diagnostics } = useMemo(() => {
+  const { generatedPrompt, diagnostics, backendPrompt } = useMemo(() => {
     try {
-      if (selectedBlockIds.length > 0) {
-        // 使用帶積木的組裝器
+      // Filter out backend blocks for frontend prompt
+      const frontendBlockIds = selectedBlockIds.filter(id => !BACKEND_BLOCK_IDS.includes(id));
+      
+      // Frontend prompt
+      let frontendPrompt = '';
+      if (frontendBlockIds.length > 0) {
+        // 使用帶積木的組裝器，只傳入前端積木
         const result = assemblePromptWithBlocks({
           ...params,
           planId,
-          selectedBlockIds,
+          selectedBlockIds: frontendBlockIds,
         });
-        return { 
-          generatedPrompt: result.prompt, 
-          diagnostics: result.diagnostics 
-        };
+        frontendPrompt = result.prompt;
       } else {
         // 沒有選擇積木時使用原本的組裝器
-        return { 
-          generatedPrompt: assemblePrompt(params), 
-          diagnostics: { deniedBlocks: [], appliedBlocks: [] } 
-        };
+        frontendPrompt = assemblePrompt(params);
       }
+      
+      // Backend prompt - combine all selected backend blocks
+      let backendPrompt = '';
+      const backendSections: string[] = [];
+      const deniedBlocks: { id: string; title: string; requiredTier: PlanTier }[] = [];
+      
+      selectedBackendBlocks.forEach(blockId => {
+        const block = featureBlocks.find(b => b.id === blockId);
+        if (!block) return;
+        
+        if (block.tier === 'free' || isPro) {
+          // User has access, generate the prompt
+          if (blockId === 'backend.architecture') {
+            const { backendArchitectureBlock } = require('../data/blocks/backendArchitecture');
+            backendSections.push(backendArchitectureBlock.render(params.industryId, params.useId));
+          } else if (blockId === 'auth.login') {
+            const { authLoginBlock } = require('../data/blocks/authLogin');
+            backendSections.push(authLoginBlock.render(params.industryId, params.useId));
+          } else if (blockId === 'admin.users') {
+            const { adminUsersBlock } = require('../data/blocks/adminUsers');
+            backendSections.push(adminUsersBlock.render(params.industryId, params.useId));
+          }
+        } else {
+          // User doesn't have access, add to denied list
+          deniedBlocks.push({
+            id: block.id,
+            title: block.title,
+            requiredTier: block.tier
+          });
+        }
+      });
+      
+      // Combine all backend sections with separators
+      if (backendSections.length > 0) {
+        backendPrompt = backendSections.join('\n\n---\n\n');
+      }
+      
+      return { 
+        generatedPrompt: frontendPrompt, 
+        backendPrompt,
+        diagnostics: {
+          deniedBlocks,
+          appliedBlocks: selectedBackendBlocks.filter(id => {
+            const block = featureBlocks.find(b => b.id === id);
+            return block && (block.tier === 'free' || isPro);
+          })
+        }
+      };
     } catch (error) {
       console.error('Error generating prompt:', error);
       return { 
         generatedPrompt: t('promptBuilder.errorGenerating'), 
-        diagnostics: { deniedBlocks: [], appliedBlocks: [] } 
+        backendPrompt: '',
+        diagnostics: { 
+          deniedBlocks: [] as { id: string; title: string; requiredTier: PlanTier }[],
+          appliedBlocks: [] as string[]
+        } 
       };
     }
-  }, [params, planId, selectedBlockIds, t]);
+  }, [params, planId, selectedBlockIds, selectedBackendBlocks, t, isPro, featureBlocks]);
   
   // Toggle feature block selection
   const toggleBlockSelection = (blockId: string) => {
-    setSelectedBlockIds(prev => 
-      prev.includes(blockId) 
+    setSelectedBlockIds(prev => {
+      const newIds = prev.includes(blockId) 
         ? prev.filter(id => id !== blockId)
-        : [...prev, blockId]
-    );
+        : [...prev, blockId];
+      
+      // Auto-switch to frontend if current tab is being removed
+      if (activePromptType !== 'frontend' && !newIds.includes(activePromptType)) {
+        setActivePromptType('frontend');
+      }
+      
+      return newIds;
+    });
   };
   
   // Handle param change
@@ -281,8 +350,9 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
   
   // Copy to clipboard
   const handleCopy = async () => {
+    const promptToCopy = activePromptType === 'frontend' ? generatedPrompt : backendPrompt;
     try {
-      await navigator.clipboard.writeText(generatedPrompt);
+      await navigator.clipboard.writeText(promptToCopy);
       setToast({
         message: t('promptBuilder.promptCopied'),
         type: 'success'
@@ -298,16 +368,20 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
   
   // Download as file
   const handleDownload = () => {
-    const blob = new Blob([generatedPrompt], { type: 'text/markdown' });
+    const promptToDownload = activePromptType === 'frontend' ? generatedPrompt : backendPrompt;
+    const blob = new Blob([promptToDownload], { type: 'text/markdown' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `prompt-${params.styleId}-${params.industryId}-${params.useId}.md`;
+    const suffix = activePromptType === 'frontend' ? '' : '-backend';
+    a.download = `prompt${suffix}-${params.styleId}-${params.industryId}-${params.useId}.md`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };
+
+// ... (rest of the code remains the same)
   
   // Get currently selected block info
   const getSelectedBlock = (type: BlockType): Block => {
@@ -768,12 +842,94 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                 </div>
               </div>
             </div>
-            <div className="p-4 md:p-6">
-              <div className="bg-[#111111] rounded-lg p-4 md:p-6 border-2 border-gray-800 shadow-inner">
-                <pre className="whitespace-pre-wrap text-xs md:text-sm font-mono text-gray-300 max-h-80 md:max-h-96 overflow-y-auto leading-relaxed">
-                  {generatedPrompt}
-                </pre>
+            
+            {/* Tabs - Show when any backend blocks are selected */}
+            {selectedBackendBlocks.length > 0 && (
+              <div className="px-4 md:px-6 py-2 bg-[#2a2a2a] border-b border-gray-700">
+                <div className="flex gap-1 p-1 bg-[#1a1a1a] rounded-lg">
+                  {/* Frontend tab */}
+                  <button
+                    onClick={() => setActivePromptType('frontend')}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                      activePromptType === 'frontend'
+                        ? 'bg-[#4285F4] text-white shadow-sm'
+                        : 'text-gray-400 hover:text-white hover:bg-white/5'
+                    }`}
+                  >
+                    <Code className="w-4 h-4" />
+                    {t('promptBuilder.frontendPrompt')}
+                  </button>
+                  
+                  {/* Backend tab */}
+                  <button
+                    onClick={() => setActivePromptType('backend')}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                      activePromptType === 'backend'
+                        ? 'bg-purple-600 text-white shadow-sm'
+                        : 'text-gray-400 hover:text-white hover:bg-white/5'
+                    }`}
+                  >
+                    <Database className="w-4 h-4" />
+                    {t('promptBuilder.backendPrompt')}
+                    {diagnostics.deniedBlocks.length > 0 && (
+                      <Lock className="w-3 h-3 ml-1" />
+                    )}
+                  </button>
+                </div>
               </div>
+            )}
+            
+            <div className="p-4 md:p-6">
+              {activePromptType === 'frontend' ? (
+                // Frontend prompt
+                <div className="bg-[#111111] rounded-lg p-4 md:p-6 border-2 border-gray-800 shadow-inner">
+                  <pre className="whitespace-pre-wrap text-xs md:text-sm font-mono text-gray-300 max-h-80 md:max-h-96 overflow-y-auto leading-relaxed">
+                    {generatedPrompt}
+                  </pre>
+                </div>
+              ) : (
+                // Backend prompt
+                <div>
+                  {/* Show upgrade notice if there are denied blocks */}
+                  {diagnostics.deniedBlocks.length > 0 && !isPro && (
+                    <div className="mb-4 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
+                      <div className="flex items-start gap-2">
+                        <Lock className="w-4 h-4 text-yellow-500 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <p className="text-yellow-500 text-sm font-medium mb-1">
+                            {t('promptBuilder.upgradeRequired')}
+                          </p>
+                          <p className="text-yellow-400/80 text-xs">
+                            {diagnostics.deniedBlocks.map(b => b.title).join(', ')}
+                          </p>
+                          <button
+                            onClick={() => handlePlanSwitch('pro')}
+                            className="mt-2 text-xs text-yellow-400 hover:text-yellow-300 underline"
+                          >
+                            {t('promptBuilder.buyNow')}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {backendPrompt ? (
+                    // Show combined backend prompt
+                    <div className="bg-[#111111] rounded-lg p-4 md:p-6 border-2 border-gray-800 shadow-inner">
+                      <pre className="whitespace-pre-wrap text-xs md:text-sm font-mono text-gray-300 max-h-80 md:max-h-96 overflow-y-auto leading-relaxed">
+                        {backendPrompt}
+                      </pre>
+                    </div>
+                  ) : (
+                    // No backend blocks selected or no accessible content
+                    <div className="bg-[#111111] rounded-lg p-6 md:p-8 border-2 border-gray-800 shadow-inner text-center">
+                      <Database className="w-12 h-12 text-gray-500 mx-auto mb-4" />
+                      <h3 className="text-xl font-bold text-white mb-2">請選擇後端功能</h3>
+                      <p className="text-gray-400 mb-6">請從功能積木區選擇 Authentication System、Backend Architecture 或 User Management</p>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>
