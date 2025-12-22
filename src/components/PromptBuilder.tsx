@@ -19,7 +19,7 @@ import {
 import { Toast } from './Toast';
 
 // Backend block IDs that should have their own tabs
-const BACKEND_BLOCK_IDS = ['backend.architecture', 'auth.login', 'admin.users'];
+const BACKEND_BLOCK_IDS = ['backend.architecture', 'auth.login'];
 
 // Block type definition
 type BlockType = 'style' | 'industry' | 'use' | 'feature';
@@ -101,6 +101,11 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
   });
   const [showProModal, setShowProModal] = useState(false);
   
+  // Purchase protection states
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [purchaseAttempts, setPurchaseAttempts] = useState(0);
+  const [lastAttemptTime, setLastAttemptTime] = useState(0);
+  
   // Handle plan switch with pro check
   const handlePlanSwitch = (newPlan: PlanTier) => {
     if (newPlan === 'pro' && !isPro) {
@@ -112,30 +117,156 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
   };
   
   // Handle pro subscription (for testing/demo - will be replaced by Stripe callback)
-  const handleProSubscribe = () => {
-    // Save pro status to localStorage
-    localStorage.setItem('style-prompt-pro', 'true');
-    setIsPro(true);
-    setPlanId('pro');
-    setShowProModal(false);
-    setToast({ message: t('promptBuilder.proActivated') || 'Pro 已啟用！', type: 'success' });
+  const handleProSubscribe = async () => {
+    // Prevent multiple simultaneous purchases
+    if (isProcessing) {
+      setToast({ message: '處理中，請稍候...', type: 'error' });
+      return;
+    }
+    
+    // Rate limiting: max 3 attempts per minute
+    const now = Date.now();
+    const timeSinceLastAttempt = now - lastAttemptTime;
+    
+    if (timeSinceLastAttempt < 60000) {
+      if (purchaseAttempts >= 3) {
+        setToast({ message: '請求過於頻繁，請稍後再試', type: 'error' });
+        return;
+      }
+      setPurchaseAttempts(prev => prev + 1);
+    } else {
+      setPurchaseAttempts(1);
+    }
+    
+    setLastAttemptTime(now);
+    setIsProcessing(true);
+    
+    try {
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Generate unique purchase token (in real app, this comes from backend)
+      const purchaseToken = generatePurchaseToken();
+      
+      // Verify token on client side (additional protection)
+      if (!verifyPurchaseToken(purchaseToken)) {
+        throw new Error('Invalid purchase token');
+      }
+      
+      // Save pro status to localStorage with timestamp
+      const purchaseData = {
+        isPro: true,
+        purchaseToken,
+        timestamp: now,
+        expiresAt: now + (365 * 24 * 60 * 60 * 1000) // 1 year
+      };
+      
+      localStorage.setItem('style-prompt-pro', JSON.stringify(purchaseData));
+      setIsPro(true);
+      setPlanId('pro');
+      setShowProModal(false);
+      setToast({ message: t('promptBuilder.proActivated') || 'Pro 已啟用！', type: 'success' });
+      
+      // Reset attempt counter on success
+      setPurchaseAttempts(0);
+    } catch (error) {
+      console.error('Purchase failed:', error);
+      setToast({ message: '購買失敗，請稍後再試', type: 'error' });
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+  
+  // Generate purchase token (client-side generation, should be server-side in production)
+  const generatePurchaseToken = () => {
+    const timestamp = Date.now();
+    const random = Math.random().toString(36).substring(2);
+    const userId = 'user_' + (typeof window !== 'undefined' ? window.navigator.userAgent.slice(0, 10) : 'unknown');
+    return btoa(`${timestamp}:${random}:${userId}`);
+  };
+  
+  // Verify purchase token
+  const verifyPurchaseToken = (token: string) => {
+    try {
+      const decoded = atob(token);
+      const [timestamp] = decoded.split(':');
+      const tokenAge = Date.now() - parseInt(timestamp);
+      // Token should be less than 5 minutes old
+      return tokenAge < 300000;
+    } catch {
+      return false;
+    }
   };
   
   // Handle Stripe checkout - redirect to Stripe payment page
   const handleStripeCheckout = async () => {
-    // TODO: Replace with actual Stripe checkout session creation
-    // This will call your backend API to create a Stripe checkout session
-    // Example:
-    // const response = await fetch('/api/create-checkout-session', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ priceId: 'price_xxx' })
-    // });
-    // const { url } = await response.json();
-    // window.location.href = url;
+    // Prevent multiple simultaneous purchases
+    if (isProcessing) {
+      setToast({ message: '處理中，請稍候...', type: 'error' });
+      return;
+    }
     
-    // For now, simulate successful payment (demo mode)
-    handleProSubscribe();
+    // Rate limiting check
+    const now = Date.now();
+    const timeSinceLastAttempt = now - lastAttemptTime;
+    
+    if (timeSinceLastAttempt < 60000) {
+      if (purchaseAttempts >= 3) {
+        setToast({ message: '請求過於頻繁，請稍後再試', type: 'error' });
+        return;
+      }
+      setPurchaseAttempts(prev => prev + 1);
+    } else {
+      setPurchaseAttempts(1);
+    }
+    
+    setLastAttemptTime(now);
+    setIsProcessing(true);
+    
+    try {
+      // TODO: Replace with actual Stripe checkout session creation
+      // This will call your backend API to create a Stripe checkout session
+      // Example:
+      // const response = await fetch('/api/create-checkout-session', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ 
+      //     priceId: 'price_xxx',
+      //     clientToken: generateClientToken(),
+      //     timestamp: Date.now()
+      //   })
+      // });
+      // 
+      // if (!response.ok) {
+      //   throw new Error('Payment session creation failed');
+      // }
+      // 
+      // const { url, sessionId } = await response.json();
+      // 
+      // // Store session info for verification
+      // sessionStorage.setItem('pendingPayment', JSON.stringify({
+      //   sessionId,
+      //   timestamp: Date.now()
+      // }));
+      // 
+      // window.location.href = url;
+      
+      // For now, simulate successful payment (demo mode)
+      await handleProSubscribe();
+    } catch (error) {
+      console.error('Checkout failed:', error);
+      setToast({ message: '結帳失敗，請稍後再試', type: 'error' });
+      setIsProcessing(false);
+    }
+  };
+  
+  // Generate client token for request verification
+  const generateClientToken = () => {
+    const timestamp = Date.now();
+    const fingerprint = typeof window !== 'undefined' ? 
+      btoa(navigator.userAgent.slice(0, 20) + screen.width + screen.height) : 
+      'unknown';
+    return btoa(`${timestamp}:${fingerprint}`);
   };
   
   // Toast state
@@ -199,9 +330,6 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
           } else if (blockId === 'auth.login') {
             const { authLoginBlock } = require('../data/blocks/authLogin');
             backendSections.push(authLoginBlock.render(params.industryId, params.useId));
-          } else if (blockId === 'admin.users') {
-            const { adminUsersBlock } = require('../data/blocks/adminUsers');
-            backendSections.push(adminUsersBlock.render(params.industryId, params.useId));
           }
         } else {
           // User doesn't have access, add to denied list
@@ -1043,7 +1171,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    {t('promptBuilder.proFeature1') || '完整後端架構建議'}
+                    {t('promptBuilder.proFeature1') || '多租戶資料隔離架構 (workspace_id)'}
                   </li>
                   <li className="flex items-center gap-3 text-sm text-gray-300">
                     <div className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-500/20 flex items-center justify-center">
@@ -1051,7 +1179,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    {t('promptBuilder.proFeature2') || 'Supabase RLS 政策範例'}
+                    {t('promptBuilder.proFeature2') || 'CI/CD 安全強制閘門與腳本'}
                   </li>
                   <li className="flex items-center gap-3 text-sm text-gray-300">
                     <div className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-500/20 flex items-center justify-center">
@@ -1059,15 +1187,39 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    {t('promptBuilder.proFeature3') || 'Edge Functions 範例程式碼'}
+                    {t('promptBuilder.proFeature3') || '防竄改審計日誌系統'}
+                  </li>
+                  <li className="flex items-center gap-3 text-sm text-gray-300">
+                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-500/20 flex items-center justify-center">
+                      <svg className="w-3 h-3 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    {t('promptBuilder.proFeature4') || '事件響應 Playbook (P0-P3)'}
+                  </li>
+                  <li className="flex items-center gap-3 text-sm text-gray-300">
+                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-500/20 flex items-center justify-center">
+                      <svg className="w-3 h-3 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    {t('promptBuilder.proFeature5') || 'service_role 使用邊界控制'}
+                  </li>
+                  <li className="flex items-center gap-3 text-sm text-gray-300">
+                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-500/20 flex items-center justify-center">
+                      <svg className="w-3 h-3 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    {t('promptBuilder.proFeature6') || '合規級 RLS 政策範例'}
                   </li>
                 </ul>
                 <button
-                  onClick={handleProSubscribe}
-                  className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold cursor-pointer flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-purple-500/25"
+                  disabled={true}
+                  className="w-full py-3 rounded-xl bg-gray-600 text-gray-400 cursor-not-allowed font-bold flex items-center justify-center gap-2 transition-all shadow-lg"
                 >
-                  <Sparkles className="w-4 h-4" />
-                  {t('promptBuilder.buyNow', { defaultValue: '馬上購買' })}
+                  <Lock className="w-4 h-4" />
+                  {t('promptBuilder.buyNow', { defaultValue: '立即購買' })}
                 </button>
               </div>
             </div>

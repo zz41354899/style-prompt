@@ -168,29 +168,27 @@
     "blocksApplied": "已套用 {{count}} 個功能積木",
     "proActivated": "Pro 已啟用！",
     "upgradeTitle": "升級到 Pro",
-    "upgradeDescription": "解鎖進階功能，獲得更強大的 Supabase 後端架構建議",
-    "proFeature1": "完整後端架構建議",
-    "proFeature2": "Supabase RLS 政策範例",
-    "proFeature3": "Edge Functions 範例程式碼",
-    "subscribe": "立即訂閱",
-    "activatePro": "馬上購買",
-    "perMonth": "/月",
+    "upgradeDescription": "解鎖企業級後端架構，獲得生產等級的安全合規規範",
+    "proFeature1": "企業級多租戶架構",
+    "proFeature2": "防篡改審計日誌系統",
+    "proFeature3": "CI/CD 安全強制門",
+    "proFeature4": "合規級 RLS 政策範例",
+    "proFeature5": "事務性發件箱模式",
+    "proFeature6": "安全事件應急手冊",
     "freeFeature1": "基礎設計提示詞",
     "freeFeature2": "身份驗證系統",
     "freeFeature3": "後端架構建議",
-    "currentPlan": "目前方案",
     "recommended": "推薦",
-    "stripeSecure": "由 Stripe 提供安全付款",
-    "buyNow": "馬上購買"
+    "currentPlan": "目前方案",
+    "buyNow": "立即購買",
+    "processing": "處理中...",
+    "rateLimited": "請稍後再試",
+    "stripeSecure": "由 Stripe 提供安全付款"
   },
   "blocks": {
     "auth.login": {
       "title": "身份驗證系統",
       "description": "完整的使用者認證流程，包含登入、註冊、忘記密碼、Session 管理"
-    },
-    "admin.users": {
-      "title": "使用者管理",
-      "description": "管理後台的使用者/成員管理功能，包含角色、權限、邀請等"
     },
     "backend.architecture": {
       "title": "後端架構",

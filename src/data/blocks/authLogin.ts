@@ -189,120 +189,69 @@ export const authLoginBlock: PromptBlock = {
       'critical': '🔴 Critical Security (MFA Required)',
     }[config.securityLevel];
 
-    return `## Authentication System
+    return `# Authentication System — Free / MVP Tier
 
-### Security Level
-${securityBadge}
+## Security Level
+🟢 **Standard Security**  
+Production-ready baseline security suitable for side projects and MVPs.
 
-### Supported Auth Methods
-${config.methods.map(m => `- ${m}`).join('\n')}
+---
 
-### Core Flows
+## Supported Authentication Methods
+- Email / Password
+- OAuth (Google) — optional
 
-#### 1. Sign Up
-- Email verification flow
-- Password strength validation (min 8 chars, mixed case, numbers)
-- Terms of service and privacy policy consent
-- Welcome email with onboarding CTA
+> Enterprise SSO and Microsoft OAuth are not included in the Free tier.
 
-#### 2. Login
-- Email/Password authentication
-- Error messages must not reveal account existence
-- Rate limiting (5 failed attempts triggers temporary lockout)
-- Remember me option (where applicable)
+---
 
-#### 3. Logout
+## Core Authentication Flows
+
+### 1. Sign Up
+- Email-based registration
+- Email verification required before first login
+- Password strength validation  
+  - Minimum 8 characters  
+  - Mixed case letters and numbers required
+- Mandatory consent to Terms of Service and Privacy Policy
+- Automatic welcome email with onboarding CTA
+
+### 2. Login
+- Email / Password authentication
+- Generic error messages (do not reveal account existence)
+- Backend-enforced rate limiting  
+  - 5 failed attempts trigger temporary lockout
+- Optional “Remember me” support
+
+---
+
+### 3. Logout
 - Clear session/token
 - Optional: logout from all devices
 - Redirect to appropriate landing page
 
-#### 4. Forgot Password
+### 4. Forgot Password
 - Email-based reset link
 - Link expiry (1 hour recommended)
 - Force re-login after reset
 - Notify user of password change
 
-#### 5. Email Verification
+### 5. Email Verification
 - Send verification email on signup
 - Resend option with cooldown period
 - Graceful handling of expired links
 
+---
+
 ### Session Policy
-${config.sessionPolicy}
+- Standard session (7 days), support remember me
 
 ### Security Requirements
 - CSRF protection (if using cookie-based auth)
 - Secure, HttpOnly cookies for tokens
 - Rate limiting on all auth endpoints
 - Audit logging for login attempts
-- HTTPS only (no mixed content)${config.securityLevel === 'critical' ? `
-- **Mandatory MFA**: All users must enable MFA
-- **Anomaly Detection**: Notify on IP/device changes
-- **Idle Auto-Logout**: Per industry compliance requirements` : ''}
-
-### Industry-Specific Requirements
-${config.specialRequirements.length > 0 
-  ? config.specialRequirements.map(r => `- ${r}`).join('\n')
-  : '- No special requirements'}
-
-${config.additionalFlows.length > 0 ? `### Additional Flows
-${config.additionalFlows.map(f => `- ${f}`).join('\n')}` : ''}
-
-### Backend Architecture
-${config.backendStack}
-
-### Database Schema (Supabase)
-\`\`\`sql
--- Users table (extends auth.users)
-CREATE TABLE public.profiles (
-  id UUID REFERENCES auth.users(id) PRIMARY KEY,
-  email TEXT NOT NULL,
-  full_name TEXT,
-  avatar_url TEXT,
-  role TEXT DEFAULT 'user',
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
-);
-
--- Enable RLS
-ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
-
--- Users can read their own profile
-CREATE POLICY "Users can view own profile" 
-  ON public.profiles FOR SELECT 
-  USING (auth.uid() = id);
-
--- Users can update their own profile
-CREATE POLICY "Users can update own profile" 
-  ON public.profiles FOR UPDATE 
-  USING (auth.uid() = id);
-\`\`\`
-
-### API Endpoints
-- \`POST /auth/signup\` - Create new account
-- \`POST /auth/login\` - Authenticate user
-- \`POST /auth/logout\` - End session
-- \`POST /auth/forgot-password\` - Request reset link
-- \`POST /auth/reset-password\` - Set new password
-- \`POST /auth/verify-email\` - Verify email address
-- \`GET /auth/session\` - Get current session
-- \`POST /auth/refresh\` - Refresh access token
-
-### UX States
-- Loading states for all async operations
-- Clear error messages (without revealing sensitive info)
-- Success feedback with next step guidance
-- Form validation (inline + on submit)
-- Password strength indicator
-
-### Accessibility
-- Keyboard navigation support
-- Focus management after actions
-- Screen reader friendly error messages
-- Visible focus indicators
-- ARIA labels for form fields
-
----
+- HTTPS only (no mixed content)
 
 ### Supabase MCP Integration
 
@@ -320,8 +269,8 @@ CREATE POLICY "Users can update own profile"
 Step 1: List projects to find target project
 → Use: list_projects
 
-Step 2: Execute profiles table creation
-→ Use: execute_sql with the SQL schema above
+Step 2: Execute schema operations
+→ Use: execute_sql with the SQL schema as needed
 
 Step 3: Apply RLS policies
 → Use: execute_sql with RLS policy SQL
@@ -335,7 +284,7 @@ Step 4: Verify tables created
 // 1. First, list available projects
 mcp_supabase.list_projects()
 
-// 2. Execute the profiles table SQL
+// 2. Execute schema SQL
 mcp_supabase.execute_sql({
   project_id: "your-project-id",
   query: "CREATE TABLE public.profiles (...)"
@@ -346,6 +295,7 @@ mcp_supabase.execute_sql({
   project_id: "your-project-id", 
   query: "ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY; ..."
 })
-\`\`\``;
+\`\`\`
+`;
   },
 };
