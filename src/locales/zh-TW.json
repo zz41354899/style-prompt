@@ -1,9 +1,19 @@
 {
   "common": {
     "language": "語言",
-    "switchLanguage": "切換語言",
-    "switchToEnglish": "Switch to English",
-    "switchToChinese": "切換至中文"
+    "switchLanguage": "切換語言"
+  },
+  "layout": {
+    "home": "首頁",
+    "preview": "預覽",
+    "promptBuilder": "指令構建器",
+    "desktop": "桌面版",
+    "tablet": "平板版",
+    "mobile": "手機版",
+    "buyMeACoffee": "贊助咖啡",
+    "currentStyle": "當前風格",
+    "designStyles": "設計風格庫",
+    "stylesAvailable": "共有 {{count}} 種風格"
   },
   "styles": {
     "S01": {
@@ -15,209 +25,788 @@
       "description": "極簡黑白編輯風格，強調排版與對比"
     },
     "S03": {
-      "name": "蒙德里安 / 風格派",
-      "description": "蒙德里安風格，幾何色塊與直線構圖"
+      "name": "蒙德里安",
+      "description": "幾何色塊與直線構圖"
     },
     "S04": {
-      "name": "瑞士 / 國際字體排印",
-      "description": "瑞士國際字體排印風格，網格系統與無襯線字體"
+      "name": "瑞士通訊",
+      "description": "瑞士國際主義字體風格，強調理性格柵"
     },
     "S05": {
       "name": "粗獷主義",
-      "description": "粗獷主義，原始、大膽、不加修飾的設計"
+      "description": "原生、大膽、不加修飾的設計語言"
     },
     "S06": {
       "name": "賽博龐克",
-      "description": "賽博龐克，霓虹燈光與未來科技美學"
+      "description": "霓虹美學與未來主義科技感"
     },
     "S07": {
-      "name": "80年代復古 (合成波)",
-      "description": "80年代復古合成波，漸層霓虹與網格圖案"
+      "name": "復古 80s",
+      "description": "Synthwave 風格，漸層霓虹與網線紋理"
     },
     "S08": {
-      "name": "60-70年代復古 (印刷顆粒)",
-      "description": "60-70年代印刷風格，復古色彩與顆粒質感"
+      "name": "復古印紙",
+      "description": "60-70年代印刷美學，質感雜點與古董配色"
     },
     "S09": {
       "name": "孟菲斯",
-      "description": "孟菲斯設計，幾何圖形與鮮豔色彩"
+      "description": "孟菲斯設計，幾何形狀與高飽和配色"
     },
     "S10": {
       "name": "奢華編輯",
-      "description": "奢華編輯風格，優雅襯線字體與精緻排版"
+      "description": "優雅襯線字體與精緻排版"
     },
     "S11": {
-      "name": "日式極簡",
-      "description": "日式極簡主義，留白美學與禪意設計"
+      "name": "日式和風",
+      "description": "日式極簡，留白藝術與禪意美學"
     },
     "S12": {
       "name": "自然有機",
       "description": "自然有機風格，柔和曲線與大地色調"
     },
     "S13": {
-      "name": "Material 風格",
-      "description": "Material Design 風格，陰影層次與色彩系統"
+      "name": "材質模擬",
+      "description": "Material Design 陰影層次與色彩系統"
     },
     "S14": {
       "name": "玻璃擬態",
-      "description": "玻璃擬態，毛玻璃效果與透明層次"
+      "description": "磨砂玻璃效果與半透明層疊"
     },
     "S15": {
       "name": "新擬態",
-      "description": "新擬態設計，柔和陰影與浮雕效果"
+      "description": "Neumorphism 軟陰影與浮雕視覺"
     },
     "S16": {
-      "name": "終端機 / 駭客",
-      "description": "終端機風格，綠色文字與駭客美學"
+      "name": "終端駭客",
+      "description": "終端介面，綠色文字與黑客美學"
     },
     "S17": {
-      "name": "包浩斯現代主義",
-      "description": "包浩斯風格，幾何形式與功能性設計"
+      "name": "包浩斯",
+      "description": "包浩斯主義，幾何形式與功能性設計"
     },
     "S18": {
-      "name": "復古像素 UI",
-      "description": "復古像素 UI 風格，8位元美學與像素網格"
+      "name": "復古像素",
+      "description": "8-bit 像素美學，懷舊遊戲質感"
     },
     "S19": {
-      "name": "美學和諧",
-      "description": "美學可用性效應風格，精緻優雅與柔和漸層的微互動設計"
+      "name": "美學平衡",
+      "description": "強調易用性與優雅漸層的微妙平衡"
     },
     "S20": {
-      "name": "極光北境",
-      "description": "北極光風格，流動的極光漸層與空靈光暈效果"
+      "name": "極光之境",
+      "description": "北極光幻彩漸層與虛擬光暈效果"
     },
     "S21": {
-      "name": "黏土擬態",
-      "description": "柔軟黏土設計，觸感陰影與圓潤造型"
+      "name": "膠泥擬態",
+      "description": "觸感細膩的膠泥與圓潤黏土造型"
     },
     "S22": {
       "name": "暗夜優雅",
       "description": "精緻深色主題，高對比度與微妙光暈"
     },
     "S23": {
-      "name": "塗鴉素描",
-      "description": "趣味手繪風格，蠟筆紋理與童趣元素"
+      "name": "色彩網格",
+      "description": "複雜的 Mesh Gradient 與活力轉場"
     },
     "S24": {
-      "name": "極簡線藝",
-      "description": "簡潔線條設計，幾何精度與負空間運用"
+      "name": "線條畫藝",
+      "description": "簡潔線條、幾何精確與負空間藝術"
+    },
+    "S25": {
+      "name": "紙藝拼貼",
+      "description": "層疊紙藝與陰影效果"
+    },
+    "S26": {
+      "name": "現代扁平",
+      "description": "現代扁平設計，微弱的深淺層次"
+    },
+    "S27": {
+      "name": "千禧復古",
+      "description": "金屬光澤、霓虹與未來懷舊感"
+    },
+    "S28": {
+      "name": "太陽龐克",
+      "description": "自然與科技融合，綠色與金色調"
+    },
+    "S29": {
+      "name": "裝飾藝術",
+      "description": "幾何奢華，金色與黑色調"
+    },
+    "S30": {
+      "name": "工業風格",
+      "description": "粗獷原型，黃黑警示條紋"
+    },
+    "S31": {
+      "name": "擬真設計",
+      "description": "皮革木紋等真實材質模擬"
+    },
+    "S32": {
+      "name": "懷舊系統",
+      "description": "經典作業系統美學，灰色邊框"
+    },
+    "S33": {
+      "name": "液態金屬",
+      "description": "流動金屬與反射曲面"
+    },
+    "S34": {
+      "name": "全像投影",
+      "description": "雷射箔片與彩虹漸層"
+    },
+    "S35": {
+      "name": "工程藍圖",
+      "description": "工程製圖美學，藍底白線"
+    },
+    "S36": {
+      "name": "黑板粉筆",
+      "description": "深色板岩上的手繪粉筆質感"
+    },
+    "S37": {
+      "name": "報紙排版",
+      "description": "黑白報紙印刷排版"
+    },
+    "S38": {
+      "name": "時尚雜誌",
+      "description": "高級時尚雜誌排版"
+    },
+    "S39": {
+      "name": "美漫風格",
+      "description": "網點與對話框的美漫風格"
+    },
+    "S40": {
+      "name": "旅行明信片",
+      "description": "郵票與紙質紋理的旅行感"
+    },
+    "S41": {
+      "name": "拍立得",
+      "description": "即顯膠片相框風格"
+    },
+    "S42": {
+      "name": "票券票根",
+      "description": "穿孔邊緣與條碼的票根感"
+    },
+    "S43": {
+      "name": "低多邊形",
+      "description": "幾何切面的低多邊形 3D"
+    },
+    "S44": {
+      "name": "等距視角",
+      "description": "2.5D 等距投影視角"
+    },
+    "S45": {
+      "name": "體素方塊",
+      "description": "3D 像素方塊世界"
+    },
+    "S46": {
+      "name": "抽象孟菲斯",
+      "description": "狂野的圖案與幾何形狀"
+    },
+    "S47": {
+      "name": "粗蠻 3D",
+      "description": "厚重的混凝土形態"
+    },
+    "S48": {
+      "name": "流體 3D",
+      "description": "有機變形的流體球"
+    },
+    "S49": {
+      "name": "水彩渲染",
+      "description": "柔和的水彩顏料質感"
+    },
+    "S50": {
+      "name": "拼貼藝術",
+      "description": "剪貼混合媒材"
+    },
+    "S51": {
+      "name": "手繪草圖",
+      "description": "草圖般的鉛筆線條"
+    },
+    "S52": {
+      "name": "普普藝術",
+      "description": "大膽的網點普普藝術"
+    },
+    "S53": {
+      "name": "街頭塗鴉",
+      "description": "噴漆與塗鴉字體"
+    },
+    "S54": {
+      "name": "新藝術",
+      "description": "有機花卉曲線"
+    },
+    "S55": {
+      "name": "海洋風",
+      "description": "深海藍調與氣泡動效"
+    },
+    "S56": {
+      "name": "森林風",
+      "description": "深邃森林與原木質感"
+    },
+    "S57": {
+      "name": "沙漠風",
+      "description": "炙熱沙丘與熱浪效果"
+    },
+    "S58": {
+      "name": "極地風",
+      "description": "極地冰霜與晶體質感"
+    },
+    "S59": {
+      "name": "叢林風",
+      "description": "熱帶叢林與有機生態"
+    },
+    "S60": {
+      "name": "火山風",
+      "description": "熔岩裂紋與餘燼微光"
+    },
+    "S61": {
+      "name": "皮革風",
+      "description": "經典皮革與縫線工藝"
+    },
+    "S62": {
+      "name": "丹寧風",
+      "description": "丹寧布料與銅釘質感"
+    },
+    "S63": {
+      "name": "拉絲鋼",
+      "description": "工業拉絲金屬與機械感"
+    },
+    "S64": {
+      "name": "碳纖維",
+      "description": "賽車碳纖維與速度感"
+    },
+    "S65": {
+      "name": "彩繪玻璃",
+      "description": "哥德式彩繪玻璃光影"
+    },
+    "S66": {
+      "name": "針織風",
+      "description": "溫暖針織紋理與柔和感"
+    },
+    "S67": {
+      "name": "賽博生化",
+      "description": "綠色視網膜掃描與數據流"
+    },
+    "S68": {
+      "name": "蒸汽龐克",
+      "description": "黃銅齒輪與維多利亞機械"
+    },
+    "S69": {
+      "name": "外星異種",
+      "description": "紫色生物發光與有機型態"
+    },
+    "S70": {
+      "name": "奇幻傳說",
+      "description": "羊皮紙卷軸與魔法符文"
+    },
+    "S71": {
+      "name": "廢土生存",
+      "description": "鏽蝕金屬與警示條紋"
+    },
+    "S72": {
+      "name": "星艦指揮",
+      "description": "未來太空站與全像儀表"
+    },
+    "S73": {
+      "name": "印象派",
+      "description": "莫內筆觸與光影變化"
+    },
+    "S74": {
+      "name": "立體派",
+      "description": "幾何碎裂與多重視角"
+    },
+    "S75": {
+      "name": "超現實",
+      "description": "夢境溶解與無理幾何"
+    },
+    "S76": {
+      "name": "文藝復興",
+      "description": "達文西手稿與黃金比例"
+    },
+    "S77": {
+      "name": "浮世繪",
+      "description": "日式版畫與和紙質感"
+    },
+    "S78": {
+      "name": "哥德式",
+      "description": "黑暗尖拱與石造建築"
+    },
+    "S79": {
+      "name": "企業簡潔",
+      "description": "可靠的藍色調與標準企業排版"
+    },
+    "S80": {
+      "name": "新創活力",
+      "description": "漸層圓角與現代 SaaS 風格"
+    },
+    "S81": {
+      "name": "企業深藍",
+      "description": "穩重深藍與高密度數據展示"
+    },
+    "S82": {
+      "name": "金融信賴",
+      "description": "紫色綠色與安全感線條"
+    },
+    "S83": {
+      "name": "醫療健康",
+      "description": "清新湖水綠與潔淨舒適感"
+    },
+    "S84": {
+      "name": "環保生態",
+      "description": "森林綠與有機葉片造型"
+    },
+    "S85": {
+      "name": "童趣玩樂",
+      "description": "高飽和三原色與彈性動效"
+    },
+    "S86": {
+      "name": "電競 RGB",
+      "description": "深色霓虹與未來感線條"
+    },
+    "S87": {
+      "name": "奢華黑金",
+      "description": "襯線字體與高貴質感"
+    },
+    "S88": {
+      "name": "冷冽銀白",
+      "description": "極簡白金與金屬光澤"
+    },
+    "S89": {
+      "name": "極簡人文",
+      "description": "Kinfolk 風格與留白美學"
+    },
+    "S90": {
+      "name": "野獸派撞色",
+      "description": "高對比色彩與粗獷主義"
+    },
+    "S91": {
+      "name": "電子紙",
+      "description": "黑白高對比與紙張質感"
+    },
+    "S92": {
+      "name": "OLED 極黑",
+      "description": "純黑背景與高亮霓虹"
+    },
+    "S93": {
+      "name": "復古終端機",
+      "description": "琥珀色文字與 CRT 掃描線"
+    },
+    "S94": {
+      "name": "代碼編輯器",
+      "description": "VS Code 風格與語法高亮"
+    },
+    "S95": {
+      "name": "數據儀表板",
+      "description": "高密度資訊與圖表展示"
+    },
+    "S96": {
+      "name": "科幻 HUD",
+      "description": "透明疊加層與瞄準介面"
+    },
+    "S97": {
+      "name": "毛玻璃",
+      "description": "模糊背景與多層次透明感"
+    },
+    "S98": {
+      "name": "壓克力流體",
+      "description": "Windows 11 風格與動態材質"
+    },
+    "S99": {
+      "name": "Material You",
+      "description": "動態取色與圓潤大按鈕"
+    },
+    "S100": {
+      "name": "終極介面",
+      "description": "全息投影與 3D 互動體驗"
     }
   },
   "industries": {
     "SaaS": "SaaS 軟體服務",
-    "Education": "教育培訓",
-    "Fitness": "健身養生",
-    "Community": "社群平台",
-    "Booking": "預約平台",
-    "ContentPlatform": "內容平台"
+    "Education": "線上教育平臺",
+    "Fitness": "運動健身中心",
+    "Community": "社群互動站點",
+    "Booking": "預約管理系統",
+    "ContentPlatform": "內容創作平臺",
+    "E-commerce": "電子商務商店",
+    "Healthcare": "醫療健康諮詢",
+    "Finance": "金融數據管理",
+    "RealEstate": "房產租售工具",
+    "Restaurant": "餐飲點餐系統",
+    "Travel": "旅遊出行服務",
+    "Legal": "法律事務諮詢",
+    "Agency": "設計創意代理",
+    "Nonprofit": "非營利組織"
   },
   "uses": {
-    "FullLandingPage": "完整登陸頁",
-    "PricingPage": "定價頁面",
-    "Dashboard": "儀表板",
-    "Onboarding": "新手引導",
-    "AboutPage": "關於我們",
-    "ContactPage": "聯絡我們",
-    "BlogPage": "部落格/文章",
-    "ProductPage": "產品頁面",
-    "PortfolioPage": "作品集/相簿",
-    "FAQPage": "常見問題",
-    "LoginSignup": "登入/註冊"
+    "FullLandingPage": "完整一頁式著陸頁",
+    "PricingPage": "細緻的價格列表頁",
+    "Dashboard": "數據分析控制面板",
+    "Onboarding": "用戶引導與註冊流",
+    "AboutPage": "品牌故事關於我們",
+    "ContactPage": "聯繫我們與表單",
+    "BlogPage": "文章清單與閱讀頁",
+    "ProductPage": "產品詳情展示頁",
+    "PortfolioPage": "個人/團隊作品集",
+    "FAQPage": "常見問題助手頁",
+    "LoginSignup": "登入與註冊頁面",
+    "auth.login": {
+      "title": "Authentication System",
+      "description": "完整的使用者認證流程，包含登入、註冊、忘記密碼與 Session 管理"
+    },
+    "backend.architecture": {
+      "title": "Backend Architecture",
+      "description": "根據產業與用途推薦的後端架構與 Supabase 設定"
+    },
+    "backend.user_management": {
+      "title": "User Management",
+      "description": "使用者資料管理、權限控制 (RLS) 與常見後端流程"
+    }
   },
-  "layout": {
-    "designStyles": "設計風格",
-    "stylesAvailable": "{{count}} 種風格可選",
-    "currentStyle": "目前風格",
-    "preview": "預覽",
-    "promptBuilder": "提示詞建構器",
-    "desktop": "桌面版",
-    "tablet": "平板",
-    "mobile": "手機",
-    "buyMeACoffee": "請我喝杯咖啡"
+  "promptBuilder": {
+    "title": "指示詞構建器",
+    "subtitle": "透過原子化積木構建您的 AI UI 指示詞",
+    "blockLibrary": "方塊庫",
+    "style": "風格",
+    "industry": "行業",
+    "use": "場景",
+    "feature": "功能",
+    "assemblyArea": "指令裝配區",
+    "generatedPrompt": "組合的指示詞",
+    "copyPrompt": "複製指示詞",
+    "downloadMD": "下載 Markdown",
+    "assembling": "正在解析指令構建邏輯...",
+    "noBlocks": "請將方塊從左側拖拽至此處",
+    "proActivated": "Pro 專業版已啟用！",
+    "plan": "訂閱方案",
+    "upgradeRequired": "需要升級到 Pro：",
+    "blocksApplied": "已應用 {{count}} 個功能方塊",
+    "frontendPrompt": "介面指示詞",
+    "backendPrompt": "後端指示詞",
+    "showFrontend": "前端預覽",
+    "showBackend": "後端邏輯",
+    "processing": "處理中，請稍候...",
+    "rateLimited": "請求過於頻繁，請稍後再試",
+    "purchaseFailed": "購買失敗，請稍後再試",
+    "promptCopied": "已複製到剪貼板",
+    "copyFailed": "複製失敗",
+    "comingSoon": "敬請期待",
+    "upgradeTitle": "升級到 Pro",
+    "upgradeDescription": "解鎖進階視覺風格，獲得更多專業設計資源",
+    "recommended": "推薦",
+    "currentPlan": "目前方案",
+    "buyNow": "立即購買",
+    "freeFeature1": "100 種基礎視覺風格",
+    "freeFeature2": "基礎後端架構提示詞",
+    "freeFeature3": "即時 UI 預覽",
+    "proFeature1": "100 種進階視覺風格",
+    "proFeature2": "獨家風格持續更新",
+    "proFeature3": "優先支援與新功能"
   },
   "preview": {
     "previewInfo": "預覽僅供參考，實際結果可能因實作方式而異",
     "open": "開啟",
-    "styleNotFound": "找不到此風格"
+    "styleNotFound": "找不到該風格的渲染組件"
   },
-  "promptBuilder": {
-    "title": "提示詞建構器",
-    "subtitle": "拖放方塊來建構你的設計提示詞",
-    "blockLibrary": "方塊庫",
-    "assemblyArea": "組裝區 — 將方塊拖放至此",
-    "style": "風格",
-    "industry": "產業",
-    "use": "用途",
-    "feature": "功能",
-    "plan": "方案",
-    "frontendPrompt": "前端 Prompt",
-    "backendPrompt": "後端 Prompt",
-    "backendArchitecture": "後端架構",
-    "authentication": "身份驗證",
-    "userManagement": "用戶管理",
-    "generatedPrompt": "產生的提示詞",
-    "copyPrompt": "複製提示詞",
-    "downloadMD": "下載 MD",
-    "promptCopied": "提示詞已複製到剪貼簿！",
-    "copyFailed": "複製失敗，請手動複製。",
-    "assembling": "組裝中...",
-    "errorGenerating": "產生提示詞時發生錯誤，請檢查您的選擇。",
-    "featureBlocks": "功能積木",
-    "featureBlocksHint": "開啟以添加登入/後台管理等功能模組",
-    "upgradeRequired": "以下功能需要升級到 Pro 方案：",
-    "blocksApplied": "已套用 {{count}} 個功能積木",
-    "proActivated": "Pro 已啟用！",
-    "upgradeTitle": "升級到 Pro",
-    "upgradeDescription": "解鎖企業級後端架構，獲得生產等級的安全合規規範",
-    "proFeature1": "企業級多租戶架構",
-    "proFeature2": "防篡改審計日誌系統",
-    "proFeature3": "CI/CD 安全強制門",
-    "proFeature4": "合規級 RLS 政策範例",
-    "proFeature5": "事務性發件箱模式",
-    "proFeature6": "安全事件應急手冊",
-    "freeFeature1": "基礎設計提示詞",
-    "freeFeature2": "身份驗證系統",
-    "freeFeature3": "後端架構建議",
-    "recommended": "推薦",
-    "currentPlan": "目前方案",
-    "buyNow": "立即購買",
-    "processing": "處理中...",
-    "rateLimited": "請稍後再試",
-    "stripeSecure": "由 Stripe 提供安全付款"
-  },
-  "blocks": {
-    "auth.login": {
-      "title": "身份驗證系統",
-      "description": "完整的使用者認證流程，包含登入、註冊、忘記密碼、Session 管理"
+  "landing": {
+    "nav": {
+      "features": "風格特色",
+      "workflow": "使用方式",
+      "pricing": "方案價格",
+      "faq": "常見問題",
+      "enterEditor": "開始探索"
     },
-    "backend.architecture": {
-      "title": "後端架構",
-      "description": "完整的 Supabase 後端架構，包含資料庫 Schema、RLS 政策、API 設計"
+    "hero": {
+      "badge": "100+ 精選視覺風格",
+      "title": "您的 AI 視覺風格資源庫",
+      "subtitle": "StylePrompts 彙整了 100+ 種精心設計的視覺風格提示詞，從極簡科技到復古賽博，一鍵套用即可生成符合品牌調性的 UI 設計指令。",
+      "cta": {
+        "primary": "瀏覽風格庫",
+        "secondary": "了解更多"
+      }
+    },
+    "features": {
+      "title": "為什麼選擇 StylePrompts？",
+      "subtitle": "專為設計師與開發者打造的視覺風格資源庫",
+      "f1": {
+        "title": "100+ 精選風格",
+        "desc": "從科技極簡、賽博龐克到日式和風，涵蓋各類視覺美學，滿足不同專案需求。"
+      },
+      "f2": {
+        "title": "即時視覺預覽",
+        "desc": "每個風格都附帶完整的 UI 預覽，讓您在套用前就能看到最終效果。"
+      },
+      "f3": {
+        "title": "一鍵複製提示詞",
+        "desc": "選擇風格、產業與用途，系統自動生成最佳化的 AI 提示詞，直接貼入您的 AI 工具。"
+      }
+    },
+    "workflow": {
+      "title": "三步驟快速開始",
+      "subtitle": "從選擇風格到獲得提示詞，只需幾秒鐘。",
+      "b1": {
+        "title": "選擇視覺風格",
+        "desc": "瀏覽 100+ 種風格，找到最符合您品牌調性的視覺語言。"
+      },
+      "b2": {
+        "title": "選擇產業與用途",
+        "desc": "根據您的產業（SaaS、電商、醫療等）與頁面類型自動優化提示詞。"
+      },
+      "b3": {
+        "title": "複製並使用",
+        "desc": "一鍵複製生成的提示詞，貼入 ChatGPT、Claude 或 Cursor 開始創作。"
+      },
+      "b4": {
+        "title": "預覽與調整",
+        "desc": "查看即時 UI 預覽，確保風格符合預期後再開始開發。"
+      },
+      "learnMore": "了解更多"
+    },
+    "pricing": {
+      "title": "簡單透明的價格",
+      "comingSoon": "敬請期待",
+      "startNow": "免費開始",
+      "free": {
+        "name": "免費版",
+        "use": "適合個人探索",
+        "price": "0",
+        "f1": "100種基礎視覺風格",
+        "f2": "基礎後端架構提示詞",
+        "f3": "即時 UI 預覽"
+      },
+      "pro": {
+        "name": "專業版",
+        "use": "解鎖進階樣式",
+        "price": "2000",
+        "f1": "100種進階視覺風格",
+        "f2": "獨家風格持續更新",
+        "f3": "優先支援與新功能"
+      }
+    },
+    "faq": {
+      "title": "常見問題",
+      "q1": "這是什麼服務？",
+      "a1": "StylePrompts 是一個視覺風格提示詞資源庫，提供 100 種精選視覺風格，幫助您快速獲得高品質的 AI UI 設計指令。",
+      "q2": "如何使用生成的提示詞？",
+      "a2": "選擇風格後複製提示詞，貼入 ChatGPT、Claude、Cursor 或任何 AI 工具即可開始生成 UI。",
+      "q3": "專業版有什麼額外功能？",
+      "a3": "專業版提供 100 種進階視覺風格、獨家風格持續更新，以及優先支援與新功能。"
+    },
+    "footer": {
+      "description": "您的 AI 視覺風格資源庫。100+ 種精選風格，一鍵生成高品質提示詞，加速您的 UI 開發流程。",
+      "system": "產品",
+      "coreTech": "風格庫",
+      "visualWorkflow": "使用指南",
+      "promptEditor": "提示詞編輯器",
+      "membership": "方案價格",
+      "security": "法律聲明",
+      "privacy": "隱私政策",
+      "terms": "使用條款",
+      "coffee": "贊助我",
+      "copyright": "© 2025 STYLEPROMPTS. 視覺風格資源庫。"
     }
   },
-  "promptModal": {
-    "designPrompt": "設計提示詞",
-    "generatingPrompt": "正在產生您的提示詞...",
-    "generateFailed": "產生提示詞失敗，請重試。",
-    "tryAgain": "重試",
-    "customizeInBuilder": "在建構器中自訂",
-    "copyPrompt": "複製提示詞",
-    "copied": "已複製！",
-    "promptUsageHint": "此提示詞可用於 AI 設計工具，根據 {{styleName}} 風格產生設計"
+  "finalCta": {
+    "title": "開始探索 100+ 視覺風格",
+    "subtitle": "免費瀏覽所有風格，找到最適合您專案的視覺語言。",
+    "button": "立即開始"
   },
-  "styleModal": {
-    "styleComponent": "風格元件",
-    "actualComponentHint": "這是 {{styleName}} 風格的實際 React 元件",
-    "customizeInBuilder": "在建構器中自訂"
-  },
-  "stylePage": {
-    "home": "首頁",
-    "builder": "建構器",
-    "styleNotFound": "找不到此風格"
-  },
-  "deviceSwitcher": {
-    "desktop": "桌面版",
-    "tablet": "平板",
-    "mobile": "手機"
+  "pages": {
+    "coreTech": {
+      "title": "風格庫特色",
+      "subtitle": "StylePrompts 彙整了 100 種精選視覺風格，每個風格都經過精心設計，讓您快速找到適合專案的視覺語言。",
+      "atomic": {
+        "title": "100 種精選風格",
+        "desc": "從極簡科技、賽博龐克到日式和風，涵蓋各類視覺美學，滿足不同專案需求。"
+      },
+      "rendering": {
+        "title": "即時視覺預覽",
+        "desc": "每個風格都附帶完整的 UI 預覽，讓您在套用前就能看到最終效果。"
+      },
+      "advantagesTitle": "核心優勢",
+      "lowLatency": {
+        "title": "一鍵複製提示詞",
+        "desc": "選擇風格後直接複製提示詞，貼入任何 AI 工具即可開始生成。"
+      },
+      "metadata": {
+        "title": "產業與用途優化",
+        "desc": "根據您的產業（SaaS、電商、醫療）與頁面類型自動優化提示詞。"
+      }
+    },
+    "workflow": {
+      "title": "使用指南",
+      "subtitle": "三個簡單步驟，快速獲得高品質的 AI UI 設計指令。",
+      "stage1": {
+        "title": "第一步：選擇視覺風格",
+        "desc": "瀏覽 100 種精選風格，找到最符合您品牌調性的視覺語言。",
+        "note": "支援即時 UI 預覽"
+      },
+      "stage2": {
+        "title": "第二步：選擇產業與用途",
+        "desc": "根據您的產業（SaaS、電商、醫療等）與頁面類型自動優化提示詞。"
+      },
+      "stage3": {
+        "title": "第三步：複製並使用",
+        "desc": "一鍵複製生成的提示詞，貼入 ChatGPT、Claude 或 Cursor 開始創作。"
+      }
+    },
+    "editor": {
+      "title": "提示詞編輯器",
+      "subtitle": "視覺化的風格選擇介面，讓您快速找到並使用最適合的視覺風格。",
+      "styles": "100 種視覺風格",
+      "stylesDesc": "涵蓋極簡、賽博龐克、日式和風等多種視覺美學。",
+      "blocks": "產業專屬優化",
+      "blocksDesc": "選擇您的產業與用途，系統自動優化提示詞內容。",
+      "preview": "即時 UI 預覽",
+      "previewDesc": "每個風格都可預覽完整的 UI 效果，確保符合您的預期。",
+      "cta": "準備好探索 100 種視覺風格了嗎？",
+      "launch": "開始探索"
+    },
+    "membership": {
+      "title": "方案價格",
+      "subtitle": "選擇最適合您的方案，解鎖更多視覺風格。",
+      "flexible": {
+        "title": "免費版",
+        "desc": "100 種基礎視覺風格、基礎後端架構提示詞、即時 UI 預覽。"
+      },
+      "enterprise": {
+        "title": "專業版",
+        "desc": "100 種進階視覺風格、獨家風格持續更新、優先支援與新功能。"
+      }
+    },
+    "workflowSteps": {
+      "step1": {
+        "title": "選擇視覺風格",
+        "subtitle": "瀏覽 100 種精選視覺風格，找到最符合您品牌調性的設計語言。",
+        "f1": {
+          "title": "100 種精選風格",
+          "desc": "涵蓋極簡科技、賽博龐克、日式和風等多種視覺美學。"
+        },
+        "f2": {
+          "title": "分類瀏覽",
+          "desc": "按照風格類別快速篩選，節省尋找時間。"
+        },
+        "f3": {
+          "title": "即時預覽",
+          "desc": "點選風格即可預覽完整的 UI 效果。"
+        },
+        "cta": "立即開始探索視覺風格"
+      },
+      "step2": {
+        "title": "選擇產業與用途",
+        "subtitle": "根據您的產業類型與頁面用途，系統會自動優化提示詞內容。",
+        "f1": {
+          "title": "SaaS 平台",
+          "desc": "適用於雲端軟體服務的專業設計語言。"
+        },
+        "f2": {
+          "title": "電商平台",
+          "desc": "強調轉換率與購物體驗的視覺設計。"
+        },
+        "f3": {
+          "title": "醫療系統",
+          "desc": "乾淨、專業、值得信賴的醫療介面風格。"
+        },
+        "cta": "選擇您的產業類型"
+      },
+      "step3": {
+        "title": "複製並使用",
+        "subtitle": "一鍵複製生成的提示詞，貼入 ChatGPT、Claude 或 Cursor 開始創作。",
+        "f1": {
+          "title": "一鍵複製",
+          "desc": "點擊複製按鈕，提示詞即刻複製到剪貼簿。"
+        },
+        "f2": {
+          "title": "多平台相容",
+          "desc": "支援 ChatGPT、Claude、Cursor 等主流 AI 工具。"
+        },
+        "f3": {
+          "title": "即時生成",
+          "desc": "貼入提示詞後，AI 會立即開始生成 UI 代碼。"
+        },
+        "cta": "開始複製提示詞"
+      },
+      "step4": {
+        "title": "預覽與調整",
+        "subtitle": "在即時預覽中查看 UI 效果，切換不同設備模式檢查響應式設計。",
+        "f1": {
+          "title": "即時預覽",
+          "desc": "每個風格都附帶完整的 UI 預覽畫面。"
+        },
+        "f2": {
+          "title": "RWD 檢查",
+          "desc": "支援桌面、平板、手機三種設備模式。"
+        },
+        "f3": {
+          "title": "細節調整",
+          "desc": "根據預覽結果微調您的提示詞。"
+        },
+        "cta": "立即體驗預覽功能"
+      }
+    },
+    "privacy": {
+      "title": "隱私政策",
+      "subtitle": "我們非常重視您的隱私與資料安全。",
+      "collection": {
+        "title": "資料收集",
+        "desc": "我們僅在您主動提供時收集資訊。"
+      },
+      "ownership": {
+        "title": "內容主權",
+        "desc": "您產出的所有提示詞均為您個人所有。"
+      },
+      "security": {
+        "title": "資料安全",
+        "desc": "我們採用業界領先的加密技術。"
+      },
+      "cookies": {
+        "title": "Cookie 之使用",
+        "desc": "我們使用必要的 Cookie 來維持基本功能。"
+      },
+      "lastUpdate": "最後更新日期：2025 年 12 月 24 日"
+    },
+    "terms": {
+      "title": "使用條款",
+      "subtitle": "歡迎使用 StylePrompts。使用我們的服務即代表您同意條款。",
+      "acceptance": {
+        "title": "接受條款",
+        "desc": "透過訪問或使用，您同意受這些條款的約束。"
+      },
+      "account": {
+        "title": "帳戶責任",
+        "desc": "您有責任保護自己的帳戶安全。"
+      },
+      "usage": {
+        "title": "合法使用",
+        "desc": "您同意不將 StylePrompts 用於任何非法用途。"
+      },
+      "changes": {
+        "title": "服務變更",
+        "desc": "我們保留隨時修改或停止服務的權利。"
+      },
+      "disclaimer": {
+        "title": "免責聲明",
+        "desc": "服務均以「原樣」形式提供。"
+      },
+      "lastUpdate": "最後更新日期：2025 年 12 月 24 日"
+    },
+    "coffee": {
+      "title": "贊助我一杯咖啡",
+      "subtitle": "如果 StylePrompts 對您有幫助，歡迎請我喝杯咖啡，支持這個專案持續發展！",
+      "cta": "請我喝杯咖啡 ☕",
+      "ctaDesc": "您的支持是我持續開發和維護這個專案的最大動力。每一杯咖啡都代表著您的認可與鼓勵！",
+      "buyButton": "Buy me a coffee",
+      "whyTitle": "為什麼支持我們？",
+      "reason1": {
+        "title": "獨立開發者",
+        "desc": "這是一個由獨立開發者打造的專案，您的支持讓我能專注於創造更好的工具。"
+      },
+      "reason2": {
+        "title": "持續更新",
+        "desc": "您的贊助將幫助我持續更新視覺風格庫，帶來更多精選的設計風格。"
+      },
+      "reason3": {
+        "title": "保持免費",
+        "desc": "您的支持讓核心功能得以維持免費，讓更多人受益於這個工具。"
+      },
+      "thanks": "感謝每一位支持者，你們的鼓勵讓這個專案得以持續成長 💜"
+    },
+    "backToHome": "返回首頁"
   }
 }

@@ -1,9 +1,19 @@
 {
   "common": {
     "language": "Language",
-    "switchLanguage": "Switch Language",
-    "switchToEnglish": "Switch to English",
-    "switchToChinese": "切換至中文"
+    "switchLanguage": "Switch Language"
+  },
+  "layout": {
+    "home": "Home",
+    "preview": "Preview",
+    "promptBuilder": "Prompt Builder",
+    "desktop": "Desktop",
+    "tablet": "Tablet",
+    "mobile": "Mobile",
+    "buyMeACoffee": "Buy Me a Coffee",
+    "currentStyle": "Current Style",
+    "designStyles": "Design Styles",
+    "stylesAvailable": "{{count}} Styles Available"
   },
   "styles": {
     "S01": {
@@ -12,217 +22,779 @@
     },
     "S02": {
       "name": "Minimalist Monochrome",
-      "description": "Minimalist black and white editorial style, emphasizing typography and contrast"
+      "description": "Minimalist black and white editorial style"
     },
     "S03": {
-      "name": "Mondrian / De Stijl",
-      "description": "Mondrian style, geometric color blocks and straight lines composition"
+      "name": "Mondrian",
+      "description": "Geometric color blocks and straight lines composition"
     },
     "S04": {
-      "name": "Swiss / International Typographic",
-      "description": "Swiss International Typographic style, grid systems and sans-serif typography"
+      "name": "Swiss Typographic",
+      "description": "Swiss International Style, grid systems and sans-serif typography"
     },
     "S05": {
       "name": "Brutalist",
-      "description": "Brutalist, raw, bold, and unadorned design"
+      "description": "Raw, bold, and unadorned design language"
     },
     "S06": {
       "name": "Cyberpunk",
-      "description": "Cyberpunk, neon lights and futuristic tech aesthetic"
+      "description": "Neon aesthetic and futuristic technology vibes"
     },
     "S07": {
-      "name": "Retro 80s (Synthwave)",
-      "description": "80s retro synthwave, gradient neons and grid patterns"
+      "name": "Retro 80s",
+      "description": "Synthwave style, gradient neons and grid patterns"
     },
     "S08": {
-      "name": "Retro 60s–70s (Print Grain)",
-      "description": "60s-70s print style, vintage colors and grain texture"
+      "name": "Retro 60s/70s",
+      "description": "Vintage print style, retro colors and paper texture"
     },
     "S09": {
       "name": "Memphis",
-      "description": "Memphis design, geometric shapes and vibrant colors"
+      "description": "Memphis design, geometric shapes and vibrant palettes"
     },
     "S10": {
       "name": "Luxury Editorial",
-      "description": "Luxury editorial style, elegant serif fonts and refined typography"
+      "description": "Elegant serif fonts and refined typography"
     },
     "S11": {
       "name": "Japanese Minimal",
-      "description": "Japanese minimalism, white space aesthetics and zen design"
+      "description": "Japanese minimalism, white space and zen aesthetics"
     },
     "S12": {
       "name": "Nature Organic",
-      "description": "Natural organic style, soft curves and earth tone colors"
+      "description": "Organic style, soft curves and earth tone colors"
     },
     "S13": {
-      "name": "Material-ish",
-      "description": "Material Design style, shadow layers and color systems"
+      "name": "Material Design",
+      "description": "Material-ish style, shadow layers and color systems"
     },
     "S14": {
       "name": "Glassmorphism",
-      "description": "Glassmorphism, frosted glass effects and transparent layers"
+      "description": "Frosted glass effects and transparent layers"
     },
     "S15": {
       "name": "Neumorphism",
-      "description": "Neumorphism design, soft shadows and embossed effects"
+      "description": "Soft shadows and embossed plastic visuals"
     },
     "S16": {
-      "name": "Terminal / Hacker",
-      "description": "Terminal style, green text and hacker aesthetic"
+      "name": "Terminal Hacker",
+      "description": "CLI style, green text and matrix aesthetic"
     },
     "S17": {
-      "name": "Bauhaus Modernism",
-      "description": "Bauhaus style, geometric forms and functional design"
+      "name": "Bauhaus",
+      "description": "Bauhaus modernism, geometric forms and functional design"
     },
     "S18": {
-      "name": "Retro Pixel UI",
-      "description": "Retro Pixel UI style, 8-bit aesthetic with pixel grid and dither vibes"
+      "name": "Retro Pixel",
+      "description": "8-bit pixel art aesthetic, nostalgic gaming texture"
     },
     "S19": {
       "name": "Aesthetic Harmony",
-      "description": "Aesthetic-Usability Effect style, refined elegance with soft gradients and micro-interactions"
+      "description": "Refined elegance with soft gradients and micro-interactions"
     },
     "S20": {
       "name": "Aurora Borealis",
-      "description": "Northern Lights style, flowing aurora gradients with ethereal glow effects"
+      "description": "Northern Lights style, ethereal gradients and glows"
     },
     "S21": {
       "name": "Claymorphism",
-      "description": "Soft clay-like design with tactile shadows and rounded forms"
+      "description": "Soft clay-like tactile shadows and rounded forms"
     },
     "S22": {
       "name": "Dark Mode Elegance",
-      "description": "Sophisticated dark theme with high contrast and subtle glows"
+      "description": "Sophisticated dark theme with high contrast"
     },
     "S23": {
-      "name": "Doodle Sketch",
-      "description": "Playful hand-drawn style with crayon textures and whimsical elements"
+      "name": "Gradient Mesh",
+      "description": "Complex mesh patterns with vibrant color transitions"
     },
     "S24": {
       "name": "Minimalist Line Art",
-      "description": "Clean line-based design with geometric precision and negative space"
+      "description": "Clean line-based design with geometric precision"
+    },
+    "S25": {
+      "name": "Paper Craft",
+      "description": "Layered vector paper with drop shadows"
+    },
+    "S26": {
+      "name": "Flat 2.0",
+      "description": "Modern flat design with subtle depth"
+    },
+    "S27": {
+      "name": "Y2K Aesthetic",
+      "description": "Chrome, neon, and futuristic nostalgia"
+    },
+    "S28": {
+      "name": "Solarpunk",
+      "description": "Nature technology fusion, green and gold"
+    },
+    "S29": {
+      "name": "Art Deco",
+      "description": "Geometric luxury, gold and black"
+    },
+    "S30": {
+      "name": "Industrial",
+      "description": "Rugged, raw, caution stripes"
+    },
+    "S31": {
+      "name": "Skeuomorphic",
+      "description": "Realistic textures like leather and wood"
+    },
+    "S32": {
+      "name": "Windows 95",
+      "description": "Classic OS aesthetic, gray bezels"
+    },
+    "S33": {
+      "name": "Liquid Metal",
+      "description": "Fluid chrome and reflective shapes"
+    },
+    "S34": {
+      "name": "Holographic",
+      "description": "Iridescent foil and rainbow gradients"
+    },
+    "S35": {
+      "name": "Blueprint",
+      "description": "Technical drawing aesthetic"
+    },
+    "S36": {
+      "name": "Chalkboard",
+      "description": "Hand drawn white chalk on dark slate"
+    },
+    "S37": {
+      "name": "Newspaper",
+      "description": "Grayscale print columns"
+    },
+    "S38": {
+      "name": "Magazine",
+      "description": "High fashion editorial layout"
+    },
+    "S39": {
+      "name": "Comic Book",
+      "description": "Halftones and speech bubbles"
+    },
+    "S40": {
+      "name": "Postcard",
+      "description": "Stamps and paper textures"
+    },
+    "S41": {
+      "name": "Polaroid",
+      "description": "Instant photo frames"
+    },
+    "S42": {
+      "name": "Ticket Stub",
+      "description": "Perforated edges and barcodes"
+    },
+    "S43": {
+      "name": "Low Poly",
+      "description": "Geometric faceted 3D shapes"
+    },
+    "S44": {
+      "name": "Isometric",
+      "description": "2.5D projection"
+    },
+    "S45": {
+      "name": "Voxel",
+      "description": "3D pixel block world"
+    },
+    "S46": {
+      "name": "Abstract Memphis",
+      "description": "Wild patterns and shapes"
+    },
+    "S47": {
+      "name": "Brutalist 3D",
+      "description": "Heavy concrete forms"
+    },
+    "S48": {
+      "name": "Fluid 3D",
+      "description": "Organic morphing blobs"
+    },
+    "S49": {
+      "name": "Watercolor",
+      "description": "Soft paint texture"
+    },
+    "S50": {
+      "name": "Collage",
+      "description": "Cutout mix media"
+    },
+    "S51": {
+      "name": "Hand Drawn",
+      "description": "Sketchy pencil lines"
+    },
+    "S52": {
+      "name": "Pop Art",
+      "description": "Bold halftone dots"
+    },
+    "S53": {
+      "name": "Graffiti",
+      "description": "Spray paint and tags"
+    },
+    "S54": {
+      "name": "Art Nouveau",
+      "description": "Organic floral curves"
+    },
+    "S55": {
+      "name": "Oceanic",
+      "description": "Deep blue depths with bubble animations"
+    },
+    "S56": {
+      "name": "Forest",
+      "description": "Deep greens and organic wood textures"
+    },
+    "S57": {
+      "name": "Desert",
+      "description": "Scorched sands and heat haze effects"
+    },
+    "S58": {
+      "name": "Polar",
+      "description": "Icy crystals and frost patterns"
+    },
+    "S59": {
+      "name": "Jungle",
+      "description": "Vibrant tropical flora and organic shapes"
+    },
+    "S60": {
+      "name": "Volcanic",
+      "description": "Molten cracks and floating embers"
+    },
+    "S61": {
+      "name": "Leather",
+      "description": "Tangible leather grain and stitching"
+    },
+    "S62": {
+      "name": "Denim",
+      "description": "Indigo fabric and copper rivets"
+    },
+    "S63": {
+      "name": "Brushed Steel",
+      "description": "Industrial metal and mechanical motion"
+    },
+    "S64": {
+      "name": "Carbon Fiber",
+      "description": "High-performance racing weave"
+    },
+    "S65": {
+      "name": "Stained Glass",
+      "description": "Vibrant light through colored glass"
+    },
+    "S66": {
+      "name": "Knitwear",
+      "description": "Cozy wool textures and soft edges"
+    },
+    "S67": {
+      "name": "Cybernetic",
+      "description": "Green HUD scanning and data streams"
+    },
+    "S68": {
+      "name": "Steampunk",
+      "description": "Brass gears and Victorian machinery"
+    },
+    "S69": {
+      "name": "Alien",
+      "description": "Bioluminescent purple and organic blobs"
+    },
+    "S70": {
+      "name": "Fantasy",
+      "description": "Ancient parchment and magic runes"
+    },
+    "S71": {
+      "name": "Wasteland",
+      "description": "Rusted metal and hazard stripes"
+    },
+    "S72": {
+      "name": "Starship",
+      "description": "Clean white panels and futuristic UI"
+    },
+    "S73": {
+      "name": "Impressionist",
+      "description": "Painterly light dabs and brush strokes"
+    },
+    "S74": {
+      "name": "Cubist",
+      "description": "Fragmented geometry and perspectives"
+    },
+    "S75": {
+      "name": "Surrealist",
+      "description": "Dreamlike melting shapes and long shadows"
+    },
+    "S76": {
+      "name": "Renaissance",
+      "description": "Sepia ink sketches and anatomical details"
+    },
+    "S77": {
+      "name": "Ukiyo-e",
+      "description": "Japanese woodblock prints and waves"
+    },
+    "S78": {
+      "name": "Gothic",
+      "description": "Dark stone arches and medieval atmosphere"
+    },
+    "S79": {
+      "name": "Corporate Clean",
+      "description": "Reliable blue tones and standard layout"
+    },
+    "S80": {
+      "name": "Startup Vibrant",
+      "description": "Gradients, rounded corners and SaaS vibes"
+    },
+    "S81": {
+      "name": "Enterprise Blue",
+      "description": "Conservative dark blue and data density"
+    },
+    "S82": {
+      "name": "Fintech Trust",
+      "description": "Secure purple/green and clean lines"
+    },
+    "S83": {
+      "name": "Health Medical",
+      "description": "Clean teal, white and sterile comfort"
+    },
+    "S84": {
+      "name": "Eco Green",
+      "description": "Sustainable forest greens and organic leaf shapes"
+    },
+    "S85": {
+      "name": "Kids Playful",
+      "description": "Primary colors, bouncy and fun"
+    },
+    "S86": {
+      "name": "Gamer RGB",
+      "description": "Dark neon and futuristic lines"
+    },
+    "S87": {
+      "name": "Luxury Gold",
+      "description": "Black and gold serif elegance"
+    },
+    "S88": {
+      "name": "Luxury Silver",
+      "description": "Platinum white and cool metal tones"
+    },
+    "S89": {
+      "name": "Minimalist Serif",
+      "description": "Kinfolk style with generous whitespace"
+    },
+    "S90": {
+      "name": "Brutalist Color",
+      "description": "High contrast clashing colors and bold type"
+    },
+    "S91": {
+      "name": "E-ink Paper",
+      "description": "B&W high contrast with paper feel"
+    },
+    "S92": {
+      "name": "OLED Black",
+      "description": "True black bg and neon accents"
+    },
+    "S93": {
+      "name": "Terminal Retro",
+      "description": "Amber text and CRT scanlines"
+    },
+    "S94": {
+      "name": "Code Editor",
+      "description": "VS Code style with syntax highlighting"
+    },
+    "S95": {
+      "name": "Data Dashboard",
+      "description": "High density grids and charts"
+    },
+    "S96": {
+      "name": "Sci-Fi HUD",
+      "description": "Transparent overlays and targeting visuals"
+    },
+    "S97": {
+      "name": "Frosted Glass",
+      "description": "Blurred transparency and depth"
+    },
+    "S98": {
+      "name": "Acrylic Fluid",
+      "description": "Win11 style with noise texture"
+    },
+    "S99": {
+      "name": "Material You",
+      "description": "Dynamic color and large pills"
+    },
+    "S100": {
+      "name": "The Ultimate",
+      "description": "Holographic 3D interactive experience"
     }
   },
   "industries": {
-    "SaaS": "SaaS",
-    "Education": "Education",
-    "Fitness": "Fitness & Wellness",
-    "Community": "Community Platform",
-    "Booking": "Booking Platform",
-    "ContentPlatform": "Content Platform"
+    "SaaS": "SaaS Platform",
+    "Education": "Online Learning",
+    "Fitness": "Fitness & Health",
+    "Community": "Social Community",
+    "Booking": "Booking System",
+    "ContentPlatform": "Content Creator",
+    "E-commerce": "E-commerce Shop",
+    "Healthcare": "Medical & Health",
+    "Finance": "Finance Management",
+    "RealEstate": "Real Estate Tool",
+    "Restaurant": "Restaurant System",
+    "Travel": "Travel & Tourism",
+    "Legal": "Legal Services",
+    "Agency": "Creative Agency",
+    "Nonprofit": "Nonprofit Org"
   },
   "uses": {
     "FullLandingPage": "Full Landing Page",
-    "PricingPage": "Pricing Page",
-    "Dashboard": "Dashboard",
-    "Onboarding": "Onboarding",
-    "AboutPage": "About Page",
-    "ContactPage": "Contact Page",
-    "BlogPage": "Blog / Articles",
-    "ProductPage": "Product Page",
-    "PortfolioPage": "Portfolio / Gallery",
-    "FAQPage": "FAQ Page",
-    "LoginSignup": "Login / Signup"
-  },
-  "layout": {
-    "designStyles": "Design Styles",
-    "stylesAvailable": "{{count}} styles available",
-    "currentStyle": "Current Style",
-    "preview": "Preview",
-    "promptBuilder": "Prompt Builder",
-    "desktop": "Desktop",
-    "tablet": "Tablet",
-    "mobile": "Mobile",
-    "buyMeACoffee": "Buy me a coffee"
-  },
-  "preview": {
-    "previewInfo": "Preview is for reference only, actual results may vary based on implementation",
-    "open": "Open",
-    "styleNotFound": "Style not found"
+    "PricingPage": "Pricing & Plans",
+    "Dashboard": "Admin Dashboard",
+    "Onboarding": "User Onboarding",
+    "AboutPage": "About Us Page",
+    "ContactPage": "Contact Us Form",
+    "BlogPage": "Blog & Articles",
+    "ProductPage": "Product Showcase",
+    "PortfolioPage": "Portfolio Showcase",
+    "FAQPage": "FAQ & Help Center",
+    "LoginSignup": "Login & Sign Up"
   },
   "promptBuilder": {
     "title": "Prompt Builder",
-    "subtitle": "Drag and drop blocks to build your design prompt",
+    "subtitle": "Build your AI UI prompts with atomic blocks",
     "blockLibrary": "Block Library",
-    "assemblyArea": "Assembly Area — Drop blocks here",
     "style": "Style",
     "industry": "Industry",
-    "use": "Use",
-    "feature": "Feature",
-    "plan": "Plan",
-    "frontendPrompt": "Frontend Prompt",
-    "backendPrompt": "Backend Prompt",
-    "backendArchitecture": "Backend Architecture",
-    "authentication": "Authentication",
-    "userManagement": "User Management",
-    "generatedPrompt": "Generated Prompt",
+    "use": "Use Case",
+    "feature": "Features",
+    "assemblyArea": "Assembly Area",
+    "generatedPrompt": "Combined Prompt",
     "copyPrompt": "Copy Prompt",
     "downloadMD": "Download MD",
-    "promptCopied": "Prompt copied to clipboard!",
-    "copyFailed": "Copy failed, please copy manually.",
-    "assembling": "Assembling...",
-    "errorGenerating": "Error generating prompt. Please check your selections.",
-    "featureBlocks": "Feature Blocks",
-    "featureBlocksHint": "Enable to add login/admin features",
-    "upgradeRequired": "Upgrade to Pro required:",
-    "blocksApplied": "{{count}} feature blocks applied",
-    "proActivated": "Pro activated!",
+    "assembling": "Assembling prompt logic...",
+    "noBlocks": "Drag blocks from the left here",
+    "proActivated": "Pro Activated!",
+    "plan": "Subscription Plan",
+    "upgradeRequired": "Upgrade to Pro:",
+    "blocksApplied": "{{count}} blocks applied",
+    "frontendPrompt": "Frontend Instructions",
+    "backendPrompt": "Backend Instructions",
+    "showFrontend": "Frontend Preview",
+    "showBackend": "Backend Logic",
+    "processing": "Processing, please wait...",
+    "rateLimited": "Too many requests, please try again later",
+    "purchaseFailed": "Purchase failed, please try again",
+    "promptCopied": "Copied to clipboard",
+    "copyFailed": "Copy failed",
+    "comingSoon": "Coming Soon",
     "upgradeTitle": "Upgrade to Pro",
-    "upgradeDescription": "Unlock enterprise-grade backend architecture with production-level security and compliance specifications",
-    "proFeature1": "Multi-tenant data isolation architecture (workspace_id)",
-    "proFeature2": "CI/CD security enforcement gates and scripts",
-    "proFeature3": "Tamper-resistant audit logging system",
-    "proFeature4": "Incident Response Playbook (P0-P3)",
-    "proFeature5": "service_role usage boundary control",
-    "proFeature6": "Compliance-level RLS policy examples",
-    "subscribe": "Subscribe Now",
-    "activatePro": "Buy Now",
-    "perMonth": "/mo",
-    "freeFeature1": "Basic design prompts",
-    "freeFeature2": "Authentication system",
-    "freeFeature3": "Backend architecture",
-    "currentPlan": "Current Plan",
+    "upgradeDescription": "Unlock advanced visual styles and get more professional design resources",
     "recommended": "Recommended",
-    "stripeSecure": "Secure payment powered by Stripe",
-    "buyNow": "Buy Now"
+    "currentPlan": "Current Plan",
+    "buyNow": "Buy Now",
+    "freeFeature1": "100 Base Visual Styles",
+    "freeFeature2": "Basic Backend Architecture Prompts",
+    "freeFeature3": "Live UI Preview",
+    "proFeature1": "100 Advanced Visual Styles",
+    "proFeature2": "Exclusive Style Updates",
+    "proFeature3": "Priority Support & New Features"
   },
-  "blocks": {
-    "auth.login": {
-      "title": "Authentication System",
-      "description": "Complete user authentication flow including login, signup, password reset, and session management"
+  "preview": {
+    "previewInfo": "Previews are for reference only; actual results may vary depending on implementation.",
+    "open": "Open",
+    "styleNotFound": "Rendering component not found for this style"
+  },
+  "landing": {
+    "nav": {
+      "features": "Features",
+      "workflow": "How It Works",
+      "pricing": "Pricing",
+      "faq": "FAQ",
+      "enterEditor": "Explore Styles"
     },
-    "admin.users": {
-      "title": "User Management",
-      "description": "Admin panel user/member management with roles, permissions, and invitations"
+    "hero": {
+      "badge": "100+ Curated Visual Styles",
+      "title": "Your AI Visual Style Library",
+      "subtitle": "StylePrompts offers 100+ carefully crafted visual style prompts. From tech minimal to retro cyberpunk, apply with one click to generate brand-aligned UI design instructions.",
+      "cta": {
+        "primary": "Browse Styles",
+        "secondary": "Learn More"
+      }
     },
-    "backend.architecture": {
-      "title": "Backend Architecture",
-      "description": "Comprehensive Supabase backend architecture with database schema, RLS policies, and API design"
+    "features": {
+      "title": "Why StylePrompts?",
+      "subtitle": "A visual style library built for designers and developers",
+      "f1": {
+        "title": "100+ Curated Styles",
+        "desc": "From tech minimal and cyberpunk to Japanese zen, covering all visual aesthetics for any project."
+      },
+      "f2": {
+        "title": "Live UI Preview",
+        "desc": "Every style comes with a complete UI preview, so you see the result before applying."
+      },
+      "f3": {
+        "title": "One-Click Copy",
+        "desc": "Select style, industry, and use case. Get optimized AI prompts ready to paste into your AI tools."
+      }
+    },
+    "workflow": {
+      "title": "Get Started in 3 Steps",
+      "subtitle": "From choosing a style to getting your prompt, it only takes seconds.",
+      "b1": {
+        "title": "Choose a Visual Style",
+        "desc": "Browse 100+ styles and find the perfect visual language for your brand."
+      },
+      "b2": {
+        "title": "Select Industry & Use Case",
+        "desc": "Auto-optimize prompts based on your industry (SaaS, e-commerce, healthcare) and page type."
+      },
+      "b3": {
+        "title": "Copy & Use",
+        "desc": "One-click copy the generated prompt, paste into ChatGPT, Claude, or Cursor to start creating."
+      },
+      "b4": {
+        "title": "Preview & Adjust",
+        "desc": "Check the live UI preview to ensure the style matches expectations before development."
+      },
+      "learnMore": "Learn More"
+    },
+    "pricing": {
+      "title": "Simple, Transparent Pricing",
+      "comingSoon": "Coming Soon",
+      "startNow": "Start Free",
+      "free": {
+        "name": "Free",
+        "use": "For Personal Exploration",
+        "price": "0",
+        "f1": "100 base visual styles",
+        "f2": "Basic backend architecture prompts",
+        "f3": "Live UI preview"
+      },
+      "pro": {
+        "name": "Pro",
+        "use": "Unlock Advanced Styles",
+        "price": "2000",
+        "f1": "100 advanced visual styles",
+        "f2": "Exclusive style updates",
+        "f3": "Priority support & new features"
+      }
+    },
+    "faq": {
+      "title": "FAQ",
+      "q1": "What is this service?",
+      "a1": "StylePrompts is a visual style prompt library offering 100 curated styles to help you quickly get high-quality AI UI design instructions.",
+      "q2": "How do I use the generated prompts?",
+      "a2": "Select a style, copy the prompt, and paste it into ChatGPT, Claude, Cursor, or any AI tool to start generating UI.",
+      "q3": "What extra features does Pro offer?",
+      "a3": "Pro provides 100 advanced visual styles, exclusive style updates, and priority support with new features."
+    },
+    "footer": {
+      "description": "Your AI visual style library. 100+ curated styles, one-click prompt generation, accelerating your UI development.",
+      "system": "Product",
+      "coreTech": "Style Library",
+      "visualWorkflow": "User Guide",
+      "promptEditor": "Prompt Editor",
+      "membership": "Pricing",
+      "security": "Legal",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Use",
+      "coffee": "Support Us",
+      "copyright": "© 2025 STYLEPROMPTS. Visual Style Library."
     }
   },
-  "promptModal": {
-    "designPrompt": "Design Prompt",
-    "generatingPrompt": "Generating your prompt...",
-    "generateFailed": "Failed to generate prompt. Please try again.",
-    "tryAgain": "Try Again",
-    "customizeInBuilder": "Customize in Builder",
-    "copyPrompt": "Copy Prompt",
-    "copied": "Copied!",
-    "promptUsageHint": "This prompt can be used with AI design tools to generate designs based on the {{styleName}} style"
+  "finalCta": {
+    "title": "Explore 100+ Visual Styles",
+    "subtitle": "Browse all styles for free and find the perfect visual language for your project.",
+    "button": "Get Started"
   },
-  "styleModal": {
-    "styleComponent": "Style Component",
-    "actualComponentHint": "This is the actual React component for the {{styleName}} style",
-    "customizeInBuilder": "Customize in Builder"
-  },
-  "stylePage": {
-    "home": "Home",
-    "builder": "Builder",
-    "styleNotFound": "Style not found"
-  },
-  "deviceSwitcher": {
-    "desktop": "Desktop",
-    "tablet": "Tablet",
-    "mobile": "Mobile"
+  "pages": {
+    "coreTech": {
+      "title": "Style Library Features",
+      "subtitle": "StylePrompts offers 100 curated visual styles, each carefully designed to help you find the perfect visual language for your project.",
+      "atomic": {
+        "title": "100 Curated Styles",
+        "desc": "From tech minimal and cyberpunk to Japanese zen, covering all visual aesthetics for any project."
+      },
+      "rendering": {
+        "title": "Live UI Preview",
+        "desc": "Every style comes with a complete UI preview, so you see the result before applying."
+      },
+      "advantagesTitle": "Core Advantages",
+      "lowLatency": {
+        "title": "One-Click Copy",
+        "desc": "Select a style and copy the prompt directly into any AI tool to start generating."
+      },
+      "metadata": {
+        "title": "Industry Optimization",
+        "desc": "Auto-optimize prompts based on your industry (SaaS, e-commerce, healthcare) and page type."
+      }
+    },
+    "workflow": {
+      "title": "User Guide",
+      "subtitle": "Three simple steps to get high-quality AI UI design instructions.",
+      "stage1": {
+        "title": "Step 1: Choose a Visual Style",
+        "desc": "Browse 100 curated styles and find the perfect visual language for your brand.",
+        "note": "Live UI preview available"
+      },
+      "stage2": {
+        "title": "Step 2: Select Industry & Use Case",
+        "desc": "Auto-optimize prompts based on your industry (SaaS, e-commerce, healthcare) and page type."
+      },
+      "stage3": {
+        "title": "Step 3: Copy & Use",
+        "desc": "One-click copy the generated prompt, paste into ChatGPT, Claude, or Cursor to start creating."
+      }
+    },
+    "editor": {
+      "title": "Prompt Editor",
+      "subtitle": "Visual style selection interface to help you quickly find and use the best visual style.",
+      "styles": "100 Visual Styles",
+      "stylesDesc": "Covering minimal, cyberpunk, Japanese zen, and more visual aesthetics.",
+      "blocks": "Industry Optimization",
+      "blocksDesc": "Select your industry and use case, system auto-optimizes prompt content.",
+      "preview": "Live UI Preview",
+      "previewDesc": "Preview complete UI effects for each style to ensure it meets your expectations.",
+      "cta": "Ready to explore 100 visual styles?",
+      "launch": "Start Exploring"
+    },
+    "membership": {
+      "title": "Pricing",
+      "subtitle": "Choose the plan that suits you best to unlock more visual styles.",
+      "flexible": {
+        "title": "Free",
+        "desc": "100 base visual styles, basic backend architecture prompts, live UI preview."
+      },
+      "enterprise": {
+        "title": "Pro",
+        "desc": "100 advanced visual styles, exclusive style updates, priority support & new features."
+      }
+    },
+    "workflowSteps": {
+      "step1": {
+        "title": "Choose a Visual Style",
+        "subtitle": "Browse 100 curated visual styles and find the perfect design language for your brand.",
+        "f1": {
+          "title": "100 Curated Styles",
+          "desc": "Covering tech minimal, cyberpunk, Japanese zen, and more visual aesthetics."
+        },
+        "f2": {
+          "title": "Category Browse",
+          "desc": "Filter by style category to save time finding what you need."
+        },
+        "f3": {
+          "title": "Live Preview",
+          "desc": "Click any style to preview the complete UI effect."
+        },
+        "cta": "Start Exploring Styles"
+      },
+      "step2": {
+        "title": "Select Industry & Use Case",
+        "subtitle": "Based on your industry and page type, the system auto-optimizes the prompt content.",
+        "f1": {
+          "title": "SaaS Platform",
+          "desc": "Professional design language for cloud software services."
+        },
+        "f2": {
+          "title": "E-commerce",
+          "desc": "Visual design emphasizing conversion and shopping experience."
+        },
+        "f3": {
+          "title": "Healthcare",
+          "desc": "Clean, professional, trustworthy medical interface style."
+        },
+        "cta": "Select Your Industry"
+      },
+      "step3": {
+        "title": "Copy & Use",
+        "subtitle": "One-click copy the generated prompt, paste into ChatGPT, Claude, or Cursor to start creating.",
+        "f1": {
+          "title": "One-Click Copy",
+          "desc": "Click the copy button and the prompt is instantly copied to clipboard."
+        },
+        "f2": {
+          "title": "Multi-Platform",
+          "desc": "Works with ChatGPT, Claude, Cursor, and other major AI tools."
+        },
+        "f3": {
+          "title": "Instant Generation",
+          "desc": "Paste the prompt and AI immediately starts generating UI code."
+        },
+        "cta": "Start Copying Prompts"
+      },
+      "step4": {
+        "title": "Preview & Adjust",
+        "subtitle": "View UI effects in live preview, switch device modes to check responsive design.",
+        "f1": {
+          "title": "Live Preview",
+          "desc": "Every style comes with a complete UI preview screen."
+        },
+        "f2": {
+          "title": "RWD Check",
+          "desc": "Supports desktop, tablet, and mobile device modes."
+        },
+        "f3": {
+          "title": "Fine-Tune",
+          "desc": "Adjust your prompts based on preview results."
+        },
+        "cta": "Try the Preview Feature"
+      }
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "subtitle": "We value your data security.",
+      "collection": {
+        "title": "Data Collection",
+        "desc": "Information collected only on active provision."
+      },
+      "ownership": {
+        "title": "Content Ownership",
+        "desc": "All prompts you generate belong to you."
+      },
+      "security": {
+        "title": "Data Security",
+        "desc": "Industry-leading encryption used."
+      },
+      "cookies": {
+        "title": "Cookies",
+        "desc": "Essential cookies for site functionality."
+      },
+      "lastUpdate": "Last updated: December 24, 2025"
+    },
+    "terms": {
+      "title": "Terms of Use",
+      "subtitle": "Welcome to StylePrompts.",
+      "acceptance": {
+        "title": "Acceptance",
+        "desc": "Bound by terms on access."
+      },
+      "account": {
+        "title": "Account Responsibility",
+        "desc": "You are responsible for your account security."
+      },
+      "usage": {
+        "title": "Legal Use",
+        "desc": "Agreement to not use for illegal purposes."
+      },
+      "changes": {
+        "title": "Modifications",
+        "desc": "Right to modify or discontinue services."
+      },
+      "disclaimer": {
+        "title": "Disclaimer",
+        "desc": "Provided 'as is' without guarantee."
+      },
+      "lastUpdate": "Last updated: December 24, 2025"
+    },
+    "coffee": {
+      "title": "Buy Me a Coffee",
+      "subtitle": "If StylePrompts has been helpful to you, consider buying me a coffee to support the continued development of this project!",
+      "cta": "Buy me a coffee ☕",
+      "ctaDesc": "Your support is the biggest motivation for me to continue developing and maintaining this project. Every coffee represents your recognition and encouragement!",
+      "buyButton": "Buy me a coffee",
+      "whyTitle": "Why Support Us?",
+      "reason1": {
+        "title": "Indie Developer",
+        "desc": "This is a project built by an indie developer. Your support helps me focus on creating better tools."
+      },
+      "reason2": {
+        "title": "Continuous Updates",
+        "desc": "Your sponsorship helps me keep updating the visual style library with more curated design styles."
+      },
+      "reason3": {
+        "title": "Keep It Free",
+        "desc": "Your support helps keep the core features free, so more people can benefit from this tool."
+      },
+      "thanks": "Thank you to every supporter. Your encouragement keeps this project growing 💜"
+    },
+    "backToHome": "Back to Home"
   }
 }

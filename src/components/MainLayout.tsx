@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { X, Menu, Wand2, Monitor, Smartphone, Laptop, Eye, Coffee } from 'lucide-react';
+import { X, Menu, Wand2, Eye, Coffee, Home } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { styles } from '@/data/styles';
 import { LanguageSwitcher } from './LanguageSwitcher';
@@ -34,6 +34,82 @@ const themeColors: Record<string, string> = {
   'S22': '#00D9FF',
   'S23': '#FF6B9D',
   'S24': '#06B6D4',
+  'S25': '#F97316',
+  'S26': '#10B981',
+  'S27': '#EC4899',
+  'S28': '#8B5CF6',
+  'S29': '#14B8A6',
+  'S30': '#F59E0B',
+  'S31': '#EF4444',
+  'S32': '#6366F1',
+  'S33': '#84CC16',
+  'S34': '#F472B6',
+  'S35': '#22D3EE',
+  'S36': '#A78BFA',
+  'S37': '#FB923C',
+  'S38': '#4ADE80',
+  'S39': '#F87171',
+  'S40': '#818CF8',
+  'S41': '#FCD34D',
+  'S42': '#2DD4BF',
+  'S43': '#FB7185',
+  'S44': '#A3E635',
+  'S45': '#38BDF8',
+  'S46': '#C084FC',
+  'S47': '#FBBF24',
+  'S48': '#34D399',
+  'S49': '#F472B6',
+  'S50': '#60A5FA',
+  'S51': '#A855F7',
+  'S52': '#FCA5A5',
+  'S53': '#86EFAC',
+  'S54': '#93C5FD',
+  'S55': '#D8B4FE',
+  'S56': '#FDE047',
+  'S57': '#5EEAD4',
+  'S58': '#FDA4AF',
+  'S59': '#BEF264',
+  'S60': '#7DD3FC',
+  'S61': '#E879F9',
+  'S62': '#FDBA74',
+  'S63': '#6EE7B7',
+  'S64': '#A5B4FC',
+  'S65': '#F9A8D4',
+  'S66': '#FEF08A',
+  'S67': '#99F6E4',
+  'S68': '#FECACA',
+  'S69': '#D9F99D',
+  'S70': '#BAE6FD',
+  'S71': '#F5D0FE',
+  'S72': '#FED7AA',
+  'S73': '#A7F3D0',
+  'S74': '#C7D2FE',
+  'S75': '#FBCFE8',
+  'S76': '#FEF9C3',
+  'S77': '#A5F3FC',
+  'S78': '#FECDD3',
+  'S79': '#D4D4D8',
+  'S80': '#E2E8F0',
+  'S81': '#FF6B6B',
+  'S82': '#4ECDC4',
+  'S83': '#FFE66D',
+  'S84': '#95E1D3',
+  'S85': '#F38181',
+  'S86': '#AA96DA',
+  'S87': '#FCBAD3',
+  'S88': '#FFFFD2',
+  'S89': '#A8D8EA',
+  'S90': '#AA96DA',
+  'S91': '#FCBAD3',
+  'S92': '#FFE5B4',
+  'S93': '#98D8C8',
+  'S94': '#F7DC6F',
+  'S95': '#BB8FCE',
+  'S96': '#85C1E9',
+  'S97': '#F1948A',
+  'S98': '#82E0AA',
+  'S99': '#6750A4',
+  'S100': '#F39C12',
 };
 
 type DeviceMode = 'desktop' | 'tablet' | 'mobile';
@@ -61,10 +137,10 @@ function extractStyleId(pathname: string): string {
   // / -> S01
   const builderMatch = pathname.match(/^\/builder\/([A-Z]\d+)/);
   if (builderMatch) return builderMatch[1];
-  
+
   const styleMatch = pathname.match(/^\/([A-Z]\d+)/);
   if (styleMatch) return styleMatch[1];
-  
+
   return 'S01';
 }
 
@@ -103,6 +179,13 @@ export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }
     router.push(`/${newStyleId}`);
   };
 
+  const handleLogoClick = (e: React.MouseEvent) => {
+    if (pathname === '/') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
     <LayoutContext.Provider value={{ deviceMode, setDeviceMode, selectedStyle }}>
       <div className="h-screen bg-[#0a0a0a] flex flex-col pt-6">
@@ -116,78 +199,45 @@ export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }
             >
               {sidebarOpen ? <X className="w-5 h-5 md:w-5 md:h-5" /> : <Menu className="w-5 h-5 md:w-5 md:h-5" />}
             </button>
-            <Link href="/" className="text-sm md:text-lg font-semibold text-white flex items-center gap-1 hover:opacity-80 transition-opacity">
+            <Link
+              href="/"
+              onClick={handleLogoClick}
+              className="text-sm md:text-lg font-semibold text-white flex items-center gap-1 hover:opacity-80 transition-opacity"
+            >
               Style<span className="transition-colors duration-300" style={{ color: themeColors[selectedStyle || 'S01'] }}>Prompts</span>
               <span className="text-2xl md:text-3xl font-black transition-colors duration-300" style={{ color: themeColors[selectedStyle || 'S01'] }}>/</span>
             </Link>
           </div>
 
           {/* Middle Dynamic Island Navigation - Desktop */}
-          <div className="hidden lg:flex items-center justify-between px-4 py-2 bg-white/5 border border-white/5 rounded-xl backdrop-blur-sm flex-shrink-0" style={{ minWidth: '400px' }}>
+          <div className="hidden lg:flex items-center justify-center gap-2 px-4 py-2 bg-white/5 border border-white/5 rounded-xl backdrop-blur-sm flex-shrink-0">
+            <Link
+              href="/"
+              className="flex items-center justify-center w-10 h-10 rounded-lg transition-colors duration-200 text-white/40 hover:text-white/80 hover:bg-white/5"
+              title={t('layout.home')}
+            >
+              <Home className="w-5 h-5" />
+            </Link>
             <Link
               href={selectedStyle ? `/${selectedStyle}` : '/'}
-              className={`flex items-center justify-center w-10 h-10 rounded-lg transition-colors duration-200 ${
-                !isBuilderPage
-                  ? 'bg-white/10 text-white shadow-sm shadow-black/20'
-                  : 'text-white/40 hover:text-white/80 hover:bg-white/5'
-              }`}
+              className={`flex items-center justify-center w-10 h-10 rounded-lg transition-colors duration-200 ${!isBuilderPage
+                ? 'bg-white/10 text-white shadow-sm shadow-black/20'
+                : 'text-white/40 hover:text-white/80 hover:bg-white/5'
+                }`}
               title={t('layout.preview')}
             >
               <Eye className="w-5 h-5" />
             </Link>
             <Link
               href={selectedStyle ? `/builder/${selectedStyle}` : '/builder'}
-              className={`flex items-center justify-center w-10 h-10 rounded-lg transition-colors duration-200 ${
-                isBuilderPage
-                  ? 'bg-white/10 text-white shadow-sm shadow-black/20'
-                  : 'text-white/40 hover:text-white/80 hover:bg-white/5'
-              }`}
+              className={`flex items-center justify-center w-10 h-10 rounded-lg transition-colors duration-200 ${isBuilderPage
+                ? 'bg-white/10 text-white shadow-sm shadow-black/20'
+                : 'text-white/40 hover:text-white/80 hover:bg-white/5'
+                }`}
               title={t('layout.promptBuilder')}
             >
               <Wand2 className="w-5 h-5" />
             </Link>
-            <button
-              onClick={() => setDeviceMode('desktop')}
-              className={`flex items-center justify-center w-10 h-10 rounded-lg transition-colors duration-200 ${
-                deviceMode === 'desktop'
-                  ? 'bg-white/10 text-white shadow-sm shadow-black/20'
-                  : 'text-white/40 hover:text-white/80 hover:bg-white/5'
-              }`}
-              title={t('layout.desktop')}
-            >
-              <Monitor className="w-5 h-5" />
-            </button>
-            <button
-              onClick={() => setDeviceMode('tablet')}
-              className={`flex items-center justify-center w-10 h-10 rounded-lg transition-colors duration-200 ${
-                deviceMode === 'tablet'
-                  ? 'bg-white/10 text-white shadow-sm shadow-black/20'
-                  : 'text-white/40 hover:text-white/80 hover:bg-white/5'
-              }`}
-              title={t('layout.tablet')}
-            >
-              <Laptop className="w-5 h-5" />
-            </button>
-            <button
-              onClick={() => setDeviceMode('mobile')}
-              className={`flex items-center justify-center w-10 h-10 rounded-lg transition-colors duration-200 ${
-                deviceMode === 'mobile'
-                  ? 'bg-white/10 text-white shadow-sm shadow-black/20'
-                  : 'text-white/40 hover:text-white/80 hover:bg-white/5'
-              }`}
-              title={t('layout.mobile')}
-            >
-              <Smartphone className="w-5 h-5" />
-            </button>
-            <a
-              href="https://buymeacoffee.com/zz41354899y"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center w-10 h-10 rounded-lg transition-colors duration-200 text-white/40 hover:text-white/80 hover:bg-white/5"
-              title={t('layout.buyMeACoffee')}
-            >
-              <Coffee className="w-5 h-5" />
-            </a>
           </div>
 
           {/* Right - Style Name Display */}
@@ -195,7 +245,7 @@ export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }
             {currentStyle && (
               <div className="text-right">
                 <div className="text-xs text-white/60">{t('layout.currentStyle')}</div>
-                <div 
+                <div
                   className="text-sm font-medium text-white truncate"
                   style={{ color: themeColors[currentStyle.id] }}
                 >
@@ -219,18 +269,16 @@ export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }
                 <button
                   key={style.id}
                   onClick={() => handleStyleSelect(style.id)}
-                  className={`w-full text-left px-4 py-3 border-b border-white/5 transition-all ${
-                    selectedStyle === style.id
-                      ? 'bg-purple-500/10 border-l-2 border-l-purple-500'
-                      : 'hover:bg-white/5 border-l-2 border-l-transparent'
-                  }`}
+                  className={`w-full text-left px-4 py-3 border-b border-white/5 transition-all ${selectedStyle === style.id
+                    ? 'bg-purple-500/10 border-l-2 border-l-purple-500'
+                    : 'hover:bg-white/5 border-l-2 border-l-transparent'
+                    }`}
                 >
                   <div className="flex items-center gap-3">
                     <span className="text-xs font-mono text-white/30">{style.id}</span>
                     <div className="flex-1 min-w-0">
-                      <div className={`text-sm font-medium truncate ${
-                        selectedStyle === style.id ? 'text-purple-300' : 'text-white/80'
-                      }`}>
+                      <div className={`text-sm font-medium truncate ${selectedStyle === style.id ? 'text-purple-300' : 'text-white/80'
+                        }`}>
                         {t(`styles.${style.id}.name`)}
                       </div>
                       <div className="text-xs text-white/40 truncate mt-0.5">
@@ -265,18 +313,16 @@ export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }
                         handleStyleSelect(style.id);
                         setSidebarOpen(false);
                       }}
-                      className={`w-full text-left px-4 py-3 border-b border-white/5 transition-all ${
-                        selectedStyle === style.id
-                          ? 'bg-purple-500/10 border-l-2 border-l-purple-500'
-                          : 'hover:bg-white/5 border-l-2 border-l-transparent'
-                      }`}
+                      className={`w-full text-left px-4 py-3 border-b border-white/5 transition-all ${selectedStyle === style.id
+                        ? 'bg-purple-500/10 border-l-2 border-l-purple-500'
+                        : 'hover:bg-white/5 border-l-2 border-l-transparent'
+                        }`}
                     >
                       <div className="flex items-center gap-3">
                         <span className="text-xs font-mono text-white/30">{style.id}</span>
                         <div className="flex-1 min-w-0">
-                          <div className={`text-sm font-medium truncate ${
-                            selectedStyle === style.id ? 'text-purple-300' : 'text-white/80'
-                          }`}>
+                          <div className={`text-sm font-medium truncate ${selectedStyle === style.id ? 'text-purple-300' : 'text-white/80'
+                            }`}>
                             {t(`styles.${style.id}.name`)}
                           </div>
                           <div className="text-xs text-white/40 truncate mt-0.5">
@@ -297,71 +343,34 @@ export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }
 
         {/* Mobile Bottom Dynamic Island Navigation */}
         <div className="lg:hidden fixed bottom-20 left-1/2 transform -translate-x-1/2 z-50">
-          <div className="flex items-center justify-between px-2 py-1.5 bg-black/80 backdrop-blur-lg border border-white/10 rounded-2xl shadow-2xl" style={{ width: 'auto', minWidth: '320px' }}>
+          <div className="flex items-center justify-center gap-2 px-3 py-2 bg-black/80 backdrop-blur-lg border border-white/10 rounded-2xl shadow-2xl">
+            <Link
+              href="/"
+              className="flex items-center justify-center w-10 h-10 rounded-xl transition-colors duration-200 text-white/60 hover:text-white hover:bg-white/10"
+              title={t('layout.home')}
+            >
+              <Home className="w-5 h-5" />
+            </Link>
             <Link
               href={`/${selectedStyle || 'S01'}`}
-              className={`flex items-center justify-center w-9 h-9 rounded-lg transition-colors duration-200 ${
-                !isBuilderPage
-                  ? 'bg-white/20 text-white shadow-lg shadow-white/10'
-                  : 'text-white/60 hover:text-white hover:bg-white/10'
-              }`}
+              className={`flex items-center justify-center w-10 h-10 rounded-xl transition-colors duration-200 ${!isBuilderPage
+                ? 'bg-white/20 text-white shadow-lg shadow-white/10'
+                : 'text-white/60 hover:text-white hover:bg-white/10'
+                }`}
               title={t('layout.preview')}
             >
-              <Eye className="w-4 h-4" />
+              <Eye className="w-5 h-5" />
             </Link>
             <Link
               href={`/builder/${selectedStyle || 'S01'}`}
-              className={`flex items-center justify-center w-9 h-9 rounded-lg transition-colors duration-200 ${
-                isBuilderPage
-                  ? 'bg-white/20 text-white shadow-lg shadow-white/10'
-                  : 'text-white/60 hover:text-white hover:bg-white/10'
-              }`}
+              className={`flex items-center justify-center w-10 h-10 rounded-xl transition-colors duration-200 ${isBuilderPage
+                ? 'bg-white/20 text-white shadow-lg shadow-white/10'
+                : 'text-white/60 hover:text-white hover:bg-white/10'
+                }`}
               title={t('layout.promptBuilder')}
             >
-              <Wand2 className="w-4 h-4" />
+              <Wand2 className="w-5 h-5" />
             </Link>
-            <button
-              onClick={() => setDeviceMode('desktop')}
-              className={`flex items-center justify-center w-9 h-9 rounded-lg transition-colors duration-200 ${
-                deviceMode === 'desktop'
-                  ? 'bg-white/20 text-white shadow-lg shadow-white/10'
-                  : 'text-white/60 hover:text-white hover:bg-white/10'
-              }`}
-              title={t('layout.desktop')}
-            >
-              <Monitor className="w-4 h-4" />
-            </button>
-            <button
-              onClick={() => setDeviceMode('tablet')}
-              className={`flex items-center justify-center w-9 h-9 rounded-lg transition-colors duration-200 ${
-                deviceMode === 'tablet'
-                  ? 'bg-white/20 text-white shadow-lg shadow-white/10'
-                  : 'text-white/60 hover:text-white hover:bg-white/10'
-              }`}
-              title={t('layout.tablet')}
-            >
-              <Laptop className="w-4 h-4" />
-            </button>
-            <button
-              onClick={() => setDeviceMode('mobile')}
-              className={`flex items-center justify-center w-9 h-9 rounded-lg transition-colors duration-200 ${
-                deviceMode === 'mobile'
-                  ? 'bg-white/20 text-white shadow-lg shadow-white/10'
-                  : 'text-white/60 hover:text-white hover:bg-white/10'
-              }`}
-              title={t('layout.mobile')}
-            >
-              <Smartphone className="w-4 h-4" />
-            </button>
-            <a
-              href="https://buymeacoffee.com/zz41354899y"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center w-9 h-9 rounded-lg transition-colors duration-200 text-white/60 hover:text-white hover:bg-white/10"
-              title={t('layout.buyMeACoffee')}
-            >
-              <Coffee className="w-4 h-4" />
-            </a>
           </div>
         </div>
 

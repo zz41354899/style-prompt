@@ -3,23 +3,23 @@
 import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { Copy, Download, Eye, Blocks, GripVertical, X, Lock, Unlock, Sparkles, Star, AlertTriangle, CreditCard, Code, Database, Users } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { 
-  assemblePrompt, 
-  getAvailableOptions, 
+import {
+  assemblePrompt,
+  getAvailableOptions,
   assemblePromptWithBlocks,
   getBlockModules,
   type PromptParams,
   type PlanTier,
 } from '../lib/promptEngine';
-import { 
-  getRecommendedUses, 
-  isUseValidForIndustry, 
+import {
+  getRecommendedUses,
+  isUseValidForIndustry,
   getSupabaseScore,
 } from '../data/blocks';
 import { Toast } from './Toast';
 
 // Backend block IDs that should have their own tabs
-const BACKEND_BLOCK_IDS = ['backend.architecture', 'auth.login'];
+const BACKEND_BLOCK_IDS = ['auth.login', 'backend.architecture', 'backend.user_management'];
 
 // Block type definition
 type BlockType = 'style' | 'industry' | 'use' | 'feature';
@@ -56,41 +56,41 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
   const { t } = useTranslation();
   const blockLabels = getBlockLabels(t);
   const selectedStyle = initialStyleId || 'S01';
-  
+
   // Ref to mark internal changes
   const isInternalChange = useRef(false);
-  
+
   // Get available options
   const options = useMemo(() => getAvailableOptions(), []);
-  
+
   // Current selected params - use selectedStyle as initial value
   const [params, setParams] = useState<PromptParams>(() => ({
     styleId: selectedStyle || initialStyleId || 'S01',
     industryId: 'SaaS',
     useId: 'FullLandingPage',
   }));
-  
+
   // Drag state
   const [draggedBlock, setDraggedBlock] = useState<Block | null>(null);
   const [dragOverSlot, setDragOverSlot] = useState<BlockType | null>(null);
   const [activeTab, setActiveTab] = useState<BlockType>('style');
-  
+
   // Assembly area block order
   const [assembledBlocks, setAssembledBlocks] = useState<BlockType[]>(['style', 'industry', 'use']);
-  
+
   // Feature blocks state (積木系統)
   const [planId, setPlanId] = useState<PlanTier>('free');
   const [selectedBlockIds, setSelectedBlockIds] = useState<string[]>([]);
   const featureBlocks = useMemo(() => getBlockModules(), []);
-  
+
   // Prompt type state (frontend/backend)
   const [activePromptType, setActivePromptType] = useState<'frontend' | 'backend'>('frontend');
-  
+
   // Get selected backend blocks
   const selectedBackendBlocks = useMemo(() => {
     return selectedBlockIds.filter(id => BACKEND_BLOCK_IDS.includes(id));
   }, [selectedBlockIds]);
-  
+
   // Pro subscription state
   const [isPro, setIsPro] = useState<boolean>(() => {
     // Check localStorage for pro status
@@ -100,12 +100,12 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
     return false;
   });
   const [showProModal, setShowProModal] = useState(false);
-  
+
   // Purchase protection states
   const [isProcessing, setIsProcessing] = useState(false);
   const [purchaseAttempts, setPurchaseAttempts] = useState(0);
   const [lastAttemptTime, setLastAttemptTime] = useState(0);
-  
+
   // Handle plan switch with pro check
   const handlePlanSwitch = (newPlan: PlanTier) => {
     if (newPlan === 'pro' && !isPro) {
@@ -115,44 +115,44 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
       setPlanId(newPlan);
     }
   };
-  
+
   // Handle pro subscription (for testing/demo - will be replaced by Stripe callback)
   const handleProSubscribe = async () => {
     // Prevent multiple simultaneous purchases
     if (isProcessing) {
-      setToast({ message: '處理中，請稍候...', type: 'error' });
+      setToast({ message: t('promptBuilder.processing'), type: 'error' });
       return;
     }
-    
+
     // Rate limiting: max 3 attempts per minute
     const now = Date.now();
     const timeSinceLastAttempt = now - lastAttemptTime;
-    
+
     if (timeSinceLastAttempt < 60000) {
       if (purchaseAttempts >= 3) {
-        setToast({ message: '請求過於頻繁，請稍後再試', type: 'error' });
+        setToast({ message: t('promptBuilder.rateLimited'), type: 'error' });
         return;
       }
       setPurchaseAttempts(prev => prev + 1);
     } else {
       setPurchaseAttempts(1);
     }
-    
+
     setLastAttemptTime(now);
     setIsProcessing(true);
-    
+
     try {
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       // Generate unique purchase token (in real app, this comes from backend)
       const purchaseToken = generatePurchaseToken();
-      
+
       // Verify token on client side (additional protection)
       if (!verifyPurchaseToken(purchaseToken)) {
         throw new Error('Invalid purchase token');
       }
-      
+
       // Save pro status to localStorage with timestamp
       const purchaseData = {
         isPro: true,
@@ -160,23 +160,23 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
         timestamp: now,
         expiresAt: now + (365 * 24 * 60 * 60 * 1000) // 1 year
       };
-      
+
       localStorage.setItem('style-prompt-pro', JSON.stringify(purchaseData));
       setIsPro(true);
       setPlanId('pro');
       setShowProModal(false);
       setToast({ message: t('promptBuilder.proActivated') || 'Pro 已啟用！', type: 'success' });
-      
+
       // Reset attempt counter on success
       setPurchaseAttempts(0);
     } catch (error) {
       console.error('Purchase failed:', error);
-      setToast({ message: '購買失敗，請稍後再試', type: 'error' });
+      setToast({ message: t('promptBuilder.purchaseFailed'), type: 'error' });
     } finally {
       setIsProcessing(false);
     }
   };
-  
+
   // Generate purchase token (client-side generation, should be server-side in production)
   const generatePurchaseToken = () => {
     const timestamp = Date.now();
@@ -184,7 +184,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
     const userId = 'user_' + (typeof window !== 'undefined' ? window.navigator.userAgent.slice(0, 10) : 'unknown');
     return btoa(`${timestamp}:${random}:${userId}`);
   };
-  
+
   // Verify purchase token
   const verifyPurchaseToken = (token: string) => {
     try {
@@ -197,7 +197,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
       return false;
     }
   };
-  
+
   // Handle Stripe checkout - redirect to Stripe payment page
   const handleStripeCheckout = async () => {
     // Prevent multiple simultaneous purchases
@@ -205,11 +205,11 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
       setToast({ message: '處理中，請稍候...', type: 'error' });
       return;
     }
-    
+
     // Rate limiting check
     const now = Date.now();
     const timeSinceLastAttempt = now - lastAttemptTime;
-    
+
     if (timeSinceLastAttempt < 60000) {
       if (purchaseAttempts >= 3) {
         setToast({ message: '請求過於頻繁，請稍後再試', type: 'error' });
@@ -219,10 +219,10 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
     } else {
       setPurchaseAttempts(1);
     }
-    
+
     setLastAttemptTime(now);
     setIsProcessing(true);
-    
+
     try {
       // TODO: Replace with actual Stripe checkout session creation
       // This will call your backend API to create a Stripe checkout session
@@ -250,7 +250,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
       // }));
       // 
       // window.location.href = url;
-      
+
       // For now, simulate successful payment (demo mode)
       await handleProSubscribe();
     } catch (error) {
@@ -259,22 +259,22 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
       setIsProcessing(false);
     }
   };
-  
+
   // Generate client token for request verification
   const generateClientToken = () => {
     const timestamp = Date.now();
-    const fingerprint = typeof window !== 'undefined' ? 
-      btoa(navigator.userAgent.slice(0, 20) + screen.width + screen.height) : 
+    const fingerprint = typeof window !== 'undefined' ?
+      btoa(navigator.userAgent.slice(0, 20) + screen.width + screen.height) :
       'unknown';
     return btoa(`${timestamp}:${fingerprint}`);
   };
-  
+
   // Toast state
   const [toast, setToast] = useState<{
     message: string;
     type: 'success' | 'error';
   } | null>(null);
-  
+
   // Responsive style update - when selectedStyle changes externally (e.g. sidebar click)
   useEffect(() => {
     // Skip if internal change (dropdown)
@@ -282,7 +282,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
       isInternalChange.current = false;
       return;
     }
-    
+
     // Sync to params on external change
     if (selectedStyle && selectedStyle !== params.styleId) {
       setParams(prev => ({
@@ -291,13 +291,13 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
       }));
     }
   }, [selectedStyle]);
-  
+
   // Generate Prompt (使用積木系統)
   const { generatedPrompt, diagnostics, backendPrompt } = useMemo(() => {
     try {
       // Filter out backend blocks for frontend prompt
       const frontendBlockIds = selectedBlockIds.filter(id => !BACKEND_BLOCK_IDS.includes(id));
-      
+
       // Frontend prompt
       let frontendPrompt = '';
       if (frontendBlockIds.length > 0) {
@@ -312,42 +312,40 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
         // 沒有選擇積木時使用原本的組裝器
         frontendPrompt = assemblePrompt(params);
       }
-      
+
       // Backend prompt - combine all selected backend blocks
       let backendPrompt = '';
       const backendSections: string[] = [];
       const deniedBlocks: { id: string; title: string; requiredTier: PlanTier }[] = [];
-      
+
       selectedBackendBlocks.forEach(blockId => {
         const block = featureBlocks.find(b => b.id === blockId);
         if (!block) return;
-        
-        if (block.tier === 'free' || isPro) {
-          // User has access, generate the prompt
-          if (blockId === 'backend.architecture') {
-            const { backendArchitectureBlock } = require('../data/blocks/backendArchitecture');
-            backendSections.push(backendArchitectureBlock.render(params.industryId, params.useId));
-          } else if (blockId === 'auth.login') {
-            const { authLoginBlock } = require('../data/blocks/authLogin');
-            backendSections.push(authLoginBlock.render(params.industryId, params.useId));
-          }
-        } else {
-          // User doesn't have access, add to denied list
-          deniedBlocks.push({
-            id: block.id,
-            title: block.title,
-            requiredTier: block.tier
-          });
+
+        // User has access (now open to everyone), generate the prompt
+        if (blockId === 'auth.login') {
+          const { authLoginBlock } = require('../data/blocks/authLogin');
+          backendSections.push(authLoginBlock.render(params.industryId, params.useId));
+        } else if (blockId === 'backend.architecture') {
+          const { backendArchitectureBlock } = require('../data/blocks/backendArchitecture');
+          backendSections.push(backendArchitectureBlock.render(params.industryId, params.useId));
+        } else if (blockId === 'backend.user_management') {
+          const { userManagementBlock } = require('../data/blocks/userManagement');
+          backendSections.push(userManagementBlock.render(params.industryId, params.useId));
         }
       });
-      
+
       // Combine all backend sections with separators
       if (backendSections.length > 0) {
         backendPrompt = backendSections.join('\n\n---\n\n');
+      } else {
+        // Default to Auth Login if nothing selected
+        const { authLoginBlock } = require('../data/blocks/authLogin');
+        backendPrompt = authLoginBlock.render(params.industryId, params.useId);
       }
-      
-      return { 
-        generatedPrompt: frontendPrompt, 
+
+      return {
+        generatedPrompt: frontendPrompt,
         backendPrompt,
         diagnostics: {
           deniedBlocks,
@@ -359,62 +357,62 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
       };
     } catch (error) {
       console.error('Error generating prompt:', error);
-      return { 
-        generatedPrompt: t('promptBuilder.errorGenerating'), 
+      return {
+        generatedPrompt: t('promptBuilder.errorGenerating'),
         backendPrompt: '',
-        diagnostics: { 
+        diagnostics: {
           deniedBlocks: [] as { id: string; title: string; requiredTier: PlanTier }[],
           appliedBlocks: [] as string[]
-        } 
+        }
       };
     }
   }, [params, planId, selectedBlockIds, selectedBackendBlocks, t, isPro, featureBlocks]);
-  
+
   // Toggle feature block selection
   const toggleBlockSelection = (blockId: string) => {
     setSelectedBlockIds(prev => {
-      const newIds = prev.includes(blockId) 
+      const newIds = prev.includes(blockId)
         ? prev.filter(id => id !== blockId)
         : [...prev, blockId];
-      
+
       // Auto-switch to frontend if current tab is being removed
       if (activePromptType !== 'frontend' && !newIds.includes(activePromptType)) {
         setActivePromptType('frontend');
       }
-      
+
       return newIds;
     });
   };
-  
+
   // Handle param change
   const handleParamChange = (key: keyof PromptParams, value: string) => {
     setParams(prev => ({
       ...prev,
       [key]: value,
     }));
-    
+
     // If style change, sync to parent callback
     if (key === 'styleId') {
       // Mark as internal change to avoid useEffect override
       isInternalChange.current = true;
-      
+
       if (onStyleChange) {
         onStyleChange(value);
       }
     }
   };
-  
+
   // Drag start
   const handleDragStart = useCallback((e: React.DragEvent, block: Block) => {
     setDraggedBlock(block);
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/plain', JSON.stringify(block));
-    
+
     // Set visual effect during drag
     const target = e.target as HTMLElement;
     target.style.opacity = '0.5';
   }, []);
-  
+
   // Drag end
   const handleDragEnd = useCallback((e: React.DragEvent) => {
     setDraggedBlock(null);
@@ -422,28 +420,28 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
     const target = e.target as HTMLElement;
     target.style.opacity = '1';
   }, []);
-  
+
   // Drag over target area
   const handleDragOver = useCallback((e: React.DragEvent, slotType: BlockType) => {
     e.preventDefault();
     e.dataTransfer.dropEffect = 'move';
     setDragOverSlot(slotType);
   }, []);
-  
+
   // Drag leave target area
   const handleDragLeave = useCallback(() => {
     setDragOverSlot(null);
   }, []);
-  
+
   // Drop block
   const handleDrop = useCallback((e: React.DragEvent, slotType: BlockType) => {
     e.preventDefault();
     setDragOverSlot(null);
-    
+
     try {
       const data = e.dataTransfer.getData('text/plain');
       const block: Block = JSON.parse(data);
-      
+
       // Only allow same type blocks into corresponding slots
       if (block.type === slotType) {
         const paramKey = slotType === 'style' ? 'styleId' : slotType === 'industry' ? 'industryId' : 'useId';
@@ -452,20 +450,20 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
     } catch (error) {
       console.error('Drop error:', error);
     }
-    
+
     setDraggedBlock(null);
   }, [handleParamChange]);
-  
+
   // Handle assembly area block reordering
   const handleAssemblyDragStart = useCallback((e: React.DragEvent, index: number) => {
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('assembly-index', String(index));
   }, []);
-  
+
   const handleAssemblyDrop = useCallback((e: React.DragEvent, targetIndex: number) => {
     e.preventDefault();
     const sourceIndex = parseInt(e.dataTransfer.getData('assembly-index'), 10);
-    
+
     if (!isNaN(sourceIndex) && sourceIndex !== targetIndex) {
       setAssembledBlocks(prev => {
         const newBlocks = [...prev];
@@ -475,7 +473,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
       });
     }
   }, []);
-  
+
   // Copy to clipboard
   const handleCopy = async () => {
     const promptToCopy = activePromptType === 'frontend' ? generatedPrompt : backendPrompt;
@@ -493,7 +491,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
       });
     }
   };
-  
+
   // Download as file
   const handleDownload = () => {
     const promptToDownload = activePromptType === 'frontend' ? generatedPrompt : backendPrompt;
@@ -509,8 +507,8 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
     URL.revokeObjectURL(url);
   };
 
-// ... (rest of the code remains the same)
-  
+  // ... (rest of the code remains the same)
+
   // Get currently selected block info
   const getSelectedBlock = (type: BlockType): Block => {
     if (type === 'style') {
@@ -521,11 +519,11 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
       return { id: params.useId, type: 'use', value: params.useId, label: t(`uses.${params.useId}`) };
     }
   };
-  
+
   // Render draggable block
-  const renderDraggableBlock = (block: Block, isDragging: boolean = false, isSelected: boolean = false, disabled: boolean = false) => {
+  const renderDraggableBlock = (block: Block, isDragging: boolean = false, isSelected: boolean = false, disabled: boolean = false, showProLabel: boolean = false) => {
     const colors = blockColors[block.type];
-    
+
     return (
       <div
         draggable={!disabled}
@@ -546,21 +544,28 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
         }}
       >
         <GripVertical className="w-4 h-4 text-white/60" />
-        <div className="flex flex-col">
-          <span className="text-white/70 text-xs uppercase tracking-wider">{blockLabels[block.type]}</span>
+        <div className="flex flex-col flex-1">
+          <div className="flex items-center gap-2">
+            <span className="text-white/70 text-xs uppercase tracking-wider">{blockLabels[block.type]}</span>
+            {showProLabel && (
+              <span className="px-1.5 py-0.5 text-[9px] font-bold uppercase rounded bg-gradient-to-r from-purple-600 to-pink-600 text-white">
+                Pro
+              </span>
+            )}
+          </div>
           <span className="text-white font-bold text-sm">{block.label}</span>
         </div>
         {/* Block connector tab */}
-        <div 
+        <div
           className="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-6 rounded-r-lg"
           style={{ backgroundColor: colors.bg }}
         />
       </div>
     );
   };
-  
+
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-[#0a0a0a] via-[#0f0f0f] to-[#1a1a1a] pt-8 pb-24 overflow-x-hidden ${className}`}>
+    <div className={`flex-1 flex flex-col bg-[#0a0a0a] overflow-y-auto h-full p-2 md:p-4 lg:p-8 custom-scrollbar ${className}`}>
       {/* Header */}
       <div className="mb-8 text-center px-4">
         <h1 className="text-3xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
@@ -570,11 +575,11 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
           {t('promptBuilder.subtitle')}
         </p>
       </div>
-      
-      <div className="max-w-7xl mx-auto px-4 md:px-6">
+
+      <div className="w-full">
         {/* Main drag area */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
-          
+
           {/* Left: Block library */}
           <div className="lg:col-span-4 space-y-4">
             <div className="bg-[#1a1a1a] border border-gray-800 rounded-2xl p-4 md:p-6">
@@ -582,18 +587,17 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                 <Blocks className="w-5 h-5" />
                 {t('promptBuilder.blockLibrary')}
               </h2>
-              
+
               {/* Category tabs */}
               <div className="flex gap-2 mb-4 overflow-x-auto pb-2">
-                {(['style', 'industry', 'use', 'feature'] as BlockType[]).map((type) => (
+                {(['style', 'industry', 'use'] as BlockType[]).map((type) => (
                   <button
                     key={type}
                     onClick={() => setActiveTab(type)}
-                    className={`px-4 py-2 rounded-lg font-medium text-sm whitespace-nowrap transition-all border-b-3 ${
-                      activeTab === type
-                        ? 'text-white border-b-2'
-                        : 'text-gray-400 hover:text-white border-b-2 border-transparent'
-                    }`}
+                    className={`px-4 py-2 rounded-lg font-medium text-sm whitespace-nowrap transition-all border-b-3 ${activeTab === type
+                      ? 'text-white border-b-2'
+                      : 'text-gray-400 hover:text-white border-b-2 border-transparent'
+                      }`}
                     style={{
                       backgroundColor: activeTab === type ? blockColors[type].bg : 'transparent',
                       borderBottomColor: activeTab === type ? blockColors[type].border : 'transparent',
@@ -603,28 +607,64 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                   </button>
                 ))}
               </div>
-              
+
               {/* Draggable block list */}
               <div className="space-y-2 max-h-[250px] md:max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
-                {activeTab === 'style' && options.styles.map((style) => (
-                  <div 
-                    key={style.id}
-                    onClick={() => handleParamChange('styleId', style.id)}
-                    className="cursor-pointer"
-                  >
-                    {renderDraggableBlock({
-                      id: style.id,
-                      type: 'style',
-                      value: style.id,
-                      label: `${style.id} — ${t(`styles.${style.id}.name`)}`,
-                    }, draggedBlock?.value === style.id, params.styleId === style.id)}
-                  </div>
-                ))}
+                {activeTab === 'style' && (
+                  <>
+                    {/* Plan Toggle */}
+                    <div className="flex items-center justify-between p-2 bg-[#111] rounded-lg mb-3">
+                      <span className="text-xs text-gray-400">{t('promptBuilder.plan') || '方案'}</span>
+                      <div className="flex items-center gap-1">
+                        <button
+                          onClick={() => handlePlanSwitch('free')}
+                          className={`px-2 py-1 rounded text-xs font-medium transition-all ${planId === 'free'
+                            ? 'bg-gray-700 text-white'
+                            : 'text-gray-500 hover:text-white'
+                            }`}
+                        >
+                          Free
+                        </button>
+                        <button
+                          onClick={() => handlePlanSwitch('pro')}
+                          className={`px-2 py-1 rounded text-xs font-medium transition-all flex items-center gap-1 ${planId === 'pro'
+                            ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white'
+                            : 'text-gray-500 hover:text-white'
+                            }`}
+                        >
+                          {isPro ? <Unlock className="w-3 h-3" /> : <Lock className="w-3 h-3" />}
+                          Pro
+                        </button>
+                      </div>
+                    </div>
+                    {/* Pro Status Badge - only show when planId is 'pro' */}
+                    {planId === 'pro' && (
+                      <div className="flex items-center gap-2 p-2 bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30 rounded-lg mb-3">
+                        <Unlock className="w-4 h-4 text-purple-400" />
+                        <span className="text-xs font-medium text-purple-300">{t('promptBuilder.proActivated') || 'Pro 已啟用'}</span>
+                      </div>
+                    )}
+                    {options.styles.map((style) => (
+                      <div
+                        key={style.id}
+                        onClick={() => handleParamChange('styleId', style.id)}
+                        className="cursor-pointer"
+                      >
+                        {renderDraggableBlock({
+                          id: style.id,
+                          type: 'style',
+                          value: style.id,
+                          label: `${style.id} — ${t(`styles.${style.id}.name`)}`,
+                        }, draggedBlock?.value === style.id, params.styleId === style.id, false, planId === 'pro')}
+                      </div>
+                    ))}
+                  </>
+                )}
                 {activeTab === 'industry' && options.industries.map((industry) => {
                   const supabaseScore = getSupabaseScore(industry.id);
-                  
+
                   return (
-                    <div 
+                    <div
                       key={industry.id}
                       onClick={() => handleParamChange('industryId', industry.id)}
                       className="cursor-pointer relative"
@@ -639,9 +679,9 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                       {selectedBlockIds.length > 0 && (
                         <div className="absolute top-1 right-6 flex items-center gap-0.5">
                           {[...Array(5)].map((_, i) => (
-                            <Star 
-                              key={i} 
-                              className={`w-2.5 h-2.5 ${i < supabaseScore ? 'text-yellow-400 fill-yellow-400' : 'text-gray-600'}`} 
+                            <Star
+                              key={i}
+                              className={`w-2.5 h-2.5 ${i < supabaseScore ? 'text-yellow-400 fill-yellow-400' : 'text-gray-600'}`}
                             />
                           ))}
                         </div>
@@ -651,13 +691,13 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                 })}
                 {activeTab === 'use' && options.uses.map((use) => {
                   // Only apply validation when feature blocks are selected
-                  const isValid = selectedBlockIds.length > 0 
-                    ? isUseValidForIndustry(params.industryId, use.id) 
+                  const isValid = selectedBlockIds.length > 0
+                    ? isUseValidForIndustry(params.industryId, use.id)
                     : true;
                   const isRecommended = getRecommendedUses(params.industryId).includes(use.id);
-                  
+
                   return (
-                    <div 
+                    <div
                       key={use.id}
                       onClick={() => isValid && handleParamChange('useId', use.id)}
                       className={`relative ${isValid ? '' : 'opacity-40'}`}
@@ -683,124 +723,10 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                     </div>
                   );
                 })}
-                
-                {/* Feature Blocks Tab Content */}
-                {activeTab === 'feature' && (
-                  <div className="space-y-3">
-                    {/* Plan Toggle */}
-                    <div className="flex items-center justify-between p-2 bg-[#111] rounded-lg">
-                      <span className="text-xs text-gray-400">{t('promptBuilder.plan') || '方案'}</span>
-                      <div className="flex items-center gap-1">
-                        <button
-                          onClick={() => handlePlanSwitch('free')}
-                          className={`px-2 py-1 rounded text-xs font-medium transition-all ${
-                            planId === 'free' 
-                              ? 'bg-gray-700 text-white' 
-                              : 'text-gray-500 hover:text-white'
-                          }`}
-                        >
-                          Free
-                        </button>
-                        <button
-                          onClick={() => handlePlanSwitch('pro')}
-                          className={`px-2 py-1 rounded text-xs font-medium transition-all flex items-center gap-1 ${
-                            planId === 'pro' 
-                              ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white' 
-                              : 'text-gray-500 hover:text-white'
-                          }`}
-                        >
-                          {isPro ? <Unlock className="w-3 h-3" /> : <Lock className="w-3 h-3" />}
-                          Pro
-                        </button>
-                      </div>
-                    </div>
-                    
-                    {/* Feature Blocks List - Filter by plan */}
-                    {featureBlocks
-                      .filter((block) => {
-                        // Free mode: only show free blocks
-                        // Pro mode: only show pro blocks
-                        if (planId === 'free') return block.tier === 'free';
-                        return block.tier === 'pro';
-                      })
-                      .map((block) => {
-                      const isSelected = selectedBlockIds.includes(block.id);
-                      
-                      return (
-                        <button
-                          key={block.id}
-                          onClick={() => toggleBlockSelection(block.id)}
-                          className={`
-                            w-full flex items-start gap-3 p-3 rounded-xl border-2 transition-all text-left
-                            ${isSelected 
-                              ? 'border-yellow-500 bg-yellow-500/10' 
-                              : 'border-gray-700 hover:border-gray-600 hover:bg-gray-800/50'
-                            }
-                          `}
-                        >
-                          {/* Checkbox */}
-                          <div className={`
-                            flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center mt-0.5
-                            ${isSelected 
-                              ? 'bg-yellow-500 border-yellow-500' 
-                              : 'border-gray-600'
-                            }
-                          `}>
-                            {isSelected && (
-                              <svg className="w-3 h-3 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                              </svg>
-                            )}
-                          </div>
-                          
-                          {/* Content */}
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2 mb-1">
-                              <span className="font-bold text-white text-sm">{t(`blocks.${block.id}.title`) || block.title}</span>
-                              {block.tier === 'pro' && (
-                                <span className="px-1.5 py-0.5 text-[10px] font-bold uppercase rounded bg-gradient-to-r from-purple-600 to-pink-600 text-white">
-                                  Pro
-                                </span>
-                              )}
-                            </div>
-                            <p className="text-xs text-gray-400 line-clamp-2">{t(`blocks.${block.id}.description`) || block.description}</p>
-                          </div>
-                        </button>
-                      );
-                    })}
-                    
-                    {/* Applied blocks indicator */}
-                    {diagnostics.appliedBlocks.length > 0 && (
-                      <div className="flex items-center gap-2 text-xs text-green-400 p-2 bg-green-500/10 rounded-lg">
-                        <Sparkles className="w-3 h-3" />
-                        <span>{t('promptBuilder.blocksApplied', { count: diagnostics.appliedBlocks.length })}</span>
-                      </div>
-                    )}
-                    
-                    {/* Denied blocks warning */}
-                    {diagnostics.deniedBlocks.length > 0 && (
-                      <div className="p-2 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
-                        <div className="flex items-start gap-2">
-                          <Lock className="w-3 h-3 text-yellow-500 mt-0.5 flex-shrink-0" />
-                          <div>
-                            <p className="text-yellow-500 text-xs font-medium">
-                              {t('promptBuilder.upgradeRequired') || '需要升級到 Pro：'}
-                            </p>
-                            <ul className="text-[10px] text-yellow-400/80">
-                              {diagnostics.deniedBlocks.map(b => (
-                                <li key={b.id}>• {b.title}</li>
-                              ))}
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                )}
               </div>
             </div>
           </div>
-          
+
           {/* Right: Assembly area */}
           <div className="lg:col-span-8">
             <div className="bg-[#1a1a1a] border border-gray-800 rounded-2xl p-4 md:p-6">
@@ -808,14 +734,14 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                 <GripVertical className="w-5 h-5" />
                 {t('promptBuilder.assemblyArea')}
               </h2>
-              
+
               {/* Assembly slots */}
               <div className="space-y-2 md:space-y-4">
                 {assembledBlocks.map((blockType, index) => {
                   const colors = blockColors[blockType];
                   const isOver = dragOverSlot === blockType;
                   const selectedBlock = getSelectedBlock(blockType);
-                  
+
                   return (
                     <div
                       key={blockType}
@@ -838,8 +764,8 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                       className={`
                         relative flex items-center gap-2 md:gap-4 p-2 md:p-4 rounded-xl cursor-grab active:cursor-grabbing
                         border-2 border-dashed transition-all duration-200
-                        ${isOver 
-                          ? 'border-yellow-400 bg-yellow-400/10 scale-[1.02]' 
+                        ${isOver
+                          ? 'border-yellow-400 bg-yellow-400/10 scale-[1.02]'
                           : 'border-gray-700 hover:border-gray-600'
                         }
                       `}
@@ -848,15 +774,15 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                       <div className="hidden md:flex flex-shrink-0 p-2 bg-gray-800 rounded-lg">
                         <GripVertical className="w-5 h-5 text-gray-500" />
                       </div>
-                      
+
                       {/* Slot label - hidden on mobile */}
-                      <div 
+                      <div
                         className="hidden md:flex flex-shrink-0 px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider"
                         style={{ backgroundColor: colors.bg + '30', color: colors.bg }}
                       >
                         {blockLabels[blockType]}
                       </div>
-                      
+
                       {/* Currently selected block */}
                       <div
                         className="flex-1 flex items-center gap-2 md:gap-3 px-3 py-2 md:px-4 md:py-3 rounded-xl border-b-4 border-r-4 shadow-lg"
@@ -871,14 +797,14 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                           <span className="text-white font-bold text-xs md:text-sm truncate">{selectedBlock.label}</span>
                         </div>
                         {/* Block connector tab */}
-                        <div 
+                        <div
                           className="absolute -right-1 top-1/2 -translate-y-1/2 w-3 h-8 rounded-r-lg hidden lg:block"
                           style={{ backgroundColor: colors.bg }}
                         />
                       </div>
-                      
+
                       {/* Reset button */}
-                      <button 
+                      <button
                         className="flex-shrink-0 p-1 md:p-2 text-gray-500 hover:text-red-400 transition-colors"
                         onClick={() => {
                           // Reset to default value
@@ -898,14 +824,14 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                   );
                 })}
               </div>
-              
+
               {/* Combination preview - hidden on mobile */}
               <div className="hidden md:block mt-6 p-4 bg-[#111] rounded-xl border border-gray-800">
                 <div className="flex flex-wrap gap-2 items-center justify-center">
                   {assembledBlocks.map((blockType, index) => {
                     const colors = blockColors[blockType];
                     const selectedBlock = getSelectedBlock(blockType);
-                    
+
                     return (
                       <React.Fragment key={blockType}>
                         <div
@@ -925,7 +851,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                     );
                   })}
                 </div>
-                
+
                 {/* Animation indicator */}
                 <div className="mt-4 flex items-center justify-center gap-2 text-gray-500 text-sm">
                   <div className="flex gap-1">
@@ -939,7 +865,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
             </div>
           </div>
         </div>
-        
+
         {/* Preview area with action buttons */}
         <div className="relative group">
           <div className="relative bg-[#1e1e1e] border-2 border-gray-700 rounded-xl overflow-hidden shadow-xl">
@@ -970,43 +896,37 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                 </div>
               </div>
             </div>
-            
+
             {/* Tabs - Show when any backend blocks are selected */}
-            {selectedBackendBlocks.length > 0 && (
-              <div className="px-4 md:px-6 py-2 bg-[#2a2a2a] border-b border-gray-700">
-                <div className="flex gap-1 p-1 bg-[#1a1a1a] rounded-lg">
-                  {/* Frontend tab */}
-                  <button
-                    onClick={() => setActivePromptType('frontend')}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${
-                      activePromptType === 'frontend'
-                        ? 'bg-[#4285F4] text-white shadow-sm'
-                        : 'text-gray-400 hover:text-white hover:bg-white/5'
+            {/* Tabs */}
+            <div className="px-4 md:px-6 py-2 bg-[#2a2a2a] border-b border-gray-700">
+              <div className="flex gap-1 p-1 bg-[#1a1a1a] rounded-lg">
+                {/* Frontend tab */}
+                <button
+                  onClick={() => setActivePromptType('frontend')}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${activePromptType === 'frontend'
+                    ? 'bg-[#4285F4] text-white shadow-sm'
+                    : 'text-gray-400 hover:text-white hover:bg-white/5'
                     }`}
-                  >
-                    <Code className="w-4 h-4" />
-                    {t('promptBuilder.frontendPrompt')}
-                  </button>
-                  
-                  {/* Backend tab */}
-                  <button
-                    onClick={() => setActivePromptType('backend')}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${
-                      activePromptType === 'backend'
-                        ? 'bg-purple-600 text-white shadow-sm'
-                        : 'text-gray-400 hover:text-white hover:bg-white/5'
+                >
+                  <Code className="w-4 h-4" />
+                  {t('promptBuilder.frontendPrompt') || '介面指示詞'}
+                </button>
+
+                {/* Backend tab */}
+                <button
+                  onClick={() => setActivePromptType('backend')}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${activePromptType === 'backend'
+                    ? 'bg-purple-600 text-white shadow-sm'
+                    : 'text-gray-400 hover:text-white hover:bg-white/5'
                     }`}
-                  >
-                    <Database className="w-4 h-4" />
-                    {t('promptBuilder.backendPrompt')}
-                    {diagnostics.deniedBlocks.length > 0 && (
-                      <Lock className="w-3 h-3 ml-1" />
-                    )}
-                  </button>
-                </div>
+                >
+                  <Database className="w-4 h-4" />
+                  {t('promptBuilder.backendPrompt') || '後端指示詞'}
+                </button>
               </div>
-            )}
-            
+            </div>
+
             <div className="p-4 md:p-6">
               {activePromptType === 'frontend' ? (
                 // Frontend prompt
@@ -1019,28 +939,6 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                 // Backend prompt
                 <div>
                   {/* Show upgrade notice if there are denied blocks */}
-                  {diagnostics.deniedBlocks.length > 0 && !isPro && (
-                    <div className="mb-4 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
-                      <div className="flex items-start gap-2">
-                        <Lock className="w-4 h-4 text-yellow-500 mt-0.5 flex-shrink-0" />
-                        <div>
-                          <p className="text-yellow-500 text-sm font-medium mb-1">
-                            {t('promptBuilder.upgradeRequired')}
-                          </p>
-                          <p className="text-yellow-400/80 text-xs">
-                            {diagnostics.deniedBlocks.map(b => b.title).join(', ')}
-                          </p>
-                          <button
-                            onClick={() => handlePlanSwitch('pro')}
-                            className="mt-2 text-xs text-yellow-400 hover:text-yellow-300 underline"
-                          >
-                            {t('promptBuilder.buyNow')}
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                  
                   {backendPrompt ? (
                     // Show combined backend prompt
                     <div className="bg-[#111111] rounded-lg p-4 md:p-6 border-2 border-gray-800 shadow-inner">
@@ -1061,7 +959,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
             </div>
           </div>
         </div>
-        
+
         {/* Toast notification */}
         {toast && (
           <Toast
@@ -1071,7 +969,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
           />
         )}
       </div>
-      
+
       {/* Custom scrollbar styles */}
       <style>{`
         .custom-scrollbar::-webkit-scrollbar {
@@ -1089,7 +987,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
           background: #444;
         }
       `}</style>
-      
+
       {/* Pro Subscription Modal */}
       {showProModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 overflow-y-auto">
@@ -1101,7 +999,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
             >
               <X className="w-5 h-5" />
             </button>
-            
+
             <div className="text-center mb-8 md:mb-10">
               <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 tracking-tight">
                 {t('promptBuilder.upgradeTitle') || '升級到 Pro'}
@@ -1110,7 +1008,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                 {t('promptBuilder.upgradeDescription') || '解鎖進階功能，獲得更強大的 Supabase 後端架構建建議'}
               </p>
             </div>
-            
+
             {/* Pricing Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-8 md:mb-10">
               {/* Free Plan */}
@@ -1128,7 +1026,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    {t('promptBuilder.freeFeature1') || '基礎設計提示詞'}
+                    {t('promptBuilder.freeFeature1') || '100 種基礎視覺風格'}
                   </li>
                   <li className="flex items-center gap-3 text-sm text-gray-300">
                     <div className="flex-shrink-0 w-5 h-5 rounded-full bg-green-500/10 flex items-center justify-center">
@@ -1136,13 +1034,15 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    {t('promptBuilder.freeFeature2') || '身份驗證系統'}
+                    {t('promptBuilder.freeFeature2') || '基礎後端架構提示詞'}
                   </li>
-                  <li className="flex items-center gap-3 text-sm text-gray-500">
-                    <div className="flex-shrink-0 w-5 h-5 flex items-center justify-center">
-                      <X className="w-3 h-3" />
+                  <li className="flex items-center gap-3 text-sm text-gray-300">
+                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-green-500/10 flex items-center justify-center">
+                      <svg className="w-3 h-3 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                      </svg>
                     </div>
-                    {t('promptBuilder.freeFeature3') || '後端架構建議'}
+                    {t('promptBuilder.freeFeature3') || '即時 UI 預覽'}
                   </li>
                 </ul>
                 <button
@@ -1152,7 +1052,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                   {t('promptBuilder.currentPlan') || '目前方案'}
                 </button>
               </div>
-              
+
               {/* Pro Plan */}
               <div className="relative border-2 border-purple-500/30 rounded-2xl p-6 md:p-8 bg-gradient-to-b from-purple-500/5 to-purple-500/0 flex flex-col shadow-[0_0_40px_-10px_rgba(168,85,247,0.15)]">
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-[10px] font-bold text-white tracking-wide uppercase shadow-lg">
@@ -1171,7 +1071,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    {t('promptBuilder.proFeature1') || '多租戶資料隔離架構 (workspace_id)'}
+                    {t('promptBuilder.proFeature1') || '100 種進階視覺風格'}
                   </li>
                   <li className="flex items-center gap-3 text-sm text-gray-300">
                     <div className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-500/20 flex items-center justify-center">
@@ -1179,7 +1079,7 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    {t('promptBuilder.proFeature2') || 'CI/CD 安全強制閘門與腳本'}
+                    {t('promptBuilder.proFeature2') || '獨家風格持續更新'}
                   </li>
                   <li className="flex items-center gap-3 text-sm text-gray-300">
                     <div className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-500/20 flex items-center justify-center">
@@ -1187,39 +1087,27 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    {t('promptBuilder.proFeature3') || '防竄改審計日誌系統'}
-                  </li>
-                  <li className="flex items-center gap-3 text-sm text-gray-300">
-                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-500/20 flex items-center justify-center">
-                      <svg className="w-3 h-3 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    {t('promptBuilder.proFeature4') || '事件響應 Playbook (P0-P3)'}
-                  </li>
-                  <li className="flex items-center gap-3 text-sm text-gray-300">
-                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-500/20 flex items-center justify-center">
-                      <svg className="w-3 h-3 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    {t('promptBuilder.proFeature5') || 'service_role 使用邊界控制'}
-                  </li>
-                  <li className="flex items-center gap-3 text-sm text-gray-300">
-                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-500/20 flex items-center justify-center">
-                      <svg className="w-3 h-3 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    {t('promptBuilder.proFeature6') || '合規級 RLS 政策範例'}
+                    {t('promptBuilder.proFeature3') || '優先支援與新功能'}
                   </li>
                 </ul>
                 <button
                   disabled={true}
-                  className="w-full py-3 rounded-xl bg-gray-600 text-gray-400 cursor-not-allowed font-bold flex items-center justify-center gap-2 transition-all shadow-lg"
+                  aria-disabled="true"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
+                  }}
+                  onKeyDown={(e) => {
+                    e.preventDefault();
+                    return false;
+                  }}
+                  className="w-full py-3 rounded-xl font-bold flex items-center justify-center gap-2 bg-gray-700 text-gray-400 cursor-not-allowed opacity-60 select-none pointer-events-none"
+                  style={{ pointerEvents: 'none' }}
+                  tabIndex={-1}
                 >
                   <Lock className="w-4 h-4" />
-                  {t('promptBuilder.buyNow', { defaultValue: '立即購買' })}
+                  {t('promptBuilder.comingSoon') || '敬請期待'}
                 </button>
               </div>
             </div>

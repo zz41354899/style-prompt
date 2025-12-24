@@ -1,6 +1,7 @@
 import type { PromptBlock, PlanTier, BlockSelectionResult, BlockModule } from './types';
 import { authLoginBlock } from './authLogin';
 import { backendArchitectureBlock } from './backendArchitecture';
+import { userManagementBlock } from './userManagement';
 
 // Export industry-use mapping utilities
 export {
@@ -16,6 +17,7 @@ export type { IndustryUseConfig } from './industryUseMapping';
 export const allBlocks: Record<string, PromptBlock> = {
   'auth.login': authLoginBlock,
   'backend.architecture': backendArchitectureBlock,
+  'backend.user_management': userManagementBlock,
 };
 
 // Plan tier access mapping
@@ -94,7 +96,7 @@ export const assembleBlocksPrompt = (
   if (blocks.length === 0) return '';
 
   const blockContents = blocks.map(block => block.render(industryId, useId));
-  
+
   return `---
 
 ## Feature Blocks (Add-ons)
