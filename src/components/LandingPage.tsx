@@ -169,26 +169,34 @@ export const LandingPage: React.FC = () => {
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: 'auto', opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
-                            className="md:hidden bg-[#0a0a0a] border-t border-white/5 overflow-hidden"
+                            transition={{ duration: 0.2 }}
+                            className="md:hidden bg-[#0a0a0a] border-t border-white/5 relative z-[100]"
                         >
                             <div className="py-6 px-6 space-y-4">
                                 {['features', 'workflow', 'pricing', 'faq'].map((item) => (
-                                    <a
+                                    <button
                                         key={item}
-                                        href={`#${item}`}
-                                        onClick={(e) => {
-                                            scrollToSection(e, item);
-                                            setMobileMenuOpen(false);
+                                        type="button"
+                                        onClick={() => {
+                                            const element = document.getElementById(item);
+                                            if (element) {
+                                                setMobileMenuOpen(false);
+                                                setTimeout(() => {
+                                                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                                }, 100);
+                                            }
                                         }}
-                                        className="block py-3 text-white/60 hover:text-white transition-colors font-medium border-b border-white/5"
+                                        className="block w-full py-3 text-left text-white/60 hover:text-white active:text-purple-400 transition-colors font-medium border-b border-white/5"
+                                        style={{ touchAction: 'manipulation' }}
                                     >
                                         {t(`landing.nav.${item}`)}
-                                    </a>
+                                    </button>
                                 ))}
                                 <Link
                                     href="/S01"
                                     onClick={() => setMobileMenuOpen(false)}
-                                    className="block w-full py-4 bg-purple-600 text-white text-sm font-bold rounded-2xl hover:bg-purple-500 transition-all text-center mt-4"
+                                    className="block w-full py-4 bg-purple-600 text-white text-sm font-bold rounded-2xl hover:bg-purple-500 active:bg-purple-700 transition-all text-center mt-4"
+                                    style={{ touchAction: 'manipulation' }}
                                 >
                                     {t('landing.nav.enterEditor')}
                                 </Link>

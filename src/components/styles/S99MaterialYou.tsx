@@ -1,173 +1,296 @@
-import { useState, useEffect } from 'react';
-import { Mail, Edit2, Star, Menu, X, Plus, Search, Archive, Trash2 } from 'lucide-react';
-import { useResponsive } from '../../hooks/useResponsive';
+import { useState } from 'react';
+import { Palette, Home, Search, Heart, User, Menu, X, Bell, Plus, Layers, Grid3X3, Type, Shield, Check, Zap, ArrowRight, Star, Mail } from 'lucide-react';
 
 export const S99MaterialYou = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [activeTab, setActiveTab] = useState('Inbox');
-    const responsive = useResponsive(deviceMode);
     const isMobile = deviceMode === 'mobile';
 
     return (
-        <div className="min-h-screen bg-[#FFFBFE] font-sans text-black overflow-hidden selection:bg-[#E8DEF8] selection:text-black relative">
+        <div className="min-h-screen bg-[#FFFBFE] font-sans text-[#1D1B20] selection:bg-[#E8DEF8] selection:text-[#1D1B20]">
             <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300;400;500;600&display=swap');
-        .font-m3 { font-family: 'Roboto Flex', sans-serif; }
-        
-        /* Dynamic Theme Colors (Mocked) */
-        :root {
-           --md-primary: #6750A4;
-           --md-on-primary: #FFFFFF;
-           --md-primary-container: #EADDFF;
-           --md-on-primary-container: #21005D;
-           --md-secondary-container: #E8DEF8;
-           --md-on-secondary-container: #1D192B;
-           --md-surface: #FFFBFE;
-           --md-surface-variant: #E7E0EC;
-        }
-        
-        .m3-fab {
-           box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px rgba(0, 0, 0, 0.3);
-           transition: all 0.2s cubic-bezier(0.2, 0.0, 0, 1.0);
-        }
-        .m3-fab:active {
-           box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
-           transform: scale(0.98);
-        }
-        
-        .m3-card {
-           border-radius: 20px;
-           background: var(--md-surface);
-           transition: background-color 0.2s ease;
-        }
-        .m3-card:hover {
-           background: #F6F3F8;
-        }
-        
-        .m3-nav-item {
-           border-radius: 28px;
-           transition: background-color 0.2s ease;
-        }
-        .m3-nav-item.active {
-           background: var(--md-secondary-container);
-           color: var(--md-on-secondary-container);
-        }
-        
-        .ripple {
-           position: relative;
-           overflow: hidden;
-        }
-        .ripple::after {
-           content: "";
-           display: block;
-           position: absolute;
-           width: 100%; height: 100%;
-           top: 0; left: 0;
-           pointer-events: none;
-           background-image: radial-gradient(circle, rgba(0,0,0,0.1) 10%, transparent 10.01%);
-           background-repeat: no-repeat;
-           background-position: 50%;
-           transform: scale(10, 10);
-           opacity: 0;
-           transition: transform .5s, opacity 1s;
-        }
-        .ripple:active::after {
-           transform: scale(0, 0);
-           opacity: .2;
-           transition: 0s;
-        }
-      `}</style>
+                @import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300;400;500;600;700&display=swap');
+                .font-m3 { font-family: 'Roboto Flex', sans-serif; }
+                
+                .m3-surface { background: #FFFBFE; }
+                .m3-surface-variant { background: #E7E0EC; }
+                .m3-primary { background: #6750A4; color: white; }
+                .m3-primary-container { background: #EADDFF; color: #21005D; }
+                .m3-secondary-container { background: #E8DEF8; color: #1D192B; }
+                
+                .m3-elevation-1 { box-shadow: 0px 1px 2px rgba(0,0,0,0.3), 0px 1px 3px 1px rgba(0,0,0,0.15); }
+                .m3-elevation-2 { box-shadow: 0px 1px 2px rgba(0,0,0,0.3), 0px 2px 6px 2px rgba(0,0,0,0.15); }
+                
+                .m3-btn {
+                    border-radius: 100px;
+                    font-weight: 500;
+                    transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+                }
+                .m3-btn:hover { box-shadow: 0px 1px 2px rgba(0,0,0,0.3), 0px 1px 3px 1px rgba(0,0,0,0.15); }
+                .m3-btn:active { transform: scale(0.98); }
+                
+                .m3-card {
+                    border-radius: 28px;
+                    transition: background-color 0.2s ease;
+                }
+                .m3-card:hover { background: #F6F3F8; }
+            `}</style>
 
-            <div className="flex h-screen">
-                {/* Navigation Rail / Drawer */}
-                <nav className={`
-            ${isMobile ? 'w-20' : 'w-80'} 
-            bg-[#F3EDF7] p-4 flex flex-col gap-2 transition-all duration-300
-         `}>
-                    {responsive.nav.showDesktop ? (
-                        <div className="px-4 py-3 font-m3 font-bold text-2xl text-[#1D1B20] mb-4">Mail</div>
-                    ) : (
-                        <div className="flex justify-center mb-4"><Menu size={24} /></div>
-                    )}
-
-                    <button className="flex items-center gap-4 bg-[#EADDFF] text-[#21005D] p-4 rounded-2xl hover:shadow-md transition-shadow mb-6 ripple w-fit min-w-[56px] h-14">
-                        <Edit2 size={24} />
-                        {responsive.nav.showDesktop && <span className="font-m3 font-medium">Compose</span>}
-                    </button>
-
-                    {[
-                        { icon: Mail, label: "Inbox", count: "12" },
-                        { icon: Star, label: "Starred", count: "" },
-                        { icon: Archive, label: "Archived", count: "" },
-                        { icon: Trash2, label: "Trash", count: "" },
-                    ].map((item) => (
-                        <button
-                            key={item.label}
-                            onClick={() => setActiveTab(item.label)}
-                            className={`flex items-center gap-3 px-6 py-4 m3-nav-item ripple ${activeTab === item.label ? 'active font-bold' : 'font-medium text-[#49454F] hover:bg-[#E8DEF8]/50'}`}
-                        >
-                            <item.icon size={24} />
-                            {responsive.nav.showDesktop && (
-                                <>
-                                    <span className="flex-1 text-left">{item.label}</span>
-                                    {item.count && <span className="text-xs">{item.count}</span>}
-                                </>
-                            )}
-                        </button>
-                    ))}
-                </nav>
-
-
-                {/* Main Content */}
-                <main className="flex-1 flex flex-col relative bg-white rounded-tl-[24px] overflow-hidden shadow-2xl mr-2 my-2">
-                    {/* Top Bar */}
-                    <header className="h-16 px-6 flex items-center justify-between bg-white z-10">
-                        <div className="bg-[#F3EDF7] rounded-full h-12 flex-1 max-w-2xl px-4 flex items-center gap-3 text-[#49454F]">
-                            <Menu size={24} className={`${isMobile ? 'block' : 'lg:hidden'}`} onClick={() => setMenuOpen(!menuOpen)} />
-                            <Search size={24} />
-                            <input
-                                type="text"
-                                placeholder="Search mail"
-                                className="bg-transparent border-none outline-none flex-1 font-m3"
-                            />
-                            <div className="w-8 h-8 rounded-full bg-[#6750A4] text-white flex items-center justify-center font-bold text-sm">A</div>
+            {/* Navigation */}
+            <nav className="sticky top-0 z-50 bg-[#FFFBFE] border-b border-[#E7E0EC]">
+                <div className={`max-w-6xl mx-auto px-4 h-16 flex items-center justify-between`}>
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-2xl bg-[#EADDFF] flex items-center justify-center">
+                            <Palette className="w-5 h-5 text-[#6750A4]" />
                         </div>
-                    </header>
+                        <span className="font-m3 font-semibold text-lg">Material You</span>
+                    </div>
 
-                    {/* Email List */}
-                    <div className="flex-1 overflow-y-auto p-4 space-y-1">
-                        <div className="font-m3 text-sm font-medium text-[#49454F] px-4 py-2">Today</div>
-                        {[
-                            { sender: "Material Design", subject: "Welcome to Material 3", time: "10:30 AM", snippet: "Discover dynamic color, new components, and more...", color: "bg-[#EADDFF]" },
-                            { sender: "Dribbble", subject: "Top shots for you", time: "09:45 AM", snippet: "Check out the latest design trends in UI/UX this week.", color: "bg-[#FFD8E4]" },
-                            { sender: "Github", subject: "Security alert", time: "08:15 AM", snippet: "We noticed a new login from a device in Taiwan...", color: "bg-[#F2F2F2]" },
-                            { sender: "Figma Team", subject: "New collaboration features", time: "Yesterday", snippet: "Real-time cursors just got smoother. Try it now.", color: "bg-[#C4E7FF]" },
-                        ].map((email, i) => (
-                            <div key={i} className={`flex gap-4 ${isMobile ? 'p-3' : 'md:px-4 md:py-3'} m3-card cursor-pointer ripple group`}>
-                                <div className={`w-10 h-10 rounded-full ${email.color} text-[#1D1B20] flex items-center justify-center font-bold shrink-0`}>
-                                    {email.sender[0]}
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                    <div className="flex justify-between items-baseline mb-0.5">
-                                        <span className={`font-m3 text-base ${i === 0 ? 'font-bold text-black' : 'font-medium text-[#1D1B20]'}`}>{email.sender}</span>
-                                        <span className="text-xs text-[#49454F]">{email.time}</span>
-                                    </div>
-                                    <div className="font-m3 text-sm truncate text-[#1D1B20] mb-0.5">{email.subject}</div>
-                                    <div className="font-m3 text-sm truncate text-[#49454F] group-hover:text-[#1D1B20] transition-colors">{email.snippet}</div>
-                                </div>
-                                <Star size={20} className="text-[#49454F] self-center opacity-0 group-hover:opacity-100 transition-opacity" />
-                            </div>
+                    <div className={`${isMobile ? 'hidden' : 'flex'} items-center gap-8`}>
+                        {['Features', 'Components', 'Themes', 'Docs'].map((item) => (
+                            <a key={item} href="#" className="font-m3 font-medium text-[#49454F] hover:text-[#6750A4] transition-colors">
+                                {item}
+                            </a>
                         ))}
                     </div>
 
-                    {/* F.A.B. (Floating Action Button) for Mobile */}
-                    <div className={`absolute bottom-6 right-6 ${isMobile ? 'block' : 'lg:hidden'}`}>
-                        <button className="w-14 h-14 bg-[#EADDFF] text-[#21005D] rounded-[16px] m3-fab flex items-center justify-center ripple">
-                            <Edit2 size={24} />
+                    <div className="flex items-center gap-3">
+                        <button className="m3-btn m3-primary px-6 py-2.5 font-m3 text-sm">
+                            Get Started
+                        </button>
+                        <button
+                            onClick={() => setMenuOpen(!menuOpen)}
+                            className={`${isMobile ? 'block' : 'hidden'} p-2 text-[#49454F] hover:bg-[#E8DEF8] rounded-full transition-colors`}
+                        >
+                            {menuOpen ? <X size={24} /> : <Menu size={24} />}
                         </button>
                     </div>
-                </main>
-            </div>
+                </div>
+
+                {/* Mobile Menu */}
+                {menuOpen && isMobile && (
+                    <div className="bg-[#F3EDF7] border-t border-[#E7E0EC] p-4">
+                        {['Features', 'Components', 'Themes', 'Docs'].map((item) => (
+                            <a key={item} href="#" onClick={() => setMenuOpen(false)} className="block py-3 font-m3 font-medium text-[#49454F] hover:text-[#6750A4] border-b border-[#E7E0EC] last:border-0">
+                                {item}
+                            </a>
+                        ))}
+                    </div>
+                )}
+            </nav>
+
+            {/* Hero Section */}
+            <section className={`${isMobile ? 'py-16' : 'py-24'} px-4`}>
+                <div className="max-w-6xl mx-auto">
+                    <div className={`${isMobile ? '' : 'flex items-center gap-16'}`}>
+                        <div className={`flex-1 ${isMobile ? 'text-center mb-12' : ''}`}>
+                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#EADDFF] text-[#21005D] text-sm font-m3 font-medium mb-6">
+                                <Zap size={16} /> Material Design 3
+                            </div>
+                            <h1 className={`${isMobile ? 'text-4xl' : 'text-6xl'} font-m3 font-bold mb-6 tracking-tight leading-tight`}>
+                                Dynamic Color<br />for Every App
+                            </h1>
+                            <p className={`font-m3 ${isMobile ? 'text-base' : 'text-xl'} text-[#49454F] mb-10 leading-relaxed ${isMobile ? '' : 'max-w-xl'}`}>
+                                Material You brings personalization to every surface. Colors derived from your wallpaper, adaptive layouts, and expressive animations.
+                            </p>
+                            <div className={`flex gap-4 ${isMobile ? 'justify-center flex-col' : ''}`}>
+                                <button className="m3-btn m3-primary px-8 py-4 font-m3 font-semibold flex items-center justify-center gap-2">
+                                    Start Building <ArrowRight size={20} />
+                                </button>
+                                <button className="m3-btn px-8 py-4 font-m3 font-semibold text-[#6750A4] border border-[#79747E]">
+                                    View Components
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Hero Visual */}
+                        <div className={`flex-1 ${isMobile ? 'px-4' : ''}`}>
+                            <div className="m3-card bg-white m3-elevation-2 p-6 relative overflow-hidden"
+                                style={{ background: 'linear-gradient(135deg, #6750A4 0%, #7F67BE 50%, #D0BCFF 100%)' }}>
+                                <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-white/10" />
+                                <div className="relative z-10 text-white">
+                                    <div className="text-xs font-m3 font-medium opacity-80 mb-2">MATERIAL YOU</div>
+                                    <div className={`${isMobile ? 'text-2xl' : 'text-3xl'} font-m3 font-bold mb-4`}>Expressive Design</div>
+                                    <div className="flex gap-3 mt-6">
+                                        {['#6750A4', '#625B71', '#7D5260'].map((color, i) => (
+                                            <div key={i} className="w-10 h-10 rounded-2xl shadow-lg" style={{ background: color }} />
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Features Grid */}
+            <section className="py-20 px-4 bg-[#F3EDF7]">
+                <div className="max-w-6xl mx-auto">
+                    <h2 className={`${isMobile ? 'text-2xl' : 'text-4xl'} font-m3 font-bold text-center mb-4`}>Key Features</h2>
+                    <p className="text-center text-[#49454F] mb-12 max-w-xl mx-auto font-m3">Everything you need to build beautiful, personalized interfaces</p>
+
+                    <div className={`grid ${isMobile ? 'grid-cols-1' : 'md:grid-cols-2 lg:grid-cols-4'} gap-4`}>
+                        {[
+                            { icon: Palette, title: 'Dynamic Colors', desc: 'Colors extracted from user wallpapers', color: '#6750A4', bg: '#EADDFF' },
+                            { icon: Grid3X3, title: '4dp Grid', desc: 'Consistent spacing and alignment', color: '#7D5260', bg: '#FFD8E4' },
+                            { icon: Layers, title: 'Elevation', desc: 'Tonal color-based shadows', color: '#006A6A', bg: '#A8EFF0' },
+                            { icon: Type, title: 'Type Scale', desc: 'Roboto Flex variable font', color: '#7D5700', bg: '#FFDDB3' },
+                        ].map((item, i) => (
+                            <div key={i} className="m3-card bg-white p-6 m3-elevation-1">
+                                <div className="w-12 h-12 rounded-2xl mb-4 flex items-center justify-center" style={{ backgroundColor: item.bg, color: item.color }}>
+                                    <item.icon size={24} />
+                                </div>
+                                <h3 className="font-m3 font-semibold text-lg mb-2">{item.title}</h3>
+                                <p className="font-m3 text-sm text-[#49454F]">{item.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Components Showcase */}
+            <section className="py-20 px-4">
+                <div className="max-w-6xl mx-auto">
+                    <h2 className={`${isMobile ? 'text-2xl' : 'text-4xl'} font-m3 font-bold text-center mb-12`}>Component Library</h2>
+
+                    <div className={`grid ${isMobile ? 'grid-cols-1' : 'md:grid-cols-2'} gap-6`}>
+                        {/* Buttons Card */}
+                        <div className="m3-card bg-white p-8 m3-elevation-1">
+                            <h3 className="font-m3 font-semibold text-lg mb-6">Buttons</h3>
+                            <div className="flex flex-wrap gap-3">
+                                <button className="m3-btn m3-primary px-6 py-2.5 text-sm">Filled</button>
+                                <button className="m3-btn px-6 py-2.5 text-sm text-[#6750A4] border border-[#79747E]">Outlined</button>
+                                <button className="m3-btn px-6 py-2.5 text-sm text-[#6750A4]">Text</button>
+                                <button className="m3-btn m3-secondary-container px-6 py-2.5 text-sm">Tonal</button>
+                            </div>
+                        </div>
+
+                        {/* Chips Card */}
+                        <div className="m3-card bg-white p-8 m3-elevation-1">
+                            <h3 className="font-m3 font-semibold text-lg mb-6">Chips</h3>
+                            <div className="flex flex-wrap gap-2">
+                                {['Filter', 'Input', 'Suggestion', 'Assist'].map((chip, i) => (
+                                    <span key={chip} className={`px-4 py-2 rounded-full text-sm font-m3 font-medium cursor-pointer transition-colors ${i === 0 ? 'bg-[#E8DEF8] text-[#6750A4]' : 'bg-[#E7E0EC] text-[#49454F] hover:bg-[#D0BCFF]/30'
+                                        }`}>
+                                        {chip}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* FAB Card */}
+                        <div className="m3-card bg-white p-8 m3-elevation-1">
+                            <h3 className="font-m3 font-semibold text-lg mb-6">FABs</h3>
+                            <div className="flex items-end gap-4">
+                                <button className="w-14 h-14 rounded-2xl bg-[#EADDFF] text-[#21005D] flex items-center justify-center m3-elevation-1">
+                                    <Plus size={24} />
+                                </button>
+                                <button className="w-16 h-16 rounded-[28px] bg-[#6750A4] text-white flex items-center justify-center m3-elevation-2">
+                                    <Plus size={28} />
+                                </button>
+                                <button className="h-14 px-6 rounded-2xl bg-[#EADDFF] text-[#21005D] flex items-center gap-3 m3-elevation-1 font-m3 font-medium">
+                                    <Plus size={20} /> Create
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Navigation Card */}
+                        <div className="m3-card bg-white p-8 m3-elevation-1">
+                            <h3 className="font-m3 font-semibold text-lg mb-6">Navigation</h3>
+                            <div className="flex justify-around bg-[#F3EDF7] rounded-2xl p-2">
+                                {[
+                                    { icon: Home, label: 'Home', active: true },
+                                    { icon: Search, label: 'Search' },
+                                    { icon: Heart, label: 'Saved' },
+                                    { icon: User, label: 'Profile' },
+                                ].map((item, i) => (
+                                    <button key={i} className="flex flex-col items-center py-2 px-4 rounded-2xl">
+                                        <div className={`p-1 rounded-full ${item.active ? 'bg-[#EADDFF]' : ''}`}>
+                                            <item.icon size={20} className={item.active ? 'text-[#6750A4]' : 'text-[#49454F]'} />
+                                        </div>
+                                        <span className={`text-xs mt-1 font-m3 font-medium ${item.active ? 'text-[#6750A4]' : 'text-[#49454F]'}`}>
+                                            {item.label}
+                                        </span>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Pricing Section */}
+            <section className="py-20 px-4 bg-[#F3EDF7]">
+                <div className="max-w-5xl mx-auto">
+                    <h2 className={`${isMobile ? 'text-2xl' : 'text-4xl'} font-m3 font-bold text-center mb-12`}>Pricing</h2>
+
+                    <div className={`grid ${isMobile ? 'grid-cols-1' : 'md:grid-cols-3'} gap-6`}>
+                        {[
+                            { name: 'Community', price: 'Free', features: ['Open source', 'Basic components', 'Community support'] },
+                            { name: 'Pro', price: '$29/mo', features: ['All components', 'Premium themes', 'Priority support'], featured: true },
+                            { name: 'Enterprise', price: 'Custom', features: ['Everything', 'Custom themes', 'SLA guarantee'] },
+                        ].map((plan, i) => (
+                            <div key={i} className={`m3-card p-8 ${plan.featured ? 'bg-[#6750A4] text-white' : 'bg-white'} m3-elevation-1`}>
+                                <h3 className="font-m3 font-semibold text-xl mb-2">{plan.name}</h3>
+                                <div className={`text-3xl font-m3 font-bold mb-6 ${plan.featured ? '' : 'text-[#6750A4]'}`}>{plan.price}</div>
+                                <ul className="space-y-3 mb-8">
+                                    {plan.features.map((f, j) => (
+                                        <li key={j} className={`flex items-center gap-3 text-sm ${plan.featured ? 'text-white/90' : 'text-[#49454F]'}`}>
+                                            <Check size={16} className={plan.featured ? 'text-white' : 'text-[#6750A4]'} />
+                                            {f}
+                                        </li>
+                                    ))}
+                                </ul>
+                                <button className={`w-full py-3 m3-btn font-m3 font-medium ${plan.featured ? 'bg-white text-[#6750A4]' : 'm3-primary'}`}>
+                                    Get Started
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* CTA Section */}
+            <section className="py-20 px-4">
+                <div className="max-w-4xl mx-auto">
+                    <div className="m3-card bg-[#6750A4] text-white p-12 text-center m3-elevation-2">
+                        <Mail className="w-10 h-10 mx-auto mb-6" />
+                        <h2 className={`${isMobile ? 'text-2xl' : 'text-4xl'} font-m3 font-bold mb-4`}>Stay Updated</h2>
+                        <p className="text-white/80 mb-8 max-w-lg mx-auto">Get the latest Material Design news and updates delivered to your inbox.</p>
+                        <div className={`flex ${isMobile ? 'flex-col' : ''} gap-4 max-w-md mx-auto`}>
+                            <input
+                                type="email"
+                                placeholder="your@email.com"
+                                className="flex-1 px-6 py-4 rounded-full bg-white/20 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:border-white font-m3"
+                            />
+                            <button className="px-8 py-4 bg-white text-[#6750A4] rounded-full font-m3 font-semibold hover:bg-white/90 transition-colors">
+                                Subscribe
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Footer */}
+            <footer className="py-12 px-4 bg-[#F3EDF7] border-t border-[#E7E0EC]">
+                <div className="max-w-6xl mx-auto">
+                    <div className={`${isMobile ? 'flex flex-col gap-8' : 'flex justify-between'} mb-8`}>
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-2xl bg-[#EADDFF] flex items-center justify-center">
+                                <Palette className="w-5 h-5 text-[#6750A4]" />
+                            </div>
+                            <span className="font-m3 font-semibold text-lg">Material You</span>
+                        </div>
+                        <div className={`flex ${isMobile ? 'flex-wrap' : ''} gap-6 text-sm text-[#49454F] font-m3`}>
+                            {['Components', 'Themes', 'Guidelines', 'Blog', 'GitHub'].map((item) => (
+                                <a key={item} href="#" className="hover:text-[#6750A4] transition-colors">{item}</a>
+                            ))}
+                        </div>
+                    </div>
+                    <div className="text-center text-sm text-[#79747E] pt-8 border-t border-[#E7E0EC] font-m3">
+                        © 2024 Material You. Designed with ❤️ for everyone.
+                    </div>
+                </div>
+            </footer>
         </div>
     );
 };

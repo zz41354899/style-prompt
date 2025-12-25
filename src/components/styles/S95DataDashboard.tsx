@@ -1,298 +1,217 @@
 import { useState } from 'react';
-import { LayoutDashboard, Users, DollarSign, Activity, Menu, X, Filter, Download } from 'lucide-react';
-import { useResponsive } from '../../hooks/useResponsive';
+import { LayoutDashboard, TrendingUp, Users, BarChart3, PieChart, Activity, Menu, X, ArrowRight, Check, Zap, Shield } from 'lucide-react';
 
 export const S95DataDashboard = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const responsive = useResponsive(deviceMode);
     const isMobile = deviceMode === 'mobile';
 
     return (
-        <div className="min-h-screen bg-[#F0F2F5] font-sans text-[#333] overflow-x-hidden selection:bg-[#2196F3] selection:text-white">
+        <div className="min-h-screen bg-[#F8FAFC] font-sans text-[#1E293B] selection:bg-[#3B82F6] selection:text-white">
             <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;500;700&family=Inter:wght@400;500;600&display=swap');
-        .font-condensed { font-family: 'Roboto Condensed', sans-serif; }
-        .font-ui { font-family: 'Inter', sans-serif; }
-        
-        .card-shadow {
-           box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-        }
-      `}</style>
+                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+                .font-ui { font-family: 'Inter', sans-serif; }
+            `}</style>
 
-            {/* Sidebar (Desktop) */}
-            <div className={`fixed left-0 top-0 bottom-0 w-64 bg-[#212121] text-white ${isMobile ? 'hidden' : 'lg:flex'} flex-col p-4 z-50`}>
-                <div className="flex items-center gap-3 px-4 mb-8">
-                    <LayoutDashboard className="text-[#2196F3]" />
-                    <span className="font-condensed font-bold text-xl uppercase tracking-wider">Analytics</span>
-                </div>
-
-                <div className="space-y-1 font-condensed tracking-wide">
-                    {['Overview', 'Performance', 'Customers', 'Products', 'Settings'].map(item => (
-                        <div key={item} className={`px-4 py-2 rounded cursor-pointer hover:bg-white/10 transition-colors ${item === 'Overview' ? 'bg-[#2196F3] text-white' : 'text-gray-400'}`}>
-                            {item}
+            {/* Navigation */}
+            <nav className="sticky top-0 z-50 bg-white border-b border-slate-200">
+                <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] rounded-lg flex items-center justify-center">
+                            <LayoutDashboard size={20} className="text-white" />
                         </div>
-                    ))}
-                </div>
-
-                <div className="mt-auto px-4 text-xs text-gray-500 font-ui">
-                    v2.4.0 Build 8842
-                </div>
-            </div>
-
-            {/* Main Content */}
-            <div className={`${isMobile ? 'ml-0' : 'lg:ml-64'} min-h-screen flex flex-col`}>
-                {/* Topbar */}
-                <header className="bg-white h-16 border-b border-gray-200 flex justify-between items-center px-6 sticky top-0 z-40">
-                    <h1 className="font-condensed font-bold text-lg text-gray-700 uppercase">Dashboard / Overview</h1>
-
-                    <div className="flex items-center gap-4">
-                        <button className="flex items-center gap-2 text-xs font-bold uppercase bg-white border border-gray-300 px-3 py-1.5 rounded hover:bg-gray-50 text-gray-600">
-                            <Filter size={14} /> Filter
-                        </button>
-                        <button className="flex items-center gap-2 text-xs font-bold uppercase bg-[#2196F3] text-white px-3 py-1.5 rounded hover:bg-[#1976D2] shadow-sm">
-                            <Download size={14} /> Export
-                        </button>
-                        {responsive.nav.showMobile && (
-                            <button onClick={() => setMenuOpen(!menuOpen)} className={`${isMobile ? 'block' : 'lg:hidden'} p-1`}>
-                                {menuOpen ? <X size={20} /> : <Menu size={20} />}
-                            </button>
-                        )}
+                        <span className="font-ui font-bold text-lg">DataPulse</span>
                     </div>
-                </header>
-            {/* Mobile Menu */}
-            {menuOpen && (
-                <div className="fixed inset-0 z-50 lg:hidden pointer-events-none">
-                    <div className="absolute inset-0 bg-black/50" onClick={() => setMenuOpen(false)} />
-                    <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
-                        <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Home
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Features
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                About
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Contact
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            )}
 
-            {menuOpen && (
-                <div className="fixed inset-0 z-50 lg:hidden pointer-events-none">
-                    <div className="absolute inset-0 bg-black/50" onClick={() => setMenuOpen(false)} />
-                    <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
-                        <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Home
+                    <div className={`${isMobile ? 'hidden' : 'flex'} items-center gap-8`}>
+                        {['Features', 'Pricing', 'Integrations', 'Docs'].map((item) => (
+                            <a key={item} href="#" className="font-ui text-sm text-slate-600 hover:text-slate-900 transition-colors">
+                                {item}
                             </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Features
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                About
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Contact
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {menuOpen && (
-                <div className="fixed inset-0 z-40 lg:hidden pointer-events-none">
-                    <div className="absolute inset-0 bg-black/20" onClick={() => setMenuOpen(false)} />
-                    <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
-                        <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Overview
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Performance
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Customers
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Products
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Settings
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-                {/* Dashboard Content */}
-                <main className="p-6">
-                    {/* KPI Cards */}
-                    <div className={`grid grid-cols-1 ${isMobile ? 'md:grid-cols-2' : 'md:grid-cols-2 xl:grid-cols-4'} gap-4 mb-6`}>
-                        {[
-                            { label: "Total Revenue", value: "$48,294", change: "+4.5%", icon: DollarSign, color: "text-green-500" },
-                            { label: "Active Users", value: "2,842", change: "+12.2%", icon: Users, color: "text-blue-500" },
-                            { label: "Bounce Rate", value: "42.3%", change: "-2.1%", icon: Activity, color: "text-orange-500" },
-                            { label: "Avg. Session", value: "4m 32s", change: "+0.8%", icon: LayoutDashboard, color: "text-purple-500" },
-                        ].map((kpi, i) => (
-                            <div key={i} className="bg-white p-4 rounded card-shadow border border-gray-100">
-                                <div className="flex justify-between items-start mb-2">
-                                    <span className="font-condensed text-gray-500 text-sm uppercase font-bold">{kpi.label}</span>
-                                    <kpi.icon size={18} className="text-gray-400" />
-                                </div>
-                                <div className="flex items-end gap-3">
-                                    <span className="font-ui font-semibold text-2xl text-gray-800">{kpi.value}</span>
-                                    <span className={`text-xs font-bold mb-1 ${kpi.color}`}>{kpi.change}</span>
-                                </div>
-                            </div>
                         ))}
                     </div>
 
-                    {/* Main Chart Area */}
-                    <div className="grid lg:grid-cols-3 gap-6 mb-6">
-                        <div className="lg:col-span-2 bg-white p-6 rounded card-shadow border border-gray-100 min-h-[300px]">
-                            <h3 className="font-condensed font-bold text-gray-700 uppercase mb-4">Revenue Traffic Source</h3>
-                            <div className="h-64 flex items-end gap-2">
-                                {[30, 45, 35, 60, 50, 75, 55, 80, 70, 90, 65, 50, 40, 55, 45, 65, 50, 70, 60, 45].map((h, i) => (
-                                    <div key={i} className="flex-1 bg-blue-50 rounded-t hover:bg-blue-100 transition-colors relative group">
-                                        <div
-                                            className="absolute bottom-0 left-0 right-0 bg-[#2196F3] rounded-t opacity-90 group-hover:opacity-100 transition-all"
-                                            style={{ height: `${h}%` }}
-                                        />
-                                        <div className="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-[10px] px-2 py-1 rounded whitespace-nowrap z-10">
-                                            Val: {h * 120}
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
+                    <div className="flex items-center gap-3">
+                        <button className={`${isMobile ? 'hidden' : 'block'} font-ui text-sm text-slate-600 hover:text-slate-900`}>
+                            Sign In
+                        </button>
+                        <button className="font-ui text-sm bg-[#3B82F6] text-white px-5 py-2 rounded-lg hover:bg-[#2563EB] transition-colors">
+                            Get Started
+                        </button>
+                        <button
+                            onClick={() => setMenuOpen(!menuOpen)}
+                            className={`${isMobile ? 'block' : 'hidden'} p-2 text-slate-600`}
+                        >
+                            {menuOpen ? <X size={24} /> : <Menu size={24} />}
+                        </button>
+                    </div>
+                </div>
 
-                        <div className={`${isMobile ? 'col-span-1' : 'lg:col-span-1'} bg-white p-6 rounded card-shadow border border-gray-100 min-h-[300px]`}>
-                            <h3 className="font-condensed font-bold text-gray-700 uppercase mb-4">Device Sessions</h3>
-                            <div className="space-y-4">
+                {/* Mobile Menu */}
+                {menuOpen && isMobile && (
+                    <div className="bg-white border-t border-slate-200 p-4">
+                        {['Features', 'Pricing', 'Integrations', 'Docs'].map((item) => (
+                            <a key={item} href="#" onClick={() => setMenuOpen(false)} className="block py-3 font-ui text-slate-600 hover:text-slate-900 border-b border-slate-100 last:border-0">
+                                {item}
+                            </a>
+                        ))}
+                    </div>
+                )}
+            </nav>
+
+            {/* Hero Section */}
+            <section className={`${isMobile ? 'py-16' : 'py-24'} px-4`}>
+                <div className="max-w-6xl mx-auto text-center">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-full text-sm font-ui text-[#3B82F6] mb-6">
+                        <Zap size={14} /> Real-time Analytics
+                    </div>
+                    <h1 className={`${isMobile ? 'text-4xl' : 'text-6xl'} font-ui font-bold mb-6 leading-tight`}>
+                        Transform Data Into<br />
+                        <span className="bg-gradient-to-r from-[#3B82F6] to-[#8B5CF6] bg-clip-text text-transparent">Actionable Insights</span>
+                    </h1>
+                    <p className={`font-ui ${isMobile ? 'text-base' : 'text-xl'} text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed`}>
+                        The modern analytics platform that helps teams make data-driven decisions faster. Beautiful dashboards, powerful queries, zero complexity.
+                    </p>
+                    <div className={`flex gap-4 justify-center ${isMobile ? 'flex-col' : ''}`}>
+                        <button className="font-ui bg-[#3B82F6] text-white px-8 py-4 rounded-lg font-semibold flex items-center justify-center gap-2 hover:bg-[#2563EB] transition-colors">
+                            Start Free Trial <ArrowRight size={20} />
+                        </button>
+                        <button className="font-ui text-slate-700 px-8 py-4 rounded-lg font-semibold border border-slate-300 hover:border-slate-400 transition-colors">
+                            Book a Demo
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            {/* Dashboard Preview */}
+            <section className="py-12 px-4">
+                <div className="max-w-5xl mx-auto">
+                    <div className="bg-white rounded-2xl shadow-2xl shadow-slate-200/50 border border-slate-200 overflow-hidden">
+                        {/* Mini Dashboard */}
+                        <div className="p-6 bg-slate-50 border-b border-slate-200">
+                            <div className={`grid ${isMobile ? 'grid-cols-2' : 'grid-cols-4'} gap-4`}>
                                 {[
-                                    { label: 'Desktop', val: '65%', color: 'bg-blue-500' },
-                                    { label: 'Mobile', val: '28%', color: 'bg-green-500' },
-                                    { label: 'Tablet', val: '7%', color: 'bg-orange-400' },
-                                ].map((d, i) => (
-                                    <div key={i}>
-                                        <div className="flex justify-between text-sm font-ui text-gray-600 mb-1">
-                                            <span>{d.label}</span>
-                                            <span className="font-bold">{d.val}</span>
-                                        </div>
-                                        <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-                                            <div className={`h-full rounded-full ${d.color}`} style={{ width: d.val }} />
+                                    { label: 'Revenue', value: '$48.2K', change: '+12%', color: 'text-green-600' },
+                                    { label: 'Users', value: '2,847', change: '+8%', color: 'text-green-600' },
+                                    { label: 'Bounce', value: '32%', change: '-5%', color: 'text-green-600' },
+                                    { label: 'Sessions', value: '12.4K', change: '+15%', color: 'text-green-600' },
+                                ].map((stat, i) => (
+                                    <div key={i} className="bg-white p-4 rounded-xl border border-slate-100">
+                                        <div className="text-xs text-slate-500 font-ui mb-1">{stat.label}</div>
+                                        <div className="flex items-baseline gap-2">
+                                            <span className="text-2xl font-bold font-ui">{stat.value}</span>
+                                            <span className={`text-xs font-semibold ${stat.color}`}>{stat.change}</span>
                                         </div>
                                     </div>
                                 ))}
                             </div>
                         </div>
+                        {/* Chart Area */}
+                        <div className="p-6 h-48 flex items-end gap-2">
+                            {[40, 65, 45, 80, 55, 90, 70, 85, 60, 75, 50, 95, 65, 80, 55, 70].map((h, i) => (
+                                <div key={i} className="flex-1 bg-gradient-to-t from-[#3B82F6] to-[#8B5CF6] rounded-t opacity-80 hover:opacity-100 transition-opacity" style={{ height: `${h}%` }} />
+                            ))}
+                        </div>
                     </div>
+                </div>
+            </section>
 
-                    {/* Data Table */}
-                    <div className="bg-white rounded card-shadow border border-gray-100 overflow-hidden">
-                        <div className="p-4 border-b border-gray-100 flex justify-between items-center">
-                            <h3 className="font-condensed font-bold text-gray-700 uppercase">Recent Transactions</h3>
-                            <a href="#" className="text-xs text-[#2196F3] font-bold hover:underline">View All</a>
-                        </div>
-                        <div className="overflow-x-auto">
-                            <table className="w-full text-sm text-left">
-                                <thead className="bg-gray-50 text-gray-500 font-condensed uppercase text-xs font-bold">
-                                    <tr>
-                                        <th className="px-6 py-3">Order ID</th>
-                                        <th className="px-6 py-3">Customer</th>
-                                        <th className="px-6 py-3">Date</th>
-                                        <th className="px-6 py-3">Status</th>
-                                        <th className="px-6 py-3 text-right">Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-gray-100 font-ui text-gray-700">
-                                    {[
-                                        { id: '#SK2931', name: 'Alice Smith', date: 'Oct 24', status: 'Completed', amt: '$120.50' },
-                                        { id: '#SK2932', name: 'Bob Jones', date: 'Oct 24', status: 'Pending', amt: '$85.00' },
-                                        { id: '#SK2933', name: 'Charlie Day', date: 'Oct 23', status: 'Failed', amt: '$340.00' },
-                                        { id: '#SK2934', name: 'Diana Prince', date: 'Oct 23', status: 'Completed', amt: '$1,205.00' },
-                                    ].map((row, i) => (
-                                        <tr key={i} className="hover:bg-gray-50 transition-colors">
-                                            <td className="px-6 py-3 font-mono text-xs">{row.id}</td>
-                                            <td className="px-6 py-3 font-medium">{row.name}</td>
-                                            <td className="px-6 py-3 text-gray-500">{row.date}</td>
-                                            <td className="px-6 py-3">
-                                                <span className={`px-2 py-0.5 rounded-full text-[10px] uppercase font-bold ${row.status === 'Completed' ? 'bg-green-100 text-green-700' :
-                                                    row.status === 'Pending' ? 'bg-orange-100 text-orange-700' :
-                                                        'bg-red-100 text-red-700'
-                                                    }`}>
-                                                    {row.status}
-                                                </span>
-                                            </td>
-                                            <td className="px-6 py-3 text-right font-bold">{row.amt}</td>
-                                        </tr>
+            {/* Features Grid */}
+            <section className="py-20 px-4 bg-white">
+                <div className="max-w-6xl mx-auto">
+                    <h2 className={`${isMobile ? 'text-2xl' : 'text-4xl'} font-ui font-bold text-center mb-4`}>Everything You Need</h2>
+                    <p className="text-center text-slate-600 mb-12 max-w-xl mx-auto font-ui">Powerful analytics features designed for modern teams</p>
+
+                    <div className={`grid ${isMobile ? 'grid-cols-1' : 'md:grid-cols-2 lg:grid-cols-3'} gap-6`}>
+                        {[
+                            { icon: BarChart3, title: 'Custom Dashboards', desc: 'Build beautiful dashboards with drag-and-drop widgets' },
+                            { icon: TrendingUp, title: 'Real-time Data', desc: 'See your metrics update live as events happen' },
+                            { icon: Users, title: 'Team Collaboration', desc: 'Share insights and collaborate with your team' },
+                            { icon: PieChart, title: 'Advanced Charts', desc: '20+ chart types for any visualization need' },
+                            { icon: Shield, title: 'Enterprise Security', desc: 'SOC 2 compliant with role-based access control' },
+                            { icon: Activity, title: 'Anomaly Detection', desc: 'AI-powered alerts when metrics deviate from normal' },
+                        ].map((item, i) => (
+                            <div key={i} className="p-6 rounded-xl border border-slate-200 hover:border-[#3B82F6] hover:shadow-lg transition-all">
+                                <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-4">
+                                    <item.icon size={24} className="text-[#3B82F6]" />
+                                </div>
+                                <h3 className="font-ui font-semibold text-lg mb-2">{item.title}</h3>
+                                <p className="font-ui text-sm text-slate-600">{item.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Pricing Section */}
+            <section className="py-20 px-4 bg-slate-50">
+                <div className="max-w-5xl mx-auto">
+                    <h2 className={`${isMobile ? 'text-2xl' : 'text-4xl'} font-ui font-bold text-center mb-12`}>Simple, Transparent Pricing</h2>
+
+                    <div className={`grid ${isMobile ? 'grid-cols-1' : 'md:grid-cols-3'} gap-6`}>
+                        {[
+                            { name: 'Starter', price: '$0', desc: 'For individuals', features: ['5 Dashboards', '10K events/mo', 'Basic charts', 'Email support'] },
+                            { name: 'Pro', price: '$49', desc: 'For growing teams', features: ['Unlimited dashboards', '1M events/mo', 'All chart types', 'Priority support', 'API access'], featured: true },
+                            { name: 'Enterprise', price: 'Custom', desc: 'For large organizations', features: ['Everything in Pro', 'Unlimited events', 'SSO & SAML', 'Dedicated support', 'SLA guarantee'] },
+                        ].map((plan, i) => (
+                            <div key={i} className={`rounded-2xl p-8 ${plan.featured ? 'bg-[#3B82F6] text-white ring-4 ring-blue-100' : 'bg-white border border-slate-200'}`}>
+                                <h3 className="font-ui font-semibold text-xl mb-1">{plan.name}</h3>
+                                <p className={`text-sm mb-4 ${plan.featured ? 'text-blue-100' : 'text-slate-500'}`}>{plan.desc}</p>
+                                <div className="flex items-baseline gap-1 mb-6">
+                                    <span className="text-4xl font-bold font-ui">{plan.price}</span>
+                                    {plan.price !== 'Custom' && <span className={plan.featured ? 'text-blue-100' : 'text-slate-500'}>/mo</span>}
+                                </div>
+                                <ul className="space-y-3 mb-8">
+                                    {plan.features.map((f, j) => (
+                                        <li key={j} className={`flex items-center gap-3 text-sm font-ui ${plan.featured ? 'text-white/90' : 'text-slate-600'}`}>
+                                            <Check size={16} className={plan.featured ? 'text-white' : 'text-[#3B82F6]'} />
+                                            {f}
+                                        </li>
                                     ))}
-                                </tbody>
-                            </table>
+                                </ul>
+                                <button className={`w-full py-3 rounded-lg font-ui font-semibold ${plan.featured ? 'bg-white text-[#3B82F6]' : 'bg-[#3B82F6] text-white'} hover:opacity-90 transition-opacity`}>
+                                    Get Started
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* CTA Section */}
+            <section className="py-20 px-4">
+                <div className="max-w-4xl mx-auto text-center">
+                    <div className="bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] rounded-3xl p-12 text-white">
+                        <TrendingUp className="w-12 h-12 mx-auto mb-6 opacity-80" />
+                        <h2 className={`${isMobile ? 'text-2xl' : 'text-4xl'} font-ui font-bold mb-6`}>Start Making Data-Driven Decisions</h2>
+                        <p className="text-white/80 mb-8 max-w-lg mx-auto font-ui">Join 10,000+ teams using DataPulse to grow their business.</p>
+                        <button className="font-ui bg-white text-[#3B82F6] px-10 py-4 rounded-lg font-semibold text-lg hover:bg-white/90 transition-colors">
+                            Start Free — No Credit Card Required
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            {/* Footer */}
+            <footer className="py-12 px-4 bg-white border-t border-slate-200">
+                <div className="max-w-6xl mx-auto">
+                    <div className={`${isMobile ? 'flex flex-col gap-8' : 'flex justify-between'} mb-8`}>
+                        <div className="flex items-center gap-3">
+                            <div className="w-9 h-9 bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] rounded-lg flex items-center justify-center">
+                                <LayoutDashboard size={20} className="text-white" />
+                            </div>
+                            <span className="font-ui font-bold text-lg">DataPulse</span>
+                        </div>
+                        <div className={`flex ${isMobile ? 'flex-wrap' : ''} gap-6 text-sm text-slate-600 font-ui`}>
+                            {['Features', 'Pricing', 'Docs', 'Blog', 'Changelog', 'Status'].map((item) => (
+                                <a key={item} href="#" className="hover:text-slate-900 transition-colors">{item}</a>
+                            ))}
                         </div>
                     </div>
-                </main>
-            </div>
+                    <div className="text-center text-sm text-slate-500 pt-8 border-t border-slate-200 font-ui">
+                        © 2024 DataPulse. Analytics made simple.
+                    </div>
+                </div>
+            </footer>
         </div>
     );
 };
