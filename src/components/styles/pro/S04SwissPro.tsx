@@ -6,7 +6,7 @@ export const S04SwissPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
     const [menuOpen, setMenuOpen] = useState(false);
     const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
     const responsive = useResponsive(deviceMode);
-    const isMobile = deviceMode === 'mobile';
+    const isMobile = responsive.nav.showMobile;
 
     // S04 Swiss Design Tokens
     const colors = { bg: '#FFFFFF', text: '#000000', accent: '#F03E3E', gray: '#E6E6E6', lightGray: '#F5F5F5' };

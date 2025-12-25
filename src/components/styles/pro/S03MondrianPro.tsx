@@ -6,7 +6,7 @@ export const S03MondrianPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
     const [menuOpen, setMenuOpen] = useState(false);
     const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
     const responsive = useResponsive(deviceMode);
-    const isMobile = deviceMode === 'mobile';
+    const isMobile = responsive.nav.showMobile;
 
     // S03 Mondrian Design Tokens
     const colors = {

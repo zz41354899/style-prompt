@@ -5,7 +5,7 @@ import { useResponsive } from '@/hooks/useResponsive';
 export const S06CyberpunkPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const responsive = useResponsive(deviceMode);
-    const isMobile = deviceMode === 'mobile';
+    const isMobile = responsive.nav.showMobile;
 
     // S06 Cyberpunk Design Tokens
     const colors = {

@@ -6,7 +6,8 @@ import {
 import { useResponsive } from '@/hooks/useResponsive';
 
 export const S07OrganicPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
-    const isMobile = deviceMode === 'mobile';
+    const responsive = useResponsive(deviceMode);
+    const isMobile = responsive.nav.showMobile;
     const [menuOpen, setMenuOpen] = useState(false);
     const [activePlan, setActivePlan] = useState<'monthly' | 'lifetime'>('monthly');
 

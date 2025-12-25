@@ -5,7 +5,7 @@ import { useResponsive } from '@/hooks/useResponsive';
 export const S05BrutalistPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const responsive = useResponsive(deviceMode);
-    const isMobile = deviceMode === 'mobile';
+    const isMobile = responsive.nav.showMobile;
 
     // S05 Brutalist Design Tokens
     const colors = {
@@ -17,7 +17,7 @@ export const S05BrutalistPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
     };
 
     return (
-        <div className="min-h-screen font-mono" style={{ backgroundColor: colors.bg, color: colors.primary }}>
+        <div className="min-h-screen font-mono overflow-x-hidden" style={{ backgroundColor: colors.bg, color: colors.primary }}>
             {/* ========== 1. HEADER ========== */}
             <header className="border-b-4 border-black sticky top-0 bg-white z-50">
                 <div className="max-w-7xl mx-auto flex justify-between items-stretch h-16">
@@ -61,12 +61,12 @@ export const S05BrutalistPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
 
             {/* ========== 2. HERO ========== */}
             <section className="border-b-4 border-black">
-                <div className="max-w-7xl mx-auto" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', minHeight: '600px' }}>
-                    <div className="p-12 flex flex-col justify-center border-r-4 border-black space-y-8">
+                <div className="max-w-7xl mx-auto" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', minHeight: isMobile ? 'auto' : '600px' }}>
+                    <div className={`p-6 md:p-12 flex flex-col justify-center ${isMobile ? '' : 'border-r-4 border-black'} space-y-8`}>
                         <div className="bg-yellow-400 border-2 border-black inline-block px-2 py-1 font-bold text-xs transform -rotate-2 w-max shadow-[4px_4px_0_0_black]">
                             v4.0.0-RELEASE
                         </div>
-                        <h1 style={{ fontSize: isMobile ? '3rem' : '4.5rem' }} className="font-black uppercase leading-[0.85] tracking-tighter">
+                        <h1 style={{ fontSize: isMobile ? '2.25rem' : '4.5rem' }} className="font-black uppercase leading-[0.85] tracking-tighter">
                             Raw Power<br />
                             For Your<br />
                             <span className="bg-black text-white px-2">Backend.</span>
@@ -113,9 +113,9 @@ export const S05BrutalistPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
 
             {/* ========== 9. TRUST MARQUEE ========== */}
             <section className="border-b-4 border-black overflow-hidden bg-yellow-400 py-4">
-                <div className="whitespace-nowrap flex gap-12 animate-marquee font-black text-2xl uppercase">
-                    {['Netflix', 'Uber', 'Stripe', 'Vercel', 'Meta', 'Netflix', 'Uber', 'Stripe', 'Vercel', 'Meta'].map((b, i) => (
-                        <span key={i} className="flex items-center gap-4">
+                <div className="whitespace-nowrap flex gap-8 font-black text-xl md:text-2xl uppercase px-4" style={{ animation: isMobile ? 'none' : 'marquee 20s linear infinite' }}>
+                    {(isMobile ? ['Netflix', 'Uber', 'Stripe'] : ['Netflix', 'Uber', 'Stripe', 'Vercel', 'Meta', 'Netflix', 'Uber', 'Stripe', 'Vercel', 'Meta']).map((b, i) => (
+                        <span key={i} className="flex items-center gap-4 flex-shrink-0">
                             {b} <span className="text-black/20">●</span>
                         </span>
                     ))}
@@ -145,14 +145,14 @@ export const S05BrutalistPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
             {/* ========== 6. BENTO GRID ========== */}
             <section className="py-24 px-6 bg-gray-50 border-b-4 border-black">
                 <div className="max-w-7xl mx-auto">
-                    <h2 className="text-6xl font-black uppercase mb-12 stroke-text-black">Infrastructure Assets</h2>
+                    <h2 className={`${isMobile ? 'text-3xl' : 'text-6xl'} font-black uppercase mb-12 stroke-text-black`}>Infrastructure Assets</h2>
 
                     <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)', gridTemplateRows: isMobile ? 'auto' : 'repeat(2, 1fr)', gap: '1rem', minHeight: isMobile ? 'auto' : '800px' }}>
                         {/* Box 1 */}
                         <div style={{ gridColumn: isMobile ? 'span 1' : 'span 2', gridRow: isMobile ? 'auto' : 'span 2' }} className="bg-white border-4 border-black p-8 shadow-[8px_8px_0_0_black] flex flex-col justify-between">
                             <div>
                                 <div className="bg-black text-white inline-block px-2 text-sm font-bold mb-4">COMPUTE</div>
-                                <h3 className="text-5xl font-black uppercase leading-none mb-4">Bare Metal<br />Performance</h3>
+                                <h3 className={`${isMobile ? 'text-3xl' : 'text-5xl'} font-black uppercase leading-none mb-4`}>Bare Metal<br />Performance</h3>
                                 <p className="text-xl font-bold">Direct access to hardware. No virtualization overhead.</p>
                             </div>
                             <div className="grid grid-cols-4 gap-2 mt-8">
@@ -168,7 +168,7 @@ export const S05BrutalistPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
                                 <h3 className="text-3xl font-black uppercase">Global Edge</h3>
                                 <p className="font-bold">35ms to anywhere.</p>
                             </div>
-                            <div className="text-6xl font-black">35ms</div>
+                            <div className={`${isMobile ? 'text-4xl' : 'text-6xl'} font-black`}>35ms</div>
                         </div>
 
                         {/* Box 3 */}
@@ -189,7 +189,7 @@ export const S05BrutalistPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
             {/* ========== 12. PRICING ========== */}
             <section className="py-24 px-6 bg-white border-b-4 border-black">
                 <div className="max-w-7xl mx-auto">
-                    <h2 className="text-6xl font-black uppercase mb-16 text-center">Pay For What You Use</h2>
+                    <h2 className={`${isMobile ? 'text-3xl' : 'text-6xl'} font-black uppercase mb-16 text-center`}>Pay For What You Use</h2>
 
                     <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '2rem' }}>
                         {[

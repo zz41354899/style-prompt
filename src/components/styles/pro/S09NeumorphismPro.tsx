@@ -5,7 +5,7 @@ import { useResponsive } from '@/hooks/useResponsive';
 export const S09NeumorphismPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const responsive = useResponsive(deviceMode);
-    const isMobile = deviceMode === 'mobile';
+    const isMobile = responsive.nav.showMobile;
 
     // S09 Memphis Design Tokens
     const colors = {

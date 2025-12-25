@@ -5,7 +5,7 @@ import { useResponsive } from '@/hooks/useResponsive';
 export const S10LuxuryEditorialPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const responsive = useResponsive(deviceMode);
-    const isMobile = deviceMode === 'mobile';
+    const isMobile = responsive.nav.showMobile;
 
     // S10 Luxury Design Tokens
     const colors = { bg: '#FAFAF9', text: '#1C1917', gold: '#D4AF37', serif: '"Playfair Display", serif', sans: '"Inter", sans-serif' };
