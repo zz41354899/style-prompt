@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
-import { Info, Monitor, Laptop, Smartphone, Maximize2 } from 'lucide-react';
+import { Info, Monitor, Laptop, Smartphone, Maximize2, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { styles } from '@/data/styles';
-import { styleComponents } from '@/components/styles';
+import { styles, getStyleTier, hasProVersion } from '@/data/styles';
+import { styleComponents, styleComponentsPro } from '@/components/styles';
 import { useLayoutContext } from '@/components/MainLayout';
 
 interface PreviewContentProps {
@@ -13,11 +13,16 @@ interface PreviewContentProps {
 }
 
 export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
-    const { deviceMode, setDeviceMode } = useLayoutContext();
+    const { deviceMode, setDeviceMode, previewTier } = useLayoutContext();
     const { t } = useTranslation();
     const effectiveStyleId = styleId || 'S01';
     const currentStyle = styles.find(s => s.id === effectiveStyleId);
-    const SelectedComponent = styleComponents[effectiveStyleId];
+
+    // Select component based on tier and availability
+    const shouldUsePro = previewTier === 'pro' && hasProVersion(effectiveStyleId) && styleComponentsPro[effectiveStyleId];
+    const SelectedComponent = shouldUsePro
+        ? styleComponentsPro[effectiveStyleId]
+        : styleComponents[effectiveStyleId];
 
     useEffect(() => {
         const scrollY = window.scrollY;
@@ -42,10 +47,23 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
         <main className="flex-1 bg-[#111] overflow-hidden flex flex-col p-2 md:p-4 lg:p-8">
             {/* Header Content: Info, Device Switcher, and Open Button */}
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-3 md:mb-6">
-                {/* Left: Info Text */}
-                <div className="flex items-center gap-2 text-white/40 text-xs md:text-sm md:flex-1">
-                    <Info className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
-                    <span className="leading-tight">{t('preview.previewInfo')}</span>
+                {/* Left: Info Text with Tier Badge */}
+                <div className="flex items-center gap-3 md:flex-1">
+                    <div className="flex items-center gap-2 text-white/40 text-xs md:text-sm">
+                        <Info className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
+                        <span className="leading-tight">{t('preview.previewInfo')}</span>
+                    </div>
+                    {/* Tier Badge based on actual displayed component */}
+                    {shouldUsePro ? (
+                        <div className="flex items-center gap-1.5 px-2.5 py-1 bg-gradient-to-r from-purple-600/30 to-pink-600/30 border border-purple-500/40 rounded-full">
+                            <Sparkles className="w-3 h-3 text-purple-400" />
+                            <span className="text-xs font-medium text-purple-300">Pro</span>
+                        </div>
+                    ) : (
+                        <div className="flex items-center gap-1.5 px-2.5 py-1 bg-white/10 border border-white/20 rounded-full">
+                            <span className="text-xs font-medium text-white/60">Free</span>
+                        </div>
+                    )}
                 </div>
 
                 {/* Center: Device Switcher - Mac Dock Style */}
@@ -84,9 +102,10 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
                     </div>
                 </div>
 
+                {/* Right: Open Button */}
                 <div className="flex justify-end md:flex-1">
                     <Link
-                        href={`/styles/${effectiveStyleId}`}
+                        href={shouldUsePro ? `/styles/${effectiveStyleId}/pro` : `/styles/${effectiveStyleId}`}
                         className="hidden md:flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-white hover:bg-gray-100 text-black text-xs md:text-sm font-medium rounded-lg transition-colors flex-shrink-0"
                     >
                         <Maximize2 className="w-3 h-3 md:w-4 md:h-4" />
@@ -151,7 +170,7 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
 
             <div className="lg:hidden mt-4">
                 <Link
-                    href={`/styles/${effectiveStyleId}`}
+                    href={shouldUsePro ? `/styles/${effectiveStyleId}/pro` : `/styles/${effectiveStyleId}`}
                     className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-white hover:bg-gray-100 text-black text-sm font-medium rounded-lg transition-colors"
                 >
                     <Maximize2 className="w-4 h-4" />

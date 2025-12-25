@@ -13,7 +13,8 @@
     "buyMeACoffee": "贊助咖啡",
     "currentStyle": "當前風格",
     "designStyles": "設計風格庫",
-    "stylesAvailable": "共有 {{count}} 種風格"
+    "stylesAvailable": "共有 {{count}} 種風格",
+    "proStylesAvailable": "{{count}} 個進階風格預覽"
   },
   "styles": {
     "S01": {
@@ -497,12 +498,17 @@
     "freeFeature3": "即時 UI 預覽",
     "proFeature1": "100 種進階視覺風格",
     "proFeature2": "獨家風格持續更新",
-    "proFeature3": "優先支援與新功能"
+    "proFeature3": "優先支援與新功能",
+    "proStyleLocked": "此為進階視覺風格，升級 Pro 即可解鎖完整指示詞",
+    "proPreviewTitle": "Pro 版本預覽",
+    "proPreviewLocked": "這是 Pro 版本的指示詞預覽。升級 Pro 即可解鎖完整內容。"
   },
   "preview": {
     "previewInfo": "預覽僅供參考，實際結果可能因實作方式而異",
     "open": "開啟",
-    "styleNotFound": "找不到該風格的渲染組件"
+    "styleNotFound": "找不到該風格的渲染組件",
+    "freeStyles": "免費風格 (S01-S50)",
+    "proStyles": "進階風格 (S51-S100)"
   },
   "landing": {
     "nav": {

@@ -11,6 +11,19 @@ import { S07Synthwave } from './S07Synthwave';
 import { S08Retro70s } from './S08Retro70s';
 import { S09Memphis } from './S09Memphis';
 import { S10LuxuryEditorial } from './S10LuxuryEditorial';
+
+// Import Pro components (S01-S10)
+import { S01TechMinimalPro } from './pro/S01TechMinimalPro';
+import { S02MinimalistMonochromePro } from './pro/S02MinimalistMonochromePro';
+import { S03MondrianPro } from './pro/S03MondrianPro';
+import { S04SwissPro } from './pro/S04SwissPro';
+import { S05BrutalistPro } from './pro/S05BrutalistPro';
+import { S06CyberpunkPro } from './pro/S06CyberpunkPro';
+import { S07OrganicPro } from './pro/S07OrganicPro';
+import { S08GradientPro } from './pro/S08GradientPro';
+import { S09NeumorphismPro } from './pro/S09NeumorphismPro';
+import { S10LuxuryEditorialPro } from './pro/S10LuxuryEditorialPro';
+
 import { S11JapaneseMinimal } from './S11JapaneseMinimal';
 import { S12NatureOrganic } from './S12NatureOrganic';
 import { S13Material } from './S13Material';
@@ -305,4 +318,18 @@ export const styleComponents: Record<string, React.FC<{ deviceMode?: 'desktop' |
   S98: S98AcrylicFluid,
   S99: S99MaterialYou,
   S100: S100TheUltimate,
+};
+
+// Pro components mapping (S01-S10 only)
+export const styleComponentsPro: Record<string, React.FC<{ deviceMode?: 'desktop' | 'tablet' | 'mobile' }>> = {
+  S01: S01TechMinimalPro,
+  S02: S02MinimalistMonochromePro,
+  S03: S03MondrianPro,
+  S04: S04SwissPro,
+  S05: S05BrutalistPro,
+  S06: S06CyberpunkPro,
+  S07: S07OrganicPro,
+  S08: S08GradientPro,
+  S09: S09NeumorphismPro,
+  S10: S10LuxuryEditorialPro,
 };

@@ -16,6 +16,8 @@ import {
   isUseValidForIndustry,
   getSupabaseScore,
 } from '../data/blocks';
+import { getStyleTier, hasProVersion } from '../data/styles';
+import { useLayoutContext } from './MainLayout';
 import { Toast } from './Toast';
 
 // Backend block IDs that should have their own tabs
@@ -54,6 +56,7 @@ interface PromptBuilderProps {
 
 export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', initialStyleId, onStyleChange }) => {
   const { t } = useTranslation();
+  const { previewTier } = useLayoutContext();
   const blockLabels = getBlockLabels(t);
   const selectedStyle = initialStyleId || 'S01';
 
@@ -866,23 +869,54 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                     <Eye className="w-3.5 h-3.5 md:w-4 md:h-4 text-white" />
                   </div>
                   <h2 className="text-lg md:text-xl font-bold text-white">{t('promptBuilder.generatedPrompt')}</h2>
+                  {/* Pro Mode Badge - show when viewing Pro version */}
+                  {previewTier === 'pro' && hasProVersion(params.styleId) && (
+                    <div className="flex items-center gap-1.5 px-2.5 py-1 bg-gradient-to-r from-purple-600/30 to-pink-600/30 border border-purple-500/40 rounded-full">
+                      <Sparkles className="w-3 h-3 text-purple-400" />
+                      <span className="text-xs font-medium text-purple-300">Pro 預覽</span>
+                    </div>
+                  )}
                 </div>
                 {/* Action buttons */}
                 <div className="flex gap-2">
-                  <button
-                    onClick={handleCopy}
-                    className="group relative inline-flex items-center gap-2 px-4 py-2 bg-[#4285F4] border-b-3 border-[#2b65c9] text-white rounded-lg transition-all duration-100 hover:bg-[#5294ff] active:border-b-0 active:translate-y-0.5"
-                  >
-                    <Copy className="w-4 h-4" />
-                    <span className="font-bold text-sm">{t('promptBuilder.copyPrompt')}</span>
-                  </button>
-                  <button
-                    onClick={handleDownload}
-                    className="group relative inline-flex items-center gap-2 px-4 py-2 bg-[#0F9D58] border-b-3 border-[#0b7541] text-white rounded-lg transition-all duration-100 hover:bg-[#16b568] active:border-b-0 active:translate-y-0.5"
-                  >
-                    <Download className="w-4 h-4" />
-                    <span className="font-bold text-sm">{t('promptBuilder.downloadMD')}</span>
-                  </button>
+                  {/* Show locked state when in Pro preview mode for styles with Pro version */}
+                  {previewTier === 'pro' && hasProVersion(params.styleId) ? (
+                    <>
+                      <button
+                        onClick={() => setShowProModal(true)}
+                        className="group relative inline-flex items-center gap-2 px-4 py-2 bg-gray-600 border-b-3 border-gray-700 text-white/60 rounded-lg cursor-not-allowed"
+                        title={t('promptBuilder.upgradeRequired')}
+                      >
+                        <Lock className="w-4 h-4" />
+                        <span className="font-bold text-sm">{t('promptBuilder.copyPrompt')}</span>
+                      </button>
+                      <button
+                        onClick={() => setShowProModal(true)}
+                        className="group relative inline-flex items-center gap-2 px-4 py-2 bg-gray-600 border-b-3 border-gray-700 text-white/60 rounded-lg cursor-not-allowed"
+                        title={t('promptBuilder.upgradeRequired')}
+                      >
+                        <Lock className="w-4 h-4" />
+                        <span className="font-bold text-sm">{t('promptBuilder.downloadMD')}</span>
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        onClick={handleCopy}
+                        className="group relative inline-flex items-center gap-2 px-4 py-2 bg-[#4285F4] border-b-3 border-[#2b65c9] text-white rounded-lg transition-all duration-100 hover:bg-[#5294ff] active:border-b-0 active:translate-y-0.5"
+                      >
+                        <Copy className="w-4 h-4" />
+                        <span className="font-bold text-sm">{t('promptBuilder.copyPrompt')}</span>
+                      </button>
+                      <button
+                        onClick={handleDownload}
+                        className="group relative inline-flex items-center gap-2 px-4 py-2 bg-[#0F9D58] border-b-3 border-[#0b7541] text-white rounded-lg transition-all duration-100 hover:bg-[#16b568] active:border-b-0 active:translate-y-0.5"
+                      >
+                        <Download className="w-4 h-4" />
+                        <span className="font-bold text-sm">{t('promptBuilder.downloadMD')}</span>
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
@@ -920,10 +954,37 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
             <div className="p-4 md:p-6">
               {activePromptType === 'frontend' ? (
                 // Frontend prompt
-                <div className="bg-[#111111] rounded-lg p-4 md:p-6 border-2 border-gray-800 shadow-inner">
-                  <pre className="whitespace-pre-wrap text-xs md:text-sm font-mono text-gray-300 max-h-80 md:max-h-96 overflow-y-auto leading-relaxed">
-                    {generatedPrompt}
-                  </pre>
+                <div className="relative bg-[#111111] rounded-lg p-4 md:p-6 border-2 border-gray-800 shadow-inner">
+                  {/* Show blurred content for Pro preview mode on styles with Pro version */}
+                  {previewTier === 'pro' && hasProVersion(params.styleId) ? (
+                    <>
+                      {/* Blurred preview */}
+                      <pre className="whitespace-pre-wrap text-xs md:text-sm font-mono text-gray-300 max-h-80 md:max-h-96 overflow-y-auto leading-relaxed blur-sm select-none pointer-events-none">
+                        {generatedPrompt.slice(0, 500)}...
+                      </pre>
+                      {/* Upgrade overlay */}
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/70 backdrop-blur-sm rounded-lg">
+                        <div className="text-center p-6">
+                          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-purple-600/30 to-pink-600/30 flex items-center justify-center">
+                            <Lock className="w-8 h-8 text-purple-400" />
+                          </div>
+                          <h3 className="text-xl font-bold text-white mb-2">{t('promptBuilder.proPreviewTitle') || 'Pro 版本預覽'}</h3>
+                          <p className="text-gray-400 text-sm mb-6 max-w-xs">{t('promptBuilder.proPreviewLocked') || '這是 Pro 版本的指示詞預覽。升級 Pro 即可解鎖完整內容。'}</p>
+                          <button
+                            onClick={() => setShowProModal(true)}
+                            className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-bold hover:from-purple-500 hover:to-pink-500 transition-all flex items-center gap-2 mx-auto"
+                          >
+                            <Sparkles className="w-4 h-4" />
+                            {t('promptBuilder.upgradeTitle')}
+                          </button>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <pre className="whitespace-pre-wrap text-xs md:text-sm font-mono text-gray-300 max-h-80 md:max-h-96 overflow-y-auto leading-relaxed">
+                      {generatedPrompt}
+                    </pre>
+                  )}
                 </div>
               ) : (
                 // Backend prompt

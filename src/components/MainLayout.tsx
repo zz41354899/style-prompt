@@ -3,9 +3,9 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { X, Menu, Wand2, Eye, Coffee, Home } from 'lucide-react';
+import { X, Menu, Wand2, Eye, Coffee, Home, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { styles } from '@/data/styles';
+import { styles, getStyleTier, hasProVersion } from '@/data/styles';
 import { LanguageSwitcher } from './LanguageSwitcher';
 
 // 主題顏色映射
@@ -113,11 +113,14 @@ const themeColors: Record<string, string> = {
 };
 
 type DeviceMode = 'desktop' | 'tablet' | 'mobile';
+type PreviewTier = 'free' | 'pro';
 
 interface LayoutContextType {
   deviceMode: DeviceMode;
   setDeviceMode: (mode: DeviceMode) => void;
   selectedStyle: string;
+  previewTier: PreviewTier;
+  setPreviewTier: (tier: PreviewTier) => void;
 }
 
 const LayoutContext = createContext<LayoutContextType | null>(null);
@@ -150,10 +153,19 @@ export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }
   const { t } = useTranslation();
   const [deviceMode, setDeviceMode] = useState<DeviceMode>('desktop');
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [previewTier, setPreviewTier] = useState<PreviewTier>('free');
 
   const selectedStyle = extractStyleId(pathname);
   const currentStyle = styles.find(s => s.id === selectedStyle);
   const isBuilderPage = pathname.includes('/builder');
+
+  // Update previewTier when selectedStyle changes
+  useEffect(() => {
+    // Only switch to free if the current tier is pro but the new style doesn't support it
+    if (previewTier === 'pro' && !hasProVersion(selectedStyle)) {
+      setPreviewTier('free');
+    }
+  }, [selectedStyle]);
 
   useEffect(() => {
     const updateDeviceMode = () => {
@@ -187,7 +199,7 @@ export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }
   };
 
   return (
-    <LayoutContext.Provider value={{ deviceMode, setDeviceMode, selectedStyle }}>
+    <LayoutContext.Provider value={{ deviceMode, setDeviceMode, selectedStyle, previewTier, setPreviewTier }}>
       <div className="h-screen bg-[#0a0a0a] flex flex-col pt-6">
         {/* Header */}
         <header className="flex-shrink-0 h-12 md:h-14 border-b border-white/10 bg-[#0a0a0a] flex items-center justify-between px-2 md:px-4 lg:px-6 pb-6">
@@ -262,32 +274,74 @@ export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }
           <aside className="hidden lg:flex flex-col w-72 border-r border-white/10 bg-[#0a0a0a]">
             <div className="p-4 border-b border-white/10">
               <h2 className="text-sm font-medium text-white/80">{t('layout.designStyles')}</h2>
-              <p className="text-xs text-white/40 mt-1">{t('layout.stylesAvailable', { count: styles.length })}</p>
-            </div>
-            <div className="flex-1 overflow-y-auto">
-              {styles.map((style) => (
+              <p className="text-xs text-white/40 mt-1">
+                {previewTier === 'free'
+                  ? t('layout.stylesAvailable', { count: styles.length })
+                  : t('layout.proStylesAvailable', { count: 10 }) || `${10} 個進階風格預覽`
+                }
+              </p>
+
+              {/* Free/Pro Mode Switcher */}
+              <div className="flex items-center gap-1 mt-3 p-1 bg-white/5 rounded-xl">
                 <button
-                  key={style.id}
-                  onClick={() => handleStyleSelect(style.id)}
-                  className={`w-full text-left px-4 py-3 border-b border-white/5 transition-all ${selectedStyle === style.id
-                    ? 'bg-purple-500/10 border-l-2 border-l-purple-500'
-                    : 'hover:bg-white/5 border-l-2 border-l-transparent'
+                  onClick={() => setPreviewTier('free')}
+                  className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${previewTier === 'free'
+                    ? 'bg-white/15 text-white'
+                    : 'text-white/50 hover:text-white hover:bg-white/5'
                     }`}
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="text-xs font-mono text-white/30">{style.id}</span>
-                    <div className="flex-1 min-w-0">
-                      <div className={`text-sm font-medium truncate ${selectedStyle === style.id ? 'text-purple-300' : 'text-white/80'
-                        }`}>
-                        {t(`styles.${style.id}.name`)}
-                      </div>
-                      <div className="text-xs text-white/40 truncate mt-0.5">
-                        {t(`styles.${style.id}.description`)}
+                  Free
+                  <span className="text-white/30 text-[10px]">(100)</span>
+                </button>
+                <button
+                  onClick={() => setPreviewTier('pro')}
+                  className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${previewTier === 'pro'
+                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white'
+                    : 'text-white/50 hover:text-white hover:bg-white/10'
+                    }`}
+                >
+                  <Sparkles className="w-3 h-3" />
+                  Pro
+                  <span className="text-white/50 text-[10px]">(1-10)</span>
+                </button>
+              </div>
+            </div>
+            <div className="flex-1 overflow-y-auto">
+              {styles
+                .filter(style => previewTier === 'free' ? true : hasProVersion(style.id))
+                .map((style) => (
+                  <button
+                    key={style.id}
+                    onClick={() => handleStyleSelect(style.id)}
+                    className={`w-full text-left px-4 py-3 border-b border-white/5 transition-all ${selectedStyle === style.id
+                      ? 'bg-purple-500/10 border-l-2 border-l-purple-500'
+                      : 'hover:bg-white/5 border-l-2 border-l-transparent'
+                      }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="text-xs font-mono text-white/30">{style.id}</span>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <span className={`text-sm font-medium truncate ${selectedStyle === style.id ? 'text-purple-300' : 'text-white/80'
+                            }`}>
+                            {t(`styles.${style.id}.name`)}
+                          </span>
+                          {previewTier === 'pro' && (
+                            <span className="px-1.5 py-0.5 bg-gradient-to-r from-purple-600/30 to-pink-600/30 border border-purple-500/40 rounded text-[10px] text-purple-300 font-medium">
+                              Pro
+                            </span>
+                          )}
+                          {previewTier === 'free' && hasProVersion(style.id) && (
+                            <Sparkles className="w-3 h-3 text-purple-400 flex-shrink-0" />
+                          )}
+                        </div>
+                        <div className="text-xs text-white/40 truncate mt-0.5">
+                          {t(`styles.${style.id}.description`)}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </button>
-              ))}
+                  </button>
+                ))}
             </div>
           </aside>
 
@@ -305,33 +359,73 @@ export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }
                     <X className="w-5 h-5" />
                   </button>
                 </div>
-                <div className="flex-1 overflow-y-auto">
-                  {styles.map((style) => (
+
+                {/* Free/Pro Mode Switcher - Mobile */}
+                <div className="p-4 border-b border-white/10">
+                  <div className="flex items-center gap-1 p-1 bg-white/5 rounded-xl">
                     <button
-                      key={style.id}
-                      onClick={() => {
-                        handleStyleSelect(style.id);
-                        setSidebarOpen(false);
-                      }}
-                      className={`w-full text-left px-4 py-3 border-b border-white/5 transition-all ${selectedStyle === style.id
-                        ? 'bg-purple-500/10 border-l-2 border-l-purple-500'
-                        : 'hover:bg-white/5 border-l-2 border-l-transparent'
+                      onClick={() => setPreviewTier('free')}
+                      className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${previewTier === 'free'
+                        ? 'bg-white/15 text-white'
+                        : 'text-white/50 hover:text-white hover:bg-white/5'
                         }`}
                     >
-                      <div className="flex items-center gap-3">
-                        <span className="text-xs font-mono text-white/30">{style.id}</span>
-                        <div className="flex-1 min-w-0">
-                          <div className={`text-sm font-medium truncate ${selectedStyle === style.id ? 'text-purple-300' : 'text-white/80'
-                            }`}>
-                            {t(`styles.${style.id}.name`)}
-                          </div>
-                          <div className="text-xs text-white/40 truncate mt-0.5">
-                            {t(`styles.${style.id}.description`)}
+                      Free
+                      <span className="text-white/30 text-[10px]">(100)</span>
+                    </button>
+                    <button
+                      onClick={() => setPreviewTier('pro')}
+                      className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${previewTier === 'pro'
+                        ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white'
+                        : 'text-white/50 hover:text-white hover:bg-white/10'
+                        }`}
+                    >
+                      <Sparkles className="w-3 h-3" />
+                      Pro
+                      <span className="text-white/50 text-[10px]">(1-10)</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div className="flex-1 overflow-y-auto">
+                  {styles
+                    .filter(style => previewTier === 'free' ? true : hasProVersion(style.id))
+                    .map((style) => (
+                      <button
+                        key={style.id}
+                        onClick={() => {
+                          handleStyleSelect(style.id);
+                          setSidebarOpen(false);
+                        }}
+                        className={`w-full text-left px-4 py-3 border-b border-white/5 transition-all ${selectedStyle === style.id
+                          ? 'bg-purple-500/10 border-l-2 border-l-purple-500'
+                          : 'hover:bg-white/5 border-l-2 border-l-transparent'
+                          }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className="text-xs font-mono text-white/30">{style.id}</span>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2">
+                              <span className={`text-sm font-medium truncate ${selectedStyle === style.id ? 'text-purple-300' : 'text-white/80'
+                                }`}>
+                                {t(`styles.${style.id}.name`)}
+                              </span>
+                              {previewTier === 'pro' && (
+                                <span className="px-1.5 py-0.5 bg-gradient-to-r from-purple-600/30 to-pink-600/30 border border-purple-500/40 rounded text-[10px] text-purple-300 font-medium">
+                                  Pro
+                                </span>
+                              )}
+                              {previewTier === 'free' && hasProVersion(style.id) && (
+                                <Sparkles className="w-3 h-3 text-purple-400 flex-shrink-0" />
+                              )}
+                            </div>
+                            <div className="text-xs text-white/40 truncate mt-0.5">
+                              {t(`styles.${style.id}.description`)}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </button>
-                  ))}
+                      </button>
+                    ))}
                 </div>
               </div>
             </div>

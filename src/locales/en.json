@@ -13,7 +13,8 @@
     "buyMeACoffee": "Buy Me a Coffee",
     "currentStyle": "Current Style",
     "designStyles": "Design Styles",
-    "stylesAvailable": "{{count}} Styles Available"
+    "stylesAvailable": "{{count}} Styles Available",
+    "proStylesAvailable": "{{count}} Pro Styles Preview"
   },
   "styles": {
     "S01": {
@@ -485,12 +486,17 @@
     "freeFeature3": "Live UI Preview",
     "proFeature1": "100 Advanced Visual Styles",
     "proFeature2": "Exclusive Style Updates",
-    "proFeature3": "Priority Support & New Features"
+    "proFeature3": "Priority Support & New Features",
+    "proStyleLocked": "This is an advanced visual style. Upgrade to Pro to unlock the full prompt.",
+    "proPreviewTitle": "Pro Version Preview",
+    "proPreviewLocked": "This is a Pro version prompt preview. Upgrade to Pro to unlock the full content."
   },
   "preview": {
     "previewInfo": "Previews are for reference only; actual results may vary depending on implementation.",
     "open": "Open",
-    "styleNotFound": "Rendering component not found for this style"
+    "styleNotFound": "Rendering component not found for this style",
+    "freeStyles": "Free Styles (S01-S50)",
+    "proStyles": "Pro Styles (S51-S100)"
   },
   "landing": {
     "nav": {

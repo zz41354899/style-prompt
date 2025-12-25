@@ -3,7 +3,19 @@ export interface StyleData {
   name: string;
   description: string;
   prompt?: string;
+  tier?: 'free' | 'pro';
 }
+
+// Helper to check if a style has Pro version available (S01-S10 have Pro versions)
+export const hasProVersion = (id: string): boolean => {
+  const num = parseInt(id.replace('S', ''), 10);
+  return num >= 1 && num <= 10;
+};
+
+// For backward compatibility - returns 'free' for all styles in normal mode
+export const getStyleTier = (id: string): 'free' | 'pro' => {
+  return 'free'; // All styles are free by default
+};
 
 export const styles: StyleData[] = [
   {
