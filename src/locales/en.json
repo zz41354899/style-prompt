@@ -730,49 +730,49 @@
     },
     "privacy": {
       "title": "Privacy Policy",
-      "subtitle": "We value your data security.",
+      "subtitle": "We value your privacy. StylePrompts is a purely frontend visual style library.",
       "collection": {
         "title": "Data Collection",
-        "desc": "Information collected only on active provision."
+        "desc": "StylePrompts does not collect any personal data. All operations are performed locally in your browser. We do not track your usage behavior or store your generated prompts."
       },
       "ownership": {
-        "title": "Content Ownership",
-        "desc": "All prompts you generate belong to you."
+        "title": "Prompt Ownership",
+        "desc": "All prompts you generate and copy from this site are entirely yours. You can use them freely in any AI tool without attribution."
       },
       "security": {
         "title": "Data Security",
-        "desc": "Industry-leading encryption used."
+        "desc": "Since we do not transmit or store any user data to servers, there is no risk of data breach. Your browser preferences are stored only in LocalStorage."
       },
       "cookies": {
-        "title": "Cookies",
-        "desc": "Essential cookies for site functionality."
+        "title": "Cookie Usage",
+        "desc": "This site only uses essential technical cookies for basic functionality (such as language preferences). We do not use any tracking or advertising cookies."
       },
-      "lastUpdate": "Last updated: December 24, 2025"
+      "lastUpdate": "Last updated: December 25, 2025"
     },
     "terms": {
       "title": "Terms of Use",
-      "subtitle": "Welcome to StylePrompts.",
+      "subtitle": "Welcome to StylePrompts visual style library. By using this site, you agree to the following terms.",
       "acceptance": {
-        "title": "Acceptance",
-        "desc": "Bound by terms on access."
+        "title": "Service Nature",
+        "desc": "StylePrompts is a free visual style prompt library, providing pre-designed UI style prompts for you to copy and use. This site does not provide AI generation services, only prompt content."
       },
       "account": {
-        "title": "Account Responsibility",
-        "desc": "You are responsible for your account security."
+        "title": "License Scope",
+        "desc": "The visual style prompts provided on this site are freely licensed. You may use the generated prompts for personal or commercial projects without payment or attribution. However, style preview images are for reference only and not licensed for redistribution."
       },
       "usage": {
-        "title": "Legal Use",
-        "desc": "Agreement to not use for illegal purposes."
+        "title": "Fair Use",
+        "desc": "You agree not to: (1) scrape or auto-download site content in bulk; (2) repackage site content as a competing service; (3) remove or alter copyright notices on this site."
       },
       "changes": {
-        "title": "Modifications",
-        "desc": "Right to modify or discontinue services."
+        "title": "Content Updates",
+        "desc": "We continuously update the visual style library, add new styles, and optimize prompt content. Some base styles are permanently free, while advanced styles may require upgrading to Pro."
       },
       "disclaimer": {
         "title": "Disclaimer",
-        "desc": "Provided 'as is' without guarantee."
+        "desc": "Prompts on this site are suggestions only. The final results of AI generation depend on your AI tool and model. We make no guarantees regarding the quality or suitability of AI-generated content."
       },
-      "lastUpdate": "Last updated: December 24, 2025"
+      "lastUpdate": "Last updated: December 25, 2025"
     },
     "coffee": {
       "title": "Buy Me a Coffee",
