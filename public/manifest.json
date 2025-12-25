@@ -1,0 +1,16 @@
+{
+    "name": "StylePrompts - AI 視覺風格提示詞資源庫",
+    "short_name": "StylePrompts",
+    "description": "100+ 種精選視覺風格，一鍵複製高品質提示詞，加速您的 UI 開發流程。",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#030303",
+    "theme_color": "#030303",
+    "icons": [
+        {
+            "src": "/favicon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml"
+        }
+    ]
+}
