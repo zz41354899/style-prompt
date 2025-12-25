@@ -851,16 +851,6 @@ export const PromptBuilder: React.FC<PromptBuilderProps> = ({ className = '', in
                     );
                   })}
                 </div>
-
-                {/* Animation indicator */}
-                <div className="mt-4 flex items-center justify-center gap-2 text-gray-500 text-sm">
-                  <div className="flex gap-1">
-                    <div className="w-2 h-2 bg-[#4285F4] rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                    <div className="w-2 h-2 bg-[#0F9D58] rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                    <div className="w-2 h-2 bg-[#8E24AA] rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
-                  </div>
-                  <span>{t('promptBuilder.assembling')}</span>
-                </div>
               </div>
             </div>
           </div>
