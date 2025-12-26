@@ -209,23 +209,23 @@ export const LandingPage: React.FC = () => {
             </nav>
 
             {/* 2. Hero Section */}
-            <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+            <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                         <motion.div
                             variants={staggerContainer}
                             initial="hidden"
                             animate="visible"
                             className="text-left"
                         >
-                            <motion.div variants={fadeIn} className="inline-flex items-center px-3 py-1 bg-purple-500/10 border border-purple-500/20 rounded-full mb-8">
+                            <motion.div variants={fadeIn} className="inline-flex items-center px-3 py-1 bg-purple-500/10 border border-purple-500/20 rounded-full mb-6 md:mb-8">
                                 <Sparkles className="w-3.5 h-3.5 mr-2 text-purple-400" />
                                 <span className="text-xs font-medium text-purple-300 tracking-wide uppercase">{t('landing.hero.badge')}</span>
                             </motion.div>
-                            <motion.h1 variants={fadeIn} className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight mb-8 leading-[1.1] bg-gradient-to-b from-white to-white/70 bg-clip-text text-transparent">
+                            <motion.h1 variants={fadeIn} className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight mb-6 md:mb-8 leading-[1.2] md:leading-[1.1] bg-gradient-to-b from-white to-white/70 bg-clip-text text-transparent">
                                 {t('landing.hero.title')}
                             </motion.h1>
-                            <motion.p variants={fadeIn} className="text-lg text-white/40 mb-12 max-w-xl leading-relaxed font-light">
+                            <motion.p variants={fadeIn} className="text-base md:text-lg text-white/40 mb-10 md:mb-12 max-w-xl leading-relaxed font-light">
                                 {t('landing.hero.subtitle')}
                             </motion.p>
                             <motion.div variants={fadeIn} className="flex flex-col sm:flex-row items-center gap-4">
@@ -248,7 +248,7 @@ export const LandingPage: React.FC = () => {
                             transition={{ duration: 0.8, delay: 0.4 }}
                             className="relative"
                         >
-                            <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-2xl bg-[#0c0c0c] group aspect-[16/10] font-mono flex flex-col ring-1 ring-white/5">
+                            <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-2xl bg-[#0c0c0c] group aspect-[16/12] md:aspect-[16/10] min-h-[400px] md:min-h-0 font-mono flex flex-col ring-1 ring-white/5">
                                 {/* Editor Header */}
                                 <div className="h-10 bg-[#151515] border-b border-white/10 flex items-center px-4 justify-between">
                                     <div className="flex items-center gap-2">

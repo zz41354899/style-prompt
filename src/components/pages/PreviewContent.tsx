@@ -48,9 +48,9 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
     }
 
     return (
-        <main className="flex-1 bg-[#111] overflow-hidden flex flex-col p-2 md:p-4 lg:p-8">
+        <main className="flex-1 bg-[#111] overflow-y-auto flex flex-col p-2 md:p-4 lg:p-8 pb-48 md:pb-8">
             {/* Header Content: Info, Device Switcher, and Open Button */}
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-3 md:mb-6">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-3 md:mb-6 flex-shrink-0">
                 {/* Left: Info Text with Tier Badge */}
                 <div className="flex items-center gap-3 md:flex-1">
                     <div className="flex items-center gap-2 text-white/40 text-xs md:text-sm">
@@ -126,12 +126,12 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
             </div>
 
             {/* Device Frame */}
-            <div className="flex-1 min-h-0 overflow-hidden">
-                <div className="relative w-full h-full min-h-0">
+            <div className="flex-1 min-h-[500px] mb-4 md:mb-0">
+                <div className="relative w-full h-full min-h-[500px]">
                     {/* Mobile Frame */}
                     <div
                         className={`
-              absolute inset-0 transition-all duration-500 ease-in-out flex items-center justify-center
+              absolute inset-0 transition-all duration-500 ease-in-out flex items-center justify-center py-4 md:py-0
               ${deviceMode === 'mobile' ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}
             `}
                     >
@@ -141,7 +141,8 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
                                 width: '375px',
                                 height: '812px',
                                 maxWidth: '100%',
-                                maxHeight: '100%'
+                                maxHeight: '100%',
+                                minHeight: '500px'
                             }}
                         >
                             <div className="flex-1 bg-white overflow-y-auto" style={{ transform: 'translateZ(0)' }}>
@@ -159,7 +160,7 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
                     >
                         <div
                             className="h-full bg-white rounded-lg shadow-2xl overflow-y-auto"
-                            style={{ width: '768px', maxWidth: '100%', transform: 'translateZ(0)' }}
+                            style={{ width: '768px', maxWidth: '100%', transform: 'translateZ(0)', minHeight: '600px' }}
                         >
                             <SelectedComponent deviceMode={deviceMode} />
                         </div>
@@ -179,20 +180,21 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
                 </div>
             </div>
 
-            <div className="lg:hidden mt-4 flex flex-col gap-2">
+            {/* Mobile Sticky Actions */}
+            <div className="lg:hidden fixed bottom-16 left-0 right-0 p-4 bg-[#0a0a0a]/80 backdrop-blur-xl border-t border-white/10 z-30 flex flex-col gap-2">
                 <button
                     onClick={() => (previewTier === 'pro' && !isNewYearPromoActive()) ? setIsProModalOpen(true) : setIsPromptModalOpen(true)}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium rounded-lg transition-colors"
+                    className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-purple-600 hover:bg-purple-700 text-white text-sm font-bold rounded-xl transition-all shadow-lg shadow-purple-600/20 active:scale-95"
                 >
                     <Copy className="w-4 h-4" />
-                    {t('preview.copyPrompt') || 'Copy Prompt'}
+                    {t('preview.copyPrompt') || '複製提示詞'}
                 </button>
                 <Link
                     href={shouldUsePro ? `/styles/${effectiveStyleId}/pro` : `/styles/${effectiveStyleId}`}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-white hover:bg-gray-100 text-black text-sm font-medium rounded-lg transition-colors"
+                    className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-white hover:bg-gray-100 text-black text-sm font-bold rounded-xl transition-all active:scale-95"
                 >
                     <Maximize2 className="w-4 h-4" />
-                    {t('preview.open')}
+                    {t('preview.open') || '開啟'}
                 </Link>
             </div>
 
