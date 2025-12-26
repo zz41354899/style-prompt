@@ -36,7 +36,7 @@ export const S45Voxel = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | '
                         <div className="w-8 h-8 bg-[#2ecc71] border-2 border-black flex items-center justify-center">
                             <Box size={20} className="text-black" />
                         </div>
-                        <span className={`font-pixel ${isMobile ? 'text-xs' : 'text-sm'} text-white drop-shadow-md`}>VOXEL.CRAFT</span>
+                        <span className={`font-pixel ${isMobile ? 'text-xs' : 'text-sm'} text-black drop-shadow-md`}>VOXEL.CRAFT</span>
                     </div>
 
                     {/* Inventory/Menu */}
@@ -46,7 +46,7 @@ export const S45Voxel = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | '
                                 {i === 1 && <Pickaxe size={20} className="text-black" />}
                                 {i === 2 && <Shovel size={20} className="text-black" />}
                                 {i === 3 && <Hammer size={20} className="text-black" />}
-                                <span className="absolute bottom-0 right-1 font-console text-xs text-white drop-shadow-md pointer-events-none mb-4 group-hover:block hidden">Item {i}</span>
+                                <span className="absolute bottom-0 right-1 font-console text-xs text-black drop-shadow-sm pointer-events-none mb-4 group-hover:block hidden">Item {i}</span>
                                 <span className="absolute bottom-[-2px] right-0 font-pixel text-[8px] text-white drop-shadow-[1px_1px_0_#000]">{i}</span>
                             </div>
                         ))}
@@ -70,7 +70,7 @@ export const S45Voxel = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | '
                     <div className="absolute inset-0 bg-black/50" onClick={() => setMenuOpen(false)} />
                     <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
                         <div className="flex flex-col gap-6">
-                            
+
                         </div>
                     </div>
                 </div>
@@ -93,8 +93,8 @@ export const S45Voxel = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | '
                         <h1 className={`${isMobile ? 'text-4xl' : 'text-6xl'} font-pixel leading-tight mb-6 text-black drop-shadow-sm`}>
                             BUILD <br /> YOUR <br /> WORLD
                         </h1>
-                        <p className="font-console text-2xl mb-8 leading-tight bg-white/50 p-4 border-2 border-black">
-                            &gt; Construct digital experiences block by block. <span className="animate-pulse">_</span>
+                        <p className="font-console text-2xl mb-8 leading-tight bg-white/50 p-4 border-2 border-black text-black">
+                            &gt; Construct digital experiences block by block. <span className="animate-pulse text-black">_</span>
                         </p>
 
                         <button className="w-full bg-[#3498db] text-white font-pixel text-sm py-4 border-4 border-black shadow-[4px_4px_0_#000] hover:translate-y-1 hover:shadow-none transition-all flex items-center justify-center gap-4 group">
@@ -136,8 +136,8 @@ export const S45Voxel = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | '
                                     <item.icon size={48} className="text-white drop-shadow-[4px_4px_0_#000]" />
                                 </div>
                                 <div className="p-6">
-                                    <h3 className="font-pixel text-sm mb-4">{item.title}</h3>
-                                    <p className="font-console text-xl leading-snug text-gray-600">
+                                    <h3 className="font-pixel text-sm mb-4 text-black">{item.title}</h3>
+                                    <p className="font-console text-xl leading-snug text-gray-800">
                                         {item.desc}
                                     </p>
                                 </div>
@@ -162,7 +162,7 @@ export const S45Voxel = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | '
                         <a href="#" className="hover:text-[#f1c40f] hover:underline decoration-2 underline-offset-4">[ Server ]</a>
                     </div>
 
-                    <div className="mt-12 opacity-50 text-sm">
+                    <div className="mt-12 text-white/70 text-sm">
                         © 2024 Voxel UI. Keep digging.
                     </div>
                 </div>

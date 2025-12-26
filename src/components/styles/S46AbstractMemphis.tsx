@@ -189,7 +189,7 @@ export const S46AbstractMemphis = ({ deviceMode }: { deviceMode?: 'desktop' | 't
             <footer className="py-20 px-4 text-center relative max-w-4xl mx-auto">
                 <div className="absolute top-1/2 left-0 w-full h-1 bg-black -z-10 transform -translate-y-1/2" />
                 <div className="bg-[#FFF0F5] inline-block px-8 relative z-10">
-                    <h2 className="text-5xl font-memphis mb-8">Let's Create</h2>
+                    <h2 className="text-5xl font-memphis mb-8 text-black">Let's Create</h2>
                     <div className="flex justify-center gap-6">
                         <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center text-white cursor-pointer hover:bg-yellow-400 hover:text-black transition-colors border-2 border-black">
                             <Star size={24} />
@@ -198,7 +198,7 @@ export const S46AbstractMemphis = ({ deviceMode }: { deviceMode?: 'desktop' | 't
                             <Shapes size={24} />
                         </div>
                     </div>
-                    <p className="font-clean font-bold mt-8 text-sm">© 1980s-Forever. Memphis Design.</p>
+                    <p className="font-clean font-bold mt-8 text-sm text-black">© 1980s-Forever. Memphis Design.</p>
                 </div>
             </footer>
         </div>
