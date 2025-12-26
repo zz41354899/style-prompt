@@ -16,17 +16,30 @@ export default function Step1Page() {
             subtitle={t('pages.workflowSteps.step1.subtitle')}
         >
             {/* Visual Demo */}
-            <div className="aspect-video bg-[#050505] rounded-3xl border border-white/10 mb-16 overflow-hidden relative">
-                <div className="absolute inset-0 flex flex-col justify-center items-center gap-8 p-16">
-                    {[...Array(5)].map((_, i) => (
-                        <div key={i} className="w-full h-0.5 bg-white/5 relative overflow-hidden">
-                            <motion.div
-                                animate={{ x: i % 2 === 0 ? ['-100%', '200%'] : ['200%', '-100%'] }}
-                                transition={{ duration: 2 + i * 0.3, repeat: Infinity, ease: 'linear', delay: i * 0.2 }}
-                                className={`absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent ${i === 0 ? 'via-purple-500' : i === 1 ? 'via-blue-500' : i === 2 ? 'via-pink-500' : i === 3 ? 'via-cyan-500' : 'via-green-500'} to-transparent`}
-                            />
+            <div className="aspect-video bg-[#050505] rounded-3xl border border-white/10 mb-16 overflow-hidden relative font-mono">
+                <div className="absolute inset-0 flex flex-col justify-center items-center p-8 sm:p-16">
+                    <div className="w-full max-w-2xl bg-[#151515] rounded-xl border border-white/10 overflow-hidden shadow-2xl">
+                        <div className="h-10 bg-[#202020] border-b border-white/5 flex items-center px-4 gap-2">
+                            <div className="w-3 h-3 rounded-full bg-red-500/50"></div>
+                            <div className="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+                            <div className="w-3 h-3 rounded-full bg-green-500/50"></div>
+                            <span className="ml-4 text-xs text-white/30">styles.json</span>
                         </div>
-                    ))}
+                        <div className="p-8 space-y-4 text-sm sm:text-base opacity-60">
+                            <div className="text-white/30">{"{ styles: ["}</div>
+                            <div className="pl-6 text-purple-300/50">{"{ id: 'S01', name: 'Tech Minimal' },"}</div>
+                            <div className="pl-6 text-white/20">{"{ id: 'S02', name: 'Monochrome' },"}</div>
+                            <motion.div
+                                animate={{ backgroundColor: ["rgba(168,85,247,0)", "rgba(168,85,247,0.2)", "rgba(168,85,247,0)"] }}
+                                transition={{ duration: 2, repeat: Infinity }}
+                                className="pl-6 text-white font-bold rounded -ml-2 p-1"
+                            >
+                                {"> { id: 'S03', name: 'Mondrian' }"}
+                            </motion.div>
+                            <div className="pl-6 text-white/20">{"{ id: 'S04', name: 'Swiss' },"}</div>
+                            <div className="text-white/30">{"] }"}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

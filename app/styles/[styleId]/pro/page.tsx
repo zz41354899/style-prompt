@@ -1,9 +1,10 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import { use, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
-import { ArrowLeft, Wand2, Sparkles } from 'lucide-react';
+import { ArrowLeft, Sparkles } from 'lucide-react';
 import { styles, hasProVersion } from '@/data/styles';
 import { styleComponentsPro } from '@/components/styles';
 
@@ -52,7 +53,12 @@ export default function FullProStylePage({
     }
 
     return (
-        <div className="min-h-screen bg-[#030303] relative">
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="min-h-screen bg-[#030303] relative"
+        >
             <SelectedComponent deviceMode={deviceMode} />
 
             {/* Floating Right Dock */}
@@ -69,15 +75,8 @@ export default function FullProStylePage({
                     >
                         <ArrowLeft className="w-6 h-6" />
                     </Link>
-                    <Link
-                        href={`/builder/${styleId}`}
-                        className="flex items-center justify-center w-12 h-12 rounded-xl text-white/50 hover:text-white hover:bg-white/10 transition-all duration-200"
-                        title={t('layout.promptBuilder')}
-                    >
-                        <Wand2 className="w-6 h-6" />
-                    </Link>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }

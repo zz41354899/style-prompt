@@ -16,37 +16,53 @@ export default function Step3Page() {
             subtitle={t('pages.workflowSteps.step3.subtitle')}
         >
             {/* Visual Demo */}
-            <div className="aspect-video bg-[#050505] rounded-3xl border border-white/10 mb-16 overflow-hidden relative">
-                <div className="absolute inset-0 flex flex-col justify-center items-center p-16">
-                    <div className="flex items-center gap-6 mb-8">
-                        <motion.div
-                            animate={{ scale: [1, 1.1, 1] }}
-                            transition={{ duration: 1.5, repeat: Infinity }}
-                            className="w-3 h-3 rounded-full bg-purple-500"
-                        />
-                        <div className="h-1 w-48 bg-white/10 rounded-full overflow-hidden">
-                            <motion.div
-                                animate={{ x: ['-100%', '100%'] }}
-                                transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
-                                className="w-1/2 h-full bg-purple-500/50"
-                            />
+            <div className="aspect-video bg-[#050505] rounded-3xl border border-white/10 mb-16 overflow-hidden relative font-mono">
+                <div className="absolute inset-0 flex flex-col justify-center items-center p-8 sm:p-16">
+                    <div className="w-full max-w-2xl bg-black rounded-xl border border-white/20 overflow-hidden shadow-2xl">
+                        <div className="h-8 bg-[#101010] border-b border-white/10 flex items-center px-4">
+                            <span className="text-xs text-white/20">terminal</span>
                         </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-8 w-full max-w-lg">
-                        <motion.div
-                            whileHover={{ scale: 1.05 }}
-                            className="aspect-square bg-purple-600/10 rounded-3xl border border-purple-500/20 flex flex-col items-center justify-center"
-                        >
-                            <Lock className="w-16 h-16 text-purple-600/60" />
-                            <span className="text-sm mt-4 text-purple-500/60 font-black uppercase tracking-widest">SECURE</span>
-                        </motion.div>
-                        <motion.div
-                            whileHover={{ scale: 1.05 }}
-                            className="aspect-square bg-blue-600/10 rounded-3xl border border-blue-500/20 flex flex-col items-center justify-center"
-                        >
-                            <Shield className="w-16 h-16 text-blue-600/60" />
-                            <span className="text-sm mt-4 text-blue-500/60 font-black uppercase tracking-widest">VERIFIED</span>
-                        </motion.div>
+                        <div className="p-8 font-mono text-sm sm:text-base space-y-4">
+                            <div className="flex gap-3">
+                                <span className="text-green-500">$</span>
+                                <span className="text-white">style-prompts copy --id=S01</span>
+                            </div>
+                            <div className="space-y-1">
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 0.5 }}
+                                    className="text-white/50"
+                                >
+                                    Fetching prompt template...
+                                </motion.div>
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 1.0 }}
+                                    className="text-white/50"
+                                >
+                                    Optimizing for SaaS...
+                                </motion.div>
+                                <motion.div
+                                    initial={{ opacity: 0, x: -10 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 1.5 }}
+                                    className="text-green-400 pt-2"
+                                >
+                                    ✔ Copied to clipboard successfully.
+                                </motion.div>
+                            </div>
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 2 }}
+                                className="flex gap-3 pt-2"
+                            >
+                                <span className="text-green-500">$</span>
+                                <div className="w-3 h-5 bg-white/50 animate-pulse"></div>
+                            </motion.div>
+                        </div>
                     </div>
                 </div>
             </div>

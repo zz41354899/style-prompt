@@ -16,30 +16,35 @@ export default function Step4Page() {
             subtitle={t('pages.workflowSteps.step4.subtitle')}
         >
             {/* Visual Demo */}
-            <div className="aspect-video bg-[#050505] rounded-3xl border border-white/10 mb-16 overflow-hidden relative p-12">
-                <div className="grid grid-cols-4 gap-4 h-full opacity-40">
-                    {[...Array(8)].map((_, i) => (
-                        <motion.div
-                            key={i}
-                            initial={{ y: 20, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ delay: i * 0.1 }}
-                            whileHover={{ y: -10, scale: 1.05 }}
-                            className="bg-white/5 rounded-2xl border border-white/10 p-4 flex flex-col gap-3"
-                        >
-                            <div className="h-2 w-full bg-white/10 rounded-full" />
-                            <div className="flex-1 bg-white/[0.02] rounded-xl flex items-center justify-center">
-                                <Layout className="w-8 h-8 text-white/10" />
+            <div className="aspect-video bg-[#050505] rounded-3xl border border-white/10 mb-16 overflow-hidden relative font-mono">
+                <div className="absolute inset-0 flex items-center justify-center p-12 sm:p-24">
+                    <div className="relative w-full h-full border-2 border-dashed border-white/10 rounded-xl p-4 flex gap-4 opacity-50 bg-[#101010]">
+                        {/* Mock Wireframe */}
+                        <div className="w-1/4 h-full bg-white/5 rounded-lg flex flex-col gap-2 p-2">
+                            <div className="h-8 w-full bg-white/10 rounded"></div>
+                            <div className="flex-1 w-full bg-white/5 rounded"></div>
+                        </div>
+                        <div className="flex-1 h-full bg-white/5 rounded-lg p-4 flex flex-col gap-4">
+                            <div className="h-20 w-full bg-white/10 rounded-lg"></div>
+                            <div className="grid grid-cols-2 gap-4 flex-1">
+                                <div className="bg-white/5 rounded-lg"></div>
+                                <div className="bg-white/5 rounded-lg"></div>
+                                <div className="bg-white/5 rounded-lg"></div>
+                                <div className="bg-white/5 rounded-lg"></div>
                             </div>
-                        </motion.div>
-                    ))}
+                        </div>
+
+                        {/* Scan Effect */}
+                        <motion.div
+                            animate={{ top: ['-20%', '120%'] }}
+                            transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+                            className="absolute left-0 right-0 h-20 bg-gradient-to-b from-purple-500/0 via-purple-500/20 to-purple-500/0 border-y border-purple-500/30 blur-[2px]"
+                        />
+                    </div>
+                    <div className="absolute bottom-12 right-12 px-4 py-2 bg-purple-600 text-white text-xs font-bold rounded shadow-lg">
+                        RENDERING PREVIEW
+                    </div>
                 </div>
-                <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    className="absolute bottom-12 left-1/2 -translate-x-1/2 px-12 py-5 bg-white text-black rounded-2xl font-black flex items-center gap-3 shadow-[0_20px_50px_rgba(255,255,255,0.1)]"
-                >
-                    <Plus className="w-6 h-6" /> Sync to Workspace
-                </motion.div>
             </div>
 
             {/* Features */}

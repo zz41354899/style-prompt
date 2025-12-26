@@ -1,0 +1,41 @@
+
+> style-prompt@0.0.0 build
+> next build
+
+   ??Next.js 16.0.10 (Turbopack)
+
+   Creating an optimized production build ...
+
+> Build error occurred
+Error: Turbopack build failed with 1 errors:
+./src/data/blocks/backendArchitecture.ts:2:1
+Module not found: Can't resolve './industryBackend'
+  1 | import type { PromptBlock } from './types';
+> 2 | import { industryBackendConfigs } from './industryBackend';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 |
+  4 | export const backendArchitectureBlock: PromptBlock = {
+  5 |     id: 'backend.architecture',
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/data/blocks/backendArchitecture.ts [Client Component Browser]
+    ./src/components/PromptBuilder.tsx [Client Component Browser]
+    ./src/components/pages/BuilderContent.tsx [Client Component Browser]
+    ./app/(main)/builder/[styleId]/page.tsx [Client Component Browser]
+    ./app/(main)/builder/[styleId]/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/data/blocks/backendArchitecture.ts [Client Component SSR]
+    ./src/components/PromptBuilder.tsx [Client Component SSR]
+    ./src/components/pages/BuilderContent.tsx [Client Component SSR]
+    ./app/(main)/builder/[styleId]/page.tsx [Client Component SSR]
+    ./app/(main)/builder/[styleId]/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> (./src/data/blocks/backendArchitecture.ts:2:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)

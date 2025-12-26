@@ -24,7 +24,9 @@ import {
     X,
     Plus,
     Globe,
-    Layers
+    Layers,
+    FileCode,
+    Terminal
 } from 'lucide-react';
 
 // S01-F Motion Config
@@ -246,36 +248,110 @@ export const LandingPage: React.FC = () => {
                             transition={{ duration: 0.8, delay: 0.4 }}
                             className="relative"
                         >
-                            <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-[#0a0a0a] group aspect-[16/10]">
-                                <div className="h-8 w-full bg-white/5 border-b border-white/10 flex items-center px-4 gap-2">
-                                    <div className="w-2.5 h-2.5 rounded-full bg-red-500/20" />
-                                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/20" />
-                                    <div className="w-2.5 h-2.5 rounded-full bg-green-500/20" />
-                                </div>
-                                <div className="p-6 h-full flex flex-col gap-4">
-                                    <div className="h-10 w-48 bg-white/5 rounded-lg border border-white/10" />
-                                    <div className="grid grid-cols-4 gap-3 flex-1">
-                                        {[...Array(4)].map((_, i) => (
-                                            <motion.div
-                                                key={i}
-                                                initial={{ opacity: 0, y: 10 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                transition={{ delay: 1 + (i * 0.1) }}
-                                                className="h-full bg-white/[0.02] rounded-xl border border-white/5 flex flex-col p-3 gap-2"
-                                            >
-                                                <div className="h-2 w-full bg-white/10 rounded" />
-                                                <div className="h-2 w-2/3 bg-white/5 rounded" />
-                                                <div className="mt-auto h-20 bg-purple-500/5 rounded-lg border border-purple-500/10" />
-                                            </motion.div>
-                                        ))}
+                            <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-2xl bg-[#0c0c0c] group aspect-[16/10] font-mono flex flex-col ring-1 ring-white/5">
+                                {/* Editor Header */}
+                                <div className="h-10 bg-[#151515] border-b border-white/10 flex items-center px-4 justify-between">
+                                    <div className="flex items-center gap-2">
+                                        <div className="flex gap-1.5 mr-4">
+                                            <div className="w-3 h-3 rounded-full bg-[#FF5F56] border border-[#E0443E]" />
+                                            <div className="w-3 h-3 rounded-full bg-[#FFBD2E] border border-[#DEA123]" />
+                                            <div className="w-3 h-3 rounded-full bg-[#27C93F] border border-[#1AAB29]" />
+                                        </div>
+                                        <div className="flex items-center px-3 py-1 bg-[#1e1e1e] border-t-2 border-purple-500 rounded-t text-xs text-white/80 gap-2">
+                                            <FileCode className="w-3.5 h-3.5 text-blue-400" />
+                                            <span>style_prompt.md</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#030303] to-transparent pointer-events-none" />
+
+                                {/* Editor Content */}
+                                <div className="flex-1 p-6 text-sm overflow-hidden bg-[#1e1e1e] font-mono leading-relaxed relative">
+                                    {/* Line Numbers */}
+                                    <div className="absolute left-0 top-6 bottom-0 w-12 flex flex-col items-end pr-4 text-white/10 text-xs select-none">
+                                        {[...Array(15)].map((_, i) => <div key={i}>{i + 1}</div>)}
+                                    </div>
+
+                                    {/* Typing Content */}
+                                    <div className="pl-8 space-y-1">
+                                        <motion.div
+                                            initial={{ opacity: 0, x: 10 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: 1 }}
+                                        >
+                                            <span className="text-blue-400 font-bold"># StylePrompts Library</span>
+                                        </motion.div>
+
+                                        <motion.div
+                                            initial={{ opacity: 0, x: 10 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: 1.5 }}
+                                            className="pt-2"
+                                        >
+                                            <span className="text-purple-400 font-bold">## Objective</span>
+                                        </motion.div>
+
+                                        <motion.div
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            transition={{ delay: 2 }}
+                                        >
+                                            <span className="text-gray-300">Design a </span>
+                                            <span className="text-yellow-400">**SaaS Landing Page**</span>
+                                            <span className="text-gray-300"> using the </span>
+                                            <span className="text-green-400">{'{{style}}'}</span>
+                                            <span className="text-gray-300"> visual system.</span>
+                                        </motion.div>
+
+                                        <motion.div
+                                            initial={{ opacity: 0, x: 10 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: 2.5 }}
+                                            className="pt-2"
+                                        >
+                                            <span className="text-purple-400 font-bold">## Specifications</span>
+                                        </motion.div>
+
+                                        {[
+                                            { label: 'Typography:', val: 'Inter / JetBrains Mono' },
+                                            { label: 'Palette:', val: 'Monochrome + Purple Accent' },
+                                            { label: 'Components:', val: 'Hero, Features, Pricing' }
+                                        ].map((item, i) => (
+                                            <motion.div
+                                                key={i}
+                                                initial={{ opacity: 0, x: 5 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: 3 + (i * 0.4) }}
+                                                className="flex gap-2"
+                                            >
+                                                <span className="text-gray-500">-</span>
+                                                <span className="text-blue-300">{item.label}</span>
+                                                <span className="text-orange-300">"{item.val}"</span>
+                                            </motion.div>
+                                        ))}
+
+                                        <motion.div
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            transition={{ delay: 5.5 }}
+                                            className="pt-4 flex items-center gap-2"
+                                        >
+                                            <span className="text-green-500">{'>'}</span>
+                                            <span className="text-gray-400 italic">Generating optimized prompt...</span>
+                                            <motion.div
+                                                animate={{ opacity: [0, 1, 0] }}
+                                                transition={{ duration: 0.8, repeat: Infinity }}
+                                                className="w-2 h-4 bg-purple-500"
+                                            />
+                                        </motion.div>
+                                    </div>
+                                </div>
                             </div>
+
+                            {/* Glow Effect */}
                             <motion.div
-                                animate={{ scale: [1, 1.1, 1] }}
+                                animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
                                 transition={{ duration: 4, repeat: Infinity }}
-                                className="absolute -top-10 -right-10 w-40 h-40 bg-purple-600/10 rounded-full blur-[60px]"
+                                className="absolute -top-10 -right-10 w-60 h-60 bg-purple-600/10 rounded-full blur-[80px] pointer-events-none"
                             />
                         </motion.div>
                     </div>
@@ -346,7 +422,7 @@ export const LandingPage: React.FC = () => {
                         variants={staggerContainer}
                         className="grid grid-cols-1 md:grid-cols-12 gap-6 md:auto-rows-[360px]"
                     >
-                        {/* Bento Card 1 */}
+                        {/* Bento B1: Choose Style (Terminal List) */}
                         <motion.button
                             variants={fadeIn}
                             whileHover={{ scale: 0.995 }}
@@ -354,50 +430,31 @@ export const LandingPage: React.FC = () => {
                             className="md:col-span-8 bg-[#0a0a0a] rounded-[2.5rem] p-10 border border-white/5 flex flex-col group text-left transition-all hover:bg-white/[0.02] hover:border-purple-500/20 relative overflow-hidden"
                         >
                             <div className="mb-8 max-w-sm"><h3 className="text-2xl font-bold mb-3 text-white">{t('landing.workflow.b1.title')}</h3><p className="text-white/40 text-sm leading-relaxed">{t('landing.workflow.b1.desc')}</p></div>
-                            <div className="flex-1 bg-white/[0.02] rounded-3xl border border-white/5 p-6 overflow-hidden relative">
-                                {/* Line Animation Container */}
-                                <div className="absolute inset-0 flex flex-col justify-center items-center gap-6 p-8">
-                                    {/* Line 1 */}
-                                    <div className="w-full h-px bg-white/5 relative overflow-hidden">
-                                        <motion.div
-                                            animate={{ x: ['-100%', '200%'] }}
-                                            transition={{ duration: 2, repeat: Infinity, ease: 'linear', delay: 0 }}
-                                            className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-purple-500 to-transparent"
-                                        />
-                                    </div>
-                                    {/* Line 2 */}
-                                    <div className="w-full h-px bg-white/5 relative overflow-hidden">
-                                        <motion.div
-                                            animate={{ x: ['200%', '-100%'] }}
-                                            transition={{ duration: 2.5, repeat: Infinity, ease: 'linear', delay: 0.3 }}
-                                            className="absolute inset-y-0 w-1/4 bg-gradient-to-r from-transparent via-blue-500 to-transparent"
-                                        />
-                                    </div>
-                                    {/* Line 3 */}
-                                    <div className="w-full h-px bg-white/5 relative overflow-hidden">
-                                        <motion.div
-                                            animate={{ x: ['-100%', '200%'] }}
-                                            transition={{ duration: 1.8, repeat: Infinity, ease: 'linear', delay: 0.6 }}
-                                            className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-pink-500 to-transparent"
-                                        />
-                                    </div>
-                                    {/* Vertical Lines */}
-                                    <div className="absolute inset-0 flex justify-around items-stretch opacity-20">
-                                        {[...Array(5)].map((_, i) => (
-                                            <div key={i} className="w-px h-full bg-white/10 relative overflow-hidden">
-                                                <motion.div
-                                                    animate={{ y: ['-100%', '200%'] }}
-                                                    transition={{ duration: 3, repeat: Infinity, ease: 'linear', delay: i * 0.4 }}
-                                                    className="absolute inset-x-0 h-1/4 bg-gradient-to-b from-transparent via-purple-500/50 to-transparent"
-                                                />
-                                            </div>
-                                        ))}
-                                    </div>
+                            <div className="flex-1 bg-[#151515] rounded-xl border border-white/5 p-5 overflow-hidden relative font-mono text-xs">
+                                <div className="absolute top-0 left-0 right-0 h-6 bg-[#202020] border-b border-white/5 flex items-center px-3 gap-2">
+                                    <div className="w-2 h-2 rounded-full bg-red-500/50"></div>
+                                    <div className="w-2 h-2 rounded-full bg-yellow-500/50"></div>
+                                    <div className="w-2 h-2 rounded-full bg-green-500/50"></div>
+                                    <span className="ml-2 text-white/20">styles.json</span>
+                                </div>
+                                <div className="mt-6 space-y-2 opacity-60">
+                                    <div className="text-white/30">{"{ styles: ["}</div>
+                                    <div className="pl-4 text-purple-300/50">{"{ id: 'S01', name: 'Tech Minimal' },"}</div>
+                                    <div className="pl-4 text-white/20">{"{ id: 'S02', name: 'Monochrome' },"}</div>
+                                    <motion.div
+                                        animate={{ backgroundColor: ["rgba(168,85,247,0)", "rgba(168,85,247,0.2)", "rgba(168,85,247,0)"] }}
+                                        transition={{ duration: 2, repeat: Infinity }}
+                                        className="pl-4 text-white font-bold rounded"
+                                    >
+                                        {"> { id: 'S03', name: 'Mondrian' }"}
+                                    </motion.div>
+                                    <div className="pl-4 text-white/20">{"{ id: 'S04', name: 'Swiss' },"}</div>
+                                    <div className="text-white/30">{"] }"}</div>
                                 </div>
                             </div>
                         </motion.button>
 
-                        {/* Bento Card 2 */}
+                        {/* Bento B2: Optimize Industry (Config File) */}
                         <motion.button
                             variants={fadeIn}
                             whileHover={{ scale: 0.995 }}
@@ -405,14 +462,28 @@ export const LandingPage: React.FC = () => {
                             className="md:col-span-4 bg-[#0a0a0a] rounded-[2.5rem] p-10 border border-white/5 flex flex-col group text-left transition-all hover:bg-white/[0.02] hover:border-purple-500/20 relative overflow-hidden"
                         >
                             <div className="mb-8"><h3 className="text-2xl font-bold mb-3 text-white">{t('landing.workflow.b2.title')}</h3><p className="text-white/40 text-sm leading-relaxed">{t('landing.workflow.b2.desc')}</p></div>
-                            <div className="flex-1 bg-white/[0.02] rounded-3xl border border-white/5 p-6 flex flex-col gap-4 overflow-hidden">
-                                <motion.div whileHover={{ x: 5 }} className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/10 transition-transform"><div className="w-10 h-10 bg-purple-500/20 rounded-xl flex items-center justify-center text-purple-400 font-black text-xs">Sa</div><div className="flex-1 text-xs font-bold text-white/70">SaaS 平台</div><ArrowUpRight className="w-4 h-4 text-white/10" /></motion.div>
-                                <motion.div whileHover={{ x: 5 }} className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/10 transition-transform"><div className="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center text-blue-400 font-black text-xs">商</div><div className="flex-1 text-xs font-bold text-white/70">電商平台</div><ArrowUpRight className="w-4 h-4 text-white/10" /></motion.div>
-                                <motion.div whileHover={{ x: 5 }} className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/10 transition-transform"><div className="w-10 h-10 bg-green-500/20 rounded-xl flex items-center justify-center text-green-400 font-black text-xs">醫</div><div className="flex-1 text-xs font-bold text-white/70">醫療系統</div><ArrowUpRight className="w-4 h-4 text-white/10" /></motion.div>
+                            <div className="flex-1 bg-[#1a1a2e] rounded-xl border border-purple-500/20 p-5 flex flex-col justify-center relative font-mono text-xs overflow-hidden">
+                                <div className="text-purple-300/80 leading-relaxed">
+                                    <span className="text-pink-400">const</span> config = {"{"}<br />
+                                    &nbsp;&nbsp;target: <span className="text-green-400">'SaaS'</span>,<br />
+                                    &nbsp;&nbsp;optimization: <span className="text-blue-400">true</span>,<br />
+                                    &nbsp;&nbsp;modules: [<span className="text-yellow-400">'All'</span>]<br />
+                                    {"}"};
+                                </div>
+                                <div className="mt-4 flex items-center gap-2">
+                                    <span className="text-white/40">// Status:</span>
+                                    <motion.span
+                                        animate={{ opacity: [0.5, 1, 0.5] }}
+                                        transition={{ duration: 1.5, repeat: Infinity }}
+                                        className="text-green-400 font-bold"
+                                    >
+                                        Auto-Optimized
+                                    </motion.span>
+                                </div>
                             </div>
                         </motion.button>
 
-                        {/* Bento Card 3 */}
+                        {/* Bento B3: Copy Prompt (Command Line) */}
                         <motion.button
                             variants={fadeIn}
                             whileHover={{ scale: 0.995 }}
@@ -420,29 +491,28 @@ export const LandingPage: React.FC = () => {
                             className="md:col-span-4 bg-[#0a0a0a] rounded-[2.5rem] p-10 border border-white/5 flex flex-col group text-left transition-all hover:bg-white/[0.02] hover:border-purple-500/20 relative overflow-hidden"
                         >
                             <div className="mb-8"><h3 className="text-2xl font-bold mb-3 text-white">{t('landing.workflow.b3.title')}</h3><p className="text-white/40 text-sm leading-relaxed">{t('landing.workflow.b3.desc')}</p></div>
-                            <div className="flex-1 bg-white/[0.02] rounded-3xl border border-white/5 p-6 flex flex-col gap-4 relative overflow-hidden">
-                                <div className="h-10 w-full bg-white/10 rounded-xl border border-white/10 p-3 flex items-center gap-3">
+                            <div className="flex-1 bg-black rounded-xl border border-white/10 p-5 flex flex-col justify-center font-mono text-xs relative">
+                                <div className="text-gray-400">
+                                    <span className="text-green-500">$</span> cp prompt.md clipboard
+                                </div>
+                                <div className="mt-2 h-1 w-full bg-white/10 rounded-full overflow-hidden">
                                     <motion.div
-                                        animate={{ scale: [1, 1.2, 1] }}
-                                        transition={{ duration: 1, repeat: Infinity }}
-                                        className="w-2 h-2 rounded-full bg-purple-500"
+                                        animate={{ width: ["0%", "100%"] }}
+                                        transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1 }}
+                                        className="h-full bg-green-500"
                                     />
-                                    <div className="h-1.5 flex-1 bg-white/10 rounded-full overflow-hidden">
-                                        <motion.div
-                                            animate={{ x: ["-100%", "100%"] }}
-                                            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                                            className="w-1/2 h-full bg-purple-500/50"
-                                        />
-                                    </div>
                                 </div>
-                                <div className="grid grid-cols-2 gap-4 flex-1">
-                                    <div className="bg-purple-600/10 rounded-2xl border border-purple-500/20 flex flex-col items-center justify-center group-hover:scale-[1.05] transition-transform"><Lock className="w-10 h-10 text-purple-600/40" /><span className="text-[8px] mt-2 text-purple-500/40 font-black uppercase tracking-widest">SECURE</span></div>
-                                    <div className="bg-blue-600/10 rounded-2xl border border-blue-500/20 flex flex-col items-center justify-center opacity-40 group-hover:scale-[1.05] transition-transform"><Shield className="w-10 h-10 text-blue-600/40" /><span className="text-[8px] mt-2 text-blue-500/40 font-black uppercase tracking-widest">VERIFIED</span></div>
-                                </div>
+                                <motion.div
+                                    animate={{ opacity: [0, 1, 0] }}
+                                    transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1, delay: 1.5 }}
+                                    className="mt-2 text-green-400"
+                                >
+                                    Copied successfully!
+                                </motion.div>
                             </div>
                         </motion.button>
 
-                        {/* Bento Card 4 */}
+                        {/* Bento B4: Preview (Wireframe Scan) */}
                         <motion.button
                             variants={fadeIn}
                             whileHover={{ scale: 0.995 }}
@@ -450,27 +520,24 @@ export const LandingPage: React.FC = () => {
                             className="md:col-span-8 bg-[#0a0a0a] rounded-[2.5rem] p-10 border border-white/5 flex flex-col group text-left transition-all hover:bg-white/[0.02] hover:border-purple-500/20 relative overflow-hidden"
                         >
                             <div className="mb-8 max-sm"><h3 className="text-2xl font-bold mb-3 text-white">{t('landing.workflow.b4.title')}</h3><p className="text-white/40 text-sm leading-relaxed">{t('landing.workflow.b4.desc')}</p></div>
-                            <div className="flex-1 bg-white/[0.02] rounded-3xl border border-white/5 p-8 overflow-hidden relative">
-                                <div className="grid grid-cols-4 gap-6 h-full opacity-20">
-                                    {[...Array(8)].map((_, i) => (
-                                        <motion.div
-                                            key={i}
-                                            whileHover={{ y: -8 }}
-                                            className="bg-white/5 rounded-2xl border border-white/10 p-3 flex flex-col gap-3 transition-transform"
-                                        >
-                                            <div className="h-1.5 w-full bg-white/10 rounded-full" />
-                                            <div className="h-full bg-white/[0.02] rounded-xl flex items-center justify-center"><Layout className="w-5 h-5 text-white/5" /></div>
-                                        </motion.div>
-                                    ))}
+                            <div className="flex-1 bg-[#101010] rounded-xl border border-white/5 p-6 relative overflow-hidden flex items-center justify-center">
+                                {/* Wireframe Mockup */}
+                                <div className="w-3/4 h-3/4 border border-white/10 rounded lg flex flex-col gap-2 p-2 opacity-50">
+                                    <div className="h-4 w-1/3 bg-white/10 rounded"></div>
+                                    <div className="flex gap-2 h-full">
+                                        <div className="w-1/4 h-full bg-white/5 rounded"></div>
+                                        <div className="flex-1 h-full bg-white/5 rounded"></div>
+                                    </div>
                                 </div>
-                                <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0a0a0a] to-transparent pointer-events-none" />
+                                {/* Scanning Line */}
                                 <motion.div
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className="absolute bottom-10 left-1/2 -translate-x-1/2 px-10 py-4 bg-white text-black rounded-2xl text-sm font-black shadow-[0_20px_50px_rgba(255,255,255,0.1)] flex items-center gap-3 transition-all cursor-pointer"
-                                >
-                                    <Plus className="w-5 h-5" /> Sync to Workspace
-                                </motion.div>
+                                    animate={{ top: ["0%", "100%"] }}
+                                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                                    className="absolute left-0 right-0 h-px bg-purple-500 shadow-[0_0_20px_rgba(168,85,247,0.5)]"
+                                />
+                                <div className="absolute bottom-4 right-4 text-[10px] font-mono text-purple-400 bg-purple-500/10 px-2 py-1 rounded border border-purple-500/20">
+                                    PREVIEW MODE
+                                </div>
                             </div>
                         </motion.button>
                     </motion.div>
@@ -729,119 +796,160 @@ export const LandingPage: React.FC = () => {
                             </button>
 
                             {/* Visual Content Area */}
-                            <div className="aspect-video bg-[#050505] relative overflow-hidden">
-                                {/* Card 1: Line Animation */}
+                            <div className="aspect-video bg-[#050505] relative overflow-hidden font-mono">
+                                {/* Card 1: Terminal List (Select Style) */}
                                 {selectedBento === 1 && (
-                                    <div className="absolute inset-0 flex flex-col justify-center items-center gap-10 p-16">
-                                        {[...Array(5)].map((_, i) => (
-                                            <div key={i} className="w-full h-0.5 bg-white/5 relative overflow-hidden">
-                                                <motion.div
-                                                    animate={{ x: i % 2 === 0 ? ['-100%', '200%'] : ['200%', '-100%'] }}
-                                                    transition={{ duration: 2 + i * 0.3, repeat: Infinity, ease: 'linear', delay: i * 0.2 }}
-                                                    className={`absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent ${i === 0 ? 'via-purple-500' : i === 1 ? 'via-blue-500' : i === 2 ? 'via-pink-500' : i === 3 ? 'via-cyan-500' : 'via-green-500'} to-transparent`}
-                                                />
+                                    <div className="absolute inset-0 flex flex-col items-center justify-center p-8 sm:p-16">
+                                        <div className="w-full max-w-2xl bg-[#151515] rounded-xl border border-white/10 overflow-hidden shadow-2xl">
+                                            <div className="h-10 bg-[#202020] border-b border-white/5 flex items-center px-4 gap-2">
+                                                <div className="w-3 h-3 rounded-full bg-red-500/50"></div>
+                                                <div className="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+                                                <div className="w-3 h-3 rounded-full bg-green-500/50"></div>
+                                                <span className="ml-4 text-xs text-white/30">styles.json</span>
                                             </div>
-                                        ))}
-                                        <div className="absolute inset-0 flex justify-around items-stretch opacity-30">
-                                            {[...Array(8)].map((_, i) => (
-                                                <div key={i} className="w-0.5 h-full bg-white/5 relative overflow-hidden">
-                                                    <motion.div
-                                                        animate={{ y: ['-100%', '200%'] }}
-                                                        transition={{ duration: 3, repeat: Infinity, ease: 'linear', delay: i * 0.3 }}
-                                                        className="absolute inset-x-0 h-1/4 bg-gradient-to-b from-transparent via-purple-500/60 to-transparent"
-                                                    />
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-
-                                {/* Card 2: Industry Cards */}
-                                {selectedBento === 2 && (
-                                    <div className="absolute inset-0 flex flex-col justify-center items-center gap-6 p-16">
-                                        {[
-                                            { name: 'SaaS 平台', icon: 'Sa', color: 'purple' },
-                                            { name: '電商平台', icon: '商', color: 'blue' },
-                                            { name: '醫療系統', icon: '醫', color: 'green' }
-                                        ].map((item, i) => (
-                                            <motion.div
-                                                key={item.name}
-                                                initial={{ x: -50, opacity: 0 }}
-                                                animate={{ x: 0, opacity: 1 }}
-                                                transition={{ delay: i * 0.15 }}
-                                                whileHover={{ x: 10, scale: 1.02 }}
-                                                className="w-full max-w-md flex items-center gap-6 p-6 bg-white/5 rounded-3xl border border-white/10 transition-all cursor-pointer"
-                                            >
-                                                <div className={`w-16 h-16 ${item.color === 'purple' ? 'bg-purple-500/20 text-purple-400' : item.color === 'blue' ? 'bg-blue-500/20 text-blue-400' : 'bg-green-500/20 text-green-400'} rounded-2xl flex items-center justify-center font-black text-xl`}>{item.icon}</div>
-                                                <div className="flex-1 text-lg font-bold text-white/80">{item.name}</div>
-                                                <ArrowUpRight className="w-6 h-6 text-white/20" />
-                                            </motion.div>
-                                        ))}
-                                    </div>
-                                )}
-
-                                {/* Card 3: Security Animation */}
-                                {selectedBento === 3 && (
-                                    <div className="absolute inset-0 flex flex-col justify-center items-center p-16">
-                                        <div className="flex items-center gap-6 mb-8">
-                                            <motion.div
-                                                animate={{ scale: [1, 1.1, 1] }}
-                                                transition={{ duration: 1.5, repeat: Infinity }}
-                                                className="w-2 h-2 rounded-full bg-purple-500"
-                                            />
-                                            <div className="h-1 w-48 bg-white/10 rounded-full overflow-hidden">
-                                                <motion.div
-                                                    animate={{ x: ['-100%', '100%'] }}
-                                                    transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
-                                                    className="w-1/2 h-full bg-purple-500/50"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="grid grid-cols-2 gap-8 w-full max-w-lg">
-                                            <motion.div
-                                                whileHover={{ scale: 1.05 }}
-                                                className="aspect-square bg-purple-600/10 rounded-3xl border border-purple-500/20 flex flex-col items-center justify-center"
-                                            >
-                                                <Lock className="w-16 h-16 text-purple-600/60" />
-                                                <span className="text-sm mt-4 text-purple-500/60 font-black uppercase tracking-widest">SECURE</span>
-                                            </motion.div>
-                                            <motion.div
-                                                whileHover={{ scale: 1.05 }}
-                                                className="aspect-square bg-blue-600/10 rounded-3xl border border-blue-500/20 flex flex-col items-center justify-center"
-                                            >
-                                                <Shield className="w-16 h-16 text-blue-600/60" />
-                                                <span className="text-sm mt-4 text-blue-500/60 font-black uppercase tracking-widest">VERIFIED</span>
-                                            </motion.div>
-                                        </div>
-                                    </div>
-                                )}
-
-                                {/* Card 4: Grid Preview */}
-                                {selectedBento === 4 && (
-                                    <div className="absolute inset-0 p-12">
-                                        <div className="grid grid-cols-4 gap-4 h-full opacity-40">
-                                            {[...Array(8)].map((_, i) => (
-                                                <motion.div
-                                                    key={i}
-                                                    initial={{ y: 20, opacity: 0 }}
-                                                    animate={{ y: 0, opacity: 1 }}
-                                                    transition={{ delay: i * 0.1 }}
-                                                    whileHover={{ y: -10, scale: 1.05 }}
-                                                    className="bg-white/5 rounded-2xl border border-white/10 p-4 flex flex-col gap-3"
-                                                >
-                                                    <div className="h-2 w-full bg-white/10 rounded-full" />
-                                                    <div className="flex-1 bg-white/[0.02] rounded-xl flex items-center justify-center">
-                                                        <Layout className="w-8 h-8 text-white/10" />
+                                            <div className="p-8 space-y-4 text-sm sm:text-base">
+                                                <div className="text-white/30">{"{"}</div>
+                                                <div className="pl-6 text-white/30">"styles": [</div>
+                                                <div className="pl-12 space-y-2">
+                                                    <div className="text-white/50">
+                                                        {"{ \"id\": \"S01\", \"name\": \"Tech Minimal\", \"type\": \"SaaS\" },"}
                                                     </div>
-                                                </motion.div>
-                                            ))}
+                                                    <motion.div
+                                                        initial={{ opacity: 0, x: -20 }}
+                                                        animate={{ opacity: 1, x: 0 }}
+                                                        transition={{ duration: 0.5 }}
+                                                        className="bg-purple-500/10 border border-purple-500/30 p-2 rounded text-purple-300 -mx-2"
+                                                    >
+                                                        {"> { \"id\": \"S02\", \"name\": \"Monochrome\", \"type\": \"SaaS\" },"}
+                                                    </motion.div>
+                                                    <div className="text-white/50">
+                                                        {"{ \"id\": \"S05\", \"name\": \"Brutalist\", \"type\": \"Portfolio\" }"}
+                                                    </div>
+                                                </div>
+                                                <div className="pl-6 text-white/30">]</div>
+                                                <div className="text-white/30">{"}"}</div>
+                                            </div>
                                         </div>
-                                        <motion.div
-                                            whileHover={{ scale: 1.05 }}
-                                            className="absolute bottom-12 left-1/2 -translate-x-1/2 px-12 py-5 bg-white text-black rounded-2xl font-black flex items-center gap-3 shadow-[0_20px_50px_rgba(255,255,255,0.1)]"
-                                        >
-                                            <Plus className="w-6 h-6" /> Sync to Workspace
-                                        </motion.div>
+                                    </div>
+                                )}
+
+                                {/* Card 2: Config Editor (Optimize) */}
+                                {selectedBento === 2 && (
+                                    <div className="absolute inset-0 flex flex-col items-center justify-center p-8 sm:p-16">
+                                        <div className="w-full max-w-2xl bg-[#1a1a2e] rounded-xl border border-purple-500/20 overflow-hidden shadow-2xl relative">
+                                            <div className="h-10 bg-[#151525] border-b border-purple-500/10 flex items-center px-4 justify-between">
+                                                <div className="text-xs text-purple-300/50">config.ts</div>
+                                                <div className="text-[10px] text-green-400 font-bold px-2 py-0.5 bg-green-500/10 rounded">OPTIMIZED</div>
+                                            </div>
+                                            <div className="p-8 text-sm sm:text-base leading-relaxed">
+                                                <div><span className="text-pink-400">export const</span> config = {"{"}</div>
+                                                <div className="pl-6 space-y-1">
+                                                    <div>industry: <span className="text-green-400">'SaaS'</span>,</div>
+                                                    <div>useCase: <span className="text-green-400">'Landing Page'</span>,</div>
+                                                    <div>
+                                                        features: [
+                                                        <span className="text-blue-400">'Hero'</span>,
+                                                        <span className="text-blue-400">'Features'</span>,
+                                                        <span className="text-blue-400">'Pricing'</span>
+                                                        ],
+                                                    </div>
+                                                    <div>tone: <span className="text-green-400">'Professional'</span>,</div>
+                                                    <div>framework: <span className="text-green-400">'Next.js'</span></div>
+                                                </div>
+                                                <div>{"}"};</div>
+                                            </div>
+                                            <motion.div
+                                                animate={{ opacity: [0, 1, 0] }}
+                                                transition={{ duration: 2, repeat: Infinity }}
+                                                className="absolute bottom-6 right-6 text-green-500/50 text-xs"
+                                            >
+                                                // Automated Optimization Active
+                                            </motion.div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Card 3: CLI Copy (Previously Security) */}
+                                {selectedBento === 3 && (
+                                    <div className="absolute inset-0 flex flex-col items-center justify-center p-8 sm:p-16">
+                                        <div className="w-full max-w-2xl bg-black rounded-xl border border-white/20 overflow-hidden shadow-2xl">
+                                            <div className="h-8 bg-[#101010] border-b border-white/10 flex items-center px-4">
+                                                <span className="text-xs text-white/20">terminal</span>
+                                            </div>
+                                            <div className="p-8 font-mono text-sm sm:text-base space-y-4">
+                                                <div className="flex gap-3">
+                                                    <span className="text-green-500">$</span>
+                                                    <span className="text-white">style-prompts copy --id=S01</span>
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <motion.div
+                                                        initial={{ opacity: 0 }}
+                                                        animate={{ opacity: 1 }}
+                                                        transition={{ delay: 0.5 }}
+                                                        className="text-white/50"
+                                                    >
+                                                        Fetching prompt template...
+                                                    </motion.div>
+                                                    <motion.div
+                                                        initial={{ opacity: 0 }}
+                                                        animate={{ opacity: 1 }}
+                                                        transition={{ delay: 1.0 }}
+                                                        className="text-white/50"
+                                                    >
+                                                        Optimizing for SaaS...
+                                                    </motion.div>
+                                                    <motion.div
+                                                        initial={{ opacity: 0, x: -10 }}
+                                                        animate={{ opacity: 1, x: 0 }}
+                                                        transition={{ delay: 1.5 }}
+                                                        className="text-green-400 pt-2"
+                                                    >
+                                                        ✔ Copied to clipboard successfully.
+                                                    </motion.div>
+                                                </div>
+                                                <motion.div
+                                                    initial={{ opacity: 0 }}
+                                                    animate={{ opacity: 1 }}
+                                                    transition={{ delay: 2 }}
+                                                    className="flex gap-3 pt-2"
+                                                >
+                                                    <span className="text-green-500">$</span>
+                                                    <div className="w-3 h-5 bg-white/50 animate-pulse"></div>
+                                                </motion.div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Card 4: Wireframe Scan (Preview) */}
+                                {selectedBento === 4 && (
+                                    <div className="absolute inset-0 flex items-center justify-center p-12">
+                                        <div className="relative w-full h-full border-2 border-dashed border-white/10 rounded-xl p-4 flex gap-4 opacity-50">
+                                            {/* Mock Wireframe */}
+                                            <div className="w-1/4 h-full bg-white/5 rounded-lg flex flex-col gap-2 p-2">
+                                                <div className="h-8 w-full bg-white/10 rounded"></div>
+                                                <div className="flex-1 w-full bg-white/5 rounded"></div>
+                                            </div>
+                                            <div className="flex-1 h-full bg-white/5 rounded-lg p-4 flex flex-col gap-4">
+                                                <div className="h-20 w-full bg-white/10 rounded-lg"></div>
+                                                <div className="grid grid-cols-2 gap-4 flex-1">
+                                                    <div className="bg-white/5 rounded-lg"></div>
+                                                    <div className="bg-white/5 rounded-lg"></div>
+                                                    <div className="bg-white/5 rounded-lg"></div>
+                                                    <div className="bg-white/5 rounded-lg"></div>
+                                                </div>
+                                            </div>
+
+                                            {/* Scan Effect */}
+                                            <motion.div
+                                                animate={{ top: ['-20%', '120%'] }}
+                                                transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+                                                className="absolute left-0 right-0 h-20 bg-gradient-to-b from-purple-500/0 via-purple-500/20 to-purple-500/0 border-y border-purple-500/30 blur-[2px]"
+                                            />
+                                        </div>
+                                        <div className="absolute bottom-8 right-8 px-4 py-2 bg-purple-600 text-white text-xs font-bold rounded shadow-lg">
+                                            RENDERING PREVIEW
+                                        </div>
                                     </div>
                                 )}
                             </div>

@@ -6,7 +6,7 @@
   "layout": {
     "home": "首頁",
     "preview": "預覽",
-    "promptBuilder": "指令構建器",
+    "promptBuilder": "提示詞產生器",
     "desktop": "桌面版",
     "tablet": "平板版",
     "mobile": "手機版",
@@ -460,52 +460,34 @@
       "description": "使用者資料管理、權限控制 (RLS) 與常見後端流程"
     }
   },
-  "promptBuilder": {
-    "title": "指示詞構建器",
-    "subtitle": "透過原子化積木構建您的 AI UI 指示詞",
-    "blockLibrary": "方塊庫",
-    "style": "風格",
-    "industry": "行業",
-    "use": "場景",
-    "feature": "功能",
-    "assemblyArea": "指令裝配區",
-    "generatedPrompt": "組合的指示詞",
-    "copyPrompt": "複製指示詞",
-    "downloadMD": "下載 Markdown",
-    "assembling": "正在解析指令構建邏輯...",
-    "noBlocks": "請將方塊從左側拖拽至此處",
-    "proActivated": "Pro 專業版已啟用！",
-    "plan": "訂閱方案",
-    "upgradeRequired": "需要升級到 Pro：",
-    "blocksApplied": "已應用 {{count}} 個功能方塊",
-    "frontendPrompt": "介面指示詞",
-    "backendPrompt": "後端指示詞",
-    "showFrontend": "前端預覽",
-    "showBackend": "後端邏輯",
-    "processing": "處理中，請稍候...",
-    "rateLimited": "請求過於頻繁，請稍後再試",
-    "purchaseFailed": "購買失敗，請稍後再試",
-    "promptCopied": "已複製到剪貼板",
-    "copyFailed": "複製失敗",
-    "comingSoon": "敬請期待",
-    "upgradeTitle": "升級到 Pro",
-    "upgradeDescription": "解鎖進階視覺風格，獲得更多專業設計資源",
-    "recommended": "推薦",
-    "currentPlan": "目前方案",
-    "buyNow": "立即購買",
-    "freeFeature1": "100 種基礎視覺風格",
-    "freeFeature2": "基礎後端架構提示詞",
-    "freeFeature3": "即時 UI 預覽",
-    "proFeature1": "100 種進階視覺風格",
-    "proFeature2": "獨家風格持續更新",
-    "proFeature3": "優先支援與新功能",
-    "proStyleLocked": "此為進階視覺風格，升級 Pro 即可解鎖完整指示詞",
-    "proPreviewTitle": "Pro 版本預覽",
-    "proPreviewLocked": "這是 Pro 版本的指示詞預覽。升級 Pro 即可解鎖完整內容。"
+  "promptModal": {
+    "designPrompt": "設計提示詞",
+    "fixedFormatHint": "SaaS Full Landing Page 格式",
+    "promptCopied": "提示詞已複製！",
+    "copyPrompt": "複製完整提示詞",
+    "copying": "複製中...",
+    "copy": "複製",
+    "copied": "已複製",
+    "generateFailed": "產生提示詞失敗",
+    "promptUsageHint": "這是一個基於 {{styleName}} 風格的設計提示詞"
+  },
+  "proModal": {
+    "title": "升級至 Pro 版本",
+    "subtitle": "解鎖 {{styleName}} 及更多進階風格",
+    "feature1": "由 AI 精心設計的 100+ 進階風格",
+    "feature2": "獲取完整 Landing Page 結構化 Prompt",
+    "feature3": "支持持續的風格庫更新與新功能",
+    "feature1_title": "100+ 進階風格",
+    "feature2_title": "完整原始碼 Prompt",
+    "feature3_title": "優先更新支援",
+    "upgradeCTA": "立即升級解鎖",
+    "maybeLater": "再考慮一下",
+    "locked": "此風格為 Pro 限定"
   },
   "preview": {
     "previewInfo": "預覽僅供參考，實際結果可能因實作方式而異",
     "open": "開啟",
+    "copyPrompt": "複製提示詞",
     "styleNotFound": "找不到該風格的渲染組件",
     "freeStyles": "免費風格 (S01-S50)",
     "proStyles": "進階風格 (S51-S100)"
@@ -516,7 +498,7 @@
       "workflow": "使用方式",
       "pricing": "方案價格",
       "faq": "常見問題",
-      "enterEditor": "開始探索"
+      "enterEditor": "瀏覽風格庫"
     },
     "hero": {
       "badge": "100+ 精選視覺風格",
@@ -528,7 +510,7 @@
       }
     },
     "features": {
-      "title": "為什麼選擇 StylePrompts？",
+      "title": "為什麼選擇 StylePrompts 資源庫？",
       "subtitle": "專為設計師與開發者打造的視覺風格資源庫",
       "f1": {
         "title": "100+ 精選風格",
@@ -540,7 +522,7 @@
       },
       "f3": {
         "title": "一鍵複製提示詞",
-        "desc": "選擇風格、產業與用途，系統自動生成最佳化的 AI 提示詞，直接貼入您的 AI 工具。"
+        "desc": "選擇風格後，系統自動配置最佳化參數，一鍵生成高品質 AI 提示詞。"
       }
     },
     "workflow": {
@@ -551,11 +533,11 @@
         "desc": "瀏覽 100+ 種風格，找到最符合您品牌調性的視覺語言。"
       },
       "b2": {
-        "title": "選擇產業與用途",
-        "desc": "根據您的產業（SaaS、電商、醫療等）與頁面類型自動優化提示詞。"
+        "title": "智能優化配置",
+        "desc": "自動識別最佳化參數，為 SaaS 與 Landing Page 應用場景提供專業級配置。"
       },
       "b3": {
-        "title": "複製並使用",
+        "title": "一鍵複製提示詞",
         "desc": "一鍵複製生成的提示詞，貼入 ChatGPT、Claude 或 Cursor 開始創作。"
       },
       "b4": {
@@ -599,7 +581,7 @@
       "system": "產品",
       "coreTech": "風格庫",
       "visualWorkflow": "使用指南",
-      "promptEditor": "提示詞編輯器",
+      "promptEditor": "提示詞產生器",
       "membership": "方案價格",
       "security": "法律聲明",
       "privacy": "隱私政策",
@@ -631,8 +613,8 @@
         "desc": "選擇風格後直接複製提示詞，貼入任何 AI 工具即可開始生成。"
       },
       "metadata": {
-        "title": "產業與用途優化",
-        "desc": "根據您的產業（SaaS、電商、醫療）與頁面類型自動優化提示詞。"
+        "title": "智能優化參數",
+        "desc": "自動針對 SaaS Landing Page 優化提示詞結構與程式碼規範。"
       }
     },
     "workflow": {
@@ -644,8 +626,8 @@
         "note": "支援即時 UI 預覽"
       },
       "stage2": {
-        "title": "第二步：選擇產業與用途",
-        "desc": "根據您的產業（SaaS、電商、醫療等）與頁面類型自動優化提示詞。"
+        "title": "第二步：智能優化配置",
+        "desc": "系統自動針對 SaaS Landing Page 應用場景進行提示詞參數優化。"
       },
       "stage3": {
         "title": "第三步：複製並使用",
@@ -653,16 +635,16 @@
       }
     },
     "editor": {
-      "title": "提示詞編輯器",
+      "title": "風格瀏覽器",
       "subtitle": "視覺化的風格選擇介面，讓您快速找到並使用最適合的視覺風格。",
       "styles": "100 種視覺風格",
       "stylesDesc": "涵蓋極簡、賽博龐克、日式和風等多種視覺美學。",
-      "blocks": "產業專屬優化",
-      "blocksDesc": "選擇您的產業與用途，系統自動優化提示詞內容。",
+      "blocks": "智能參數配置",
+      "blocksDesc": "自動針對 SaaS 場景優化提示詞結構。",
       "preview": "即時 UI 預覽",
       "previewDesc": "每個風格都可預覽完整的 UI 效果，確保符合您的預期。",
       "cta": "準備好探索 100 種視覺風格了嗎？",
-      "launch": "開始探索"
+      "launch": "瀏覽風格庫"
     },
     "membership": {
       "title": "方案價格",
@@ -695,21 +677,21 @@
         "cta": "立即開始探索視覺風格"
       },
       "step2": {
-        "title": "選擇產業與用途",
-        "subtitle": "根據您的產業類型與頁面用途，系統會自動優化提示詞內容。",
+        "title": "智能參數配置",
+        "subtitle": "無需繁瑣設定，系統已針對高轉換率 SaaS Landing Page 完成最佳化配置。",
         "f1": {
-          "title": "SaaS 平台",
-          "desc": "適用於雲端軟體服務的專業設計語言。"
+          "title": "SaaS 架構優化",
+          "desc": "針對軟體服務特性，自動配置轉換率最佳化的區塊結構。"
         },
         "f2": {
-          "title": "電商平台",
-          "desc": "強調轉換率與購物體驗的視覺設計。"
+          "title": "專業文案引導",
+          "desc": "預設包含 Hero、Features、Pricing 等核心區塊的文案結構。"
         },
         "f3": {
-          "title": "醫療系統",
-          "desc": "乾淨、專業、值得信賴的醫療介面風格。"
+          "title": "技術棧對接",
+          "desc": "自動適配 React、Tailwind CSS 等現代前端技術棧。"
         },
-        "cta": "選擇您的產業類型"
+        "cta": "查看配置詳情"
       },
       "step3": {
         "title": "複製並使用",

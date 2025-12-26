@@ -1,12 +1,14 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Info, Monitor, Laptop, Smartphone, Maximize2, Sparkles } from 'lucide-react';
+import { Info, Monitor, Laptop, Smartphone, Maximize2, Sparkles, Copy } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { styles, getStyleTier, hasProVersion } from '@/data/styles';
+import { styles, hasProVersion } from '@/data/styles';
 import { styleComponents, styleComponentsPro } from '@/components/styles';
 import { useLayoutContext } from '@/components/MainLayout';
+import { PromptModal } from '@/components/PromptModal';
+import { ProUpgradeModal } from '@/components/ProUpgradeModal';
 
 interface PreviewContentProps {
     styleId: string;
@@ -15,6 +17,8 @@ interface PreviewContentProps {
 export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
     const { deviceMode, setDeviceMode, previewTier } = useLayoutContext();
     const { t } = useTranslation();
+    const [isPromptModalOpen, setIsPromptModalOpen] = useState(false);
+    const [isProModalOpen, setIsProModalOpen] = useState(false);
     const effectiveStyleId = styleId || 'S01';
     const currentStyle = styles.find(s => s.id === effectiveStyleId);
 
@@ -102,8 +106,15 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
                     </div>
                 </div>
 
-                {/* Right: Open Button */}
-                <div className="flex justify-end md:flex-1">
+                {/* Right: Actions */}
+                <div className="flex justify-end md:flex-1 gap-2">
+                    <button
+                        onClick={() => previewTier === 'pro' ? setIsProModalOpen(true) : setIsPromptModalOpen(true)}
+                        className="hidden md:flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-purple-600 hover:bg-purple-700 text-white text-xs md:text-sm font-medium rounded-lg transition-colors flex-shrink-0"
+                    >
+                        <Copy className="w-3 h-3 md:w-4 md:h-4" />
+                        {t('preview.copyPrompt') || 'Copy Prompt'}
+                    </button>
                     <Link
                         href={shouldUsePro ? `/styles/${effectiveStyleId}/pro` : `/styles/${effectiveStyleId}`}
                         className="hidden md:flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-white hover:bg-gray-100 text-black text-xs md:text-sm font-medium rounded-lg transition-colors flex-shrink-0"
@@ -168,15 +179,36 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
                 </div>
             </div>
 
-            <div className="lg:hidden mt-4">
+            <div className="lg:hidden mt-4 flex flex-col gap-2">
+                <button
+                    onClick={() => previewTier === 'pro' ? setIsProModalOpen(true) : setIsPromptModalOpen(true)}
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium rounded-lg transition-colors"
+                >
+                    <Copy className="w-4 h-4" />
+                    {t('preview.copyPrompt') || 'Copy Prompt'}
+                </button>
                 <Link
                     href={shouldUsePro ? `/styles/${effectiveStyleId}/pro` : `/styles/${effectiveStyleId}`}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-white hover:bg-gray-100 text-black text-sm font-medium rounded-lg transition-colors"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-white hover:bg-gray-100 text-black text-sm font-medium rounded-lg transition-colors"
                 >
                     <Maximize2 className="w-4 h-4" />
                     {t('preview.open')}
                 </Link>
             </div>
+
+            {/* Prompt Modal */}
+            <PromptModal
+                isOpen={isPromptModalOpen}
+                onClose={() => setIsPromptModalOpen(false)}
+                styleId={effectiveStyleId}
+            />
+
+            {/* Pro Modal */}
+            <ProUpgradeModal
+                isOpen={isProModalOpen}
+                onClose={() => setIsProModalOpen(false)}
+                styleName={currentStyle?.name || ''}
+            />
         </main>
     );
 };

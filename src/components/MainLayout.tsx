@@ -157,7 +157,6 @@ export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }
 
   const selectedStyle = extractStyleId(pathname);
   const currentStyle = styles.find(s => s.id === selectedStyle);
-  const isBuilderPage = pathname.includes('/builder');
 
   // Update previewTier when selectedStyle changes
   useEffect(() => {
@@ -185,9 +184,6 @@ export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }
   }, []);
 
   const handleStyleSelect = (newStyleId: string) => {
-    if (isBuilderPage) {
-      return;
-    }
     router.push(`/${newStyleId}`);
   };
 
@@ -221,34 +217,29 @@ export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }
             </Link>
           </div>
 
-          {/* Middle Dynamic Island Navigation - Desktop */}
-          <div className="hidden lg:flex items-center justify-center gap-2 px-4 py-2 bg-white/5 border border-white/5 rounded-xl backdrop-blur-sm flex-shrink-0">
+
+          {/* Middle Navigation - Desktop (Segmented Pill) */}
+          <div className="hidden lg:flex items-center justify-center p-1 bg-white/5 border border-white/5 rounded-full backdrop-blur-sm">
             <Link
               href="/"
-              className="flex items-center justify-center w-10 h-10 rounded-lg transition-colors duration-200 text-white/40 hover:text-white/80 hover:bg-white/5"
-              title={t('layout.home')}
-            >
-              <Home className="w-5 h-5" />
-            </Link>
-            <Link
-              href={selectedStyle ? `/${selectedStyle}` : '/'}
-              className={`flex items-center justify-center w-10 h-10 rounded-lg transition-colors duration-200 ${!isBuilderPage
+              className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${pathname === '/'
                 ? 'bg-white/10 text-white shadow-sm shadow-black/20'
-                : 'text-white/40 hover:text-white/80 hover:bg-white/5'
+                : 'text-white/40 hover:text-white hover:bg-white/5'
                 }`}
-              title={t('layout.preview')}
             >
-              <Eye className="w-5 h-5" />
+              <Home className="w-4 h-4" />
+              <span>{t('layout.home')}</span>
             </Link>
+            <div className="w-px h-4 bg-white/5 mx-1" />
             <Link
-              href={selectedStyle ? `/builder/${selectedStyle}` : '/builder'}
-              className={`flex items-center justify-center w-10 h-10 rounded-lg transition-colors duration-200 ${isBuilderPage
+              href={`/${selectedStyle || 'S01'}`}
+              className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${pathname !== '/'
                 ? 'bg-white/10 text-white shadow-sm shadow-black/20'
-                : 'text-white/40 hover:text-white/80 hover:bg-white/5'
+                : 'text-white/40 hover:text-white hover:bg-white/5'
                 }`}
-              title={t('layout.promptBuilder')}
             >
-              <Wand2 className="w-5 h-5" />
+              <Eye className="w-4 h-4" />
+              <span>{t('layout.preview')}</span>
             </Link>
           </div>
 
@@ -269,7 +260,7 @@ export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }
         </header>
 
         {/* Main Content */}
-        <div className="flex-1 flex overflow-hidden">
+        <div className="flex-1 flex overflow-hidden pb-16 lg:pb-0">
           {/* Left Sidebar - Desktop */}
           <aside className="hidden lg:flex flex-col w-72 border-r border-white/10 bg-[#0a0a0a]">
             <div className="p-4 border-b border-white/10">
@@ -427,6 +418,9 @@ export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }
                       </button>
                     ))}
                 </div>
+                <div className="p-4 border-t border-white/10">
+                  <LanguageSwitcher variant="sidebar" />
+                </div>
               </div>
             </div>
           )}
@@ -435,35 +429,24 @@ export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }
           {children}
         </div>
 
-        {/* Mobile Bottom Dynamic Island Navigation */}
-        <div className="lg:hidden fixed bottom-20 left-1/2 transform -translate-x-1/2 z-50">
-          <div className="flex items-center justify-center gap-2 px-3 py-2 bg-black/80 backdrop-blur-lg border border-white/10 rounded-2xl shadow-2xl">
+        {/* Mobile Bottom Navigation Bar */}
+        <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#0c0c0c]/90 backdrop-blur-xl border-t border-white/10 pb-safe">
+          <div className="flex items-center h-16">
             <Link
               href="/"
-              className="flex items-center justify-center w-10 h-10 rounded-xl transition-colors duration-200 text-white/60 hover:text-white hover:bg-white/10"
-              title={t('layout.home')}
+              className={`flex-1 flex flex-col items-center justify-center gap-1 h-full transition-colors ${pathname === '/' ? 'text-white' : 'text-white/40 hover:text-white/60'
+                }`}
             >
-              <Home className="w-5 h-5" />
+              <Home className={`w-5 h-5 ${pathname === '/' ? 'fill-white/20' : ''}`} />
+              <span className="text-[10px] font-medium">{t('layout.home')}</span>
             </Link>
             <Link
               href={`/${selectedStyle || 'S01'}`}
-              className={`flex items-center justify-center w-10 h-10 rounded-xl transition-colors duration-200 ${!isBuilderPage
-                ? 'bg-white/20 text-white shadow-lg shadow-white/10'
-                : 'text-white/60 hover:text-white hover:bg-white/10'
+              className={`flex-1 flex flex-col items-center justify-center gap-1 h-full transition-colors ${pathname !== '/' ? 'text-white' : 'text-white/40 hover:text-white/60'
                 }`}
-              title={t('layout.preview')}
             >
-              <Eye className="w-5 h-5" />
-            </Link>
-            <Link
-              href={`/builder/${selectedStyle || 'S01'}`}
-              className={`flex items-center justify-center w-10 h-10 rounded-xl transition-colors duration-200 ${isBuilderPage
-                ? 'bg-white/20 text-white shadow-lg shadow-white/10'
-                : 'text-white/60 hover:text-white hover:bg-white/10'
-                }`}
-              title={t('layout.promptBuilder')}
-            >
-              <Wand2 className="w-5 h-5" />
+              <Eye className={`w-5 h-5 ${pathname !== '/' ? 'fill-white/20' : ''}`} />
+              <span className="text-[10px] font-medium">{t('layout.preview')}</span>
             </Link>
           </div>
         </div>
