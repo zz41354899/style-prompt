@@ -11,9 +11,10 @@ interface PromptModalProps {
   styleId: string;
   isOpen: boolean;
   onClose: () => void;
+  tier?: 'free' | 'pro';  // 新增 tier 參數
 }
 
-export const PromptModal: React.FC<PromptModalProps> = ({ styleId, isOpen, onClose }) => {
+export const PromptModal: React.FC<PromptModalProps> = ({ styleId, isOpen, onClose, tier = 'free' }) => {
   const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
   const [promptText, setPromptText] = useState('');
@@ -24,20 +25,48 @@ export const PromptModal: React.FC<PromptModalProps> = ({ styleId, isOpen, onClo
   useEffect(() => {
     if (!isOpen || !currentStyle) return;
 
-    try {
-      // Generate prompt immediately without artificial delay
-      const prompt = assemblePrompt({
-        styleId: currentStyle.id,
-        industryId: 'SaaS',
-        useId: 'FullLandingPage'
-      });
+    const generatePrompt = async () => {
+      try {
+        // Pro 模式：先呼叫後端驗證
+        if (tier === 'pro') {
+          const response = await fetch('/api/promo-guard', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ styleId: currentStyle.id, tier: 'pro' }),
+          });
 
-      setPromptText(prompt);
-    } catch (err) {
-      console.error('Failed to generate prompt', err);
-      setPromptText(t('promptModal.generateFailed') || 'Failed to generate prompt');
-    }
-  }, [isOpen, currentStyle, t]);
+          if (!response.ok) {
+            const errorData = await response.json();
+            console.warn('[PromptModal] Pro access denied:', errorData);
+            // 降級到 Free 版
+            const prompt = assemblePrompt({
+              styleId: currentStyle.id,
+              industryId: 'SaaS',
+              useId: 'FullLandingPage',
+              tier: 'free',  // 降級
+            });
+            setPromptText(prompt);
+            return;
+          }
+        }
+
+        // 驗證通過，生成提示詞
+        const prompt = assemblePrompt({
+          styleId: currentStyle.id,
+          industryId: 'SaaS',
+          useId: 'FullLandingPage',
+          tier: tier,
+        });
+        setPromptText(prompt);
+
+      } catch (err) {
+        console.error('Failed to generate prompt', err);
+        setPromptText(t('promptModal.generateFailed') || 'Failed to generate prompt');
+      }
+    };
+
+    generatePrompt();
+  }, [isOpen, currentStyle, tier, t]);
 
   const handleCopy = async () => {
     try {

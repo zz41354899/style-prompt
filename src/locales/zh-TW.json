@@ -14,7 +14,11 @@
     "currentStyle": "當前風格",
     "designStyles": "設計風格庫",
     "stylesAvailable": "共有 {{count}} 種風格",
-    "proStylesAvailable": "{{count}} 個進階風格預覽"
+    "proStylesAvailable": "{{count}} 個進階風格預覽",
+    "newYearPromo": {
+      "title": "🎉 Happy New Year 2026!",
+      "subtitle": "Pro 版限時免費試用中"
+    }
   },
   "styles": {
     "S01": {

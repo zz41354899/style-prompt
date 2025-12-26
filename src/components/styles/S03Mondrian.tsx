@@ -29,9 +29,9 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
   };
 
   return (
-    <div 
+    <div
       className="min-h-screen"
-      style={{ 
+      style={{
         backgroundColor: colors.bg,
         color: colors.primary,
         fontFamily: typography.fontFamily,
@@ -40,7 +40,7 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
       }}
     >
       {/* Top Navigation */}
-      <header style={{ 
+      <header style={{
         padding: `${spacing.md} 0`,
         borderBottom: `${border.width} ${border.style} ${border.color}`,
       }}>
@@ -52,7 +52,7 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
               <div style={{ width: '12px', height: '12px', backgroundColor: colors.blue }} />
               <div style={{ width: '12px', height: '12px', backgroundColor: colors.yellow }} />
             </div>
-            <span 
+            <span
               style={{
                 fontSize: responsive.fontSize.sm,
                 fontWeight: '700',
@@ -67,7 +67,7 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
           {/* Desktop Navigation */}
           <nav className={`${responsive.nav.showDesktop ? 'flex' : 'hidden'} items-center gap-8`}>
             {['Works', 'Philosophy', 'Contact'].map((item) => (
-              <span 
+              <span
                 key={item}
                 className="cursor-pointer"
                 style={{
@@ -115,7 +115,7 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
 
         {/* Mobile Menu */}
         {menuOpen && (
-          <div 
+          <div
             style={{
               borderTop: `${border.width} ${border.style} ${border.color}`,
               padding: spacing.md,
@@ -125,7 +125,7 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
           >
             <div className="max-w-6xl mx-auto px-6 space-y-3">
               {['Works', 'Philosophy', 'Contact'].map((item) => (
-                <span 
+                <span
                   key={item}
                   className="block cursor-pointer"
                   style={{
@@ -167,12 +167,12 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
           {/* Desktop Grid */}
           <div className="grid-cols-12 gap-2" style={{ minHeight: '500px', display: deviceMode === 'mobile' ? 'none' : 'grid' }}>
             {/* Large Red Block - Main Content */}
-            <div 
+            <div
               className="col-span-7 row-span-2 flex flex-col justify-center p-8"
               style={{ backgroundColor: colors.red }}
             >
               <div style={{ color: colors.white }}>
-                <h1 
+                <h1
                   className="text-4xl md:text-5xl lg:text-6xl"
                   style={{
                     fontWeight: '700',
@@ -185,7 +185,7 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
                   <br />
                   Design System
                 </h1>
-                <p 
+                <p
                   className="text-base md:text-lg"
                   style={{
                     lineHeight: 1.6,
@@ -235,11 +235,11 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
             </div>
 
             {/* Blue Block - Visual Element */}
-            <div 
+            <div
               className="col-span-3 row-span-1 flex items-center justify-center"
               style={{ backgroundColor: colors.blue }}
             >
-              <div className="text-3xl md:text-4xl lg:text-5xl" style={{ 
+              <div className="text-3xl md:text-4xl lg:text-5xl" style={{
                 color: colors.white,
                 fontWeight: '700',
                 writingMode: 'vertical-rl',
@@ -250,18 +250,18 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
             </div>
 
             {/* Yellow Block - Stats */}
-            <div 
+            <div
               className="col-span-2 row-span-1 flex flex-col justify-center items-center p-4"
               style={{ backgroundColor: colors.yellow }}
             >
-              <div className="text-2xl md:text-3xl" style={{ 
+              <div className="text-2xl md:text-3xl" style={{
                 color: colors.primary,
                 fontWeight: '700',
                 marginBottom: spacing.sm,
               }}>
                 100%
               </div>
-              <div style={{ 
+              <div style={{
                 color: colors.primary,
                 fontSize: '10px',
                 fontWeight: '700',
@@ -274,14 +274,14 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
             </div>
 
             {/* Small White Block */}
-            <div 
+            <div
               className="col-span-2 row-span-1 flex items-center justify-center"
-              style={{ 
+              style={{
                 backgroundColor: colors.white,
                 border: `${border.width} ${border.style} ${border.color}`,
               }}
             >
-              <div style={{ 
+              <div style={{
                 color: colors.primary,
                 fontSize: responsive.fontSize.sm,
                 fontWeight: '700',
@@ -293,12 +293,12 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
             </div>
 
             {/* Large Blue Block - Features */}
-            <div 
+            <div
               className="col-span-3 row-span-1 flex flex-col justify-center p-6"
               style={{ backgroundColor: colors.blue }}
             >
               <div style={{ color: colors.white }}>
-                <h3 
+                <h3
                   style={{
                     fontSize: responsive.fontSize['2xl'],
                     fontWeight: '700',
@@ -309,9 +309,9 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
                 </h3>
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                   {['Geometric Precision', 'Primary Colors', 'Asymmetrical Balance'].map((item) => (
-                    <li 
+                    <li
                       key={item}
-                      style={{ 
+                      style={{
                         marginBottom: spacing.sm,
                         fontSize: responsive.fontSize.sm,
                         display: 'flex',
@@ -328,11 +328,11 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
             </div>
 
             {/* Red Accent Block */}
-            <div 
+            <div
               className="col-span-5 row-span-1 flex items-center justify-center"
               style={{ backgroundColor: colors.red }}
             >
-              <div style={{ 
+              <div style={{
                 color: colors.white,
                 fontSize: responsive.fontSize.lg,
                 fontWeight: '700',
@@ -348,12 +348,12 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
           {/* Mobile Grid - Stacked Layout */}
           <div className="space-y-2" style={{ display: deviceMode === 'mobile' ? 'block' : 'none' }}>
             {/* Main Content Block */}
-            <div 
+            <div
               className="flex flex-col justify-center p-6"
               style={{ backgroundColor: colors.red }}
             >
               <div style={{ color: colors.white }}>
-                <h1 
+                <h1
                   style={{
                     fontSize: responsive.fontSize['3xl'],
                     fontWeight: '700',
@@ -366,7 +366,7 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
                   <br />
                   Design System
                 </h1>
-                <p 
+                <p
                   style={{
                     fontSize: responsive.fontSize.base,
                     lineHeight: 1.6,
@@ -416,11 +416,11 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
             </div>
 
             {/* Blue Block */}
-            <div 
+            <div
               className="flex items-center justify-center p-6"
               style={{ backgroundColor: colors.blue }}
             >
-              <div style={{ 
+              <div style={{
                 color: colors.white,
                 fontSize: responsive.fontSize['4xl'],
                 fontWeight: '700',
@@ -433,11 +433,11 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
             {/* Stats Row */}
             <div className="grid grid-cols-2 gap-2">
               {/* Yellow Block */}
-              <div 
+              <div
                 className="flex flex-col justify-center items-center p-4"
                 style={{ backgroundColor: colors.yellow }}
               >
-                <div style={{ 
+                <div style={{
                   color: colors.primary,
                   fontSize: responsive.fontSize['2xl'],
                   fontWeight: '700',
@@ -445,7 +445,7 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
                 }}>
                   100%
                 </div>
-                <div style={{ 
+                <div style={{
                   color: colors.primary,
                   fontSize: '10px',
                   fontWeight: '700',
@@ -458,14 +458,14 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
               </div>
 
               {/* White Block */}
-              <div 
+              <div
                 className="flex items-center justify-center"
-                style={{ 
+                style={{
                   backgroundColor: colors.white,
                   border: `${border.width} ${border.style} ${border.color}`,
                 }}
               >
-                <div style={{ 
+                <div style={{
                   color: colors.primary,
                   fontSize: responsive.fontSize.xs,
                   fontWeight: '700',
@@ -478,12 +478,12 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
             </div>
 
             {/* Features Block */}
-            <div 
+            <div
               className="flex flex-col justify-center p-6"
               style={{ backgroundColor: colors.blue }}
             >
               <div style={{ color: colors.white }}>
-                <h3 
+                <h3
                   style={{
                     fontSize: responsive.fontSize.xl,
                     fontWeight: '700',
@@ -494,9 +494,9 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
                 </h3>
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                   {['Geometric Precision', 'Primary Colors', 'Asymmetrical Balance'].map((item) => (
-                    <li 
+                    <li
                       key={item}
-                      style={{ 
+                      style={{
                         marginBottom: spacing.sm,
                         fontSize: responsive.fontSize.sm,
                         display: 'flex',
@@ -513,11 +513,11 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
             </div>
 
             {/* Red Accent Block */}
-            <div 
+            <div
               className="flex items-center justify-center p-6"
               style={{ backgroundColor: colors.red }}
             >
-              <div style={{ 
+              <div style={{
                 color: colors.white,
                 fontSize: responsive.fontSize.base,
                 fontWeight: '700',
@@ -548,10 +548,10 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
                   backgroundColor: metric.color,
                   padding: spacing.lg,
                   textAlign: 'center',
-                  color: colors.white,
+                  color: metric.color === colors.yellow ? colors.primary : colors.white,
                 }}
               >
-                <div 
+                <div
                   className="text-2xl md:text-3xl"
                   style={{
                     fontWeight: '700',
@@ -560,7 +560,7 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
                 >
                   {metric.value}
                 </div>
-                <div 
+                <div
                   className="text-xs"
                   style={{
                     fontWeight: '700',
@@ -580,15 +580,15 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
       <section style={{ padding: `${spacing.xl} ${spacing.md}` }}>
         <div className="max-w-6xl mx-auto">
           <div className="grid gap-2" style={{ gridTemplateColumns: deviceMode === 'mobile' ? '1fr' : 'repeat(12, 1fr)' }}>
-            <div 
-              style={{ 
-                gridColumn: deviceMode === 'mobile' ? 'span 1' : 'span 8', 
+            <div
+              style={{
+                gridColumn: deviceMode === 'mobile' ? 'span 1' : 'span 8',
                 padding: deviceMode === 'mobile' ? '24px' : '32px',
                 backgroundColor: colors.white,
                 border: `${border.width} ${border.style} ${border.color}`,
               }}
             >
-              <h2 
+              <h2
                 className="text-2xl md:text-3xl lg:text-4xl"
                 style={{
                   fontWeight: '700',
@@ -605,7 +605,7 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
                   { title: 'Typography', desc: 'Helvetica Neue hierarchy' },
                 ].map((feature) => (
                   <div key={feature.title}>
-                    <h3 
+                    <h3
                       style={{
                         fontSize: responsive.fontSize.base,
                         fontWeight: '700',
@@ -621,11 +621,11 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
                 ))}
               </div>
             </div>
-            <div 
+            <div
               className="flex items-center justify-center"
               style={{ gridColumn: deviceMode === 'mobile' ? 'span 1' : 'span 4', padding: '24px', backgroundColor: colors.blue }}
             >
-              <div style={{ 
+              <div style={{
                 color: colors.white,
                 fontSize: responsive.fontSize.xl,
                 fontWeight: '700',
@@ -643,7 +643,7 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
       <section style={{ padding: `${spacing.xl} ${spacing.md}` }}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center" style={{ marginBottom: spacing.xl }}>
-            <h2 
+            <h2
               className="text-2xl md:text-3xl lg:text-4xl"
               style={{
                 fontWeight: '700',
@@ -653,7 +653,7 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
               Pricing Plans
             </h2>
           </div>
-          
+
           <div className="grid gap-2" style={{ gridTemplateColumns: deviceMode === 'mobile' ? '1fr' : 'repeat(3, 1fr)' }}>
             {[
               {
@@ -684,7 +684,7 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
                   color: plan.color === colors.white ? colors.primary : colors.white,
                 }}
               >
-                <h3 
+                <h3
                   style={{
                     fontSize: responsive.fontSize.xl,
                     fontWeight: '700',
@@ -693,7 +693,7 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
                 >
                   {plan.name}
                 </h3>
-                <div 
+                <div
                   style={{
                     fontSize: responsive.fontSize['4xl'],
                     fontWeight: '700',
@@ -704,9 +704,9 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
                 </div>
                 <div style={{ marginBottom: spacing.lg }}>
                   {plan.features.map((feature) => (
-                    <div 
+                    <div
                       key={feature}
-                      style={{ 
+                      style={{
                         marginBottom: spacing.sm,
                         fontSize: responsive.fontSize.sm,
                         display: 'flex',
@@ -742,7 +742,7 @@ export const S03Mondrian = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
       </section>
 
       {/* Footer */}
-      <footer 
+      <footer
         style={{
           borderTop: `${border.width} ${border.style} ${border.color}`,
           padding: `${spacing.xl} ${spacing.md}`,

@@ -18,6 +18,7 @@ import { S79_S84_Configs } from './S79-S84';
 import { S85_S90_Configs } from './S85-S90';
 import { S91_S96_Configs } from './S91-S96';
 import { S97_S100_Configs } from './S97-S100';
+import { S_Pro_Configs } from './S-Pro';
 import type { StyleDNAConfig } from './types';
 
 // 合併所有配置
@@ -43,7 +44,7 @@ export const styleDNAConfigs: Record<string, StyleDNAConfig> = {
 };
 
 // 導出各組配置（可選）
-export { S01_S06_Configs, S07_S12_Configs, S13_S18_Configs, S19_S24_Configs, S25_S30_Configs, S31_S36_Configs, S37_S42_Configs, S43_S48_Configs, S49_S54_Configs, S55_S60_Configs, S61_S66_Configs, S67_S72_Configs, S73_S78_Configs, S79_S84_Configs, S85_S90_Configs, S91_S96_Configs, S97_S100_Configs };
+export { S01_S06_Configs, S07_S12_Configs, S13_S18_Configs, S19_S24_Configs, S25_S30_Configs, S31_S36_Configs, S37_S42_Configs, S43_S48_Configs, S49_S54_Configs, S55_S60_Configs, S61_S66_Configs, S67_S72_Configs, S73_S78_Configs, S79_S84_Configs, S85_S90_Configs, S91_S96_Configs, S97_S100_Configs, S_Pro_Configs };
 
 // 便利函數：獲取特定範圍的配置
 export const getConfigsByRange = (start: string, end: string): Record<string, StyleDNAConfig> => {
@@ -79,4 +80,24 @@ export const getConfigsByIndustry = (industry: string): Record<string, StyleDNAC
   });
 
   return configs;
+};
+
+// Pro 版配置合併
+export const styleDNAConfigsPro: Record<string, StyleDNAConfig> = {
+  ...S_Pro_Configs,
+};
+
+// 便利函數：獲取 Pro 版配置
+export const getProConfig = (styleId: string): StyleDNAConfig | undefined => {
+  const proId = styleId.endsWith('-Pro') ? styleId : `${styleId}-Pro`;
+  return S_Pro_Configs[proId];
+};
+
+// 便利函數：獲取配置（自動判斷 Free/Pro）
+export const getStyleConfig = (styleId: string, tier: 'free' | 'pro' = 'free'): StyleDNAConfig | undefined => {
+  if (tier === 'pro') {
+    const proConfig = getProConfig(styleId);
+    if (proConfig) return proConfig;
+  }
+  return styleDNAConfigs[styleId];
 };

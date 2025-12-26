@@ -73,111 +73,32 @@ export const S80StartupVibrant = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
             {/* Mobile Menu */}
             {menuOpen && (
                 <div className="fixed inset-0 z-50 lg:hidden pointer-events-none">
-                    <div className="absolute inset-0 bg-black/50" onClick={() => setMenuOpen(false)} />
+                    <div className="absolute inset-0 bg-black/50 pointer-events-auto" onClick={() => setMenuOpen(false)} />
                     <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
                         <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Product
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Solutions
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Developers
                             </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Pricing
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {menuOpen && (
-                <div className="fixed inset-0 z-50 lg:hidden pointer-events-none">
-                    <div className="absolute inset-0 bg-black/50" onClick={() => setMenuOpen(false)} />
-                    <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
-                        <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Product
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Solutions
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Developers
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Pricing
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {menuOpen && (
-                <div className="fixed inset-0 z-40 lg:hidden pointer-events-none">
-                    <div className="absolute inset-0 bg-black/20" onClick={() => setMenuOpen(false)} />
-                    <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
-                        <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Product
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Solutions
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Developers
-                            </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >

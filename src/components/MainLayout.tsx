@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { X, Menu, Wand2, Eye, Coffee, Home, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { styles, getStyleTier, hasProVersion } from '@/data/styles';
+import { styles, getStyleTier, hasProVersion, isNewYearPromoActive } from '@/data/styles';
 import { LanguageSwitcher } from './LanguageSwitcher';
 
 // 主題顏色映射
@@ -296,6 +296,12 @@ export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }
                   <span className="text-white/50 text-[10px]">(1-10)</span>
                 </button>
               </div>
+              {isNewYearPromoActive() && (
+                <div className="mt-2 px-3 py-2 bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/30 rounded-lg text-center">
+                  <div className="text-amber-300 text-xs font-medium">{t('layout.newYearPromo.title')}</div>
+                  <div className="text-amber-200/70 text-[10px] mt-0.5">{t('layout.newYearPromo.subtitle')}</div>
+                </div>
+              )}
             </div>
             <div className="flex-1 overflow-y-auto">
               {styles
@@ -338,7 +344,7 @@ export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }
 
           {/* Mobile Sidebar */}
           {sidebarOpen && (
-            <div className="fixed inset-0 z-50 lg:hidden">
+            <div className="fixed inset-0 z-[60] lg:hidden">
               <div className="fixed inset-0 bg-black/50" onClick={() => setSidebarOpen(false)} />
               <div className="fixed left-0 top-0 bottom-0 w-80 bg-[#0a0a0a] flex flex-col">
                 <div className="flex items-center justify-between p-4 border-b border-white/10">
@@ -375,6 +381,15 @@ export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }
                       Pro
                       <span className="text-white/50 text-[10px]">(1-10)</span>
                     </button>
+                  </div>
+                  {isNewYearPromoActive() && (
+                    <div className="mt-2 px-3 py-2 bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/30 rounded-lg text-center">
+                      <div className="text-amber-300 text-xs font-medium">{t('layout.newYearPromo.title')}</div>
+                      <div className="text-amber-200/70 text-[10px] mt-0.5">{t('layout.newYearPromo.subtitle')}</div>
+                    </div>
+                  )}
+                  <div className="mt-4">
+                    <LanguageSwitcher variant="sidebar" />
                   </div>
                 </div>
 
@@ -418,9 +433,6 @@ export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }
                       </button>
                     ))}
                 </div>
-                <div className="p-4 border-t border-white/10">
-                  <LanguageSwitcher variant="sidebar" />
-                </div>
               </div>
             </div>
           )}
@@ -454,6 +466,6 @@ export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }
         {/* Language Switcher */}
         <LanguageSwitcher />
       </div>
-    </LayoutContext.Provider>
+    </LayoutContext.Provider >
   );
 };

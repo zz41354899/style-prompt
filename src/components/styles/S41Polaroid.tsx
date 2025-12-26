@@ -58,111 +58,32 @@ export const S41Polaroid = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
             {/* Mobile Menu */}
             {menuOpen && (
                 <div className="fixed inset-0 z-50 lg:hidden pointer-events-none">
-                    <div className="absolute inset-0 bg-black/50" onClick={() => setMenuOpen(false)} />
+                    <div className="absolute inset-0 bg-black/50 pointer-events-auto" onClick={() => setMenuOpen(false)} />
                     <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
                         <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Gallery
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Albums
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Prints
                             </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Community
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {menuOpen && (
-                <div className="fixed inset-0 z-50 lg:hidden pointer-events-none">
-                    <div className="absolute inset-0 bg-black/50" onClick={() => setMenuOpen(false)} />
-                    <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
-                        <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Gallery
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Albums
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Prints
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Community
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {menuOpen && (
-                <div className="fixed inset-0 z-40 lg:hidden pointer-events-none">
-                    <div className="absolute inset-0 bg-black/20" onClick={() => setMenuOpen(false)} />
-                    <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
-                        <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Gallery
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Albums
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Prints
-                            </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
@@ -256,19 +177,24 @@ export const S41Polaroid = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
                     </div>
 
                     <div className={`grid ${isMobile ? 'grid-cols-1' : 'grid-cols-2 lg:grid-cols-4'} gap-8 gap-y-16`}>
-                        {[1, 2, 3, 4].map((i) => (
+                        {[
+                            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop',
+                            'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop',
+                            'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=400&auto=format&fit=crop',
+                            'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&auto=format&fit=crop'
+                        ].map((imgUrl, i) => (
                             <div key={i} className="group relative">
                                 <div className={`bg-white p-3 pb-12 shadow-lg transition-transform duration-300 hover:z-10 hover:scale-105 ${i % 2 === 0 ? 'rotate-2' : '-rotate-1'}`}>
                                     <div className="aspect-[4/5] bg-gray-100 overflow-hidden mb-2 relative">
                                         <img
-                                            src={`https://source.unsplash.com/random/400x500?portrait,lifestyle&sig=${i}`}
+                                            src={imgUrl}
                                             className="w-full h-full object-cover"
                                         />
                                         {/* Light leak effect overlay (CSS gradient) */}
                                         <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/10 to-blue-500/10 mix-blend-screen pointer-events-none" />
                                     </div>
                                     <div className="font-hand text-center text-lg text-gray-700 min-h-[1.5em] flex items-center justify-center gap-2">
-                                        <span>Untitled_{i}</span>
+                                        <span>Untitled_{i + 1}</span>
                                         <Edit3 size={14} className="opacity-0 group-hover:opacity-50 cursor-pointer" />
                                     </div>
                                 </div>

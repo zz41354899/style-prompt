@@ -72,111 +72,32 @@ export const S40Postcard = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
             {/* Mobile Menu */}
             {menuOpen && (
                 <div className="fixed inset-0 z-50 lg:hidden pointer-events-none">
-                    <div className="absolute inset-0 bg-black/50" onClick={() => setMenuOpen(false)} />
+                    <div className="absolute inset-0 bg-black/50 pointer-events-auto" onClick={() => setMenuOpen(false)} />
                     <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
                         <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Destinations
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Stories
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Journal
                             </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Shop
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {menuOpen && (
-                <div className="fixed inset-0 z-50 lg:hidden pointer-events-none">
-                    <div className="absolute inset-0 bg-black/50" onClick={() => setMenuOpen(false)} />
-                    <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
-                        <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Destinations
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Stories
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Journal
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Shop
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {menuOpen && (
-                <div className="fixed inset-0 z-40 lg:hidden pointer-events-none">
-                    <div className="absolute inset-0 bg-black/20" onClick={() => setMenuOpen(false)} />
-                    <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
-                        <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Destinations
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Stories
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Journal
-                            </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
@@ -260,12 +181,16 @@ export const S40Postcard = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
                 </div>
 
                 <div className={`grid ${isMobile ? 'grid-cols-1' : 'grid-cols-3'} gap-8 p-4`}>
-                    {[1, 2, 3].map((i) => (
+                    {[
+                        'https://images.unsplash.com/photo-1506929562872-bb421503ef21?q=80&w=400&auto=format&fit=crop',
+                        'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=400&auto=format&fit=crop',
+                        'https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=400&auto=format&fit=crop'
+                    ].map((imgUrl, i) => (
                         <div key={i} className="group relative">
                             <div className="bg-white p-3 pb-12 shadow-[0_4px_6px_rgba(0,0,0,0.1),0_10px_20px_rgba(0,0,0,0.05)] transform rotate-1 group-hover:rotate-0 group-hover:scale-105 transition-all duration-300">
                                 <div className="aspect-square bg-gray-100 overflow-hidden mb-4 grayscale-[0.2] group-hover:grayscale-0 transition-all">
                                     <img
-                                        src={`https://source.unsplash.com/random/400x400?travel,landscape&sig=${i}`}
+                                        src={imgUrl}
                                         className="w-full h-full object-cover"
                                     />
                                 </div>

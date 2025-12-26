@@ -40,8 +40,8 @@ export const S85KidsPlayful = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
             <nav className="fixed w-full z-50 px-6 py-4">
                 <div className="max-w-6xl mx-auto bg-white border-4 border-[#448AFF] rounded-full px-6 h-20 flex justify-between items-center shadow-[0_8px_0_rgba(68,138,255,0.3)]">
                     <div className="flex items-center gap-2">
-                        <div className="w-10 h-10 bg-[#FFCA28] rounded-full flex items-center justify-center text-white border-2 border-white shadow-md">
-                            <Star size={24} fill="white" />
+                        <div className="w-10 h-10 bg-[#FFCA28] rounded-full flex items-center justify-center text-[#5D4037] border-2 border-white shadow-md">
+                            <Star size={24} fill="#5D4037" />
                         </div>
                         <span className="font-kids font-black text-2xl text-[#448AFF] tracking-tight">Kiddo!</span>
                     </div>
@@ -70,111 +70,32 @@ export const S85KidsPlayful = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
             {/* Mobile Menu */}
             {menuOpen && (
                 <div className="fixed inset-0 z-50 lg:hidden pointer-events-none">
-                    <div className="absolute inset-0 bg-black/50" onClick={() => setMenuOpen(false)} />
+                    <div className="absolute inset-0 bg-black/50 pointer-events-auto" onClick={() => setMenuOpen(false)} />
                     <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
                         <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Games
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Stories
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Learn
                             </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Parents
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {menuOpen && (
-                <div className="fixed inset-0 z-50 lg:hidden pointer-events-none">
-                    <div className="absolute inset-0 bg-black/50" onClick={() => setMenuOpen(false)} />
-                    <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
-                        <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Games
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Stories
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Learn
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Parents
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {menuOpen && (
-                <div className="fixed inset-0 z-40 lg:hidden pointer-events-none">
-                    <div className="absolute inset-0 bg-black/20" onClick={() => setMenuOpen(false)} />
-                    <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
-                        <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Games
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Stories
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Learn
-                            </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
@@ -208,8 +129,8 @@ export const S85KidsPlayful = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
                         </p>
 
                         <div className="flex flex-wrap gap-4">
-                            <button className="bg-[#FFCA28] text-white px-8 py-4 rounded-3xl font-kids font-black text-xl bouncy-btn flex items-center gap-3 border-4 border-white ring-4 ring-[#FFCA28]/30">
-                                <Play fill="white" size={24} /> Start Adventure
+                            <button className="bg-[#FFCA28] text-[#5D4037] px-8 py-4 rounded-3xl font-kids font-black text-xl bouncy-btn flex items-center gap-3 border-4 border-white ring-4 ring-[#FFCA28]/30">
+                                <Play fill="#5D4037" size={24} /> Start Adventure
                             </button>
                         </div>
                     </div>

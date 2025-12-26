@@ -64,108 +64,30 @@ export const S46AbstractMemphis = ({ deviceMode }: { deviceMode?: 'desktop' | 't
                     <div className="absolute inset-0 bg-black/50" onClick={() => setMenuOpen(false)} />
                     <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
                         <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Fun
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Games
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Design
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                About
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            )}
 
-            {menuOpen && (
-                <div className="fixed inset-0 z-50 lg:hidden pointer-events-none">
-                    <div className="absolute inset-0 bg-black/50" onClick={() => setMenuOpen(false)} />
-                    <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
-                        <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Fun
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Games
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Design
                             </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                About
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {menuOpen && (
-                <div className="fixed inset-0 z-40 lg:hidden pointer-events-none">
-                    <div className="absolute inset-0 bg-black/20" onClick={() => setMenuOpen(false)} />
-                    <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
-                        <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Fun
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Games
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Design
-                            </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
@@ -190,7 +112,7 @@ export const S46AbstractMemphis = ({ deviceMode }: { deviceMode?: 'desktop' | 't
                             <span className="text-white drop-shadow-[4px_4px_0_#000] stroke-black" style={{ WebkitTextStroke: '3px black' }}>Attitude</span>
                         </h1>
 
-                        <p className="font-clean font-bold text-2xl mb-8 max-w-md">
+                        <p className="font-clean font-bold text-2xl mb-8 max-w-md text-black">
                             Reject the grid. Embrace the chaos. <br />
                             Add some <span className="underline decoration-wavy decoration-pink-500 decoration-4">squiggle</span> to your life.
                         </p>
@@ -254,8 +176,8 @@ export const S46AbstractMemphis = ({ deviceMode }: { deviceMode?: 'desktop' | 't
                             <div className={`w-20 h-20 ${card.color} rounded-full border-4 border-black flex items-center justify-center mb-6`}>
                                 <card.icon size={40} className="text-black fill-white" />
                             </div>
-                            <h3 className="text-3xl font-memphis mb-4">{card.title}</h3>
-                            <p className="font-clean font-bold text-gray-500 leading-relaxed">
+                            <h3 className="text-3xl font-memphis mb-4 text-black">{card.title}</h3>
+                            <p className="font-clean font-bold text-gray-600 leading-relaxed">
                                 Don't be afraid to clash patterns and colors. It's not a mistake, it's a statement.
                             </p>
                         </div>

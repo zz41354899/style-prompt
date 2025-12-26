@@ -2,7 +2,7 @@ import { Palette, Home, Search, Heart, User, Menu, Bell, Plus, Layers, Grid3X3, 
 
 export const S13Material = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
   const isMobile = deviceMode === 'mobile';
-  
+
   return (
     <div className="min-h-full bg-[#F5F5F5] font-sans relative">
       {/* App Bar */}
@@ -22,8 +22,8 @@ export const S13Material = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
 
       <div className="p-4">
         {/* Hero Card */}
-        <div className="bg-white rounded-3xl shadow-sm overflow-hidden lg:flex lg:justify-between lg:items-center lg:gap-6">
-          <div className="h-44 relative overflow-hidden"
+        <div className={`bg-white rounded-3xl shadow-sm overflow-hidden mb-6 ${isMobile ? '' : 'flex'}`}>
+          <div className={`${isMobile ? 'h-44' : 'w-1/2 min-h-[200px]'} relative overflow-hidden`}
             style={{ background: 'linear-gradient(135deg, #6750A4 0%, #7F67BE 50%, #D0BCFF 100%)' }}>
             <div className="absolute bottom-4 left-6 right-6">
               <div className="text-white/60 text-xs font-medium mb-1">Material Design 3</div>
@@ -33,7 +33,7 @@ export const S13Material = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
             <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-white/10" />
             <div className="absolute top-1/2 right-1/4 w-20 h-20 rounded-full bg-white/5" />
           </div>
-          <div className="p-6">
+          <div className={`p-6 ${isMobile ? '' : 'flex-1 flex flex-col justify-center'}`}>
             <p className="text-[#49454F] mb-6 leading-relaxed">
               A design system based on dynamic colors, emphasizing personalization, accessibility, and expression. Making every interface unique.
             </p>
@@ -78,11 +78,10 @@ export const S13Material = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
               { label: 'Typography', active: false },
               { label: 'Icons', active: false },
             ].map((chip, i) => (
-              <span key={i} className={`px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer ${
-                chip.active 
-                  ? 'bg-[#E8DEF8] text-[#6750A4]' 
-                  : 'bg-[#E7E0EC] text-[#49454F] hover:bg-[#D0BCFF]/30'
-              }`}>
+              <span key={i} className={`px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer ${chip.active
+                ? 'bg-[#E8DEF8] text-[#6750A4]'
+                : 'bg-[#E7E0EC] text-[#49454F] hover:bg-[#D0BCFF]/30'
+                }`}>
                 {chip.label}
               </span>
             ))}
@@ -93,7 +92,7 @@ export const S13Material = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
         <div className="bg-white rounded-2xl p-6 mb-6 shadow-sm">
           <h2 className="text-xl font-medium text-[#1D1B20] mb-4">Why Material Design?</h2>
           <p className="text-[#49454F] mb-6 leading-relaxed">
-            Material Design 3 creates adaptive, accessible, and expressive interfaces. 
+            Material Design 3 creates adaptive, accessible, and expressive interfaces.
             It brings your brand to life through dynamic color, motion, and components.
           </p>
           <div className="grid gap-4" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
@@ -234,8 +233,8 @@ export const S13Material = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
           <h2 className="text-xl font-medium mb-2">Get in Touch</h2>
           <p className="text-white/80 mb-6">Have questions? We're here to help.</p>
           <div className="flex gap-3">
-            <input 
-              type="email" 
+            <input
+              type="email"
               placeholder="your@email.com"
               className="flex-1 px-4 py-3 rounded-full bg-white/20 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:border-white"
             />

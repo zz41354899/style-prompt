@@ -68,112 +68,34 @@ export const S39ComicBook = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet'
                     <div className="absolute inset-0 bg-black/50" onClick={() => setMenuOpen(false)} />
                     <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
                         <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
+
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Home
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Features
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 About
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Contact
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {menuOpen && (
-                <div className="fixed inset-0 z-50 lg:hidden pointer-events-none">
-                    <div className="absolute inset-0 bg-black/50" onClick={() => setMenuOpen(false)} />
-                    <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
-                        <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Home
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Features
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                About
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Contact
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {menuOpen && (
-                <div className="fixed inset-0 z-40 lg:hidden pointer-events-none">
-                    <div className="absolute inset-0 bg-black/20" onClick={() => setMenuOpen(false)} />
-                    <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
-                        <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Origins
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Powers
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Allies
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Villains
                             </a>
                         </div>
                     </div>
@@ -199,7 +121,7 @@ export const S39ComicBook = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet'
                             <h1 className={`${isMobile ? 'text-6xl' : 'text-8xl'} font-comic text-white drop-shadow-[4px_4px_0_#000] leading-none mb-6 relative z-10`}>
                                 UNLEASH <br /> <span className="text-yellow-300">YOUR</span> <br /> POWER!
                             </h1>
-                            <p className="font-bubble text-xl font-bold bg-white border-2 border-black p-4 inline-block mb-8 relative z-10 shadow-[4px_4px_0_rgba(0,0,0,0.1)] transform -rotate-2">
+                            <p className="font-bubble text-xl font-bold bg-white border-2 border-black p-4 inline-block mb-8 relative z-10 shadow-[4px_4px_0_rgba(0,0,0,0.1)] transform -rotate-2 text-black">
                                 The ultimate toolkit for creating impactful, dynamic, and heroic web experiences.
                             </p>
 
@@ -248,8 +170,8 @@ export const S39ComicBook = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet'
                         {/* Panel 1 */}
                         <div className={`${isMobile ? '' : 'col-span-2'} border-4 border-black bg-white p-6 relative shadow-[8px_8px_0_#000] hover:-translate-y-1 transition-transform`}>
                             <div className="absolute -top-4 -left-4 bg-red-500 text-white font-comic text-xl px-4 py-1 border-2 border-black transform -rotate-6 shadow-sm">Episode 1</div>
-                            <h3 className="font-comic text-4xl mb-4">The Origin Story</h3>
-                            <div className="font-bubble text-lg font-bold leading-relaxed w-2/3">
+                            <h3 className="font-comic text-4xl mb-4 text-black">The Origin Story</h3>
+                            <div className="font-bubble text-lg font-bold leading-relaxed w-2/3 text-black">
                                 It started with a single pixel. A radioactive formatting bug bit the stylesheet, and now...
                             </div>
                             <div className="absolute bottom-4 right-4 w-32 h-32 bg-gray-200 rounded-full border-4 border-black overflow-hidden">
@@ -268,11 +190,11 @@ export const S39ComicBook = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet'
                         {/* Panel 3 */}
                         <div className="border-4 border-black bg-blue-300 p-6 flex flex-col justify-end text-right shadow-[8px_8px_0_#000] hover:-translate-y-1 transition-transform">
                             <MessageCircle size={48} className="ml-auto mb-4" />
-                            <div className="bg-white border-2 border-black rounded-xl p-3 mb-2 font-bubble font-bold text-sm text-left relative">
+                            <div className="bg-white border-2 border-black rounded-xl p-3 mb-2 font-bubble font-bold text-sm text-left relative text-black">
                                 "Is it responsive?"
                                 <div className="absolute bottom-[-8px] right-4 w-4 h-4 bg-white border-r-2 border-b-2 border-black transform rotate-45" />
                             </div>
-                            <div className="bg-white border-2 border-black rounded-xl p-3 font-bubble font-bold text-sm text-left relative bg-green-200">
+                            <div className="bg-green-200 border-2 border-black rounded-xl p-3 font-bubble font-bold text-sm text-left relative text-black">
                                 "Does a spider spin webs?"
                                 <div className="absolute top-[-8px] right-4 w-4 h-4 bg-green-200 border-t-2 border-l-2 border-black transform rotate-45" />
                             </div>

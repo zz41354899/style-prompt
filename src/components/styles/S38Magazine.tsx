@@ -44,108 +44,36 @@ export const S38Magazine = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
             {/* Mobile Menu */}
             {menuOpen && (
                 <div className="fixed inset-0 z-50 lg:hidden pointer-events-none">
-                    <div className="absolute inset-0 bg-black/50" onClick={() => setMenuOpen(false)} />
+                    <div className="absolute inset-0 bg-black/50 pointer-events-auto" onClick={() => setMenuOpen(false)} />
                     <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
                         <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
-                                Home
+                                Fashion
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
-                                Features
+                                Beauty
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
-                                About
+                                Culture
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
-                                Contact
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {menuOpen && (
-                <div className="fixed inset-0 z-50 lg:hidden pointer-events-none">
-                    <div className="absolute inset-0 bg-black/50" onClick={() => setMenuOpen(false)} />
-                    <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
-                        <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Home
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Features
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                About
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Contact
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {menuOpen && (
-                <div className="fixed inset-0 z-40 lg:hidden pointer-events-none">
-                    <div className="absolute inset-0 bg-black/20" onClick={() => setMenuOpen(false)} />
-                    <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
-                        <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                1
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                2
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                3
+                                Subscribe
                             </a>
                         </div>
                     </div>
@@ -210,7 +138,7 @@ export const S38Magazine = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
                         <div className="group cursor-pointer">
                             <div className="overflow-hidden mb-4 aspect-[4/5] relative">
                                 <img
-                                    src="https://images.unsplash.com/photo-1522335789203-abd6523f7216?q=80&w=2070&auto=format&fit=crop"
+                                    src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=800&auto=format&fit=crop"
                                     alt="Makeup"
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
@@ -258,15 +186,19 @@ export const S38Magazine = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
                 </div>
 
                 <div className={`grid ${isMobile ? 'grid-cols-1' : 'grid-cols-3'} gap-8`}>
-                    {[1, 2, 3].map((item) => (
+                    {[
+                        'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=400&auto=format&fit=crop',
+                        'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=400&auto=format&fit=crop',
+                        'https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=400&auto=format&fit=crop'
+                    ].map((imgUrl, item) => (
                         <div key={item} className={`flex gap-4 items-start group cursor-pointer border-b border-gray-100 pb-8 ${isMobile ? '' : 'border-none pb-0 block'}`}>
                             <div className={`${isMobile ? 'w-24' : 'w-full'} aspect-[3/4] overflow-hidden shrink-0 relative bg-gray-100 mb-4`}>
                                 <img
-                                    src={`https://source.unsplash.com/random/400x500?fashion&sig=${item}`}
+                                    src={imgUrl}
                                     alt="Fashion"
                                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                 />
-                                <div className="absolute top-2 left-2 text-4xl font-black text-white stroke-black" style={{ WebkitTextStroke: '1px black' }}>0{item}</div>
+                                <div className="absolute top-2 left-2 text-4xl font-black text-white stroke-black" style={{ WebkitTextStroke: '1px black' }}>0{item + 1}</div>
                             </div>
                             <div>
                                 <div className="text-xs font-bold uppercase tracking-widest text-pink-600 mb-2">Category</div>

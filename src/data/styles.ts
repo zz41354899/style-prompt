@@ -12,6 +12,73 @@ export const hasProVersion = (id: string): boolean => {
   return num >= 1 && num <= 10;
 };
 
+// ============================================
+// Happy New Year 2026 Promotion - 防呆機制
+// ============================================
+
+// 活動配置 (硬編碼以防止被修改)
+const PROMO_CONFIG = {
+  // 活動名稱
+  name: 'Happy New Year 2026',
+  // 活動開始時間 (台灣時間 2025/12/26 00:00)
+  startDate: new Date('2025-12-26T00:00:00+08:00'),
+  // 活動結束時間 (台灣時間 2026/01/06 23:59:59 - 下週一)
+  endDate: new Date('2026-01-06T23:59:59+08:00'),
+  // 開放的 Pro 風格範圍
+  proStyleRange: { start: 1, end: 10 },
+} as const;
+
+// 檢查活動是否進行中
+export const isNewYearPromoActive = (): boolean => {
+  const now = new Date();
+  // 雙重檢查：必須在活動期間內
+  return now >= PROMO_CONFIG.startDate && now <= PROMO_CONFIG.endDate;
+};
+
+// 獲取活動結束日期 (供 UI 顯示)
+export const getPromoEndDate = (): Date => {
+  return PROMO_CONFIG.endDate;
+};
+
+// 安全檢查：驗證是否有 Pro 訪問權限
+// 此函數用於 API 或敏感操作前的驗證
+export const canAccessProStyle = (styleId: string): boolean => {
+  // 檢查是否有 Pro 版本
+  if (!hasProVersion(styleId)) {
+    return false;
+  }
+
+  // 檢查活動是否進行中
+  if (!isNewYearPromoActive()) {
+    return false;
+  }
+
+  // 驗證風格 ID 在允許範圍內
+  const num = parseInt(styleId.replace('S', ''), 10);
+  return num >= PROMO_CONFIG.proStyleRange.start && num <= PROMO_CONFIG.proStyleRange.end;
+};
+
+// 獲取活動狀態資訊 (供 debug 或 logging)
+export const getPromoStatus = (): {
+  isActive: boolean;
+  name: string;
+  startDate: string;
+  endDate: string;
+  remainingHours: number | null;
+} => {
+  const now = new Date();
+  const isActive = isNewYearPromoActive();
+  const remainingMs = isActive ? PROMO_CONFIG.endDate.getTime() - now.getTime() : null;
+
+  return {
+    isActive,
+    name: PROMO_CONFIG.name,
+    startDate: PROMO_CONFIG.startDate.toISOString(),
+    endDate: PROMO_CONFIG.endDate.toISOString(),
+    remainingHours: remainingMs ? Math.floor(remainingMs / (1000 * 60 * 60)) : null,
+  };
+};
+
 // For backward compatibility - returns 'free' for all styles in normal mode
 export const getStyleTier = (id: string): 'free' | 'pro' => {
   return 'free'; // All styles are free by default

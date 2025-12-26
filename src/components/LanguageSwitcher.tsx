@@ -23,7 +23,7 @@ export const LanguageSwitcher = ({ variant = 'floating' }: LanguageSwitcherProps
     return (
       <button
         onClick={toggleLanguage}
-        className="w-full flex items-center justify-center gap-2 px-4 py-3 mt-4 bg-white/5 hover:bg-white/10 text-white/80 hover:text-white rounded-xl transition-all duration-200 border border-white/5"
+        className="w-full flex items-center justify-center gap-2 px-4 py-3 mt-2 bg-white/10 hover:bg-white/20 text-white rounded-xl transition-all duration-200 border border-white/10"
         title={isZh ? 'Switch to English' : '切換至中文'}
       >
         <Languages size={18} />

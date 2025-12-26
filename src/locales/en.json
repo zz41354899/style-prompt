@@ -14,7 +14,11 @@
     "currentStyle": "Current Style",
     "designStyles": "Design Styles",
     "stylesAvailable": "{{count}} Styles Available",
-    "proStylesAvailable": "{{count}} Pro Styles Preview"
+    "proStylesAvailable": "{{count}} Pro Styles Preview",
+    "newYearPromo": {
+      "title": "🎉 Happy New Year 2026!",
+      "subtitle": "Pro styles free trial active"
+    }
   },
   "styles": {
     "S01": {

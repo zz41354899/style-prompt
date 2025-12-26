@@ -40,19 +40,30 @@ export const S55Oceanic = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' |
             {/* Deep Sea Background */}
             <div className="fixed inset-0 z-0" style={{ background: deepSea }} />
 
-            {/* Floating Bubbles */}
+            {/* Floating Bubbles - Fixed positions to avoid hydration mismatch */}
             <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-                {[...Array(20)].map((_, i) => (
+                {[
+                    { w: 35, h: 25, l: 10, t: 20, delay: 0, dur: 6 },
+                    { w: 20, h: 40, l: 25, t: 45, delay: 1, dur: 7 },
+                    { w: 45, h: 30, l: 40, t: 15, delay: 2, dur: 8 },
+                    { w: 15, h: 50, l: 55, t: 60, delay: 0.5, dur: 5 },
+                    { w: 30, h: 20, l: 70, t: 30, delay: 1.5, dur: 9 },
+                    { w: 25, h: 35, l: 85, t: 70, delay: 2.5, dur: 6 },
+                    { w: 40, h: 45, l: 15, t: 80, delay: 3, dur: 7 },
+                    { w: 50, h: 15, l: 60, t: 5, delay: 0.8, dur: 8 },
+                    { w: 18, h: 28, l: 35, t: 55, delay: 1.2, dur: 5 },
+                    { w: 32, h: 38, l: 90, t: 40, delay: 2.2, dur: 9 },
+                ].map((bubble, i) => (
                     <div
                         key={i}
                         className="absolute rounded-full bg-white/10 bubble"
                         style={{
-                            width: Math.random() * 50 + 10 + 'px',
-                            height: Math.random() * 50 + 10 + 'px',
-                            left: Math.random() * 100 + '%',
-                            top: Math.random() * 100 + '%',
-                            animationDelay: Math.random() * 5 + 's',
-                            animationDuration: Math.random() * 5 + 5 + 's'
+                            width: `${bubble.w}px`,
+                            height: `${bubble.h}px`,
+                            left: `${bubble.l}%`,
+                            top: `${bubble.t}%`,
+                            animationDelay: `${bubble.delay}s`,
+                            animationDuration: `${bubble.dur}s`
                         }}
                     />
                 ))}
@@ -95,91 +106,34 @@ export const S55Oceanic = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' |
                     <div className="absolute inset-0 bg-black/50" onClick={() => setMenuOpen(false)} />
                     <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
                         <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
+
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Expedition
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Species
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Conservation
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Donate
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {menuOpen && (
-                <div className="fixed inset-0 z-50 lg:hidden pointer-events-none">
-                    <div className="absolute inset-0 bg-black/50" onClick={() => setMenuOpen(false)} />
-                    <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
-                        <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Expedition
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Species
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Conservation
-                            </a>
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                Donate
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {menuOpen && (
-                <div className="fixed inset-0 z-40 lg:hidden pointer-events-none">
-                    <div className="absolute inset-0 bg-black/20" onClick={() => setMenuOpen(false)} />
-                    <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
-                        <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
-                                onClick={() => setMenuOpen(false)}
-                                className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
-                            >
-                                ...Array(20)
                             </a>
                         </div>
                     </div>
@@ -187,8 +141,8 @@ export const S55Oceanic = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' |
             )}
 
             {/* Hero Section */}
-            <section className="pt-40 pb-20 px-4 relative z-10 min-h-[90vh] flex items-center justify-center">
-                <div className={`max-w-6xl mx-auto grid ${isMobile ? 'grid-cols-1' : 'lg:grid-cols-2'} gap-16 items-center`}>
+            <section className="pt-32 pb-20 px-6 relative z-10 min-h-[90vh] flex items-center">
+                <div className={`max-w-6xl mx-auto w-full grid ${isMobile ? 'grid-cols-1 gap-12' : 'grid-cols-2 gap-8'} items-center`}>
 
                     <div className="relative z-10">
                         <div className="inline-block px-4 py-1 rounded-full bg-blue-900/50 border border-blue-500/30 text-cyan-300 font-bubble mb-6 text-sm uppercase tracking-widest backdrop-blur-sm">
@@ -213,8 +167,8 @@ export const S55Oceanic = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' |
                     </div>
 
                     {/* Submarine Window / Portal */}
-                    <div className="relative h-[500px] w-full flex items-center justify-center">
-                        <div className="absolute w-[400px] h-[400px] rounded-full border-[20px] border-[#37474f] shadow-[inset_0_0_50px_rgba(0,0,0,0.8),0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden bg-black relative z-10 flex items-center justify-center group">
+                    <div className={`relative ${isMobile ? 'h-[300px]' : 'h-[400px]'} w-full flex items-center justify-center`}>
+                        <div className={`absolute ${isMobile ? 'w-[280px] h-[280px] border-[15px]' : 'w-[350px] h-[350px] border-[18px]'} rounded-full border-[#37474f] shadow-[inset_0_0_50px_rgba(0,0,0,0.8),0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden bg-black relative z-10 flex items-center justify-center group`}>
                             {/* Glass Reflection */}
                             <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent z-30 pointer-events-none rounded-full" />
 
@@ -246,7 +200,7 @@ export const S55Oceanic = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' |
                         { icon: Wind, val: '80%', label: 'Unexplored' },
                         { icon: Anchor, val: '11km', label: 'Max Depth' },
                     ].map((item, i) => (
-                        <div key={i} className="glass-panel p-8 rounded-3xl text-center hover:-translate-y-2 transition-transform duration-500">
+                        <div key={i} className="p-8 rounded-3xl text-center hover:-translate-y-2 transition-transform duration-500 bg-[#001e2b] backdrop-blur-md border border-cyan-500/30 shadow-lg">
                             <div className="w-16 h-16 mx-auto bg-cyan-500/20 rounded-full flex items-center justify-center mb-6 text-cyan-300 shadow-[0_0_20px_rgba(0,255,255,0.2)]">
                                 <item.icon size={32} />
                             </div>

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Info, Monitor, Laptop, Smartphone, Maximize2, Sparkles, Copy } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { styles, hasProVersion } from '@/data/styles';
+import { styles, hasProVersion, isNewYearPromoActive } from '@/data/styles';
 import { styleComponents, styleComponentsPro } from '@/components/styles';
 import { useLayoutContext } from '@/components/MainLayout';
 import { PromptModal } from '@/components/PromptModal';
@@ -109,7 +109,7 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
                 {/* Right: Actions */}
                 <div className="flex justify-end md:flex-1 gap-2">
                     <button
-                        onClick={() => previewTier === 'pro' ? setIsProModalOpen(true) : setIsPromptModalOpen(true)}
+                        onClick={() => (previewTier === 'pro' && !isNewYearPromoActive()) ? setIsProModalOpen(true) : setIsPromptModalOpen(true)}
                         className="hidden md:flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-purple-600 hover:bg-purple-700 text-white text-xs md:text-sm font-medium rounded-lg transition-colors flex-shrink-0"
                     >
                         <Copy className="w-3 h-3 md:w-4 md:h-4" />
@@ -181,7 +181,7 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
 
             <div className="lg:hidden mt-4 flex flex-col gap-2">
                 <button
-                    onClick={() => previewTier === 'pro' ? setIsProModalOpen(true) : setIsPromptModalOpen(true)}
+                    onClick={() => (previewTier === 'pro' && !isNewYearPromoActive()) ? setIsProModalOpen(true) : setIsPromptModalOpen(true)}
                     className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium rounded-lg transition-colors"
                 >
                     <Copy className="w-4 h-4" />
@@ -201,6 +201,7 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
                 isOpen={isPromptModalOpen}
                 onClose={() => setIsPromptModalOpen(false)}
                 styleId={effectiveStyleId}
+                tier={previewTier}
             />
 
             {/* Pro Modal */}
