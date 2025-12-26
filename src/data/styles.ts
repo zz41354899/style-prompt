@@ -22,8 +22,8 @@ const PROMO_CONFIG = {
   name: 'Happy New Year 2026',
   // 活動開始時間 (台灣時間 2025/12/26 00:00)
   startDate: new Date('2025-12-26T00:00:00+08:00'),
-  // 活動結束時間 (台灣時間 2026/01/06 23:59:59 - 下週一)
-  endDate: new Date('2026-01-06T23:59:59+08:00'),
+  // 活動結束時間 (台灣時間 2026/01/05 23:59:59 - 週一)
+  endDate: new Date('2026-01-05T23:59:59+08:00'),
   // 開放的 Pro 風格範圍
   proStyleRange: { start: 1, end: 10 },
 } as const;
