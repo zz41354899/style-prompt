@@ -65,30 +65,30 @@ export const S50Collage = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' |
                     <div className="absolute inset-0 bg-black/50" onClick={() => setMenuOpen(false)} />
                     <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
                         <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
+
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 ISSUES
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 ARTISTS
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 SUBMIT
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
@@ -120,7 +120,7 @@ export const S50Collage = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' |
                             <span className="bg-yellow-300 px-4 mt-2 inline-block transform -rotate-1 border-4 border-black box-decoration-clone">REPEAT.</span>
                         </h1>
 
-                        <p className="font-type text-lg bg-white/80 p-4 border border-black shadow-[8px_8px_0_rgba(0,0,0,0.1)] transform rotate-1 max-w-md">
+                        <p className="font-type text-lg bg-white/80 p-4 border border-black shadow-[8px_8px_0_rgba(0,0,0,0.1)] transform rotate-1 max-w-md text-black">
                             Reassemble the web. A chaotic mix of textures, typography, and raw expression.
                         </p>
 

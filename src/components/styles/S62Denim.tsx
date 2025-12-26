@@ -83,30 +83,30 @@ export const S62Denim = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | '
                     <div className="absolute inset-0 bg-black/50" onClick={() => setMenuOpen(false)} />
                     <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
                         <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
+
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Men
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Women
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Selvedge
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
@@ -159,7 +159,7 @@ export const S62Denim = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | '
                         </div>
 
                         <img
-                            src="https://images.unsplash.com/photo-1542272617-08f086303b96?q=80&w=600&auto=format&fit=crop"
+                            src="https://images.unsplash.com/photo-1672159949411-45789c450ddf?q=80&w=1170&auto=format&fit=crop"
                             className="relative z-10 w-full h-full object-cover rounded-xl shadow-2xl grayscale-[0.3] hover:grayscale-0 transition-all duration-500 border-4 border-white transform -rotate-2"
                         />
                     </div>
