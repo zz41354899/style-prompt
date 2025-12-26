@@ -5,7 +5,7 @@ import {
 } from 'lucide-react';
 import { useResponsive } from '@/hooks/useResponsive';
 
-export const S08GradientPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
+export const S08Retro70sPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
     const responsive = useResponsive(deviceMode);
     const isMobile = responsive.nav.showMobile;
     const [menuOpen, setMenuOpen] = useState(false);

@@ -3,29 +3,29 @@ import type { StyleDNAConfig } from './types';
 // Pro 版用進階風格配置 (S01-S10 的 Pro 版本)
 // 基於規格書 s_01_tech_minimal_saa_s_landing_page_design_spec.md 的完整結構
 export const S_Pro_Configs: Record<string, StyleDNAConfig> = {
-    'S01-Pro': {
-        paletteStrategy: 'Neutral grays with single brand accent. Background primary #FFFFFF, secondary #F9FAFB. Brand primary #2563EB.',
-        typography: 'Inter as primary sans-serif. Font scale: H1 48/56/650, H2 32/40/650, H3 20/28/600, Body 16/24/450. Letter spacing: tight (-0.02), normal (0).',
-        radiusPolicy: 'Consistent small-medium radius. sm: 10px, md: 14px, lg: 18px.',
-        shadowPolicy: 'Minimal elevation. soft: 0 1px 2px rgba(15, 23, 42, 0.06). No heavy shadows.',
-        borderLanguage: 'Subtle borders using #E2E8F0. Strong borders #CBD5E1. 1px width for most.',
-        patterns: 'None. Pure minimalism with typography-led hierarchy.',
-        motion: 'Subtle transitions. Duration fast 140ms, normal 220ms. Easing cubic-bezier(0.2, 0, 0, 1).',
-        dos: [
-            'Use clean lines and ample whitespace',
-            'Keep typography simple with Inter font',
-            'Use subtle animations respecting reduced-motion',
-            'Maintain WCAG AA contrast ratios',
-            'Implement 12-column grid system',
-            'Use semantic HTML with proper heading hierarchy'
-        ],
-        donts: [
-            'Don\'t use excessive decorations or shadows',
-            'Don\'t overcrowd the layout with information',
-            'Don\'t use more than 3 neutral + 1 accent color',
-            'Don\'t use animations exceeding 220ms'
-        ],
-        tokens: `\`\`\`yaml
+  'S01-Pro': {
+    paletteStrategy: 'Neutral grays with single brand accent. Background primary #FFFFFF, secondary #F9FAFB. Brand primary #2563EB.',
+    typography: 'Inter as primary sans-serif. Font scale: H1 48/56/650, H2 32/40/650, H3 20/28/600, Body 16/24/450. Letter spacing: tight (-0.02), normal (0).',
+    radiusPolicy: 'Consistent small-medium radius. sm: 10px, md: 14px, lg: 18px.',
+    shadowPolicy: 'Minimal elevation. soft: 0 1px 2px rgba(15, 23, 42, 0.06). No heavy shadows.',
+    borderLanguage: 'Subtle borders using #E2E8F0. Strong borders #CBD5E1. 1px width for most.',
+    patterns: 'None. Pure minimalism with typography-led hierarchy.',
+    motion: 'Subtle transitions. Duration fast 140ms, normal 220ms. Easing cubic-bezier(0.2, 0, 0, 1).',
+    dos: [
+      'Use clean lines and ample whitespace',
+      'Keep typography simple with Inter font',
+      'Use subtle animations respecting reduced-motion',
+      'Maintain WCAG AA contrast ratios',
+      'Implement 12-column grid system',
+      'Use semantic HTML with proper heading hierarchy'
+    ],
+    donts: [
+      'Don\'t use excessive decorations or shadows',
+      'Don\'t overcrowd the layout with information',
+      'Don\'t use more than 3 neutral + 1 accent color',
+      'Don\'t use animations exceeding 220ms'
+    ],
+    tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S01-Pro"
@@ -109,29 +109,29 @@ tokens:
     - "CTA"
     - "Footer"
 \`\`\``,
-    },
+  },
 
-    'S02-Pro': {
-        paletteStrategy: 'Pure black and white with occasional gray. No colors except black accent.',
-        typography: 'Playfair Display for headlines. Bold editorial fonts with strong size contrast.',
-        radiusPolicy: 'Sharp corners (0-2px). Architectural precision.',
-        shadowPolicy: 'None or hard shadows only. 4px 4px 0 #000000.',
-        borderLanguage: 'Thick black rules (2-3px). Strong dividers.',
-        patterns: 'None. Typography is the pattern.',
-        motion: 'Minimal. Instant or very quick transitions (0-100ms).',
-        dos: [
-            'Use strong black and white contrast',
-            'Emphasize typography hierarchy',
-            'Use bold editorial layouts',
-            'Keep imagery minimal or remove entirely'
-        ],
-        donts: [
-            'Don\'t use colors unless intentional',
-            'Don\'t add unnecessary decorative elements',
-            'Don\'t use rounded corners',
-            'Don\'t use playful animations'
-        ],
-        tokens: `\`\`\`yaml
+  'S02-Pro': {
+    paletteStrategy: 'Pure black and white with occasional gray. No colors except black accent.',
+    typography: 'Playfair Display for headlines. Bold editorial fonts with strong size contrast.',
+    radiusPolicy: 'Sharp corners (0-2px). Architectural precision.',
+    shadowPolicy: 'None or hard shadows only. 4px 4px 0 #000000.',
+    borderLanguage: 'Thick black rules (2-3px). Strong dividers.',
+    patterns: 'None. Typography is the pattern.',
+    motion: 'Minimal. Instant or very quick transitions (0-100ms).',
+    dos: [
+      'Use strong black and white contrast',
+      'Emphasize typography hierarchy',
+      'Use bold editorial layouts',
+      'Keep imagery minimal or remove entirely'
+    ],
+    donts: [
+      'Don\'t use colors unless intentional',
+      'Don\'t add unnecessary decorative elements',
+      'Don\'t use rounded corners',
+      'Don\'t use playful animations'
+    ],
+    tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S02-Pro"
@@ -179,29 +179,29 @@ tokens:
     - "Contact CTA"
     - "Footer"
 \`\`\``,
-    },
+  },
 
-    'S03-Pro': {
-        paletteStrategy: 'Primary colors only (red #E53935, blue #1565C0, yellow #F9A825) on white/black. No gradients.',
-        typography: 'Geometric sans-serif (Bebas Neue). Bold weights. Grid-aligned.',
-        radiusPolicy: 'Zero radius. All rectangles.',
-        shadowPolicy: 'None. Flat color blocks only.',
-        borderLanguage: 'Thick black lines (2-8px). Grid dividers.',
-        patterns: 'Color block compositions. Asymmetric grids.',
-        motion: 'Stiff, mechanical. Linear easing.',
-        dos: [
-            'Use primary colors (red, blue, yellow)',
-            'Create grid-based compositions',
-            'Use thick black lines',
-            'Keep shapes geometric and rectangular'
-        ],
-        donts: [
-            'Don\'t use gradients',
-            'Don\'t use curves or organic shapes',
-            'Don\'t mix too many colors',
-            'Don\'t break the grid structure'
-        ],
-        tokens: `\`\`\`yaml
+  'S03-Pro': {
+    paletteStrategy: 'Primary colors only (red #E53935, blue #1565C0, yellow #F9A825) on white/black. No gradients.',
+    typography: 'Geometric sans-serif (Bebas Neue). Bold weights. Grid-aligned.',
+    radiusPolicy: 'Zero radius. All rectangles.',
+    shadowPolicy: 'None. Flat color blocks only.',
+    borderLanguage: 'Thick black lines (2-8px). Grid dividers.',
+    patterns: 'Color block compositions. Asymmetric grids.',
+    motion: 'Stiff, mechanical. Linear easing.',
+    dos: [
+      'Use primary colors (red, blue, yellow)',
+      'Create grid-based compositions',
+      'Use thick black lines',
+      'Keep shapes geometric and rectangular'
+    ],
+    donts: [
+      'Don\'t use gradients',
+      'Don\'t use curves or organic shapes',
+      'Don\'t mix too many colors',
+      'Don\'t break the grid structure'
+    ],
+    tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S03-Pro"
@@ -242,29 +242,29 @@ tokens:
     - "Contact Grid"
     - "Footer"
 \`\`\``,
-    },
+  },
 
-    'S04-Pro': {
-        paletteStrategy: 'Limited monochromatic with red accent (#E53935). Clean whites and grays.',
-        typography: 'Helvetica Neue. Strict hierarchy. Grid-aligned text.',
-        radiusPolicy: 'Zero to minimal (0-4px).',
-        shadowPolicy: 'None. Rely on spacing and typography.',
-        borderLanguage: 'Thin rules for structure. Grid lines.',
-        patterns: 'Grid systems. Mathematical proportions.',
-        motion: 'Precise and functional. Ease timing (100-150ms).',
-        dos: [
-            'Use grid systems rigorously (12-column)',
-            'Emphasize sans-serif typography',
-            'Use asymmetric layouts',
-            'Keep design clean and functional'
-        ],
-        donts: [
-            'Don\'t use decorative fonts',
-            'Don\'t ignore the grid',
-            'Don\'t use excessive imagery',
-            'Don\'t add unnecessary ornamentation'
-        ],
-        tokens: `\`\`\`yaml
+  'S04-Pro': {
+    paletteStrategy: 'Limited monochromatic with red accent (#E53935). Clean whites and grays.',
+    typography: 'Helvetica Neue. Strict hierarchy. Grid-aligned text.',
+    radiusPolicy: 'Zero to minimal (0-4px).',
+    shadowPolicy: 'None. Rely on spacing and typography.',
+    borderLanguage: 'Thin rules for structure. Grid lines.',
+    patterns: 'Grid systems. Mathematical proportions.',
+    motion: 'Precise and functional. Ease timing (100-150ms).',
+    dos: [
+      'Use grid systems rigorously (12-column)',
+      'Emphasize sans-serif typography',
+      'Use asymmetric layouts',
+      'Keep design clean and functional'
+    ],
+    donts: [
+      'Don\'t use decorative fonts',
+      'Don\'t ignore the grid',
+      'Don\'t use excessive imagery',
+      'Don\'t add unnecessary ornamentation'
+    ],
+    tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S04-Pro"
@@ -297,29 +297,29 @@ tokens:
     - "Client Logos"
     - "Footer Grid"
 \`\`\``,
-    },
+  },
 
-    'S05-Pro': {
-        paletteStrategy: 'Raw colors. High contrast. #FFFFFF background with blue #0000FF and red #FF0000 accents.',
-        typography: 'System fonts or monospace (Courier). Large sizes. Bold weights.',
-        radiusPolicy: 'Zero. No rounding anywhere.',
-        shadowPolicy: 'None or harsh offset shadows (8px 8px 0 #000000).',
-        borderLanguage: 'Thick visible borders (2-6px). Raw HTML aesthetic.',
-        patterns: 'None or intentionally crude.',
-        motion: 'Abrupt or none. step-end easing.',
-        dos: [
-            'Use raw, unpolished aesthetics',
-            'Embrace bold typography',
-            'Use high contrast',
-            'Be intentionally unconventional'
-        ],
-        donts: [
-            'Don\'t over-polish the design',
-            'Don\'t use subtle effects',
-            'Don\'t follow conventional layouts',
-            'Don\'t use soft colors'
-        ],
-        tokens: `\`\`\`yaml
+  'S05-Pro': {
+    paletteStrategy: 'Raw colors. High contrast. #FFFFFF background with blue #0000FF and red #FF0000 accents.',
+    typography: 'System fonts or monospace (Courier). Large sizes. Bold weights.',
+    radiusPolicy: 'Zero. No rounding anywhere.',
+    shadowPolicy: 'None or harsh offset shadows (8px 8px 0 #000000).',
+    borderLanguage: 'Thick visible borders (2-6px). Raw HTML aesthetic.',
+    patterns: 'None or intentionally crude.',
+    motion: 'Abrupt or none. step-end easing.',
+    dos: [
+      'Use raw, unpolished aesthetics',
+      'Embrace bold typography',
+      'Use high contrast',
+      'Be intentionally unconventional'
+    ],
+    donts: [
+      'Don\'t over-polish the design',
+      'Don\'t use subtle effects',
+      'Don\'t follow conventional layouts',
+      'Don\'t use soft colors'
+    ],
+    tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S05-Pro"
@@ -347,29 +347,29 @@ tokens:
     - "Contact Form"
     - "Raw Footer"
 \`\`\``,
-    },
+  },
 
-    'S06-Pro': {
-        paletteStrategy: 'Neon colors (cyan #00FFFF, magenta #FF00FF, yellow #FFFF00) on dark #0A0A0F. Glowing effects.',
-        typography: 'Futuristic fonts (Orbitron). Glowing text effects with text-shadow.',
-        radiusPolicy: 'Mixed. Sharp for panels (0px), rounded for buttons (4-12px).',
-        shadowPolicy: 'Neon glows. 0 0 20px [color].',
-        borderLanguage: 'Glowing borders. Circuit-like patterns.',
-        patterns: 'Grid lines, circuit patterns, glitch effects.',
-        motion: 'Glitch effects. Fast erratic (150-300ms). ease-in-out.',
-        dos: [
-            'Use neon colors on dark backgrounds',
-            'Add glitch effects sparingly',
-            'Use futuristic typography',
-            'Create depth with layers and glows'
-        ],
-        donts: [
-            'Don\'t use warm natural colors',
-            'Don\'t use traditional layouts',
-            'Don\'t make it too clean or polished',
-            'Don\'t forget the tech aesthetic'
-        ],
-        tokens: `\`\`\`yaml
+  'S06-Pro': {
+    paletteStrategy: 'Neon colors (cyan #00FFFF, magenta #FF00FF, yellow #FFFF00) on dark #0A0A0F. Glowing effects.',
+    typography: 'Futuristic fonts (Orbitron). Glowing text effects with text-shadow.',
+    radiusPolicy: 'Mixed. Sharp for panels (0px), rounded for buttons (4-12px).',
+    shadowPolicy: 'Neon glows. 0 0 20px [color].',
+    borderLanguage: 'Glowing borders. Circuit-like patterns.',
+    patterns: 'Grid lines, circuit patterns, glitch effects.',
+    motion: 'Glitch effects. Fast erratic (150-300ms). ease-in-out.',
+    dos: [
+      'Use neon colors on dark backgrounds',
+      'Add glitch effects sparingly',
+      'Use futuristic typography',
+      'Create depth with layers and glows'
+    ],
+    donts: [
+      'Don\'t use warm natural colors',
+      'Don\'t use traditional layouts',
+      'Don\'t make it too clean or polished',
+      'Don\'t forget the tech aesthetic'
+    ],
+    tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S06-Pro"
@@ -405,29 +405,29 @@ tokens:
     - "Contact Terminal"
     - "Footer"
 \`\`\``,
-    },
+  },
 
-    'S07-Pro': {
-        paletteStrategy: 'Synthwave palette. Purple/pink/cyan gradients on dark background. Sunset vibes.',
-        typography: 'Retro display fonts. Bold outlines. VHS aesthetic.',
-        radiusPolicy: 'Mixed. Large radius for buttons and cards.',
-        shadowPolicy: 'Colored glows. Neon pink and cyan.',
-        borderLanguage: 'Gradient borders. Outlined text.',
-        patterns: 'Perspective grid. Sunset gradients. Scanlines.',
-        motion: 'Smooth with hover glows. 200-300ms.',
-        dos: [
-            'Use purple/pink/cyan color scheme',
-            'Create sunset/horizon effects',
-            'Use grid perspective backgrounds',
-            'Add neon glow effects'
-        ],
-        donts: [
-            'Don\'t use flat/modern minimalist style',
-            'Don\'t forget the retro aesthetic',
-            'Don\'t use standard corporate colors',
-            'Don\'t skip the gradient backgrounds'
-        ],
-        tokens: `\`\`\`yaml
+  'S07-Pro': {
+    paletteStrategy: 'Synthwave palette. Purple/pink/cyan gradients on dark background. Sunset vibes.',
+    typography: 'Retro display fonts. Bold outlines. VHS aesthetic.',
+    radiusPolicy: 'Mixed. Large radius for buttons and cards.',
+    shadowPolicy: 'Colored glows. Neon pink and cyan.',
+    borderLanguage: 'Gradient borders. Outlined text.',
+    patterns: 'Perspective grid. Sunset gradients. Scanlines.',
+    motion: 'Smooth with hover glows. 200-300ms.',
+    dos: [
+      'Use purple/pink/cyan color scheme',
+      'Create sunset/horizon effects',
+      'Use grid perspective backgrounds',
+      'Add neon glow effects'
+    ],
+    donts: [
+      'Don\'t use flat/modern minimalist style',
+      'Don\'t forget the retro aesthetic',
+      'Don\'t use standard corporate colors',
+      'Don\'t skip the gradient backgrounds'
+    ],
+    tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S07-Pro"
@@ -457,29 +457,29 @@ tokens:
     - "CTA Section"
     - "Footer"
 \`\`\``,
-    },
+  },
 
-    'S08-Pro': {
-        paletteStrategy: 'Vintage 70s colors. Orange, brown, mustard, cream. Paper texture.',
-        typography: 'Retro serif fonts. Display typography. Magazine style.',
-        radiusPolicy: 'Varied. Some sharp, some rounded for organic feel.',
-        shadowPolicy: 'Paper shadows. Subtle depth.',
-        borderLanguage: 'Torn edges. Paper cutout effects.',
-        patterns: 'Grain texture. Paper texture. Halftone dots.',
-        motion: 'Minimal. Subtle page turn effects.',
-        dos: [
-            'Use warm retro color palette',
-            'Add paper/grain texture',
-            'Use vintage typography',
-            'Create magazine-style layouts'
-        ],
-        donts: [
-            'Don\'t use digital/modern colors',
-            'Don\'t forget texture overlays',
-            'Don\'t use clean modern fonts',
-            'Don\'t skip the nostalgic feel'
-        ],
-        tokens: `\`\`\`yaml
+  'S08-Pro': {
+    paletteStrategy: 'Vintage 70s colors. Orange, brown, mustard, cream. Paper texture.',
+    typography: 'Retro serif fonts. Display typography. Magazine style.',
+    radiusPolicy: 'Varied. Some sharp, some rounded for organic feel.',
+    shadowPolicy: 'Paper shadows. Subtle depth.',
+    borderLanguage: 'Torn edges. Paper cutout effects.',
+    patterns: 'Grain texture. Paper texture. Halftone dots.',
+    motion: 'Minimal. Subtle page turn effects.',
+    dos: [
+      'Use warm retro color palette',
+      'Add paper/grain texture',
+      'Use vintage typography',
+      'Create magazine-style layouts'
+    ],
+    donts: [
+      'Don\'t use digital/modern colors',
+      'Don\'t forget texture overlays',
+      'Don\'t use clean modern fonts',
+      'Don\'t skip the nostalgic feel'
+    ],
+    tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S08-Pro"
@@ -509,82 +509,93 @@ tokens:
     - "Grid Layout"
     - "Colophon Footer"
 \`\`\``,
-    },
+  },
 
-    'S09-Pro': {
-        paletteStrategy: 'Soft neutral background #E4E9F0. Subtle color variations for depth.',
-        typography: 'Rounded sans-serif fonts. Soft, friendly appearance.',
-        radiusPolicy: 'Large radius (16-24px). Soft rounded corners everywhere.',
-        shadowPolicy: 'Neumorphic shadows. Convex: outer shadows. Concave: inner shadows.',
-        borderLanguage: 'Minimal borders. Rely on shadows for definition.',
-        patterns: 'None. Shape-based depth.',
-        motion: 'Smooth, subtle press effects. 150-200ms.',
-        dos: [
-            'Use soft, diffused shadows',
-            'Create raised/pressed button states',
-            'Use large rounded corners',
-            'Keep colors soft and neutral'
-        ],
-        donts: [
-            'Don\'t use hard edges',
-            'Don\'t use high contrast colors',
-            'Don\'t forget the tactile feel',
-            'Don\'t use flat design'
-        ],
-        tokens: `\`\`\`yaml
+  'S09-Pro': {
+    paletteStrategy: 'Vibrant primary colors (pink #FF6B9D, teal #00D4AA, yellow #FFE135, purple #7C4DFF) on light pink #FFF5F7 background.',
+    typography: 'Rounded sans-serif (Nunito). Bold, playful weights. Childlike joy.',
+    radiusPolicy: 'Mixed. Some sharp (cards), some rounded (buttons).',
+    shadowPolicy: 'Hard offset shadows (6px 6px 0 #000). Pop-out effect.',
+    borderLanguage: 'Thick black borders (3-4px). Cartoon-like outlines.',
+    patterns: 'Geometric shapes, circles, triangles, squares scattered decoratively.',
+    motion: 'Bouncy, playful. 150-200ms with ease-out.',
+    dos: [
+      'Use bold primary colors',
+      'Add geometric shape decorations',
+      'Use thick black outlines',
+      'Create playful, joyful interfaces'
+    ],
+    donts: [
+      'Don\'t use muted or corporate colors',
+      'Don\'t be too serious or formal',
+      'Don\'t use subtle effects',
+      'Don\'t skip the decorative shapes'
+    ],
+    tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S09-Pro"
-    style_name: "Neumorphism Pro"
-    industry: "App Showcase"
+    style_name: "Memphis Pro"
+    industry: "Smart Home"
     use_case: "Full Landing Page"
   color:
     background:
-      primary: "#E4E9F0"
-      secondary: "#E8EDF4"
+      primary: "#FFF5F7"
+      secondary: "#FFFFFF"
     text:
-      primary: "#4A5568"
-      secondary: "#718096"
+      primary: "#000000"
+      secondary: "#333333"
+    brand:
+      pink: "#FF6B9D"
+      teal: "#00D4AA"
+      yellow: "#FFE135"
+      purple: "#7C4DFF"
+  typography:
+    fontFamily:
+      primary: "Nunito, sans-serif"
   shadow:
-    convex: "8px 8px 15px #c8ccd4, -8px -8px 15px #ffffff"
-    concave: "inset 4px 4px 8px #c8ccd4, inset -4px -4px 8px #ffffff"
+    hard: "6px 6px 0 #000"
+    pop: "4px 4px 0 #000"
+  border:
+    width:
+      thin: 2
+      medium: 3
+      thick: 4
   radius:
-    default: 20
-    button: 16
-    card: 24
+    sharp: 0
+    button: 4
+    card: 0
   sections:
-    - "Soft Navigation"
-    - "Hero Card"
-    - "Features Grid"
-    - "Stats Section"
-    - "Testimonials"
-    - "Pricing"
-    - "Contact Form"
-    - "Footer"
+    - "Colorful Navigation"
+    - "Playful Hero"
+    - "Feature Modules"
+    - "Control Bento Grid"
+    - "Pricing Tags"
+    - "Colorful Footer"
 \`\`\``,
-    },
+  },
 
-    'S10-Pro': {
-        paletteStrategy: 'Luxury dark #0C0C0C or clean white #FAFAF8. Gold accent #9A8866.',
-        typography: 'Elegant serif fonts (Playfair Display). Large whitespace. Refined hierarchy.',
-        radiusPolicy: 'Minimal radius (2-6px). Elegant precision.',
-        shadowPolicy: 'Subtle, refined shadows. Light gold tints.',
-        borderLanguage: 'Thin gold lines. Elegant separators.',
-        patterns: 'None. Whitespace is the pattern.',
-        motion: 'Smooth, elegant transitions. 200-300ms. ease-out.',
-        dos: [
-            'Use generous whitespace',
-            'Emphasize elegant serif typography',
-            'Use gold accents sparingly',
-            'Create high-end magazine feel'
-        ],
-        donts: [
-            'Don\'t overcrowd with elements',
-            'Don\'t use cheap-looking colors',
-            'Don\'t use playful or casual fonts',
-            'Don\'t skip the luxury details'
-        ],
-        tokens: `\`\`\`yaml
+  'S10-Pro': {
+    paletteStrategy: 'Luxury dark #0C0C0C or clean white #FAFAF8. Gold accent #9A8866.',
+    typography: 'Elegant serif fonts (Playfair Display). Large whitespace. Refined hierarchy.',
+    radiusPolicy: 'Minimal radius (2-6px). Elegant precision.',
+    shadowPolicy: 'Subtle, refined shadows. Light gold tints.',
+    borderLanguage: 'Thin gold lines. Elegant separators.',
+    patterns: 'None. Whitespace is the pattern.',
+    motion: 'Smooth, elegant transitions. 200-300ms. ease-out.',
+    dos: [
+      'Use generous whitespace',
+      'Emphasize elegant serif typography',
+      'Use gold accents sparingly',
+      'Create high-end magazine feel'
+    ],
+    donts: [
+      'Don\'t overcrowd with elements',
+      'Don\'t use cheap-looking colors',
+      'Don\'t use playful or casual fonts',
+      'Don\'t skip the luxury details'
+    ],
+    tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S10-Pro"
@@ -619,5 +630,5 @@ tokens:
     - "Contact"
     - "Footer"
 \`\`\``,
-    },
+  },
 };

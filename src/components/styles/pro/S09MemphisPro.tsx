@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Menu, X, ArrowRight, Home, Star, Shield, Zap, Circle, Triangle, Settings, Bell, Power, Thermometer, Lock, Wifi } from 'lucide-react';
 import { useResponsive } from '@/hooks/useResponsive';
 
-export const S09NeumorphismPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
+export const S09MemphisPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const responsive = useResponsive(deviceMode);
     const isMobile = responsive.nav.showMobile;

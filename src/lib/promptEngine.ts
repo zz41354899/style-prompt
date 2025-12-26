@@ -58,6 +58,10 @@ Design and specify a **conversion-focused Full Landing Page** for a **SaaS produ
 
 ---
 
+{{styleTokens}}
+
+---
+
 ## Deliverables
 - Full hero section with high-impact product visualization
 - Multi-column features grid with icon/illustration slots

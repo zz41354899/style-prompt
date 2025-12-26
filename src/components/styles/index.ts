@@ -20,8 +20,8 @@ import { S04SwissPro } from './pro/S04SwissPro';
 import { S05BrutalistPro } from './pro/S05BrutalistPro';
 import { S06CyberpunkPro } from './pro/S06CyberpunkPro';
 import { S07OrganicPro } from './pro/S07OrganicPro';
-import { S08GradientPro } from './pro/S08GradientPro';
-import { S09NeumorphismPro } from './pro/S09NeumorphismPro';
+import { S08Retro70sPro } from './pro/S08Retro70sPro';
+import { S09MemphisPro } from './pro/S09MemphisPro';
 import { S10LuxuryEditorialPro } from './pro/S10LuxuryEditorialPro';
 
 import { S11JapaneseMinimal } from './S11JapaneseMinimal';
@@ -329,7 +329,7 @@ export const styleComponentsPro: Record<string, React.FC<{ deviceMode?: 'desktop
   S05: S05BrutalistPro,
   S06: S06CyberpunkPro,
   S07: S07OrganicPro,
-  S08: S08GradientPro,
-  S09: S09NeumorphismPro,
+  S08: S08Retro70sPro,
+  S09: S09MemphisPro,
   S10: S10LuxuryEditorialPro,
 };
