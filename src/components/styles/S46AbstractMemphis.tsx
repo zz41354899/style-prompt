@@ -35,7 +35,7 @@ export const S46AbstractMemphis = ({ deviceMode }: { deviceMode?: 'desktop' | 't
                         <div className="w-10 h-10 bg-black rounded-full text-white flex items-center justify-center">
                             <Shapes size={20} />
                         </div>
-                        <span className="font-memphis text-2xl tracking-wide">POP.PLAY</span>
+                        <span className="font-memphis text-2xl tracking-wide text-black">POP.PLAY</span>
                     </div>
 
                     <div className={`${responsive.nav.showDesktop ? 'flex' : 'hidden'} items-center gap-8`}>

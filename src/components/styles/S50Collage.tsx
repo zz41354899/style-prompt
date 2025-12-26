@@ -36,7 +36,7 @@ export const S50Collage = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' |
 
                     <div className="bg-white p-4 pl-8 pr-12 shadow-lg rip-edge relative flex items-center gap-4">
                         <Scissors size={24} className="transform rotate-90 text-red-600" />
-                        <span className="font-headline text-2xl tracking-tighter">ZINE.MAKER</span>
+                        <span className="font-headline text-2xl tracking-tighter text-black">ZINE.MAKER</span>
                     </div>
 
                     <div className={`${responsive.nav.showDesktop ? 'flex' : 'hidden'} items-center gap-6`}>
