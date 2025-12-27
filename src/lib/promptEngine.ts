@@ -50,7 +50,7 @@ Design and specify a **conversion-focused Full Landing Page** for a **SaaS produ
 - Secondary CTA: **Book a demo**
 - Target audience: **B2B teams and developers**
 - No real metrics, certifications, or customer logos are claimed; all proof uses placeholders
-- Target stack: **Next.js + Tailwind CSS** using **CSS variables** for theming
+- Target stack: **React + Next.js (App Router) + TypeScript + Tailwind CSS** using **CSS variables** for theming
 
 ---
 
@@ -119,6 +119,15 @@ Design and specify a **production-ready, conversion-focused Full Landing Page** 
 - **Clarity > decoration**: typography-led hierarchy, minimal color, restrained motion
 - **Fast scanning**: short lines, strong headings, predictable section rhythm
 - **Engineering-ready**: reusable components, tokens, states, accessibility, responsive rules
+
+## Assumptions
+- Product name placeholder: **[Automatic naming]**
+- Core value prop placeholder: **[One-line Value Proposition]**
+- Primary CTA: **Start free trial**
+- Secondary CTA: **Book a demo**
+- Target audience: **B2B teams and developers**
+- No real metrics, certifications, or customer logos are claimed; all proof uses placeholders
+- **Target stack: React + Next.js (App Router) + TypeScript + Tailwind CSS** using **CSS variables** for theming
 
 ---
 
