@@ -36,7 +36,7 @@ export const BentoModal: React.FC<BentoModalProps> = ({
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
                         transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                        className="bg-[#0a0a0a] border border-white/10 rounded-2xl sm:rounded-[2.5rem] md:rounded-[3rem] max-w-4xl w-full relative shadow-[0_0_150px_rgba(139,92,246,0.15)] ring-1 ring-white/5 z-10 overflow-hidden max-h-[90vh] overflow-y-auto"
+                        className="bg-[#0a0a0a] border border-white/10 rounded-2xl sm:rounded-[2.5rem] md:rounded-[3rem] max-w-4xl w-full relative shadow-[0_0_150px_rgba(139,92,246,0.15)] ring-1 ring-white/5 z-10 overflow-hidden max-h-[90vh] flex flex-col"
                     >
                         <button
                             onClick={onClose}
@@ -46,10 +46,10 @@ export const BentoModal: React.FC<BentoModalProps> = ({
                         </button>
 
                         {/* Visual Content Area */}
-                        <div className="aspect-[4/3] sm:aspect-video bg-[#050505] relative overflow-hidden font-mono">
+                        <div className="aspect-[4/3] sm:aspect-[16/9] md:aspect-[21/9] bg-[#050505] relative overflow-hidden font-mono flex-shrink-0">
                             {/* Card 1: Terminal List (Select Style) */}
                             {selectedBento === 1 && (
-                                <div className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-8 md:p-16">
+                                <div className="absolute inset-0 flex flex-col items-center justify-center p-3 sm:p-6 md:p-10">
                                     <div className="w-full max-w-2xl bg-[#151515] rounded-lg sm:rounded-xl border border-white/10 overflow-hidden shadow-2xl">
                                         <div className="h-8 sm:h-10 bg-[#202020] border-b border-white/5 flex items-center px-3 sm:px-4 gap-1.5 sm:gap-2">
                                             <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-red-500/50"></div>
@@ -85,7 +85,7 @@ export const BentoModal: React.FC<BentoModalProps> = ({
 
                             {/* Card 2: Config Editor (Optimize) */}
                             {selectedBento === 2 && (
-                                <div className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-8 md:p-16">
+                                <div className="absolute inset-0 flex flex-col items-center justify-center p-3 sm:p-6 md:p-10">
                                     <div className="w-full max-w-2xl bg-[#1a1a2e] rounded-lg sm:rounded-xl border border-purple-500/20 overflow-hidden shadow-2xl relative">
                                         <div className="h-8 sm:h-10 bg-[#151525] border-b border-purple-500/10 flex items-center px-3 sm:px-4 justify-between">
                                             <div className="text-[10px] sm:text-xs text-purple-300/50">config.ts</div>
@@ -121,7 +121,7 @@ export const BentoModal: React.FC<BentoModalProps> = ({
 
                             {/* Card 3: CLI Copy */}
                             {selectedBento === 3 && (
-                                <div className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-8 md:p-16">
+                                <div className="absolute inset-0 flex flex-col items-center justify-center p-3 sm:p-6 md:p-10">
                                     <div className="w-full max-w-2xl bg-black rounded-lg sm:rounded-xl border border-white/20 overflow-hidden shadow-2xl">
                                         <div className="h-6 sm:h-8 bg-[#101010] border-b border-white/10 flex items-center px-3 sm:px-4">
                                             <span className="text-[10px] sm:text-xs text-white/20">terminal</span>
@@ -173,7 +173,7 @@ export const BentoModal: React.FC<BentoModalProps> = ({
 
                             {/* Card 4: Wireframe Scan (Preview) */}
                             {selectedBento === 4 && (
-                                <div className="absolute inset-0 flex items-center justify-center p-4 sm:p-8 md:p-12">
+                                <div className="absolute inset-0 flex items-center justify-center p-3 sm:p-6 md:p-10">
                                     <div className="relative w-full h-full border-2 border-dashed border-white/10 rounded-lg sm:rounded-xl p-2 sm:p-4 flex gap-2 sm:gap-4 opacity-50">
                                         {/* Mock Wireframe */}
                                         <div className="w-1/4 h-full bg-white/5 rounded-md sm:rounded-lg flex flex-col gap-1 sm:gap-2 p-1 sm:p-2">
@@ -205,10 +205,10 @@ export const BentoModal: React.FC<BentoModalProps> = ({
                         </div>
 
                         {/* Title & Description */}
-                        <div className="p-5 sm:p-8 md:p-10">
-                            <h3 className="text-xl sm:text-2xl md:text-3xl font-black mb-2 sm:mb-4 text-white tracking-tighter">{bentoItems.find(item => item.id === selectedBento)?.title}</h3>
-                            <p className="text-white/40 text-sm sm:text-base md:text-lg leading-relaxed font-light mb-4 sm:mb-8">{bentoItems.find(item => item.id === selectedBento)?.desc}</p>
-                            <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6 pt-4 sm:pt-8 border-t border-white/5">
+                        <div className="p-4 sm:p-6 md:p-8">
+                            <h3 className="text-lg sm:text-xl md:text-2xl font-black mb-2 text-white tracking-tighter">{bentoItems.find(item => item.id === selectedBento)?.title}</h3>
+                            <p className="text-white/40 text-xs sm:text-sm md:text-base leading-relaxed font-light mb-3 sm:mb-4">{bentoItems.find(item => item.id === selectedBento)?.desc}</p>
+                            <div className="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4 pt-3 sm:pt-4 border-t border-white/5">
                                 <div className="flex items-center gap-2 sm:gap-3"><div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-purple-500 animate-pulse shadow-[0_0_10px_rgba(168,85,247,0.5)]" /><span className="text-[8px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-purple-400">StylePrompts</span></div>
                                 <Link
                                     href={`/features/workflow/step${selectedBento}`}
