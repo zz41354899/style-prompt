@@ -46,7 +46,7 @@ export const CtaSection: React.FC = () => {
                         href="/S01"
                         className="w-full sm:w-auto px-16 py-6 bg-purple-600 text-white font-black rounded-[2rem] hover:bg-purple-500 transition-all shadow-[0_20px_60px_rgba(168,85,247,0.3)] group relative overflow-hidden active:scale-95"
                     >
-                        <span className="relative z-10 flex items-center gap-3">{t('finalCta.button')}<ChevronRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" /></span>
+                        <span className="relative z-10 flex items-center justify-center gap-3">{t('finalCta.button')}<ChevronRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" /></span>
                         <motion.div
                             className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
                             initial={{ x: "-100%" }}
