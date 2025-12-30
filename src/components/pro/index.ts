@@ -6,3 +6,5 @@ export { ProNavbar } from './ProNavbar';
 export { ProPricingSection } from './ProPricingSection';
 export { ProStyleShowcase } from './ProStyleShowcase';
 export { ProUpgradePrompt } from './ProUpgradePrompt';
+export { ProUpgradeModal } from './ProUpgradeModal';
+export { ProLandingPage } from './ProLandingPage';

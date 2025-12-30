@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Languages, ChevronRight, Menu, X, Sparkles } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { UserDropdown } from '@/components/layout/UserDropdown';
-import { AuthModal } from '@/components/AuthModal';
+import { AuthModal } from '@/components/common';
 
 interface ProNavbarProps {
     onScrollToSection: (e: React.MouseEvent, id: string) => void;

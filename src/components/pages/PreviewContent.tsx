@@ -8,7 +8,7 @@ import { styles, hasProVersion, isNewYearPromoActive } from '@/data/styles';
 import { styleComponents, styleComponentsPro } from '@/components/styles';
 import { useLayoutContext } from '@/components/MainLayout';
 import { PromptModal } from '@/components/PromptModal';
-import { ProUpgradeModal } from '@/components/ProUpgradeModal';
+import { ProUpgradeModal } from '@/components/pro';
 
 interface PreviewContentProps {
     styleId: string;

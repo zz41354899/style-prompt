@@ -1,10 +1,7 @@
-import { ProLandingPage } from '@/components/ProLandingPage';
-import { AuthProvider } from '@/components/providers/AuthProvider';
+'use client';
+
+import { ProLandingPage } from '@/components/pro';
 
 export default function ProPage() {
-    return (
-        <AuthProvider>
-            <ProLandingPage />
-        </AuthProvider>
-    );
+    return <ProLandingPage />;
 }
