@@ -1,25 +1,19 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { Monitor, Layers, Zap, Database } from 'lucide-react';
 import {
-    HeroSection,
-    FeaturesSection,
-    WorkflowBento,
-    PricingSection,
-    FaqSection,
-    CtaSection,
-    Footer,
-    BentoModal,
     ProNavbar,
-    type BentoItem
+    ProHeroSection,
+    ProStyleShowcase,
+    ProPricingSection,
+    FaqSection,
+    Footer,
 } from './landing';
 
 export const ProLandingPage: React.FC = () => {
-    const { t, i18n } = useTranslation();
-    const [selectedBento, setSelectedBento] = useState<number | null>(null);
+    const { i18n } = useTranslation();
 
     const toggleLanguage = () => {
         const nextLang = i18n.language === 'zh-TW' ? 'en' : 'zh-TW';
@@ -43,29 +37,28 @@ export const ProLandingPage: React.FC = () => {
         }
     };
 
-    // Bento items for WorkflowBento and BentoModal
-    const bentoItems: BentoItem[] = [
-        { id: 1, title: t('landing.workflow.b1.title'), desc: t('landing.workflow.b1.desc'), icon: <Monitor className="w-5 h-5 text-purple-400" /> },
-        { id: 2, title: t('landing.workflow.b2.title'), desc: t('landing.workflow.b2.desc'), icon: <Layers className="w-5 h-5 text-purple-400" /> },
-        { id: 3, title: t('landing.workflow.b3.title'), desc: t('landing.workflow.b3.desc'), icon: <Zap className="w-5 h-5 text-purple-400" /> },
-        { id: 4, title: t('landing.workflow.b4.title'), desc: t('landing.workflow.b4.desc'), icon: <Database className="w-5 h-5 text-purple-400" /> }
-    ];
-
     return (
         <div className="min-h-screen bg-[#030303] text-white selection:bg-purple-500/30">
-            {/* Background Gradients */}
+            {/* Premium Background */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none">
+                {/* Main gradient */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 2 }}
-                    className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-purple-900/10 rounded-full blur-[120px]"
+                    className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-purple-900/20 rounded-full blur-[150px]"
                 />
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 2, delay: 0.5 }}
-                    className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-900/10 rounded-full blur-[120px]"
+                    transition={{ duration: 2, delay: 0.3 }}
+                    className="absolute top-[20%] right-[-15%] w-[50%] h-[50%] bg-pink-900/15 rounded-full blur-[150px]"
+                />
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 2, delay: 0.6 }}
+                    className="absolute bottom-[-10%] left-[30%] w-[40%] h-[40%] bg-blue-900/10 rounded-full blur-[120px]"
                 />
             </div>
 
@@ -76,33 +69,20 @@ export const ProLandingPage: React.FC = () => {
                 currentLang={i18n.language}
             />
 
-            {/* Hero Section */}
-            <HeroSection />
+            {/* Pro Hero Section */}
+            <ProHeroSection />
 
-            {/* Features Section */}
-            <FeaturesSection />
+            {/* Pro Style Showcase */}
+            <ProStyleShowcase />
 
-            {/* Workflow Bento Grid */}
-            <WorkflowBento onSelectBento={setSelectedBento} />
-
-            {/* Pricing Section */}
-            <PricingSection />
+            {/* Pro Pricing Section */}
+            <ProPricingSection />
 
             {/* FAQ Section */}
             <FaqSection />
 
-            {/* Final CTA Section */}
-            <CtaSection />
-
             {/* Footer */}
             <Footer />
-
-            {/* Bento Modal */}
-            <BentoModal
-                selectedBento={selectedBento}
-                bentoItems={bentoItems}
-                onClose={() => setSelectedBento(null)}
-            />
         </div>
     );
 };
