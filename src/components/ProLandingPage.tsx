@@ -8,8 +8,9 @@ import {
     ProHeroSection,
     ProStyleShowcase,
     ProPricingSection,
-} from './landing';
-import { ProFaqSection, ProFooter } from './pro';
+    ProFaqSection,
+    ProFooter,
+} from './pro';
 
 export const ProLandingPage: React.FC = () => {
     const { i18n } = useTranslation();

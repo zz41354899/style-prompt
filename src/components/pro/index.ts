@@ -1,3 +1,8 @@
 // Pro version components barrel export
 export { ProFooter } from './ProFooter';
 export { ProFaqSection } from './ProFaqSection';
+export { ProHeroSection } from './ProHeroSection';
+export { ProNavbar } from './ProNavbar';
+export { ProPricingSection } from './ProPricingSection';
+export { ProStyleShowcase } from './ProStyleShowcase';
+export { ProUpgradePrompt } from './ProUpgradePrompt';
