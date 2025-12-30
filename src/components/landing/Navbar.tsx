@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Languages, ChevronRight, Menu, X } from 'lucide-react';
+import { Languages, ChevronRight, Menu, X, Sparkles } from 'lucide-react';
 
 interface NavbarProps {
     onScrollToSection: (e: React.MouseEvent, id: string) => void;
@@ -25,8 +25,11 @@ export const Navbar: React.FC<NavbarProps> = ({
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
+    // Free 版導航項目（移除 pricing）
+    const navItems = ['features', 'workflow', 'faq'];
+
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-[#030303]/70 backdrop-blur-xl border-b border-white/5">
+        <nav className="fixed top-10 left-0 right-0 z-50 bg-[#030303]/70 backdrop-blur-xl border-b border-white/5">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     <Link
@@ -40,7 +43,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     </Link>
 
                     <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-white/60">
-                        {['features', 'workflow', 'pricing', 'faq'].map((item) => (
+                        {navItems.map((item) => (
                             <a
                                 key={item}
                                 href={`#${item}`}
@@ -54,6 +57,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                                 />
                             </a>
                         ))}
+                        {/* Pro Link */}
+                        <Link
+                            href="/pro"
+                            className="flex items-center gap-1.5 text-purple-400 hover:text-purple-300 transition-colors"
+                        >
+                            <Sparkles className="w-3.5 h-3.5" />
+                            Pro
+                        </Link>
                     </div>
 
                     <div className="flex items-center space-x-4">
@@ -92,7 +103,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                         className="md:hidden bg-[#0a0a0a] border-t border-white/5 relative z-[100]"
                     >
                         <div className="py-6 px-6 space-y-4">
-                            {['features', 'workflow', 'pricing', 'faq'].map((item) => (
+                            {navItems.map((item) => (
                                 <button
                                     key={item}
                                     type="button"
@@ -111,6 +122,15 @@ export const Navbar: React.FC<NavbarProps> = ({
                                     {t(`landing.nav.${item}`)}
                                 </button>
                             ))}
+                            {/* Pro Link - Mobile */}
+                            <Link
+                                href="/pro"
+                                onClick={() => setMobileMenuOpen(false)}
+                                className="flex items-center gap-2 w-full py-3 text-purple-400 font-medium border-b border-white/5"
+                            >
+                                <Sparkles className="w-4 h-4" />
+                                Pro 版本
+                            </Link>
                             <Link
                                 href="/S01"
                                 onClick={() => setMobileMenuOpen(false)}
