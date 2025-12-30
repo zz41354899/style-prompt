@@ -8,9 +8,8 @@ import {
     ProHeroSection,
     ProStyleShowcase,
     ProPricingSection,
-    FaqSection,
-    Footer,
 } from './landing';
+import { ProFaqSection, ProFooter } from './pro';
 
 export const ProLandingPage: React.FC = () => {
     const { i18n } = useTranslation();
@@ -41,7 +40,6 @@ export const ProLandingPage: React.FC = () => {
         <div className="min-h-screen bg-[#030303] text-white selection:bg-purple-500/30">
             {/* Premium Background */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none">
-                {/* Main gradient */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -78,11 +76,11 @@ export const ProLandingPage: React.FC = () => {
             {/* Pro Pricing Section */}
             <ProPricingSection />
 
-            {/* FAQ Section */}
-            <FaqSection />
+            {/* Pro FAQ Section */}
+            <ProFaqSection />
 
-            {/* Footer */}
-            <Footer />
+            {/* Pro Footer */}
+            <ProFooter />
         </div>
     );
 };
