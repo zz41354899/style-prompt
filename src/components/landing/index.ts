@@ -1,5 +1,6 @@
 // Landing page components barrel export
 export { Navbar } from './Navbar';
+export { ProNavbar } from './ProNavbar';
 export { HeroSection } from './HeroSection';
 export { FeaturesSection } from './FeaturesSection';
 export { WorkflowBento, type BentoItem } from './WorkflowBento';

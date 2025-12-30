@@ -10,6 +10,7 @@
     "generate:configs": "tsx scripts/generate-style-configs-json.ts"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.89.0",
     "framer-motion": "^12.23.26",
     "i18next": "^25.7.3",
     "lucide-react": "^0.561.0",
