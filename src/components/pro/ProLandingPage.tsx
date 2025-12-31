@@ -1,87 +1,56 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
-import {
-    ProNavbar,
-    ProHeroSection,
-    ProStyleShowcase,
-    ProPricingSection,
-    ProFaqSection,
-    ProFooter,
-} from './index';
+import { ProNavbar } from './ProNavbar';
+import { ProHeroSection } from './ProHeroSection';
+import { ProStyleShowcase } from './ProStyleShowcase';
+import { ProTemplateShowcase } from './ProTemplateShowcase';
+import { ProPricingSection } from './ProPricingSection';
+import { ProFaqSection } from './ProFaqSection';
+import { ProFooter } from './ProFooter';
 
 export const ProLandingPage: React.FC = () => {
     const { i18n } = useTranslation();
+    const [currentLang, setCurrentLang] = useState(i18n.language || 'zh-TW');
 
     const toggleLanguage = () => {
-        const nextLang = i18n.language === 'zh-TW' ? 'en' : 'zh-TW';
-        i18n.changeLanguage(nextLang);
+        const newLang = currentLang === 'zh-TW' ? 'en' : 'zh-TW';
+        i18n.changeLanguage(newLang);
+        setCurrentLang(newLang);
     };
 
-    const scrollToSection = (e: React.MouseEvent, id: string) => {
+    const handleScrollToSection = (e: React.MouseEvent, id: string) => {
         e.preventDefault();
         const element = document.getElementById(id);
         if (element) {
-            const offset = 80;
-            const bodyRect = document.body.getBoundingClientRect().top;
-            const elementRect = element.getBoundingClientRect().top;
-            const elementPosition = elementRect - bodyRect;
-            const offsetPosition = elementPosition - offset;
-
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-            });
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     };
 
     return (
-        <div className="min-h-screen bg-[#030303] text-white selection:bg-purple-500/30">
-            {/* Premium Background */}
-            <div className="fixed inset-0 overflow-hidden pointer-events-none">
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 2 }}
-                    className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-purple-900/20 rounded-full blur-[150px]"
-                />
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 2, delay: 0.3 }}
-                    className="absolute top-[20%] right-[-15%] w-[50%] h-[50%] bg-pink-900/15 rounded-full blur-[150px]"
-                />
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 2, delay: 0.6 }}
-                    className="absolute bottom-[-10%] left-[30%] w-[40%] h-[40%] bg-blue-900/10 rounded-full blur-[120px]"
-                />
+        <div className="min-h-screen bg-[#020202] text-white selection:bg-purple-500/30 relative">
+            {/* Global Background System */}
+            <div className="fixed inset-0 pointer-events-none z-0">
+                <div className="absolute inset-0 bg-[#020202]" />
+                <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay" />
+                <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-purple-900/10 blur-[120px] rounded-full animate-pulse" />
+                <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-indigo-900/10 blur-[120px] rounded-full animate-pulse" style={{ animationDelay: '2s' }} />
             </div>
 
-            {/* Pro Navigation with Auth */}
-            <ProNavbar
-                onScrollToSection={scrollToSection}
-                toggleLanguage={toggleLanguage}
-                currentLang={i18n.language}
-            />
-
-            {/* Pro Hero Section */}
-            <ProHeroSection />
-
-            {/* Pro Style Showcase */}
-            <ProStyleShowcase />
-
-            {/* Pro Pricing Section */}
-            <ProPricingSection />
-
-            {/* Pro FAQ Section */}
-            <ProFaqSection />
-
-            {/* Pro Footer */}
-            <ProFooter />
+            <div className="relative z-10">
+                <ProNavbar
+                    onScrollToSection={handleScrollToSection}
+                    toggleLanguage={toggleLanguage}
+                    currentLang={currentLang}
+                />
+                <ProHeroSection />
+                <ProStyleShowcase />
+                <ProTemplateShowcase />
+                <ProPricingSection />
+                <ProFaqSection />
+                <ProFooter />
+            </div>
         </div>
     );
 };

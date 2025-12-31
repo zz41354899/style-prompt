@@ -3,140 +3,120 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Sparkles, Eye, Crown } from 'lucide-react';
+import { ArrowRight, Crown, Eye } from 'lucide-react';
 import { styles, hasProVersion } from '@/data/styles';
 import { getThemeColor } from '@/data/themeColors';
-import { useAuth } from '@/hooks/useAuth';
-import { usePurchase } from '@/hooks/usePurchase';
-
-// 取得 Pro 風格列表
-const proStyles = styles.filter(s => hasProVersion(s.id));
+import { useTranslation } from 'react-i18next';
 
 export const ProStyleShowcase: React.FC = () => {
-    const { user } = useAuth();
-    const { hasPro } = usePurchase();
+    const { t } = useTranslation();
+    const proStyles = styles.filter(s => hasProVersion(s.id));
 
     return (
-        <section id="showcase" className="py-24 sm:py-32">
-            <div className="max-w-7xl mx-auto px-4">
-                {/* Section Header */}
+        <section id="styles" className="py-32 bg-[#020202] relative overflow-hidden">
+            {/* Background */}
+            <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.02] pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-purple-900/10 rounded-full blur-[150px] pointer-events-none" />
+
+            <div className="max-w-7xl mx-auto px-4 relative z-10">
+                {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     className="text-center mb-16"
                 >
-                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-purple-500/10 border border-purple-500/20 rounded-full mb-6">
-                        <Sparkles className="w-3.5 h-3.5 text-purple-400" />
-                        <span className="text-xs font-medium text-purple-300">Pro 專屬風格</span>
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-purple-500/10 border border-purple-500/20 rounded-full mb-6">
+                        <Crown className="w-4 h-4 text-purple-400" />
+                        <span className="text-sm font-medium text-purple-300">風格資源庫</span>
                     </div>
-                    <h2 className="text-3xl sm:text-5xl font-bold mb-4">
-                        精選進階風格
+                    <h2 className="text-4xl md:text-5xl font-black mb-4">
+                        {proStyles.length} 個進階風格
                     </h2>
-                    <p className="text-lg text-white/50 max-w-2xl mx-auto">
-                        每個 Pro 風格都經過精心設計，包含完整的設計系統指示詞，
-                        讓 AI 產出更專業、更精緻的視覺效果。
+                    <p className="text-lg text-white/50 max-w-xl mx-auto">
+                        每個風格都經過精心設計，包含完整的設計系統指示詞
                     </p>
-                    {hasPro && (
-                        <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-green-500/10 border border-green-500/30 rounded-full">
-                            <Crown className="w-4 h-4 text-green-400" />
-                            <span className="text-sm text-green-300">您已擁有 Pro 權限</span>
-                        </div>
-                    )}
                 </motion.div>
 
-                {/* Style Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                    {proStyles.map((style, index) => {
-                        const themeColor = getThemeColor(style.id);
-                        // 有 Pro 權限的用戶連結到編輯器，否則連結到定價
-                        const href = hasPro ? `/pro/${style.id}` : '#pricing';
-
+                {/* Styles Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+                    {proStyles.slice(0, 6).map((style, index) => {
+                        const color = getThemeColor(style.id);
                         return (
-                            <Link key={style.id} href={href}>
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: index * 0.05 }}
-                                    whileHover={{ y: -5, scale: 1.02 }}
-                                    className="group relative aspect-[4/5] rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-br from-white/5 to-transparent cursor-pointer"
+                            <motion.div
+                                key={style.id}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: index * 0.05 }}
+                            >
+                                <Link
+                                    href={`/pro/${style.id}`}
+                                    className="group relative block h-full p-1 rounded-3xl bg-gradient-to-b from-white/10 to-transparent hover:from-purple-500/50 hover:to-indigo-500/50 transition-all duration-500"
                                 >
-                                    {/* Color Accent */}
-                                    <div
-                                        className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity"
-                                        style={{
-                                            background: `linear-gradient(135deg, ${themeColor}40, transparent 60%)`,
-                                        }}
-                                    />
+                                    <div className="relative h-full p-6 bg-[#080808] rounded-[22px] overflow-hidden flex flex-col">
+                                        {/* Hover Glow */}
+                                        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                                    {/* Content */}
-                                    <div className="absolute inset-0 p-4 flex flex-col justify-between">
-                                        <div>
-                                            <div
-                                                className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-bold mb-3"
-                                                style={{ backgroundColor: themeColor }}
-                                            >
-                                                {style.id.replace('S', '')}
+                                        {/* Header */}
+                                        <div className="relative flex items-start justify-between mb-8">
+                                            <div className="flex items-center gap-5">
+                                                <div
+                                                    className="w-12 h-12 rounded-xl flex items-center justify-center text-white font-black text-lg shadow-lg"
+                                                    style={{ backgroundColor: color }}
+                                                >
+                                                    {style.id.replace('S', '')}
+                                                </div>
+                                                <div>
+                                                    <h3 className="font-bold text-white group-hover:text-purple-300 transition-colors">
+                                                        {t(`styles.${style.id}.name`) || style.name}
+                                                    </h3>
+                                                    <div className="mt-1 px-2.5 py-0.5 bg-white/5 border border-white/10 rounded-full text-[10px] text-purple-300 font-bold uppercase tracking-wider group-hover:bg-purple-500/20 group-hover:border-purple-500/30 transition-colors w-fit">
+                                                        Pro
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <h3 className="font-semibold text-white mb-1 text-sm leading-tight">
-                                                {style.name}
-                                            </h3>
-                                            <p className="text-xs text-white/40 line-clamp-2">
-                                                {style.description}
-                                            </p>
-                                        </div>
-
-                                        {/* Hover Action */}
-                                        <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <div className="flex items-center gap-1 text-xs text-purple-400">
-                                                <Eye className="w-3 h-3" />
-                                                <span>{hasPro ? '開啟編輯器' : '查看方案'}</span>
+                                            <div className="p-3 bg-white/5 rounded-full text-white/40 group-hover:text-white group-hover:bg-purple-600 group-hover:shadow-[0_0_20px_-5px_rgba(168,85,247,0.5)] transition-all duration-300 transform group-hover:-rotate-45">
+                                                <ArrowRight className="w-4 h-4" />
                                             </div>
                                         </div>
-                                    </div>
 
-                                    {/* Pro Badge */}
-                                    <div className="absolute top-3 right-3">
-                                        <div className={`px-2 py-0.5 text-white text-[10px] font-bold rounded-full ${hasPro ? 'bg-green-600' : 'bg-purple-600'}`}>
-                                            {hasPro ? '已解鎖' : 'Pro'}
+                                        {/* Description */}
+                                        <p className="relative text-sm text-white/40 line-clamp-2 mb-6 flex-1">
+                                            {style.description}
+                                        </p>
+
+                                        {/* Footer */}
+                                        <div className="relative flex items-center justify-between pt-6 border-t border-white/5 mt-auto">
+                                            <div className="flex items-center gap-2 text-xs font-medium text-white/40 group-hover:text-purple-300 transition-colors">
+                                                <Eye className="w-4 h-4" />
+                                                <span>預覽風格</span>
+                                            </div>
+                                            <div className="text-xs text-white/20 font-mono">
+                                                #{style.id}
+                                            </div>
                                         </div>
                                     </div>
-
-                                    {/* Shimmer Effect */}
-                                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent animate-shimmer" />
-                                    </div>
-                                </motion.div>
-                            </Link>
+                                </Link>
+                            </motion.div>
                         );
                     })}
                 </div>
 
                 {/* CTA */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
-                    className="text-center mt-12"
+                    className="text-center"
                 >
-                    {hasPro ? (
-                        <Link
-                            href="/pro/S01"
-                            className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-500 text-white font-semibold rounded-xl transition-all"
-                        >
-                            <Crown className="w-4 h-4" />
-                            開始使用 Pro 風格
-                        </Link>
-                    ) : (
-                        <Link
-                            href="#pricing"
-                            className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white font-semibold rounded-xl transition-all"
-                        >
-                            <Sparkles className="w-4 h-4" />
-                            解鎖所有 Pro 風格
-                        </Link>
-                    )}
+                    <Link
+                        href="/pro/S01"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white font-semibold rounded-full transition-all shadow-lg shadow-purple-600/20"
+                    >
+                        瀏覽全部風格
+                        <ArrowRight className="w-4 h-4" />
+                    </Link>
                 </motion.div>
             </div>
         </section>

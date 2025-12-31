@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Crown, Lock, Sparkles, ArrowRight, X } from 'lucide-react';
+import { Crown, Lock, ArrowRight, X } from 'lucide-react';
+import Link from 'next/link';
 
 interface ProUpgradePromptProps {
     isOpen: boolean;
@@ -14,102 +14,55 @@ interface ProUpgradePromptProps {
 export const ProUpgradePrompt: React.FC<ProUpgradePromptProps> = ({
     isOpen,
     onClose,
-    styleName
+    styleName = '此風格'
 }) => {
     if (!isOpen) return null;
 
     return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4"
-            onClick={(e) => e.target === e.currentTarget && onClose()}
-        >
-            <div className="absolute inset-0 bg-black/90 backdrop-blur-sm" />
-
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#030303]">
             <motion.div
-                initial={{ scale: 0.95, opacity: 0, y: 20 }}
-                animate={{ scale: 1, opacity: 1, y: 0 }}
-                className="relative bg-[#0c0c0c] border border-purple-500/20 rounded-2xl w-full max-w-md p-8 shadow-2xl overflow-hidden"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="w-full max-w-lg text-center"
             >
-                {/* Close Button */}
-                <button
-                    onClick={onClose}
-                    className="absolute top-4 right-4 p-2 text-white/40 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                >
-                    <X className="w-5 h-5" />
-                </button>
+                {/* Icon */}
+                <div className="inline-flex items-center justify-center w-20 h-20 bg-purple-500/10 border border-purple-500/20 rounded-3xl mb-6">
+                    <Lock className="w-10 h-10 text-purple-400" />
+                </div>
 
-                {/* Glow */}
-                <div className="absolute -top-20 -left-20 w-40 h-40 bg-purple-600/20 rounded-full blur-3xl" />
-                <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-pink-600/20 rounded-full blur-3xl" />
+                {/* Title */}
+                <h1 className="text-3xl font-black mb-3">需要 Pro 授權</h1>
+                <p className="text-white/50 mb-8 max-w-sm mx-auto">
+                    「{styleName}」是 Pro 專屬風格，升級後即可存取所有進階內容。
+                </p>
 
-                {/* Content */}
-                <div className="relative text-center">
-                    {/* Icon */}
-                    <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl flex items-center justify-center shadow-lg shadow-purple-600/30">
-                        <Lock className="w-8 h-8 text-white" />
-                    </div>
-
-                    {/* Badge */}
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-purple-500/10 border border-purple-500/20 rounded-full mb-4">
-                        <Crown className="w-3.5 h-3.5 text-purple-400" />
-                        <span className="text-xs font-medium text-purple-300">Pro 專屬功能</span>
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="text-xl font-bold mb-2">
-                        解鎖 Pro 風格
-                    </h3>
-
-                    {/* Description */}
-                    <p className="text-white/50 text-sm mb-6 leading-relaxed">
-                        {styleName ? (
-                            <>
-                                <span className="text-purple-400 font-medium">{styleName}</span> 是 Pro 專屬風格。
-                                升級 Pro 即可複製完整指示詞！
-                            </>
-                        ) : (
-                            <>升級 Pro 解鎖所有進階風格與完整指示詞！</>
-                        )}
-                    </p>
-
-                    {/* Features */}
-                    <div className="mb-6 p-4 bg-white/5 rounded-xl">
-                        <div className="text-xs text-white/40 mb-3 uppercase tracking-wide">Pro 版包含</div>
-                        <div className="space-y-2 text-sm text-white/70">
-                            <div className="flex items-center gap-2">
-                                <Sparkles className="w-4 h-4 text-purple-400" />
-                                <span>10+ 進階風格模板</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <Sparkles className="w-4 h-4 text-purple-400" />
-                                <span>完整設計系統指示詞</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <Sparkles className="w-4 h-4 text-purple-400" />
-                                <span>未來更新免費</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* CTA */}
+                {/* CTAs */}
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-8">
                     <Link
                         href="/pro#pricing"
-                        className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-purple-600/30 group"
+                        className="flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white font-bold rounded-2xl hover:shadow-lg hover:shadow-purple-500/30 transition-all"
                     >
-                        <Crown className="w-4 h-4" />
+                        <Crown className="w-5 h-5" />
                         升級 Pro
-                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        <ArrowRight className="w-5 h-5" />
                     </Link>
+                    <button
+                        onClick={onClose}
+                        className="flex items-center gap-2 px-8 py-4 bg-white/5 border border-white/10 text-white/70 font-medium rounded-2xl hover:bg-white/10 transition-all"
+                    >
+                        返回
+                    </button>
+                </div>
 
-                    {/* Price Hint */}
-                    <p className="mt-3 text-xs text-white/30">
-                        一次購買 · 永久使用
-                    </p>
+                {/* Pricing Preview */}
+                <div className="p-6 bg-white/[0.02] border border-white/[0.06] rounded-2xl max-w-xs mx-auto">
+                    <div className="flex items-baseline justify-center gap-2 mb-2">
+                        <span className="text-white/40 line-through text-sm">NT$3,600</span>
+                        <span className="text-2xl font-black">NT$2,000</span>
+                    </div>
+                    <p className="text-xs text-white/40">一次購買，終身使用</p>
                 </div>
             </motion.div>
-        </motion.div>
+        </div>
     );
 };

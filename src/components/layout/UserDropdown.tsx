@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { User, CreditCard, Receipt, Settings, LogOut, ChevronDown } from 'lucide-react';
+import { User, LayoutDashboard, LogOut, ChevronDown } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 
 export const UserDropdown: React.FC = () => {
@@ -27,12 +27,6 @@ export const UserDropdown: React.FC = () => {
         await signOut();
         setIsOpen(false);
     };
-
-    const menuItems = [
-        { icon: CreditCard, label: '定價方案', href: '/pricing' },
-        { icon: Receipt, label: '購買紀錄', href: '/purchases' },
-        { icon: Settings, label: '設定', href: '/settings' },
-    ];
 
     // 取得使用者顯示名稱或 email 前綴
     const displayName = user?.user_metadata?.name || user?.email?.split('@')[0] || '使用者';
@@ -74,19 +68,16 @@ export const UserDropdown: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* Menu Items */}
+                        {/* 控制面板 */}
                         <div className="py-2">
-                            {menuItems.map((item) => (
-                                <Link
-                                    key={item.href}
-                                    href={item.href}
-                                    onClick={() => setIsOpen(false)}
-                                    className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-colors"
-                                >
-                                    <item.icon className="w-4 h-4" />
-                                    {item.label}
-                                </Link>
-                            ))}
+                            <Link
+                                href="/dashboard"
+                                onClick={() => setIsOpen(false)}
+                                className="flex items-center gap-3 px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-colors"
+                            >
+                                <LayoutDashboard className="w-4 h-4" />
+                                控制面板
+                            </Link>
                         </div>
 
                         {/* Sign Out */}

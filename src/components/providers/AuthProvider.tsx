@@ -9,18 +9,28 @@ import { supabase } from '@/lib/supabaseClient';
 // ============================================
 const TEST_ACCOUNTS = [
     {
+        email: 'admin@test.com',
+        password: 'admin1234',
+        hasPro: true,
+        name: 'Admin 管理員',
+        isAdmin: true
+    },
+    {
         email: 'test@styleprompts.com',
         password: 'test1234',
         hasPro: true,
-        name: 'Pro 測試用戶'
+        name: 'Pro 測試用戶',
+        isAdmin: false
     },
     {
         email: 'free@styleprompts.com',
         password: 'free1234',
         hasPro: false,
-        name: 'Free 測試用戶'
+        name: 'Free 測試用戶',
+        isAdmin: false
     }
 ];
+
 
 // 建立模擬 User 物件
 const createMockUser = (account: typeof TEST_ACCOUNTS[0]): User => ({
@@ -33,11 +43,13 @@ const createMockUser = (account: typeof TEST_ACCOUNTS[0]): User => ({
     app_metadata: {},
     user_metadata: {
         name: account.name,
-        hasPro: account.hasPro
+        hasPro: account.hasPro,
+        isAdmin: account.isAdmin
     },
     identities: [],
     factors: []
 });
+
 
 interface AuthContextType {
     user: User | null;
@@ -47,6 +59,7 @@ interface AuthContextType {
     signIn: (email: string, password: string) => Promise<{ error: AuthError | null }>;
     signUp: (email: string, password: string) => Promise<{ error: AuthError | null }>;
     signOut: () => Promise<void>;
+    updateUserName: (name: string) => Promise<{ error: Error | null }>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -205,6 +218,45 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         await supabase.auth.signOut();
     };
 
+    const updateUserName = async (name: string): Promise<{ error: Error | null }> => {
+        if (isTestMode && user) {
+            // 測試模式：更新本地儲存的用戶
+            const updatedUser = {
+                ...user,
+                user_metadata: {
+                    ...user.user_metadata,
+                    name
+                }
+            };
+            setUser(updatedUser as User);
+            localStorage.setItem('testUser', JSON.stringify(updatedUser));
+            console.log('🧪 測試模式更新用戶名稱:', name);
+            return { error: null };
+        }
+
+        try {
+            const { error } = await supabase.auth.updateUser({
+                data: { name }
+            });
+            if (error) {
+                return { error: new Error(error.message) };
+            }
+            // 更新本地 user
+            if (user) {
+                setUser({
+                    ...user,
+                    user_metadata: {
+                        ...user.user_metadata,
+                        name
+                    }
+                });
+            }
+            return { error: null };
+        } catch (e) {
+            return { error: e as Error };
+        }
+    };
+
     return (
         <AuthContext.Provider
             value={{
@@ -215,6 +267,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 signIn,
                 signUp,
                 signOut,
+                updateUserName,
             }}
         >
             {children}
