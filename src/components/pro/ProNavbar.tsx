@@ -7,7 +7,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Languages, ChevronRight, Menu, X, Crown, Sparkles, LayoutGrid } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { UserDropdown } from '@/components/layout/UserDropdown';
-import { AuthModal } from '@/components/common';
 import NotificationBell from '@/components/common/NotificationBell';
 
 interface ProNavbarProps {
@@ -24,8 +23,6 @@ export const ProNavbar: React.FC<ProNavbarProps> = ({
     const { t } = useTranslation();
     const { user, loading } = useAuth();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [authModalOpen, setAuthModalOpen] = useState(false);
-    const [authModalMode, setAuthModalMode] = useState<'signin' | 'signup'>('signin');
 
     const navItems = ['features', 'styles', 'pricing', 'faq'];
 
@@ -34,10 +31,7 @@ export const ProNavbar: React.FC<ProNavbarProps> = ({
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    const openSignIn = () => {
-        setAuthModalMode('signin');
-        setAuthModalOpen(true);
-    };
+
 
     const [isScrolled, setIsScrolled] = React.useState(false);
 
@@ -137,13 +131,13 @@ export const ProNavbar: React.FC<ProNavbarProps> = ({
                                         </div>
                                     ) : (
                                         <div className="hidden sm:flex items-center gap-2 pl-2">
-                                            <button
-                                                onClick={openSignIn}
+                                            <Link
+                                                href="/pro/login"
                                                 className="flex items-center gap-2 px-5 py-2.5 bg-white text-black text-sm font-bold rounded-full hover:shadow-[0_0_20px_-5px_rgba(255,255,255,0.4)] transition-all duration-300"
                                             >
                                                 <span>登入</span>
                                                 <ChevronRight className="w-3 h-3" />
-                                            </button>
+                                            </Link>
                                         </div>
                                     )}
                                 </>
@@ -200,26 +194,21 @@ export const ProNavbar: React.FC<ProNavbarProps> = ({
 
                                     {!loading && !user && (
                                         <div className="pt-4 border-t border-white/5">
-                                            <button
-                                                onClick={() => { setMobileMenuOpen(false); openSignIn(); }}
+                                            <Link
+                                                href="/pro/login"
+                                                onClick={() => setMobileMenuOpen(false)}
                                                 className="block w-full py-3 bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white text-sm font-bold rounded-xl text-center"
                                             >
                                                 登入
-                                            </button>
+                                            </Link>
                                         </div>
                                     )}
                                 </div>
                             </motion.div>
                         )
                     }
-                </AnimatePresence >
+                </AnimatePresence>
             </motion.nav>
-
-            <AuthModal
-                isOpen={authModalOpen}
-                onClose={() => setAuthModalOpen(false)}
-                defaultMode={authModalMode}
-            />
         </>
     );
 };

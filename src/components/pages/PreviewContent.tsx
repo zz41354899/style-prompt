@@ -9,6 +9,8 @@ import { styleComponents, styleComponentsPro } from '@/components/styles';
 import { useLayoutContext } from '@/components/MainLayout';
 import { PromptModal } from '@/components/PromptModal';
 import { ProUpgradeModal } from '@/components/pro';
+import { AuthModal } from '@/components/common';
+import { useAuth } from '@/hooks/useAuth';
 
 interface PreviewContentProps {
     styleId: string;
@@ -17,8 +19,10 @@ interface PreviewContentProps {
 export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
     const { deviceMode, setDeviceMode, previewTier } = useLayoutContext();
     const { t } = useTranslation();
+    const { user } = useAuth();
     const [isPromptModalOpen, setIsPromptModalOpen] = useState(false);
     const [isProModalOpen, setIsProModalOpen] = useState(false);
+    const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
     const effectiveStyleId = styleId || 'S01';
     const currentStyle = styles.find(s => s.id === effectiveStyleId);
 
@@ -38,6 +42,22 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
 
         return () => cancelAnimationFrame(rafId);
     }, [deviceMode]);
+
+    // 處理複製指示詞按鈕點擊
+    const handleCopyPromptClick = () => {
+        // 如果未登入，顯示登入 Modal
+        if (!user) {
+            setIsAuthModalOpen(true);
+            return;
+        }
+
+        // 已登入，檢查 Pro 權限
+        if (previewTier === 'pro' && !isNewYearPromoActive()) {
+            setIsProModalOpen(true);
+        } else {
+            setIsPromptModalOpen(true);
+        }
+    };
 
     if (!currentStyle || !SelectedComponent) {
         return (
@@ -109,7 +129,7 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
                 {/* Right: Actions */}
                 <div className="flex justify-end md:flex-1 gap-2">
                     <button
-                        onClick={() => (previewTier === 'pro' && !isNewYearPromoActive()) ? setIsProModalOpen(true) : setIsPromptModalOpen(true)}
+                        onClick={handleCopyPromptClick}
                         className="hidden md:flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-purple-600 hover:bg-purple-700 text-white text-xs md:text-sm font-medium rounded-lg transition-colors flex-shrink-0"
                     >
                         <Copy className="w-3 h-3 md:w-4 md:h-4" />
@@ -183,7 +203,7 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
             {/* Mobile Sticky Actions */}
             <div className="lg:hidden fixed bottom-16 left-0 right-0 p-4 bg-[#0a0a0a]/80 backdrop-blur-xl border-t border-white/10 z-30 flex flex-col gap-2">
                 <button
-                    onClick={() => (previewTier === 'pro' && !isNewYearPromoActive()) ? setIsProModalOpen(true) : setIsPromptModalOpen(true)}
+                    onClick={handleCopyPromptClick}
                     className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-purple-600 hover:bg-purple-700 text-white text-sm font-bold rounded-xl transition-all shadow-lg shadow-purple-600/20 active:scale-95"
                 >
                     <Copy className="w-4 h-4" />
@@ -211,6 +231,13 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
                 isOpen={isProModalOpen}
                 onClose={() => setIsProModalOpen(false)}
                 styleName={currentStyle?.name || ''}
+            />
+
+            {/* Auth Modal - 登入彈窗 */}
+            <AuthModal
+                isOpen={isAuthModalOpen}
+                onClose={() => setIsAuthModalOpen(false)}
+                defaultMode="signin"
             />
         </main>
     );

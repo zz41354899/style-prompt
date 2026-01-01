@@ -4,6 +4,7 @@ import React from 'react';
 import { usePathname } from 'next/navigation';
 import { AuthProvider } from '@/components/providers/AuthProvider';
 import { ProMainLayout } from '@/components/pro';
+import { LoginGate } from '@/components/common';
 
 interface ProLayoutProps {
     children: React.ReactNode;
@@ -12,8 +13,11 @@ interface ProLayoutProps {
 export default function ProLayout({ children }: ProLayoutProps) {
     const pathname = usePathname();
 
-    // Pro Landing Page (/pro) 不使用 MainLayout
+    // Pro Landing Page (/pro) 不使用 MainLayout 也不需登入
     const isLandingPage = pathname === '/pro';
+
+    // 登入頁面
+    const isLoginPage = pathname === '/pro/login';
 
     // Admin 頁面使用獨立的 Layout
     const isAdminPage = pathname.startsWith('/pro/admin');
@@ -21,14 +25,21 @@ export default function ProLayout({ children }: ProLayoutProps) {
     // 法律頁面使用獨立頁面
     const isLegalPage = pathname.startsWith('/pro/legal');
 
+    // 不需要登入的頁面
+    const isPublicPage = isLandingPage || isLegalPage || isLoginPage;
+
     return (
         <AuthProvider>
-            {isLandingPage || isAdminPage || isLegalPage ? (
+            {isPublicPage ? (
+                children
+            ) : isAdminPage ? (
                 children
             ) : (
-                <ProMainLayout>
-                    {children}
-                </ProMainLayout>
+                <LoginGate backLink="/pro" variant="pro">
+                    <ProMainLayout>
+                        {children}
+                    </ProMainLayout>
+                </LoginGate>
             )}
         </AuthProvider>
     );

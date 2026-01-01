@@ -3,7 +3,7 @@
 import React from 'react';
 import { usePathname, redirect } from 'next/navigation';
 import Link from 'next/link';
-import { AuthProvider } from '@/components/providers/AuthProvider';
+import { AuthProvider, hasProAccess } from '@/components/providers/AuthProvider';
 import { useAuth } from '@/hooks/useAuth';
 import { Crown, CreditCard, Settings, ArrowLeft } from 'lucide-react';
 
@@ -21,9 +21,14 @@ const DashboardContent: React.FC<DashboardLayoutProps> = ({ children }) => {
     const pathname = usePathname();
     const { user, loading } = useAuth();
 
+    // 判斷使用者是否有 Pro 權限
+    const isPro = hasProAccess(user);
+    const backLink = isPro ? '/pro' : '/';
+    const backText = isPro ? 'BACK TO PRO' : '返回資源庫';
+
     // 未登入重導向
     if (!loading && !user) {
-        redirect('/pro');
+        redirect('/');
     }
 
     if (loading) {
@@ -49,11 +54,11 @@ const DashboardContent: React.FC<DashboardLayoutProps> = ({ children }) => {
                     <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/5 to-transparent pointer-events-none" />
 
                     <div className="p-6">
-                        <Link href="/pro" className="flex items-center gap-2 text-white/40 hover:text-white transition-colors group mb-8">
+                        <Link href={backLink} className="flex items-center gap-2 text-white/40 hover:text-white transition-colors group mb-8">
                             <div className="p-1.5 rounded-lg bg-white/5 group-hover:bg-white/10 transition-colors">
                                 <ArrowLeft className="w-4 h-4" />
                             </div>
-                            <span className="text-xs font-medium tracking-wide">BACK TO PRO</span>
+                            <span className="text-xs font-medium tracking-wide">{backText}</span>
                         </Link>
 
                         <div className="space-y-1">
@@ -96,7 +101,7 @@ const DashboardContent: React.FC<DashboardLayoutProps> = ({ children }) => {
                                     </div>
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <div className="text-[10px] text-purple-400 font-bold tracking-wider uppercase mb-0.5">Pro Member</div>
+                                    <div className={`text-[10px] font-bold tracking-wider uppercase mb-0.5 ${isPro ? 'text-purple-400' : 'text-blue-400'}`}>{isPro ? 'Pro Member' : 'Free Member'}</div>
                                     <div className="text-xs text-white/80 truncate font-medium">{user?.email}</div>
                                 </div>
                             </div>
