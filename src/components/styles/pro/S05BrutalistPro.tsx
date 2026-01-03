@@ -51,10 +51,13 @@ export const S05BrutalistPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
 
                 {/* Mobile Menu */}
                 {menuOpen && isMobile && (
-                    <div className="fixed inset-0 top-16 bg-white z-40 border-b-4 border-black p-6 flex flex-col gap-6">
+                    <div className="bg-white border-b-4 border-black p-6 flex flex-col gap-4">
                         {['Docs', 'Pricing', 'Status', 'Changelog'].map(item => (
-                            <a key={item} className="text-3xl font-black uppercase hover:text-green-600 hover:underline decoration-4 decoration-black underline-offset-4">{item}</a>
+                            <a key={item} className="text-xl font-black uppercase hover:text-green-600 hover:underline decoration-4 decoration-black underline-offset-4">{item}</a>
                         ))}
+                        <button className="px-8 py-4 font-black uppercase bg-black text-white hover:bg-green-400 hover:text-black transition-colors w-full mt-4">
+                            Terminal
+                        </button>
                     </div>
                 )}
             </header>

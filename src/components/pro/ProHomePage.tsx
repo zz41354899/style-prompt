@@ -154,8 +154,7 @@ export const ProHomePage: React.FC = () => {
                     <p className="text-white/50 mb-8">無訂閱，無隱藏費用。買一次就是你的。</p>
 
                     <div className="p-8 bg-white/5 border border-white/10 rounded-3xl mb-8">
-                        <div className="text-5xl font-black mb-2">NT$2,000</div>
-                        <div className="text-white/40 line-through mb-6">NT$3,600</div>
+                        <div className="text-5xl font-black mb-6">NT$2,000</div>
                         <Link
                             href="/api/stripe/checkout"
                             className="block w-full py-4 bg-white text-black font-bold rounded-xl hover:bg-gray-100 transition-colors"

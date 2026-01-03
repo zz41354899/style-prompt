@@ -92,7 +92,6 @@ export const ProUpgradeModal: React.FC<ProUpgradeModalProps> = ({
                             {/* Price */}
                             <div className="text-center mb-6">
                                 <div className="flex items-baseline justify-center gap-2">
-                                    <span className="text-white/40 line-through">NT$3,600</span>
                                     <span className="text-3xl font-black">NT$2,000</span>
                                 </div>
                                 <p className="text-xs text-white/40 mt-1">一次購買，終身使用</p>

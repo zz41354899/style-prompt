@@ -28,13 +28,13 @@ export const ProStyleShowcase: React.FC = () => {
                 >
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-purple-500/10 border border-purple-500/20 rounded-full mb-6">
                         <Crown className="w-4 h-4 text-purple-400" />
-                        <span className="text-sm font-medium text-purple-300">風格資源庫</span>
+                        <span className="text-sm font-medium text-purple-300">{t('pro.showcase.badge')}</span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-black mb-4">
-                        {proStyles.length} 個進階風格
+                        {t('pro.showcase.title')}
                     </h2>
                     <p className="text-lg text-white/50 max-w-xl mx-auto">
-                        每個風格都經過精心設計，包含完整的設計系統指示詞
+                        {t('pro.showcase.subtitle')}
                     </p>
                 </motion.div>
 
@@ -83,14 +83,14 @@ export const ProStyleShowcase: React.FC = () => {
 
                                         {/* Description */}
                                         <p className="relative text-sm text-white/40 line-clamp-2 mb-6 flex-1">
-                                            {style.description}
+                                            {t(`styles.${style.id}.description`) || style.description}
                                         </p>
 
                                         {/* Footer */}
                                         <div className="relative flex items-center justify-between pt-6 border-t border-white/5 mt-auto">
                                             <div className="flex items-center gap-2 text-xs font-medium text-white/40 group-hover:text-purple-300 transition-colors">
                                                 <Eye className="w-4 h-4" />
-                                                <span>預覽風格</span>
+                                                <span>{t('preview.open')}</span>
                                             </div>
                                             <div className="text-xs text-white/20 font-mono">
                                                 #{style.id}
@@ -114,7 +114,7 @@ export const ProStyleShowcase: React.FC = () => {
                         href="/pro/S01"
                         className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white font-semibold rounded-full transition-all shadow-lg shadow-purple-600/20"
                     >
-                        瀏覽全部風格
+                        {t('pro.showcase.viewAll')}
                         <ArrowRight className="w-4 h-4" />
                     </Link>
                 </motion.div>

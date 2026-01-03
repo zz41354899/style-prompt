@@ -33,7 +33,7 @@ export const S07OrganicPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet
             style={{ background: theme.colors.bgGradient }}
         >
             {/* Background Effects */}
-            <div className="fixed inset-0 pointer-events-none z-0">
+            <div className="absolute inset-0 pointer-events-none z-0">
                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-150 contrast-150"></div>
 
                 {/* Perspective Grid */}
@@ -58,7 +58,7 @@ export const S07OrganicPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet
             </div>
 
             {/* Navigation */}
-            <nav className="relative z-50 border-b border-white/10 backdrop-blur-md bg-[#0f0c29]/50">
+            <nav className="sticky top-0 z-50 border-b border-white/10 backdrop-blur-md bg-[#0f0c29]/80">
                 <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                         <div className="w-10 h-10 rounded-lg bg-gradient-to-tr from-[#ff00cc] to-[#333399] flex items-center justify-center shadow-[0_0_15px_rgba(255,0,204,0.5)]">
@@ -92,6 +92,20 @@ export const S07OrganicPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet
                         )}
                     </div>
                 </div>
+
+                {/* Mobile Menu */}
+                {menuOpen && isMobile && (
+                    <div className="bg-[#0f0c29]/95 backdrop-blur-md border-t border-white/10 p-6 flex flex-col gap-4">
+                        {['Features', 'Grid', 'Pricing', 'Manifesto'].map(item => (
+                            <a key={item} href="#" className="text-lg font-bold uppercase tracking-widest text-white/70 hover:text-[#00ddeb] transition-all">
+                                {item}
+                            </a>
+                        ))}
+                        <button className="w-full mt-4 px-6 py-3 rounded-none border border-[#ff00cc] text-[#ff00cc] font-bold uppercase tracking-wider hover:bg-[#ff00cc] hover:text-white transition-all shadow-[0_0_10px_rgba(255,0,204,0.3)]">
+                            Login
+                        </button>
+                    </div>
+                )}
             </nav>
 
             {/* Hero Section */}

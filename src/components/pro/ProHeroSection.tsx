@@ -3,14 +3,17 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles, Play, Crown, Zap } from 'lucide-react';
+import { ArrowRight, Sparkles, Play, Crown } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export const ProHeroSection: React.FC = () => {
+    const { t, i18n } = useTranslation();
+    const isZhTW = i18n.language === 'zh-TW';
+
     return (
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
             {/* Background Effects */}
             <div className="absolute inset-0 bg-[#020202]">
-                {/* Gradient Orbs */}
                 {/* Gradient Orbs - Enhanced */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-purple-500/10 rounded-full blur-[120px] animate-pulse" />
                 <div className="absolute top-0 right-0 w-[800px] h-[600px] bg-indigo-500/5 rounded-full blur-[100px]" />
@@ -38,50 +41,53 @@ export const ProHeroSection: React.FC = () => {
                         <Sparkles className="w-3 h-3 text-white" />
                         <span className="text-[10px] font-black tracking-wider text-white uppercase">PRO</span>
                     </div>
-                    <span className="text-sm font-medium text-white/80">解鎖進階設計系統</span>
+                    <span className="text-sm font-medium text-white/80">{t('pro.hero.badge')}</span>
                 </motion.div>
 
                 {/* Title Main */}
-                <h1 className="relative text-6xl md:text-8xl lg:text-9xl font-black mb-8 leading-[0.9] tracking-tighter">
-                    <motion.div
-                        initial={{ opacity: 0, y: 40 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                    >
-                        <span className="text-white drop-shadow-2xl">打造驚艷的</span>
-                    </motion.div>
-                    <motion.div
-                        initial={{ opacity: 0, y: 40 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.1 }}
-                        className="relative"
-                    >
-                        <span className="text-transparent bg-clip-text bg-gradient-to-b from-purple-300 via-purple-400 to-indigo-500 relative z-10">
-                            AI 設計風格
+                <motion.h1
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className={`relative font-black mb-8 tracking-tight ${isZhTW
+                        ? 'text-5xl md:text-7xl lg:text-8xl leading-tight'
+                        : 'text-4xl md:text-6xl lg:text-7xl leading-[1.1]'
+                        }`}
+                >
+                    <span className="text-white drop-shadow-2xl block mb-2">
+                        {t('pro.hero.title1')}
+                    </span>
+                    <span className="relative inline-block">
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-fuchsia-400 to-purple-500">
+                            {t('pro.hero.title2')}
                         </span>
-                        <span className="absolute inset-0 text-transparent bg-clip-text bg-gradient-to-b from-purple-300 via-purple-400 to-indigo-500 blur-2xl opacity-50 -z-10" aria-hidden="true">
-                            AI 設計風格
+                        <span className="absolute inset-0 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-fuchsia-400 to-purple-500 blur-2xl opacity-50" aria-hidden="true">
+                            {t('pro.hero.title2')}
                         </span>
-                    </motion.div>
-                </h1>
+                    </span>
+                </motion.h1>
 
                 {/* Subtitle */}
                 <motion.p
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
-                    className="text-xl md:text-2xl text-white/60 max-w-2xl mx-auto mb-12 leading-relaxed font-light"
+                    className={`max-w-2xl mx-auto mb-12 leading-relaxed ${isZhTW
+                        ? 'text-lg md:text-xl text-white/60'
+                        : 'text-base md:text-lg text-white/60'
+                        }`}
                 >
-                    專業級設計系統指示詞，讓 AI 生成的介面從普通變非凡。
-                    <br className="hidden md:block" />
-                    <span className="text-white/80 font-medium">一次購買，終身使用。</span>
+                    {t('pro.hero.subtitle')}
+                    <br />
+                    <span className="text-white/90 font-semibold">{t('pro.hero.subtitleHighlight')}</span>
                 </motion.p>
 
+                {/* CTA Buttons */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
-                    className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-20"
+                    className="flex flex-col sm:flex-row items-center justify-center gap-4"
                 >
                     <Link
                         href="/pro/S01"
@@ -89,7 +95,7 @@ export const ProHeroSection: React.FC = () => {
                     >
                         <div className="absolute inset-0 rounded-full bg-white blur-md opacity-40 group-hover:opacity-60 transition-opacity" />
                         <Play className="w-5 h-5 relative z-10 fill-current" />
-                        <span className="relative z-10">瀏覽風格資源庫</span>
+                        <span className="relative z-10">{t('pro.hero.browseCTA')}</span>
                         <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
                     </Link>
                     <a
@@ -97,37 +103,10 @@ export const ProHeroSection: React.FC = () => {
                         className="flex items-center gap-2 px-8 py-4 bg-white/5 border border-white/10 text-white font-semibold text-lg rounded-full hover:bg-white/10 hover:border-white/20 hover:shadow-[0_0_20px_-5px_rgba(168,85,247,0.3)] transition-all backdrop-blur-md"
                     >
                         <Crown className="w-5 h-5 text-yellow-400" />
-                        查看方案
+                        {t('pro.hero.pricingCTA')}
                     </a>
                 </motion.div>
-
-                {/* Stats */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.6, delay: 0.5 }}
-                    className="flex flex-wrap items-center justify-center gap-8 md:gap-12"
-                >
-                    {[
-                        { value: '10+', label: 'Pro 風格', icon: Sparkles },
-                        { value: '完整', label: '設計系統', icon: Zap },
-                        { value: '終身', label: '免費更新', icon: Crown },
-                    ].map((stat) => (
-                        <div key={stat.label} className="flex items-center gap-3">
-                            <div className="p-2 bg-purple-500/10 rounded-lg">
-                                <stat.icon className="w-5 h-5 text-purple-400" />
-                            </div>
-                            <div className="text-left">
-                                <div className="text-2xl font-black text-white">{stat.value}</div>
-                                <div className="text-xs text-white/40">{stat.label}</div>
-                            </div>
-                        </div>
-                    ))}
-                </motion.div>
             </div>
-
-            {/* Bottom Gradient */}
-            <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#020202] to-transparent z-20" />
         </section>
     );
 };

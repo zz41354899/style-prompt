@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ProNavbar } from './ProNavbar';
 import { ProHeroSection } from './ProHeroSection';
+import { ProFeaturesGrid } from './ProFeaturesGrid';
 import { ProStyleShowcase } from './ProStyleShowcase';
 import { ProTemplateShowcase } from './ProTemplateShowcase';
 import { ProPricingSection } from './ProPricingSection';
@@ -45,6 +46,7 @@ export const ProLandingPage: React.FC = () => {
                     currentLang={currentLang}
                 />
                 <ProHeroSection />
+                <ProFeaturesGrid />
                 <ProStyleShowcase />
                 <ProTemplateShowcase />
                 <ProPricingSection />

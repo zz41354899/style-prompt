@@ -3,24 +3,11 @@
 import React from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
-import { Sparkles, Coffee, Github, Twitter } from 'lucide-react';
+import { Sparkles, Coffee } from 'lucide-react';
 
 export const ProFooter: React.FC = () => {
     const { t } = useTranslation();
     const year = new Date().getFullYear();
-
-    const links = {
-        product: [
-            { label: 'Pro 風格', href: '/pro/S01' },
-            { label: '定價方案', href: '/pro#pricing' },
-            { label: 'FAQ', href: '/pro#faq' },
-        ],
-        legal: [
-            { label: '服務條款', href: '/pro/legal/terms' },
-            { label: '隱私權政策', href: '/pro/legal/privacy' },
-            { label: '退費政策', href: '/pro/legal/refund' },
-        ],
-    };
 
     return (
         <footer className="py-20 bg-[#020202] border-t border-white/5 relative overflow-hidden">
@@ -37,35 +24,51 @@ export const ProFooter: React.FC = () => {
                             <span className="text-lg font-bold text-white">StylePrompts Pro</span>
                         </Link>
                         <p className="text-sm text-white/40 max-w-xs leading-relaxed">
-                            專業級 AI 設計風格資源庫，讓你的介面從普通變非凡。
+                            {t('pro.footer.description')}
                         </p>
                     </div>
 
                     {/* Product Links */}
                     <div>
-                        <h4 className="text-xs font-bold text-white/60 uppercase tracking-wider mb-4">產品</h4>
+                        <h4 className="text-xs font-bold text-white/60 uppercase tracking-wider mb-4">{t('pro.footer.product')}</h4>
                         <ul className="space-y-2">
-                            {links.product.map((link) => (
-                                <li key={link.label}>
-                                    <Link href={link.href} className="text-sm text-white/40 hover:text-white transition-colors">
-                                        {link.label}
-                                    </Link>
-                                </li>
-                            ))}
+                            <li>
+                                <Link href="/pro/S01" className="text-sm text-white/40 hover:text-white transition-colors">
+                                    {t('pro.footer.styles')}
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/pro#templates" className="text-sm text-white/40 hover:text-white transition-colors">
+                                    {t('pro.footer.templates')}
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/pro#pricing" className="text-sm text-white/40 hover:text-white transition-colors">
+                                    {t('pro.footer.pricing')}
+                                </Link>
+                            </li>
                         </ul>
                     </div>
 
                     {/* Legal Links */}
                     <div>
-                        <h4 className="text-xs font-bold text-white/60 uppercase tracking-wider mb-4">法律</h4>
+                        <h4 className="text-xs font-bold text-white/60 uppercase tracking-wider mb-4">{t('pro.footer.legal')}</h4>
                         <ul className="space-y-2">
-                            {links.legal.map((link) => (
-                                <li key={link.label}>
-                                    <Link href={link.href} className="text-sm text-white/40 hover:text-white transition-colors">
-                                        {link.label}
-                                    </Link>
-                                </li>
-                            ))}
+                            <li>
+                                <Link href="/pro/legal/terms" className="text-sm text-white/40 hover:text-white transition-colors">
+                                    {t('pro.footer.terms')}
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/pro/legal/privacy" className="text-sm text-white/40 hover:text-white transition-colors">
+                                    {t('pro.footer.privacy')}
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/pro/legal/refund" className="text-sm text-white/40 hover:text-white transition-colors">
+                                    {t('pro.footer.refund')}
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -73,7 +76,7 @@ export const ProFooter: React.FC = () => {
                 {/* Bottom */}
                 <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
                     <p className="text-xs text-white/30">
-                        © {year} StylePrompts. All rights reserved.
+                        {t('pro.footer.copyright')}
                     </p>
                     <div className="flex items-center gap-4">
                         <Link
@@ -81,7 +84,7 @@ export const ProFooter: React.FC = () => {
                             className="flex items-center gap-2 text-xs text-white/40 hover:text-white transition-colors"
                         >
                             <Coffee className="w-4 h-4" />
-                            支持我們
+                            {t('layout.buyMeACoffee')}
                         </Link>
                     </div>
                 </div>

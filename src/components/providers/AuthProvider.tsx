@@ -58,6 +58,8 @@ interface AuthContextType {
     isTestMode: boolean;
     signIn: (email: string, password: string) => Promise<{ error: AuthError | null }>;
     signUp: (email: string, password: string) => Promise<{ error: AuthError | null }>;
+    signInWithGoogle: () => Promise<{ error: AuthError | null }>;
+    signInWithGithub: () => Promise<{ error: AuthError | null }>;
     signOut: () => Promise<void>;
     updateUserName: (name: string) => Promise<{ error: Error | null }>;
 }
@@ -257,6 +259,46 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
     };
 
+    const signInWithGoogle = async () => {
+        try {
+            const { error } = await supabase.auth.signInWithOAuth({
+                provider: 'google',
+                options: {
+                    redirectTo: `${window.location.origin}/auth/callback`,
+                },
+            });
+            return { error };
+        } catch {
+            return {
+                error: {
+                    message: '無法連線至認證服務',
+                    name: 'AuthApiError',
+                    status: 500
+                } as AuthError
+            };
+        }
+    };
+
+    const signInWithGithub = async () => {
+        try {
+            const { error } = await supabase.auth.signInWithOAuth({
+                provider: 'github',
+                options: {
+                    redirectTo: `${window.location.origin}/auth/callback`,
+                },
+            });
+            return { error };
+        } catch {
+            return {
+                error: {
+                    message: '無法連線至認證服務',
+                    name: 'AuthApiError',
+                    status: 500
+                } as AuthError
+            };
+        }
+    };
+
     return (
         <AuthContext.Provider
             value={{
@@ -266,6 +308,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 isTestMode,
                 signIn,
                 signUp,
+                signInWithGoogle,
+                signInWithGithub,
                 signOut,
                 updateUserName,
             }}
@@ -280,3 +324,4 @@ export const hasProAccess = (user: User | null): boolean => {
     if (!user) return false;
     return user.user_metadata?.hasPro === true;
 };
+

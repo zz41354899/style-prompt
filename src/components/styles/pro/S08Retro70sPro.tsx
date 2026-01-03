@@ -32,7 +32,7 @@ export const S08Retro70sPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
         >
             {/* Grain Texture Overlay */}
             <div
-                className="absolute inset-0 pointer-events-none opacity-[0.08] z-0 fixed"
+                className="absolute inset-0 pointer-events-none opacity-[0.08] z-0"
                 style={{
                     backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
                 }}
@@ -71,6 +71,18 @@ export const S08Retro70sPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
                         )}
                     </div>
                 </div>
+
+                {/* Mobile Menu */}
+                {menuOpen && isMobile && (
+                    <div className="bg-[#F7E8D0] border-t-2 border-[#5D4037] p-6 flex flex-col gap-4">
+                        {['Manifesto', 'Editions', 'Typography', 'Subscribe'].map(item => (
+                            <a key={item} href="#" className="text-lg font-bold uppercase tracking-widest text-[#5D4037] hover:text-[#E65100] transition-colors">{item}</a>
+                        ))}
+                        <button className="w-full mt-4 px-6 py-3 rounded-full border-2 border-[#5D4037] font-bold text-sm uppercase tracking-wider hover:bg-[#5D4037] hover:text-[#F7E8D0] transition-all">
+                            Get Started
+                        </button>
+                    </div>
+                )}
             </header>
 
             {/* Hero Section */}

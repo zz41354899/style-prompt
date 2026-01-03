@@ -23,6 +23,17 @@ import { S07OrganicPro } from './pro/S07OrganicPro';
 import { S08Retro70sPro } from './pro/S08Retro70sPro';
 import { S09MemphisPro } from './pro/S09MemphisPro';
 import { S10LuxuryEditorialPro } from './pro/S10LuxuryEditorialPro';
+import { S11JapaneseMinimalPro } from './pro/S11JapaneseMinimalPro';
+import { S12NatureOrganicPro } from './pro/S12NatureOrganicPro';
+import { S13MaterialPro } from './pro/S13MaterialPro';
+import { S14GlassmorphismPro } from './pro/S14GlassmorphismPro';
+import { S15NeumorphismPro } from './pro/S15NeumorphismPro';
+import { S16TerminalPro } from './pro/S16TerminalPro';
+import { S17BauhausModernismPro } from './pro/S17BauhausModernismPro';
+import { S18RetroPixelUIPro } from './pro/S18RetroPixelUIPro';
+import { S19AestheticHarmonyPro } from './pro/S19AestheticHarmonyPro';
+import { S20AuroraBorealisPro } from './pro/S20AuroraBorealisPro';
+import { S21ClaymorphismPro } from './pro/S21ClaymorphismPro';
 
 import { S11JapaneseMinimal } from './S11JapaneseMinimal';
 import { S12NatureOrganic } from './S12NatureOrganic';
@@ -320,7 +331,7 @@ export const styleComponents: Record<string, React.FC<{ deviceMode?: 'desktop' |
   S100: S100TheUltimate,
 };
 
-// Pro components mapping (S01-S10 only)
+// Pro components mapping (S01-S21)
 export const styleComponentsPro: Record<string, React.FC<{ deviceMode?: 'desktop' | 'tablet' | 'mobile' }>> = {
   S01: S01TechMinimalPro,
   S02: S02MinimalistMonochromePro,
@@ -332,4 +343,15 @@ export const styleComponentsPro: Record<string, React.FC<{ deviceMode?: 'desktop
   S08: S08Retro70sPro,
   S09: S09MemphisPro,
   S10: S10LuxuryEditorialPro,
+  S11: S11JapaneseMinimalPro,
+  S12: S12NatureOrganicPro,
+  S13: S13MaterialPro,
+  S14: S14GlassmorphismPro,
+  S15: S15NeumorphismPro,
+  S16: S16TerminalPro,
+  S17: S17BauhausModernismPro,
+  S18: S18RetroPixelUIPro,
+  S19: S19AestheticHarmonyPro,
+  S20: S20AuroraBorealisPro,
+  S21: S21ClaymorphismPro,
 };

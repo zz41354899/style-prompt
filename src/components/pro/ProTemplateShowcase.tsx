@@ -3,49 +3,46 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { LayoutTemplate, ShoppingBag, Rocket, Utensils, Briefcase, GraduationCap, Heart } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const templates = [
     {
         icon: ShoppingBag,
-        name: '電商平台',
-        description: '線上商店、品牌電商',
+        nameKey: 'ecommerce',
         color: 'from-orange-500 to-amber-500'
     },
     {
         icon: Rocket,
-        name: 'SaaS 軟體',
-        description: 'B2B 軟體、雲端服務',
+        nameKey: 'saas',
         color: 'from-blue-500 to-cyan-500'
     },
     {
         icon: Utensils,
-        name: '餐飲美食',
-        description: '餐廳、咖啡廳、外送服務',
+        nameKey: 'restaurant',
         color: 'from-red-500 to-orange-500'
     },
     {
         icon: Briefcase,
-        name: '企業形象',
-        description: '公司官網、品牌網站',
+        nameKey: 'corporate',
         color: 'from-slate-500 to-zinc-500'
     },
     {
         icon: GraduationCap,
-        name: '教育培訓',
-        description: '線上課程、教育機構',
+        nameKey: 'education',
         color: 'from-purple-500 to-violet-500'
     },
     {
         icon: Heart,
-        name: '健康醫療',
-        description: '診所、健康服務、健身',
+        nameKey: 'healthcare',
         color: 'from-green-500 to-emerald-500'
     }
 ];
 
 export const ProTemplateShowcase: React.FC = () => {
+    const { t } = useTranslation();
+
     return (
-        <section className="py-32 bg-[#020202] relative overflow-hidden">
+        <section id="templates" className="py-32 bg-[#020202] relative overflow-hidden">
             {/* Background */}
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-1/2 left-0 w-[600px] h-[600px] bg-purple-600/5 rounded-full blur-[150px]" />
@@ -63,13 +60,13 @@ export const ProTemplateShowcase: React.FC = () => {
                 >
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-purple-500/10 border border-purple-500/20 rounded-full mb-6">
                         <LayoutTemplate className="w-4 h-4 text-purple-400" />
-                        <span className="text-sm font-medium text-purple-300">產業 Template</span>
+                        <span className="text-sm font-medium text-purple-300">{t('pro.templates.badge')}</span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-black mb-4">
-                        6 種產業 Landing Page
+                        {t('pro.templates.title')}
                     </h2>
                     <p className="text-lg text-white/50 max-w-2xl mx-auto">
-                        專為不同產業設計的 Landing Page 模板，快速打造專業的產品頁面
+                        {t('pro.templates.subtitle')}
                     </p>
                 </motion.div>
 
@@ -77,7 +74,7 @@ export const ProTemplateShowcase: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {templates.map((template, i) => (
                         <motion.div
-                            key={template.name}
+                            key={template.nameKey}
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
@@ -95,15 +92,15 @@ export const ProTemplateShowcase: React.FC = () => {
                                     </div>
 
                                     <h3 className="text-xl font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-white/60 transition-all">
-                                        {template.name}
+                                        {t(`pro.templates.items.${template.nameKey}.name`)}
                                     </h3>
                                     <p className="text-sm text-white/40 leading-relaxed mb-4 flex-1">
-                                        {template.description}
+                                        {t(`pro.templates.items.${template.nameKey}.desc`)}
                                     </p>
 
                                     <div className="flex items-center gap-2 text-xs font-medium text-white/30 group-hover:text-white/60 transition-colors pt-4 border-t border-white/5">
                                         <LayoutTemplate className="w-3.5 h-3.5" />
-                                        <span>包含在 Pro 方案</span>
+                                        <span>{t('pro.templates.included')}</span>
                                     </div>
                                 </div>
                             </div>
@@ -118,7 +115,7 @@ export const ProTemplateShowcase: React.FC = () => {
                     viewport={{ once: true }}
                     className="text-center text-white/30 text-sm mt-8"
                 >
-                    ✨ 以上 Template 全部包含在 Pro 方案內
+                    ✨ {t('pro.templates.included')}
                 </motion.p>
             </div>
         </section>

@@ -5,16 +5,18 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { CheckCircle2, Crown, ArrowRight, Sparkles, Zap, Shield, LayoutTemplate } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
+import { useTranslation } from 'react-i18next';
 
 export const ProPricingSection: React.FC = () => {
     const { user } = useAuth();
+    const { t } = useTranslation();
 
     const features = [
-        { text: '10+ Pro 專屬風格模板', icon: Sparkles },
-        { text: '6 種產業 Landing Page Template', icon: LayoutTemplate },
-        { text: '完整設計系統指示詞', icon: Zap },
-        { text: '未來所有更新免費', icon: Crown },
-        { text: '商業使用授權', icon: Shield },
+        { text: t('pro.pricing.features.f1'), icon: Sparkles },
+        { text: t('pro.pricing.features.f2'), icon: LayoutTemplate },
+        { text: t('pro.pricing.features.f3'), icon: Zap },
+        { text: t('pro.pricing.features.f4'), icon: Crown },
+        { text: t('pro.pricing.features.f5'), icon: Shield },
     ];
 
     return (
@@ -35,15 +37,14 @@ export const ProPricingSection: React.FC = () => {
                 >
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-purple-500/10 border border-purple-500/20 rounded-full mb-6">
                         <Crown className="w-4 h-4 text-purple-400" />
-                        <span className="text-sm font-medium text-purple-300">簡單定價</span>
+                        <span className="text-sm font-medium text-purple-300">{t('pro.pricing.badge')}</span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">
-                        <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40">一次購買，</span>
-                        <span className="text-transparent bg-clip-text bg-gradient-to-b from-purple-400 to-indigo-500">終身使用</span>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40">{t('pro.pricing.title1')}</span>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-b from-purple-400 to-indigo-500">{t('pro.pricing.title2')}</span>
                     </h2>
                     <p className="text-lg text-white/40 max-w-lg mx-auto leading-relaxed">
-                        無訂閱陷阱，無隱藏費用。
-                        擁有屬於你的專業設計系統。
+                        {t('pro.pricing.subtitle')}
                     </p>
                 </motion.div>
 
@@ -61,12 +62,11 @@ export const ProPricingSection: React.FC = () => {
                         {/* Popular Badge */}
                         <div className="absolute top-6 right-6">
                             <div className="px-3 py-1 bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white text-xs font-bold rounded-full">
-                                最受歡迎
+                                {t('pro.pricing.popular')}
                             </div>
                         </div>
 
                         <div className="grid md:grid-cols-2 gap-8 items-center">
-                            {/* Left: Price */}
                             {/* Left: Price & Value */}
                             <div className="relative z-10">
                                 <div className="flex items-center gap-3 mb-6">
@@ -74,13 +74,12 @@ export const ProPricingSection: React.FC = () => {
                                         <Crown className="w-8 h-8 text-yellow-400 drop-shadow-[0_0_10px_rgba(250,204,21,0.5)]" />
                                     </div>
                                     <div>
-                                        <h3 className="text-xl font-bold text-white">Pro 終身授權</h3>
-                                        <p className="text-xs text-white/40">包含所有未來更新</p>
+                                        <h3 className="text-xl font-bold text-white">{t('pro.pricing.planName')}</h3>
+                                        <p className="text-xs text-white/40">{t('pro.pricing.planDesc')}</p>
                                     </div>
                                 </div>
 
                                 <div className="flex items-baseline gap-2 mb-8">
-                                    <span className="text-lg font-medium text-white/40 line-through">NT$ 3,600</span>
                                     <div className="flex items-baseline">
                                         <span className="text-2xl font-bold text-white mr-1">NT$</span>
                                         <span className="text-7xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-white/70 tracking-tighter">
@@ -90,23 +89,23 @@ export const ProPricingSection: React.FC = () => {
                                 </div>
 
                                 <Link
-                                    href={user ? '/api/stripe/checkout' : '#'}
+                                    href={user ? '/api/stripe/checkout' : '/pro/login'}
                                     className="group w-full flex items-center justify-center gap-3 px-8 py-4 bg-white text-black font-bold text-lg rounded-xl transition-all hover:scale-[1.02] hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.5)] relative overflow-hidden"
                                 >
                                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-shimmer" />
-                                    {user ? '立即購買' : '登入後購買'}
+                                    {user ? t('pro.pricing.buyNow') : t('pro.pricing.loginToBuy')}
                                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                 </Link>
 
                                 <p className="text-center text-xs text-white/30 mt-4">
-                                    安全付款 • 即時交付 • 數位商品售出不退
+                                    {t('pro.pricing.note')}
                                 </p>
                             </div>
 
                             {/* Right: Features */}
                             <div className="p-6 bg-white/[0.02] rounded-2xl border border-white/5">
                                 <h4 className="text-sm font-bold text-white/40 uppercase tracking-wider mb-6">
-                                    包含內容
+                                    {t('pro.pricing.included')}
                                 </h4>
                                 <div className="space-y-4">
                                     {features.map((feature) => (
@@ -132,15 +131,15 @@ export const ProPricingSection: React.FC = () => {
                 >
                     <div className="flex items-center gap-2">
                         <div className="w-2 h-2 bg-green-500 rounded-full" />
-                        Stripe 安全付款
+                        {t('pro.pricing.trust.stripe')}
                     </div>
                     <div className="flex items-center gap-2">
                         <div className="w-2 h-2 bg-green-500 rounded-full" />
-                        SSL 加密
+                        {t('pro.pricing.trust.ssl')}
                     </div>
                     <div className="flex items-center gap-2">
                         <div className="w-2 h-2 bg-green-500 rounded-full" />
-                        即時開通
+                        {t('pro.pricing.trust.instant')}
                     </div>
                 </motion.div>
             </div>

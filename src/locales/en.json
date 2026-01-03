@@ -1,11 +1,19 @@
 {
   "common": {
     "language": "Language",
-    "switchLanguage": "Switch Language"
+    "switchLanguage": "Switch Language",
+    "login": "Login",
+    "signup": "Sign Up"
+  },
+  "userDropdown": {
+    "defaultName": "User",
+    "dashboard": "Dashboard",
+    "signOut": "Sign Out"
   },
   "layout": {
     "home": "Home",
     "preview": "Preview",
+    "browseStyles": "Browse Styles",
     "promptBuilder": "Prompt Builder",
     "desktop": "Desktop",
     "tablet": "Tablet",
@@ -476,6 +484,313 @@
     "maybeLater": "Maybe Later",
     "locked": "PRO STYLE LOCKED"
   },
+  "notification": {
+    "title": "Notifications",
+    "announcements": "Announcements",
+    "changelog": "Changelog",
+    "noAnnouncements": "No announcements",
+    "updates": "updates",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "daysAgo": "{{days}} days ago"
+  },
+  "pro": {
+    "navbar": {
+      "library": "Library",
+      "styleLibrary": "Style Library"
+    },
+    "hero": {
+      "badge": "Unlock Advanced Design System",
+      "title1": "Create Stunning",
+      "title2": "AI Design Styles",
+      "subtitle": "Professional design system prompts that transform AI-generated interfaces from ordinary to extraordinary.",
+      "subtitleHighlight": "One-time purchase, lifetime access.",
+      "browseCTA": "Browse Style Library",
+      "pricingCTA": "View Plans",
+      "stats": {
+        "proStyles": "Pro Styles",
+        "designSystem": "Design System",
+        "freeUpdates": "Free Updates"
+      }
+    },
+    "features": {
+      "badge": "Pro Features",
+      "title": "Why Choose Pro?",
+      "subtitle": "Unlock the complete design system and elevate your AI-generated interfaces to professional level",
+      "proStyles": {
+        "title": "10+ Pro Exclusive Styles",
+        "subtitle": "Carefully designed advanced visual systems",
+        "description": "Each Pro style is crafted by professional designers, including complete color systems, typography standards, and component design language. Make your AI-generated interfaces consistent and professional.",
+        "stats": "10+ Styles"
+      },
+      "templates": {
+        "title": "6 Industry Templates",
+        "subtitle": "Quickly create professional Landing Pages",
+        "description": "Covering e-commerce, SaaS, restaurant, corporate, education, and healthcare industries. Each template includes complete page structure and design prompts.",
+        "stats": "6 Industries"
+      },
+      "designSystem": {
+        "title": "Complete Design System",
+        "subtitle": "Structured prompt directives",
+        "description": "Not just visual styles, but complete design tokens, component specifications, spacing systems, and structured prompts that help AI understand and follow design rules.",
+        "stats": "100% Complete"
+      },
+      "updates": {
+        "title": "Free Updates",
+        "subtitle": "Continuous new content",
+        "description": "Get all future updates forever after purchase, including new styles, templates, and feature improvements, at no additional cost.",
+        "stats": "Lifetime Free"
+      },
+      "commercial": {
+        "title": "Commercial License",
+        "subtitle": "Use for commercial projects",
+        "description": "Pro license includes full commercial usage rights. Use generated designs for client projects, product development, commercial websites, and more.",
+        "stats": "Commercial OK"
+      },
+      "premium": {
+        "title": "Priority Support",
+        "subtitle": "Dedicated support channel",
+        "description": "Pro users enjoy priority customer support with quick assistance for any issues.",
+        "stats": "VIP"
+      }
+    },
+    "showcase": {
+      "badge": "Pro Featured Styles",
+      "title": "Carefully Crafted Visual Systems",
+      "subtitle": "Each style includes complete design prompts for consistent, high-quality AI-generated interfaces",
+      "viewAll": "View All Styles"
+    },
+    "templates": {
+      "badge": "Industry Templates",
+      "title": "6 Industry Landing Pages",
+      "subtitle": "Landing page templates designed for different industries, quickly create professional product pages",
+      "included": "Included in Pro",
+      "items": {
+        "ecommerce": {
+          "name": "E-commerce",
+          "desc": "Online stores, brand shops"
+        },
+        "saas": {
+          "name": "SaaS Software",
+          "desc": "B2B software, cloud services"
+        },
+        "restaurant": {
+          "name": "Restaurant",
+          "desc": "Restaurants, cafes, delivery"
+        },
+        "corporate": {
+          "name": "Corporate",
+          "desc": "Company websites, brand sites"
+        },
+        "education": {
+          "name": "Education",
+          "desc": "Online courses, institutions"
+        },
+        "healthcare": {
+          "name": "Healthcare",
+          "desc": "Clinics, health services, fitness"
+        }
+      }
+    },
+    "pricing": {
+      "badge": "Simple Pricing",
+      "title1": "One-Time Purchase,",
+      "title2": "Lifetime Access",
+      "subtitle": "No subscription traps, no hidden fees. Own your professional design system.",
+      "planName": "Pro Lifetime License",
+      "planDesc": "Includes all future updates",
+      "popular": "Most Popular",
+      "buyNow": "Buy Now",
+      "loginToBuy": "Login to Purchase",
+      "note": "Secure Payment • Instant Delivery • Digital product, no refunds",
+      "features": {
+        "f1": "10+ Pro Exclusive Style Templates",
+        "f2": "6 Industry Landing Page Templates",
+        "f3": "Complete Design System Prompts",
+        "f4": "All Future Updates Free",
+        "f5": "Commercial Use License"
+      },
+      "included": "What's Included",
+      "trust": {
+        "stripe": "Stripe Secure Payment",
+        "ssl": "SSL Encrypted",
+        "instant": "Instant Activation"
+      }
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "Questions? We've Got Answers",
+      "q1": "What's included in Pro?",
+      "a1": "Pro includes 10+ carefully designed advanced style templates, 6 industry Landing Page templates, each with complete design system prompts. You also get all future updates and priority support.",
+      "q2": "How do I use Pro styles after purchase?",
+      "a2": "After purchase, log in to your account and you'll see all Pro styles in the style library. Each Pro style has a dedicated label and you can copy the complete prompts directly.",
+      "q3": "Can I get a refund?",
+      "a3": "Digital products are non-refundable. For technical issues like checkout errors or duplicate charges, please contact support and we'll process refunds via Stripe.",
+      "q4": "Will there be more Pro styles in the future?",
+      "a4": "Yes! We continuously add more advanced styles. All Pro users get all future updates for free, no additional payment required.",
+      "q5": "Can Pro styles be used commercially?",
+      "a5": "Yes. The Pro license includes commercial use rights. You can use the generated designs for commercial projects."
+    },
+    "footer": {
+      "description": "Professional AI design style library. One-time purchase, lifetime access.",
+      "product": "Product",
+      "styles": "Style Library",
+      "templates": "Industry Templates",
+      "pricing": "Pricing",
+      "legal": "Legal",
+      "terms": "Terms of Use",
+      "privacy": "Privacy Policy",
+      "refund": "Refund Policy",
+      "copyright": "© 2025 STYLEPROMPTS PRO. All rights reserved."
+    },
+    "legal": {
+      "backToHome": "Back to Home",
+      "lastUpdated": "Last updated: January 2, 2026",
+      "terms": {
+        "title": "Terms of Service",
+        "s1Title": "1. Service Description",
+        "s1": "Welcome to StylePrompts (\"the Service\"). We are a professional digital platform dedicated to providing high-quality AI design style prompts for designers, developers, and creators. Our Pro version includes carefully crafted advanced style templates, various industry Landing Page Templates, and comprehensive design system prompts to help you create professional-grade user interfaces.",
+        "s2Title": "2. Account Registration & Security",
+        "s2": "Full access to our service requires account registration. You are responsible for maintaining the confidentiality of your login credentials and for all activities that occur under your account. We recommend using a strong password and keeping your account information secure. If you discover any unauthorized use or security breach, please notify us immediately through our support email, and we will assist you promptly.",
+        "s3Title": "3. Payment & Purchase",
+        "s3": "The Pro version is a one-time purchase with lifetime access. All payments are securely processed through Stripe, a globally trusted payment platform. We do not directly access or store your credit card information. Upon successful payment, your Pro access will be activated within minutes, giving you full access to all Pro-exclusive features and content.",
+        "s4Title": "4. License & Restrictions",
+        "s4": "Upon purchasing Pro, you receive a non-exclusive, non-transferable license to use our design resources for your personal and commercial projects. You may freely use these resources to create websites, applications, or other digital products. However, you may not directly resell, redistribute, publicly share, or sell Pro content as a standalone product. Violation of license terms may result in account termination.",
+        "s5Title": "5. Intellectual Property",
+        "s5": "All content provided by this Service, including but not limited to design style templates, prompt copy, visual assets, and related documentation, is protected by copyright and intellectual property laws. While the works you create using our Service belong to you, the intellectual property rights of the original templates and prompts remain with StylePrompts.",
+        "s6Title": "6. Disclaimer",
+        "s6": "This Service is provided \"as is.\" While we strive to ensure stable and reliable service, we do not guarantee uninterrupted operation or complete error-free performance. To the maximum extent permitted by law, we shall not be liable for any direct, indirect, incidental, or consequential damages arising from the use of this Service. AI-generated results may vary due to multiple factors, and we recommend reviewing and adjusting output before production use.",
+        "s7Title": "7. Service Changes & Termination",
+        "s7": "We are committed to continuously improving our Service and reserve the right to modify, update, or adjust service content at any time. For significant changes, we will notify users in advance via email or website announcement. In extreme circumstances, we may need to suspend or terminate the Service, in which case we will provide reasonable notice. Purchased Pro access remains valid for the duration of normal service operation.",
+        "s8Title": "8. Contact Us",
+        "s8": "We value every user's feedback and needs. If you have any questions about these Terms of Service or encounter any issues while using our Service, please feel free to contact us via email: support@styleprompts.com. Our customer support team will respond to your inquiry within 1-2 business days."
+      },
+      "privacy": {
+        "title": "Privacy Policy",
+        "intro": "StylePrompts takes your privacy seriously. This policy explains how we collect, use, and protect your personal information. If you have any questions about this policy, please feel free to contact us.",
+        "s1Title": "1. Information We Collect",
+        "s1": "The information we collect includes: (1) Account Information: the email address and optional display name you provide during registration; (2) Payment Information: processed through Stripe, we only receive transaction confirmations and do not directly store your credit card numbers; (3) Usage Information: basic data about your interactions with the Service, such as login times and features used, to improve service quality.",
+        "s2Title": "2. How We Use Your Information",
+        "s2": "Your information is used for the following purposes: providing and maintaining normal service operation; verifying your account identity and purchase rights; sending important service notifications and updates; processing your payments and responding to support requests; analyzing usage patterns to continuously improve our products and services. We will not use your personal information for purposes not stated in this policy.",
+        "s3Title": "3. Information Sharing & Third-Party Services",
+        "s3": "We only share minimal necessary information with the following trusted third-party services: Stripe (payment processing) and Supabase (database and authentication services). These partners are bound by strict data protection agreements. Except as required by law, we do not sell, trade, or transfer your personally identifiable information to any other third parties.",
+        "s4Title": "4. Cookies & Tracking Technologies",
+        "s4": "This Service uses essential technical cookies to maintain your login status and provide basic functionality. These cookies are used solely for essential service operation and are not used for advertising tracking or cross-site behavioral analysis. You can manage cookie preferences through your browser settings, but disabling essential cookies may affect normal service use.",
+        "s5Title": "5. Data Security Measures",
+        "s5": "We employ industry-standard security measures to protect your information: all data transmission uses SSL/TLS encryption; passwords are stored using secure hashing; payments are securely processed by PCI DSS-compliant Stripe; we regularly review and update security measures. While we do our best to protect your data, please understand that no internet transmission can be guaranteed 100% secure.",
+        "s6Title": "6. Your Rights",
+        "s6": "Under applicable privacy regulations, you have the following rights regarding your personal information: the right to access and obtain a copy of your personal data; the right to correct inaccurate information; the right to request data deletion in certain circumstances; the right to object to or restrict certain data processing. To exercise these rights, please contact us at support@styleprompts.com, and we will respond to your request within 30 days."
+      },
+      "refund": {
+        "title": "Refund Policy",
+        "intro": "We want you to be satisfied with your StylePrompts Pro purchase. Please read our refund policy carefully before making a purchase.",
+        "s1Title": "1. Digital Product Policy",
+        "s1": "StylePrompts Pro is a digital product, and upon purchase, you gain immediate access to all Pro-exclusive content. Due to the nature of digital products—content can be instantly accessed and used and cannot be \"returned\"—Pro purchases are generally non-refundable. We recommend thoroughly exploring our free content before purchasing to ensure our Service meets your needs.",
+        "s2Title": "2. Exceptions",
+        "s2": "We understand that special circumstances may occur. If you encounter any of the following situations, we will do our best to assist with a refund: duplicate charges due to technical errors during checkout; successful payment but Pro access not properly activated despite technical support efforts; other issues clearly attributable to our end. Please contact us within 7 days of discovering the issue.",
+        "s3Title": "3. Refund Request Process",
+        "s3": "To request a refund, please email support@styleprompts.com with the following information: your registered email address, purchase date, payment amount, and a detailed description of the issue. Our customer support team will review your request within 2 business days. Approved refunds will be processed through Stripe to your original payment method, typically within 5-10 business days.",
+        "s4Title": "4. Contact Support",
+        "s4": "If you have any questions about purchases or refunds, please feel free to contact us. Our support email: support@styleprompts.com. We are committed to handling every user's concerns with sincerity and professionalism, striving to ensure every customer has a positive experience. Thank you for choosing StylePrompts Pro."
+      }
+    }
+  },
+  "dashboard": {
+    "nav": {
+      "backToPro": "BACK TO PRO",
+      "backToLibrary": "Back to Library",
+      "pricing": "Plans",
+      "purchases": "Purchases",
+      "settings": "Settings"
+    },
+    "pricing": {
+      "title": "Plans",
+      "subtitle": "Choose the plan for you",
+      "currentPlan": "Current Plan",
+      "proLifetime": "Pro Lifetime License",
+      "freePlan": "Free Plan",
+      "activated": "Activated",
+      "oneTime": "One-time",
+      "browseFree": "Browse Free Library",
+      "browsePro": "Go to Pro Library",
+      "upgradeNow": "Upgrade Now",
+      "recommended": "Recommended",
+      "purchased": "Purchased",
+      "freeFeatures": {
+        "f1": "Basic Style Templates (10+)",
+        "f2": "Daily Browse Limit",
+        "f3": "Basic Prompt Copy",
+        "f4": "Pro Exclusive Styles",
+        "f5": "Commercial Use License",
+        "f6": "Future Updates"
+      },
+      "proFeatures": {
+        "f1": "All Basic Style Templates",
+        "f2": "Unlimited Browsing",
+        "f3": "Full Prompt Copy",
+        "f4": "10+ Pro Exclusive Styles",
+        "f5": "Commercial Use License",
+        "f6": "All Future Updates Free"
+      },
+      "faq": {
+        "title": "FAQ",
+        "q1": "How do I use it after purchase?",
+        "a1": "After purchase, your Pro access is automatically activated and you can immediately access all Pro-exclusive content.",
+        "q2": "Can I get a refund?",
+        "a2": "Digital products are non-refundable unless there's a checkout error or duplicate transaction, which can be processed via Stripe.",
+        "q3": "Will the price increase?",
+        "a3": "Purchase now to lock in the early bird price of NT$2,000. Prices may adjust after new features launch."
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "subtitle": "Manage your account settings",
+      "profile": "Profile",
+      "displayName": "Display Name",
+      "email": "Email",
+      "save": "Save",
+      "dangerZone": "Danger Zone",
+      "deleteAccount": "Delete Account",
+      "deleteWarning": "This action cannot be undone. All data will be permanently deleted."
+    },
+    "purchases": {
+      "title": "Purchases",
+      "subtitle": "View your purchase history",
+      "noPurchases": "No purchases yet",
+      "date": "Date",
+      "item": "Item",
+      "amount": "Amount",
+      "status": "Status"
+    },
+    "member": {
+      "proMember": "Pro Member",
+      "freeMember": "Free Member"
+    }
+  },
+  "auth": {
+    "welcomeBack": "Welcome back",
+    "createAccount": "Create account",
+    "subtitle": "Sign in to StylePrompts",
+    "emailPlaceholder": "name@example.com",
+    "passwordPlaceholder": "Password",
+    "signInWithEmail": "Sign in with Email",
+    "signUpWithEmail": "Sign up with Email",
+    "continueWithGoogle": "Continue with Google",
+    "continueWithGithub": "Continue with GitHub",
+    "or": "OR",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "getHelp": "Get help",
+    "welcome": "Welcome",
+    "processing": "Processing...",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "signUp": "Sign Up",
+    "signIn": "Sign In",
+    "back": "Back",
+    "unexpectedError": "An unexpected error occurred",
+    "loading": "Loading..."
+  },
   "preview": {
     "previewInfo": "Previews are for reference only; actual results may vary depending on implementation.",
     "open": "Open",
@@ -487,6 +802,8 @@
   "landing": {
     "nav": {
       "features": "Features",
+      "styles": "Styles",
+      "templates": "Templates",
       "workflow": "How It Works",
       "pricing": "Pricing",
       "faq": "FAQ",
@@ -788,5 +1105,24 @@
       "thanks": "Thank you to every supporter. Your encouragement keeps this project growing 💜"
     },
     "backToHome": "Back to Home"
+  },
+  "pricingAd": {
+    "title": "Unlock More",
+    "subtitle": "Upgrade to Pro for the complete design system",
+    "free": {
+      "badge": "Currently Using",
+      "feature1": "100+ Free Style Templates",
+      "feature2": "Basic Preview Features",
+      "feature3": "Community Support"
+    },
+    "pro": {
+      "recommended": "Recommended",
+      "feature1": "10+ Pro Exclusive Styles",
+      "feature2": "6 Industry Landing Page Templates",
+      "feature3": "Commercial License",
+      "feature4": "Free Future Updates"
+    },
+    "continueFree": "Continue with Free",
+    "upgradePro": "Upgrade to Pro"
   }
 }

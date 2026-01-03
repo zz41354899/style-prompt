@@ -3,10 +3,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Bell, X, Sparkles, Bug, Zap, PartyPopper, AlertTriangle, Megaphone } from 'lucide-react';
 import { mockAnnouncements, mockChangelogs, type MockAnnouncement, type MockChangelog } from '@/lib/admin/mockData';
+import { useTranslation } from 'react-i18next';
 
 type TabType = 'announcements' | 'changelog';
 
 export default function NotificationBell() {
+    const { t, i18n } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
     const [activeTab, setActiveTab] = useState<TabType>('announcements');
     const [notificationsEnabled, setNotificationsEnabled] = useState(true);
@@ -55,11 +57,11 @@ export default function NotificationBell() {
         const diffMs = now.getTime() - date.getTime();
         const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-        if (diffDays === 0) return '今天';
-        if (diffDays === 1) return '昨天';
-        if (diffDays < 7) return `${diffDays} 天前`;
+        if (diffDays === 0) return t('notification.today');
+        if (diffDays === 1) return t('notification.yesterday');
+        if (diffDays < 7) return t('notification.daysAgo', { days: diffDays });
 
-        return date.toLocaleDateString('zh-TW', {
+        return date.toLocaleDateString(i18n.language === 'zh-TW' ? 'zh-TW' : 'en-US', {
             month: 'short',
             day: 'numeric'
         });
@@ -100,123 +102,131 @@ export default function NotificationBell() {
                 )}
             </button>
 
-            {/* Notification Panel */}
+            {/* Notification Panel - Dropdown from button */}
             {isOpen && (
-                <div className="absolute right-0 top-full mt-2 w-96 max-h-[480px] rounded-xl border border-white/10 bg-[#0f0f1a] shadow-2xl overflow-hidden z-50">
-                    {/* Header */}
-                    <div className="flex items-center justify-between p-4 border-b border-white/10">
-                        <h3 className="text-lg font-semibold text-white">通知</h3>
-                        <button
-                            onClick={() => setIsOpen(false)}
-                            className="p-1 rounded-lg hover:bg-white/10 transition-colors text-white/60"
-                        >
-                            <X className="w-5 h-5" />
-                        </button>
-                    </div>
+                <>
+                    {/* Overlay */}
+                    <div className="fixed inset-0 bg-black/50 z-[99]" onClick={() => setIsOpen(false)} />
 
-                    {/* Tabs */}
-                    <div className="flex border-b border-white/10">
-                        <button
-                            onClick={() => setActiveTab('announcements')}
-                            className={`flex-1 px-4 py-3 text-sm transition-colors ${activeTab === 'announcements'
-                                ? 'text-purple-400 border-b-2 border-purple-400 bg-purple-500/10'
-                                : 'text-white/60 hover:text-white hover:bg-white/5'
-                                }`}
-                        >
-                            公告 ({activeAnnouncements.length})
-                        </button>
-                        <button
-                            onClick={() => setActiveTab('changelog')}
-                            className={`flex-1 px-4 py-3 text-sm transition-colors ${activeTab === 'changelog'
-                                ? 'text-purple-400 border-b-2 border-purple-400 bg-purple-500/10'
-                                : 'text-white/60 hover:text-white hover:bg-white/5'
-                                }`}
-                        >
-                            更新日誌 ({mockChangelogs.length})
-                        </button>
-                    </div>
+                    <div className="
+                        absolute right-0 top-full mt-2 w-96 max-h-[480px] z-[100] flex flex-col
+                        rounded-xl border border-white/10 bg-[#0f0f1a] shadow-2xl overflow-hidden
+                    ">
+                        {/* Header */}
+                        <div className="flex items-center justify-between p-4 border-b border-white/10">
+                            <h3 className="text-lg font-semibold text-white">{t('notification.title')}</h3>
+                            <button
+                                onClick={() => setIsOpen(false)}
+                                className="p-1 rounded-lg hover:bg-white/10 transition-colors text-white/60"
+                            >
+                                <X className="w-5 h-5" />
+                            </button>
+                        </div>
 
-                    {/* Content */}
-                    <div className="overflow-y-auto max-h-[340px]">
-                        {activeTab === 'announcements' ? (
-                            // Announcements List
-                            <div className="divide-y divide-white/5">
-                                {activeAnnouncements.length === 0 ? (
-                                    <div className="p-8 text-center text-white/40">
-                                        目前沒有公告
-                                    </div>
-                                ) : (
-                                    activeAnnouncements.map((announcement) => {
-                                        const Icon = getAnnouncementIcon(announcement.type);
+                        {/* Tabs */}
+                        <div className="flex border-b border-white/10">
+                            <button
+                                onClick={() => setActiveTab('announcements')}
+                                className={`flex-1 px-4 py-3 text-sm transition-colors ${activeTab === 'announcements'
+                                    ? 'text-purple-400 border-b-2 border-purple-400 bg-purple-500/10'
+                                    : 'text-white/60 hover:text-white hover:bg-white/5'
+                                    }`}
+                            >
+                                {t('notification.announcements')} ({activeAnnouncements.length})
+                            </button>
+                            <button
+                                onClick={() => setActiveTab('changelog')}
+                                className={`flex-1 px-4 py-3 text-sm transition-colors ${activeTab === 'changelog'
+                                    ? 'text-purple-400 border-b-2 border-purple-400 bg-purple-500/10'
+                                    : 'text-white/60 hover:text-white hover:bg-white/5'
+                                    }`}
+                            >
+                                {t('notification.changelog')} ({mockChangelogs.length})
+                            </button>
+                        </div>
+
+                        {/* Content */}
+                        <div className="overflow-y-auto flex-1 md:max-h-[340px]">
+                            {activeTab === 'announcements' ? (
+                                // Announcements List
+                                <div className="divide-y divide-white/5">
+                                    {activeAnnouncements.length === 0 ? (
+                                        <div className="p-8 text-center text-white/40">
+                                            {t('notification.noAnnouncements')}
+                                        </div>
+                                    ) : (
+                                        activeAnnouncements.map((announcement) => {
+                                            const Icon = getAnnouncementIcon(announcement.type);
+                                            return (
+                                                <div
+                                                    key={announcement.id}
+                                                    className="p-4 hover:bg-white/5 transition-colors cursor-pointer"
+                                                >
+                                                    <div className="flex items-start gap-3">
+                                                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${announcement.type === 'event'
+                                                            ? 'bg-purple-500/20 text-purple-400'
+                                                            : announcement.type === 'alert'
+                                                                ? 'bg-orange-500/20 text-orange-400'
+                                                                : 'bg-blue-500/20 text-blue-400'
+                                                            }`}>
+                                                            <Icon className="w-5 h-5" />
+                                                        </div>
+                                                        <div className="flex-1 min-w-0">
+                                                            <p className="text-white font-medium truncate">
+                                                                {announcement.title}
+                                                            </p>
+                                                            <p className="text-white/60 text-sm mt-1 line-clamp-2">
+                                                                {announcement.content}
+                                                            </p>
+                                                            <p className="text-white/40 text-xs mt-2">
+                                                                {formatDate(announcement.createdAt)}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })
+                                    )}
+                                </div>
+                            ) : (
+                                // Changelog List
+                                <div className="divide-y divide-white/5">
+                                    {mockChangelogs.map((log) => {
+                                        const config = getChangelogConfig(log.type);
                                         return (
                                             <div
-                                                key={announcement.id}
+                                                key={log.id}
                                                 className="p-4 hover:bg-white/5 transition-colors cursor-pointer"
                                             >
                                                 <div className="flex items-start gap-3">
-                                                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${announcement.type === 'event'
-                                                        ? 'bg-purple-500/20 text-purple-400'
-                                                        : announcement.type === 'alert'
-                                                            ? 'bg-orange-500/20 text-orange-400'
-                                                            : 'bg-blue-500/20 text-blue-400'
-                                                        }`}>
-                                                        <Icon className="w-5 h-5" />
+                                                    <div className={`w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0 ${config.color}`}>
+                                                        <config.icon className="w-5 h-5" />
                                                     </div>
                                                     <div className="flex-1 min-w-0">
-                                                        <p className="text-white font-medium truncate">
-                                                            {announcement.title}
+                                                        <div className="flex items-center gap-2">
+                                                            <span className="px-2 py-0.5 rounded bg-gradient-to-r from-purple-500/20 to-blue-500/20 text-purple-300 text-xs font-mono">
+                                                                {log.version}
+                                                            </span>
+                                                            <span className="text-white/40 text-xs">
+                                                                {formatDate(log.publishedAt)}
+                                                            </span>
+                                                        </div>
+                                                        <p className="text-white font-medium mt-1">
+                                                            {log.title}
                                                         </p>
-                                                        <p className="text-white/60 text-sm mt-1 line-clamp-2">
-                                                            {announcement.content}
-                                                        </p>
-                                                        <p className="text-white/40 text-xs mt-2">
-                                                            {formatDate(announcement.createdAt)}
+                                                        <p className="text-white/60 text-sm mt-1">
+                                                            {log.changes.length} {t('notification.updates')}
                                                         </p>
                                                     </div>
                                                 </div>
                                             </div>
                                         );
-                                    })
-                                )}
-                            </div>
-                        ) : (
-                            // Changelog List
-                            <div className="divide-y divide-white/5">
-                                {mockChangelogs.map((log) => {
-                                    const config = getChangelogConfig(log.type);
-                                    return (
-                                        <div
-                                            key={log.id}
-                                            className="p-4 hover:bg-white/5 transition-colors cursor-pointer"
-                                        >
-                                            <div className="flex items-start gap-3">
-                                                <div className={`w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0 ${config.color}`}>
-                                                    <config.icon className="w-5 h-5" />
-                                                </div>
-                                                <div className="flex-1 min-w-0">
-                                                    <div className="flex items-center gap-2">
-                                                        <span className="px-2 py-0.5 rounded bg-gradient-to-r from-purple-500/20 to-blue-500/20 text-purple-300 text-xs font-mono">
-                                                            {log.version}
-                                                        </span>
-                                                        <span className="text-white/40 text-xs">
-                                                            {formatDate(log.publishedAt)}
-                                                        </span>
-                                                    </div>
-                                                    <p className="text-white font-medium mt-1">
-                                                        {log.title}
-                                                    </p>
-                                                    <p className="text-white/60 text-sm mt-1">
-                                                        {log.changes.length} 項更新
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        )}
+                                    })}
+                                </div>
+                            )}
+                        </div>
                     </div>
-                </div>
+                </>
             )}
         </div>
     );

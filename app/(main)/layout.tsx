@@ -2,7 +2,6 @@
 
 import { MainLayout } from '@/components/MainLayout';
 import { AuthProvider } from '@/components/providers/AuthProvider';
-import { LoginGate } from '@/components/common';
 
 export default function MainGroupLayout({
   children,
@@ -11,9 +10,7 @@ export default function MainGroupLayout({
 }) {
   return (
     <AuthProvider>
-      <LoginGate backLink="/" variant="free">
-        <MainLayout>{children}</MainLayout>
-      </LoginGate>
+      <MainLayout>{children}</MainLayout>
     </AuthProvider>
   );
 }

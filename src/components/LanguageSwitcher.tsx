@@ -1,10 +1,10 @@
 'use client';
 
 import { useTranslation } from 'react-i18next';
-import { Languages } from 'lucide-react';
+import { Languages, Globe } from 'lucide-react';
 
 interface LanguageSwitcherProps {
-  variant?: 'floating' | 'sidebar';
+  variant?: 'floating' | 'sidebar' | 'header';
 }
 
 export const LanguageSwitcher = ({ variant = 'floating' }: LanguageSwitcherProps) => {
@@ -26,8 +26,21 @@ export const LanguageSwitcher = ({ variant = 'floating' }: LanguageSwitcherProps
         className="w-full flex items-center justify-center gap-2 px-4 py-3 mt-2 bg-white/10 hover:bg-white/20 text-white rounded-xl transition-all duration-200 border border-white/10"
         title={isZh ? 'Switch to English' : '切換至中文'}
       >
-        <Languages size={18} />
+        <Globe size={18} />
         <span className="font-medium text-sm">{isZh ? 'Switch to English' : '切換至中文'}</span>
+      </button>
+    );
+  }
+
+  if (variant === 'header') {
+    return (
+      <button
+        onClick={toggleLanguage}
+        className="flex items-center gap-2 p-2 text-gray-400 hover:text-white transition-colors rounded-lg hover:bg-white/10"
+        title={isZh ? 'Switch to English' : '切換至中文'}
+      >
+        <Globe size={18} />
+        <span className="font-medium text-xs">{isZh ? 'EN' : '中文'}</span>
       </button>
     );
   }
@@ -38,7 +51,7 @@ export const LanguageSwitcher = ({ variant = 'floating' }: LanguageSwitcherProps
       className="hidden md:flex fixed bottom-6 right-6 z-50 items-center justify-center gap-2 px-4 py-3 bg-white hover:bg-gray-100 text-black rounded-full shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 border border-gray-200"
       title={isZh ? 'Switch to English' : '切換至中文'}
     >
-      <Languages size={20} />
+      <Globe size={20} />
       <span className="font-medium">{isZh ? 'EN' : '中文'}</span>
     </button>
   );

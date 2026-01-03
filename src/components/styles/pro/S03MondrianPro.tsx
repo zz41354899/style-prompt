@@ -24,7 +24,7 @@ export const S03MondrianPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
     return (
         <div className="min-h-screen" style={{ backgroundColor: colors.bg, color: colors.primary, fontFamily: '"Helvetica Neue", Arial, sans-serif' }}>
             {/* ========== 1. GLOBAL NAVIGATION ========== */}
-            <header style={{ borderBottom: `${border.width} ${border.style} ${border.color}` }}>
+            <header className="sticky top-0 z-50" style={{ borderBottom: `${border.width} ${border.style} ${border.color}`, backgroundColor: colors.bg }}>
                 <div className="max-w-6xl mx-auto flex items-stretch justify-between" style={{ minHeight: '80px' }}>
                     <div className="flex items-center gap-4 px-6" style={{ borderRight: !isMobile ? `${border.width} ${border.style} ${border.color}` : 'none' }}>
                         <div className="flex gap-1" style={{ border: `${border.width} ${border.style} ${border.color}`, padding: '4px' }}>
@@ -58,18 +58,20 @@ export const S03MondrianPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
                         )}
                     </div>
                 </div>
+                {/* Mobile Menu */}
+                {menuOpen && isMobile && (
+                    <div style={{ borderTop: `${border.width} ${border.style} ${border.color}`, padding: spacing.lg, backgroundColor: colors.bg }}>
+                        {['Architecture', 'Furniture', 'Theory', 'Shop'].map((item, i) => (
+                            <a key={item} className="flex items-center py-3 font-bold uppercase tracking-wide" style={{ borderBottom: `${border.width} ${border.style} ${border.color}`, color: 'black' }}>
+                                {item}
+                            </a>
+                        ))}
+                        <button className="w-full mt-4" style={{ padding: '16px 32px', border: 'none', backgroundColor: colors.yellow, fontWeight: '700', textTransform: 'uppercase', cursor: 'pointer' }}>
+                            Join
+                        </button>
+                    </div>
+                )}
             </header>
-
-            {/* Mobile Menu */}
-            {menuOpen && isMobile && (
-                <div className="fixed inset-0 top-20 z-50 bg-white p-6 flex flex-col gap-4" style={{ borderBottom: `${border.width} ${border.style} ${border.color}` }}>
-                    {['Architecture', 'Furniture', 'Theory', 'Shop'].map((item, i) => (
-                        <a key={item} className="flex items-center py-4 font-bold uppercase tracking-wide" style={{ borderBottom: `${border.width} ${border.style} ${border.color}`, backgroundColor: [colors.red, colors.blue, colors.yellow, 'white'][i], padding: '16px', color: i < 2 ? 'white' : 'black' }}>
-                            {item}
-                        </a>
-                    ))}
-                </div>
-            )}
 
             {/* ========== 2. HERO SECTION ========== */}
             <section style={{ borderBottom: `${border.width} ${border.style} ${border.color}` }}>

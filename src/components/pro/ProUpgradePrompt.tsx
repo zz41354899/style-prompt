@@ -57,7 +57,6 @@ export const ProUpgradePrompt: React.FC<ProUpgradePromptProps> = ({
                 {/* Pricing Preview */}
                 <div className="p-6 bg-white/[0.02] border border-white/[0.06] rounded-2xl max-w-xs mx-auto">
                     <div className="flex items-baseline justify-center gap-2 mb-2">
-                        <span className="text-white/40 line-through text-sm">NT$3,600</span>
                         <span className="text-2xl font-black">NT$2,000</span>
                     </div>
                     <p className="text-xs text-white/40">一次購買，終身使用</p>

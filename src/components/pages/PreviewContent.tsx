@@ -9,8 +9,7 @@ import { styleComponents, styleComponentsPro } from '@/components/styles';
 import { useLayoutContext } from '@/components/MainLayout';
 import { PromptModal } from '@/components/PromptModal';
 import { ProUpgradeModal } from '@/components/pro';
-import { AuthModal } from '@/components/common';
-import { useAuth } from '@/hooks/useAuth';
+import { PricingAdModal } from '@/components/common';
 
 interface PreviewContentProps {
     styleId: string;
@@ -19,10 +18,9 @@ interface PreviewContentProps {
 export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
     const { deviceMode, setDeviceMode, previewTier } = useLayoutContext();
     const { t } = useTranslation();
-    const { user } = useAuth();
     const [isPromptModalOpen, setIsPromptModalOpen] = useState(false);
     const [isProModalOpen, setIsProModalOpen] = useState(false);
-    const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+    const [isPricingAdModalOpen, setIsPricingAdModalOpen] = useState(false);
     const effectiveStyleId = styleId || 'S01';
     const currentStyle = styles.find(s => s.id === effectiveStyleId);
 
@@ -45,13 +43,25 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
 
     // 處理複製指示詞按鈕點擊
     const handleCopyPromptClick = () => {
-        // 如果未登入，顯示登入 Modal
-        if (!user) {
-            setIsAuthModalOpen(true);
+        // 檢查 session 中是否已看過定價廣告
+        const hasSeenAd = typeof window !== 'undefined' && sessionStorage.getItem('hasSeenPricingAd');
+        if (!hasSeenAd) {
+            setIsPricingAdModalOpen(true);
             return;
         }
 
-        // 已登入，檢查 Pro 權限
+        // 檢查 Pro 權限
+        if (previewTier === 'pro' && !isNewYearPromoActive()) {
+            setIsProModalOpen(true);
+        } else {
+            setIsPromptModalOpen(true);
+        }
+    };
+
+    // 看完廣告後繼續使用
+    const handleContinueFree = () => {
+        setIsPricingAdModalOpen(false);
+        // 檢查 Pro 權限
         if (previewTier === 'pro' && !isNewYearPromoActive()) {
             setIsProModalOpen(true);
         } else {
@@ -233,11 +243,11 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
                 styleName={currentStyle?.name || ''}
             />
 
-            {/* Auth Modal - 登入彈窗 */}
-            <AuthModal
-                isOpen={isAuthModalOpen}
-                onClose={() => setIsAuthModalOpen(false)}
-                defaultMode="signin"
+            {/* Pricing Ad Modal - 定價廣告彈窗 */}
+            <PricingAdModal
+                isOpen={isPricingAdModalOpen}
+                onClose={() => setIsPricingAdModalOpen(false)}
+                onContinueFree={handleContinueFree}
             />
         </main>
     );

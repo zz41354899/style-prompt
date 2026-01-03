@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
-import { X, Menu, Home, Eye, ChevronRight } from 'lucide-react';
+import { X, Menu, Home, Eye, ChevronRight, Languages, LayoutGrid } from 'lucide-react';
 import { styles } from '@/data/styles';
 import { getThemeColor } from '@/data/themeColors';
 import { useLayoutContext } from './LayoutContext';
@@ -15,11 +15,12 @@ import NotificationBell from '@/components/common/NotificationBell';
 
 export const Header: React.FC = () => {
     const pathname = usePathname();
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const { selectedStyle, sidebarOpen, setSidebarOpen } = useLayoutContext();
     const { user, loading } = useAuth();
 
     const [authModalOpen, setAuthModalOpen] = useState(false);
+    const [currentLang, setCurrentLang] = useState(i18n.language || 'zh-TW');
 
     const currentStyle = styles.find(s => s.id === selectedStyle);
     const themeColor = getThemeColor(selectedStyle);
@@ -33,6 +34,12 @@ export const Header: React.FC = () => {
 
     const openSignIn = () => {
         setAuthModalOpen(true);
+    };
+
+    const toggleLanguage = () => {
+        const newLang = currentLang === 'zh-TW' ? 'en' : 'zh-TW';
+        i18n.changeLanguage(newLang);
+        setCurrentLang(newLang);
     };
 
     return (
@@ -114,23 +121,19 @@ export const Header: React.FC = () => {
                     {/* Notification Bell - 只有登入後顯示 */}
                     {user && <NotificationBell />}
 
-                    {/* Auth */}
-                    {!loading && (
-                        <>
-                            {user ? (
-                                <UserDropdown />
-                            ) : (
-                                <div className="hidden sm:flex items-center gap-2">
-                                    <button
-                                        onClick={openSignIn}
-                                        className="flex items-center gap-1.5 px-4 py-1.5 bg-purple-600 text-white text-sm font-semibold rounded-full hover:bg-purple-500 transition-all"
-                                    >
-                                        <span>登入</span>
-                                        <ChevronRight className="w-4 h-4" />
-                                    </button>
-                                </div>
-                            )}
-                        </>
+                    {/* Auth - 只有已登入時顯示用戶選單 */}
+                    {!loading && user && (
+                        <div className="flex items-center gap-2">
+                            {/* 瀏覽風格庫按鈕 */}
+                            <Link
+                                href={`/${selectedStyle || 'S01'}`}
+                                className="hidden sm:flex items-center gap-2 px-4 py-1.5 bg-white/10 text-white text-sm font-medium rounded-full hover:bg-white/20 transition-all"
+                            >
+                                <LayoutGrid className="w-4 h-4" />
+                                <span>{t('layout.browseStyles')}</span>
+                            </Link>
+                            <UserDropdown />
+                        </div>
                     )}
                 </div>
             </header>
