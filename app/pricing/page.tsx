@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { CreditCard, Check, Sparkles } from 'lucide-react';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/components/providers/AuthProvider';
 import { AuthProvider } from '@/components/providers/AuthProvider';
 
 const PricingContent: React.FC = () => {
@@ -77,8 +77,8 @@ const PricingContent: React.FC = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: index * 0.1 }}
                             className={`relative p-8 rounded-3xl border ${plan.popular
-                                    ? 'border-purple-500/40 bg-purple-500/5'
-                                    : 'border-white/10 bg-white/[0.02]'
+                                ? 'border-purple-500/40 bg-purple-500/5'
+                                : 'border-white/10 bg-white/[0.02]'
                                 }`}
                         >
                             {plan.popular && (
@@ -109,8 +109,8 @@ const PricingContent: React.FC = () => {
                             <Link
                                 href={plan.href}
                                 className={`block w-full py-4 rounded-xl text-center font-semibold transition-all ${plan.popular
-                                        ? 'bg-purple-600 hover:bg-purple-500 text-white'
-                                        : 'bg-white/10 hover:bg-white/20 text-white'
+                                    ? 'bg-purple-600 hover:bg-purple-500 text-white'
+                                    : 'bg-white/10 hover:bg-white/20 text-white'
                                     }`}
                             >
                                 <span className="flex items-center justify-center gap-2">

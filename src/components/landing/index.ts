@@ -7,5 +7,6 @@ export { WorkflowBento, type BentoItem } from './WorkflowBento';
 export { PricingSection } from './PricingSection';
 export { FaqSection } from './FaqSection';
 export { CtaSection } from './CtaSection';
+export { ContactSection } from './ContactSection';
 export { Footer } from './Footer';
 export { BentoModal } from './BentoModal';

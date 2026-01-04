@@ -1,311 +1,368 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
-import { mockUsers, type MockUser } from '@/lib/admin/mockData';
+import React, { useEffect, useState } from 'react';
+import { useAuth } from '@/components/providers/AuthProvider';
 import {
+    fetchUsers,
+    updateUserStatus,
+    deleteUser,
+    AdminUser
+} from '@/lib/admin/adminService';
+import {
+    Users,
     Search,
     Filter,
-    MoreVertical,
-    UserX,
+    Loader2,
+    CheckCircle,
+    Ban,
     Trash2,
-    Crown,
-    X,
-    ChevronLeft,
-    ChevronRight
+    AlertCircle,
+    RefreshCw,
+    ChevronDown,
+    ChevronUp,
+    Mail,
+    Calendar,
+    Shield
 } from 'lucide-react';
 
-type FilterType = 'all' | 'pro' | 'free' | 'suspended' | 'deleted';
+type StatusFilter = 'all' | 'active' | 'suspended' | 'deleted';
+
+const statusConfig = {
+    active: { label: '正常', color: 'bg-green-500/20 text-green-400 border-green-500/30', icon: CheckCircle },
+    suspended: { label: '已停用', color: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30', icon: Ban },
+    deleted: { label: '已刪除', color: 'bg-red-500/20 text-red-400 border-red-500/30', icon: Trash2 }
+};
 
 export default function AdminUsersPage() {
-    const [searchQuery, setSearchQuery] = useState('');
-    const [filter, setFilter] = useState<FilterType>('all');
-    const [selectedUser, setSelectedUser] = useState<MockUser | null>(null);
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 8;
+    const { role } = useAuth();
+    const [users, setUsers] = useState<AdminUser[]>([]);
+    const [filteredUsers, setFilteredUsers] = useState<AdminUser[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [statusFilter, setStatusFilter] = useState<StatusFilter>('active'); // 預設顯示正常使用者
+    const [expandedId, setExpandedId] = useState<string | null>(null);
+    const [updatingId, setUpdatingId] = useState<string | null>(null);
 
-    // Filter and search users
-    const filteredUsers = useMemo(() => {
-        return mockUsers.filter((user) => {
-            // Apply search
-            const matchesSearch =
-                user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                user.email.toLowerCase().includes(searchQuery.toLowerCase());
+    // 載入使用者
+    const loadUsers = async () => {
+        setLoading(true);
+        setError(null);
 
-            // Apply filter
-            let matchesFilter = true;
-            switch (filter) {
-                case 'pro':
-                    matchesFilter = user.is_pro && user.status === 'active';
-                    break;
-                case 'free':
-                    matchesFilter = !user.is_pro && user.status === 'active';
-                    break;
-                case 'suspended':
-                    matchesFilter = user.status === 'suspended';
-                    break;
-                case 'deleted':
-                    matchesFilter = user.status === 'deleted';
-                    break;
-                default:
-                    matchesFilter = true;
+        try {
+            const { data, error: fetchError } = await fetchUsers();
+
+            if (fetchError) {
+                setError(fetchError.message);
+            } else {
+                setUsers(data || []);
             }
-
-            return matchesSearch && matchesFilter;
-        });
-    }, [searchQuery, filter]);
-
-    // Pagination
-    const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
-    const paginatedUsers = filteredUsers.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
-    );
-
-    // Format date
-    const formatDate = (dateString: string) => {
-        return new Date(dateString).toLocaleDateString('zh-TW', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-        });
+        } catch (e) {
+            setError('載入使用者失敗');
+        } finally {
+            setLoading(false);
+        }
     };
 
-    // Status badge component
-    const StatusBadge: React.FC<{ status: MockUser['status'] }> = ({ status }) => {
-        const styles = {
-            active: 'bg-green-500/20 text-green-400 border-green-500/30',
-            suspended: 'bg-orange-500/20 text-orange-400 border-orange-500/30',
-            deleted: 'bg-red-500/20 text-red-400 border-red-500/30'
-        };
-        const labels = {
-            active: '活躍',
-            suspended: '停用',
-            deleted: '已刪除'
-        };
+    // 更新使用者狀態
+    const handleStatusUpdate = async (userId: string, newStatus: 'active' | 'suspended' | 'deleted') => {
+        if (newStatus === 'deleted') {
+            if (!confirm('⚠️ 確定要永久刪除此使用者嗎?\n\n此操作會:\n1. 刪除 Supabase Auth 帳號\n2. 刪除所有相關資料\n3. 無法復原!\n\n請再次確認是否要執行此操作?')) {
+                return;
+            }
+        }
 
+        setUpdatingId(userId);
+
+        let result;
+        if (newStatus === 'deleted') {
+            // 真正刪除使用者
+            result = await deleteUser(userId);
+        } else {
+            // 更新狀態 (停用/啟用)
+            result = await updateUserStatus(userId, newStatus);
+        }
+
+        if (!result.error) {
+            if (newStatus === 'deleted') {
+                // 刪除時從陣列中移除
+                setUsers(prev => prev.filter(u => u.id !== userId));
+            } else {
+                // 其他狀態更新
+                setUsers(prev =>
+                    prev.map(u => u.id === userId ? { ...u, status: newStatus } : u)
+                );
+            }
+        } else {
+            alert(`操作失敗: ${result.error.message}`);
+        }
+
+        setUpdatingId(null);
+    };
+
+    // 初始載入
+    useEffect(() => {
+        if (role === 'admin') {
+            loadUsers();
+        }
+    }, [role]);
+
+    // 篩選與搜尋
+    useEffect(() => {
+        let filtered = users;
+
+        // 狀態篩選
+        if (statusFilter !== 'all') {
+            filtered = filtered.filter(u => u.status === statusFilter);
+        }
+
+        // 搜尋
+        if (searchTerm) {
+            const term = searchTerm.toLowerCase();
+            filtered = filtered.filter(u =>
+                u.email?.toLowerCase().includes(term) ||
+                u.display_name?.toLowerCase().includes(term)
+            );
+        }
+
+        setFilteredUsers(filtered);
+    }, [users, statusFilter, searchTerm]);
+
+    if (loading) {
         return (
-            <span className={`px-2 py-0.5 rounded border text-xs ${styles[status]}`}>
-                {labels[status]}
-            </span>
+            <div className="flex items-center justify-center py-12">
+                <div className="flex flex-col items-center gap-4">
+                    <Loader2 className="w-8 h-8 animate-spin text-purple-500" />
+                    <p className="text-white/60">載入使用者...</p>
+                </div>
+            </div>
         );
-    };
+    }
 
     return (
         <div className="space-y-6">
-            {/* Page Header */}
-            <div>
-                <h1 className="text-3xl font-bold text-white">使用者管理</h1>
-                <p className="text-white/60 mt-1">管理所有註冊使用者</p>
+            {/* Header */}
+            <div className="flex items-center justify-between">
+                <div>
+                    <h1 className="text-3xl font-bold text-white flex items-center gap-3">
+                        <Users className="w-8 h-8 text-blue-400" />
+                        使用者管理
+                    </h1>
+                    <p className="text-white/60 mt-1">管理所有註冊使用者</p>
+                </div>
+                <button
+                    onClick={loadUsers}
+                    disabled={loading}
+                    className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors disabled:opacity-50"
+                >
+                    <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+                    <span>重新整理</span>
+                </button>
             </div>
 
-            {/* Search and Filter Bar */}
-            <div className="flex flex-col sm:flex-row gap-4">
+            {/* Error */}
+            {error && (
+                <div className="flex items-center gap-3 p-4 bg-red-500/10 border border-red-500/30 rounded-xl">
+                    <AlertCircle className="w-5 h-5 text-red-400" />
+                    <p className="text-red-400">{error}</p>
+                </div>
+            )}
+
+            {/* Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                    <p className="text-white/60 text-sm">總使用者</p>
+                    <p className="text-2xl font-bold text-white mt-1">{users.length}</p>
+                </div>
+                <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/30">
+                    <p className="text-green-400 text-sm">正常</p>
+                    <p className="text-2xl font-bold text-white mt-1">
+                        {users.filter(u => u.status === 'active').length}
+                    </p>
+                </div>
+                <div className="p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/30">
+                    <p className="text-yellow-400 text-sm">已停用</p>
+                    <p className="text-2xl font-bold text-white mt-1">
+                        {users.filter(u => u.status === 'suspended').length}
+                    </p>
+                </div>
+                <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30">
+                    <p className="text-red-400 text-sm">已刪除</p>
+                    <p className="text-2xl font-bold text-white mt-1">
+                        {users.filter(u => u.status === 'deleted').length}
+                    </p>
+                </div>
+            </div>
+
+            {/* Filters */}
+            <div className="flex flex-col md:flex-row gap-4">
                 {/* Search */}
-                <div className="relative flex-1">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
+                <div className="flex-1 relative">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
                     <input
                         type="text"
-                        placeholder="搜尋使用者名稱或 Email..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-purple-500/50"
+                        placeholder="搜尋 Email 或名稱..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="w-full pl-10 pr-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white placeholder-white/40 focus:outline-none focus:border-purple-500/50"
                     />
                 </div>
 
-                {/* Filter */}
-                <div className="flex items-center gap-2">
-                    <Filter className="w-5 h-5 text-white/40" />
-                    <div className="flex gap-2">
-                        {(['all', 'pro', 'free', 'suspended', 'deleted'] as FilterType[]).map((f) => (
-                            <button
-                                key={f}
-                                onClick={() => { setFilter(f); setCurrentPage(1); }}
-                                className={`px-3 py-1.5 rounded-lg text-sm transition-all ${filter === f
-                                    ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30'
-                                    : 'bg-white/5 text-white/60 border border-white/10 hover:bg-white/10'
-                                    }`}
-                            >
-                                {f === 'all' ? '全部' :
-                                    f === 'pro' ? 'Pro' :
-                                        f === 'free' ? 'Free' :
-                                            f === 'suspended' ? '停用' : '已刪除'}
-                            </button>
-                        ))}
-                    </div>
+                {/* Status Filter */}
+                <div className="flex gap-2">
+                    {(['all', 'active', 'suspended', 'deleted'] as StatusFilter[]).map((status) => (
+                        <button
+                            key={status}
+                            onClick={() => setStatusFilter(status)}
+                            className={`px-4 py-2 rounded-lg transition-all ${statusFilter === status
+                                ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30'
+                                : 'bg-white/5 text-white/60 hover:bg-white/10'
+                                }`}
+                        >
+                            {status === 'all' ? '全部' : statusConfig[status as keyof typeof statusConfig].label}
+                        </button>
+                    ))}
                 </div>
             </div>
 
-            {/* Users Table */}
-            <div className="rounded-xl border border-white/10 bg-white/5 overflow-hidden">
-                <table className="w-full">
-                    <thead>
-                        <tr className="border-b border-white/10 bg-white/5">
-                            <th className="text-left px-4 py-3 text-sm font-medium text-white/60">使用者</th>
-                            <th className="text-left px-4 py-3 text-sm font-medium text-white/60">方案</th>
-                            <th className="text-left px-4 py-3 text-sm font-medium text-white/60">狀態</th>
-                            <th className="text-left px-4 py-3 text-sm font-medium text-white/60">註冊時間</th>
-                            <th className="text-left px-4 py-3 text-sm font-medium text-white/60">最後登入</th>
-                            <th className="text-right px-4 py-3 text-sm font-medium text-white/60">操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {paginatedUsers.map((user) => (
-                            <tr
+            {/* Users List */}
+            <div className="space-y-3">
+                {filteredUsers.length === 0 ? (
+                    <div className="text-center py-12 text-white/40">
+                        <Users className="w-12 h-12 mx-auto mb-4 opacity-20" />
+                        <p>沒有符合條件的使用者</p>
+                    </div>
+                ) : (
+                    filteredUsers.map((user) => {
+                        const StatusIcon = statusConfig[user.status]?.icon || CheckCircle;
+                        const isExpanded = expandedId === user.id;
+
+                        return (
+                            <div
                                 key={user.id}
-                                className="border-b border-white/5 hover:bg-white/5 transition-colors cursor-pointer"
-                                onClick={() => setSelectedUser(user)}
+                                className="rounded-xl bg-white/5 border border-white/10 overflow-hidden hover:border-white/20 transition-all"
                             >
-                                <td className="px-4 py-3">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
-                                            <span className="text-white font-medium">
-                                                {user.name.charAt(0)}
-                                            </span>
+                                {/* Header */}
+                                <div
+                                    className="p-4 cursor-pointer flex items-center gap-4"
+                                    onClick={() => setExpandedId(isExpanded ? null : user.id)}
+                                >
+                                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center flex-shrink-0">
+                                        <span className="text-white font-medium">
+                                            {(user.display_name || user.email || '?').charAt(0).toUpperCase()}
+                                        </span>
+                                    </div>
+
+                                    <div className="flex-1 grid grid-cols-1 md:grid-cols-4 gap-4">
+                                        <div>
+                                            <p className="text-white/60 text-xs mb-1">名稱</p>
+                                            <p className="text-white font-medium text-sm">
+                                                {user.display_name || user.email?.split('@')[0] || '未命名'}
+                                            </p>
                                         </div>
                                         <div>
-                                            <p className="text-white font-medium">{user.name}</p>
-                                            <p className="text-white/40 text-sm">{user.email}</p>
+                                            <p className="text-white/60 text-xs mb-1">Email</p>
+                                            <p className="text-white/80 text-sm truncate">{user.email || 'N/A'}</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-white/60 text-xs mb-1">狀態</p>
+                                            <div className={`inline-flex items-center gap-1.5 px-2 py-1 rounded border text-xs ${statusConfig[user.status]?.color || 'bg-white/5 text-white/60'}`}>
+                                                <StatusIcon className="w-3 h-3" />
+                                                {statusConfig[user.status]?.label || user.status}
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <p className="text-white/60 text-xs mb-1">註冊時間</p>
+                                            <p className="text-white/80 text-sm">
+                                                {new Date(user.created_at).toLocaleDateString('zh-TW')}
+                                            </p>
                                         </div>
                                     </div>
-                                </td>
-                                <td className="px-4 py-3">
-                                    {user.is_pro ? (
-                                        <span className="flex items-center gap-1.5 text-purple-400">
-                                            <Crown className="w-4 h-4" />
-                                            Pro
-                                        </span>
+                                    {isExpanded ? (
+                                        <ChevronUp className="w-5 h-5 text-white/40" />
                                     ) : (
-                                        <span className="text-white/60">Free</span>
+                                        <ChevronDown className="w-5 h-5 text-white/40" />
                                     )}
-                                </td>
-                                <td className="px-4 py-3">
-                                    <StatusBadge status={user.status} />
-                                </td>
-                                <td className="px-4 py-3 text-white/60 text-sm">
-                                    {formatDate(user.created_at)}
-                                </td>
-                                <td className="px-4 py-3 text-white/60 text-sm">
-                                    {formatDate(user.last_login_at)}
-                                </td>
-                                <td className="px-4 py-3 text-right">
-                                    <button
-                                        onClick={(e) => { e.stopPropagation(); }}
-                                        className="p-2 rounded-lg hover:bg-white/10 transition-colors text-white/60 hover:text-white"
-                                    >
-                                        <MoreVertical className="w-5 h-5" />
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                                </div>
 
-                {/* Pagination */}
-                {totalPages > 1 && (
-                    <div className="flex items-center justify-between px-4 py-3 border-t border-white/10">
-                        <p className="text-sm text-white/40">
-                            顯示 {(currentPage - 1) * itemsPerPage + 1} - {Math.min(currentPage * itemsPerPage, filteredUsers.length)} / {filteredUsers.length} 筆
-                        </p>
-                        <div className="flex items-center gap-2">
-                            <button
-                                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                                disabled={currentPage === 1}
-                                className="p-2 rounded-lg hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-white/60"
-                            >
-                                <ChevronLeft className="w-5 h-5" />
-                            </button>
-                            <span className="text-sm text-white/60">
-                                {currentPage} / {totalPages}
-                            </span>
-                            <button
-                                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                                disabled={currentPage === totalPages}
-                                className="p-2 rounded-lg hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-white/60"
-                            >
-                                <ChevronRight className="w-5 h-5" />
-                            </button>
-                        </div>
-                    </div>
-                )}
-            </div>
+                                {/* Expanded Content */}
+                                {isExpanded && (
+                                    <div className="border-t border-white/10 p-4 bg-white/[0.02] space-y-4">
+                                        {/* User Details */}
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div>
+                                                <p className="text-white/60 text-xs mb-1">User ID</p>
+                                                <p className="text-white/80 text-sm font-mono">{user.id}</p>
+                                            </div>
+                                            <div>
+                                                <p className="text-white/60 text-xs mb-1">顯示名稱</p>
+                                                <p className="text-white/80 text-sm">{user.display_name || '未設定'}</p>
+                                            </div>
+                                        </div>
 
-            {/* User Detail Sidebar */}
-            {selectedUser && (
-                <div className="fixed inset-0 z-50 flex justify-end">
-                    <div
-                        className="absolute inset-0 bg-black/50"
-                        onClick={() => setSelectedUser(null)}
-                    />
-                    <div className="relative w-full max-w-md bg-[#0f0f1a] border-l border-white/10 h-full overflow-y-auto">
-                        <div className="p-6 space-y-6">
-                            {/* Header */}
-                            <div className="flex items-center justify-between">
-                                <h2 className="text-xl font-bold text-white">使用者詳情</h2>
-                                <button
-                                    onClick={() => setSelectedUser(null)}
-                                    className="p-2 rounded-lg hover:bg-white/10 transition-colors text-white/60"
-                                >
-                                    <X className="w-5 h-5" />
-                                </button>
-                            </div>
-
-                            {/* User Info */}
-                            <div className="text-center">
-                                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center mx-auto mb-4">
-                                    <span className="text-3xl text-white font-bold">
-                                        {selectedUser.name.charAt(0)}
-                                    </span>
-                                </div>
-                                <h3 className="text-xl font-semibold text-white">{selectedUser.name}</h3>
-                                <p className="text-white/60">{selectedUser.email}</p>
-                                <div className="flex items-center justify-center gap-2 mt-2">
-                                    {selectedUser.is_pro && (
-                                        <span className="flex items-center gap-1 px-2 py-0.5 rounded bg-purple-500/20 text-purple-400 text-sm">
-                                            <Crown className="w-3 h-3" />
-                                            Pro
-                                        </span>
-                                    )}
-                                    <StatusBadge status={selectedUser.status} />
-                                </div>
-                            </div>
-
-                            {/* Details */}
-                            <div className="space-y-4">
-                                <div className="p-4 rounded-lg bg-white/5 border border-white/10">
-                                    <p className="text-white/40 text-sm">使用者 ID</p>
-                                    <p className="text-white font-mono text-sm mt-1">{selectedUser.id}</p>
-                                </div>
-                                <div className="p-4 rounded-lg bg-white/5 border border-white/10">
-                                    <p className="text-white/40 text-sm">註冊時間</p>
-                                    <p className="text-white mt-1">{formatDate(selectedUser.created_at)}</p>
-                                </div>
-                                <div className="p-4 rounded-lg bg-white/5 border border-white/10">
-                                    <p className="text-white/40 text-sm">最後登入</p>
-                                    <p className="text-white mt-1">{formatDate(selectedUser.last_login_at)}</p>
-                                </div>
-                                {selectedUser.is_pro && selectedUser.pro_expires_at && (
-                                    <div className="p-4 rounded-lg bg-white/5 border border-white/10">
-                                        <p className="text-white/40 text-sm">Pro 到期時間</p>
-                                        <p className="text-white mt-1">{formatDate(selectedUser.pro_expires_at)}</p>
+                                        {/* Actions */}
+                                        <div className="flex items-center justify-between pt-4 border-t border-white/5">
+                                            <p className="text-white/40 text-xs">
+                                                建立時間: {new Date(user.created_at).toLocaleString('zh-TW')}
+                                            </p>
+                                            <div className="flex gap-2">
+                                                {user.status !== 'active' && (
+                                                    <button
+                                                        onClick={() => handleStatusUpdate(user.id, 'active')}
+                                                        disabled={updatingId === user.id}
+                                                        className="px-3 py-1.5 bg-green-500/20 text-green-400 border border-green-500/30 rounded-lg text-sm hover:bg-green-500/30 transition-colors disabled:opacity-50 flex items-center gap-1.5"
+                                                    >
+                                                        {updatingId === user.id ? (
+                                                            <Loader2 className="w-3 h-3 animate-spin" />
+                                                        ) : (
+                                                            <CheckCircle className="w-3 h-3" />
+                                                        )}
+                                                        啟用
+                                                    </button>
+                                                )}
+                                                {user.status !== 'suspended' && user.status !== 'deleted' && (
+                                                    <button
+                                                        onClick={() => handleStatusUpdate(user.id, 'suspended')}
+                                                        disabled={updatingId === user.id}
+                                                        className="px-3 py-1.5 bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 rounded-lg text-sm hover:bg-yellow-500/30 transition-colors disabled:opacity-50 flex items-center gap-1.5"
+                                                    >
+                                                        {updatingId === user.id ? (
+                                                            <Loader2 className="w-3 h-3 animate-spin" />
+                                                        ) : (
+                                                            <Ban className="w-3 h-3" />
+                                                        )}
+                                                        停用
+                                                    </button>
+                                                )}
+                                                {user.status !== 'deleted' && !user.email?.includes('admin') && (
+                                                    <button
+                                                        onClick={() => handleStatusUpdate(user.id, 'deleted')}
+                                                        disabled={updatingId === user.id}
+                                                        className="px-3 py-1.5 bg-red-500/20 text-red-400 border border-red-500/30 rounded-lg text-sm hover:bg-red-500/30 transition-colors disabled:opacity-50 flex items-center gap-1.5"
+                                                    >
+                                                        {updatingId === user.id ? (
+                                                            <Loader2 className="w-3 h-3 animate-spin" />
+                                                        ) : (
+                                                            <Trash2 className="w-3 h-3" />
+                                                        )}
+                                                        刪除
+                                                    </button>
+                                                )}
+                                                {user.email?.includes('admin') && (
+                                                    <div className="px-3 py-1.5 bg-purple-500/20 text-purple-400 border border-purple-500/30 rounded-lg text-sm flex items-center gap-1.5">
+                                                        <Shield className="w-3 h-3" />
+                                                        系統管理員 (受保護)
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
                                     </div>
                                 )}
                             </div>
-
-                            {/* Actions */}
-                            <div className="space-y-2 pt-4 border-t border-white/10">
-                                <button className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-orange-500/20 border border-orange-500/30 text-orange-400 hover:bg-orange-500/30 transition-colors">
-                                    <UserX className="w-5 h-5" />
-                                    {selectedUser.status === 'suspended' ? '解除停用' : '停用帳號'}
-                                </button>
-                                <button className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-red-500/20 border border-red-500/30 text-red-400 hover:bg-red-500/30 transition-colors">
-                                    <Trash2 className="w-5 h-5" />
-                                    刪除帳號
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
+                        );
+                    })
+                )}
+            </div>
         </div>
     );
 }

@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { X, Menu, Home, Eye, Crown, ChevronRight } from 'lucide-react';
 import { getThemeColor } from '@/data/themeColors';
 import { useProLayoutContext } from './ProLayoutContext';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/components/providers/AuthProvider';
 import { UserDropdown } from '@/components/layout/UserDropdown';
 import { AuthModal } from '@/components/common';
 import NotificationBell from '@/components/common/NotificationBell';
@@ -79,22 +79,6 @@ export const ProHeader: React.FC = () => {
 
                 {/* Right */}
                 <div className="flex items-center gap-4">
-                    {/* Current Style Display */}
-                    {currentStyle && isEditorPage && (
-                        <div className="hidden md:flex items-center gap-2">
-                            <div
-                                className="w-6 h-6 rounded-md flex items-center justify-center text-white text-xs font-bold"
-                                style={{ backgroundColor: themeColor }}
-                            >
-                                {selectedStyle.replace('S', '')}
-                            </div>
-                            <span className="text-sm font-medium text-white/80">{currentStyle.name}</span>
-                        </div>
-                    )}
-
-                    {/* Notification Bell - 只有登入後顯示 */}
-                    {user && <NotificationBell />}
-
                     {/* Auth - 只顯示登入按鈕，移除註冊 */}
                     {!loading && (
                         <>

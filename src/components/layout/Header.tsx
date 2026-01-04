@@ -4,14 +4,13 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
-import { X, Menu, Home, Eye, ChevronRight, Languages, LayoutGrid } from 'lucide-react';
+import { X, Menu, Home, Eye, ChevronRight, Languages } from 'lucide-react';
 import { styles } from '@/data/styles';
 import { getThemeColor } from '@/data/themeColors';
 import { useLayoutContext } from './LayoutContext';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/components/providers/AuthProvider';
 import { UserDropdown } from './UserDropdown';
 import { AuthModal } from '@/components/common';
-import NotificationBell from '@/components/common/NotificationBell';
 
 export const Header: React.FC = () => {
     const pathname = usePathname();
@@ -103,7 +102,7 @@ export const Header: React.FC = () => {
                     </Link>
                 </div>
 
-                {/* Right - Auth & Style Name */}
+                {/* Right - 只保留樣式顯示和頭像 */}
                 <div className="flex items-center gap-3">
                     {/* Current Style Display */}
                     {currentStyle && (
@@ -118,22 +117,9 @@ export const Header: React.FC = () => {
                         </div>
                     )}
 
-                    {/* Notification Bell - 只有登入後顯示 */}
-                    {user && <NotificationBell />}
-
-                    {/* Auth - 只有已登入時顯示用戶選單 */}
+                    {/* Auth - 只顯示用戶頭像 */}
                     {!loading && user && (
-                        <div className="flex items-center gap-2">
-                            {/* 瀏覽風格庫按鈕 */}
-                            <Link
-                                href={`/${selectedStyle || 'S01'}`}
-                                className="hidden sm:flex items-center gap-2 px-4 py-1.5 bg-white/10 text-white text-sm font-medium rounded-full hover:bg-white/20 transition-all"
-                            >
-                                <LayoutGrid className="w-4 h-4" />
-                                <span>{t('layout.browseStyles')}</span>
-                            </Link>
-                            <UserDropdown />
-                        </div>
+                        <UserDropdown />
                     )}
                 </div>
             </header>

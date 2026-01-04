@@ -2,7 +2,8 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Bell, X, Sparkles, Bug, Zap, PartyPopper, AlertTriangle, Megaphone } from 'lucide-react';
-import { mockAnnouncements, mockChangelogs, type MockAnnouncement, type MockChangelog } from '@/lib/admin/mockData';
+import { useAnnouncements } from '@/hooks/useAnnouncements';
+import { useChangelogs } from '@/hooks/useChangelogs';
 import { useTranslation } from 'react-i18next';
 
 type TabType = 'announcements' | 'changelog';
@@ -14,6 +15,10 @@ export default function NotificationBell() {
     const [notificationsEnabled, setNotificationsEnabled] = useState(true);
     const panelRef = useRef<HTMLDivElement>(null);
 
+    // 從 Supabase 讀取資料
+    const { announcements, loading: announcementsLoading } = useAnnouncements();
+    const { changelogs, loading: changelogsLoading } = useChangelogs();
+
     // 從 localStorage 讀取通知設定
     useEffect(() => {
         const stored = localStorage.getItem('notificationsEnabled');
@@ -22,16 +27,8 @@ export default function NotificationBell() {
         }
     }, []);
 
-    // 取得目前有效的公告
-    const activeAnnouncements = mockAnnouncements.filter(a => {
-        const now = new Date();
-        const start = new Date(a.startAt);
-        const end = new Date(a.endAt);
-        return a.isActive && now >= start && now <= end;
-    });
-
     // 計算未讀數量（只在通知啟用時顯示）
-    const unreadCount = notificationsEnabled ? activeAnnouncements.length + mockChangelogs.length : 0;
+    const unreadCount = notificationsEnabled ? announcements.length + changelogs.length : 0;
 
     // 點擊外部關閉
     useEffect(() => {
@@ -68,7 +65,7 @@ export default function NotificationBell() {
     };
 
     // Announcement type icon
-    const getAnnouncementIcon = (type: MockAnnouncement['type']) => {
+    const getAnnouncementIcon = (type: 'event' | 'notice' | 'alert') => {
         const icons = {
             event: PartyPopper,
             notice: Megaphone,
@@ -78,7 +75,7 @@ export default function NotificationBell() {
     };
 
     // Changelog type config
-    const getChangelogConfig = (type: MockChangelog['type']) => {
+    const getChangelogConfig = (type: 'feature' | 'fix' | 'improvement') => {
         const configs = {
             feature: { icon: Sparkles, color: 'text-purple-400' },
             fix: { icon: Bug, color: 'text-red-400' },
@@ -132,7 +129,7 @@ export default function NotificationBell() {
                                     : 'text-white/60 hover:text-white hover:bg-white/5'
                                     }`}
                             >
-                                {t('notification.announcements')} ({activeAnnouncements.length})
+                                {t('notification.announcements')} ({announcements.length})
                             </button>
                             <button
                                 onClick={() => setActiveTab('changelog')}
@@ -141,7 +138,7 @@ export default function NotificationBell() {
                                     : 'text-white/60 hover:text-white hover:bg-white/5'
                                     }`}
                             >
-                                {t('notification.changelog')} ({mockChangelogs.length})
+                                {t('notification.changelog')} ({changelogs.length})
                             </button>
                         </div>
 
@@ -150,12 +147,16 @@ export default function NotificationBell() {
                             {activeTab === 'announcements' ? (
                                 // Announcements List
                                 <div className="divide-y divide-white/5">
-                                    {activeAnnouncements.length === 0 ? (
+                                    {announcementsLoading ? (
+                                        <div className="p-8 text-center text-white/40">
+                                            {t('notification.loading') || '載入中...'}
+                                        </div>
+                                    ) : announcements.length === 0 ? (
                                         <div className="p-8 text-center text-white/40">
                                             {t('notification.noAnnouncements')}
                                         </div>
                                     ) : (
-                                        activeAnnouncements.map((announcement) => {
+                                        announcements.map((announcement) => {
                                             const Icon = getAnnouncementIcon(announcement.type);
                                             return (
                                                 <div
@@ -179,7 +180,7 @@ export default function NotificationBell() {
                                                                 {announcement.content}
                                                             </p>
                                                             <p className="text-white/40 text-xs mt-2">
-                                                                {formatDate(announcement.createdAt)}
+                                                                {formatDate(announcement.created_at)}
                                                             </p>
                                                         </div>
                                                     </div>
@@ -191,37 +192,47 @@ export default function NotificationBell() {
                             ) : (
                                 // Changelog List
                                 <div className="divide-y divide-white/5">
-                                    {mockChangelogs.map((log) => {
-                                        const config = getChangelogConfig(log.type);
-                                        return (
-                                            <div
-                                                key={log.id}
-                                                className="p-4 hover:bg-white/5 transition-colors cursor-pointer"
-                                            >
-                                                <div className="flex items-start gap-3">
-                                                    <div className={`w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0 ${config.color}`}>
-                                                        <config.icon className="w-5 h-5" />
-                                                    </div>
-                                                    <div className="flex-1 min-w-0">
-                                                        <div className="flex items-center gap-2">
-                                                            <span className="px-2 py-0.5 rounded bg-gradient-to-r from-purple-500/20 to-blue-500/20 text-purple-300 text-xs font-mono">
-                                                                {log.version}
-                                                            </span>
-                                                            <span className="text-white/40 text-xs">
-                                                                {formatDate(log.publishedAt)}
-                                                            </span>
+                                    {changelogsLoading ? (
+                                        <div className="p-8 text-center text-white/40">
+                                            {t('notification.loading') || '載入中...'}
+                                        </div>
+                                    ) : changelogs.length === 0 ? (
+                                        <div className="p-8 text-center text-white/40">
+                                            {t('notification.noChangelogs') || '暫無更新'}
+                                        </div>
+                                    ) : (
+                                        changelogs.map((log) => {
+                                            const config = getChangelogConfig(log.type);
+                                            return (
+                                                <div
+                                                    key={log.id}
+                                                    className="p-4 hover:bg-white/5 transition-colors cursor-pointer"
+                                                >
+                                                    <div className="flex items-start gap-3">
+                                                        <div className={`w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0 ${config.color}`}>
+                                                            <config.icon className="w-5 h-5" />
                                                         </div>
-                                                        <p className="text-white font-medium mt-1">
-                                                            {log.title}
-                                                        </p>
-                                                        <p className="text-white/60 text-sm mt-1">
-                                                            {log.changes.length} {t('notification.updates')}
-                                                        </p>
+                                                        <div className="flex-1 min-w-0">
+                                                            <div className="flex items-center gap-2">
+                                                                <span className="px-2 py-0.5 rounded bg-gradient-to-r from-purple-500/20 to-blue-500/20 text-purple-300 text-xs font-mono">
+                                                                    {log.version}
+                                                                </span>
+                                                                <span className="text-white/40 text-xs">
+                                                                    {formatDate(log.published_at)}
+                                                                </span>
+                                                            </div>
+                                                            <p className="text-white font-medium mt-1">
+                                                                {log.title}
+                                                            </p>
+                                                            <p className="text-white/60 text-sm mt-1">
+                                                                {Array.isArray(log.changes) ? log.changes.length : 0} {t('notification.updates')}
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        );
-                                    })}
+                                            );
+                                        })
+                                    )}
                                 </div>
                             )}
                         </div>

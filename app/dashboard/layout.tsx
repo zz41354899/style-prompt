@@ -3,8 +3,8 @@
 import React from 'react';
 import { usePathname, redirect } from 'next/navigation';
 import Link from 'next/link';
-import { AuthProvider, hasProAccess } from '@/components/providers/AuthProvider';
-import { useAuth } from '@/hooks/useAuth';
+import { AuthProvider } from '@/components/providers/AuthProvider';
+import { useAuth } from '@/components/providers/AuthProvider';
 import { Crown, CreditCard, Settings, ArrowLeft, Languages, Bell } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import NotificationBell from '@/components/common/NotificationBell';
@@ -15,7 +15,7 @@ interface DashboardLayoutProps {
 
 const DashboardContent: React.FC<DashboardLayoutProps> = ({ children }) => {
     const pathname = usePathname();
-    const { user, loading } = useAuth();
+    const { user, isPro, loading } = useAuth();
     const { t, i18n } = useTranslation();
     const currentLang = i18n.language;
 
@@ -25,8 +25,7 @@ const DashboardContent: React.FC<DashboardLayoutProps> = ({ children }) => {
         { href: '/dashboard/settings', label: t('dashboard.nav.settings'), icon: Settings },
     ];
 
-    // 判斷使用者是否有 Pro 權限
-    const isPro = hasProAccess(user);
+    // isPro 已經由 AuthProvider 計算（admin 和 pro 使用者都是 true）
     const backLink = isPro ? '/pro' : '/';
     const backText = isPro ? t('dashboard.nav.backToPro') : t('dashboard.nav.backToLibrary');
 

@@ -898,7 +898,7 @@
       "a3": "專業版提供 100 種進階視覺風格、獨家風格持續更新，以及優先支援與新功能。"
     },
     "footer": {
-      "description": "您的 AI 視覺風格資源庫。100+ 種精選風格，一鍵生成高品質提示詞，加速您的 UI 開發流程。",
+      "description": "您的 AI 視覺風格資源庫。100+ 種精選風格,一鍵生成高品質提示詞,加速您的 UI 開發流程。",
       "system": "產品",
       "coreTech": "風格庫",
       "visualWorkflow": "使用指南",
@@ -909,6 +909,35 @@
       "terms": "使用條款",
       "coffee": "贊助我",
       "copyright": "© 2025 STYLEPROMPTS. 視覺風格資源庫。"
+    },
+    "contact": {
+      "badge": "聯絡我們",
+      "title": "有任何問題?我們很樂意協助",
+      "subtitle": "填寫表單,我們將儘快回覆您",
+      "form": {
+        "name": "姓名",
+        "namePlaceholder": "請輸入您的姓名",
+        "email": "電子郵件",
+        "emailPlaceholder": "name@example.com",
+        "subject": "主旨",
+        "subjectPlaceholder": "您想討論的主題",
+        "message": "訊息",
+        "messagePlaceholder": "請輸入您的訊息...",
+        "submit": "送出訊息",
+        "submitting": "送出中...",
+        "success": "感謝您的來信!我們會儘快回覆。",
+        "error": "送出失敗,請稍後再試。"
+      },
+      "validation": {
+        "nameRequired": "請輸入姓名",
+        "nameMin": "姓名至少需要 2 個字元",
+        "emailRequired": "請輸入電子郵件",
+        "emailInvalid": "請輸入有效的電子郵件地址",
+        "subjectRequired": "請輸入主旨",
+        "subjectMin": "主旨至少需要 5 個字元",
+        "messageRequired": "請輸入訊息",
+        "messageMin": "訊息至少需要 10 個字元"
+      }
     }
   },
   "finalCta": {

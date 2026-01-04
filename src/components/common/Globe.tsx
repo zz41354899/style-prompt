@@ -43,7 +43,7 @@ export function Globe({ className }: { className?: string }) {
     }, []);
 
     return (
-        <div className={`relative flex h-full w-full items-center justify-center overflow-hidden bg-transparent pb-40 pl-40 md:shadow-xl ${className}`}>
+        <div className={`relative flex items-center justify-center overflow-hidden bg-transparent ${className}`}>
             <canvas
                 ref={canvasRef}
                 style={{ width: 600, height: 600, maxWidth: "100%", aspectRatio: 1 }}

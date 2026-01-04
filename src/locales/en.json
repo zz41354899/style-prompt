@@ -897,6 +897,35 @@
       "terms": "Terms of Use",
       "coffee": "Support Us",
       "copyright": "© 2025 STYLEPROMPTS. Visual Style Library."
+    },
+    "contact": {
+      "badge": "Contact Us",
+      "title": "Have Questions? We're Here to Help",
+      "subtitle": "Fill out the form and we'll get back to you soon",
+      "form": {
+        "name": "Name",
+        "namePlaceholder": "Enter your name",
+        "email": "Email",
+        "emailPlaceholder": "name@example.com",
+        "subject": "Subject",
+        "subjectPlaceholder": "What would you like to discuss",
+        "message": "Message",
+        "messagePlaceholder": "Enter your message...",
+        "submit": "Send Message",
+        "submitting": "Sending...",
+        "success": "Thanks for reaching out! We'll get back to you soon.",
+        "error": "Failed to send. Please try again later."
+      },
+      "validation": {
+        "nameRequired": "Please enter your name",
+        "nameMin": "Name must be at least 2 characters",
+        "emailRequired": "Please enter your email",
+        "emailInvalid": "Please enter a valid email address",
+        "subjectRequired": "Please enter a subject",
+        "subjectMin": "Subject must be at least 5 characters",
+        "messageRequired": "Please enter a message",
+        "messageMin": "Message must be at least 10 characters"
+      }
     }
   },
   "finalCta": {

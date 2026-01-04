@@ -3,9 +3,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { Crown, CheckCircle2, ArrowRight, Sparkles, X, Users } from 'lucide-react';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/components/providers/AuthProvider';
 import { usePurchase } from '@/hooks/usePurchase';
-import { hasProAccess } from '@/components/providers/AuthProvider';
 import { useTranslation } from 'react-i18next';
 
 export default function DashboardPricingPage() {
@@ -13,8 +12,8 @@ export default function DashboardPricingPage() {
     const { hasPro, loading } = usePurchase();
     const { t } = useTranslation();
 
-    // 從 user metadata 檢查 Pro 狀態（未來可替換成資料庫查詢）
-    const isPro = hasPro || hasProAccess(user);
+    // usePurchase 已經處理了所有邏輯（包括 admin = pro）
+    const isPro = hasPro;
 
     const freePlanFeatures = [
         { text: t('dashboard.pricing.freeFeatures.f1'), included: true },

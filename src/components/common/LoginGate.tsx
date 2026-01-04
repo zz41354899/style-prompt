@@ -2,12 +2,13 @@
 
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from '@/hooks/useAuth'; // Changed from '@/components/providers/AuthProvider' to match original
-import { motion } from 'framer-motion'; // Kept from original
-import { Loader2, Github } from 'lucide-react';
+import { useAuth } from '@/components/providers/AuthProvider';
+import { motion } from 'framer-motion';
+import { Loader2, Github, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { Globe } from '@/components/common/Globe';
+import { GlobeLoader } from '@/components/common/GlobeLoader';
 
 // Google Icon Component
 const GoogleIcon = () => (
@@ -19,19 +20,41 @@ const GoogleIcon = () => (
     </svg>
 );
 
-export const LoginGate = () => {
+// ============================================
+// LoginGate Props
+// ============================================
+interface LoginGateProps {
+    children?: React.ReactNode;
+    backLink?: string;
+    variant?: 'pro' | 'default';
+}
+
+export const LoginGate: React.FC<LoginGateProps> = ({
+    children,
+    backLink = '/pro',
+    variant = 'pro'
+}) => {
     const { t } = useTranslation();
-    const { signInWithGoogle, signInWithGithub, loading } = useAuth();
+    const { user, signInWithGoogle, signInWithGithub, loading } = useAuth();
+
+    // Form states
+    const [error, setError] = useState<string | null>(null);
     const [localLoading, setLocalLoading] = useState<string | null>(null);
 
     const handleSocialLogin = async (provider: 'google' | 'github') => {
         if (loading || localLoading) return;
+        setError(null);
         setLocalLoading(provider);
         try {
-            if (provider === 'google') await signInWithGoogle();
-            else await signInWithGithub();
-        } catch (error) {
-            console.error(`${provider} login error:`, error);
+            const { error: authError } = provider === 'google'
+                ? await signInWithGoogle()
+                : await signInWithGithub();
+
+            if (authError) {
+                setError(authError.message);
+            }
+        } catch (err) {
+            console.error(`${provider} login error:`, err);
         } finally {
             setLocalLoading(null);
         }
@@ -39,21 +62,39 @@ export const LoginGate = () => {
 
     const isLoading = (provider: string) => loading || localLoading === provider;
 
+    // 只在初始認證檢查時顯示載入畫面
     if (loading) {
         return (
-            <div className="min-h-screen bg-[#141414] text-white flex items-center justify-center">
-                <div className="text-gray-400">{t('auth.loading')}</div>
+            <div className="min-h-screen bg-[#0a0a0a] text-white flex items-center justify-center">
+                <GlobeLoader
+                    size={160}
+                    text={t('auth.loading')}
+                />
             </div>
         );
     }
 
-    // 未登入，顯示登入頁面
+    // ============================================
+    // Gate 邏輯：已登入則顯示 children
+    // ============================================
+    if (user) {
+        return <>{children}</>;
+    }
+
+    // ============================================
+    // 未登入：顯示登入表單
+    // ============================================
     return (
         <div className="min-h-screen bg-[#141414] text-white font-sans grid lg:grid-cols-2">
             {/* Left Column: Login */}
             <div className="relative flex flex-col h-full z-10">
                 {/* Header */}
-                <header className="flex justify-between items-center p-6 lg:p-8">
+                <motion.header
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    className="flex justify-between items-center p-6 lg:p-8"
+                >
                     <Link href="/pro" className="flex items-center gap-2 group">
                         <div className="w-8 h-8 rounded-lg bg-black border border-white/20 flex items-center justify-center text-white font-bold text-sm shadow-lg transition-all duration-300">
                             SP
@@ -65,25 +106,48 @@ export const LoginGate = () => {
                             </span>
                         </span>
                     </Link>
-                </header>
+                </motion.header>
 
                 {/* Main Content */}
                 <div className="flex-1 flex flex-col items-center justify-center p-6 sm:p-12 lg:p-24">
-                    <div className="w-full max-w-sm space-y-8">
-                        <div className="text-center space-y-2">
+                    <div className="w-full max-w-sm space-y-6">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+                            className="text-center space-y-2"
+                        >
                             <h1 className="text-3xl font-bold tracking-tight text-white">
                                 {t('auth.welcome')}
                             </h1>
                             <p className="text-gray-400">
                                 {t('auth.subtitle')}
                             </p>
-                        </div>
+                        </motion.div>
 
-                        <div className="space-y-4 pt-4">
-                            <button
+                        {/* Error Message */}
+                        {error && (
+                            <motion.div
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="flex items-center gap-2 p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm"
+                            >
+                                <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                                <span>{error}</span>
+                            </motion.div>
+                        )}
+
+                        {/* Social Login Buttons */}
+                        <div className="space-y-3">
+                            <motion.button
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+                                whileHover={{ scale: 1.02, backgroundColor: "#252525" }}
+                                whileTap={{ scale: 0.98 }}
                                 onClick={() => handleSocialLogin('google')}
                                 disabled={!!localLoading}
-                                className="w-full h-11 flex items-center justify-center gap-3 bg-[#1a1a1a] border border-[#333] hover:bg-[#252525] text-white font-medium rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow-md"
+                                className="w-full h-12 flex items-center justify-center gap-3 bg-[#1a1a1a] border border-[#333] text-white font-medium rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow-md"
                             >
                                 {isLoading('google') ? (
                                     <Loader2 className="w-5 h-5 animate-spin text-gray-400" />
@@ -93,12 +157,17 @@ export const LoginGate = () => {
                                         <span>{t('auth.continueWithGoogle')}</span>
                                     </>
                                 )}
-                            </button>
+                            </motion.button>
 
-                            <button
+                            <motion.button
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.5, delay: 0.25, ease: "easeOut" }}
+                                whileHover={{ scale: 1.02, backgroundColor: "#2f363d" }}
+                                whileTap={{ scale: 0.98 }}
                                 onClick={() => handleSocialLogin('github')}
                                 disabled={!!localLoading}
-                                className="w-full h-11 flex items-center justify-center gap-3 bg-[#24292e] hover:bg-[#2f363d] text-white rounded-lg transition-all duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow-md"
+                                className="w-full h-12 flex items-center justify-center gap-3 bg-[#24292e] text-white rounded-lg transition-colors duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow-md"
                             >
                                 {isLoading('github') ? (
                                     <Loader2 className="w-5 h-5 animate-spin text-gray-400" />
@@ -108,24 +177,35 @@ export const LoginGate = () => {
                                         <span>{t('auth.continueWithGithub')}</span>
                                     </>
                                 )}
-                            </button>
+                            </motion.button>
                         </div>
 
-                        <div className="relative">
-                            <div className="absolute inset-0 flex items-center">
-                                <span className="w-full border-t border-gray-800" />
-                            </div>
-                            <div className="relative flex justify-center text-xs uppercase">
-                                <span className="bg-[#0a0a0a] px-2 text-gray-500">
-                                    Trusted by developers
-                                </span>
-                            </div>
-                        </div>
+                        {/* Terms Notice */}
+                        <motion.p
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.5, delay: 0.3 }}
+                            className="text-center text-xs text-gray-500"
+                        >
+                            {t('auth.termsNotice')}{' '}
+                            <Link href="/pro/legal/terms" className="text-purple-400 hover:text-purple-300 transition-colors">
+                                {t('pro.footer.terms')}
+                            </Link>
+                            {' '}{t('common.and')}{' '}
+                            <Link href="/pro/legal/privacy" className="text-purple-400 hover:text-purple-300 transition-colors">
+                                {t('pro.footer.privacy')}
+                            </Link>
+                        </motion.p>
                     </div>
                 </div>
 
                 {/* Footer */}
-                <footer className="p-6 lg:p-8 flex flex-col items-center gap-4 text-sm text-gray-500">
+                <motion.footer
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                    className="p-6 lg:p-8 flex flex-col items-center gap-4 text-sm text-gray-500"
+                >
                     <div className="flex items-center justify-center gap-6">
                         <Link href="/pro/legal/terms" className="hover:text-gray-300 transition-colors">
                             {t('pro.footer.terms')}
@@ -138,19 +218,24 @@ export const LoginGate = () => {
                         </Link>
                     </div>
                     <LanguageSwitcher variant="header" />
-                </footer>
+                </motion.footer>
             </div>
 
             {/* Right Column: Globe Animation */}
-            <div className="hidden lg:flex relative bg-[#000000] overflow-hidden items-end justify-center">
-                {/* Blue ambient glow at bottom */}
+            <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="hidden lg:flex relative bg-[#000000] overflow-hidden items-end justify-center"
+            >
+                {/* Purple ambient glow at bottom */}
                 <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-purple-600/20 blur-[120px] rounded-full pointer-events-none z-0" />
 
                 <div className="relative w-full h-full flex items-end justify-center z-10">
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent z-20" />
                     <Globe className="scale-[1.8] translate-y-[35%]" />
                 </div>
-            </div>
+            </motion.div>
         </div>
     );
 };

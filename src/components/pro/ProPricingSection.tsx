@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { CheckCircle2, Crown, ArrowRight, Sparkles, Zap, Shield, LayoutTemplate } from 'lucide-react';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/components/providers/AuthProvider';
 import { useTranslation } from 'react-i18next';
 
 export const ProPricingSection: React.FC = () => {

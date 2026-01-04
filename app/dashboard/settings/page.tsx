@@ -1,29 +1,49 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useAuth } from '@/hooks/useAuth';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '@/components/providers/AuthProvider';
 import { useTranslation } from 'react-i18next';
-import { User, Languages, Trash2, Loader2 } from 'lucide-react';
+import { User, Languages, Trash2, Loader2, Check, AlertCircle } from 'lucide-react';
 
 export default function DashboardSettingsPage() {
-    const { user } = useAuth();
+    const { user, updateUserName, profileName } = useAuth();
     const { t, i18n } = useTranslation();
     const currentLang = i18n.language;
 
-    const [displayName, setDisplayName] = useState(user?.user_metadata?.display_name || '');
+    // 優先從 profileName (資料庫同步) 取得顯示名稱，其次才是 metadata
+    const initialName = profileName || user?.user_metadata?.display_name || user?.user_metadata?.name || '';
+    const [displayName, setDisplayName] = useState(initialName);
     const [isSaving, setIsSaving] = useState(false);
+    const [saveSuccess, setSaveSuccess] = useState(false);
+    const [saveError, setSaveError] = useState<string | null>(null);
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
-    const toggleLanguage = () => {
-        const newLang = currentLang === 'zh-TW' ? 'en' : 'zh-TW';
-        i18n.changeLanguage(newLang);
-    };
+    // 當 user 或 profileName 變化時更新 displayName
+    useEffect(() => {
+        const name = profileName || user?.user_metadata?.display_name || user?.user_metadata?.name || '';
+        setDisplayName(name);
+    }, [user, profileName]);
 
     const handleSave = async () => {
+        if (!displayName.trim()) {
+            setSaveError('請輸入顯示名稱');
+            return;
+        }
+
         setIsSaving(true);
-        // TODO: 實作保存邏輯
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        setSaveError(null);
+        setSaveSuccess(false);
+
+        const { error } = await updateUserName(displayName.trim());
+
         setIsSaving(false);
+
+        if (error) {
+            setSaveError(error.message);
+        } else {
+            setSaveSuccess(true);
+            setTimeout(() => setSaveSuccess(false), 3000);
+        }
     };
 
     return (
@@ -47,7 +67,11 @@ export default function DashboardSettingsPage() {
                             <input
                                 type="text"
                                 value={displayName}
-                                onChange={(e) => setDisplayName(e.target.value)}
+                                onChange={(e) => {
+                                    setDisplayName(e.target.value);
+                                    setSaveError(null);
+                                    setSaveSuccess(false);
+                                }}
                                 placeholder={user?.email?.split('@')[0]}
                                 className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-white/30 focus:outline-none focus:border-purple-500/50 transition-colors"
                             />
@@ -62,6 +86,22 @@ export default function DashboardSettingsPage() {
                                 className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white/50 cursor-not-allowed"
                             />
                         </div>
+
+                        {/* 錯誤訊息 */}
+                        {saveError && (
+                            <div className="flex items-center gap-2 text-red-400 text-sm">
+                                <AlertCircle className="w-4 h-4" />
+                                <span>{saveError}</span>
+                            </div>
+                        )}
+
+                        {/* 成功訊息 */}
+                        {saveSuccess && (
+                            <div className="flex items-center gap-2 text-green-400 text-sm">
+                                <Check className="w-4 h-4" />
+                                <span>儲存成功！</span>
+                            </div>
+                        )}
 
                         <button
                             onClick={handleSave}

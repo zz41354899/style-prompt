@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Languages, ChevronRight, Menu, X, Crown, Sparkles, LayoutGrid } from 'lucide-react';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/components/providers/AuthProvider';
 import { UserDropdown } from '@/components/layout/UserDropdown';
 
 interface ProNavbarProps {

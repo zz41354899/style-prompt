@@ -9,7 +9,7 @@ import { styleComponentsPro } from '@/components/styles';
 import { useProLayoutContext } from './ProLayoutContext';
 import { PromptModal } from '@/components/PromptModal';
 import { ProUpgradeModal } from './ProUpgradeModal';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/components/providers/AuthProvider';
 import { usePurchase } from '@/hooks/usePurchase';
 
 interface ProPreviewContentProps {

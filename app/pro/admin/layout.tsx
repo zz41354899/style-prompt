@@ -7,12 +7,13 @@ import {
     LayoutDashboard,
     Users,
     CreditCard,
-    BarChart3,
     ChevronRight,
     Shield,
     LogOut,
     Megaphone,
-    ScrollText
+    ScrollText,
+    Mail,
+    ShoppingBag
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -24,7 +25,7 @@ const adminNavItems = [
     {
         href: '/pro/admin',
         icon: LayoutDashboard,
-        label: 'Dashboard'
+        label: '總覽'
     },
     {
         href: '/pro/admin/users',
@@ -32,14 +33,9 @@ const adminNavItems = [
         label: '使用者管理'
     },
     {
-        href: '/pro/admin/subscriptions',
-        icon: CreditCard,
-        label: '訂閱管理'
-    },
-    {
-        href: '/pro/admin/analytics',
-        icon: BarChart3,
-        label: '數據分析'
+        href: '/pro/admin/purchases',
+        icon: ShoppingBag,
+        label: '購買記錄'
     },
     {
         href: '/pro/admin/announcements',
@@ -49,24 +45,34 @@ const adminNavItems = [
     {
         href: '/pro/admin/changelog',
         icon: ScrollText,
-        label: 'Changelog'
+        label: '版本更新'
+    },
+    {
+        href: '/pro/admin/contacts',
+        icon: Mail,
+        label: '聯絡表單'
     }
 ];
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
-    const { user, loading, signOut } = useAuth();
+    const { user, role, isAdmin, loading, signOut } = useAuth();
     const router = useRouter();
     const pathname = usePathname();
 
-    // 權限檢查
-    const isAdmin = user?.user_metadata?.isAdmin === true || user?.email === 'admin@test.com';
-
     useEffect(() => {
+        console.log('=== ADMIN LAYOUT DEBUG ===');
+        console.log('loading:', loading);
+        console.log('user:', user?.email);
+        console.log('role:', role);
+        console.log('isAdmin:', isAdmin);
+        console.log('========================');
+
         if (!loading && !isAdmin) {
+            console.warn('❌ Admin layout: Not admin, redirecting to /pro');
             // 非 Admin 導回 /pro
             router.replace('/pro');
         }
-    }, [loading, isAdmin, router]);
+    }, [loading, isAdmin, router, user, role]);
 
     // Loading 狀態
     if (loading) {

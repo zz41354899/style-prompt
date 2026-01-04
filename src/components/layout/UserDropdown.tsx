@@ -4,11 +4,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LayoutDashboard, LogOut, ChevronDown } from 'lucide-react';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/components/providers/AuthProvider';
 import { useTranslation } from 'react-i18next';
 
 export const UserDropdown: React.FC = () => {
-    const { user, signOut } = useAuth();
+    const { user, signOut, profileName } = useAuth();
     const { t } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
@@ -31,7 +31,8 @@ export const UserDropdown: React.FC = () => {
     };
 
     // 取得使用者顯示名稱或 email 前綴
-    const displayName = user?.user_metadata?.name || user?.email?.split('@')[0] || t('userDropdown.defaultName');
+    // 優先順序：profileName (資料庫) > user_metadata.name (OAuth) > email 前綴
+    const displayName = profileName || user?.user_metadata?.name || user?.email?.split('@')[0] || t('userDropdown.defaultName');
     const avatarLetter = displayName.charAt(0).toUpperCase();
 
     return (

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles, Play, Crown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Globe } from '@/components/common/Globe';
 
 export const ProHeroSection: React.FC = () => {
     const { t, i18n } = useTranslation();
@@ -28,6 +29,18 @@ export const ProHeroSection: React.FC = () => {
                     }}
                 />
             </div>
+
+            {/* Globe Background - Bottom Center (Desktop Only) */}
+            <motion.div
+                initial={{ opacity: 0, y: 100 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1.2, ease: "easeOut", delay: 0.3 }}
+                className="hidden lg:flex absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[50%] pointer-events-none items-center justify-center"
+            >
+                {/* Globe glow */}
+                <div className="absolute inset-0 bg-purple-600/15 blur-[100px] rounded-full scale-125" />
+                <Globe className="opacity-50 scale-[2.5]" />
+            </motion.div>
 
             <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
                 {/* Badge */}
@@ -110,3 +123,4 @@ export const ProHeroSection: React.FC = () => {
         </section>
     );
 };
+

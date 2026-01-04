@@ -9,6 +9,7 @@ import { ProStyleShowcase } from './ProStyleShowcase';
 import { ProTemplateShowcase } from './ProTemplateShowcase';
 import { ProPricingSection } from './ProPricingSection';
 import { ProFaqSection } from './ProFaqSection';
+import { ContactSection } from '../landing/ContactSection';
 import { ProFooter } from './ProFooter';
 
 export const ProLandingPage: React.FC = () => {
@@ -51,6 +52,7 @@ export const ProLandingPage: React.FC = () => {
                 <ProTemplateShowcase />
                 <ProPricingSection />
                 <ProFaqSection />
+                <ContactSection />
                 <ProFooter />
             </div>
         </div>

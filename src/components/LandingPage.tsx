@@ -11,6 +11,7 @@ import {
     WorkflowBento,
     FaqSection,
     CtaSection,
+    ContactSection,
     Footer,
     BentoModal,
     PromoTopBar,
@@ -93,6 +94,9 @@ export const LandingPage: React.FC = () => {
 
             {/* Final CTA Section */}
             <CtaSection />
+
+            {/* Contact Section */}
+            <ContactSection />
 
             {/* Footer */}
             <Footer />
