@@ -65,11 +65,25 @@ export async function POST(request: Request) {
         // 取得設定
         const config = getPayuniConfig();
 
+        console.log('--- PayUNi Config Check ---');
+        console.log('MerchantID:', config.merchantId);
+        console.log('HashKey (prefix):', config.hashKey.substring(0, 4) + '...');
+        console.log('HashIV (prefix):', config.hashIV.substring(0, 4) + '...');
+        console.log('API URL:', config.apiUrl);
+        console.log('---------------------------');
+
         // 產生訂單編號
         const orderId = generateOrderId();
 
         // 取得網站 URL（for callback）
-        const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+        const baseUrl = process.env.NEXT_PUBLIC_SITE_URL;
+        console.log('Base URL (NEXT_PUBLIC_SITE_URL):', baseUrl);
+
+        if (!baseUrl) {
+            console.warn('⚠️ NEXT_PUBLIC_SITE_URL is not set, falling back to localhost');
+        }
+
+        const finalBaseUrl = baseUrl || 'http://localhost:3000';
 
         // 固定價格（Pro 終身版 NT$2000）
         const amount = 2000;
@@ -82,12 +96,12 @@ export async function POST(request: Request) {
             productName,
             email: body.email,
             userName: body.userName || profile.display_name || '',
-            returnUrl: `${baseUrl}/api/payuni/return`,
-            notifyUrl: `${baseUrl}/api/payuni/notify`,
+            returnUrl: `${finalBaseUrl}/api/payuni/return`,
+            notifyUrl: `${finalBaseUrl}/api/payuni/notify`,
         });
 
         // 在資料庫中預先建立購買記錄（pending 狀態）
-        await supabaseAdmin
+        const { error: insertError } = await supabaseAdmin
             .from('purchases')
             .insert({
                 user_id: profile.id,
@@ -98,7 +112,12 @@ export async function POST(request: Request) {
                 status: 'pending',
             });
 
-        console.log('✅ PayUNi order created:', orderId);
+        if (insertError) {
+            console.error('Failed to insert pending purchase:', insertError);
+            throw insertError;
+        }
+
+        console.log('✅ PayUNi order created and saved to DB:', orderId);
 
         // 回傳表單資料，前端使用 form POST 提交到 PayUNi
         return NextResponse.json({

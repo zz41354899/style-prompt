@@ -78,7 +78,7 @@ export function getPayuniConfig(): PayuniConfig {
     const merchantId = process.env.PAYUNI_MERCHANT_ID;
     const hashKey = process.env.PAYUNI_HASH_KEY;
     const hashIV = process.env.PAYUNI_HASH_IV;
-    const apiUrl = process.env.PAYUNI_API_URL || 'https://sandbox.payuni.com.tw/api/upp';
+    const apiUrl = process.env.PAYUNI_API_URL || 'https://sandbox-api.payuni.com.tw/api/upp';
 
     if (!merchantId || !hashKey || !hashIV) {
         throw new Error('PayUNi 設定缺失，請檢查環境變數');

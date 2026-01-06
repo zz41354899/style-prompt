@@ -11,6 +11,7 @@ export default function DashboardPricingPage() {
     const { user } = useAuth();
     const { hasPro, loading } = usePurchase();
     const { t } = useTranslation();
+    const [payLoading, setPayLoading] = React.useState(false);
 
     // usePurchase 已經處理了所有邏輯（包括 admin = pro）
     const isPro = hasPro;
@@ -171,13 +172,55 @@ export default function DashboardPricingPage() {
                                     <ArrowRight className="w-4 h-4" />
                                 </Link>
                             ) : (
-                                <Link
-                                    href="/api/stripe/checkout"
-                                    className="flex items-center justify-center gap-2 w-full py-3 bg-white text-black font-bold rounded-xl hover:bg-gray-100 transition-all"
+                                <button
+                                    onClick={async () => {
+                                        if (!user?.email) return;
+                                        setPayLoading(true);
+                                        try {
+                                            const response = await fetch('/api/payuni/create-order', {
+                                                method: 'POST',
+                                                headers: { 'Content-Type': 'application/json' },
+                                                body: JSON.stringify({ email: user.email }),
+                                            });
+                                            const data = await response.json();
+                                            if (data.formAction && data.formData) {
+                                                const form = document.createElement('form');
+                                                form.method = 'POST';
+                                                form.action = data.formAction;
+                                                Object.entries(data.formData).forEach(([key, value]) => {
+                                                    const input = document.createElement('input');
+                                                    input.type = 'hidden';
+                                                    input.name = key;
+                                                    input.value = String(value);
+                                                    form.appendChild(input);
+                                                });
+                                                document.body.appendChild(form);
+                                                form.submit();
+                                            } else {
+                                                alert(data.error || '建立訂單失敗');
+                                            }
+                                        } catch (err) {
+                                            console.error(err);
+                                            alert('金流系統暫時無法處理，請稍後再試');
+                                        } finally {
+                                            setPayLoading(false);
+                                        }
+                                    }}
+                                    disabled={payLoading}
+                                    className="flex items-center justify-center gap-2 w-full py-3 bg-white text-black font-bold rounded-xl hover:bg-gray-100 transition-all disabled:opacity-50"
                                 >
-                                    {t('dashboard.pricing.upgradeNow')}
-                                    <ArrowRight className="w-4 h-4" />
-                                </Link>
+                                    {payLoading ? (
+                                        <>
+                                            <div className="w-4 h-4 border-2 border-black/20 border-t-black rounded-full animate-spin" />
+                                            {t('auth.loading')}
+                                        </>
+                                    ) : (
+                                        <>
+                                            {t('dashboard.pricing.upgradeNow')}
+                                            <ArrowRight className="w-4 h-4" />
+                                        </>
+                                    )}
+                                </button>
                             )}
                         </div>
                     </div>
