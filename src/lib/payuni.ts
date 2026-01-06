@@ -220,8 +220,13 @@ export function verifyAndDecrypt(notifyData: PayuniNotifyRaw): PayuniDecryptedRe
     const config = getPayuniConfig();
 
     // 驗證商店代號
+    console.log('🔑 [verifyAndDecrypt] 商店代號比對:', {
+        received: notifyData.MerID,
+        expected: config.merchantId,
+        match: notifyData.MerID === config.merchantId,
+    });
     if (notifyData.MerID !== config.merchantId) {
-        throw new Error('商店代號不符');
+        throw new Error(`商店代號不符: 收到 "${notifyData.MerID}", 預期 "${config.merchantId}"`);
     }
 
     // 驗證 Hash
