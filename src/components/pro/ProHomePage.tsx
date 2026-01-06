@@ -156,7 +156,7 @@ export const ProHomePage: React.FC = () => {
                     <div className="p-8 bg-white/5 border border-white/10 rounded-3xl mb-8">
                         <div className="text-5xl font-black mb-6">NT$2,000</div>
                         <Link
-                            href="/api/stripe/checkout"
+                            href="/dashboard/pricing"
                             className="block w-full py-4 bg-white text-black font-bold rounded-xl hover:bg-gray-100 transition-colors"
                         >
                             立即購買

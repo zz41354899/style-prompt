@@ -38,7 +38,7 @@ const PricingContent: React.FC = () => {
                 '未來更新免費',
             ],
             cta: user ? '升級至 Pro' : '登入後購買',
-            href: user ? '/api/stripe/checkout' : '/pro',
+            href: user ? '/dashboard/pricing' : '/pro',
             popular: true,
         },
     ];

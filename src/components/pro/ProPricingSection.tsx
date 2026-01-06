@@ -89,7 +89,7 @@ export const ProPricingSection: React.FC = () => {
                                 </div>
 
                                 <Link
-                                    href={user ? '/api/stripe/checkout' : '/pro/login'}
+                                    href={user ? '/dashboard/pricing' : '/pro/login'}
                                     className="group w-full flex items-center justify-center gap-3 px-8 py-4 bg-white text-black font-bold text-lg rounded-xl transition-all hover:scale-[1.02] hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.5)] relative overflow-hidden"
                                 >
                                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-shimmer" />
