@@ -33,10 +33,10 @@ export async function POST(request: Request) {
         // 驗證必要欄位
         if (!notifyData.MerID || !notifyData.EncryptInfo || !notifyData.HashInfo) {
             console.error('Missing required fields in notify');
-            return NextResponse.json(
-                { error: 'Missing required fields' },
-                { status: 400 }
-            );
+            return new NextResponse('FAILED: Missing required fields', {
+                status: 400,
+                headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+            });
         }
 
         // 驗證並解密資料
@@ -45,10 +45,10 @@ export async function POST(request: Request) {
             decryptedResult = verifyAndDecrypt(notifyData);
         } catch (verifyError) {
             console.error('PayUNi verification failed:', verifyError);
-            return NextResponse.json(
-                { error: 'Verification failed' },
-                { status: 400 }
-            );
+            return new NextResponse('FAILED: Verification failed', {
+                status: 400,
+                headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+            });
         }
 
         console.log('PayUNi decrypted result:', {
@@ -67,16 +67,19 @@ export async function POST(request: Request) {
 
         if (purchaseError || !purchase) {
             console.error('Purchase not found:', decryptedResult.MerTradeNo);
-            return NextResponse.json(
-                { error: 'Purchase not found' },
-                { status: 404 }
-            );
+            return new NextResponse('FAILED: Purchase not found', {
+                status: 404,
+                headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+            });
         }
 
         // 如果已經處理過，跳過
         if (purchase.status === 'completed') {
             console.log('Purchase already completed:', decryptedResult.MerTradeNo);
-            return NextResponse.json({ success: true, message: 'Already processed' });
+            return new NextResponse('SUCCESS', {
+                status: 200,
+                headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+            });
         }
 
         // 檢查交易是否成功
@@ -97,10 +100,10 @@ export async function POST(request: Request) {
 
             if (updateError) {
                 console.error('Failed to update purchase:', updateError);
-                return NextResponse.json(
-                    { error: 'Failed to update purchase' },
-                    { status: 500 }
-                );
+                return new NextResponse('FAILED: Failed to update purchase', {
+                    status: 500,
+                    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+                });
             }
 
             // 更新使用者為 Pro
@@ -135,13 +138,17 @@ export async function POST(request: Request) {
         }
 
         // 回傳成功（PayUNi 需要收到成功回應才會停止重送）
-        return NextResponse.json({ success: true });
+        // 回傳純文字 SUCCESS，PayUNi 收到後會停止重送
+        return new NextResponse('SUCCESS', {
+            status: 200,
+            headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+        });
 
     } catch (error) {
         console.error('PayUNi notify error:', error);
-        return NextResponse.json(
-            { error: 'Internal server error' },
-            { status: 500 }
-        );
+        return new NextResponse('FAILED: Internal server error', {
+            status: 500,
+            headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+        });
     }
 }

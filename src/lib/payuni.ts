@@ -88,20 +88,17 @@ export function getPayuniConfig(): PayuniConfig {
 }
 
 /**
- * AES-256-CBC 加密
+ * AES-128-CBC 加密 (PayUNi 使用 AES-128)
  * @param data - 要加密的資料（URL encoded query string）
- * @param key - Hash Key
- * @param iv - Hash IV
+ * @param key - Hash Key (取前 16 bytes)
+ * @param iv - Hash IV (取前 16 bytes)
  */
 export function aesEncrypt(data: string, key: string, iv: string): string {
-    // PayUNi 使用 AES-256-CBC，Key 需補齊 32 bytes，IV 補齊 16 bytes
-    const keyBuffer = Buffer.alloc(32);
-    Buffer.from(key).copy(keyBuffer);
+    // PayUNi 使用 AES-128-CBC，Key 需為 16 bytes，IV 需為 16 bytes
+    const keyBuffer = Buffer.from(key.substring(0, 16), 'utf8');
+    const ivBuffer = Buffer.from(iv.substring(0, 16), 'utf8');
 
-    const ivBuffer = Buffer.alloc(16);
-    Buffer.from(iv).copy(ivBuffer);
-
-    const cipher = crypto.createCipheriv('aes-256-cbc', keyBuffer, ivBuffer);
+    const cipher = crypto.createCipheriv('aes-128-cbc', keyBuffer, ivBuffer);
     let encrypted = cipher.update(data, 'utf8', 'hex');
     encrypted += cipher.final('hex');
 
@@ -109,19 +106,16 @@ export function aesEncrypt(data: string, key: string, iv: string): string {
 }
 
 /**
- * AES-256-CBC 解密
+ * AES-128-CBC 解密
  * @param encryptedData - 加密後的 hex 字串
  * @param key - Hash Key
  * @param iv - Hash IV
  */
 export function aesDecrypt(encryptedData: string, key: string, iv: string): string {
-    const keyBuffer = Buffer.alloc(32);
-    Buffer.from(key).copy(keyBuffer);
+    const keyBuffer = Buffer.from(key.substring(0, 16), 'utf8');
+    const ivBuffer = Buffer.from(iv.substring(0, 16), 'utf8');
 
-    const ivBuffer = Buffer.alloc(16);
-    Buffer.from(iv).copy(ivBuffer);
-
-    const decipher = crypto.createDecipheriv('aes-256-cbc', keyBuffer, ivBuffer);
+    const decipher = crypto.createDecipheriv('aes-128-cbc', keyBuffer, ivBuffer);
     let decrypted = decipher.update(encryptedData, 'hex', 'utf8');
     decrypted += decipher.final('utf8');
 
@@ -130,7 +124,8 @@ export function aesDecrypt(encryptedData: string, key: string, iv: string): stri
 
 /**
  * 產生 SHA256 Hash（用於 HashInfo 驗證）
- * @param data - 加密後的資料
+ * 格式: HashKey=xxx&EncryptInfo&HashIV=xxx
+ * @param encryptInfo - 加密後的資料
  * @param key - Hash Key
  * @param iv - Hash IV
  */
@@ -154,20 +149,22 @@ export function createOrderRequest(params: PayuniOrderParams): PayuniEncryptedRe
         MerTradeNo: params.orderId,
         TradeAmt: params.amount,
         ProdDesc: params.productName,
-        ReturnURL: params.returnUrl,
-        NotifyURL: params.notifyUrl,
-        Timestamp: Math.floor(Date.now() / 1000).toString(),
+        Timestamp: Math.floor(Date.now() / 1000), // int 類型，不要轉 string
         // 付款方式設定
         Credit: 1, // 開啟信用卡
-        // 其他可選參數
-        // ApplePay: 1,
-        // GooglePay: 1,
     };
 
-    // 加入購買者資訊
+    // 加入 URL 參數
+    if (params.returnUrl) {
+        tradeInfo.ReturnURL = params.returnUrl;
+    }
+    if (params.notifyUrl) {
+        tradeInfo.NotifyURL = params.notifyUrl;
+    }
+
+    // 加入購買者資訊 (使用正確的參數名稱)
     if (params.email) {
-        tradeInfo.Payer = params.userName || '';
-        tradeInfo.Email = params.email;
+        tradeInfo.UsrMail = params.email;
     }
 
     // 將參數轉為 URL encoded query string
