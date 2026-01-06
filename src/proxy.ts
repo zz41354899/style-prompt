@@ -37,9 +37,9 @@ export async function proxy(request: NextRequest) {
         data: { user },
     } = await supabase.auth.getUser();
 
-    // Debug logging
+    // Debug logging (僅開發環境)
     const path = request.nextUrl.pathname;
-    if (path.startsWith('/pro/admin') || path.startsWith('/debug')) {
+    if (process.env.NODE_ENV !== 'production' && (path.startsWith('/pro/admin') || path.startsWith('/debug'))) {
         console.log('=== MIDDLEWARE DEBUG ===');
         console.log('Path:', path);
         console.log('User exists:', !!user);
@@ -101,6 +101,6 @@ export const config = {
          * - favicon.ico (favicon file)
          * - public files (images, etc)
          */
-        '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+        '/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
     ],
 };

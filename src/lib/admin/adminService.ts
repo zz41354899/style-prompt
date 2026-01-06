@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/supabaseClient';
+import { Purchase } from '@/lib/purchaseService';
 
 // ============================================
 // Admin Service - 管理後台 API 服務
@@ -396,7 +397,7 @@ export const fetchChangelogStats = async (): Promise<{
  * 取得所有購買記錄 (Admin only)
  */
 export const fetchAllPurchases = async (): Promise<{
-    data: any[] | null;
+    data: Purchase[] | null;
     error: Error | null;
 }> => {
     try {

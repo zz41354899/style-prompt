@@ -60,7 +60,9 @@ export const useSupabaseAuth = () => {
 
         // 監聽 auth 狀態變化
         const { data: { subscription } } = supabase.auth.onAuthStateChange(
-            async (_event, session) => {
+            async (event, session) => {
+                console.log('[useSupabaseAuth] Auth State Change:', event, session?.user?.email);
+
                 setSession(session);
                 setUser(session?.user ?? null);
 
@@ -70,11 +72,14 @@ export const useSupabaseAuth = () => {
                     setRole(userRole);
 
                     // 同時更新 Profile 名稱
+                    console.log('[useSupabaseAuth] Fetching profile on auth change...');
                     const { data: profile } = await supabase
                         .from('profiles')
                         .select('display_name')
                         .eq('id', session.user.id)
                         .single();
+
+                    console.log('[useSupabaseAuth] Profile fetched on auth change:', profile?.display_name);
 
                     if (profile?.display_name) {
                         setProfileName(profile.display_name);
@@ -92,6 +97,11 @@ export const useSupabaseAuth = () => {
         };
     }, []);
 
+    // DEBUG: 監控 profileName 變化
+    useEffect(() => {
+        console.log('[useSupabaseAuth] profileName changed to:', profileName);
+    }, [profileName]);
+
     const signOut = async () => {
         await supabase.auth.signOut();
     };
@@ -99,42 +109,144 @@ export const useSupabaseAuth = () => {
     // 更新使用者名稱（同時更新 auth.users 和 profiles 表）
     const updateUserName = async (name: string): Promise<{ error: Error | null }> => {
         try {
-            // 1. 更新 auth.users 的 user_metadata
-            const { error: authError } = await supabase.auth.updateUser({
-                data: { name, display_name: name }
-            });
-            if (authError) {
-                return { error: new Error(authError.message) };
+            if (!user) {
+                console.error('[useSupabaseAuth] No user found for update');
+                return { error: new Error('User not found') };
             }
 
-            // 2. 更新 profiles 表
-            if (user) {
-                const { error: profileError } = await supabase
-                    .from('profiles')
-                    .update({ display_name: name, updated_at: new Date().toISOString() })
-                    .eq('id', user.id);
+            // DEBUG: 打印詳細環境變數與參數
+            const sbUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+            const sbKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+            console.log('[useSupabaseAuth] Environment Check:', {
+                urlExists: !!sbUrl,
+                urlValue: sbUrl,
+                keyExists: !!sbKey
+            });
+            console.log('[useSupabaseAuth] Target Name:', name);
 
-                if (profileError) {
-                    console.warn('Failed to update profile:', profileError.message);
-                    // 不回傳錯誤，因為 auth 已成功更新
+            if (!name) {
+                console.warn('[useSupabaseAuth] Warning: Name is empty');
+            }
+
+            // 建立超時 Promise
+            const timeoutPromise = (ms: number, context: string) => new Promise((_, reject) =>
+                setTimeout(() => reject(new Error(`${context} timed out after ${ms}ms`)), ms)
+            );
+
+            // 1. Auth Update (使用 Raw Fetch 繞過 potential client library issue)
+            const updateAuthRaw = async () => {
+                // 優化：直接使用 Hook 狀態中的 session，避免再次 await getSession() 卡住
+                const currentToken = session?.access_token;
+
+                if (!currentToken) {
+                    console.error('[useSupabaseAuth] No access token in current session state');
+                    throw new Error('No access token');
                 }
 
-                // 更新本地 Profile 名稱狀態
-                setProfileName(name);
+                const targetUrl = `${sbUrl}/auth/v1/user`;
+                console.log('[useSupabaseAuth] Fetching URL:', targetUrl);
 
-                // 更新本地 user state (為了相容性)
-                setUser({
-                    ...user,
+                const response = await fetch(targetUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${currentToken}`,
+                        'apikey': sbKey!
+                    },
+                    body: JSON.stringify({
+                        data: { name, display_name: name }
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    console.error('[useSupabaseAuth] Fetch Response Error:', response.status, errorData);
+                    throw new Error(errorData.msg || errorData.error_description || `Auth update failed: ${response.status}`);
+                }
+
+                return await response.json();
+            };
+
+            const authUpdatePromise = Promise.race([
+                updateAuthRaw(),
+                timeoutPromise(10000, 'Auth update (fetch)')
+            ]);
+
+            // 2. Profile Update (也改用 Raw Fetch 以避免 Client Library 卡住)
+            const updateProfileRaw = async () => {
+                const currentToken = session?.access_token;
+                if (!currentToken) throw new Error('No access token');
+
+                const targetUrl = `${sbUrl}/rest/v1/profiles?id=eq.${user.id}`;
+
+                const response = await fetch(targetUrl, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${currentToken}`,
+                        'apikey': sbKey!,
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify({
+                        display_name: name,
+                        updated_at: new Date().toISOString()
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    console.error('[useSupabaseAuth] Profile Fetch Error:', response.status, errorData);
+                    throw new Error(`Profile update failed: ${response.status}`);
+                }
+
+                return { success: true };
+            };
+
+            const profileUpdatePromise = Promise.race([
+                updateProfileRaw(),
+                timeoutPromise(10000, 'Profile update (fetch)')
+            ]);
+
+            // 使用 Promise.allSettled 確保任一邊失敗/超時都不會中斷流程
+            const results = await Promise.allSettled([authUpdatePromise, profileUpdatePromise]);
+
+            const authResult = results[0];
+            const profileResult = results[1];
+
+            // 檢查 Auth 更新結果
+            if (authResult.status === 'rejected') {
+                console.error('[useSupabaseAuth] Auth update CRASH/TIMEOUT (fetch):', authResult.reason);
+                return { error: new Error('Auth update failed or timed out') };
+            } else {
+                console.log('[useSupabaseAuth] Auth update SUCCESS (fetch)');
+            }
+
+            // 檢查 Profile 更新結果
+            if (profileResult.status === 'rejected') {
+                console.warn('[useSupabaseAuth] Profile update CRASH/TIMEOUT:', profileResult.reason);
+            } else {
+                console.log('[useSupabaseAuth] Profile update SUCCESS (fetch)');
+            }
+
+            // 3. 更新本地狀態
+            setProfileName(name);
+
+            setUser(prevUser => {
+                if (!prevUser) return null;
+                return {
+                    ...prevUser,
                     user_metadata: {
-                        ...user.user_metadata,
+                        ...prevUser.user_metadata,
                         name,
                         display_name: name
                     }
-                });
-            }
+                };
+            });
 
+            console.log('[useSupabaseAuth] All updates finished');
             return { error: null };
         } catch (e) {
+            console.error('[useSupabaseAuth] Unexpected error during update:', e);
             return { error: e as Error };
         }
     };

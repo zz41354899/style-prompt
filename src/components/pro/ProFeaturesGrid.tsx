@@ -155,11 +155,25 @@ export const ProFeaturesGrid: React.FC = () => {
             <div className="max-w-[1000px] mx-auto px-4">
 
                 {/* Section Header */}
-                <div className="flex items-center justify-between text-white/40 text-sm font-medium mb-8 px-2">
-                    <div className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-[0_0_8px_currentColor]" />
-                        Pro Features Collection
-                    </div>
+                <div className="mb-12 px-2 text-center">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                        className="flex flex-col items-center"
+                    >
+                        <div className="flex items-center gap-2 text-purple-400 font-medium mb-3">
+                            <Sparkles className="w-4 h-4" />
+                            <span className="text-xs font-bold tracking-wider uppercase">{t('pro.features.badge')}</span>
+                        </div>
+                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
+                            {t('pro.features.title')}
+                        </h2>
+                        <p className="text-white/60 max-w-2xl text-lg leading-relaxed">
+                            {t('pro.features.subtitle')}
+                        </p>
+                    </motion.div>
                 </div>
 
                 {/* Grid */}

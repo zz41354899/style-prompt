@@ -17,7 +17,6 @@ export const S36Chalkboard = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet
 
     // SVG Filter for rough edges (simulated via border-radius and shadows for simplicity in React without external assets)
     const chalkBorder = "border-[3px] border-white/60 rounded-[255px_15px_225px_15px/15px_225px_15px_255px] shadow-[2px_2px_4px_rgba(0,0,0,0.2)]";
-    const chalkText = "font-handwriting drop-shadow-[1px_1px_0_rgba(0,0,0,0.3)]";
 
     return (
         <div className="min-h-screen font-handwriting text-white selection:bg-white/20 selection:text-white overflow-x-hidden relative" style={{ background: boardTexture }}>
@@ -72,30 +71,30 @@ export const S36Chalkboard = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet
                     <div className="absolute inset-0 bg-black/50" onClick={() => setMenuOpen(false)} />
                     <div className="absolute right-0 top-0 bottom-0 w-64 bg-black/95 backdrop-blur-xl border-l border-white/10 p-6 pt-24 pointer-events-auto">
                         <div className="flex flex-col gap-6">
-                            
-                            <a 
-                                href="#" 
+
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Lessons
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Homework
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >
                                 Grades
                             </a>
-                            <a 
-                                href="#" 
+                            <a
+                                href="#"
                                 onClick={() => setMenuOpen(false)}
                                 className="text-lg font-bold text-white hover:opacity-70 transition-opacity"
                             >

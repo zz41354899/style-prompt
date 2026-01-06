@@ -5,7 +5,13 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles, Play, Crown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { Globe } from '@/components/common/Globe';
+import dynamic from 'next/dynamic';
+
+// Lazy load the heavy Globe component
+const Globe = dynamic(() => import('@/components/common/Globe').then(mod => mod.Globe), {
+    ssr: false,
+    loading: () => <div className="w-[600px] h-[600px] rounded-full bg-purple-500/5 animate-pulse" />
+});
 
 export const ProHeroSection: React.FC = () => {
     const { t, i18n } = useTranslation();

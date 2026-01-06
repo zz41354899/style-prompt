@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { createServerClient } from '@supabase/ssr';
+import { cookies } from 'next/headers';
 import { supabaseAdmin } from '@/lib/supabaseAdmin';
 
 /**
@@ -9,9 +11,49 @@ import { supabaseAdmin } from '@/lib/supabaseAdmin';
  *   email: string,
  *   role: 'free' | 'pro' | 'admin'
  * }
+ * 
+ * ⚠️ 此 API 需要 Admin 權限
  */
 export async function POST(request: NextRequest) {
     try {
+        // 🛡️ 驗證呼叫者是否為 Admin
+        const cookieStore = await cookies();
+        const supabase = createServerClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL!,
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+            {
+                cookies: {
+                    getAll() {
+                        return cookieStore.getAll();
+                    },
+                    setAll(cookiesToSet) {
+                        cookiesToSet.forEach(({ name, value, options }) => {
+                            cookieStore.set(name, value, options);
+                        });
+                    },
+                },
+            }
+        );
+
+        const { data: { user }, error: authError } = await supabase.auth.getUser();
+
+        if (authError || !user) {
+            return NextResponse.json(
+                { error: 'Unauthorized - Please login' },
+                { status: 401 }
+            );
+        }
+
+        // 檢查是否為 Admin
+        const callerRole = user.app_metadata?.role;
+        if (callerRole !== 'admin') {
+            console.warn(`[set-role] Unauthorized attempt by ${user.email} (role: ${callerRole})`);
+            return NextResponse.json(
+                { error: 'Forbidden - Admin only' },
+                { status: 403 }
+            );
+        }
+
         const { email, role } = await request.json();
 
         // 驗證參數
