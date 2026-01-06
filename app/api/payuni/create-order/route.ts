@@ -119,6 +119,15 @@ export async function POST(request: Request) {
 
         console.log('✅ PayUNi order created and saved to DB:', orderId);
 
+        // 顯示將發送到 PayUNi 的資料
+        console.log('📤 [create-order] 送往 PayUNi 的資料:');
+        console.log('   formAction:', config.apiUrl);
+        console.log('   MerID:', orderRequest.MerID);
+        console.log('   Version:', orderRequest.Version);
+        console.log('   EncryptInfo 長度:', orderRequest.EncryptInfo.length);
+        console.log('   EncryptInfo 預覽:', orderRequest.EncryptInfo.substring(0, 50) + '...');
+        console.log('   HashInfo:', orderRequest.HashInfo);
+
         // 回傳表單資料，前端使用 form POST 提交到 PayUNi
         return NextResponse.json({
             success: true,

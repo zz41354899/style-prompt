@@ -88,49 +88,73 @@ export function getPayuniConfig(): PayuniConfig {
 }
 
 /**
- * AES-128-CBC 加密 (PayUNi 使用 AES-128)
+ * AES-256-GCM 加密 (PayUNi 官方規格)
+ * 輸出格式: hex(encrypted + ':::' + base64(authTag))
  * @param data - 要加密的資料（URL encoded query string）
- * @param key - Hash Key (取前 16 bytes)
- * @param iv - Hash IV (取前 16 bytes)
+ * @param key - Hash Key
+ * @param iv - Hash IV
  */
 export function aesEncrypt(data: string, key: string, iv: string): string {
-    // PayUNi 使用 AES-128-CBC，Key 需為 16 bytes，IV 需為 16 bytes
-    const keyBuffer = Buffer.from(key.substring(0, 16), 'utf8');
-    const ivBuffer = Buffer.from(iv.substring(0, 16), 'utf8');
+    const keyBuffer = Buffer.from(key.trim(), 'utf8');
+    const ivBuffer = Buffer.from(iv.trim(), 'utf8');
 
-    const cipher = crypto.createCipheriv('aes-128-cbc', keyBuffer, ivBuffer);
-    let encrypted = cipher.update(data, 'utf8', 'hex');
-    encrypted += cipher.final('hex');
+    const cipher = crypto.createCipheriv('aes-256-gcm', keyBuffer, ivBuffer);
+    let encrypted = cipher.update(data, 'utf8');
+    encrypted = Buffer.concat([encrypted, cipher.final()]);
+    const authTag = cipher.getAuthTag();
 
-    return encrypted;
+    // PHP openssl_encrypt 預設輸出 base64，所以格式是:
+    // hex( base64(encrypted) + ':::' + base64(authTag) )
+    const encryptedBase64 = encrypted.toString('base64');
+    const tagBase64 = authTag.toString('base64');
+    const combined = encryptedBase64 + ':::' + tagBase64;
+
+    return Buffer.from(combined, 'utf8').toString('hex');
 }
 
 /**
- * AES-128-CBC 解密
+ * AES-256-GCM 解密 (PayUNi 官方規格)
+ * 輸入格式: hex(base64(encrypted) + ':::' + base64(authTag))
  * @param encryptedData - 加密後的 hex 字串
  * @param key - Hash Key
  * @param iv - Hash IV
  */
 export function aesDecrypt(encryptedData: string, key: string, iv: string): string {
-    const keyBuffer = Buffer.from(key.substring(0, 16), 'utf8');
-    const ivBuffer = Buffer.from(iv.substring(0, 16), 'utf8');
+    const keyBuffer = Buffer.from(key.trim(), 'utf8');
+    const ivBuffer = Buffer.from(iv.trim(), 'utf8');
 
-    const decipher = crypto.createDecipheriv('aes-128-cbc', keyBuffer, ivBuffer);
-    let decrypted = decipher.update(encryptedData, 'hex', 'utf8');
-    decrypted += decipher.final('utf8');
+    // 將 hex 轉回 utf8 字串
+    const combinedString = Buffer.from(encryptedData, 'hex').toString('utf8');
 
-    return decrypted;
+    // 分離加密資料和 authTag (都是 base64 格式)
+    const [encryptedBase64, tagBase64] = combinedString.split(':::');
+
+    if (!encryptedBase64 || !tagBase64) {
+        throw new Error('EncryptInfo 格式錯誤，無法分離加密資料和 authTag');
+    }
+
+    const encryptedBuffer = Buffer.from(encryptedBase64, 'base64');
+    const authTag = Buffer.from(tagBase64, 'base64');
+
+    const decipher = crypto.createDecipheriv('aes-256-gcm', keyBuffer, ivBuffer);
+    decipher.setAuthTag(authTag);
+
+    let decrypted = decipher.update(encryptedBuffer);
+    decrypted = Buffer.concat([decrypted, decipher.final()]);
+
+    return decrypted.toString('utf8');
 }
 
 /**
  * 產生 SHA256 Hash（用於 HashInfo 驗證）
- * 格式: HashKey=xxx&EncryptInfo&HashIV=xxx
+ * PayUNi 格式: Key + EncryptInfo + IV (無等號！)
  * @param encryptInfo - 加密後的資料
  * @param key - Hash Key
  * @param iv - Hash IV
  */
 export function generateHash(encryptInfo: string, key: string, iv: string): string {
-    const hashString = `HashKey=${key}&${encryptInfo}&HashIV=${iv}`;
+    // PayUNi 官方格式: merKey + encryptInfo + merIV (直接連接，沒有等號)
+    const hashString = key + encryptInfo + iv;
     return crypto.createHash('sha256').update(hashString).digest('hex').toUpperCase();
 }
 
