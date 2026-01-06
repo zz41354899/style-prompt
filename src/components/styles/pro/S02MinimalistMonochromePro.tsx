@@ -71,7 +71,9 @@ export const S02MinimalistMonochromePro = ({ deviceMode }: { deviceMode?: 'deskt
 
                     <div className="flex items-center gap-4">
                         {!isMobile && <button style={{ fontSize: '14px', fontWeight: 500, background: 'none', border: 'none', cursor: 'pointer' }}>Log in</button>}
-                        <button style={{ backgroundColor: colors.accent, color: colors.text.inverse, padding: '10px 20px', fontSize: '14px', fontWeight: 500, border: 'none', cursor: 'pointer' }}>Get Started</button>
+                        {!isMobile && (
+                            <button style={{ backgroundColor: colors.accent, color: colors.text.inverse, padding: '10px 20px', fontSize: '14px', fontWeight: 500, border: 'none', cursor: 'pointer' }}>Get Started</button>
+                        )}
                         {isMobile && (
                             <button onClick={() => setMenuOpen(!menuOpen)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
                                 {menuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -79,6 +81,15 @@ export const S02MinimalistMonochromePro = ({ deviceMode }: { deviceMode?: 'deskt
                         )}
                     </div>
                 </div>
+
+                {menuOpen && isMobile && (
+                    <div style={{ borderTop: `1px solid ${colors.border.subtle}`, padding: '16px 24px' }}>
+                        {['Platform', 'Showcase', 'Pricing', 'Documentation'].map((item) => (
+                            <div key={item} style={{ padding: '12px 0', fontSize: '14px', fontWeight: 500, color: colors.text.secondary }}>{item}</div>
+                        ))}
+                        <button className="w-full mt-4" style={{ backgroundColor: colors.accent, color: colors.text.inverse, padding: '12px 20px', fontSize: '14px', fontWeight: 500, border: 'none', cursor: 'pointer' }}>Get Started</button>
+                    </div>
+                )}
             </header>
 
             {/* ========== 2. HERO SECTION ========== */}

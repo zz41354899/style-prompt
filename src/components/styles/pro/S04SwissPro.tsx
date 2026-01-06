@@ -15,7 +15,7 @@ export const S04SwissPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
     return (
         <div className="min-h-screen" style={{ backgroundColor: colors.bg, color: colors.text, fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif' }}>
             {/* ========== 1. NAV ========== */}
-            <header className="fixed top-0 w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-200">
+            <header className="sticky top-0 w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-200">
                 <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                         <div className="w-6 h-6 bg-red-600 rounded-sm" />
@@ -43,16 +43,17 @@ export const S04SwissPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
 
                 {/* Mobile Menu */}
                 {menuOpen && isMobile && (
-                    <div className="fixed inset-0 top-20 bg-white z-40 p-6 flex flex-col gap-6">
+                    <div className="bg-white p-6 flex flex-col gap-4 border-t border-gray-200">
                         {['Typefaces', 'Foundry', 'Licenses', 'About'].map(item => (
-                            <a key={item} className="text-2xl font-bold uppercase border-b-2 border-transparent hover:border-red-600 w-fit">{item}</a>
+                            <a key={item} className="text-xl font-bold uppercase border-b-2 border-transparent hover:border-red-600 w-fit">{item}</a>
                         ))}
+                        <button className="bg-black text-white px-6 py-3 text-sm font-bold uppercase tracking-wider hover:bg-red-600 transition-colors w-full mt-4">Get Trial</button>
                     </div>
                 )}
             </header>
 
             {/* ========== 2. HERO ========== */}
-            <section className="pt-32 pb-20 px-6">
+            <section className="pt-12 pb-20 px-6">
                 <div className="max-w-7xl mx-auto" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(12, 1fr)', gap: '3rem' }}>
                     <div style={{ gridColumn: isMobile ? 'span 1' : 'span 8' }}>
                         <h1 style={{ fontSize: isMobile ? '60px' : '120px', lineHeight: 0.85, fontWeight: 'bold', letterSpacing: '-0.05em', marginBottom: '3rem' }}>

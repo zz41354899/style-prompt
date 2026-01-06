@@ -106,3 +106,18 @@ button:focus-visible {
 .delay-500 {
   animation-delay: 500ms;
 }
+
+/* Shimmer animation for promo bar */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 3s infinite;
+}

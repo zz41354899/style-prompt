@@ -9,11 +9,12 @@ import {
     HeroSection,
     FeaturesSection,
     WorkflowBento,
-    PricingSection,
     FaqSection,
     CtaSection,
+    ContactSection,
     Footer,
     BentoModal,
+    PromoTopBar,
     type BentoItem
 } from './landing';
 
@@ -53,6 +54,9 @@ export const LandingPage: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-[#030303] text-white selection:bg-purple-500/30">
+            {/* Pro Promo Top Bar */}
+            <PromoTopBar />
+
             {/* Background Gradients */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none">
                 <motion.div
@@ -85,14 +89,14 @@ export const LandingPage: React.FC = () => {
             {/* Workflow Bento Grid */}
             <WorkflowBento onSelectBento={setSelectedBento} />
 
-            {/* Pricing Section */}
-            <PricingSection />
-
             {/* FAQ Section */}
             <FaqSection />
 
             {/* Final CTA Section */}
             <CtaSection />
+
+            {/* Contact Section */}
+            <ContactSection />
 
             {/* Footer */}
             <Footer />

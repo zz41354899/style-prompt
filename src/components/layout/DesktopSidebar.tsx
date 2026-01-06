@@ -1,21 +1,19 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
-import { styles, hasProVersion } from '@/data/styles';
+import { Sparkles } from 'lucide-react';
+import { styles } from '@/data/styles';
 import { useLayoutContext } from './LayoutContext';
-import { TierSwitcher } from './TierSwitcher';
 import { StyleListItem } from './StyleListItem';
-import { PromoBar } from './PromoBar';
 
 export const DesktopSidebar: React.FC = () => {
     const { t } = useTranslation();
-    const { selectedStyle, previewTier, setPreviewTier, handleStyleSelect } =
-        useLayoutContext();
+    const { selectedStyle, handleStyleSelect } = useLayoutContext();
 
-    const filteredStyles = styles.filter((style) =>
-        previewTier === 'free' ? true : hasProVersion(style.id)
-    );
+    // Free 版本固定顯示所有 100 個風格，previewTier 固定為 'free'
+    const previewTier = 'free';
 
     return (
         <aside className="hidden lg:flex flex-col w-72 border-r border-white/10 bg-[#0a0a0a]">
@@ -24,21 +22,21 @@ export const DesktopSidebar: React.FC = () => {
                     {t('layout.designStyles')}
                 </h2>
                 <p className="text-xs text-white/40 mt-1">
-                    {previewTier === 'free'
-                        ? t('layout.stylesAvailable', { count: styles.length })
-                        : t('layout.proStylesAvailable', { count: 10 }) ||
-                        `${10} 個進階風格預覽`}
+                    {t('layout.stylesAvailable', { count: styles.length })}
                 </p>
 
-                {/* Free/Pro Mode Switcher */}
-                <div className="mt-3">
-                    <TierSwitcher previewTier={previewTier} setPreviewTier={setPreviewTier} />
-                </div>
-                <PromoBar />
+                {/* Pro 升級提示 */}
+                <Link
+                    href="/pro"
+                    className="mt-3 flex items-center gap-2 px-3 py-2 bg-purple-600/10 border border-purple-500/20 rounded-xl text-xs text-purple-300 hover:bg-purple-600/20 transition-colors group"
+                >
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>升級 Pro 解鎖進階風格</span>
+                </Link>
             </div>
 
             <div className="flex-1 overflow-y-auto">
-                {filteredStyles.map((style) => (
+                {styles.map((style) => (
                     <StyleListItem
                         key={style.id}
                         style={style}

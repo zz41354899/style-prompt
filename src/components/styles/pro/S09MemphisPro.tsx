@@ -29,7 +29,7 @@ export const S09MemphisPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet
             <div className="absolute bottom-16 right-16 w-12 h-12" style={{ backgroundColor: colors.pink }} />
 
             {/* ========== HEADER ========== */}
-            <header className="relative z-20 p-6">
+            <header className="sticky top-0 z-20 p-6" style={{ backgroundColor: 'rgba(79, 66, 181, 0.95)' }}>
                 <div className="max-w-7xl mx-auto flex justify-between items-center p-4 bg-white border-[3px] border-black" style={{ boxShadow: shadow(5) }}>
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-full flex items-center justify-center border-[3px] border-black" style={{ backgroundColor: colors.pink, boxShadow: '3px 3px 0 #000' }}>

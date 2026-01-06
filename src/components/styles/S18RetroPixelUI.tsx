@@ -54,24 +54,29 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
   };
 
   return (
-    <div 
+    <div
       className="min-h-screen relative overflow-hidden"
-      style={{ 
+      style={{
         backgroundColor: colors.background.canvas,
         color: colors.text.primary,
-        fontFamily: '"Inter", system-ui, sans-serif',
-        fontSize: '16px',
+        fontFamily: '"VT323", monospace',
+        fontSize: '18px',
         lineHeight: 1.6,
       }}
     >
+      {/* Google Fonts Import */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+      `}} />
       {/* Pixel grid background */}
-      <div 
-        className="absolute inset-0 pointer-events-none" 
+      <div
+        className="absolute inset-0 pointer-events-none"
         style={pixelGridStyle}
       />
-      
+
       {/* Scanline overlay */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none opacity-6"
         style={{
           backgroundImage: 'linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px)',
@@ -80,9 +85,9 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
       />
 
       {/* Top Navigation */}
-      <header 
+      <header
         className="relative z-10 sticky top-0 backdrop-blur-sm"
-        style={{ 
+        style={{
           backgroundColor: `${colors.background.surface}CC`,
           borderBottom: `1px solid ${colors.border.default}`,
           padding: `${spacing.sm} 0`,
@@ -91,7 +96,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
         <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
           <div className="flex items-center gap-4">
             {/* Logo */}
-            <div 
+            <div
               className="flex items-center justify-center"
               style={{
                 width: '32px',
@@ -101,7 +106,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
                 boxShadow: shadows.pixelSm,
               }}
             >
-              <div 
+              <div
                 style={{
                   width: '12px',
                   height: '12px',
@@ -110,7 +115,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
               />
             </div>
             <div>
-              <div 
+              <div
                 style={{
                   fontSize: '10px',
                   letterSpacing: '0.25em',
@@ -121,7 +126,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
               >
                 PIXEL OPS
               </div>
-              <div 
+              <div
                 style={{
                   fontSize: '14px',
                   fontWeight: 'bold',
@@ -137,7 +142,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
           {/* Desktop Navigation */}
           <nav className={`${isDesktop ? 'flex' : 'hidden'} items-center gap-8`}>
             {['Features', 'Pricing', 'Docs', 'About'].map((item) => (
-              <span 
+              <span
                 key={item}
                 className="cursor-pointer hover:text-white transition-colors"
                 style={{
@@ -205,7 +210,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
           >
             <div className="max-w-6xl mx-auto px-6 space-y-3">
               {['Features', 'Pricing', 'Docs', 'About'].map((item) => (
-                <span 
+                <span
                   key={item}
                   className="block cursor-pointer"
                   style={{
@@ -249,7 +254,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
             {/* Left Column - Content */}
             <div style={{ gridColumn: isMobile ? 'span 1' : 'span 7' }}>
               {/* Badge */}
-              <div 
+              <div
                 className="inline-flex items-center gap-2 mb-6"
                 style={{
                   backgroundColor: colors.background.surface,
@@ -261,8 +266,8 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
                 <span style={{ color: colors.accent.warning, fontSize: '10px', fontWeight: 'bold' }}>
                   NEW
                 </span>
-                <span style={{ 
-                  fontSize: '10px', 
+                <span style={{
+                  fontSize: '10px',
                   letterSpacing: '0.25em',
                   color: colors.text.secondary,
                   textTransform: 'uppercase',
@@ -272,7 +277,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
               </div>
 
               {/* Headline */}
-              <h1 
+              <h1
                 style={{
                   fontSize: 'clamp(32px, 5vw, 56px)',
                   fontWeight: '900',
@@ -288,7 +293,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
               </h1>
 
               {/* Description */}
-              <p 
+              <p
                 style={{
                   fontSize: '16px',
                   color: colors.text.secondary,
@@ -363,7 +368,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
 
             {/* Right Column - ASCII Art / Pixel Illustration */}
             <div style={{ gridColumn: isMobile ? 'span 1' : 'span 5' }}>
-              <div 
+              <div
                 style={{
                   backgroundColor: colors.background.surface,
                   border: `1px solid ${colors.border.default}`,
@@ -377,7 +382,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
                 <div className="text-center mb-4" style={{ color: colors.text.muted }}>
                   SYSTEM STATUS v1.0
                 </div>
-                
+
                 {/* ASCII Art Representation */}
                 <pre style={{
                   color: colors.accent.primary,
@@ -386,7 +391,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
                   fontSize: '8px',
                   lineHeight: 1,
                 }}>
-{`╔════════════════════╗
+                  {`╔════════════════════╗
 ║   ██████╗   ██████╗  ║
 ║   ██╔══██╗ ██╔════╝  ║
 ║   ██║  ██║ ██║       ║
@@ -403,7 +408,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
                     { label: 'QUEUE', value: '12 JOBS', color: colors.accent.warning },
                     { label: 'ALERTS', value: '0', color: colors.text.secondary },
                   ].map((item) => (
-                    <div 
+                    <div
                       key={item.label}
                       className="flex justify-between items-center"
                       style={{
@@ -413,16 +418,16 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
                         padding: '8px 12px',
                       }}
                     >
-                      <span style={{ 
-                        fontSize: '10px', 
+                      <span style={{
+                        fontSize: '10px',
                         fontWeight: '600',
                         letterSpacing: '0.1em',
                         color: colors.text.secondary,
                       }}>
                         {item.label}
                       </span>
-                      <span style={{ 
-                        fontSize: '10px', 
+                      <span style={{
+                        fontSize: '10px',
                         fontWeight: '900',
                         letterSpacing: '0.1em',
                         color: item.color,
@@ -435,8 +440,8 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
 
                 {/* Integration Tags */}
                 <div style={{ marginTop: spacing.md }}>
-                  <div style={{ 
-                    fontSize: '10px', 
+                  <div style={{
+                    fontSize: '10px',
                     letterSpacing: '0.25em',
                     color: colors.text.muted,
                     marginBottom: '8px',
@@ -476,7 +481,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
       {/* Metrics / Social Proof */}
       <section style={{ padding: `${spacing.lg} ${spacing.sm}` }}>
         <div className="max-w-6xl mx-auto">
-          <div 
+          <div
             className="grid gap-4"
             style={{
               gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
@@ -493,7 +498,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
               { value: '24/7', label: 'Support' },
             ].map((metric) => (
               <div key={metric.label} className="text-center">
-                <div 
+                <div
                   style={{
                     fontSize: '24px',
                     fontWeight: '900',
@@ -504,7 +509,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
                 >
                   {metric.value}
                 </div>
-                <div 
+                <div
                   style={{
                     fontSize: '10px',
                     letterSpacing: '0.25em',
@@ -524,7 +529,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
       <section style={{ padding: `${spacing.lg} ${spacing.sm}` }}>
         <div className="max-w-6xl mx-auto">
           <div style={{ marginBottom: spacing.lg }}>
-            <div 
+            <div
               style={{
                 fontSize: '10px',
                 letterSpacing: '0.25em',
@@ -536,7 +541,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
               CORE FEATURES
             </div>
           </div>
-          
+
           <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
             {[
               {
@@ -580,7 +585,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
                 }}
               >
                 {/* Icon */}
-                <div 
+                <div
                   style={{
                     width: '40px',
                     height: '40px',
@@ -598,9 +603,9 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
                 >
                   {feature.icon}
                 </div>
-                
+
                 {/* Content */}
-                <h3 
+                <h3
                   style={{
                     fontSize: '18px',
                     fontWeight: '900',
@@ -610,7 +615,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
                 >
                   {feature.title}
                 </h3>
-                <p 
+                <p
                   style={{
                     fontSize: '14px',
                     color: colors.text.secondary,
@@ -629,7 +634,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
       <section style={{ padding: `${spacing.lg} ${spacing.sm}` }}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center" style={{ marginBottom: spacing.lg }}>
-            <div 
+            <div
               style={{
                 fontSize: '10px',
                 letterSpacing: '0.25em',
@@ -640,7 +645,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
             >
               INTEGRATIONS
             </div>
-            <h2 
+            <h2
               style={{
                 fontSize: '24px',
                 fontWeight: '900',
@@ -650,8 +655,8 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
               Connects with your stack
             </h2>
           </div>
-          
-          <div 
+
+          <div
             className="grid gap-4"
             style={{
               gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
@@ -703,7 +708,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
       <section style={{ padding: `${spacing.lg} ${spacing.sm}` }}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center" style={{ marginBottom: spacing.lg }}>
-            <div 
+            <div
               style={{
                 fontSize: '10px',
                 letterSpacing: '0.25em',
@@ -714,7 +719,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
             >
               PRICING
             </div>
-            <h2 
+            <h2
               style={{
                 fontSize: '24px',
                 fontWeight: '900',
@@ -724,7 +729,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
               Simple, transparent pricing
             </h2>
           </div>
-          
+
           <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
             {[
               {
@@ -753,8 +758,8 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
                 key={plan.name}
                 style={{
                   backgroundColor: colors.background.surface,
-                  border: plan.popular 
-                    ? `2px solid ${colors.accent.primary}` 
+                  border: plan.popular
+                    ? `2px solid ${colors.accent.primary}`
                     : `1px solid ${colors.border.default}`,
                   boxShadow: shadows.pixelMd,
                   padding: spacing.lg,
@@ -780,9 +785,9 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
                     Most Popular
                   </div>
                 )}
-                
+
                 <div style={{ textAlign: 'center', marginBottom: spacing.md, marginTop: plan.popular ? '8px' : '0' }}>
-                  <h3 
+                  <h3
                     style={{
                       fontSize: '20px',
                       fontWeight: '900',
@@ -791,7 +796,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
                   >
                     {plan.name}
                   </h3>
-                  <div 
+                  <div
                     style={{
                       fontSize: '32px',
                       fontWeight: '900',
@@ -806,10 +811,10 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
                     {plan.description}
                   </p>
                 </div>
-                
+
                 <div style={{ marginBottom: spacing.lg }}>
                   {plan.features.map((feature) => (
-                    <div 
+                    <div
                       key={feature}
                       className="flex items-center gap-2"
                       style={{ marginBottom: '8px' }}
@@ -819,18 +824,18 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
                     </div>
                   ))}
                 </div>
-                
+
                 <button
                   style={{
                     width: '100%',
-                    backgroundColor: plan.popular 
-                      ? colors.accent.primary 
+                    backgroundColor: plan.popular
+                      ? colors.accent.primary
                       : 'transparent',
-                    color: plan.popular 
-                      ? colors.background.canvas 
+                    color: plan.popular
+                      ? colors.background.canvas
                       : colors.text.primary,
-                    border: plan.popular 
-                      ? `1px solid ${colors.accent.primary}` 
+                    border: plan.popular
+                      ? `1px solid ${colors.accent.primary}`
                       : `1px solid ${colors.border.default}`,
                     boxShadow: shadows.pixelSm,
                     padding: '12px',
@@ -853,7 +858,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
       <section style={{ padding: `${spacing.lg} ${spacing.sm}` }}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center" style={{ marginBottom: spacing.lg }}>
-            <div 
+            <div
               style={{
                 fontSize: '10px',
                 letterSpacing: '0.25em',
@@ -864,7 +869,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
             >
               FAQ
             </div>
-            <h2 
+            <h2
               style={{
                 fontSize: '24px',
                 fontWeight: '900',
@@ -874,7 +879,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
               Frequently asked questions
             </h2>
           </div>
-          
+
           <div className="space-y-4">
             {[
               {
@@ -899,7 +904,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
                   padding: spacing.md,
                 }}
               >
-                <h3 
+                <h3
                   style={{
                     fontSize: '16px',
                     fontWeight: '700',
@@ -921,7 +926,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
       {/* Contact */}
       <section style={{ padding: `${spacing.lg} ${spacing.sm}` }}>
         <div className="max-w-4xl mx-auto">
-          <div 
+          <div
             className="text-center"
             style={{
               backgroundColor: colors.background.surface,
@@ -930,7 +935,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
               padding: `${spacing.xl} ${spacing.lg}`,
             }}
           >
-            <h2 
+            <h2
               style={{
                 fontSize: '24px',
                 fontWeight: '900',
@@ -939,7 +944,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
             >
               Ready to get started?
             </h2>
-            <p 
+            <p
               style={{
                 color: colors.text.secondary,
                 marginBottom: spacing.lg,
@@ -948,7 +953,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
             >
               Join thousands of teams already using Retro Pixel UI to build amazing products.
             </p>
-            
+
             <div className="flex flex-col md:flex-row gap-4 justify-center">
               <button
                 style={{
@@ -988,7 +993,7 @@ export const S18RetroPixelUI = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
       </section>
 
       {/* Footer */}
-      <footer 
+      <footer
         style={{
           borderTop: `1px solid ${colors.border.default}`,
           padding: `${spacing.lg} ${spacing.sm}`,

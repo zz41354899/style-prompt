@@ -9,7 +9,6 @@ export const S55Oceanic = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' |
 
     // Ocean Gradients
     const deepSea = "linear-gradient(to bottom, #006994, #001e2b)";
-    const surface = "linear-gradient(to bottom, #e0f7fa, #00bcd4)";
 
     return (
         <div className="min-h-screen font-sans text-white overflow-x-hidden relative">

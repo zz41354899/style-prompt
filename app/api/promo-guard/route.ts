@@ -1,35 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { createServerClient } from '@supabase/ssr';
+import { cookies } from 'next/headers';
 
 // ============================================
-// 伺服器端活動驗證 - 防呆機制
+// 伺服器端 Pro 風格驗證（整合使用者認證）
 // ============================================
 
-// 活動配置 (與 styles.ts 同步)
-const PROMO_CONFIG = {
-    name: 'Happy New Year 2026',
-    startDate: new Date('2025-12-26T00:00:00+08:00'),
-    endDate: new Date('2026-01-05T23:59:59+08:00'),
-    proStyleRange: { start: 1, end: 10 },
+// Pro 風格配置
+const PRO_CONFIG = {
+    proStyleRange: { start: 1, end: 21 },
 } as const;
 
-// 伺服器端時間檢查 (無法被客戶端繞過)
-function isPromoActiveServer(): boolean {
-    const now = new Date();
-    return now >= PROMO_CONFIG.startDate && now <= PROMO_CONFIG.endDate;
-}
-
-// 驗證是否可以訪問 Pro 風格
-function canAccessProStyleServer(styleId: string): boolean {
-    // 解析風格 ID
+// 驗證是否可以訪問 Pro 風格（僅檢查 styleId 範圍）
+function isStyleInProRange(styleId: string): boolean {
     const num = parseInt(styleId.replace('S', ''), 10);
 
     // 檢查是否在 Pro 範圍內
-    if (isNaN(num) || num < PROMO_CONFIG.proStyleRange.start || num > PROMO_CONFIG.proStyleRange.end) {
+    if (isNaN(num) || num < PRO_CONFIG.proStyleRange.start || num > PRO_CONFIG.proStyleRange.end) {
         return false;
     }
 
-    // 檢查活動是否進行中 (使用伺服器時間)
-    return isPromoActiveServer();
+    return true;
 }
 
 export async function POST(request: NextRequest) {
@@ -47,24 +38,66 @@ export async function POST(request: NextRequest) {
 
         // 如果請求 Pro 版，驗證權限
         if (tier === 'pro') {
-            const hasAccess = canAccessProStyleServer(styleId);
+            // 1. 檢查 styleId 是否在 Pro 範圍
+            const isInRange = isStyleInProRange(styleId);
 
-            if (!hasAccess) {
-                // 記錄可疑請求 (可選: 發送到日誌服務)
-                console.warn(`[PROMO_GUARD] Unauthorized Pro access attempt: ${styleId} at ${new Date().toISOString()}`);
-
+            if (!isInRange) {
+                console.warn(`[PRO_GUARD] Style ${styleId} not in Pro range`);
                 return NextResponse.json(
                     {
                         error: 'Pro access not available',
-                        reason: isPromoActiveServer() ? 'Style not in Pro range' : 'Promotion has ended',
-                        promoStatus: {
-                            isActive: isPromoActiveServer(),
-                            endDate: PROMO_CONFIG.endDate.toISOString(),
-                        }
+                        reason: 'Style not in Pro range',
                     },
                     { status: 403 }
                 );
             }
+
+            // 2. 檢查使用者認證和權限
+            const cookieStore = await cookies();
+            const supabase = createServerClient(
+                process.env.NEXT_PUBLIC_SUPABASE_URL!,
+                process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+                {
+                    cookies: {
+                        get(name: string) {
+                            return cookieStore.get(name)?.value;
+                        },
+                    },
+                }
+            );
+
+            const { data: { user }, error: authError } = await supabase.auth.getUser();
+
+            // 檢查是否登入
+            if (authError || !user) {
+                console.warn(`[PRO_GUARD] Unauthenticated access attempt for ${styleId}`);
+                return NextResponse.json(
+                    {
+                        error: 'Authentication required',
+                        reason: 'Please log in to access Pro styles',
+                    },
+                    { status: 401 }
+                );
+            }
+
+            // 檢查使用者角色
+            const role = user.app_metadata?.role;
+            const isPro = role === 'pro' || role === 'admin';
+
+            if (!isPro) {
+                console.warn(`[PRO_GUARD] Unauthorized Pro access: ${user.email} (role: ${role || 'free'}) attempted ${styleId}`);
+                return NextResponse.json(
+                    {
+                        error: 'Pro subscription required',
+                        reason: 'Please upgrade to Pro to access this style',
+                        userRole: role || 'free',
+                    },
+                    { status: 403 }
+                );
+            }
+
+            // 所有檢查通過
+            console.log(`[PRO_GUARD] ✅ Authorized Pro access: ${user.email} → ${styleId}`);
         }
 
         // 驗證通過，返回成功
@@ -72,16 +105,11 @@ export async function POST(request: NextRequest) {
             success: true,
             styleId,
             tier: tier || 'free',
-            promoStatus: {
-                isActive: isPromoActiveServer(),
-                name: PROMO_CONFIG.name,
-                endDate: PROMO_CONFIG.endDate.toISOString(),
-            },
             serverTime: new Date().toISOString(),
         });
 
     } catch (error) {
-        console.error('[PROMO_GUARD] Error:', error);
+        console.error('[PRO_GUARD] Error:', error);
         return NextResponse.json(
             { error: 'Internal server error' },
             { status: 500 }
@@ -89,20 +117,39 @@ export async function POST(request: NextRequest) {
     }
 }
 
-// GET 端點: 查詢活動狀態
+// GET 端點: 查詢 Pro 狀態（需要認證）
 export async function GET() {
-    const now = new Date();
-    const isActive = isPromoActiveServer();
-    const remainingMs = isActive ? PROMO_CONFIG.endDate.getTime() - now.getTime() : 0;
+    try {
+        const cookieStore = await cookies();
+        const supabase = createServerClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL!,
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+            {
+                cookies: {
+                    get(name: string) {
+                        return cookieStore.get(name)?.value;
+                    },
+                },
+            }
+        );
 
-    return NextResponse.json({
-        promoName: PROMO_CONFIG.name,
-        isActive,
-        startDate: PROMO_CONFIG.startDate.toISOString(),
-        endDate: PROMO_CONFIG.endDate.toISOString(),
-        serverTime: now.toISOString(),
-        remainingHours: isActive ? Math.floor(remainingMs / (1000 * 60 * 60)) : 0,
-        remainingMinutes: isActive ? Math.floor(remainingMs / (1000 * 60)) : 0,
-        proStyleRange: PROMO_CONFIG.proStyleRange,
-    });
+        const { data: { user } } = await supabase.auth.getUser();
+
+        const role = user?.app_metadata?.role;
+        const isPro = role === 'pro' || role === 'admin';
+
+        return NextResponse.json({
+            isAuthenticated: !!user,
+            isPro: isPro,
+            role: role || 'free',
+            serverTime: new Date().toISOString(),
+            proStyleRange: PRO_CONFIG.proStyleRange,
+        });
+    } catch (error) {
+        console.error('[PRO_GUARD] GET Error:', error);
+        return NextResponse.json(
+            { error: 'Internal server error' },
+            { status: 500 }
+        );
+    }
 }

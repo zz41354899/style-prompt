@@ -1,21 +1,18 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
-import { X } from 'lucide-react';
-import { styles, hasProVersion } from '@/data/styles';
+import { X, Sparkles } from 'lucide-react';
+import { styles } from '@/data/styles';
 import { LanguageSwitcher } from '../LanguageSwitcher';
 import { useLayoutContext } from './LayoutContext';
-import { TierSwitcher } from './TierSwitcher';
 import { StyleListItem } from './StyleListItem';
-import { PromoBar } from './PromoBar';
 
 export const MobileSidebar: React.FC = () => {
     const { t } = useTranslation();
     const {
         selectedStyle,
-        previewTier,
-        setPreviewTier,
         sidebarOpen,
         setSidebarOpen,
         handleStyleSelect,
@@ -25,9 +22,8 @@ export const MobileSidebar: React.FC = () => {
         return null;
     }
 
-    const filteredStyles = styles.filter((style) =>
-        previewTier === 'free' ? true : hasProVersion(style.id)
-    );
+    // Free 版本固定顯示所有 100 個風格
+    const previewTier = 'free';
 
     const onStyleSelect = (styleId: string) => {
         handleStyleSelect(styleId);
@@ -53,17 +49,21 @@ export const MobileSidebar: React.FC = () => {
                     </button>
                 </div>
 
-                {/* Free/Pro Mode Switcher - Mobile */}
-                <div className="p-4 border-b border-white/10">
-                    <TierSwitcher previewTier={previewTier} setPreviewTier={setPreviewTier} />
-                    <PromoBar />
-                    <div className="mt-4">
-                        <LanguageSwitcher variant="sidebar" />
-                    </div>
+                {/* Pro 升級提示 & 語言切換 - Mobile */}
+                <div className="p-4 border-b border-white/10 space-y-3">
+                    <Link
+                        href="/pro"
+                        onClick={() => setSidebarOpen(false)}
+                        className="flex items-center gap-2 px-3 py-2 bg-purple-600/10 border border-purple-500/20 rounded-xl text-xs text-purple-300 hover:bg-purple-600/20 transition-colors"
+                    >
+                        <Sparkles className="w-3.5 h-3.5" />
+                        <span>升級 Pro 解鎖進階風格</span>
+                    </Link>
+                    <LanguageSwitcher variant="sidebar" />
                 </div>
 
                 <div className="flex-1 overflow-y-auto">
-                    {filteredStyles.map((style) => (
+                    {styles.map((style) => (
                         <StyleListItem
                             key={style.id}
                             style={style}

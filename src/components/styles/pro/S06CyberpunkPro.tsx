@@ -21,7 +21,7 @@ export const S06CyberpunkPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
     return (
         <div className="min-h-screen font-mono uppercase" style={{ backgroundColor: colors.bg, color: colors.text, backgroundImage: 'linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
             {/* ========== 1. HEADER ========== */}
-            <header className="fixed top-0 w-full z-50 border-b border-cyan-900 bg-black/90 backdrop-blur-md">
+            <header className="sticky top-0 w-full z-50 border-b border-cyan-900 bg-black/90 backdrop-blur-md">
                 <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
                     <div className="flex items-center gap-2 text-cyan-400 group cursor-pointer">
                         <Zap className="fill-current w-5 h-5 group-hover:animate-pulse" />
@@ -55,18 +55,21 @@ export const S06CyberpunkPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
 
                 {/* Mobile Menu */}
                 {menuOpen && isMobile && (
-                    <div className="fixed inset-0 top-16 bg-black/95 backdrop-blur-xl z-40 border-b border-cyan-900 p-6 flex flex-col gap-6">
+                    <div className="bg-black/95 backdrop-blur-xl border-b border-cyan-900 p-6 flex flex-col gap-4">
                         {['Grid', 'Implants', 'Netrunner', 'Bounty'].map(item => (
-                            <a key={item} className="text-xl font-bold tracking-widest text-cyan-400 border-l-2 border-transparent hover:border-pink-500 pl-4 transition-all">
+                            <a key={item} className="text-lg font-bold tracking-widest text-cyan-400 border-l-2 border-transparent hover:border-pink-500 pl-4 transition-all">
                                 &gt; {item}
                             </a>
                         ))}
+                        <button className="px-6 py-3 border border-cyan-500 text-cyan-400 text-xs font-bold hover:bg-cyan-500 hover:text-black transition-all shadow-[0_0_10px_rgba(0,240,255,0.3)] w-full mt-4">
+                            Jack In
+                        </button>
                     </div>
                 )}
             </header>
 
             {/* ========== 2. HERO ========== */}
-            <section className="pt-32 pb-20 px-6 relative overflow-hidden">
+            <section className="pt-12 pb-20 px-6 relative overflow-hidden">
                 <div className="max-w-7xl mx-auto relative z-10" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '3rem', alignItems: 'center' }}>
                     <div>
                         <div className="inline-flex items-center gap-2 mb-6 border border-pink-500/50 bg-pink-500/10 px-3 py-1 text-xs text-pink-500 font-bold tracking-widest">

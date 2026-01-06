@@ -9,3 +9,4 @@ export { MobileBottomNav } from './MobileBottomNav';
 export { TierSwitcher } from './TierSwitcher';
 export { StyleListItem } from './StyleListItem';
 export { PromoBar } from './PromoBar';
+export { UserDropdown } from './UserDropdown';

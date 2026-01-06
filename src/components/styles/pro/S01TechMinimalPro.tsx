@@ -126,20 +126,22 @@ export const S01TechMinimalPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
                                 Sign in
                             </span>
                         )}
-                        <button
-                            style={{
-                                backgroundColor: colors.brand.primary,
-                                color: colors.text.inverse,
-                                border: 'none',
-                                borderRadius: radius.sm,
-                                padding: '8px 16px',
-                                fontSize: '14px',
-                                fontWeight: 500,
-                                cursor: 'pointer',
-                            }}
-                        >
-                            Get Started
-                        </button>
+                        {!isMobile && !isTablet && (
+                            <button
+                                style={{
+                                    backgroundColor: colors.brand.primary,
+                                    color: colors.text.inverse,
+                                    border: 'none',
+                                    borderRadius: radius.sm,
+                                    padding: '8px 16px',
+                                    fontSize: '14px',
+                                    fontWeight: 500,
+                                    cursor: 'pointer',
+                                }}
+                            >
+                                Get Started
+                            </button>
+                        )}
                         {(isMobile || isTablet) && (
                             <button
                                 onClick={() => setMenuOpen(!menuOpen)}
@@ -167,6 +169,21 @@ export const S01TechMinimalPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
                                     {item}
                                 </div>
                             ))}
+                            <button
+                                className="w-full mt-4"
+                                style={{
+                                    backgroundColor: colors.brand.primary,
+                                    color: colors.text.inverse,
+                                    border: 'none',
+                                    borderRadius: radius.sm,
+                                    padding: '12px 16px',
+                                    fontSize: '14px',
+                                    fontWeight: 500,
+                                    cursor: 'pointer',
+                                }}
+                            >
+                                Get Started
+                            </button>
                         </div>
                     </div>
                 )}
