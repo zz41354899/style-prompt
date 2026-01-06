@@ -1,5 +1,5 @@
 -- ============================================
--- 更新 Purchases 表結構 (從 Stripe 改為 Gumroad)
+-- 更新 Purchases 表結構 (從 Gumroad 改為 PayUNi)
 -- 執行此腳本將會刪除現有資料!
 -- ============================================
 
@@ -12,15 +12,16 @@ DROP TYPE IF EXISTS purchase_status CASCADE;
 -- 步驟 3: 建立新的 purchase_status ENUM
 CREATE TYPE purchase_status AS ENUM ('pending', 'completed', 'failed', 'refunded');
 
--- 步驟 4: 建立新的 purchases 表 (Gumroad 買斷制)
+-- 步驟 4: 建立新的 purchases 表 (PayUNi 買斷制)
 CREATE TABLE public.purchases (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
     
-    -- Gumroad 相關
-    gumroad_sale_id TEXT UNIQUE,           -- Gumroad Sale ID
-    gumroad_email TEXT,                    -- 購買者 Email
-    gumroad_license_key TEXT,              -- License Key（如果有）
+    -- PayUNi 相關
+    payuni_order_id TEXT UNIQUE,            -- 商店端訂單編號
+    payuni_trade_no TEXT,                   -- PayUNi 交易編號
+    payment_type TEXT,                      -- 付款方式 (Credit, ApplePay, GooglePay 等)
+    card_last_four TEXT,                    -- 信用卡末四碼
     
     -- 購買資訊
     product_type TEXT DEFAULT 'lifetime_pro', -- 固定為 lifetime
@@ -32,6 +33,9 @@ CREATE TABLE public.purchases (
     created_at TIMESTAMPTZ DEFAULT NOW(),
     completed_at TIMESTAMPTZ,
     
+    -- 錯誤訊息
+    error_message TEXT,
+    
     -- 備註
     notes TEXT
 );
@@ -39,8 +43,8 @@ CREATE TABLE public.purchases (
 -- 步驟 5: 建立索引
 CREATE INDEX purchases_user_id_idx ON public.purchases(user_id);
 CREATE INDEX purchases_status_idx ON public.purchases(status);
-CREATE INDEX purchases_gumroad_sale_id_idx ON public.purchases(gumroad_sale_id);
-CREATE INDEX purchases_gumroad_email_idx ON public.purchases(gumroad_email);
+CREATE INDEX purchases_payuni_order_id_idx ON public.purchases(payuni_order_id);
+CREATE INDEX purchases_payuni_trade_no_idx ON public.purchases(payuni_trade_no);
 
 -- 步驟 6: 啟用 RLS
 ALTER TABLE public.purchases ENABLE ROW LEVEL SECURITY;
@@ -66,14 +70,16 @@ CREATE POLICY "Admins can manage purchases"
     USING ((auth.jwt() -> 'app_metadata' ->> 'role') = 'admin');
 
 -- 步驟 8: 新增註解
-COMMENT ON TABLE public.purchases IS 'Gumroad 買斷制購買記錄表';
-COMMENT ON COLUMN public.purchases.gumroad_sale_id IS 'Gumroad Sale ID（唯一識別碼）';
-COMMENT ON COLUMN public.purchases.gumroad_email IS '購買者 Email（來自 Gumroad）';
-COMMENT ON COLUMN public.purchases.gumroad_license_key IS 'License Key（如果產品啟用了 License Key 功能）';
+COMMENT ON TABLE public.purchases IS 'PayUNi 買斷制購買記錄表';
+COMMENT ON COLUMN public.purchases.payuni_order_id IS '商店端訂單編號（唯一識別碼）';
+COMMENT ON COLUMN public.purchases.payuni_trade_no IS 'PayUNi 交易編號';
+COMMENT ON COLUMN public.purchases.payment_type IS '付款方式 (Credit, ApplePay, GooglePay 等)';
+COMMENT ON COLUMN public.purchases.card_last_four IS '信用卡末四碼';
 COMMENT ON COLUMN public.purchases.product_type IS '產品類型，固定為 lifetime_pro';
 COMMENT ON COLUMN public.purchases.amount IS '金額（以分為單位，例如 200000 = NT$2,000）';
 COMMENT ON COLUMN public.purchases.status IS '購買狀態：pending=待處理, completed=完成, failed=失敗, refunded=已退款';
 
 -- ============================================
--- 完成！purchases 表已更新為 Gumroad 買斷制結構
+-- 完成！purchases 表已更新為 PayUNi 買斷制結構
 -- ============================================
+

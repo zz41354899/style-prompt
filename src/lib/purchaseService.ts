@@ -1,9 +1,10 @@
 import { supabase } from './supabaseClient';
+import { PostgrestError } from '@supabase/supabase-js';
 
 export interface Purchase {
     id: string;
     user_id: string;
-    gumroad_sale_id: string;
+    gumroad_sale_id?: string;
     gumroad_email?: string;
     gumroad_license_key?: string;
     product_type: string;
@@ -20,7 +21,7 @@ export interface Purchase {
  */
 export async function fetchUserPurchases(userId: string): Promise<{
     data: Purchase[] | null;
-    error: any;
+    error: PostgrestError | Error | null;
 }> {
     try {
         const { data, error } = await supabase
@@ -37,6 +38,6 @@ export async function fetchUserPurchases(userId: string): Promise<{
         return { data: data as Purchase[], error: null };
     } catch (e) {
         console.error('Unexpected error fetching purchases:', e);
-        return { data: null, error: e };
+        return { data: null, error: e instanceof Error ? e : new Error(String(e)) };
     }
 }
