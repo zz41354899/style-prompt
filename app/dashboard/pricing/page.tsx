@@ -1,14 +1,14 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { Crown, CheckCircle2, ArrowRight, Sparkles, X, Users, XCircle, AlertCircle } from 'lucide-react';
+import { Crown, CheckCircle2, ArrowRight, Sparkles, X, Users, XCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { useAuth } from '@/components/providers/AuthProvider';
 import { usePurchase } from '@/hooks/usePurchase';
 import { useTranslation } from 'react-i18next';
 
-export default function DashboardPricingPage() {
+function DashboardPricingContent() {
     const { user } = useAuth();
     const { hasPro, loading } = usePurchase();
     const { t } = useTranslation();
@@ -303,5 +303,24 @@ export default function DashboardPricingPage() {
                 </div>
             </div>
         </div>
+    );
+}
+
+// Loading fallback
+function PricingLoadingFallback() {
+    return (
+        <div className="p-8">
+            <div className="max-w-4xl mx-auto flex items-center justify-center min-h-[400px]">
+                <Loader2 className="w-8 h-8 animate-spin text-purple-400" />
+            </div>
+        </div>
+    );
+}
+
+export default function DashboardPricingPage() {
+    return (
+        <Suspense fallback={<PricingLoadingFallback />}>
+            <DashboardPricingContent />
+        </Suspense>
     );
 }

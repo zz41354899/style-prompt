@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { CheckCircle, Crown, Sparkles, ArrowRight, Loader2 } from 'lucide-react';
@@ -9,22 +9,8 @@ import { useAuth } from '@/components/providers/AuthProvider';
 function PaymentSuccessContent() {
     const searchParams = useSearchParams();
     const orderId = searchParams.get('order');
-    const { user, isPro, loading } = useAuth();
-
-    const [isRefreshing, setIsRefreshing] = useState(false);
-
-    // 刷新 session 取得最新的 Pro 狀態
-    useEffect(() => {
-        const refreshProStatus = async () => {
-            if (!loading && user && !isPro && !isRefreshing) {
-                setIsRefreshing(true);
-                // 等待 notify webhook 處理，然後刷新頁面
-                await new Promise(resolve => setTimeout(resolve, 3000));
-                window.location.reload();
-            }
-        };
-        refreshProStatus();
-    }, [loading, user, isPro, isRefreshing]);
+    const isSandbox = searchParams.get('sandbox') === '1';
+    const { isPro, loading } = useAuth();
 
     return (
         <div className="min-h-screen bg-[#030303] flex items-center justify-center p-4">
@@ -69,6 +55,11 @@ function PaymentSuccessContent() {
                         <div className="flex items-center justify-center gap-2 text-purple-300">
                             <Crown className="w-5 h-5" />
                             <span className="font-bold">Pro 版本已啟用！</span>
+                        </div>
+                    ) : isSandbox ? (
+                        <div className="flex flex-col items-center gap-2 text-yellow-300">
+                            <span className="font-bold">沙箱測試完成</span>
+                            <span className="text-xs text-yellow-300/60">正式環境下 Pro 版本會自動啟用</span>
                         </div>
                     ) : (
                         <div className="flex items-center justify-center gap-2 text-yellow-300">

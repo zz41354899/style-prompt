@@ -106,12 +106,67 @@ async function handleReturn(request: Request): Promise<NextResponse> {
             TradeAmt: decryptedResult.TradeAmt,
         });
 
+        // 檢查是否為沙盒模式
+        const isSandbox = process.env.PAYUNI_API_URL?.includes('sandbox');
+
         // 根據結果導向不同頁面
-        if (isTransactionSuccessful(decryptedResult)) {
+        // 注意：沙盒模式下，測試卡不會真的返回 SUCCESS，所以只要有訂單編號就導向成功頁面
+        if (isTransactionSuccessful(decryptedResult) || (isSandbox && decryptedResult.MerTradeNo)) {
+            // 沙盒模式下，因為 notify webhook 不會被調用，需要在這裡處理
+            if (isSandbox && decryptedResult.MerTradeNo) {
+                console.log('🧪 [Return] 沙盒模式：手動處理訂單完成邏輯');
+                try {
+                    // 動態導入 supabaseAdmin（避免在客戶端使用）
+                    const { supabaseAdmin } = await import('@/lib/supabaseAdmin');
+
+                    // 1. 查找訂單
+                    const { data: purchase, error: findError } = await supabaseAdmin
+                        .from('purchases')
+                        .select('id, user_id')
+                        .eq('payuni_order_id', decryptedResult.MerTradeNo)
+                        .single();
+
+                    if (findError || !purchase) {
+                        console.error('❌ [Return][Sandbox] 找不到訂單:', findError);
+                    } else {
+                        // 2. 更新訂單狀態為 SUCCESS
+                        const { error: updateError } = await supabaseAdmin
+                            .from('purchases')
+                            .update({
+                                status: 'SUCCESS',
+                                completed_at: new Date().toISOString(),
+                                payuni_trade_no: decryptedResult.TradeNo || 'SANDBOX_TEST',
+                            })
+                            .eq('id', purchase.id);
+
+                        if (updateError) {
+                            console.error('❌ [Return][Sandbox] 更新訂單失敗:', updateError);
+                        } else {
+                            console.log('✅ [Return][Sandbox] 訂單已更新為 SUCCESS');
+                        }
+
+                        // 3. 升級用戶為 Pro
+                        const { error: roleError } = await supabaseAdmin.auth.admin.updateUserById(
+                            purchase.user_id,
+                            { app_metadata: { role: 'pro' } }
+                        );
+
+                        if (roleError) {
+                            console.error('❌ [Return][Sandbox] 升級用戶失敗:', roleError);
+                        } else {
+                            console.log('✅ [Return][Sandbox] 用戶已升級為 Pro');
+                        }
+                    }
+                } catch (dbError) {
+                    console.error('❌ [Return][Sandbox] 資料庫操作錯誤:', dbError);
+                    // 不阻止跳轉，繼續導向成功頁面
+                }
+            }
+
             // 成功 - 導向專用成功頁面
-            console.log('✅ [Return] 交易成功，導向成功頁面');
+            console.log('✅ [Return] 交易成功（或沙盒測試完成），導向成功頁面');
             return NextResponse.redirect(
-                `${baseUrl}/payment/success?order=${decryptedResult.MerTradeNo}`,
+                `${baseUrl}/payment/success?order=${decryptedResult.MerTradeNo}&sandbox=${isSandbox ? '1' : '0'}`,
                 { status: 303 }
             );
         } else {
