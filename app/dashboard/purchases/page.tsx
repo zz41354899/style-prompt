@@ -11,6 +11,17 @@ export default function DashboardPurchasesPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
+    // 超時保護
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            if (loading) {
+                console.log('[Purchases] Force ending loading due to timeout');
+                setLoading(false);
+            }
+        }, 5000);
+        return () => clearTimeout(timeout);
+    }, [loading]);
+
     useEffect(() => {
         async function loadPurchases() {
             console.log('=== Dashboard Purchases Debug ===');
@@ -32,16 +43,21 @@ export default function DashboardPurchasesPage() {
             setLoading(true);
             setError(null);
 
-            const { data, error: fetchError } = await fetchUserPurchases(user.id);
+            try {
+                const { data, error: fetchError } = await fetchUserPurchases(user.id);
 
-            console.log('Fetch result:', { data, error: fetchError });
+                console.log('Fetch result:', { data, error: fetchError });
 
-            if (fetchError) {
-                console.error('Error fetching purchases:', fetchError);
-                setError(`載入購買記錄失敗: ${fetchError.message || fetchError}`);
-            } else {
-                console.log('Purchases loaded:', data?.length || 0);
-                setPurchases(data || []);
+                if (fetchError) {
+                    console.error('Error fetching purchases:', fetchError);
+                    setError(`載入購買記錄失敗: ${fetchError.message || fetchError}`);
+                } else {
+                    console.log('Purchases loaded:', data?.length || 0);
+                    setPurchases(data || []);
+                }
+            } catch (e) {
+                console.error('Unexpected error:', e);
+                setError('載入購買記錄發生錯誤');
             }
 
             setLoading(false);
@@ -50,7 +66,8 @@ export default function DashboardPurchasesPage() {
         loadPurchases();
     }, [user, authLoading]);
 
-    if (loading) {
+    // 如果認證還在 loading，顯示簡短的載入中
+    if (authLoading) {
         return (
             <div className="p-8">
                 <div className="max-w-2xl mx-auto">
@@ -58,6 +75,22 @@ export default function DashboardPurchasesPage() {
                     <p className="text-white/50 mb-8">查看您的購買歷史</p>
                     <div className="p-6 bg-white/[0.02] border border-white/10 rounded-2xl flex items-center justify-center">
                         <Loader2 className="w-6 h-6 animate-spin text-purple-400" />
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    // 如果正在載入購買資料
+    if (loading) {
+        return (
+            <div className="p-8">
+                <div className="max-w-2xl mx-auto">
+                    <h1 className="text-2xl font-bold mb-2">購買紀錄</h1>
+                    <p className="text-white/50 mb-8">查看您的購買歷史</p>
+                    <div className="p-6 bg-white/[0.02] border border-white/10 rounded-2xl flex items-center justify-center gap-3">
+                        <Loader2 className="w-5 h-5 animate-spin text-purple-400" />
+                        <span className="text-white/50 text-sm">載入中...</span>
                     </div>
                 </div>
             </div>

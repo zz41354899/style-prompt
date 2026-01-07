@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { Crown, CheckCircle2, ArrowRight, Sparkles, X, Users, XCircle, AlertCircle, PartyPopper } from 'lucide-react';
+import { Crown, CheckCircle2, ArrowRight, Sparkles, X, Users, XCircle, AlertCircle } from 'lucide-react';
 import { useAuth } from '@/components/providers/AuthProvider';
 import { usePurchase } from '@/hooks/usePurchase';
 import { useTranslation } from 'react-i18next';
@@ -18,24 +18,7 @@ export default function DashboardPricingPage() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const paymentStatus = searchParams.get('status');
-    const orderId = searchParams.get('order');
     const errorMessage = searchParams.get('message');
-
-    // 追蹤是否已處理過付款成功
-    const hasHandledPayment = React.useRef(false);
-
-    // 付款成功時等待 webhook 處理完成後強制刷新頁面
-    React.useEffect(() => {
-        if (paymentStatus === 'success' && !hasHandledPayment.current) {
-            hasHandledPayment.current = true;
-            console.log('[Pricing] Payment success detected, waiting for webhook...');
-            // 等待 notify webhook 處理完成，然後強制刷新頁面
-            setTimeout(() => {
-                console.log('[Pricing] Refreshing page...');
-                window.location.href = '/dashboard/pricing?status=done';
-            }, 4000);
-        }
-    }, [paymentStatus]);
 
     // 關閉通知並清除 URL 參數
     const dismissNotification = () => {
@@ -66,34 +49,7 @@ export default function DashboardPricingPage() {
     return (
         <div className="p-8">
             <div className="max-w-4xl mx-auto">
-                {/* 付款結果通知 */}
-                {(paymentStatus === 'success' || paymentStatus === 'done') && (
-                    <div className="mb-6 p-4 bg-green-500/20 border border-green-500/30 rounded-xl flex items-start gap-3 animate-in fade-in slide-in-from-top-2">
-                        <div className="p-2 bg-green-500/20 rounded-lg">
-                            <PartyPopper className="w-5 h-5 text-green-400" />
-                        </div>
-                        <div className="flex-1">
-                            <h3 className="font-bold text-green-400">🎉 付款成功！</h3>
-                            <p className="text-green-300/80 text-sm mt-1">
-                                感謝您購買 StylePrompts Pro！您現在擁有所有 Pro 功能的存取權限。
-                            </p>
-                            {orderId && (
-                                <p className="text-green-300/60 text-xs mt-2">
-                                    訂單編號：{orderId}
-                                </p>
-                            )}
-                            <p className="text-green-300/60 text-xs mt-1">
-                                頁面將在 3 秒後自動刷新...
-                            </p>
-                        </div>
-                        <button
-                            onClick={dismissNotification}
-                            className="p-1 hover:bg-white/10 rounded transition-colors"
-                        >
-                            <X className="w-4 h-4 text-green-400/60" />
-                        </button>
-                    </div>
-                )}
+                {/* 付款失敗通知 - 成功時會導向專用成功頁面 */}
 
                 {paymentStatus === 'failed' && (
                     <div className="mb-6 p-4 bg-red-500/20 border border-red-500/30 rounded-xl flex items-start gap-3 animate-in fade-in slide-in-from-top-2">

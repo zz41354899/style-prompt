@@ -108,10 +108,10 @@ async function handleReturn(request: Request): Promise<NextResponse> {
 
         // 根據結果導向不同頁面
         if (isTransactionSuccessful(decryptedResult)) {
-            // 成功 - 導向成功頁面
+            // 成功 - 導向專用成功頁面
             console.log('✅ [Return] 交易成功，導向成功頁面');
             return NextResponse.redirect(
-                `${baseUrl}/dashboard/pricing?status=success&order=${decryptedResult.MerTradeNo}`,
+                `${baseUrl}/payment/success?order=${decryptedResult.MerTradeNo}`,
                 { status: 303 }
             );
         } else {
