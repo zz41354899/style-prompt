@@ -117,7 +117,7 @@ export async function POST(request: Request) {
         }
 
         // 如果已經處理過，跳過
-        if (purchase.status === 'SUCCESS') {
+        if (purchase.status === 'success') {
             console.log('Purchase already completed:', decryptedResult.MerTradeNo);
             return new NextResponse('SUCCESS', {
                 status: 200,
@@ -125,14 +125,20 @@ export async function POST(request: Request) {
             });
         }
 
+        // 將 PayUNi 狀態轉換為小寫格式
+        const payuniStatus = decryptedResult.Status;
+        const normalizedStatus = payuniStatus === 'SUCCESS' ? 'success' :
+            payuniStatus === 'FAIL' ? 'fail' :
+                payuniStatus?.toLowerCase() || 'pending';
+
         // 檢查交易是否成功
         if (isTransactionSuccessful(decryptedResult)) {
-            // ✅ 交易成功 - 更新購買記錄為 completed
+            // ✅ 交易成功 - 更新購買記錄為 success
             const { error: updateError } = await supabaseAdmin
                 .from('purchases')
                 .update({
                     payuni_trade_no: decryptedResult.TradeNo,
-                    status: 'SUCCESS',
+                    status: 'success',
                     completed_at: new Date().toISOString(),
                     payment_type: decryptedResult.PaymentType,
                     card_last_four: decryptedResult.Card4No,
@@ -166,12 +172,12 @@ export async function POST(request: Request) {
             console.log('✅ PayUNi payment completed:', decryptedResult.MerTradeNo);
 
         } else {
-            // ❌ 交易失敗 - 更新狀態為 failed
+            // ❌ 交易失敗 - 更新狀態為 fail
             await supabaseAdmin
                 .from('purchases')
                 .update({
                     payuni_trade_no: decryptedResult.TradeNo,
-                    status: 'FAIL',
+                    status: 'fail',
                     error_message: decryptedResult.Message,
                 })
                 .eq('id', purchase.id);
@@ -194,3 +200,4 @@ export async function POST(request: Request) {
         });
     }
 }
+

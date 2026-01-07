@@ -109,12 +109,17 @@ async function handleReturn(request: Request): Promise<NextResponse> {
         // 檢查是否為沙盒模式
         const isSandbox = process.env.PAYUNI_API_URL?.includes('sandbox');
 
-        // 根據結果導向不同頁面
-        // 注意：沙盒模式下，測試卡不會真的返回 SUCCESS，所以只要有訂單編號就導向成功頁面
-        if (isTransactionSuccessful(decryptedResult) || (isSandbox && decryptedResult.MerTradeNo)) {
-            // 沙盒模式下，因為 notify webhook 不會被調用，需要在這裡處理
+        // 將 PayUNi 狀態轉換為小寫格式
+        const payuniStatus = decryptedResult.Status;
+        const normalizedStatus = payuniStatus === 'SUCCESS' ? 'success' :
+            payuniStatus === 'FAIL' ? 'fail' :
+                payuniStatus?.toLowerCase() || 'pending';
+
+        // 根據結果導向不同頁面（不再強制沙盒模式成功）
+        if (isTransactionSuccessful(decryptedResult)) {
+            // 沙盒模式下，因為 notify webhook 可能不會被調用，需要在這裡處理
             if (isSandbox && decryptedResult.MerTradeNo) {
-                console.log('🧪 [Return] 沙盒模式：手動處理訂單完成邏輯');
+                console.log('🧪 [Return] 沙盒模式：手動處理訂單邏輯，狀態:', normalizedStatus);
                 try {
                     // 動態導入 supabaseAdmin（避免在客戶端使用）
                     const { supabaseAdmin } = await import('@/lib/supabaseAdmin');
@@ -129,12 +134,12 @@ async function handleReturn(request: Request): Promise<NextResponse> {
                     if (findError || !purchase) {
                         console.error('❌ [Return][Sandbox] 找不到訂單:', findError);
                     } else {
-                        // 2. 更新訂單狀態為 SUCCESS
+                        // 2. 更新訂單狀態（使用動態狀態，不強制 success）
                         const { error: updateError } = await supabaseAdmin
                             .from('purchases')
                             .update({
-                                status: 'SUCCESS',
-                                completed_at: new Date().toISOString(),
+                                status: normalizedStatus,
+                                completed_at: normalizedStatus === 'success' ? new Date().toISOString() : null,
                                 payuni_trade_no: decryptedResult.TradeNo || 'SANDBOX_TEST',
                             })
                             .eq('id', purchase.id);
@@ -142,19 +147,21 @@ async function handleReturn(request: Request): Promise<NextResponse> {
                         if (updateError) {
                             console.error('❌ [Return][Sandbox] 更新訂單失敗:', updateError);
                         } else {
-                            console.log('✅ [Return][Sandbox] 訂單已更新為 SUCCESS');
+                            console.log(`✅ [Return][Sandbox] 訂單已更新為 ${normalizedStatus}`);
                         }
 
-                        // 3. 升級用戶為 Pro
-                        const { error: roleError } = await supabaseAdmin.auth.admin.updateUserById(
-                            purchase.user_id,
-                            { app_metadata: { role: 'pro' } }
-                        );
+                        // 3. 只有成功時才升級用戶為 Pro
+                        if (normalizedStatus === 'success') {
+                            const { error: roleError } = await supabaseAdmin.auth.admin.updateUserById(
+                                purchase.user_id,
+                                { app_metadata: { role: 'pro' } }
+                            );
 
-                        if (roleError) {
-                            console.error('❌ [Return][Sandbox] 升級用戶失敗:', roleError);
-                        } else {
-                            console.log('✅ [Return][Sandbox] 用戶已升級為 Pro');
+                            if (roleError) {
+                                console.error('❌ [Return][Sandbox] 升級用戶失敗:', roleError);
+                            } else {
+                                console.log('✅ [Return][Sandbox] 用戶已升級為 Pro');
+                            }
                         }
                     }
                 } catch (dbError) {
@@ -164,16 +171,16 @@ async function handleReturn(request: Request): Promise<NextResponse> {
             }
 
             // 成功 - 導向專用成功頁面
-            console.log('✅ [Return] 交易成功（或沙盒測試完成），導向成功頁面');
+            console.log('✅ [Return] 交易成功，導向成功頁面');
             return NextResponse.redirect(
-                `${baseUrl}/payment/success?order=${decryptedResult.MerTradeNo}&sandbox=${isSandbox ? '1' : '0'}`,
+                `${baseUrl}/payment/success?order=${decryptedResult.MerTradeNo}&status=${normalizedStatus}&sandbox=${isSandbox ? '1' : '0'}`,
                 { status: 303 }
             );
         } else {
             // 失敗 - 導向失敗頁面
             console.log('❌ [Return] 交易失敗，導向失敗頁面:', decryptedResult.Message);
             return NextResponse.redirect(
-                `${baseUrl}/dashboard/pricing?status=failed&message=${encodeURIComponent(decryptedResult.Message)}`,
+                `${baseUrl}/payment/failed?order=${decryptedResult.MerTradeNo}&status=${normalizedStatus}&message=${encodeURIComponent(decryptedResult.Message)}&sandbox=${isSandbox ? '1' : '0'}`,
                 { status: 303 }
             );
         }

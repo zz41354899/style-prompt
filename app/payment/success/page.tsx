@@ -11,6 +11,7 @@ function PaymentSuccessContent() {
     const searchParams = useSearchParams();
     const orderId = searchParams.get('order');
     const isSandbox = searchParams.get('sandbox') === '1';
+    const status = searchParams.get('status'); // 新增：取得實際狀態
     const { isPro, loading, refreshSession } = useAuth();
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [refreshCount, setRefreshCount] = useState(0);

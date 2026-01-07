@@ -52,7 +52,7 @@ export async function POST(request: Request) {
             .from('purchases')
             .select('id')
             .eq('user_id', profile.id)
-            .eq('status', 'completed')
+            .eq('status', 'success')
             .single();
 
         if (existingPro) {
