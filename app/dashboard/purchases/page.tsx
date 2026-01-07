@@ -98,7 +98,7 @@ export default function DashboardPurchasesPage() {
                                         </div>
                                         <div>
                                             <h3 className="font-semibold mb-1">
-                                                {purchase.product_type === 'pro_lifetime' ? 'Pro 終身授權' : purchase.product_type}
+                                                {purchase.product_type === 'lifetime_pro' ? 'Pro 終身授權' : purchase.product_type}
                                             </h3>
                                             <p className="text-sm text-white/50 mb-2">StylePrompts Pro</p>
                                             <div className="flex items-center gap-4 text-xs text-white/40">
@@ -107,7 +107,7 @@ export default function DashboardPurchasesPage() {
                                                     {new Date(purchase.created_at).toLocaleDateString('zh-TW')}
                                                 </div>
                                                 <div className="flex items-center gap-1.5">
-                                                    {purchase.status === 'succeeded' ? (
+                                                    {purchase.status === 'completed' ? (
                                                         <>
                                                             <CheckCircle className="w-3 h-3 text-green-400" />
                                                             <span className="text-green-400">已完成</span>
@@ -125,7 +125,7 @@ export default function DashboardPurchasesPage() {
                                             {purchase.amount.toLocaleString()}
                                         </div>
                                         <div className="text-xs text-white/40">
-                                            {purchase.product_type === 'pro_lifetime' ? '終身授權' : ''}
+                                            {purchase.product_type === 'lifetime_pro' ? '終身授權' : ''}
                                         </div>
                                     </div>
                                 </div>

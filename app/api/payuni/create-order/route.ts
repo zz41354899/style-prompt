@@ -100,24 +100,11 @@ export async function POST(request: Request) {
             notifyUrl: `${finalBaseUrl}/api/payuni/notify`,
         });
 
-        // 在資料庫中預先建立購買記錄（pending 狀態）
-        const { error: insertError } = await supabaseAdmin
-            .from('purchases')
-            .insert({
-                user_id: profile.id,
-                payuni_order_id: orderId,
-                product_type: 'lifetime_pro',
-                amount: amount * 100, // 儲存分
-                currency: 'TWD',
-                status: 'pending',
-            });
+        // 注意：不在此處建立訂單記錄
+        // 訂單只在 PayUNi 成功通知 (/api/payuni/notify) 後才會建立
+        // 這樣可以避免產生大量 pending 狀態的無效訂單
 
-        if (insertError) {
-            console.error('Failed to insert pending purchase:', insertError);
-            throw insertError;
-        }
-
-        console.log('✅ PayUNi order created and saved to DB:', orderId);
+        console.log('✅ PayUNi order request prepared:', orderId);
 
         // 顯示將發送到 PayUNi 的資料
         console.log('📤 [create-order] 送往 PayUNi 的資料:');
