@@ -1,26 +1,17 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { CheckCircle, Crown, Sparkles, ArrowRight, Loader2 } from 'lucide-react';
 import { useAuth } from '@/components/providers/AuthProvider';
 
-export default function PaymentSuccessPage() {
+function PaymentSuccessContent() {
     const searchParams = useSearchParams();
     const orderId = searchParams.get('order');
     const { user, isPro, loading } = useAuth();
 
-    const [countdown, setCountdown] = useState(5);
     const [isRefreshing, setIsRefreshing] = useState(false);
-
-    // 倒數計時
-    useEffect(() => {
-        if (countdown > 0) {
-            const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
-            return () => clearTimeout(timer);
-        }
-    }, [countdown]);
 
     // 刷新 session 取得最新的 Pro 狀態
     useEffect(() => {
@@ -114,3 +105,21 @@ export default function PaymentSuccessPage() {
         </div>
     );
 }
+
+// Loading fallback
+function LoadingFallback() {
+    return (
+        <div className="min-h-screen bg-[#030303] flex items-center justify-center">
+            <Loader2 className="w-8 h-8 animate-spin text-purple-400" />
+        </div>
+    );
+}
+
+export default function PaymentSuccessPage() {
+    return (
+        <Suspense fallback={<LoadingFallback />}>
+            <PaymentSuccessContent />
+        </Suspense>
+    );
+}
+
