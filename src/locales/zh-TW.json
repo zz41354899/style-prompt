@@ -1165,5 +1165,36 @@
     },
     "continueFree": "繼續免費使用",
     "upgradePro": "升級 Pro"
+  },
+  "payment": {
+    "success": {
+      "title": "🎉 付款成功！",
+      "subtitle": "感謝您購買 StylePrompts Pro！\n您現在擁有所有 Pro 功能的存取權限。",
+      "orderId": "訂單編號",
+      "proActivated": "Pro 版本已啟用！",
+      "syncing": "正在同步 Pro 狀態...",
+      "syncingTitle": "Pro 狀態同步中",
+      "syncingDesc": "請重新整理頁面或重新登入",
+      "processing": "正在處理升級，請稍候...",
+      "startUsing": "開始使用 Pro 功能",
+      "viewHistory": "查看購買紀錄",
+      "tip": "如果 Pro 狀態未自動更新，請嘗試登出後重新登入。"
+    },
+    "failed": {
+      "title": "付款未成功",
+      "subtitle": "很抱歉，您的付款未能完成。\n請確認付款資訊後再試一次。",
+      "orderId": "訂單編號",
+      "expired": "訂單將於 {{time}} 後自動過期",
+      "expiredStatus": "訂單已過期",
+      "possibleCauses": "可能原因",
+      "cause1": "信用卡餘額不足或已達上限",
+      "cause2": "信用卡資訊輸入錯誤",
+      "cause3": "銀行拒絕交易（請聯繫發卡銀行）",
+      "cause4": "網路連線中斷",
+      "repay": "重新購買",
+      "processing": "處理中...",
+      "backHome": "返回主頁",
+      "contactSupport": "如需協助，請聯繫客服：support@styleprompts.com"
+    }
   }
 }

@@ -6,11 +6,12 @@ import { useSearchParams } from 'next/navigation';
 import { CheckCircle, Crown, Sparkles, ArrowRight, Loader2 } from 'lucide-react';
 import { useAuth } from '@/components/providers/AuthProvider';
 import { supabase } from '@/lib/supabaseClient';
+import { useTranslation } from 'react-i18next';
 
 function PaymentSuccessContent() {
+    const { t } = useTranslation();
     const searchParams = useSearchParams();
     const orderId = searchParams.get('order');
-    const isSandbox = searchParams.get('sandbox') === '1';
     const status = searchParams.get('status'); // 新增：取得實際狀態
     const { isPro, loading, refreshSession } = useAuth();
     const [isRefreshing, setIsRefreshing] = useState(false);
@@ -68,18 +69,17 @@ function PaymentSuccessContent() {
 
                 {/* 標題 */}
                 <h1 className="text-3xl font-bold text-white mb-4">
-                    🎉 付款成功！
+                    {t('payment.success.title')}
                 </h1>
 
-                <p className="text-white/60 mb-6">
-                    感謝您購買 StylePrompts Pro！<br />
-                    您現在擁有所有 Pro 功能的存取權限。
+                <p className="text-white/60 mb-6 whitespace-pre-line">
+                    {t('payment.success.subtitle')}
                 </p>
 
                 {/* 訂單編號 */}
                 {orderId && (
                     <div className="mb-6 p-4 bg-white/5 border border-white/10 rounded-xl">
-                        <p className="text-white/40 text-xs mb-1">訂單編號</p>
+                        <p className="text-white/40 text-xs mb-1">{t('payment.success.orderId')}</p>
                         <p className="text-white font-mono text-sm">{orderId}</p>
                     </div>
                 )}
@@ -89,30 +89,22 @@ function PaymentSuccessContent() {
                     {loading || isRefreshing ? (
                         <div className="flex items-center justify-center gap-2 text-purple-300">
                             <Loader2 className="w-5 h-5 animate-spin" />
-                            <span>正在同步 Pro 狀態...</span>
+                            <span>{t('payment.success.syncing')}</span>
                         </div>
                     ) : isPro ? (
                         <div className="flex items-center justify-center gap-2 text-green-400">
                             <Crown className="w-5 h-5" />
-                            <span className="font-bold">Pro 版本已啟用！</span>
-                        </div>
-                    ) : isSandbox ? (
-                        <div className="flex flex-col items-center gap-2 text-green-400">
-                            <div className="flex items-center gap-2">
-                                <Crown className="w-5 h-5" />
-                                <span className="font-bold">沙箱測試完成</span>
-                            </div>
-                            <span className="text-xs text-green-400/60">Pro 功能已啟用（沙盒模式）</span>
+                            <span className="font-bold">{t('payment.success.proActivated')}</span>
                         </div>
                     ) : refreshCount >= 3 ? (
                         <div className="flex flex-col items-center gap-2 text-yellow-300">
-                            <span className="font-bold">Pro 狀態同步中</span>
-                            <span className="text-xs text-yellow-300/60">請重新整理頁面或重新登入</span>
+                            <span className="font-bold">{t('payment.success.syncingTitle')}</span>
+                            <span className="text-xs text-yellow-300/60">{t('payment.success.syncingDesc')}</span>
                         </div>
                     ) : (
                         <div className="flex items-center justify-center gap-2 text-yellow-300">
                             <Loader2 className="w-5 h-5 animate-spin" />
-                            <span>正在處理升級，請稍候...</span>
+                            <span>{t('payment.success.processing')}</span>
                         </div>
                     )}
                 </div>
@@ -124,7 +116,7 @@ function PaymentSuccessContent() {
                         className="flex items-center justify-center gap-2 w-full py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl hover:opacity-90 transition-all shadow-lg shadow-purple-600/20"
                     >
                         <Sparkles className="w-5 h-5" />
-                        開始使用 Pro 功能
+                        {t('payment.success.startUsing')}
                         <ArrowRight className="w-4 h-4" />
                     </Link>
 
@@ -132,13 +124,13 @@ function PaymentSuccessContent() {
                         href="/dashboard/purchases"
                         className="flex items-center justify-center gap-2 w-full py-3 bg-white/10 text-white/80 font-medium rounded-xl hover:bg-white/20 transition-all"
                     >
-                        查看購買紀錄
+                        {t('payment.success.viewHistory')}
                     </Link>
                 </div>
 
                 {/* 提示 */}
                 <p className="mt-8 text-white/30 text-xs">
-                    如果 Pro 狀態未自動更新，請嘗試登出後重新登入。
+                    {t('payment.success.tip')}
                 </p>
             </div>
         </div>
@@ -161,4 +153,3 @@ export default function PaymentSuccessPage() {
         </Suspense>
     );
 }
-

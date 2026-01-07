@@ -1,15 +1,41 @@
 'use client';
 
-import React, { Suspense } from 'react';
+import React, { Suspense, useState } from 'react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { XCircle, ArrowLeft, RefreshCw, Loader2, HelpCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 function PaymentFailedContent() {
+    const { t } = useTranslation();
     const searchParams = useSearchParams();
+    const router = useRouter();
     const orderId = searchParams.get('order');
     const message = searchParams.get('message');
-    const isSandbox = searchParams.get('sandbox') === '1';
+    const [isCleaningUp, setIsCleaningUp] = useState(false);
+
+    // 重新購買：清理該訂單後導向購買頁
+    const handleRepurchase = async () => {
+        if (!orderId) {
+            router.push('/dashboard/pricing');
+            return;
+        }
+
+        setIsCleaningUp(true);
+        try {
+            console.log('[PaymentFailed] 清理訂單:', orderId);
+            await fetch('/api/payuni/cleanup-expired', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ orderId, action: 'delete' }),
+            });
+        } catch (error) {
+            console.error('[PaymentFailed] 清理訂單失敗:', error);
+        }
+
+        // 無論成功失敗都導向購買頁
+        router.push('/dashboard/pricing');
+    };
 
     return (
         <div className="min-h-screen bg-[#030303] flex items-center justify-center p-4">
@@ -27,12 +53,11 @@ function PaymentFailedContent() {
 
                 {/* 標題 */}
                 <h1 className="text-3xl font-bold text-white mb-4">
-                    付款未成功
+                    {t('payment.failed.title')}
                 </h1>
 
-                <p className="text-white/60 mb-6">
-                    很抱歉，您的付款未能完成。<br />
-                    請確認付款資訊後再試一次。
+                <p className="text-white/60 mb-6 whitespace-pre-line">
+                    {t('payment.failed.subtitle')}
                 </p>
 
                 {/* 錯誤訊息 */}
@@ -45,18 +70,8 @@ function PaymentFailedContent() {
                 {/* 訂單編號 */}
                 {orderId && (
                     <div className="mb-6 p-4 bg-white/5 border border-white/10 rounded-xl">
-                        <p className="text-white/40 text-xs mb-1">訂單編號</p>
+                        <p className="text-white/40 text-xs mb-1">{t('payment.failed.orderId')}</p>
                         <p className="text-white font-mono text-sm">{orderId}</p>
-                    </div>
-                )}
-
-                {/* 沙盒模式提示 */}
-                {isSandbox && (
-                    <div className="mb-6 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-xl">
-                        <p className="text-yellow-300 text-sm font-medium">🧪 沙盒測試模式</p>
-                        <p className="text-yellow-300/60 text-xs mt-1">
-                            這是測試環境的付款失敗結果
-                        </p>
                     </div>
                 )}
 
@@ -64,38 +79,43 @@ function PaymentFailedContent() {
                 <div className="mb-8 p-4 bg-white/5 border border-white/10 rounded-xl text-left">
                     <p className="text-white/80 text-sm font-medium mb-3 flex items-center gap-2">
                         <HelpCircle className="w-4 h-4" />
-                        可能原因
+                        {t('payment.failed.possibleCauses')}
                     </p>
                     <ul className="text-white/50 text-xs space-y-2">
-                        <li>• 信用卡餘額不足或已達上限</li>
-                        <li>• 信用卡資訊輸入錯誤</li>
-                        <li>• 銀行拒絕交易（請聯繫發卡銀行）</li>
-                        <li>• 網路連線中斷</li>
+                        <li>• {t('payment.failed.cause1')}</li>
+                        <li>• {t('payment.failed.cause2')}</li>
+                        <li>• {t('payment.failed.cause3')}</li>
+                        <li>• {t('payment.failed.cause4')}</li>
                     </ul>
                 </div>
 
                 {/* 按鈕 */}
                 <div className="space-y-3">
-                    <Link
-                        href="/dashboard/pricing"
-                        className="flex items-center justify-center gap-2 w-full py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl hover:opacity-90 transition-all shadow-lg shadow-purple-600/20"
+                    <button
+                        onClick={handleRepurchase}
+                        disabled={isCleaningUp}
+                        className="flex items-center justify-center gap-2 w-full py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl hover:opacity-90 transition-all shadow-lg shadow-purple-600/20 disabled:opacity-50"
                     >
-                        <RefreshCw className="w-5 h-5" />
-                        重新購買
-                    </Link>
+                        {isCleaningUp ? (
+                            <Loader2 className="w-5 h-5 animate-spin" />
+                        ) : (
+                            <RefreshCw className="w-5 h-5" />
+                        )}
+                        {isCleaningUp ? t('payment.failed.processing') : t('payment.failed.repay')}
+                    </button>
 
                     <Link
                         href="/dashboard"
                         className="flex items-center justify-center gap-2 w-full py-3 bg-white/10 text-white/80 font-medium rounded-xl hover:bg-white/20 transition-all"
                     >
                         <ArrowLeft className="w-4 h-4" />
-                        返回主頁
+                        {t('payment.failed.backHome')}
                     </Link>
                 </div>
 
                 {/* 聯絡客服 */}
                 <p className="mt-8 text-white/30 text-xs">
-                    如需協助，請聯繫客服：support@styleprompts.com
+                    {t('payment.failed.contactSupport')}
                 </p>
             </div>
         </div>

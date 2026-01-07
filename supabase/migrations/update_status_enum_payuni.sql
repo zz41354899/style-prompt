@@ -1,13 +1,13 @@
 -- ============================================
--- 更新 purchase_status ENUM（使用小寫格式）
+-- 更新 purchase_status ENUM（使用小寫格式 + expired）
 -- 需要先移除預設值再轉換
 -- ============================================
 
 -- 1. 先移除欄位的預設值
 ALTER TABLE public.purchases ALTER COLUMN status DROP DEFAULT;
 
--- 2. 建立新的 enum（使用小寫格式）
-CREATE TYPE purchase_status_new AS ENUM ('pending', 'success', 'fail', 'refunded');
+-- 2. 建立新的 enum（使用小寫格式，包含 expired）
+CREATE TYPE purchase_status_new AS ENUM ('pending', 'success', 'fail', 'expired', 'refunded');
 
 -- 3. 更新 purchases 表使用新 enum
 ALTER TABLE public.purchases 
@@ -31,4 +31,4 @@ ALTER TYPE purchase_status_new RENAME TO purchase_status;
 -- 6. 不設定預設值，由程式碼明確指定狀態
 
 -- 7. 更新註解
-COMMENT ON COLUMN public.purchases.status IS '購買狀態：pending=待處理, success=成功, fail=失敗, refunded=已退款（小寫格式）';
+COMMENT ON COLUMN public.purchases.status IS '購買狀態：pending=待處理, success=成功, fail=失敗, expired=逾時, refunded=已退款';

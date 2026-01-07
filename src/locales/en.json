@@ -1153,5 +1153,36 @@
     },
     "continueFree": "Continue with Free",
     "upgradePro": "Upgrade to Pro"
+  },
+  "payment": {
+    "success": {
+      "title": "🎉 Payment Successful!",
+      "subtitle": "Thank you for purchasing StylePrompts Pro!\nYou now have access to all Pro features.",
+      "orderId": "Order ID",
+      "proActivated": "Pro Version Activated!",
+      "syncing": "Syncing Pro status...",
+      "syncingTitle": "Syncing Pro Status",
+      "syncingDesc": "Please refresh the page or log in again",
+      "processing": "Processing upgrade, please wait...",
+      "startUsing": "Start Using Pro Features",
+      "viewHistory": "View Purchase History",
+      "tip": "If Pro status does not update automatically, please try logging out and logging back in."
+    },
+    "failed": {
+      "title": "Payment Failed",
+      "subtitle": "Sorry, your payment could not be completed.\nPlease check your payment information and try again.",
+      "orderId": "Order ID",
+      "expired": "Order will expire in {{time}}",
+      "expiredStatus": "Order Expired",
+      "possibleCauses": "Possible Causes",
+      "cause1": "Insufficient funds or credit limit reached",
+      "cause2": "Incorrect credit card information",
+      "cause3": "Bank declined transaction (please contact your bank)",
+      "cause4": "Network connection interrupted",
+      "repay": "Try Again",
+      "processing": "Processing...",
+      "backHome": "Back to Home",
+      "contactSupport": "For assistance, please contact support: support@styleprompts.com"
+    }
   }
 }
