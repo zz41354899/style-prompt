@@ -1,16 +1,55 @@
 'use client';
 
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { CheckCircle, Crown, Sparkles, ArrowRight, Loader2 } from 'lucide-react';
 import { useAuth } from '@/components/providers/AuthProvider';
+import { supabase } from '@/lib/supabaseClient';
 
 function PaymentSuccessContent() {
     const searchParams = useSearchParams();
     const orderId = searchParams.get('order');
     const isSandbox = searchParams.get('sandbox') === '1';
-    const { isPro, loading } = useAuth();
+    const { isPro, loading, refreshSession } = useAuth();
+    const [isRefreshing, setIsRefreshing] = useState(false);
+    const [refreshCount, setRefreshCount] = useState(0);
+
+    // 自動刷新 session 以獲取最新的 Pro 狀態
+    useEffect(() => {
+        const refreshProStatus = async () => {
+            // 如果已經是 Pro，不需要刷新
+            if (isPro || loading || isRefreshing) return;
+
+            // 最多嘗試 3 次
+            if (refreshCount >= 3) return;
+
+            setIsRefreshing(true);
+            console.log('[PaymentSuccess] 刷新 session 以獲取 Pro 狀態... 嘗試', refreshCount + 1);
+
+            try {
+                // 使用 refreshSession 來更新 session
+                if (refreshSession) {
+                    await refreshSession();
+                } else {
+                    // 備用方案：直接使用 supabase 刷新
+                    await supabase.auth.refreshSession();
+                }
+
+                // 等待一下再檢查
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                setRefreshCount(prev => prev + 1);
+            } catch (error) {
+                console.error('[PaymentSuccess] 刷新 session 失敗:', error);
+            }
+
+            setIsRefreshing(false);
+        };
+
+        // 延遲一下再開始刷新，給後端時間處理
+        const timeout = setTimeout(refreshProStatus, 2000);
+        return () => clearTimeout(timeout);
+    }, [isPro, loading, isRefreshing, refreshCount, refreshSession]);
 
     return (
         <div className="min-h-screen bg-[#030303] flex items-center justify-center p-4">
@@ -46,20 +85,28 @@ function PaymentSuccessContent() {
 
                 {/* Pro 狀態 */}
                 <div className="mb-8 p-4 bg-purple-500/10 border border-purple-500/30 rounded-xl">
-                    {loading ? (
+                    {loading || isRefreshing ? (
                         <div className="flex items-center justify-center gap-2 text-purple-300">
                             <Loader2 className="w-5 h-5 animate-spin" />
-                            <span>正在確認 Pro 狀態...</span>
+                            <span>正在同步 Pro 狀態...</span>
                         </div>
                     ) : isPro ? (
-                        <div className="flex items-center justify-center gap-2 text-purple-300">
+                        <div className="flex items-center justify-center gap-2 text-green-400">
                             <Crown className="w-5 h-5" />
                             <span className="font-bold">Pro 版本已啟用！</span>
                         </div>
                     ) : isSandbox ? (
+                        <div className="flex flex-col items-center gap-2 text-green-400">
+                            <div className="flex items-center gap-2">
+                                <Crown className="w-5 h-5" />
+                                <span className="font-bold">沙箱測試完成</span>
+                            </div>
+                            <span className="text-xs text-green-400/60">Pro 功能已啟用（沙盒模式）</span>
+                        </div>
+                    ) : refreshCount >= 3 ? (
                         <div className="flex flex-col items-center gap-2 text-yellow-300">
-                            <span className="font-bold">沙箱測試完成</span>
-                            <span className="text-xs text-yellow-300/60">正式環境下 Pro 版本會自動啟用</span>
+                            <span className="font-bold">Pro 狀態同步中</span>
+                            <span className="text-xs text-yellow-300/60">請重新整理頁面或重新登入</span>
                         </div>
                     ) : (
                         <div className="flex items-center justify-center gap-2 text-yellow-300">
