@@ -24,20 +24,28 @@ export default function DashboardPricingPage() {
     // 從 useAuth 取得 refreshSession
     const { refreshSession } = useAuth() as { refreshSession: () => Promise<{ error: Error | null }> };
 
+    // 追蹤是否已處理過付款成功
+    const hasHandledPayment = React.useRef(false);
+
     // 付款成功時刷新 session 以取得最新的 Pro 狀態
     React.useEffect(() => {
         const handlePaymentSuccess = async () => {
-            if (paymentStatus === 'success') {
+            if (paymentStatus === 'success' && !hasHandledPayment.current) {
+                hasHandledPayment.current = true;
+                console.log('[Pricing] Payment success detected, waiting for webhook...');
                 // 等待 notify webhook 處理完成
-                await new Promise(resolve => setTimeout(resolve, 2000));
+                await new Promise(resolve => setTimeout(resolve, 3000));
+                console.log('[Pricing] Refreshing session...');
                 // 刷新 session 取得最新的 app_metadata
                 await refreshSession();
-                // 清除 URL 參數
-                router.replace('/dashboard/pricing', { scroll: false });
+                console.log('[Pricing] Session refreshed, redirecting...');
+                // 清除 URL 參數但保留成功通知
+                router.replace('/dashboard/pricing?status=done', { scroll: false });
             }
         };
         handlePaymentSuccess();
-    }, [paymentStatus, refreshSession, router]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [paymentStatus]);
 
     // 關閉通知並清除 URL 參數
     const dismissNotification = () => {
@@ -69,7 +77,7 @@ export default function DashboardPricingPage() {
         <div className="p-8">
             <div className="max-w-4xl mx-auto">
                 {/* 付款結果通知 */}
-                {paymentStatus === 'success' && (
+                {(paymentStatus === 'success' || paymentStatus === 'done') && (
                     <div className="mb-6 p-4 bg-green-500/20 border border-green-500/30 rounded-xl flex items-start gap-3 animate-in fade-in slide-in-from-top-2">
                         <div className="p-2 bg-green-500/20 rounded-lg">
                             <PartyPopper className="w-5 h-5 text-green-400" />
