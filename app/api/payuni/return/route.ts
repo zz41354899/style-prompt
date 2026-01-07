@@ -77,7 +77,7 @@ async function handleReturn(request: Request): Promise<NextResponse> {
         // 如果沒有收到資料，可能是使用者直接訪問
         if (!notifyData.EncryptInfo) {
             console.log('⚠️ [Return] 沒有收到 EncryptInfo，導向 unknown');
-            return NextResponse.redirect(`${baseUrl}/pricing?status=unknown`, { status: 303 });
+            return NextResponse.redirect(`${baseUrl}/dashboard/pricing?status=unknown`, { status: 303 });
         }
 
         console.log('📥 [Return] PayUNi 回傳:', {
@@ -96,7 +96,7 @@ async function handleReturn(request: Request): Promise<NextResponse> {
         } catch (err) {
             console.error('❌ [Return] 驗證解密失敗:', err);
             console.error('❌ [Return] 可能原因: Hash Key/IV 不正確，或 + 號變空白問題');
-            return NextResponse.redirect(`${baseUrl}/pricing?status=error&message=verification_failed`, { status: 303 });
+            return NextResponse.redirect(`${baseUrl}/dashboard/pricing?status=error&message=verification_failed`, { status: 303 });
         }
 
         console.log('📋 [Return] 交易結果:', {
@@ -111,14 +111,14 @@ async function handleReturn(request: Request): Promise<NextResponse> {
             // 成功 - 導向成功頁面
             console.log('✅ [Return] 交易成功，導向成功頁面');
             return NextResponse.redirect(
-                `${baseUrl}/pricing?status=success&order=${decryptedResult.MerTradeNo}`,
+                `${baseUrl}/dashboard/pricing?status=success&order=${decryptedResult.MerTradeNo}`,
                 { status: 303 }
             );
         } else {
             // 失敗 - 導向失敗頁面
             console.log('❌ [Return] 交易失敗，導向失敗頁面:', decryptedResult.Message);
             return NextResponse.redirect(
-                `${baseUrl}/pricing?status=failed&message=${encodeURIComponent(decryptedResult.Message)}`,
+                `${baseUrl}/dashboard/pricing?status=failed&message=${encodeURIComponent(decryptedResult.Message)}`,
                 { status: 303 }
             );
         }
@@ -126,6 +126,6 @@ async function handleReturn(request: Request): Promise<NextResponse> {
     } catch (error) {
         console.error('❌ [Return] PayUNi return error:', error);
         const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-        return NextResponse.redirect(`${baseUrl}/pricing?status=error`, { status: 303 });
+        return NextResponse.redirect(`${baseUrl}/dashboard/pricing?status=error`, { status: 303 });
     }
 }
