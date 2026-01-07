@@ -21,30 +21,20 @@ export default function DashboardPricingPage() {
     const orderId = searchParams.get('order');
     const errorMessage = searchParams.get('message');
 
-    // 從 useAuth 取得 refreshSession
-    const { refreshSession } = useAuth() as { refreshSession: () => Promise<{ error: Error | null }> };
-
     // 追蹤是否已處理過付款成功
     const hasHandledPayment = React.useRef(false);
 
-    // 付款成功時刷新 session 以取得最新的 Pro 狀態
+    // 付款成功時等待 webhook 處理完成後強制刷新頁面
     React.useEffect(() => {
-        const handlePaymentSuccess = async () => {
-            if (paymentStatus === 'success' && !hasHandledPayment.current) {
-                hasHandledPayment.current = true;
-                console.log('[Pricing] Payment success detected, waiting for webhook...');
-                // 等待 notify webhook 處理完成
-                await new Promise(resolve => setTimeout(resolve, 3000));
-                console.log('[Pricing] Refreshing session...');
-                // 刷新 session 取得最新的 app_metadata
-                await refreshSession();
-                console.log('[Pricing] Session refreshed, redirecting...');
-                // 清除 URL 參數但保留成功通知
-                router.replace('/dashboard/pricing?status=done', { scroll: false });
-            }
-        };
-        handlePaymentSuccess();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        if (paymentStatus === 'success' && !hasHandledPayment.current) {
+            hasHandledPayment.current = true;
+            console.log('[Pricing] Payment success detected, waiting for webhook...');
+            // 等待 notify webhook 處理完成，然後強制刷新頁面
+            setTimeout(() => {
+                console.log('[Pricing] Refreshing page...');
+                window.location.href = '/dashboard/pricing?status=done';
+            }, 4000);
+        }
     }, [paymentStatus]);
 
     // 關閉通知並清除 URL 參數
