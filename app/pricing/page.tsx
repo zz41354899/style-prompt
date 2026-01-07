@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { CreditCard, Check, Sparkles } from 'lucide-react';
 import { useAuth } from '@/components/providers/AuthProvider';
-import { AuthProvider } from '@/components/providers/AuthProvider';
 
 const PricingContent: React.FC = () => {
     const { user } = useAuth();
@@ -127,9 +126,6 @@ const PricingContent: React.FC = () => {
 };
 
 export default function PricingPage() {
-    return (
-        <AuthProvider>
-            <PricingContent />
-        </AuthProvider>
-    );
+    // AuthProvider 已在根 layout.tsx 中提供
+    return <PricingContent />;
 }

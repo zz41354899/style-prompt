@@ -79,23 +79,21 @@ export const ProHeader: React.FC = () => {
 
                 {/* Right */}
                 <div className="flex items-center gap-4">
-                    {/* Auth - 只顯示登入按鈕，移除註冊 */}
-                    {!loading && (
-                        <>
-                            {user ? (
-                                <UserDropdown />
-                            ) : (
-                                <div className="hidden sm:flex items-center gap-2">
-                                    <button
-                                        onClick={openSignIn}
-                                        className="flex items-center gap-1.5 px-4 py-1.5 bg-purple-600 text-white text-sm font-semibold rounded-full hover:bg-purple-500 transition-all"
-                                    >
-                                        <span>登入</span>
-                                        <ChevronRight className="w-4 h-4" />
-                                    </button>
-                                </div>
-                            )}
-                        </>
+                    {/* Auth - loading 時顯示骨架屏 */}
+                    {loading ? (
+                        <div className="hidden sm:block w-20 h-8 bg-white/10 rounded-full animate-pulse" />
+                    ) : user ? (
+                        <UserDropdown />
+                    ) : (
+                        <div className="hidden sm:flex items-center gap-2">
+                            <button
+                                onClick={openSignIn}
+                                className="flex items-center gap-1.5 px-4 py-1.5 bg-purple-600 text-white text-sm font-semibold rounded-full hover:bg-purple-500 transition-all"
+                            >
+                                <span>登入</span>
+                                <ChevronRight className="w-4 h-4" />
+                            </button>
+                        </div>
                     )}
                 </div>
             </header>

@@ -3,7 +3,6 @@
 import React from 'react';
 import { usePathname, redirect } from 'next/navigation';
 import Link from 'next/link';
-import { AuthProvider } from '@/components/providers/AuthProvider';
 import { useAuth } from '@/components/providers/AuthProvider';
 import { Crown, CreditCard, Settings, ArrowLeft, Languages, Bell } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -149,9 +148,6 @@ const DashboardContent: React.FC<DashboardLayoutProps> = ({ children }) => {
 };
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
-    return (
-        <AuthProvider>
-            <DashboardContent>{children}</DashboardContent>
-        </AuthProvider>
-    );
+    // AuthProvider 已在根 layout.tsx 中提供，這裡不需要重複包裝
+    return <DashboardContent>{children}</DashboardContent>;
 }

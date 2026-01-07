@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { usePathname } from 'next/navigation';
-import { AuthProvider } from '@/components/providers/AuthProvider';
 import { ProMainLayout } from '@/components/pro';
 import { LoginGate } from '@/components/common';
 
@@ -28,8 +27,9 @@ export default function ProLayout({ children }: ProLayoutProps) {
     // 不需要登入的頁面
     const isPublicPage = isLandingPage || isLegalPage || isLoginPage;
 
+    // AuthProvider 已在根 layout.tsx 中提供
     return (
-        <AuthProvider>
+        <>
             {isPublicPage ? (
                 children
             ) : isAdminPage ? (
@@ -41,7 +41,7 @@ export default function ProLayout({ children }: ProLayoutProps) {
                     </ProMainLayout>
                 </LoginGate>
             )}
-        </AuthProvider>
+        </>
     );
 }
 

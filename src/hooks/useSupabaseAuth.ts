@@ -29,7 +29,9 @@ export const useSupabaseAuth = () => {
         // 取得 Supabase session
         const getInitialSession = async () => {
             try {
+                console.log('[useSupabaseAuth] Getting initial session...');
                 const { data: { session } } = await supabase.auth.getSession();
+                console.log('[useSupabaseAuth] Session:', session?.user?.email || 'No session');
                 setSession(session);
                 setUser(session?.user ?? null);
 
@@ -37,26 +39,45 @@ export const useSupabaseAuth = () => {
                 if (session?.user) {
                     const userRole = getRoleFromUser(session.user);
                     setRole(userRole);
+                    console.log('[useSupabaseAuth] User role:', userRole);
 
-                    // 從 profiles 表取得顯示名稱
-                    const { data: profile } = await supabase
-                        .from('profiles')
-                        .select('display_name')
-                        .eq('id', session.user.id)
-                        .single();
+                    // 從 profiles 表取得顯示名稱（設定超時）
+                    try {
+                        const profilePromise = supabase
+                            .from('profiles')
+                            .select('display_name')
+                            .eq('id', session.user.id)
+                            .single();
 
-                    if (profile?.display_name) {
-                        setProfileName(profile.display_name);
+                        const timeoutPromise = new Promise((_, reject) =>
+                            setTimeout(() => reject(new Error('Profile fetch timeout')), 3000)
+                        );
+
+                        const { data: profile } = await Promise.race([profilePromise, timeoutPromise]) as { data: { display_name?: string } | null };
+
+                        if (profile?.display_name) {
+                            setProfileName(profile.display_name);
+                        }
+                    } catch (profileError) {
+                        console.warn('[useSupabaseAuth] Profile fetch error:', profileError);
+                        // 不影響 loading 結束
                     }
                 }
             } catch (error) {
-                console.warn('Supabase connection failed:', error);
+                console.warn('[useSupabaseAuth] Supabase connection failed:', error);
             } finally {
+                console.log('[useSupabaseAuth] Loading complete');
                 setLoading(false);
             }
         };
 
         getInitialSession();
+
+        // 保險：5 秒後強制結束 loading
+        const timeout = setTimeout(() => {
+            console.warn('[useSupabaseAuth] Force ending loading after timeout');
+            setLoading(false);
+        }, 5000);
 
         // 監聽 auth 狀態變化
         const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -93,6 +114,7 @@ export const useSupabaseAuth = () => {
         );
 
         return () => {
+            clearTimeout(timeout);
             subscription.unsubscribe();
         };
     }, []);

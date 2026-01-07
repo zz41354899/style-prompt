@@ -110,40 +110,43 @@ export const ProNavbar: React.FC<ProNavbarProps> = ({
                                 <Languages className="w-4 h-4" />
                                 <span className="text-xs font-bold">{currentLang === 'zh-TW' ? 'EN' : 'TW'}</span>
                             </button>
-                            {!loading && (
-                                <>
-                                    {user ? (
-                                        <div className="hidden md:flex items-center gap-4 pl-4 border-l border-white/10">
-                                            {/* 瀏覽風格庫按鈕 */}
-                                            <Link
-                                                href="/pro/S01"
-                                                className="group flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-sm font-bold rounded-full shadow-[0_0_20px_-5px_rgba(168,85,247,0.4)] hover:shadow-[0_0_30px_-5px_rgba(168,85,247,0.6)] hover:scale-105 transition-all duration-300"
-                                            >
-                                                <LayoutGrid className="w-4 h-4" />
-                                                {t('pro.navbar.library')}
-                                            </Link>
-                                            <UserDropdown />
-                                        </div>
-                                    ) : (
-                                        <div className="hidden md:flex items-center gap-2 pl-2">
-                                            <Link
-                                                href="/pro/login"
-                                                className="flex items-center gap-2 px-5 py-2.5 bg-white text-black text-sm font-bold rounded-full hover:shadow-[0_0_20px_-5px_rgba(255,255,255,0.4)] transition-all duration-300"
-                                            >
-                                                <span>{t('common.login')}</span>
-                                                <ChevronRight className="w-3 h-3" />
-                                            </Link>
-                                        </div>
-                                    )}
-                                </>
+                            {/* 認證區塊 - loading 時顯示骨架屏 */}
+                            {loading ? (
+                                <div className="hidden md:flex items-center gap-2 pl-2">
+                                    <div className="w-20 h-9 bg-white/10 rounded-full animate-pulse" />
+                                </div>
+                            ) : user ? (
+                                <div className="hidden md:flex items-center gap-4 pl-4 border-l border-white/10">
+                                    {/* 瀏覽風格庫按鈕 */}
+                                    <Link
+                                        href="/pro/S01"
+                                        className="group flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-sm font-bold rounded-full shadow-[0_0_20px_-5px_rgba(168,85,247,0.4)] hover:shadow-[0_0_30px_-5px_rgba(168,85,247,0.6)] hover:scale-105 transition-all duration-300"
+                                    >
+                                        <LayoutGrid className="w-4 h-4" />
+                                        {t('pro.navbar.library')}
+                                    </Link>
+                                    <UserDropdown />
+                                </div>
+                            ) : (
+                                <div className="hidden md:flex items-center gap-2 pl-2">
+                                    <Link
+                                        href="/pro/login"
+                                        className="flex items-center gap-2 px-5 py-2.5 bg-white text-black text-sm font-bold rounded-full hover:shadow-[0_0_20px_-5px_rgba(255,255,255,0.4)] transition-all duration-300"
+                                    >
+                                        <span>{t('common.login')}</span>
+                                        <ChevronRight className="w-3 h-3" />
+                                    </Link>
+                                </div>
                             )}
 
-                            {/* 手機版：UserDropdown (已登入時) */}
-                            {!loading && user && (
+                            {/* 手機版：UserDropdown (已登入時) 或骨架屏 */}
+                            {loading ? (
+                                <div className="md:hidden w-8 h-8 bg-white/10 rounded-full animate-pulse" />
+                            ) : user ? (
                                 <div className="md:hidden">
                                     <UserDropdown />
                                 </div>
-                            )}
+                            ) : null}
 
                             {/* Hamburger Menu - 手機版 */}
                             <button
