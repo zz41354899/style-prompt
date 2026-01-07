@@ -28,7 +28,7 @@ export async function fetchUserPurchases(userId: string): Promise<{
             .from('purchases')
             .select('*')
             .eq('user_id', userId)
-            .eq('status', 'completed')
+            .eq('status', 'success')
             .order('created_at', { ascending: false });
 
         if (error) {

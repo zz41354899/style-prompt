@@ -101,19 +101,24 @@ export async function POST(request: Request) {
             PaymentType: decryptedResult.PaymentType,
         });
 
-        // 透過 PayUNi 回傳的 email 找到用戶
-        // UsrMail 是我們在建立訂單時傳入的購買者 email
-        const userEmail = String(decryptedResult.UsrMail || '');
-
-        // 檢查是否已經處理過這筆訂單（避免重複）
-        const { data: existingPurchase } = await supabaseAdmin
+        // 透過訂單編號查找對應的購買記錄
+        const { data: purchase, error: purchaseError } = await supabaseAdmin
             .from('purchases')
-            .select('id')
+            .select('id, user_id, status')
             .eq('payuni_order_id', decryptedResult.MerTradeNo)
             .single();
 
-        if (existingPurchase) {
-            console.log('Purchase already processed:', decryptedResult.MerTradeNo);
+        if (purchaseError || !purchase) {
+            console.error('Purchase not found for order:', decryptedResult.MerTradeNo);
+            return new NextResponse('FAILED: Purchase not found', {
+                status: 404,
+                headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+            });
+        }
+
+        // 如果已經處理過，跳過
+        if (purchase.status === 'success') {
+            console.log('Purchase already completed:', decryptedResult.MerTradeNo);
             return new NextResponse('SUCCESS', {
                 status: 200,
                 headers: { 'Content-Type': 'text/plain; charset=utf-8' },
@@ -122,41 +127,22 @@ export async function POST(request: Request) {
 
         // 檢查交易是否成功
         if (isTransactionSuccessful(decryptedResult)) {
-            // ✅ 交易成功 - 透過 email 找到用戶
-            const { data: profile, error: profileError } = await supabaseAdmin
-                .from('profiles')
-                .select('id, email')
-                .ilike('email', userEmail || '')
-                .single();
-
-            if (profileError || !profile) {
-                console.error('User not found for email:', userEmail);
-                // 嘗試用訂單編號前綴找（如果訂單編號有包含用戶ID）
-                return new NextResponse('FAILED: User not found', {
-                    status: 404,
-                    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
-                });
-            }
-
-            // 新建購買記錄（只有成功才會建立）
-            const { error: insertError } = await supabaseAdmin
+            // ✅ 交易成功 - 更新購買記錄為 completed
+            const { error: updateError } = await supabaseAdmin
                 .from('purchases')
-                .insert({
-                    user_id: profile.id,
-                    payuni_order_id: decryptedResult.MerTradeNo,
+                .update({
                     payuni_trade_no: decryptedResult.TradeNo,
-                    product_type: 'lifetime_pro',
-                    amount: decryptedResult.TradeAmt || 2000, // 使用實際交易金額
-                    currency: 'TWD',
-                    status: 'completed',
+                    status: 'success',
                     completed_at: new Date().toISOString(),
                     payment_type: decryptedResult.PaymentType,
                     card_last_four: decryptedResult.Card4No,
-                });
+                    amount: decryptedResult.TradeAmt || 2000, // 更新實際交易金額
+                })
+                .eq('id', purchase.id);
 
-            if (insertError) {
-                console.error('Failed to insert purchase:', insertError);
-                return new NextResponse('FAILED: Failed to insert purchase', {
+            if (updateError) {
+                console.error('Failed to update purchase:', updateError);
+                return new NextResponse('FAILED: Failed to update purchase', {
                     status: 500,
                     headers: { 'Content-Type': 'text/plain; charset=utf-8' },
                 });
@@ -164,7 +150,7 @@ export async function POST(request: Request) {
 
             // 更新使用者為 Pro
             const { error: userUpdateError } = await supabaseAdmin.auth.admin.updateUserById(
-                profile.id as string,
+                purchase.user_id,
                 {
                     app_metadata: {
                         role: 'pro',
@@ -180,9 +166,17 @@ export async function POST(request: Request) {
             console.log('✅ PayUNi payment completed:', decryptedResult.MerTradeNo);
 
         } else {
-            // ❌ 交易失敗 - 不建立任何記錄
+            // ❌ 交易失敗 - 更新狀態為 failed
+            await supabaseAdmin
+                .from('purchases')
+                .update({
+                    payuni_trade_no: decryptedResult.TradeNo,
+                    status: 'fail',
+                    error_message: decryptedResult.Message,
+                })
+                .eq('id', purchase.id);
+
             console.log('❌ PayUNi payment failed:', decryptedResult.Message);
-            // 直接回傳成功（不需要儲存失敗的交易記錄）
         }
 
         // 回傳成功（PayUNi 需要收到成功回應才會停止重送）
