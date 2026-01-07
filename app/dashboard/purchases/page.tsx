@@ -140,7 +140,7 @@ export default function DashboardPurchasesPage() {
                                                     {new Date(purchase.created_at).toLocaleDateString('zh-TW')}
                                                 </div>
                                                 <div className="flex items-center gap-1.5">
-                                                    {purchase.status === 'SUCCESS' ? (
+                                                    {purchase.status === 'success' ? (
                                                         <>
                                                             <CheckCircle className="w-3 h-3 text-green-400" />
                                                             <span className="text-green-400">已完成</span>
