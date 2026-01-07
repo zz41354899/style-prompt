@@ -22,6 +22,7 @@ interface AuthContextType {
     signInWithGithub: () => Promise<{ error: AuthError | null }>;
     signOut: () => Promise<void>;
     updateUserName: (name: string) => Promise<{ error: Error | null }>;
+    refreshSession: () => Promise<{ error: Error | AuthError | null }>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);

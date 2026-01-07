@@ -21,16 +21,23 @@ export default function DashboardPricingPage() {
     const orderId = searchParams.get('order');
     const errorMessage = searchParams.get('message');
 
-    // 付款成功時刷新頁面
+    // 從 useAuth 取得 refreshSession
+    const { refreshSession } = useAuth() as { refreshSession: () => Promise<{ error: Error | null }> };
+
+    // 付款成功時刷新 session 以取得最新的 Pro 狀態
     React.useEffect(() => {
-        if (paymentStatus === 'success') {
-            // 延遲刷新，等待 notify webhook 處理完成
-            const timer = setTimeout(() => {
-                window.location.href = '/dashboard/pricing';
-            }, 3000);
-            return () => clearTimeout(timer);
-        }
-    }, [paymentStatus]);
+        const handlePaymentSuccess = async () => {
+            if (paymentStatus === 'success') {
+                // 等待 notify webhook 處理完成
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                // 刷新 session 取得最新的 app_metadata
+                await refreshSession();
+                // 清除 URL 參數
+                router.replace('/dashboard/pricing', { scroll: false });
+            }
+        };
+        handlePaymentSuccess();
+    }, [paymentStatus, refreshSession, router]);
 
     // 關閉通知並清除 URL 參數
     const dismissNotification = () => {

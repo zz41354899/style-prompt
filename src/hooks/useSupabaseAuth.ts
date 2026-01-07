@@ -106,6 +106,29 @@ export const useSupabaseAuth = () => {
         await supabase.auth.signOut();
     };
 
+    // 刷新 session 以取得最新的 app_metadata（用於付款成功後）
+    const refreshSession = async () => {
+        try {
+            console.log('[useSupabaseAuth] Refreshing session...');
+            const { data, error } = await supabase.auth.refreshSession();
+            if (error) {
+                console.error('[useSupabaseAuth] Failed to refresh session:', error);
+                return { error };
+            }
+            if (data.session?.user) {
+                setSession(data.session);
+                setUser(data.session.user);
+                const userRole = getRoleFromUser(data.session.user);
+                setRole(userRole);
+                console.log('[useSupabaseAuth] Session refreshed, new role:', userRole);
+            }
+            return { error: null };
+        } catch (e) {
+            console.error('[useSupabaseAuth] Refresh session error:', e);
+            return { error: e as Error };
+        }
+    };
+
     // 更新使用者名稱（同時更新 auth.users 和 profiles 表）
     const updateUserName = async (name: string): Promise<{ error: Error | null }> => {
         try {
@@ -333,5 +356,6 @@ export const useSupabaseAuth = () => {
         signInWithGithub,
         signOut,
         updateUserName,
+        refreshSession,
     };
 };

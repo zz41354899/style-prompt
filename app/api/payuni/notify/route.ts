@@ -117,7 +117,7 @@ export async function POST(request: Request) {
         }
 
         // 如果已經處理過，跳過
-        if (purchase.status === 'success') {
+        if (purchase.status === 'SUCCESS') {
             console.log('Purchase already completed:', decryptedResult.MerTradeNo);
             return new NextResponse('SUCCESS', {
                 status: 200,
@@ -132,7 +132,7 @@ export async function POST(request: Request) {
                 .from('purchases')
                 .update({
                     payuni_trade_no: decryptedResult.TradeNo,
-                    status: 'success',
+                    status: 'SUCCESS',
                     completed_at: new Date().toISOString(),
                     payment_type: decryptedResult.PaymentType,
                     card_last_four: decryptedResult.Card4No,
@@ -171,7 +171,7 @@ export async function POST(request: Request) {
                 .from('purchases')
                 .update({
                     payuni_trade_no: decryptedResult.TradeNo,
-                    status: 'fail',
+                    status: 'FAIL',
                     error_message: decryptedResult.Message,
                 })
                 .eq('id', purchase.id);
