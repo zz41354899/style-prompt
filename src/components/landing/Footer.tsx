@@ -22,8 +22,7 @@ export const Footer: React.FC<FooterProps> = ({ variant = 'free' }) => {
         system: [
             { key: 'coreTech', path: '/features/core-tech' },
             { key: 'visualWorkflow', path: '/features/workflow' },
-            { key: 'promptEditor', path: '/features/editor' },
-            { key: 'membership', path: '/features/membership' }
+            { key: 'promptEditor', path: '/features/editor' }
         ],
         legal: [
             { key: 'privacy', path: '/legal/privacy' },
