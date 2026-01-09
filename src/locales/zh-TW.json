@@ -498,9 +498,16 @@
   },
   "notification": {
     "title": "通知",
+    "all": "全部",
     "announcements": "公告",
     "changelog": "更新日誌",
     "noAnnouncements": "目前沒有公告",
+    "noChangelogs": "暫無更新",
+    "noNotifications": "暫無通知",
+    "loading": "載入中...",
+    "loadError": "載入更新失敗",
+    "retryLater": "請稍後再試",
+    "stayTuned": "敬請期待最新功能",
     "updates": "項更新",
     "today": "今天",
     "yesterday": "昨天",
@@ -511,14 +518,24 @@
       "library": "資源庫",
       "styleLibrary": "風格資源庫"
     },
+    "sidebar": {
+      "title": "Pro 風格資源庫",
+      "stylesCount": "{{count}} 個進階風格",
+      "trialBanner": "🎉 免費試用中",
+      "trialProgress": "{{current}}/{{total}} 風格可預覽",
+      "proTag": "PRO",
+      "trialTag": "試用",
+      "lockedTag": "鎖定",
+      "proHomepage": "Pro 首頁"
+    },
     "hero": {
-      "badge": "解鎖進階設計系統",
-      "title1": "打造驚艷的",
-      "title2": "AI 設計風格",
-      "subtitle": "專業級設計系統指示詞，讓 AI 生成的介面從普通變非凡。",
-      "subtitleHighlight": "一次購買，終身使用。",
-      "browseCTA": "瀏覽風格資源庫",
-      "pricingCTA": "查看方案",
+      "badge": "100+ 精選風格模板",
+      "title1": "用 AI 生成",
+      "title2": "專業級介面設計",
+      "subtitle": "告別平淡無奇的 AI 產出。精心調校的設計系統 Prompt，讓每次生成都達到專業水準。",
+      "subtitleHighlight": "立即開始免費試用",
+      "browseCTA": "免費試用",
+      "pricingCTA": "了解更多",
       "stats": {
         "proStyles": "Pro 風格",
         "designSystem": "設計系統",
@@ -526,14 +543,14 @@
       }
     },
     "features": {
-      "badge": "Pro 專屬功能",
-      "title": "為什麼選擇 Pro？",
-      "subtitle": "解鎖完整設計系統，讓你的 AI 生成介面提升到專業水準",
+      "badge": "為什麼需要 Pro",
+      "title": "省下數十小時的設計時間",
+      "subtitle": "不再需要反覆調整 Prompt，直接獲得經過驗證的專業設計系統",
       "proStyles": {
-        "title": "10+ Pro 專屬風格",
-        "subtitle": "精心設計的進階視覺系統",
-        "description": "每個 Pro 風格都經過專業設計師精心打造，包含完整的色彩系統、排版規範、組件設計語言。讓 AI 生成的介面具有一致性和專業感。",
-        "stats": "10+ 風格"
+        "title": "100+ 專業風格",
+        "subtitle": "涵蓋各種設計美學",
+        "description": "從極簡科技到賽博龐克，從日式禪意到歐洲奢華。每個風格都附帶完整的設計指示詞，一鍵複製即可使用。",
+        "stats": "100+ 風格"
       },
       "templates": {
         "title": "6 種產業模板",
@@ -644,7 +661,7 @@
       "a5": "可以。Pro 版授權包含商業使用權，您可以將生成的設計用於商業專案。"
     },
     "footer": {
-      "description": "專業級 AI 設計風格資源庫，一次購買，終身使用。",
+      "description": "為 AI 設計而生的風格系統資源庫",
       "product": "產品",
       "styles": "風格資源庫",
       "templates": "產業模板",
@@ -713,7 +730,12 @@
       "backToLibrary": "返回資源庫",
       "pricing": "方案",
       "purchases": "購買紀錄",
-      "settings": "設定"
+      "settings": "設定",
+      "announcements": "平台公告"
+    },
+    "announcements": {
+      "title": "平台公告",
+      "subtitle": "查看最新的更新日誌與系統公告"
     },
     "pricing": {
       "title": "方案",
@@ -729,18 +751,18 @@
       "recommended": "推薦",
       "purchased": "已購買",
       "freeFeatures": {
-        "f1": "基礎風格模板（10+ 種）",
-        "f2": "每日瀏覽上限",
+        "f1": "100 種基礎風格模板",
+        "f2": "即時 UI 預覽",
         "f3": "基本指示詞複製",
-        "f4": "Pro 專屬風格",
-        "f5": "商業使用授權",
-        "f6": "未來更新"
+        "f4": "商業使用授權",
+        "f5": "Pro 專屬風格",
+        "f6": "定期更新"
       },
       "proFeatures": {
         "f1": "所有基礎風格模板",
         "f2": "無限制瀏覽",
         "f3": "完整指示詞複製",
-        "f4": "10+ Pro 專屬風格",
+        "f4": "100+ Pro 專屬風格",
         "f5": "商業使用授權",
         "f6": "未來所有更新免費"
       },
@@ -752,7 +774,15 @@
         "a2": "依據台灣《消費者保護法》第19條，數位商品不適用7天鑑賞期，故不提供退款，除非發生結帳錯誤或重複交易，可透過 PayUNi 統一金流處理。",
         "q3": "未來會漲價嗎？",
         "a3": "不會都是2000元台幣一次買斷，未來新功能上線都不會調整價位。"
-      }
+      },
+      "paymentFailed": "付款失敗",
+      "paymentFailedDesc": "付款處理時發生問題，請再試一次或使用其他付款方式。",
+      "paymentUnknown": "付款狀態未知",
+      "paymentUnknownDesc": "無法確認付款狀態。如果您已完成付款，請稍候幾分鐘後刷新頁面查看。",
+      "paymentTesting": "金流系統測試中",
+      "paymentTestingDesc": "付款功能即將開放，請先體驗免費試用版本",
+      "comingSoon": "即將開放購買",
+      "tryProStyles": "先體驗前 20 個 Pro 風格"
     },
     "settings": {
       "title": "設定",
@@ -769,6 +799,14 @@
       "title": "購買紀錄",
       "subtitle": "查看您的購買歷史",
       "noPurchases": "尚無購買紀錄",
+      "noPurchasesDesc": "升級 Pro 後,您的購買紀錄將顯示在這裡。",
+      "loading": "載入中...",
+      "loadError": "載入購買記錄失敗",
+      "unexpectedError": "載入購買記錄發生錯誤",
+      "proLifetime": "Pro 終身授權",
+      "completed": "已完成",
+      "lifetimeAccess": "終身授權",
+      "orderId": "訂單編號",
       "date": "日期",
       "item": "項目",
       "amount": "金額",
@@ -873,19 +911,21 @@
       "startNow": "免費開始",
       "free": {
         "name": "免費版",
-        "use": "適合個人探索",
+        "use": "適合個人探索與商業使用",
         "price": "0",
-        "f1": "100種基礎視覺風格",
-        "f2": "基礎後端架構提示詞",
-        "f3": "即時 UI 預覽"
+        "f1": "100 種基礎視覺風格",
+        "f2": "商業使用授權",
+        "f3": "即時 UI 預覽",
+        "f4": "基本指示詞複製"
       },
       "pro": {
         "name": "專業版",
-        "use": "解鎖進階樣式",
+        "use": "解鎖進階樣式 + 持續更新",
         "price": "2000",
-        "f1": "100種進階視覺風格",
-        "f2": "獨家風格持續更新",
-        "f3": "優先支援與新功能"
+        "f1": "100+ 種進階視覺風格",
+        "f2": "未來所有更新免費",
+        "f3": "完整指示詞複製",
+        "f4": "優先支援與新功能"
       }
     },
     "faq": {

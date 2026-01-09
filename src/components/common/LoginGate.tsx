@@ -179,23 +179,6 @@ export const LoginGate: React.FC<LoginGateProps> = ({
                                 )}
                             </motion.button>
                         </div>
-
-                        {/* Terms Notice */}
-                        <motion.p
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.5, delay: 0.3 }}
-                            className="text-center text-xs text-gray-500"
-                        >
-                            {t('auth.termsNotice')}{' '}
-                            <Link href="/pro/legal/terms" className="text-purple-400 hover:text-purple-300 transition-colors">
-                                {t('pro.footer.terms')}
-                            </Link>
-                            {' '}{t('common.and')}{' '}
-                            <Link href="/pro/legal/privacy" className="text-purple-400 hover:text-purple-300 transition-colors">
-                                {t('pro.footer.privacy')}
-                            </Link>
-                        </motion.p>
                     </div>
                 </div>
 

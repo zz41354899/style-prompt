@@ -4,23 +4,37 @@ import { cookies } from 'next/headers';
 
 // ============================================
 // 伺服器端 Pro 風格驗證（整合使用者認證）
+// 包含試用模式邏輯：前 20 個風格可供登入用戶複製
 // ============================================
 
 // Pro 風格配置
 const PRO_CONFIG = {
-    proStyleRange: { start: 1, end: 21 },
+    proStyleRange: { start: 1, end: 100 },
+    trialStyleCount: 20, // 試用用戶可複製的風格數量
 } as const;
+
+// 取得風格的數字索引
+function getStyleIndex(styleId: string): number {
+    const num = parseInt(styleId.replace('S', ''), 10);
+    return isNaN(num) ? -1 : num;
+}
 
 // 驗證是否可以訪問 Pro 風格（僅檢查 styleId 範圍）
 function isStyleInProRange(styleId: string): boolean {
-    const num = parseInt(styleId.replace('S', ''), 10);
+    const num = getStyleIndex(styleId);
 
     // 檢查是否在 Pro 範圍內
-    if (isNaN(num) || num < PRO_CONFIG.proStyleRange.start || num > PRO_CONFIG.proStyleRange.end) {
+    if (num < PRO_CONFIG.proStyleRange.start || num > PRO_CONFIG.proStyleRange.end) {
         return false;
     }
 
     return true;
+}
+
+// 檢查是否在試用範圍內（前 20 個）
+function isStyleInTrialRange(styleId: string): boolean {
+    const num = getStyleIndex(styleId);
+    return num >= 1 && num <= PRO_CONFIG.trialStyleCount;
 }
 
 export async function POST(request: NextRequest) {
@@ -84,20 +98,38 @@ export async function POST(request: NextRequest) {
             const role = user.app_metadata?.role;
             const isPro = role === 'pro' || role === 'admin';
 
+            // 如果不是 Pro 用戶，檢查是否在試用範圍內
             if (!isPro) {
-                console.warn(`[PRO_GUARD] Unauthorized Pro access: ${user.email} (role: ${role || 'free'}) attempted ${styleId}`);
-                return NextResponse.json(
-                    {
-                        error: 'Pro subscription required',
-                        reason: 'Please upgrade to Pro to access this style',
-                        userRole: role || 'free',
-                    },
-                    { status: 403 }
-                );
+                const isInTrialRange = isStyleInTrialRange(styleId);
+
+                if (!isInTrialRange) {
+                    // 超出試用範圍，需要升級
+                    console.warn(`[PRO_GUARD] Trial limit exceeded: ${user.email} (role: ${role || 'free'}) attempted ${styleId} (index > ${PRO_CONFIG.trialStyleCount})`);
+                    return NextResponse.json(
+                        {
+                            error: 'Pro subscription required',
+                            reason: `This style requires Pro. Trial includes the first ${PRO_CONFIG.trialStyleCount} styles.`,
+                            userRole: role || 'free',
+                            trialLimit: PRO_CONFIG.trialStyleCount,
+                        },
+                        { status: 403 }
+                    );
+                }
+
+                // 在試用範圍內，允許存取（但標記為試用）
+                console.log(`[PRO_GUARD] ✅ Trial access granted: ${user.email} → ${styleId}`);
+                return NextResponse.json({
+                    success: true,
+                    styleId,
+                    tier: 'trial',
+                    isTrial: true,
+                    trialLimit: PRO_CONFIG.trialStyleCount,
+                    serverTime: new Date().toISOString(),
+                });
             }
 
-            // 所有檢查通過
-            console.log(`[PRO_GUARD] ✅ Authorized Pro access: ${user.email} → ${styleId}`);
+            // Pro/Admin 用戶，完全存取
+            console.log(`[PRO_GUARD] ✅ Pro access granted: ${user.email} → ${styleId}`);
         }
 
         // 驗證通過，返回成功
@@ -105,6 +137,7 @@ export async function POST(request: NextRequest) {
             success: true,
             styleId,
             tier: tier || 'free',
+            isTrial: false,
             serverTime: new Date().toISOString(),
         });
 
@@ -141,9 +174,11 @@ export async function GET() {
         return NextResponse.json({
             isAuthenticated: !!user,
             isPro: isPro,
+            isTrial: !!user && !isPro,
             role: role || 'free',
             serverTime: new Date().toISOString(),
             proStyleRange: PRO_CONFIG.proStyleRange,
+            trialStyleCount: PRO_CONFIG.trialStyleCount,
         });
     } catch (error) {
         console.error('[PRO_GUARD] GET Error:', error);

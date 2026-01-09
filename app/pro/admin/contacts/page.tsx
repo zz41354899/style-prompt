@@ -33,7 +33,6 @@ export default function ContactsPage() {
     const { role } = useAuth();
     const [contacts, setContacts] = useState<ContactSubmission[]>([]);
     const [filteredContacts, setFilteredContacts] = useState<ContactSubmission[]>([]);
-    const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
@@ -42,7 +41,6 @@ export default function ContactsPage() {
 
     // 載入聯絡表單
     const loadContacts = async () => {
-        setLoading(true);
         setError(null);
 
         try {
@@ -55,8 +53,6 @@ export default function ContactsPage() {
             }
         } catch (e) {
             setError('載入聯絡表單失敗');
-        } finally {
-            setLoading(false);
         }
     };
 
@@ -77,7 +73,6 @@ export default function ContactsPage() {
         setUpdatingId(null);
     };
 
-    // 初始載入
     useEffect(() => {
         if (role === 'admin') {
             loadContacts();
@@ -106,17 +101,6 @@ export default function ContactsPage() {
         setFilteredContacts(filtered);
     }, [contacts, statusFilter, searchTerm]);
 
-    if (loading) {
-        return (
-            <div className="flex items-center justify-center py-12">
-                <div className="flex flex-col items-center gap-4">
-                    <Loader2 className="w-8 h-8 animate-spin text-purple-500" />
-                    <p className="text-white/60">載入聯絡表單...</p>
-                </div>
-            </div>
-        );
-    }
-
     return (
         <div className="space-y-6">
             {/* Header */}
@@ -129,11 +113,14 @@ export default function ContactsPage() {
                     <p className="text-white/60 mt-1">管理使用者提交的聯絡訊息</p>
                 </div>
                 <button
-                    onClick={loadContacts}
-                    disabled={loading}
-                    className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors disabled:opacity-50"
+                    onClick={async () => {
+                        const btn = document.activeElement as HTMLButtonElement;
+                        btn?.blur();
+                        await loadContacts();
+                    }}
+                    className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors active:scale-95"
                 >
-                    <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+                    <RefreshCw className="w-4 h-4" />
                     <span>重新整理</span>
                 </button>
             </div>

@@ -6,10 +6,10 @@ export interface StyleData {
   tier?: 'free' | 'pro';
 }
 
-// Helper to check if a style has Pro version available (S01-S21 have Pro versions)
+// Helper to check if a style has Pro version available (S01-S100 have Pro versions)
 export const hasProVersion = (id: string): boolean => {
   const num = parseInt(id.replace('S', ''), 10);
-  return num >= 1 && num <= 21;
+  return num >= 1 && num <= 100;
 };
 
 // ============================================
@@ -18,7 +18,7 @@ export const hasProVersion = (id: string): boolean => {
 
 // Pro 風格配置
 const PRO_CONFIG = {
-  proStyleRange: { start: 1, end: 21 },
+  proStyleRange: { start: 1, end: 100 },
 } as const;
 
 // Pro 永久啟用

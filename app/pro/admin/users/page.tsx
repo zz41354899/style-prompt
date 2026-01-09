@@ -8,6 +8,7 @@ import {
     deleteUser,
     AdminUser
 } from '@/lib/admin/adminService';
+import { restoreAccount } from '@/lib/accountService';
 import {
     Users,
     Search,
@@ -22,14 +23,16 @@ import {
     ChevronUp,
     Mail,
     Calendar,
-    Shield
+    Shield,
+    RotateCcw
 } from 'lucide-react';
 
-type StatusFilter = 'all' | 'active' | 'suspended' | 'deleted';
+type StatusFilter = 'all' | 'active' | 'suspended' | 'pending_deletion' | 'deleted';
 
 const statusConfig = {
     active: { label: '正常', color: 'bg-green-500/20 text-green-400 border-green-500/30', icon: CheckCircle },
     suspended: { label: '已停用', color: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30', icon: Ban },
+    pending_deletion: { label: '待刪除', color: 'bg-orange-500/20 text-orange-400 border-orange-500/30', icon: AlertCircle },
     deleted: { label: '已刪除', color: 'bg-red-500/20 text-red-400 border-red-500/30', icon: Trash2 }
 };
 
@@ -95,6 +98,27 @@ export default function AdminUsersPage() {
             }
         } else {
             alert(`操作失敗: ${result.error.message}`);
+        }
+
+        setUpdatingId(null);
+    };
+
+    // 恢復帳戶
+    const handleRestoreAccount = async (userId: string) => {
+        if (!confirm('確定要恢復此帳戶嗎？')) return;
+
+        setUpdatingId(userId);
+
+        const { data, error } = await restoreAccount(userId);
+
+        if (!error && data?.success) {
+            // 更新本地狀態為 active
+            setUsers(prev =>
+                prev.map(u => u.id === userId ? { ...u, status: 'active' as const } : u)
+            );
+            alert('帳戶已成功恢復！');
+        } else {
+            alert(`恢復失敗: ${error?.message || data?.message || '未知錯誤'}`);
         }
 
         setUpdatingId(null);
@@ -210,7 +234,7 @@ export default function AdminUsersPage() {
 
                 {/* Status Filter */}
                 <div className="flex gap-2">
-                    {(['all', 'active', 'suspended', 'deleted'] as StatusFilter[]).map((status) => (
+                    {(['all', 'active', 'suspended', 'pending_deletion', 'deleted'] as StatusFilter[]).map((status) => (
                         <button
                             key={status}
                             onClick={() => setStatusFilter(status)}
@@ -346,6 +370,20 @@ export default function AdminUsersPage() {
                                                             <Trash2 className="w-3 h-3" />
                                                         )}
                                                         刪除
+                                                    </button>
+                                                )}
+                                                {(user.status === 'pending_deletion' || user.status === 'deleted') && (
+                                                    <button
+                                                        onClick={() => handleRestoreAccount(user.id)}
+                                                        disabled={updatingId === user.id}
+                                                        className="px-3 py-1.5 bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded-lg text-sm hover:bg-blue-500/30 transition-colors disabled:opacity-50 flex items-center gap-1.5"
+                                                    >
+                                                        {updatingId === user.id ? (
+                                                            <Loader2 className="w-3 h-3 animate-spin" />
+                                                        ) : (
+                                                            <RotateCcw className="w-3 h-3" />
+                                                        )}
+                                                        恢復帳戶
                                                     </button>
                                                 )}
                                                 {user.email?.includes('admin') && (

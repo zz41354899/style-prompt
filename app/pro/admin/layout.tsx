@@ -13,7 +13,8 @@ import {
     Megaphone,
     ScrollText,
     Mail,
-    ShoppingBag
+    ShoppingBag,
+    RefreshCw
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -51,6 +52,11 @@ const adminNavItems = [
         href: '/pro/admin/contacts',
         icon: Mail,
         label: '聯絡表單'
+    },
+    {
+        href: '/pro/admin/audit-logs',
+        icon: Shield,
+        label: '審計日誌'
     }
 ];
 
@@ -181,8 +187,16 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 overflow-auto">
-                <div className="p-8">
+            <main className="flex-1 overflow-auto flex flex-col">
+                {/* Header */}
+                <header className="sticky top-0 z-10 px-8 py-4 flex items-center bg-[#020202]/80 backdrop-blur-lg border-b border-white/5">
+                    <div className="flex items-center gap-2">
+                        <Shield className="w-5 h-5 text-purple-400" />
+                        <h1 className="text-lg font-bold text-white">Admin Panel</h1>
+                    </div>
+                </header>
+
+                <div className="flex-1 p-8">
                     {children}
                 </div>
             </main>

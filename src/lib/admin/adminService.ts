@@ -11,12 +11,16 @@ export interface AdminUser {
     email: string;
     display_name: string;
     avatar_url?: string;
-    status: 'active' | 'suspended' | 'deleted';
+    status: 'active' | 'suspended' | 'pending_deletion' | 'deleted';
     created_at: string;
     updated_at: string;
     app_metadata?: {
         role?: string;
     };
+    // 軟刪除相關欄位
+    deleted_at?: string;
+    deletion_reason?: string;
+    can_recover_until?: string;
 }
 
 export interface AdminSubscription {
@@ -277,6 +281,11 @@ export const fetchPurchaseStats = async (): Promise<{
     monthlyRevenue: number;
 }> => {
     try {
+        // 檢查 Supabase 連線
+        if (!supabase) {
+            throw new Error('Supabase client not initialized');
+        }
+
         // 總購買數
         const { count: total, error: totalError } = await supabase
             .from('purchases')
@@ -284,6 +293,13 @@ export const fetchPurchaseStats = async (): Promise<{
 
         if (totalError) {
             console.error('Error fetching total purchases:', totalError);
+            // 如果是權限錯誤，提供更具體的錯誤訊息
+            if (totalError.code === 'PGRST116') {
+                console.error('Table "purchases" does not exist or no permission to access');
+            } else if (totalError.message?.includes('permission denied')) {
+                console.error('Permission denied accessing purchases table. Check RLS policies.');
+            }
+            throw totalError;
         }
 
         // 本月開始時間
@@ -298,6 +314,7 @@ export const fetchPurchaseStats = async (): Promise<{
 
         if (monthError) {
             console.error('Error fetching month purchases:', monthError);
+            throw monthError;
         }
 
         // 本月收入
@@ -305,10 +322,11 @@ export const fetchPurchaseStats = async (): Promise<{
             .from('purchases')
             .select('amount')
             .gte('created_at', startOfMonth)
-            .eq('status', 'completed');  // 改為 completed
+            .eq('status', 'success');  // 更新為 success
 
         if (revenueError) {
             console.error('Error fetching revenue:', revenueError);
+            throw revenueError;
         }
 
         const monthlyRevenue = monthlyData?.reduce((sum, p) => sum + (p.amount || 0), 0) || 0;
@@ -320,6 +338,7 @@ export const fetchPurchaseStats = async (): Promise<{
         };
     } catch (e) {
         console.error('Failed to fetch purchase stats:', e);
+        // 返回預設值而不是拋出錯誤，讓頁面能正常載入
         return { total: 0, thisMonth: 0, monthlyRevenue: 0 };
     }
 };
@@ -351,6 +370,159 @@ export const fetchAnnouncementStats = async (): Promise<{
     } catch (e) {
         console.error('Failed to fetch announcement stats:', e);
         return { active: 0, draft: 0, total: 0 };
+    }
+};
+
+// ============================================
+// 公告 CRUD 函數
+// ============================================
+
+export interface Announcement {
+    id: string;
+    title: string;
+    content: string;
+    type: 'event' | 'notice' | 'alert';
+    published_at: string;
+    is_active: boolean;
+    image_url?: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface CreateAnnouncementInput {
+    title: string;
+    content: string;
+    type: 'event' | 'notice' | 'alert';
+    published_at: string;
+    is_active: boolean;
+    image_url?: string;
+}
+
+/**
+ * 取得所有公告
+ */
+export const fetchAllAnnouncements = async (): Promise<{
+    data: Announcement[] | null;
+    error: Error | null;
+}> => {
+    try {
+        const { data, error } = await supabase
+            .from('announcements')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+        if (error) {
+            console.error('Failed to fetch announcements:', error);
+            return { data: null, error: new Error(error.message) };
+        }
+
+        return { data: data as Announcement[], error: null };
+    } catch (e) {
+        return { data: null, error: e as Error };
+    }
+};
+
+/**
+ * 建立新公告
+ */
+export const createAnnouncement = async (
+    input: CreateAnnouncementInput
+): Promise<{ data: Announcement | null; error: Error | null }> => {
+    try {
+        const { data, error } = await supabase
+            .from('announcements')
+            .insert({
+                title: input.title,
+                content: input.content,
+                type: input.type,
+                published_at: input.published_at,
+                is_active: input.is_active ?? true,
+                image_url: input.image_url || null,
+            })
+            .select()
+            .single();
+
+        if (error) {
+            console.error('Failed to create announcement:', error);
+            return { data: null, error: new Error(error.message) };
+        }
+
+        return { data: data as Announcement, error: null };
+    } catch (e) {
+        return { data: null, error: e as Error };
+    }
+};
+
+/**
+ * 更新公告
+ */
+export const updateAnnouncement = async (
+    id: string,
+    updates: Partial<CreateAnnouncementInput>
+): Promise<{ data: Announcement | null; error: Error | null }> => {
+    try {
+        const { data, error } = await supabase
+            .from('announcements')
+            .update(updates)
+            .eq('id', id)
+            .select()
+            .single();
+
+        if (error) {
+            console.error('Failed to update announcement:', error);
+            return { data: null, error: new Error(error.message) };
+        }
+
+        return { data: data as Announcement, error: null };
+    } catch (e) {
+        return { data: null, error: e as Error };
+    }
+};
+
+/**
+ * 刪除公告
+ */
+export const deleteAnnouncement = async (
+    id: string
+): Promise<{ success: boolean; error: Error | null }> => {
+    try {
+        const { error } = await supabase
+            .from('announcements')
+            .delete()
+            .eq('id', id);
+
+        if (error) {
+            console.error('Failed to delete announcement:', error);
+            return { success: false, error: new Error(error.message) };
+        }
+
+        return { success: true, error: null };
+    } catch (e) {
+        return { success: false, error: e as Error };
+    }
+};
+
+/**
+ * 切換公告啟用狀態
+ */
+export const toggleAnnouncementActive = async (
+    id: string,
+    is_active: boolean
+): Promise<{ success: boolean; error: Error | null }> => {
+    try {
+        const { error } = await supabase
+            .from('announcements')
+            .update({ is_active })
+            .eq('id', id);
+
+        if (error) {
+            console.error('Failed to toggle announcement:', error);
+            return { success: false, error: new Error(error.message) };
+        }
+
+        return { success: true, error: null };
+    } catch (e) {
+        return { success: false, error: e as Error };
     }
 };
 

@@ -18,8 +18,8 @@ export const ProFooter: React.FC = () => {
                     {/* Brand */}
                     <div className="col-span-2">
                         <Link href="/pro" className="flex items-center gap-2 mb-4">
-                            <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-fuchsia-600 rounded-lg flex items-center justify-center">
-                                <Sparkles className="w-4 h-4 text-white" />
+                            <div className="w-8 h-8 bg-black border border-white/20 rounded-lg flex items-center justify-center shadow-lg">
+                                <span className="text-white font-bold text-sm">SP</span>
                             </div>
                             <span className="text-lg font-bold text-white">StylePrompts Pro</span>
                         </Link>

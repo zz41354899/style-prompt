@@ -169,7 +169,9 @@ export default function AdminDashboard() {
             setChangelogStats(changelogResult);
             setContactStats(contactResult);
         } catch (e) {
-            setDataError('載入資料失敗');
+            console.error('Admin page data loading error:', e);
+            const errorMessage = e instanceof Error ? e.message : '載入資料失敗';
+            setDataError(`載入資料失敗: ${errorMessage}`);
         } finally {
             setDataLoading(false);
         }

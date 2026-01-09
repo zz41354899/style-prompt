@@ -486,9 +486,16 @@
   },
   "notification": {
     "title": "Notifications",
+    "all": "All",
     "announcements": "Announcements",
     "changelog": "Changelog",
     "noAnnouncements": "No announcements",
+    "noChangelogs": "No updates",
+    "noNotifications": "No notifications",
+    "loading": "Loading...",
+    "loadError": "Failed to load updates",
+    "retryLater": "Please try again later",
+    "stayTuned": "Stay tuned for new features",
     "updates": "updates",
     "today": "Today",
     "yesterday": "Yesterday",
@@ -499,14 +506,24 @@
       "library": "Library",
       "styleLibrary": "Style Library"
     },
+    "sidebar": {
+      "title": "Pro Style Library",
+      "stylesCount": "{{count}} Premium Styles",
+      "trialBanner": " Free Trial Active",
+      "trialProgress": "{{current}}/{{total}} styles available",
+      "proTag": "PRO",
+      "trialTag": "Trial",
+      "lockedTag": "Locked",
+      "proHomepage": "Pro Homepage"
+    },
     "hero": {
-      "badge": "Unlock Advanced Design System",
-      "title1": "Create Stunning",
-      "title2": "AI Design Styles",
-      "subtitle": "Professional design system prompts that transform AI-generated interfaces from ordinary to extraordinary.",
-      "subtitleHighlight": "One-time purchase, lifetime access.",
-      "browseCTA": "Browse Style Library",
-      "pricingCTA": "View Plans",
+      "badge": "100+ Premium Style Templates",
+      "title1": "Generate",
+      "title2": "Pro-Level UI with AI",
+      "subtitle": "Say goodbye to mediocre AI output. Precision-tuned design system prompts for professional results every time.",
+      "subtitleHighlight": "Start your free trial now.",
+      "browseCTA": "Try Free",
+      "pricingCTA": "Learn More",
       "stats": {
         "proStyles": "Pro Styles",
         "designSystem": "Design System",
@@ -514,14 +531,14 @@
       }
     },
     "features": {
-      "badge": "Pro Features",
-      "title": "Why Choose Pro?",
-      "subtitle": "Unlock the complete design system and elevate your AI-generated interfaces to professional level",
+      "badge": "Why You Need Pro",
+      "title": "Save Hours of Design Time",
+      "subtitle": "Stop tweaking prompts endlessly. Get proven, professional design systems instantly.",
       "proStyles": {
-        "title": "10+ Pro Exclusive Styles",
-        "subtitle": "Carefully designed advanced visual systems",
-        "description": "Each Pro style is crafted by professional designers, including complete color systems, typography standards, and component design language. Make your AI-generated interfaces consistent and professional.",
-        "stats": "10+ Styles"
+        "title": "100+ Pro Styles",
+        "subtitle": "Every design aesthetic covered",
+        "description": "From tech minimal to cyberpunk, from Japanese zen to European luxury. Each style comes with complete design prompts, ready to copy and use.",
+        "stats": "100+ Styles"
       },
       "templates": {
         "title": "6 Industry Templates",
@@ -632,7 +649,7 @@
       "a5": "Yes. The Pro license includes commercial use rights. You can use the generated designs for commercial projects."
     },
     "footer": {
-      "description": "Professional AI design style library. One-time purchase, lifetime access.",
+      "description": "Design system library built for AI-powered design.",
       "product": "Product",
       "styles": "Style Library",
       "templates": "Industry Templates",
@@ -701,7 +718,12 @@
       "backToLibrary": "Back to Library",
       "pricing": "Plans",
       "purchases": "Purchases",
-      "settings": "Settings"
+      "settings": "Settings",
+      "announcements": "Announcements"
+    },
+    "announcements": {
+      "title": "Platform Announcements",
+      "subtitle": "View the latest updates and system announcements"
     },
     "pricing": {
       "title": "Plans",
@@ -717,12 +739,12 @@
       "recommended": "Recommended",
       "purchased": "Purchased",
       "freeFeatures": {
-        "f1": "Basic Style Templates (10+)",
-        "f2": "Daily Browse Limit",
+        "f1": "100 Base Style Templates",
+        "f2": "Live UI Preview",
         "f3": "Basic Prompt Copy",
-        "f4": "Pro Exclusive Styles",
-        "f5": "Commercial Use License",
-        "f6": "Future Updates"
+        "f4": "Commercial Use License",
+        "f5": "Pro Exclusive Styles",
+        "f6": "Regular Updates"
       },
       "proFeatures": {
         "f1": "All Basic Style Templates",
@@ -740,7 +762,15 @@
         "a2": "Under Taiwan's Consumer Protection Act Article 19, digital products are exempt from the 7-day return policy, so refunds are not available unless there's a checkout error or duplicate transaction, which can be processed via PayUNi.",
         "q3": "Will the price increase?",
         "a3": "No, it will always be a one-time purchase of NT$2,000. The price will not increase even when new features are released."
-      }
+      },
+      "paymentFailed": "Payment Failed",
+      "paymentFailedDesc": "There was an issue processing your payment. Please try again or use a different payment method.",
+      "paymentUnknown": "Payment Status Unknown",
+      "paymentUnknownDesc": "Unable to confirm payment status. If you have completed payment, please wait a few minutes and refresh the page.",
+      "paymentTesting": "Payment System Testing",
+      "paymentTestingDesc": "Payment feature coming soon. Try the free trial version first.",
+      "comingSoon": "Coming Soon",
+      "tryProStyles": "Try 20 Pro Styles First"
     },
     "settings": {
       "title": "Settings",
@@ -757,6 +787,14 @@
       "title": "Purchases",
       "subtitle": "View your purchase history",
       "noPurchases": "No purchases yet",
+      "noPurchasesDesc": "After upgrading to Pro, your purchase history will appear here.",
+      "loading": "Loading...",
+      "loadError": "Failed to load purchase history",
+      "unexpectedError": "An error occurred while loading purchase history",
+      "proLifetime": "Pro Lifetime License",
+      "completed": "Completed",
+      "lifetimeAccess": "Lifetime Access",
+      "orderId": "Order ID",
       "date": "Date",
       "item": "Item",
       "amount": "Amount",
@@ -861,19 +899,21 @@
       "startNow": "Start Free",
       "free": {
         "name": "Free",
-        "use": "For Personal Exploration",
+        "use": "For Personal & Commercial Use",
         "price": "0",
-        "f1": "100 base visual styles",
-        "f2": "Basic backend architecture prompts",
-        "f3": "Live UI preview"
+        "f1": "100 Base Visual Styles",
+        "f2": "Commercial Use License",
+        "f3": "Live UI Preview",
+        "f4": "Basic Prompt Copy"
       },
       "pro": {
         "name": "Pro",
-        "use": "Unlock Advanced Styles",
+        "use": "Advanced Styles + Lifetime Updates",
         "price": "2000",
-        "f1": "100 advanced visual styles",
-        "f2": "Exclusive style updates",
-        "f3": "Priority support & new features"
+        "f1": "100+ Advanced Visual Styles",
+        "f2": "All Future Updates Free",
+        "f3": "Full Prompt Copy",
+        "f4": "Priority Support & New Features"
       }
     },
     "faq": {

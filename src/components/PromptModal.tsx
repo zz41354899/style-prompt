@@ -44,18 +44,24 @@ export const PromptModal: React.FC<PromptModalProps> = ({
 
     const generatePrompt = async () => {
       try {
-        // Pro 模式：先呼叫後端驗證
-        if (tier === 'pro' && hasPro) {
+        // Pro 模式：先呼叫後端驗證（包含試用範圍檢查）
+        if (tier === 'pro') {
           const response = await fetch('/api/promo-guard', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ styleId: currentStyle.id, tier: 'pro' }),
           });
 
+          const data = await response.json();
+
           if (!response.ok) {
-            const errorData = await response.json();
-            console.warn('[PromptModal] Pro access denied:', errorData);
-            // 降級到 Free 版
+            console.warn('[PromptModal] Access denied:', data);
+            // 如果是試用限制，顯示升級提示
+            if (data.trialLimit) {
+              setShowUpgradePrompt(true);
+              return;
+            }
+            // 其他錯誤：降級到 Free 版
             const prompt = assemblePrompt({
               styleId: currentStyle.id,
               industryId: 'SaaS',
@@ -65,6 +71,9 @@ export const PromptModal: React.FC<PromptModalProps> = ({
             setPromptText(prompt);
             return;
           }
+
+          // 驗證通過（可能是 Pro 或試用範圍內）
+          console.log('[PromptModal] Access granted:', data.isTrial ? 'Trial' : 'Pro');
         }
 
         // 驗證通過，生成提示詞

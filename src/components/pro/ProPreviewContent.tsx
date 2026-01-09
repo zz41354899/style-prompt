@@ -2,25 +2,23 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Info, Monitor, Laptop, Smartphone, Maximize2, Copy, Crown, Lock } from 'lucide-react';
+import { Info, Monitor, Laptop, Smartphone, Maximize2, Copy, Crown, Lock, Sparkles, ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { styles } from '@/data/styles';
 import { styleComponentsPro } from '@/components/styles';
-import { useProLayoutContext } from './ProLayoutContext';
+import { useProLayoutContext, TRIAL_STYLE_COUNT } from './ProLayoutContext';
 import { PromptModal } from '@/components/PromptModal';
 import { ProUpgradeModal } from './ProUpgradeModal';
 import { useAuth } from '@/components/providers/AuthProvider';
-import { usePurchase } from '@/hooks/usePurchase';
 
 interface ProPreviewContentProps {
     styleId: string;
 }
 
 export const ProPreviewContent: React.FC<ProPreviewContentProps> = ({ styleId }) => {
-    const { deviceMode, setDeviceMode } = useProLayoutContext();
+    const { deviceMode, setDeviceMode, isTrial, hasPro, isStyleLocked, canCopyStyle, proStyles } = useProLayoutContext();
     const { t } = useTranslation();
     const { user } = useAuth();
-    const { hasPro } = usePurchase();
     const [isPromptModalOpen, setIsPromptModalOpen] = useState(false);
     const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
 
@@ -28,8 +26,11 @@ export const ProPreviewContent: React.FC<ProPreviewContentProps> = ({ styleId })
     const currentStyle = styles.find(s => s.id === effectiveStyleId);
     const SelectedComponent = styleComponentsPro[effectiveStyleId];
 
-    // 是否可以複製：必須登入且已購買
-    const canCopy = user && hasPro;
+    // 判斷該風格是否被鎖定
+    const styleLocked = isStyleLocked(effectiveStyleId);
+
+    // 判斷該風格是否可以複製（前20個免費用戶可複製，Pro/Admin全部可複製）
+    const canCopy = canCopyStyle(effectiveStyleId);
 
     const handleCopyClick = () => {
         if (!user) {
@@ -37,12 +38,12 @@ export const ProPreviewContent: React.FC<ProPreviewContentProps> = ({ styleId })
             setIsUpgradeModalOpen(true);
             return;
         }
-        if (!hasPro) {
-            // 未購買 - 顯示升級彈窗
+        if (!canCopy) {
+            // 該風格不可複製 - 顯示升級彈窗
             setIsUpgradeModalOpen(true);
             return;
         }
-        // 已登入且已購買 - 開啟複製彈窗
+        // 可以複製 - 開啟複製彈窗
         setIsPromptModalOpen(true);
     };
 
@@ -54,8 +55,68 @@ export const ProPreviewContent: React.FC<ProPreviewContentProps> = ({ styleId })
         );
     }
 
+    // 鎖定的風格顯示升級提示
+    if (styleLocked) {
+        return (
+            <main className="flex-1 bg-[#111] overflow-hidden flex items-center justify-center p-8">
+                <div className="max-w-md text-center">
+                    <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-purple-600/20 to-pink-600/20 rounded-full flex items-center justify-center border border-purple-500/30">
+                        <Lock className="w-10 h-10 text-purple-400" />
+                    </div>
+                    <h2 className="text-2xl font-bold text-white mb-3">
+                        此風格需升級 Pro
+                    </h2>
+                    <p className="text-white/60 mb-2">
+                        {t(`styles.${effectiveStyleId}.name`) || currentStyle.name}
+                    </p>
+                    <p className="text-white/50 text-sm mb-6">
+                        免費試用僅限前 {TRIAL_STYLE_COUNT} 個風格，升級 Pro 即可解鎖全部 {proStyles.length} 個進階風格。
+                    </p>
+                    <div className="flex flex-col gap-3">
+                        <Link
+                            href="/dashboard/pricing"
+                            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:from-purple-500 hover:to-pink-500 transition-all"
+                        >
+                            <Crown className="w-5 h-5" />
+                            升級解鎖全部風格
+                            <ArrowRight className="w-4 h-4" />
+                        </Link>
+                        <Link
+                            href="/pro/S01"
+                            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/10 text-white/80 font-medium rounded-xl hover:bg-white/20 transition-all"
+                        >
+                            返回試用區域
+                        </Link>
+                    </div>
+                </div>
+            </main>
+        );
+    }
+
     return (
         <main className="flex-1 bg-[#111] overflow-y-auto flex flex-col p-2 md:p-4 lg:p-8 pb-48 md:pb-8">
+            {/* 試用橫幅 - 僅試用用戶顯示 */}
+            {isTrial && (
+                <div className="mb-4 p-3 bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30 rounded-xl flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                        <Sparkles className="w-5 h-5 text-purple-400 flex-shrink-0" />
+                        <div>
+                            <span className="text-sm font-bold text-purple-300">🎉 免費試用中</span>
+                            <span className="text-xs text-white/60 ml-2">
+                                可預覽 {TRIAL_STYLE_COUNT}/{proStyles.length} 風格 · 複製功能需升級 Pro
+                            </span>
+                        </div>
+                    </div>
+                    <Link
+                        href="/dashboard/pricing"
+                        className="hidden md:flex items-center gap-2 px-4 py-2 bg-purple-600 text-white text-sm font-medium rounded-lg hover:bg-purple-500 transition-colors flex-shrink-0"
+                    >
+                        升級 Pro
+                        <ArrowRight className="w-4 h-4" />
+                    </Link>
+                </div>
+            )}
+
             {/* Header Content */}
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-3 md:mb-6 flex-shrink-0">
                 {/* Left: Info + Pro Badge */}
@@ -66,7 +127,7 @@ export const ProPreviewContent: React.FC<ProPreviewContentProps> = ({ styleId })
                     </div>
                     <div className="flex items-center gap-1.5 px-2.5 py-1 bg-gradient-to-r from-purple-600/30 to-pink-600/30 border border-purple-500/40 rounded-full">
                         <Crown className="w-3 h-3 text-purple-400" />
-                        <span className="text-xs font-medium text-purple-300">Pro</span>
+                        <span className="text-xs font-medium text-purple-300">{isTrial ? '試用' : 'Pro'}</span>
                     </div>
                 </div>
 
@@ -98,11 +159,11 @@ export const ProPreviewContent: React.FC<ProPreviewContentProps> = ({ styleId })
                         onClick={handleCopyClick}
                         className={`hidden md:flex items-center gap-2 px-4 py-2 text-white text-sm font-medium rounded-lg transition-colors ${canCopy
                             ? 'bg-purple-600 hover:bg-purple-700'
-                            : 'bg-purple-600/50 cursor-not-allowed'
+                            : 'bg-purple-600/50 cursor-pointer hover:bg-purple-600/70'
                             }`}
                     >
                         {canCopy ? <Copy className="w-4 h-4" /> : <Lock className="w-4 h-4" />}
-                        {t('preview.copyPrompt') || 'Copy Prompt'}
+                        {canCopy ? (t('preview.copyPrompt') || 'Copy Prompt') : '需升級 Pro'}
                     </button>
                     <Link
                         href={`/styles/pro/${effectiveStyleId}`}

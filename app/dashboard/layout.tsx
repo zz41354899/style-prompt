@@ -1,12 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { usePathname, redirect } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/components/providers/AuthProvider';
-import { Crown, CreditCard, Settings, ArrowLeft, Languages, Bell } from 'lucide-react';
+import { Crown, CreditCard, Settings, ArrowLeft, Languages, Bell, AlertCircle, RefreshCw, Loader2, Clock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import NotificationBell from '@/components/common/NotificationBell';
+import { getAccountDeletionStatus, restoreAccount, calculateRemainingDays } from '@/lib/accountService';
 
 interface DashboardLayoutProps {
     children: React.ReactNode;
@@ -21,6 +21,7 @@ const DashboardContent: React.FC<DashboardLayoutProps> = ({ children }) => {
     const navItems = [
         { href: '/dashboard/pricing', label: t('dashboard.nav.pricing'), icon: Crown },
         { href: '/dashboard/purchases', label: t('dashboard.nav.purchases'), icon: CreditCard },
+        { href: '/dashboard/announcements', label: t('dashboard.nav.announcements'), icon: Bell },
         { href: '/dashboard/settings', label: t('dashboard.nav.settings'), icon: Settings },
     ];
 
@@ -33,6 +34,7 @@ const DashboardContent: React.FC<DashboardLayoutProps> = ({ children }) => {
         const newLang = currentLang === 'zh-TW' ? 'en' : 'zh-TW';
         i18n.changeLanguage(newLang);
     };
+
 
     // 未登入重導向
     if (!loading && !user) {
@@ -135,10 +137,12 @@ const DashboardContent: React.FC<DashboardLayoutProps> = ({ children }) => {
 
             {/* Main Content */}
             <main className="flex-1 overflow-y-auto flex flex-col">
-                {/* Header with Notification */}
+                {/* Header */}
                 <header className="sticky top-0 z-10 px-8 py-4 flex items-center justify-end bg-[#020202]/80 backdrop-blur-lg border-b border-white/5">
-                    <NotificationBell />
+                    {/* Header content can be added here if needed */}
                 </header>
+
+
                 <div className="flex-1 overflow-y-auto">
                     {children}
                 </div>

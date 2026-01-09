@@ -6,3 +6,5 @@ export { LoginGate } from './LoginGate';
 export { PricingAdModal } from './PricingAdModal';
 export { AppLoader } from './AppLoader';
 export { GlobeLoader } from './GlobeLoader';
+export { StyleLoadingSkeleton } from './StyleLoadingSkeleton';
+

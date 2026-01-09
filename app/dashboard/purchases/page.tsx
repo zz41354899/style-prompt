@@ -1,107 +1,65 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { CreditCard, Download, Loader2, Calendar, CheckCircle } from 'lucide-react';
+import { CreditCard, Calendar, CheckCircle } from 'lucide-react';
 import { useAuth } from '@/components/providers/AuthProvider';
 import { fetchUserPurchases, Purchase } from '@/lib/purchaseService';
+import { useTranslation } from 'react-i18next';
 
 export default function DashboardPurchasesPage() {
+    const { t } = useTranslation();
     const { user, loading: authLoading } = useAuth();
     const [purchases, setPurchases] = useState<Purchase[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [initialLoading, setInitialLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    // 超時保護
     useEffect(() => {
-        const timeout = setTimeout(() => {
-            if (loading) {
-                console.log('[Purchases] Force ending loading due to timeout');
-                setLoading(false);
-            }
-        }, 5000);
-        return () => clearTimeout(timeout);
-    }, [loading]);
-
-    useEffect(() => {
-        async function loadPurchases() {
-            console.log('=== Dashboard Purchases Debug ===');
-            console.log('Auth Loading:', authLoading);
-            console.log('User:', user?.email, user?.id);
-
+        async function loadPurchases(isInitial = false) {
             if (authLoading) {
-                console.log('Still loading auth, waiting...');
                 return;
             }
 
             if (!user) {
-                console.log('No user, stopping');
-                setLoading(false);
+                setInitialLoading(false);
                 return;
             }
-
-            console.log('Fetching purchases for user:', user.id);
-            setLoading(true);
-            setError(null);
 
             try {
                 const { data, error: fetchError } = await fetchUserPurchases(user.id);
 
-                console.log('Fetch result:', { data, error: fetchError });
-
                 if (fetchError) {
                     console.error('Error fetching purchases:', fetchError);
-                    setError(`載入購買記錄失敗: ${fetchError.message || fetchError}`);
+                    setError(`${t('dashboard.purchases.loadError')}: ${fetchError.message || fetchError}`);
                 } else {
-                    console.log('Purchases loaded:', data?.length || 0);
                     setPurchases(data || []);
+                    setError(null);
                 }
             } catch (e) {
                 console.error('Unexpected error:', e);
-                setError('載入購買記錄發生錯誤');
+                setError(t('dashboard.purchases.unexpectedError'));
             }
 
-            setLoading(false);
+            if (isInitial) {
+                setInitialLoading(false);
+            }
         }
 
-        loadPurchases();
-    }, [user, authLoading]);
-
-    // 如果認證還在 loading，顯示簡短的載入中
-    if (authLoading) {
-        return (
-            <div className="p-8">
-                <div className="max-w-2xl mx-auto">
-                    <h1 className="text-2xl font-bold mb-2">購買紀錄</h1>
-                    <p className="text-white/50 mb-8">查看您的購買歷史</p>
-                    <div className="p-6 bg-white/[0.02] border border-white/10 rounded-2xl flex items-center justify-center">
-                        <Loader2 className="w-6 h-6 animate-spin text-purple-400" />
-                    </div>
-                </div>
-            </div>
-        );
-    }
-
-    // 如果正在載入購買資料
-    if (loading) {
-        return (
-            <div className="p-8">
-                <div className="max-w-2xl mx-auto">
-                    <h1 className="text-2xl font-bold mb-2">購買紀錄</h1>
-                    <p className="text-white/50 mb-8">查看您的購買歷史</p>
-                    <div className="p-6 bg-white/[0.02] border border-white/10 rounded-2xl flex items-center justify-center gap-3">
-                        <Loader2 className="w-5 h-5 animate-spin text-purple-400" />
-                        <span className="text-white/50 text-sm">載入中...</span>
-                    </div>
-                </div>
-            </div>
-        );
-    }
+        if (!authLoading && user) {
+            loadPurchases(true);
+            
+            // 每 15 秒自動重新整理（背景更新）
+            const interval = setInterval(() => loadPurchases(false), 15000);
+            return () => clearInterval(interval);
+        } else if (!authLoading && !user) {
+            setInitialLoading(false);
+        }
+    }, [user, authLoading, t]);
 
     return (
         <div className="p-8">
             <div className="max-w-2xl mx-auto">
-                <h1 className="text-2xl font-bold mb-2">購買紀錄</h1>
-                <p className="text-white/50 mb-8">查看您的購買歷史</p>
+                <h1 className="text-2xl font-bold mb-2">{t('dashboard.purchases.title')}</h1>
+                <p className="text-white/50 mb-8">{t('dashboard.purchases.subtitle')}</p>
 
                 {error && (
                     <div className="mb-4 p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 text-sm">
@@ -112,9 +70,9 @@ export default function DashboardPurchasesPage() {
                 {purchases.length === 0 ? (
                     <div className="p-8 bg-white/[0.02] border border-white/10 rounded-2xl text-center">
                         <CreditCard className="w-12 h-12 text-white/20 mx-auto mb-4" />
-                        <h3 className="text-lg font-semibold mb-2">尚無購買紀錄</h3>
+                        <h3 className="text-lg font-semibold mb-2">{t('dashboard.purchases.noPurchases')}</h3>
                         <p className="text-sm text-white/40 mb-4">
-                            升級 Pro 後,您的購買紀錄將顯示在這裡。
+                            {t('dashboard.purchases.noPurchasesDesc')}
                         </p>
                     </div>
                 ) : (
@@ -131,7 +89,7 @@ export default function DashboardPurchasesPage() {
                                         </div>
                                         <div>
                                             <h3 className="font-semibold mb-1">
-                                                {purchase.product_type === 'lifetime_pro' ? 'Pro 終身授權' : purchase.product_type}
+                                                {purchase.product_type === 'lifetime_pro' ? t('dashboard.purchases.proLifetime') : purchase.product_type}
                                             </h3>
                                             <p className="text-sm text-white/50 mb-2">StylePrompts Pro</p>
                                             <div className="flex items-center gap-4 text-xs text-white/40">
@@ -143,7 +101,7 @@ export default function DashboardPurchasesPage() {
                                                     {purchase.status === 'success' ? (
                                                         <>
                                                             <CheckCircle className="w-3 h-3 text-green-400" />
-                                                            <span className="text-green-400">已完成</span>
+                                                            <span className="text-green-400">{t('dashboard.purchases.completed')}</span>
                                                         </>
                                                     ) : (
                                                         <span>{purchase.status}</span>
@@ -158,14 +116,14 @@ export default function DashboardPurchasesPage() {
                                             {purchase.amount.toLocaleString()}
                                         </div>
                                         <div className="text-xs text-white/40">
-                                            {purchase.product_type === 'lifetime_pro' ? '終身授權' : ''}
+                                            {purchase.product_type === 'lifetime_pro' ? t('dashboard.purchases.lifetimeAccess') : ''}
                                         </div>
                                     </div>
                                 </div>
                                 {purchase.gumroad_sale_id && (
                                     <div className="mt-4 pt-4 border-t border-white/5">
                                         <p className="text-xs text-white/30">
-                                            訂單編號: {purchase.gumroad_sale_id}
+                                            {t('dashboard.purchases.orderId')}: {purchase.gumroad_sale_id}
                                         </p>
                                         {purchase.gumroad_license_key && (
                                             <p className="text-xs text-white/30 mt-1">

@@ -26,14 +26,31 @@ export const useChangelogs = () => {
             try {
                 setLoading(true);
 
+                // 檢查 Supabase 連線
+                if (!supabase) {
+                    throw new Error('Supabase client not initialized');
+                }
+
+                console.log('Fetching changelogs...');
+
                 const { data, error: fetchError } = await supabase
                     .from('changelogs')
                     .select('*')
                     .order('published_at', { ascending: false })
                     .limit(10); // 只取最新 10 筆
 
-                if (fetchError) throw fetchError;
+                if (fetchError) {
+                    console.error('Changelogs fetch error:', fetchError);
+                    // 如果是權限錯誤，提供更具體的錯誤訊息
+                    if (fetchError.code === 'PGRST116') {
+                        console.error('Table "changelogs" does not exist or no permission to access');
+                    } else if (fetchError.message?.includes('permission denied')) {
+                        console.error('Permission denied accessing changelogs table. Check RLS policies.');
+                    }
+                    throw fetchError;
+                }
 
+                console.log('Changelogs fetched:', data?.length || 0, 'items');
                 setChangelogs(data || []);
             } catch (err) {
                 console.error('Failed to fetch changelogs:', err);

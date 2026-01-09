@@ -13,7 +13,7 @@ export const UserDropdown: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
-    // 點擊外部關閉選單
+    // 點擊外部關閉選單 - 使用 click 而非 mousedown 避免與按鈕事件衝突
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -21,13 +21,25 @@ export const UserDropdown: React.FC = () => {
             }
         };
 
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
+        // 使用 setTimeout 確保 click 事件在其他事件處理完後才綁定
+        const timer = setTimeout(() => {
+            if (isOpen) {
+                document.addEventListener('click', handleClickOutside);
+            }
+        }, 0);
+
+        return () => {
+            clearTimeout(timer);
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, [isOpen]);
 
     const handleSignOut = async () => {
-        await signOut();
         setIsOpen(false);
+        // 延遲執行登出，確保 UI 狀態更新後再執行
+        setTimeout(async () => {
+            await signOut();
+        }, 100);
     };
 
     // 取得使用者顯示名稱或 email 前綴

@@ -9,10 +9,8 @@ import { usePurchase } from '@/hooks/usePurchase';
 import { useTranslation } from 'react-i18next';
 
 function DashboardPricingContent() {
-    const { user } = useAuth();
     const { hasPro, loading } = usePurchase();
     const { t } = useTranslation();
-    const [payLoading, setPayLoading] = React.useState(false);
 
     // 讀取 URL 參數
     const searchParams = useSearchParams();
@@ -32,7 +30,7 @@ function DashboardPricingContent() {
         { text: t('dashboard.pricing.freeFeatures.f1'), included: true },
         { text: t('dashboard.pricing.freeFeatures.f2'), included: true },
         { text: t('dashboard.pricing.freeFeatures.f3'), included: true },
-        { text: t('dashboard.pricing.freeFeatures.f4'), included: false },
+        { text: t('dashboard.pricing.freeFeatures.f4'), included: true },
         { text: t('dashboard.pricing.freeFeatures.f5'), included: false },
         { text: t('dashboard.pricing.freeFeatures.f6'), included: false },
     ];
@@ -57,9 +55,9 @@ function DashboardPricingContent() {
                             <XCircle className="w-5 h-5 text-red-400" />
                         </div>
                         <div className="flex-1">
-                            <h3 className="font-bold text-red-400">付款失敗</h3>
+                            <h3 className="font-bold text-red-400">{t('dashboard.pricing.paymentFailed')}</h3>
                             <p className="text-red-300/80 text-sm mt-1">
-                                {errorMessage || '付款處理時發生問題，請再試一次或使用其他付款方式。'}
+                                {errorMessage || t('dashboard.pricing.paymentFailedDesc')}
                             </p>
                         </div>
                         <button
@@ -77,9 +75,9 @@ function DashboardPricingContent() {
                             <AlertCircle className="w-5 h-5 text-yellow-400" />
                         </div>
                         <div className="flex-1">
-                            <h3 className="font-bold text-yellow-400">付款狀態未知</h3>
+                            <h3 className="font-bold text-yellow-400">{t('dashboard.pricing.paymentUnknown')}</h3>
                             <p className="text-yellow-300/80 text-sm mt-1">
-                                無法確認付款狀態。如果您已完成付款，請稍候幾分鐘後刷新頁面查看。
+                                {t('dashboard.pricing.paymentUnknownDesc')}
                             </p>
                         </div>
                         <button
@@ -226,55 +224,36 @@ function DashboardPricingContent() {
                                     <ArrowRight className="w-4 h-4" />
                                 </Link>
                             ) : (
-                                <button
-                                    onClick={async () => {
-                                        if (!user?.email) return;
-                                        setPayLoading(true);
-                                        try {
-                                            const response = await fetch('/api/payuni/create-order', {
-                                                method: 'POST',
-                                                headers: { 'Content-Type': 'application/json' },
-                                                body: JSON.stringify({ email: user.email }),
-                                            });
-                                            const data = await response.json();
-                                            if (data.formAction && data.formData) {
-                                                const form = document.createElement('form');
-                                                form.method = 'POST';
-                                                form.action = data.formAction;
-                                                Object.entries(data.formData).forEach(([key, value]) => {
-                                                    const input = document.createElement('input');
-                                                    input.type = 'hidden';
-                                                    input.name = key;
-                                                    input.value = String(value);
-                                                    form.appendChild(input);
-                                                });
-                                                document.body.appendChild(form);
-                                                form.submit();
-                                            } else {
-                                                alert(data.error || '建立訂單失敗');
-                                            }
-                                        } catch (err) {
-                                            console.error(err);
-                                            alert('金流系統暫時無法處理，請稍後再試');
-                                        } finally {
-                                            setPayLoading(false);
-                                        }
-                                    }}
-                                    disabled={payLoading}
-                                    className="flex items-center justify-center gap-2 w-full py-3 bg-white text-black font-bold rounded-xl hover:bg-gray-100 transition-all disabled:opacity-50"
-                                >
-                                    {payLoading ? (
-                                        <>
-                                            <div className="w-4 h-4 border-2 border-black/20 border-t-black rounded-full animate-spin" />
-                                            {t('auth.loading')}
-                                        </>
-                                    ) : (
-                                        <>
-                                            {t('dashboard.pricing.upgradeNow')}
-                                            <ArrowRight className="w-4 h-4" />
-                                        </>
-                                    )}
-                                </button>
+                                <div className="space-y-3">
+                                    {/* 金流測試中提示 */}
+                                    <div className="p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-xl">
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <AlertCircle className="w-4 h-4 text-yellow-400" />
+                                            <span className="text-sm font-medium text-yellow-300">{t('dashboard.pricing.paymentTesting')}</span>
+                                        </div>
+                                        <p className="text-xs text-yellow-200/70">
+                                            {t('dashboard.pricing.paymentTestingDesc')}
+                                        </p>
+                                    </div>
+
+                                    {/* 禁用的購買按鈕 */}
+                                    <button
+                                        disabled
+                                        className="flex items-center justify-center gap-2 w-full py-3 bg-white/30 text-white/50 font-bold rounded-xl cursor-not-allowed"
+                                    >
+                                        {t('dashboard.pricing.comingSoon')}
+                                    </button>
+
+                                    {/* 試用入口 */}
+                                    <Link
+                                        href="/pro/S01"
+                                        className="flex items-center justify-center gap-2 w-full py-3 bg-purple-600/20 border border-purple-500/30 text-purple-300 font-medium rounded-xl hover:bg-purple-600/30 transition-all"
+                                    >
+                                        <Sparkles className="w-4 h-4" />
+                                        {t('dashboard.pricing.tryProStyles')}
+                                        <ArrowRight className="w-4 h-4" />
+                                    </Link>
+                                </div>
                             )}
                         </div>
                     </div>

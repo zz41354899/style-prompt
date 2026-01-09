@@ -35,7 +35,6 @@ export default function PurchasesPage() {
     const { role } = useAuth();
     const [purchases, setPurchases] = useState<Purchase[]>([]);
     const [filteredPurchases, setFilteredPurchases] = useState<Purchase[]>([]);
-    const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
@@ -43,7 +42,6 @@ export default function PurchasesPage() {
 
     // 載入所有購買記錄 (Admin 查看全部)
     const loadPurchases = async () => {
-        setLoading(true);
         setError(null);
 
         try {
@@ -56,12 +54,9 @@ export default function PurchasesPage() {
             }
         } catch (e) {
             setError('載入購買記錄失敗');
-        } finally {
-            setLoading(false);
         }
     };
 
-    // 初始載入
     useEffect(() => {
         if (role === 'admin') {
             loadPurchases();
@@ -90,17 +85,6 @@ export default function PurchasesPage() {
         setFilteredPurchases(filtered);
     }, [purchases, statusFilter, searchTerm]);
 
-    if (loading) {
-        return (
-            <div className="flex items-center justify-center py-12">
-                <div className="flex flex-col items-center gap-4">
-                    <Loader2 className="w-8 h-8 animate-spin text-purple-500" />
-                    <p className="text-white/60">載入購買記錄...</p>
-                </div>
-            </div>
-        );
-    }
-
     const totalRevenue = purchases
         .filter(p => p.status === 'completed')
         .reduce((sum, p) => sum + p.amount, 0);
@@ -117,11 +101,14 @@ export default function PurchasesPage() {
                     <p className="text-white/60 mt-1">管理所有使用者的購買交易</p>
                 </div>
                 <button
-                    onClick={loadPurchases}
-                    disabled={loading}
-                    className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors disabled:opacity-50"
+                    onClick={async () => {
+                        const btn = document.activeElement as HTMLButtonElement;
+                        btn?.blur();
+                        await loadPurchases();
+                    }}
+                    className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors active:scale-95"
                 >
-                    <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+                    <RefreshCw className="w-4 h-4" />
                     <span>重新整理</span>
                 </button>
             </div>

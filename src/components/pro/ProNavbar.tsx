@@ -71,8 +71,8 @@ export const ProNavbar: React.FC<ProNavbarProps> = ({
                         >
                             <div className="relative">
                                 <div className="absolute inset-0 bg-purple-600 blur-[20px] opacity-20 group-hover:opacity-40 transition-opacity duration-500" />
-                                <div className="relative w-8 h-8 sm:w-9 sm:h-9 bg-gradient-to-b from-white/10 to-transparent border border-white/10 rounded-xl flex items-center justify-center shadow-inner">
-                                    <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400 drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]" />
+                                <div className="relative w-8 h-8 sm:w-9 sm:h-9 bg-black border border-white/20 rounded-xl flex items-center justify-center shadow-lg">
+                                    <span className="text-white font-bold text-sm sm:text-base">SP</span>
                                 </div>
                             </div>
                             <div className="flex flex-col">

@@ -8,10 +8,10 @@ interface Announcement {
     title: string;
     content: string;
     type: 'event' | 'notice' | 'alert';
-    start_at: string;
-    end_at: string;
+    published_at: string;
     is_active: boolean;
     created_at: string;
+    image_url?: string;
 }
 
 /**
@@ -26,15 +26,12 @@ export const useAnnouncements = () => {
         const fetchAnnouncements = async () => {
             try {
                 setLoading(true);
-                const now = new Date().toISOString();
 
                 const { data, error: fetchError } = await supabase
                     .from('announcements')
                     .select('*')
                     .eq('is_active', true)
-                    .lte('start_at', now)
-                    .gte('end_at', now)
-                    .order('created_at', { ascending: false });
+                    .order('published_at', { ascending: false });
 
                 if (fetchError) throw fetchError;
 

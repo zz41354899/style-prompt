@@ -44,7 +44,7 @@ export const PricingSection: React.FC = () => {
                             </div>
                         </div>
                         <ul className="space-y-5 mb-12 flex-1">
-                            {[1, 2, 3].map(i => (
+                            {[1, 2, 3, 4].map(i => (
                                 <li key={i} className="flex items-center gap-4 text-white/50 text-sm font-light">
                                     <CheckCircle2 className="w-5 h-5 text-purple-600" />
                                     {t(`landing.pricing.free.f${i}`)}
@@ -74,7 +74,7 @@ export const PricingSection: React.FC = () => {
                             </div>
                         </div>
                         <ul className="space-y-5 mb-12 flex-1">
-                            {[1, 2, 3].map(i => (
+                            {[1, 2, 3, 4].map(i => (
                                 <li key={i} className="flex items-center gap-4 text-white/80 text-sm font-medium">
                                     <CheckCircle2 className="w-5 h-5 text-purple-500" />
                                     {t(`landing.pricing.pro.f${i}`)}

@@ -129,7 +129,7 @@ export const ProHomePage: React.FC = () => {
                                                     {t(`styles.${style.id}.name`) || style.name}
                                                 </div>
                                                 <div className="text-xs text-white/40 truncate">
-                                                    {style.description}
+                                                    {t(`styles.${style.id}.description`) || style.description}
                                                 </div>
                                             </div>
                                             <ArrowRight className="w-4 h-4 text-white/20 group-hover:text-purple-400 group-hover:translate-x-1 transition-all" />
