@@ -2,15 +2,18 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LayoutDashboard, LogOut, ChevronDown } from 'lucide-react';
+import { LayoutDashboard, LogOut, ChevronDown, Loader2 } from 'lucide-react';
 import { useAuth } from '@/components/providers/AuthProvider';
 import { useTranslation } from 'react-i18next';
 
 export const UserDropdown: React.FC = () => {
     const { user, signOut, profileName } = useAuth();
     const { t } = useTranslation();
+    const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
+    const [isSigningOut, setIsSigningOut] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     // 點擊外部關閉選單 - 使用 click 而非 mousedown 避免與按鈕事件衝突
@@ -35,11 +38,21 @@ export const UserDropdown: React.FC = () => {
     }, [isOpen]);
 
     const handleSignOut = async () => {
+        if (isSigningOut) return;
+        
+        setIsSigningOut(true);
         setIsOpen(false);
-        // 延遲執行登出，確保 UI 狀態更新後再執行
-        setTimeout(async () => {
+        
+        try {
             await signOut();
-        }, 100);
+            // 根據當前路徑決定登出後導向
+            const isProArea = window.location.pathname.startsWith('/pro');
+            router.push(isProArea ? '/pro' : '/');
+        } catch (error) {
+            console.error('Sign out error:', error);
+        } finally {
+            setIsSigningOut(false);
+        }
     };
 
     // 取得使用者顯示名稱或 email 前綴
@@ -107,10 +120,15 @@ export const UserDropdown: React.FC = () => {
                             <div className="border-t border-white/5 py-2">
                                 <button
                                     onClick={handleSignOut}
-                                    className="flex items-center gap-3 px-4 py-2.5 w-full text-sm text-red-400 hover:text-red-300 hover:bg-white/5 transition-colors"
+                                    disabled={isSigningOut}
+                                    className="flex items-center gap-3 px-4 py-2.5 w-full text-sm text-red-400 hover:text-red-300 hover:bg-white/5 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
-                                    <LogOut className="w-4 h-4" />
-                                    {t('userDropdown.signOut')}
+                                    {isSigningOut ? (
+                                        <Loader2 className="w-4 h-4 animate-spin" />
+                                    ) : (
+                                        <LogOut className="w-4 h-4" />
+                                    )}
+                                    {isSigningOut ? '登出中...' : t('userDropdown.signOut')}
                                 </button>
                             </div>
                         </motion.div>

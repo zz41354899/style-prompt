@@ -1,15 +1,16 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { styles, hasProVersion } from '@/data/styles';
 import { usePurchase } from '@/hooks/usePurchase';
+import { useDeviceMode, type DeviceMode } from '@/hooks/useDeviceMode';
 
 // 試用常數：免費用戶可試用的風格數量
 export const TRIAL_STYLE_COUNT = 20;
 
-// 型別定義
-export type DeviceMode = 'desktop' | 'tablet' | 'mobile';
+// Re-export type
+export type { DeviceMode } from '@/hooks/useDeviceMode';
 
 export interface ProLayoutContextType {
     deviceMode: DeviceMode;
@@ -57,7 +58,7 @@ export const ProLayoutProvider: React.FC<ProLayoutProviderProps> = ({ children }
     const pathname = usePathname();
     const router = useRouter();
     const { hasPro, user } = usePurchase();
-    const [deviceMode, setDeviceMode] = useState<DeviceMode>('desktop');
+    const { deviceMode, setDeviceMode } = useDeviceMode();
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const selectedStyle = extractProStyleId(pathname);
@@ -68,46 +69,23 @@ export const ProLayoutProvider: React.FC<ProLayoutProviderProps> = ({ children }
     const trialStyles = proStyles.slice(0, TRIAL_STYLE_COUNT);
     const lockedStyles = proStyles.slice(TRIAL_STYLE_COUNT);
 
-    // 判斷特定風格是否被鎖定（對於試用用戶：無法瀏覽也無法複製）
+    // 判斷特定風格是否被鎖定
     const isStyleLocked = (styleId: string): boolean => {
-        if (hasPro) return false; // Pro/Admin 用戶不鎖定任何風格
-        if (!user) return true; // 未登入用戶全部鎖定
-        // 試用用戶：檢查風格是否在前 20 個之內
+        if (hasPro) return false;
+        if (!user) return true;
         const styleIndex = proStyles.findIndex(s => s.id === styleId);
         return styleIndex >= TRIAL_STYLE_COUNT;
     };
 
     // 判斷特定風格是否可以複製提示詞
-    // - Pro/Admin 用戶：全部可複製
-    // - 試用用戶：只有前 20 個可複製
     const canCopyStyle = (styleId: string): boolean => {
-        if (hasPro) return true; // Pro/Admin 用戶全部可複製
-        if (!user) return false; // 未登入用戶不可複製
-        // 試用用戶：檢查風格是否在前 20 個之內
+        if (hasPro) return true;
+        if (!user) return false;
         const styleIndex = proStyles.findIndex(s => s.id === styleId);
         return styleIndex < TRIAL_STYLE_COUNT;
     };
 
-    // 向下兼容：保留 canCopyPrompt（根據當前選中的風格判斷）
     const canCopyPrompt = selectedStyle ? canCopyStyle(selectedStyle) : false;
-
-    // 視窗 resize 自動更新 deviceMode
-    useEffect(() => {
-        const updateDeviceMode = () => {
-            const width = window.innerWidth;
-            if (width < 768) {
-                setDeviceMode('mobile');
-            } else if (width < 1024) {
-                setDeviceMode('tablet');
-            } else {
-                setDeviceMode('desktop');
-            }
-        };
-
-        updateDeviceMode();
-        window.addEventListener('resize', updateDeviceMode);
-        return () => window.removeEventListener('resize', updateDeviceMode);
-    }, []);
 
     const handleStyleSelect = (newStyleId: string) => {
         router.push(`/pro/${newStyleId}`);

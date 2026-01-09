@@ -17,6 +17,7 @@ export * from './ProDesktopSidebar';
 export * from './ProMobileSidebar';
 export * from './ProMobileBottomNav';
 export * from './ProPreviewContent';
+export * from './ProStyleListItem';
 
 // Pro Modals
 export * from './ProUpgradeModal';

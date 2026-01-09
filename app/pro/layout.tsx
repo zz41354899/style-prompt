@@ -1,47 +1,50 @@
 'use client';
 
-import React from 'react';
-import { usePathname } from 'next/navigation';
+import React, { useEffect } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 import { ProMainLayout } from '@/components/pro';
 import { LoginGate } from '@/components/common';
+import { useAuth } from '@/components/providers/AuthProvider';
 
-interface ProLayoutProps {
-    children: React.ReactNode;
-}
+// 帳戶狀態檢查 wrapper
+const AccountStatusGuard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const { user, accountStatus, loading } = useAuth();
+    const router = useRouter();
 
-export default function ProLayout({ children }: ProLayoutProps) {
+    useEffect(() => {
+        if (!loading && user) {
+            if (accountStatus === 'suspended') {
+                router.replace('/auth/suspended');
+            } else if (accountStatus === 'pending_deletion' || accountStatus === 'deleted') {
+                router.replace('/auth/deleted');
+            }
+        }
+    }, [user, accountStatus, loading, router]);
+
+    if (user && accountStatus !== 'active') {
+        return null;
+    }
+
+    return <>{children}</>;
+};
+
+export default function ProLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
 
-    // Pro Landing Page (/pro) 不使用 MainLayout 也不需登入
-    const isLandingPage = pathname === '/pro';
+    // 公開頁面：不需要登入
+    const isPublicPage = pathname === '/pro' || 
+                         pathname === '/pro/login' || 
+                         pathname.startsWith('/pro/legal') ||
+                         pathname.startsWith('/pro/admin');
 
-    // 登入頁面
-    const isLoginPage = pathname === '/pro/login';
+    if (isPublicPage) return <>{children}</>;
 
-    // Admin 頁面使用獨立的 Layout
-    const isAdminPage = pathname.startsWith('/pro/admin');
-
-    // 法律頁面使用獨立頁面
-    const isLegalPage = pathname.startsWith('/pro/legal');
-
-    // 不需要登入的頁面
-    const isPublicPage = isLandingPage || isLegalPage || isLoginPage;
-
-    // AuthProvider 已在根 layout.tsx 中提供
     return (
-        <>
-            {isPublicPage ? (
-                children
-            ) : isAdminPage ? (
-                children
-            ) : (
-                <LoginGate backLink="/pro" variant="pro">
-                    <ProMainLayout>
-                        {children}
-                    </ProMainLayout>
-                </LoginGate>
-            )}
-        </>
+        <LoginGate backLink="/pro" variant="pro">
+            <AccountStatusGuard>
+                <ProMainLayout>{children}</ProMainLayout>
+            </AccountStatusGuard>
+        </LoginGate>
     );
 }
 

@@ -10,6 +10,9 @@ import type { StyleComponentProps } from './types';
 // 直接 re-export 類型
 export type { StyleComponentProps, DeviceMode, DesignTokens } from './types';
 
+// 動態載入元件
+export { StyleRenderer } from './StyleRenderer';
+
 // ============================================
 // 動態載入器
 // ============================================

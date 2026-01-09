@@ -14,20 +14,14 @@ const BarChartVisual = () => (
                 <motion.div
                     initial={{ height: 0 }}
                     whileInView={{ height: `${h}%` }}
-                    transition={{ delay: i * 0.03, duration: 0.6, ease: "easeOut" }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ delay: i * 0.02, duration: 0.4, ease: "easeOut" }}
                     className={`w-full rounded-t-[2px] bg-gradient-to-t from-purple-900/40 to-purple-500 opacity-60 group-hover/bar:opacity-100 transition-opacity`}
                 >
-                    {/* Top highlight */}
                     <div className="absolute top-0 left-0 right-0 h-[1px] bg-white/50" />
                 </motion.div>
-                {/* Random highlight dots */}
                 {(i === 3 || i === 9 || i === 14) && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.8 + i * 0.05 }}
-                        className={`absolute -top-3 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full ${i === 3 ? 'bg-emerald-400' : i === 9 ? 'bg-amber-400' : 'bg-rose-400'} shadow-[0_0_8px_currentColor]`}
-                    />
+                    <div className={`absolute -top-3 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full ${i === 3 ? 'bg-emerald-400' : i === 9 ? 'bg-amber-400' : 'bg-rose-400'} shadow-[0_0_8px_currentColor]`} />
                 )}
             </div>
         ))}
@@ -91,15 +85,12 @@ const TemplatesVisual = () => (
             { icon: GraduationCap, color: 'text-emerald-400', bg: 'bg-emerald-400/10' },
             { icon: Activity, color: 'text-cyan-400', bg: 'bg-cyan-400/10' },
         ].map((item, i) => (
-            <motion.div
+            <div
                 key={i}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.1 * i }}
                 className={`aspect-square rounded-xl ${item.bg} flex items-center justify-center border border-white/5 hover:scale-105 transition-transform`}
             >
                 <item.icon className={`w-5 h-5 ${item.color}`} />
-            </motion.div>
+            </div>
         ))}
     </div>
 );
@@ -180,7 +171,7 @@ export const ProFeaturesGrid: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-max">
 
                     {/* 1. Pro Styles (Chart) - Top Left 2 cols */}
-                    <motion.div
+                    <div
                         onClick={() => setActiveFeature('proStyles')}
                         className={`${cardBase} md:col-span-2 h-[300px] flex flex-col`}
                     >
@@ -197,10 +188,10 @@ export const ProFeaturesGrid: React.FC = () => {
                             <h3 className="text-xl font-bold text-white mb-1">{t('pro.features.proStyles.title')}</h3>
                             <p className="text-sm text-white/40">{t('pro.features.proStyles.subtitle')}</p>
                         </div>
-                    </motion.div>
+                    </div>
 
                     {/* 2. Commercial (Big Stat) - Top Right 1 col */}
-                    <motion.div
+                    <div
                         onClick={() => setActiveFeature('commercial')}
                         className={`${cardBase} h-[300px] flex flex-col items-center justify-center text-center bg-gradient-to-b from-[#0F0F1A] to-[#0B0C15]`}
                     >
@@ -216,10 +207,10 @@ export const ProFeaturesGrid: React.FC = () => {
                             </div>
                             <p className="text-sm text-white/40 font-medium px-4">{t('pro.features.commercial.title')}</p>
                         </div>
-                    </motion.div>
+                    </div>
 
                     {/* 3. Premium (Big Stat) - Top Right 1 col */}
-                    <motion.div
+                    <div
                         onClick={() => setActiveFeature('premium')}
                         className={`${cardBase} h-[300px] flex flex-col items-center justify-center text-center bg-gradient-to-b from-[#0F0F1A] to-[#0B0C15]`}
                     >
@@ -233,10 +224,10 @@ export const ProFeaturesGrid: React.FC = () => {
                             <p className="text-purple-400 text-xs font-bold uppercase tracking-wider mb-8">Support</p>
                             <p className="text-sm text-white/40 font-medium px-4">{t('pro.features.premium.title')}</p>
                         </div>
-                    </motion.div>
+                    </div>
 
                     {/* 4. Design System (Code) - Bottom Left 2 cols */}
-                    <motion.div
+                    <div
                         onClick={() => setActiveFeature('designSystem')}
                         className={`${cardBase} md:col-span-2 h-[340px] flex flex-col`}
                     >
@@ -256,10 +247,10 @@ export const ProFeaturesGrid: React.FC = () => {
                                 <span className="text-lg">✨</span>
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
 
                     {/* 5. Templates (Icons) - Bottom Right 1 col */}
-                    <motion.div
+                    <div
                         onClick={() => setActiveFeature('templates')}
                         className={`${cardBase} h-[340px] flex flex-col items-center justify-center relative`}
                     >
@@ -278,10 +269,10 @@ export const ProFeaturesGrid: React.FC = () => {
                             <h3 className="text-lg font-bold text-white mb-1">6 Industries</h3>
                             <p className="text-xs text-white/40 uppercase tracking-wide font-medium">{t('pro.features.templates.title')}</p>
                         </div>
-                    </motion.div>
+                    </div>
 
                     {/* 6. Updates (Toggle) - Bottom Right 1 col */}
-                    <motion.div
+                    <div
                         onClick={() => setActiveFeature('updates')}
                         className={`${cardBase} h-[340px] flex flex-col items-center justify-center bg-gradient-to-b from-[#0F0F1A] to-[#0B0C15]`}
                     >
@@ -296,7 +287,7 @@ export const ProFeaturesGrid: React.FC = () => {
                             <h3 className="text-lg font-bold text-white mb-1">{t('pro.features.updates.title')}</h3>
                             <p className="text-xs text-white/40 uppercase tracking-wide font-medium">Auto-Enabled</p>
                         </div>
-                    </motion.div>
+                    </div>
 
                 </div>
             </div>

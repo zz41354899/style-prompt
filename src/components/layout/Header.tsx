@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
-import { X, Menu, Home, Eye, ChevronRight, Languages } from 'lucide-react';
+import { X, Menu, Home, Eye } from 'lucide-react';
 import { styles } from '@/data/styles';
 import { getThemeColor } from '@/data/themeColors';
 import { useLayoutContext } from './LayoutContext';
@@ -14,12 +14,11 @@ import { AuthModal } from '@/components/common';
 
 export const Header: React.FC = () => {
     const pathname = usePathname();
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const { selectedStyle, sidebarOpen, setSidebarOpen } = useLayoutContext();
     const { user, loading } = useAuth();
 
     const [authModalOpen, setAuthModalOpen] = useState(false);
-    const [currentLang, setCurrentLang] = useState(i18n.language || 'zh-TW');
 
     const currentStyle = styles.find(s => s.id === selectedStyle);
     const themeColor = getThemeColor(selectedStyle);
@@ -29,16 +28,6 @@ export const Header: React.FC = () => {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-    };
-
-    const openSignIn = () => {
-        setAuthModalOpen(true);
-    };
-
-    const toggleLanguage = () => {
-        const newLang = currentLang === 'zh-TW' ? 'en' : 'zh-TW';
-        i18n.changeLanguage(newLang);
-        setCurrentLang(newLang);
     };
 
     return (

@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { X, Menu, Home, Eye, Crown, ChevronRight } from 'lucide-react';
-import { getThemeColor } from '@/data/themeColors';
 import { useProLayoutContext } from './ProLayoutContext';
 import { useAuth } from '@/components/providers/AuthProvider';
 import { UserDropdown } from '@/components/layout/UserDropdown';
@@ -14,19 +13,13 @@ import { AuthModal } from '@/components/common';
 export const ProHeader: React.FC = () => {
     const pathname = usePathname();
     const { t } = useTranslation();
-    const { selectedStyle, sidebarOpen, setSidebarOpen, proStyles } = useProLayoutContext();
+    const { selectedStyle, sidebarOpen, setSidebarOpen } = useProLayoutContext();
     const { user, loading } = useAuth();
 
     const [authModalOpen, setAuthModalOpen] = useState(false);
-    const [authModalMode] = useState<'signin' | 'signup'>('signin');
-
-    const currentStyle = proStyles.find(s => s.id === selectedStyle);
-    const themeColor = getThemeColor(selectedStyle);
     const isEditorPage = pathname.includes('/pro/S');
 
-    const openSignIn = () => {
-        setAuthModalOpen(true);
-    };
+    const openSignIn = () => setAuthModalOpen(true);
 
     return (
         <>
@@ -61,7 +54,7 @@ export const ProHeader: React.FC = () => {
                             }`}
                     >
                         <Home className="w-4 h-4" />
-                        <span>首頁</span>
+                        <span>{t('pro.header.home')}</span>
                     </Link>
                     <div className="w-px h-4 bg-white/5 mx-1" />
                     <Link
@@ -72,7 +65,7 @@ export const ProHeader: React.FC = () => {
                             }`}
                     >
                         <Eye className="w-4 h-4" />
-                        <span>預覽</span>
+                        <span>{t('pro.header.preview')}</span>
                     </Link>
                 </div>
 
@@ -100,7 +93,7 @@ export const ProHeader: React.FC = () => {
             <AuthModal
                 isOpen={authModalOpen}
                 onClose={() => setAuthModalOpen(false)}
-                defaultMode={authModalMode}
+                defaultMode="signin"
             />
         </>
     );

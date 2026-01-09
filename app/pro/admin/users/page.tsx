@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/components/providers/AuthProvider';
+import { Pagination, usePagination } from '@/components/common';
 import {
     fetchUsers,
     updateUserStatus,
@@ -12,7 +13,6 @@ import { restoreAccount } from '@/lib/accountService';
 import {
     Users,
     Search,
-    Filter,
     Loader2,
     CheckCircle,
     Ban,
@@ -21,8 +21,6 @@ import {
     RefreshCw,
     ChevronDown,
     ChevronUp,
-    Mail,
-    Calendar,
     Shield,
     RotateCcw
 } from 'lucide-react';
@@ -68,7 +66,7 @@ export default function AdminUsersPage() {
     };
 
     // 更新使用者狀態
-    const handleStatusUpdate = async (userId: string, newStatus: 'active' | 'suspended' | 'deleted') => {
+    const handleStatusUpdate = async (userId: string, newStatus: 'active' | 'suspended' | 'deleted', currentUser?: AdminUser) => {
         if (newStatus === 'deleted') {
             if (!confirm('⚠️ 確定要永久刪除此使用者嗎?\n\n此操作會:\n1. 刪除 Supabase Auth 帳號\n2. 刪除所有相關資料\n3. 無法復原!\n\n請再次確認是否要執行此操作?')) {
                 return;
@@ -81,6 +79,28 @@ export default function AdminUsersPage() {
         if (newStatus === 'deleted') {
             // 真正刪除使用者
             result = await deleteUser(userId);
+        } else if (newStatus === 'active' && currentUser && 
+                   (currentUser.status === 'pending_deletion' || currentUser.deletion_status === 'pending_deletion')) {
+            // 待刪除狀態要使用恢復帳戶 API
+            const { data, error } = await restoreAccount(userId);
+            if (!error && data?.success) {
+                setUsers(prev =>
+                    prev.map(u => u.id === userId ? { 
+                        ...u, 
+                        status: 'active' as const,
+                        deletion_status: 'active' as const,
+                        deleted_at: undefined,
+                        deletion_reason: undefined,
+                        can_recover_until: undefined
+                    } : u)
+                );
+                setUpdatingId(null);
+                return;
+            } else {
+                alert(`操作失敗: ${error?.message || data?.message || '未知錯誤'}`);
+                setUpdatingId(null);
+                return;
+            }
         } else {
             // 更新狀態 (停用/啟用)
             result = await updateUserStatus(userId, newStatus);
@@ -112,11 +132,17 @@ export default function AdminUsersPage() {
         const { data, error } = await restoreAccount(userId);
 
         if (!error && data?.success) {
-            // 更新本地狀態為 active
+            // 更新本地狀態為 active（包含 deletion_status）
             setUsers(prev =>
-                prev.map(u => u.id === userId ? { ...u, status: 'active' as const } : u)
+                prev.map(u => u.id === userId ? { 
+                    ...u, 
+                    status: 'active' as const,
+                    deletion_status: 'active' as const,
+                    deleted_at: undefined,
+                    deletion_reason: undefined,
+                    can_recover_until: undefined
+                } : u)
             );
-            alert('帳戶已成功恢復！');
         } else {
             alert(`恢復失敗: ${error?.message || data?.message || '未知錯誤'}`);
         }
@@ -151,6 +177,17 @@ export default function AdminUsersPage() {
 
         setFilteredUsers(filtered);
     }, [users, statusFilter, searchTerm]);
+
+    // 分頁
+    const {
+        currentPage,
+        totalPages,
+        paginatedItems: paginatedUsers,
+        setCurrentPage,
+        startIndex,
+        endIndex,
+        totalItems
+    } = usePagination(filteredUsers, 10);
 
     if (loading) {
         return (
@@ -193,7 +230,7 @@ export default function AdminUsersPage() {
             )}
 
             {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                 <div className="p-4 rounded-xl bg-white/5 border border-white/10">
                     <p className="text-white/60 text-sm">總使用者</p>
                     <p className="text-2xl font-bold text-white mt-1">{users.length}</p>
@@ -208,6 +245,12 @@ export default function AdminUsersPage() {
                     <p className="text-yellow-400 text-sm">已停用</p>
                     <p className="text-2xl font-bold text-white mt-1">
                         {users.filter(u => u.status === 'suspended').length}
+                    </p>
+                </div>
+                <div className="p-4 rounded-xl bg-orange-500/10 border border-orange-500/30">
+                    <p className="text-orange-400 text-sm">待刪除</p>
+                    <p className="text-2xl font-bold text-white mt-1">
+                        {users.filter(u => u.status === 'pending_deletion').length}
                     </p>
                 </div>
                 <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30">
@@ -257,7 +300,7 @@ export default function AdminUsersPage() {
                         <p>沒有符合條件的使用者</p>
                     </div>
                 ) : (
-                    filteredUsers.map((user) => {
+                    paginatedUsers.map((user) => {
                         const StatusIcon = statusConfig[user.status]?.icon || CheckCircle;
                         const isExpanded = expandedId === user.id;
 
@@ -332,7 +375,7 @@ export default function AdminUsersPage() {
                                             <div className="flex gap-2">
                                                 {user.status !== 'active' && (
                                                     <button
-                                                        onClick={() => handleStatusUpdate(user.id, 'active')}
+                                                        onClick={() => handleStatusUpdate(user.id, 'active', user)}
                                                         disabled={updatingId === user.id}
                                                         className="px-3 py-1.5 bg-green-500/20 text-green-400 border border-green-500/30 rounded-lg text-sm hover:bg-green-500/30 transition-colors disabled:opacity-50 flex items-center gap-1.5"
                                                     >
@@ -401,6 +444,20 @@ export default function AdminUsersPage() {
                     })
                 )}
             </div>
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4">
+                    <p className="text-sm text-white/50">
+                        顯示第 {startIndex} - {endIndex} 筆，共 {totalItems} 筆
+                    </p>
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={setCurrentPage}
+                    />
+                </div>
+            )}
         </div>
     );
 }

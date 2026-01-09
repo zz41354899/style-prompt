@@ -101,9 +101,9 @@ export const ProPreviewContent: React.FC<ProPreviewContentProps> = ({ styleId })
                     <div className="flex items-center gap-3">
                         <Sparkles className="w-5 h-5 text-purple-400 flex-shrink-0" />
                         <div>
-                            <span className="text-sm font-bold text-purple-300">🎉 免費試用中</span>
+                            <span className="text-sm font-bold text-purple-300">{t('pro.trial.badge')}</span>
                             <span className="text-xs text-white/60 ml-2">
-                                可預覽 {TRIAL_STYLE_COUNT}/{proStyles.length} 風格 · 複製功能需升級 Pro
+                                {t('pro.trial.info', { current: TRIAL_STYLE_COUNT, total: proStyles.length })}
                             </span>
                         </div>
                     </div>
@@ -111,7 +111,7 @@ export const ProPreviewContent: React.FC<ProPreviewContentProps> = ({ styleId })
                         href="/dashboard/pricing"
                         className="hidden md:flex items-center gap-2 px-4 py-2 bg-purple-600 text-white text-sm font-medium rounded-lg hover:bg-purple-500 transition-colors flex-shrink-0"
                     >
-                        升級 Pro
+                        {t('pro.trial.upgradeCTA')}
                         <ArrowRight className="w-4 h-4" />
                     </Link>
                 </div>

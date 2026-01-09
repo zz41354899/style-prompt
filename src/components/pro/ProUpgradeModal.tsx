@@ -2,8 +2,9 @@
 
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Crown, Lock, Sparkles, ArrowRight } from 'lucide-react';
+import { X, Crown, Lock, Sparkles, ArrowRight, Coffee } from 'lucide-react';
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 
 interface ProUpgradeModalProps {
     isOpen: boolean;
@@ -16,6 +17,7 @@ export const ProUpgradeModal: React.FC<ProUpgradeModalProps> = ({
     onClose,
     styleName = '此風格'
 }) => {
+    const { t } = useTranslation();
     // ESC 鍵關閉
     useEffect(() => {
         const handleEsc = (e: KeyboardEvent) => {
@@ -65,9 +67,9 @@ export const ProUpgradeModal: React.FC<ProUpgradeModalProps> = ({
                             <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-500/10 border border-purple-500/20 rounded-2xl mb-4">
                                 <Lock className="w-8 h-8 text-purple-400" />
                             </div>
-                            <h2 className="text-2xl font-bold mb-2">升級 Pro 解鎖</h2>
+                            <h2 className="text-2xl font-bold mb-2">{t('proModal.title')}</h2>
                             <p className="text-white/50 text-sm">
-                                「{styleName}」是 Pro 專屬風格
+                                {t('proModal.subtitle', { styleName })}
                             </p>
                         </div>
 
@@ -75,10 +77,10 @@ export const ProUpgradeModal: React.FC<ProUpgradeModalProps> = ({
                         <div className="p-8">
                             <div className="space-y-3 mb-6">
                                 {[
-                                    '10+ 進階設計風格',
-                                    '完整設計系統指示詞',
-                                    '終身免費更新',
-                                    '商業使用授權',
+                                    t('proModal.feature1'),
+                                    t('proModal.feature2'),
+                                    t('proModal.feature3'),
+                                    t('proModal.feature4'),
                                 ].map((feature) => (
                                     <div key={feature} className="flex items-center gap-3 text-sm">
                                         <div className="p-1 bg-purple-500/20 rounded">
@@ -94,25 +96,36 @@ export const ProUpgradeModal: React.FC<ProUpgradeModalProps> = ({
                                 <div className="flex items-baseline justify-center gap-2">
                                     <span className="text-3xl font-black">NT$2,000</span>
                                 </div>
-                                <p className="text-xs text-white/40 mt-1">一次購買，終身使用</p>
+                                <p className="text-xs text-white/40 mt-1">{t('proModal.oneTimePurchase')}</p>
                             </div>
 
-                            {/* CTA */}
-                            <Link
-                                href="/pro#pricing"
-                                onClick={onClose}
-                                className="flex items-center justify-center gap-2 w-full py-3 bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-purple-500/30 transition-all"
-                            >
-                                升級 Pro
-                                <ArrowRight className="w-4 h-4" />
-                            </Link>
+                            {/* CTA Buttons */}
+                            <div className="space-y-3">
+                                <Link
+                                    href="/pro#pricing"
+                                    onClick={onClose}
+                                    className="flex items-center justify-center gap-2 w-full py-3 bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-purple-500/30 transition-all"
+                                >
+                                    {t('proModal.upgradeCTA')}
+                                    <ArrowRight className="w-4 h-4" />
+                                </Link>
 
-                            <button
-                                onClick={onClose}
-                                className="w-full mt-3 py-3 text-white/40 text-sm hover:text-white transition-colors"
-                            >
-                                稍後再說
-                            </button>
+                                <Link
+                                    href="/coffee"
+                                    onClick={onClose}
+                                    className="flex items-center justify-center gap-2 w-full py-3 bg-white/5 border border-white/10 text-white/80 font-medium rounded-xl hover:bg-white/10 hover:border-white/20 transition-all"
+                                >
+                                    <Coffee className="w-4 h-4" />
+                                    {t('proModal.buyCoffee')}
+                                </Link>
+
+                                <button
+                                    onClick={onClose}
+                                    className="w-full py-3 text-white/40 text-sm hover:text-white transition-colors"
+                                >
+                                    {t('proModal.maybeLater')}
+                                </button>
+                            </div>
                         </div>
                     </motion.div>
                 </div>

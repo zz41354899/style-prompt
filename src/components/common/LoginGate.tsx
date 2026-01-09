@@ -29,11 +29,7 @@ interface LoginGateProps {
     variant?: 'pro' | 'default';
 }
 
-export const LoginGate: React.FC<LoginGateProps> = ({
-    children,
-    backLink = '/pro',
-    variant = 'pro'
-}) => {
+export const LoginGate: React.FC<LoginGateProps> = ({ children }) => {
     const { t } = useTranslation();
     const { user, signInWithGoogle, signInWithGithub, loading } = useAuth();
 

@@ -3,16 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/components/providers/AuthProvider';
-import { Loader2 } from 'lucide-react';
 import {
-    fetchUsers,
-    fetchPurchaseStats,
-    fetchAnnouncementStats,
-    fetchChangelogStats,
-    fetchContactStats,
-    AdminUser
-} from '@/lib/admin/adminService';
-import {
+    Loader2,
     Users,
     CreditCard,
     Megaphone,
@@ -23,6 +15,7 @@ import {
     TrendingUp,
     AlertTriangle
 } from 'lucide-react';
+import { useAdminDashboard } from '@/hooks/useAdminData';
 
 // 統計卡片元件
 interface ModuleCardProps {
@@ -116,14 +109,16 @@ export default function AdminDashboard() {
     const router = useRouter();
     const [isChecking, setIsChecking] = useState(true);
 
-    // 資料狀態
-    const [users, setUsers] = useState<AdminUser[]>([]);
-    const [purchaseStats, setPurchaseStats] = useState({ total: 0, thisMonth: 0, monthlyRevenue: 0 });
-    const [announcementStats, setAnnouncementStats] = useState({ active: 0, draft: 0, total: 0 });
-    const [changelogStats, setChangelogStats] = useState({ total: 0, latestVersion: 'N/A' });
-    const [contactStats, setContactStats] = useState({ pending: 0, total: 0 });
-    const [dataLoading, setDataLoading] = useState(true);
-    const [dataError, setDataError] = useState<string | null>(null);
+    // React Query - 合併所有統計請求
+    const { data, isLoading: dataLoading, error, refetch } = useAdminDashboard();
+
+    // 解構資料
+    const users = data?.users || [];
+    const purchaseStats = data?.purchaseStats || { total: 0, thisMonth: 0, monthlyRevenue: 0 };
+    const announcementStats = data?.announcementStats || { active: 0, draft: 0, total: 0 };
+    const changelogStats = data?.changelogStats || { total: 0, latestVersion: 'N/A' };
+    const contactStats = data?.contactStats || { pending: 0, total: 0 };
+    const dataError = error ? (error instanceof Error ? error.message : '載入資料失敗') : null;
 
     // 權限檢查
     useEffect(() => {
@@ -137,51 +132,6 @@ export default function AdminDashboard() {
             }
         }
     }, [user, role, authLoading, router]);
-
-    // 載入資料
-    const loadData = async () => {
-        setDataLoading(true);
-        setDataError(null);
-
-        try {
-            const [
-                usersResult,
-                purchaseResult,
-                announcementResult,
-                changelogResult,
-                contactResult
-            ] = await Promise.all([
-                fetchUsers(),
-                fetchPurchaseStats(),
-                fetchAnnouncementStats(),
-                fetchChangelogStats(),
-                fetchContactStats()
-            ]);
-
-            if (usersResult.error) {
-                setDataError(usersResult.error.message);
-            } else {
-                setUsers(usersResult.data || []);
-            }
-
-            setPurchaseStats(purchaseResult);
-            setAnnouncementStats(announcementResult);
-            setChangelogStats(changelogResult);
-            setContactStats(contactResult);
-        } catch (e) {
-            console.error('Admin page data loading error:', e);
-            const errorMessage = e instanceof Error ? e.message : '載入資料失敗';
-            setDataError(`載入資料失敗: ${errorMessage}`);
-        } finally {
-            setDataLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        if (!isChecking && role === 'admin') {
-            loadData();
-        }
-    }, [isChecking, role]);
 
     if (authLoading || isChecking) {
         return (
@@ -206,7 +156,7 @@ export default function AdminDashboard() {
                     <p className="text-white/60 mt-1">五大模組管理總覽</p>
                 </div>
                 <button
-                    onClick={loadData}
+                    onClick={() => refetch()}
                     disabled={dataLoading}
                     className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors disabled:opacity-50"
                 >

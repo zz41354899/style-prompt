@@ -1,17 +1,18 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Plus, Pencil, Trash2, Eye, EyeOff, Calendar, AlertCircle, Bell, Megaphone, Loader2, X } from 'lucide-react';
-import {
-    fetchAllAnnouncements,
-    createAnnouncement,
-    updateAnnouncement,
-    deleteAnnouncement,
-    toggleAnnouncementActive,
-    type Announcement,
-    type CreateAnnouncementInput
-} from '@/lib/admin/adminService';
+import React, { useState } from 'react';
+import { Plus, Pencil, Trash2, Eye, EyeOff, Calendar, AlertCircle, Bell, Megaphone, Loader2, X, RefreshCw } from 'lucide-react';
+import { type Announcement, type CreateAnnouncementInput } from '@/lib/admin/adminService';
 import ImageUpload from '@/components/common/ImageUpload';
+import ConfirmDialog from '@/components/common/ConfirmDialog';
+import {
+    useAnnouncements,
+    useCreateAnnouncement,
+    useUpdateAnnouncement,
+    useDeleteAnnouncement,
+    useToggleAnnouncementActive
+} from '@/hooks/useAdminData';
+import { useRealtimeSubscription } from '@/hooks/useRealtimeSubscription';
 
 // 公告類型對應的圖標和顏色
 const typeConfig = {
@@ -21,10 +22,20 @@ const typeConfig = {
 };
 
 export default function AdminAnnouncementsPage() {
-    const [announcements, setAnnouncements] = useState<Announcement[]>([]);
+    // 啟用 Realtime 訂閱，自動同步公告變更
+    useRealtimeSubscription(['announcements']);
+
+    // React Query hooks
+    const { data: announcements = [], isLoading, refetch } = useAnnouncements();
+    const createMutation = useCreateAnnouncement();
+    const updateMutation = useUpdateAnnouncement();
+    const deleteMutation = useDeleteAnnouncement();
+    const toggleMutation = useToggleAnnouncementActive();
+
+    // UI 狀態
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingAnnouncement, setEditingAnnouncement] = useState<Announcement | null>(null);
-    const [saving, setSaving] = useState(false);
+    const [deleteTarget, setDeleteTarget] = useState<Announcement | null>(null);
 
     // 表單狀態
     const [formData, setFormData] = useState<CreateAnnouncementInput>({
@@ -36,19 +47,7 @@ export default function AdminAnnouncementsPage() {
         image_url: '',
     });
 
-    // 載入公告
-    const loadAnnouncements = async () => {
-        const { data, error } = await fetchAllAnnouncements();
-        if (error) {
-            console.error('Failed to load announcements:', error);
-        } else {
-            setAnnouncements(data || []);
-        }
-    };
-
-    useEffect(() => {
-        loadAnnouncements();
-    }, []);
+    const isSaving = createMutation.isPending || updateMutation.isPending;
 
     // 開啟新增 Modal
     const handleCreate = () => {
@@ -85,59 +84,35 @@ export default function AdminAnnouncementsPage() {
             return;
         }
 
-        setSaving(true);
-
-        if (editingAnnouncement) {
-            // 更新
-            const { error } = await updateAnnouncement(editingAnnouncement.id, formData);
-            if (error) {
-                alert('更新失敗：' + error.message);
+        try {
+            if (editingAnnouncement) {
+                await updateMutation.mutateAsync({ id: editingAnnouncement.id, updates: formData });
             } else {
-                setIsModalOpen(false);
-                await loadAnnouncements();  // 等待重新載入完成
+                await createMutation.mutateAsync(formData);
             }
-        } else {
-            // 新增
-            const { error } = await createAnnouncement(formData);
-            if (error) {
-                alert('新增失敗：' + error.message);
-            } else {
-                setIsModalOpen(false);
-                await loadAnnouncements();  // 等待重新載入完成
-            }
+            setIsModalOpen(false);
+        } catch (error) {
+            alert(editingAnnouncement ? '更新失敗' : '新增失敗');
         }
-
-        setSaving(false);
     };
 
     // 切換啟用狀態
     const handleToggleActive = async (id: string, currentActive: boolean) => {
-        const { error } = await toggleAnnouncementActive(id, !currentActive);
-        if (error) {
-            alert('切換失敗：' + error.message);
-        } else {
-            await loadAnnouncements();  // 等待重新載入完成
+        try {
+            await toggleMutation.mutateAsync({ id, isActive: currentActive });
+        } catch {
+            alert('切換失敗');
         }
     };
 
-    // 刪除公告
-    const handleDelete = async (id: string) => {
-        if (!confirm('確定要刪除這則公告嗎？此操作無法復原!')) return;
-
-        // 找到要刪除的公告
-        const announcement = announcements.find(a => a.id === id);
-        
-        // 如果有圖片,先刪除 Storage 中的圖片
-        if (announcement?.image_url && announcement.image_url.includes('supabase')) {
-            const { deleteImage } = await import('@/lib/storageService');
-            await deleteImage(announcement.image_url, 'notifications');
-        }
-
-        const { error } = await deleteAnnouncement(id);
-        if (error) {
-            alert('刪除失敗：' + error.message);
-        } else {
-            await loadAnnouncements();  // 等待重新載入完成
+    // 確認刪除
+    const handleConfirmDelete = async () => {
+        if (!deleteTarget) return;
+        try {
+            await deleteMutation.mutateAsync(deleteTarget);
+            setDeleteTarget(null);
+        } catch {
+            alert('刪除失敗');
         }
     };
 
@@ -165,17 +140,30 @@ export default function AdminAnnouncementsPage() {
                     <h1 className="text-3xl font-bold text-white">公告管理</h1>
                     <p className="text-white/60 mt-1">發布和管理系統公告</p>
                 </div>
-                <button
-                    onClick={handleCreate}
-                    className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white font-medium rounded-lg transition-colors"
-                >
-                    <Plus className="w-4 h-4" />
-                    新增公告
-                </button>
+                <div className="flex items-center gap-2">
+                    <button
+                        onClick={() => refetch()}
+                        disabled={isLoading}
+                        className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors disabled:opacity-50"
+                    >
+                        <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
+                    </button>
+                    <button
+                        onClick={handleCreate}
+                        className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white font-medium rounded-lg transition-colors"
+                    >
+                        <Plus className="w-4 h-4" />
+                        新增公告
+                    </button>
+                </div>
             </div>
 
             {/* 公告列表 */}
-            {announcements.length === 0 ? (
+            {isLoading ? (
+                <div className="flex items-center justify-center py-12">
+                    <Loader2 className="w-8 h-8 animate-spin text-purple-500" />
+                </div>
+            ) : announcements.length === 0 ? (
                 <div className="rounded-xl border border-white/10 bg-white/5 p-12 text-center">
                     <Megaphone className="w-12 h-12 text-white/30 mx-auto mb-4" />
                     <p className="text-white/60">尚無公告</p>
@@ -251,11 +239,16 @@ export default function AdminAnnouncementsPage() {
                                             <Pencil className="w-4 h-4" />
                                         </button>
                                         <button
-                                            onClick={() => handleDelete(announcement.id)}
-                                            className="p-2 text-red-400/60 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+                                            onClick={() => setDeleteTarget(announcement)}
+                                            disabled={deleteMutation.isPending}
+                                            className="p-2 text-red-400/60 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors disabled:opacity-50"
                                             title="刪除"
                                         >
-                                            <Trash2 className="w-4 h-4" />
+                                            {deleteMutation.isPending && deleteTarget?.id === announcement.id ? (
+                                                <Loader2 className="w-4 h-4 animate-spin" />
+                                            ) : (
+                                                <Trash2 className="w-4 h-4" />
+                                            )}
                                         </button>
                                     </div>
                                 </div>
@@ -383,16 +376,28 @@ export default function AdminAnnouncementsPage() {
                             </button>
                             <button
                                 onClick={handleSave}
-                                disabled={saving}
+                                disabled={isSaving}
                                 className="flex items-center gap-2 px-6 py-2 bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white font-medium rounded-lg transition-colors"
                             >
-                                {saving && <Loader2 className="w-4 h-4 animate-spin" />}
+                                {isSaving && <Loader2 className="w-4 h-4 animate-spin" />}
                                 {editingAnnouncement ? '更新' : '發布'}
                             </button>
                         </div>
                     </div>
                 </div>
             )}
+
+            {/* 刪除確認對話框 */}
+            <ConfirmDialog
+                isOpen={!!deleteTarget}
+                onClose={() => setDeleteTarget(null)}
+                onConfirm={handleConfirmDelete}
+                title="刪除公告"
+                message={`確定要刪除「${deleteTarget?.title}」嗎？此操作無法復原！`}
+                confirmText="刪除"
+                variant="danger"
+                isLoading={deleteMutation.isPending}
+            />
         </div>
     );
 }

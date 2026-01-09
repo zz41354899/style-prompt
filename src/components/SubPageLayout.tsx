@@ -3,38 +3,64 @@
 import React from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
-import { Wand2, Languages, ChevronRight, ArrowLeft } from 'lucide-react';
+import { Languages, ChevronRight, ArrowLeft, Sparkles } from 'lucide-react';
 
 interface SubPageLayoutProps {
     children: React.ReactNode;
     title: string;
     subtitle?: string;
+    /** 'free' 或 'pro' 變體 */
+    variant?: 'free' | 'pro';
 }
 
-export const SubPageLayout: React.FC<SubPageLayoutProps> = ({ children, title, subtitle }) => {
+export const SubPageLayout: React.FC<SubPageLayoutProps> = ({ 
+    children, 
+    title, 
+    subtitle,
+    variant = 'free'
+}) => {
     const { t, i18n } = useTranslation();
+    const isPro = variant === 'pro';
 
     const toggleLanguage = () => {
         const nextLang = i18n.language === 'zh-TW' ? 'en' : 'zh-TW';
         i18n.changeLanguage(nextLang);
     };
 
+    const homeLink = isPro ? '/pro' : '/';
+    const editorLink = isPro ? '/pro/S01' : '/S01';
+    const backText = isPro ? t('pro.legal.backToHome') : t('pages.backToHome');
+    const ctaText = isPro ? t('pro.hero.browseCTA') : t('landing.nav.enterEditor');
+    const copyrightKey = isPro ? 'pro.footer.copyright' : 'landing.footer.copyright';
+    const bgGradient1 = isPro ? 'bg-purple-900/10' : 'bg-purple-900/5';
+    const bgGradient2 = isPro ? 'bg-fuchsia-900/10' : 'bg-blue-900/5';
+
     return (
         <div className="min-h-screen bg-[#030303] text-white selection:bg-purple-500/30">
             {/* Background Gradients */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-purple-900/5 rounded-full blur-[120px]" />
-                <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-900/5 rounded-full blur-[120px]" />
+                <div className={`absolute top-[-10%] left-[-10%] w-[40%] h-[40%] ${bgGradient1} rounded-full blur-[120px]`} />
+                <div className={`absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] ${bgGradient2} rounded-full blur-[120px]`} />
             </div>
 
             {/* Navigation */}
             <nav className="fixed top-0 left-0 right-0 z-50 bg-[#030303]/70 backdrop-blur-xl border-b border-white/5">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16">
-                        <Link href="/" className="flex items-center group">
+                        <Link href={homeLink} className="flex items-center gap-2 group">
+                            {isPro && (
+                                <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-fuchsia-600 rounded-lg flex items-center justify-center">
+                                    <Sparkles className="w-4 h-4 text-white" />
+                                </div>
+                            )}
                             <span className="text-xl font-bold tracking-tight">
                                 Style<span className="text-purple-400">Prompts</span>
                             </span>
+                            {isPro && (
+                                <span className="px-2 py-0.5 bg-purple-500/20 border border-purple-500/30 rounded text-[10px] font-black text-purple-300 tracking-wider">
+                                    PRO
+                                </span>
+                            )}
                         </Link>
 
                         <div className="flex items-center space-x-4">
@@ -42,8 +68,8 @@ export const SubPageLayout: React.FC<SubPageLayoutProps> = ({ children, title, s
                                 <Languages className="w-5 h-5" />
                                 <span className="text-xs font-bold uppercase">{i18n.language === 'zh-TW' ? 'EN' : 'TW'}</span>
                             </button>
-                            <Link href="/S01" className="hidden sm:flex items-center space-x-2 px-4 py-2 bg-purple-600 text-white text-sm font-semibold rounded-full hover:bg-purple-500 transition-all">
-                                <span>{t('landing.nav.enterEditor')}</span>
+                            <Link href={editorLink} className="hidden sm:flex items-center space-x-2 px-4 py-2 bg-purple-600 text-white text-sm font-semibold rounded-full hover:bg-purple-500 transition-all">
+                                <span>{ctaText}</span>
                                 <ChevronRight className="w-4 h-4" />
                             </Link>
                         </div>
@@ -54,9 +80,9 @@ export const SubPageLayout: React.FC<SubPageLayoutProps> = ({ children, title, s
             {/* Main Content */}
             <main className="relative pt-32 pb-24">
                 <div className="max-w-4xl mx-auto px-4">
-                    <Link href="/" className="inline-flex items-center space-x-2 text-white/40 hover:text-white transition-colors mb-12 group">
+                    <Link href={homeLink} className="inline-flex items-center space-x-2 text-white/40 hover:text-white transition-colors mb-12 group">
                         <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                        <span className="text-sm font-medium">{t('pages.backToHome')}</span>
+                        <span className="text-sm font-medium">{backText}</span>
                     </Link>
                     <h1 className="text-4xl sm:text-6xl font-black tracking-tighter mb-6 bg-gradient-to-b from-white to-white/70 bg-clip-text text-transparent">
                         {title}
@@ -76,7 +102,7 @@ export const SubPageLayout: React.FC<SubPageLayoutProps> = ({ children, title, s
             <footer className="py-12 border-t border-white/5">
                 <div className="max-w-7xl mx-auto px-4 text-center">
                     <p className="text-[10px] uppercase tracking-[0.2em] text-white/20 font-black">
-                        {t('landing.footer.copyright')}
+                        {t(copyrightKey)}
                     </p>
                 </div>
             </footer>

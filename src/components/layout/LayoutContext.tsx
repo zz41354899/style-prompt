@@ -3,9 +3,10 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { hasProVersion } from '@/data/styles';
+import { useDeviceMode, type DeviceMode } from '@/hooks/useDeviceMode';
 
-// 型別定義
-export type DeviceMode = 'desktop' | 'tablet' | 'mobile';
+// Re-export type
+export type { DeviceMode } from '@/hooks/useDeviceMode';
 export type PreviewTier = 'free' | 'pro';
 
 export interface LayoutContextType {
@@ -52,7 +53,7 @@ interface LayoutProviderProps {
 export const LayoutProvider: React.FC<LayoutProviderProps> = ({ children }) => {
     const pathname = usePathname();
     const router = useRouter();
-    const [deviceMode, setDeviceMode] = useState<DeviceMode>('desktop');
+    const { deviceMode, setDeviceMode } = useDeviceMode();
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [previewTier, setPreviewTier] = useState<PreviewTier>('free');
 
@@ -64,24 +65,6 @@ export const LayoutProvider: React.FC<LayoutProviderProps> = ({ children }) => {
             setPreviewTier('free');
         }
     }, [selectedStyle, previewTier]);
-
-    // 視窗 resize 自動更新 deviceMode
-    useEffect(() => {
-        const updateDeviceMode = () => {
-            const width = window.innerWidth;
-            if (width < 768) {
-                setDeviceMode('mobile');
-            } else if (width < 1024) {
-                setDeviceMode('tablet');
-            } else {
-                setDeviceMode('desktop');
-            }
-        };
-
-        updateDeviceMode();
-        window.addEventListener('resize', updateDeviceMode);
-        return () => window.removeEventListener('resize', updateDeviceMode);
-    }, []);
 
     const handleStyleSelect = (newStyleId: string) => {
         router.push(`/${newStyleId}`);

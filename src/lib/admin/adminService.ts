@@ -12,6 +12,7 @@ export interface AdminUser {
     display_name: string;
     avatar_url?: string;
     status: 'active' | 'suspended' | 'pending_deletion' | 'deleted';
+    deletion_status?: 'active' | 'pending_deletion' | 'deleted';
     created_at: string;
     updated_at: string;
     app_metadata?: {
@@ -70,7 +71,15 @@ export const fetchUsers = async (): Promise<{ data: AdminUser[] | null; error: E
             return { data: null, error: new Error(error.message) };
         }
 
-        return { data: data as AdminUser[], error: null };
+        // 合併 status 和 deletion_status，優先使用 deletion_status
+        const usersWithMergedStatus = (data || []).map(user => ({
+            ...user,
+            status: user.deletion_status === 'pending_deletion' || user.deletion_status === 'deleted'
+                ? user.deletion_status
+                : user.status || 'active'
+        })) as AdminUser[];
+
+        return { data: usersWithMergedStatus, error: null };
     } catch (e) {
         return { data: null, error: e as Error };
     }
@@ -132,6 +141,26 @@ export const updateUserStatus = async (
     status: 'active' | 'suspended' | 'deleted'
 ): Promise<{ error: Error | null }> => {
     try {
+        // 使用資料庫函數來處理狀態更新，確保有正確的審計日誌
+        if (status === 'suspended') {
+            const { data, error } = await supabase.rpc('admin_suspend_account', {
+                user_id_param: userId,
+            });
+            if (error) return { error: new Error(error.message) };
+            if (!data?.success) return { error: new Error(data?.message || 'Failed to suspend account') };
+            return { error: null };
+        }
+
+        if (status === 'active') {
+            const { data, error } = await supabase.rpc('admin_activate_account', {
+                user_id_param: userId,
+            });
+            if (error) return { error: new Error(error.message) };
+            if (!data?.success) return { error: new Error(data?.message || 'Failed to activate account') };
+            return { error: null };
+        }
+
+        // 其他狀態直接更新
         const { error } = await supabase
             .from('profiles')
             .update({ status })

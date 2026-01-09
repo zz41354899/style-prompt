@@ -15,50 +15,59 @@ interface ImageUploadProps {
 }
 
 /**
- * 壓縮圖片
+ * 使用 createImageBitmap 優化的圖片壓縮（更快、不阻塞主線程）
  */
-const compressImage = (file: File, maxWidth: number, quality: number): Promise<File> => {
-    return new Promise((resolve, reject) => {
-        const img = document.createElement('img');
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
+const compressImage = async (file: File, maxWidth: number, quality: number): Promise<File> => {
+    // 使用 createImageBitmap 直接從 Blob 創建，比 img.onload 更快
+    const bitmap = await createImageBitmap(file);
+    
+    let { width, height } = bitmap;
+    
+    // 計算新尺寸
+    if (width > maxWidth) {
+        height = Math.round((height * maxWidth) / width);
+        width = maxWidth;
+    }
 
-        img.onload = () => {
-            let { width, height } = img;
+    // 嘗試使用 OffscreenCanvas（如果支援）
+    let canvas: HTMLCanvasElement | OffscreenCanvas;
+    let ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D | null;
+    
+    if (typeof OffscreenCanvas !== 'undefined') {
+        canvas = new OffscreenCanvas(width, height);
+        ctx = canvas.getContext('2d');
+    } else {
+        canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        ctx = canvas.getContext('2d');
+    }
 
-            // 計算新尺寸
-            if (width > maxWidth) {
-                height = (height * maxWidth) / width;
-                width = maxWidth;
-            }
+    if (!ctx) {
+        bitmap.close();
+        throw new Error('Canvas context 不可用');
+    }
 
-            canvas.width = width;
-            canvas.height = height;
+    ctx.drawImage(bitmap, 0, 0, width, height);
+    bitmap.close(); // 釋放資源
 
-            if (ctx) {
-                ctx.drawImage(img, 0, 0, width, height);
-                canvas.toBlob(
-                    (blob) => {
-                        if (blob) {
-                            const compressedFile = new File([blob], file.name, {
-                                type: 'image/jpeg',
-                                lastModified: Date.now(),
-                            });
-                            resolve(compressedFile);
-                        } else {
-                            reject(new Error('壓縮失敗'));
-                        }
-                    },
-                    'image/jpeg',
-                    quality
-                );
-            } else {
-                reject(new Error('Canvas context 不可用'));
-            }
-        };
+    // 獲取 Blob
+    let blob: Blob;
+    if (canvas instanceof OffscreenCanvas) {
+        blob = await canvas.convertToBlob({ type: 'image/jpeg', quality });
+    } else {
+        blob = await new Promise<Blob>((resolve, reject) => {
+            canvas.toBlob(
+                (b) => b ? resolve(b) : reject(new Error('壓縮失敗')),
+                'image/jpeg',
+                quality
+            );
+        });
+    }
 
-        img.onerror = () => reject(new Error('圖片載入失敗'));
-        img.src = URL.createObjectURL(file);
+    return new File([blob], file.name.replace(/\.[^.]+$/, '.jpg'), {
+        type: 'image/jpeg',
+        lastModified: Date.now(),
     });
 };
 

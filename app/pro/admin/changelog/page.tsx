@@ -1,18 +1,36 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '@/components/providers/AuthProvider';
-import { fetchAllChangelogs, createChangelog, updateChangelog, deleteChangelog, Changelog } from '@/lib/changelogService';
-import { ScrollText, Plus, Edit, Trash2, Calendar, AlertCircle, Loader2, X, Check } from 'lucide-react';
+import { type Changelog } from '@/lib/changelogService';
+import { ScrollText, Plus, Edit, Trash2, Calendar, AlertCircle, Loader2, X, Check, RefreshCw } from 'lucide-react';
 import ImageUpload from '@/components/common/ImageUpload';
+import ConfirmDialog from '@/components/common/ConfirmDialog';
+import {
+    useChangelogs,
+    useCreateChangelog,
+    useUpdateChangelog,
+    useDeleteChangelog
+} from '@/hooks/useAdminData';
+import { useRealtimeSubscription } from '@/hooks/useRealtimeSubscription';
 
 export default function AdminChangelogPage() {
     const { role } = useAuth();
-    const [changelogs, setChangelogs] = useState<Changelog[]>([]);
-    const [error, setError] = useState<string | null>(null);
+
+    // 啟用 Realtime 訂閱，自動同步版本更新變更
+    useRealtimeSubscription(['changelogs']);
+    
+    // React Query hooks
+    const { data: changelogs = [], isLoading, error: queryError, refetch } = useChangelogs();
+    const createMutation = useCreateChangelog();
+    const updateMutation = useUpdateChangelog();
+    const deleteMutation = useDeleteChangelog();
+
+    // UI 狀態
     const [showModal, setShowModal] = useState(false);
     const [editingChangelog, setEditingChangelog] = useState<Changelog | null>(null);
-    const [isSaving, setIsSaving] = useState(false);
+    const [deleteTarget, setDeleteTarget] = useState<Changelog | null>(null);
+    const [error, setError] = useState<string | null>(null);
 
     // 表單狀態
     const [formData, setFormData] = useState({
@@ -24,27 +42,7 @@ export default function AdminChangelogPage() {
         image_url: ''
     });
 
-    const loadChangelogs = async () => {
-        setError(null);
-
-        try {
-            const { data, error: fetchError } = await fetchAllChangelogs();
-
-            if (fetchError) {
-                setError('載入版本更新失敗');
-            } else {
-                setChangelogs(data || []);
-            }
-        } catch (e) {
-            setError('載入版本更新失敗');
-        }
-    };
-
-    useEffect(() => {
-        if (role === 'admin') {
-            loadChangelogs();
-        }
-    }, [role]);
+    const isSaving = createMutation.isPending || updateMutation.isPending;
 
     const handleOpenModal = (changelog?: Changelog) => {
         if (changelog) {
@@ -82,7 +80,6 @@ export default function AdminChangelogPage() {
             return;
         }
 
-        setIsSaving(true);
         setError(null);
 
         try {
@@ -95,47 +92,24 @@ export default function AdminChangelogPage() {
             };
 
             if (editingChangelog) {
-                const { error } = await updateChangelog(editingChangelog.id, changelogData);
-                if (error) {
-                    setError('更新失敗');
-                    setIsSaving(false);
-                    return;
-                }
+                await updateMutation.mutateAsync({ id: editingChangelog.id, updates: changelogData });
             } else {
-                const { error } = await createChangelog(changelogData as any);
-                if (error) {
-                    setError('新增失敗');
-                    setIsSaving(false);
-                    return;
-                }
+                await createMutation.mutateAsync(changelogData as any);
             }
 
-            await loadChangelogs();
             handleCloseModal();
         } catch (e) {
-            setError('操作失敗');
-        } finally {
-            setIsSaving(false);
+            setError(editingChangelog ? '更新失敗' : '新增失敗');
         }
     };
 
-    const handleDelete = async (id: string) => {
-        if (!confirm('確定要刪除此版本更新嗎？此操作無法復原!')) return;
-
-        // 找到要刪除的 changelog
-        const changelog = changelogs.find(c => c.id === id);
-        
-        // 如果有圖片,先刪除 Storage 中的圖片
-        if (changelog?.image_url && changelog.image_url.includes('supabase')) {
-            const { deleteImage } = await import('@/lib/storageService');
-            await deleteImage(changelog.image_url, 'notifications');
-        }
-
-        const { error } = await deleteChangelog(id);
-        if (error) {
+    const handleConfirmDelete = async () => {
+        if (!deleteTarget) return;
+        try {
+            await deleteMutation.mutateAsync(deleteTarget);
+            setDeleteTarget(null);
+        } catch {
             setError('刪除失敗');
-        } else {
-            await loadChangelogs();  // 已經有 await,保持不變
         }
     };
 
@@ -193,24 +167,37 @@ export default function AdminChangelogPage() {
                     </h1>
                     <p className="text-white/60 mt-1">管理所有版本更新記錄</p>
                 </div>
-                <button
-                    onClick={() => handleOpenModal()}
-                    className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-500 rounded-lg transition-colors"
-                >
-                    <Plus className="w-4 h-4" />
-                    <span>新增版本</span>
-                </button>
+                <div className="flex items-center gap-2">
+                    <button
+                        onClick={() => refetch()}
+                        disabled={isLoading}
+                        className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors disabled:opacity-50"
+                    >
+                        <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
+                    </button>
+                    <button
+                        onClick={() => handleOpenModal()}
+                        className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-500 rounded-lg transition-colors"
+                    >
+                        <Plus className="w-4 h-4" />
+                        <span>新增版本</span>
+                    </button>
+                </div>
             </div>
 
-            {error && (
+            {(error || queryError) && (
                 <div className="flex items-center gap-3 p-4 bg-red-500/10 border border-red-500/30 rounded-xl">
                     <AlertCircle className="w-5 h-5 text-red-400" />
-                    <p className="text-red-400">{error}</p>
+                    <p className="text-red-400">{error || '載入版本更新失敗'}</p>
                 </div>
             )}
 
             <div className="space-y-4">
-                {changelogs.length === 0 ? (
+                {isLoading ? (
+                    <div className="flex items-center justify-center py-12">
+                        <Loader2 className="w-8 h-8 animate-spin text-purple-500" />
+                    </div>
+                ) : changelogs.length === 0 ? (
                     <div className="text-center py-12 bg-white/5 rounded-xl border border-white/10">
                         <ScrollText className="w-12 h-12 text-white/20 mx-auto mb-3" />
                         <p className="text-white/40">尚無版本更新記錄</p>
@@ -240,10 +227,15 @@ export default function AdminChangelogPage() {
                                         <Edit className="w-4 h-4 text-blue-400" />
                                     </button>
                                     <button
-                                        onClick={() => handleDelete(changelog.id)}
-                                        className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+                                        onClick={() => setDeleteTarget(changelog)}
+                                        disabled={deleteMutation.isPending}
+                                        className="p-2 hover:bg-white/10 rounded-lg transition-colors disabled:opacity-50"
                                     >
-                                        <Trash2 className="w-4 h-4 text-red-400" />
+                                        {deleteMutation.isPending && deleteTarget?.id === changelog.id ? (
+                                            <Loader2 className="w-4 h-4 animate-spin text-red-400" />
+                                        ) : (
+                                            <Trash2 className="w-4 h-4 text-red-400" />
+                                        )}
                                     </button>
                                 </div>
                             </div>
@@ -392,6 +384,18 @@ export default function AdminChangelogPage() {
                     </div>
                 </div>
             )}
+
+            {/* 刪除確認對話框 */}
+            <ConfirmDialog
+                isOpen={!!deleteTarget}
+                onClose={() => setDeleteTarget(null)}
+                onConfirm={handleConfirmDelete}
+                title="刪除版本更新"
+                message={`確定要刪除「${deleteTarget?.version} - ${deleteTarget?.title}」嗎？此操作無法復原！`}
+                confirmText="刪除"
+                variant="danger"
+                isLoading={deleteMutation.isPending}
+            />
         </div>
     );
 }

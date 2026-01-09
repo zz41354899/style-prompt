@@ -1,4 +1,7 @@
 {
+  "promo": {
+    "banner": "全新推出 StylePrompts Pro — 解鎖 100+ 進階風格模板"
+  },
   "common": {
     "language": "語言",
     "switchLanguage": "切換語言",
@@ -486,14 +489,17 @@
   "proModal": {
     "title": "升級至 Pro 版本",
     "subtitle": "解鎖 {{styleName}} 及更多進階風格",
-    "feature1": "由 AI 精心設計的 100+ 進階風格",
-    "feature2": "獲取完整 Landing Page 結構化 Prompt",
-    "feature3": "支持持續的風格庫更新與新功能",
+    "feature1": "100 Pro 專屬風格",
+    "feature2": "完整設計系統指示詞",
+    "feature3": "終身免費更新",
+    "feature4": "商業使用授權",
     "feature1_title": "100+ 進階風格",
     "feature2_title": "完整原始碼 Prompt",
     "feature3_title": "優先更新支援",
-    "upgradeCTA": "立即升級解鎖",
-    "maybeLater": "再考慮一下",
+    "upgradeCTA": "升級 Pro",
+    "buyCoffee": "贊助咖啡",
+    "oneTimePurchase": "一次購買,終身使用",
+    "maybeLater": "稍後再說",
     "locked": "此風格為 Pro 限定"
   },
   "notification": {
@@ -516,7 +522,12 @@
   "pro": {
     "navbar": {
       "library": "資源庫",
-      "styleLibrary": "風格資源庫"
+      "styleLibrary": "風格資源庫",
+      "backToFree": "返回免費版"
+    },
+    "header": {
+      "home": "首頁",
+      "preview": "預覽"
     },
     "sidebar": {
       "title": "Pro 風格資源庫",
@@ -527,6 +538,11 @@
       "trialTag": "試用",
       "lockedTag": "鎖定",
       "proHomepage": "Pro 首頁"
+    },
+    "trial": {
+      "badge": "🎉 免費試用中",
+      "info": "可預覽 {{current}}/{{total}} 風格 · 複製功能需升級 Pro",
+      "upgradeCTA": "升級 Pro"
     },
     "hero": {
       "badge": "100+ 精選風格模板",
@@ -793,7 +809,19 @@
       "save": "儲存",
       "dangerZone": "危險區域",
       "deleteAccount": "刪除帳戶",
-      "deleteWarning": "此操作無法復原，所有資料將被永久刪除。"
+      "deleteWarning": "此操作無法復原，所有資料將被永久刪除。",
+      "deleteModal": {
+        "title": "刪除帳戶",
+        "softDeleteTitle": "軟刪除說明",
+        "softDeleteDesc": "您的帳戶將被標記為待刪除狀態，但資料會保留 30 天。在此期間內，您可以隨時登入恢復帳戶。30 天後，帳戶將被永久刪除。",
+        "confirmLabel": "請輸入",
+        "confirmLabelSuffix": "以確認刪除",
+        "reasonLabel": "刪除原因（選填）",
+        "reasonPlaceholder": "請告訴我們您刪除帳戶的原因，這將幫助我們改進服務...",
+        "cancel": "取消",
+        "confirmDelete": "確認刪除",
+        "processing": "處理中..."
+      }
     },
     "purchases": {
       "title": "購買紀錄",
@@ -1198,17 +1226,18 @@
     },
     "pro": {
       "recommended": "推薦",
-      "feature1": "10+ Pro 專屬風格",
+      "feature1": "100 Pro 專屬風格",
       "feature2": "6 種產業 Landing Page 模板",
       "feature3": "商業使用授權",
       "feature4": "未來更新免費"
     },
     "continueFree": "繼續免費使用",
-    "upgradePro": "升級 Pro"
+    "upgradePro": "升級 Pro",
+    "buyCoffee": "贊助咖啡"
   },
   "payment": {
     "success": {
-      "title": "🎉 付款成功！",
+      "title": "付款成功！",
       "subtitle": "感謝您購買 StylePrompts Pro！\n您現在擁有所有 Pro 功能的存取權限。",
       "orderId": "訂單編號",
       "proActivated": "Pro 版本已啟用！",

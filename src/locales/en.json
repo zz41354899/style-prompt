@@ -1,4 +1,7 @@
 {
+  "promo": {
+    "banner": "Introducing StylePrompts Pro — Unlock 100+ Premium Style Templates"
+  },
   "common": {
     "language": "Language",
     "switchLanguage": "Switch Language",
@@ -474,13 +477,16 @@
   "proModal": {
     "title": "Upgrade to Pro",
     "subtitle": "Unlock {{styleName}} and more premium styles",
-    "feature1": "100+ Premium Styles designed by AI",
-    "feature2": "Get full structured Landing Page Prompts",
-    "feature3": "Support continuous updates and new features",
+    "feature1": "100 Pro Exclusive Styles",
+    "feature2": "Complete Design System Prompts",
+    "feature3": "Lifetime Free Updates",
+    "feature4": "Commercial Use License",
     "feature1_title": "100+ Premium Styles",
     "feature2_title": "Full Source Prompts",
     "feature3_title": "Prioritized Updates",
-    "upgradeCTA": "Upgrade to Unlock",
+    "upgradeCTA": "Upgrade Pro",
+    "buyCoffee": "Buy Me a Coffee",
+    "oneTimePurchase": "One-time purchase, lifetime access",
     "maybeLater": "Maybe Later",
     "locked": "PRO STYLE LOCKED"
   },
@@ -504,17 +510,27 @@
   "pro": {
     "navbar": {
       "library": "Library",
-      "styleLibrary": "Style Library"
+      "styleLibrary": "Style Library",
+      "backToFree": "Back to Free"
+    },
+    "header": {
+      "home": "Home",
+      "preview": "Preview"
     },
     "sidebar": {
       "title": "Pro Style Library",
       "stylesCount": "{{count}} Premium Styles",
-      "trialBanner": " Free Trial Active",
+      "trialBanner": "Free Trial Active",
       "trialProgress": "{{current}}/{{total}} styles available",
       "proTag": "PRO",
       "trialTag": "Trial",
       "lockedTag": "Locked",
       "proHomepage": "Pro Homepage"
+    },
+    "trial": {
+      "badge": "Free Trial Active",
+      "info": "Preview {{current}}/{{total}} styles · Copy feature requires Pro upgrade",
+      "upgradeCTA": "Upgrade Pro"
     },
     "hero": {
       "badge": "100+ Premium Style Templates",
@@ -781,7 +797,19 @@
       "save": "Save",
       "dangerZone": "Danger Zone",
       "deleteAccount": "Delete Account",
-      "deleteWarning": "This action cannot be undone. All data will be permanently deleted."
+      "deleteWarning": "This action cannot be undone. All data will be permanently deleted.",
+      "deleteModal": {
+        "title": "Delete Account",
+        "softDeleteTitle": "Soft Delete Notice",
+        "softDeleteDesc": "Your account will be marked for deletion, but data will be retained for 30 days. During this period, you can log in anytime to restore your account. After 30 days, your account will be permanently deleted.",
+        "confirmLabel": "Please enter",
+        "confirmLabelSuffix": "to confirm deletion",
+        "reasonLabel": "Reason for deletion (optional)",
+        "reasonPlaceholder": "Please tell us why you're deleting your account. This helps us improve our service...",
+        "cancel": "Cancel",
+        "confirmDelete": "Confirm Delete",
+        "processing": "Processing..."
+      }
     },
     "purchases": {
       "title": "Purchases",
@@ -1106,123 +1134,124 @@
         "cta": "Try the Preview Feature"
       }
     },
-    "privacy": {
-      "title": "Privacy Policy",
-      "subtitle": "We value your privacy. StylePrompts is a purely frontend visual style library.",
-      "collection": {
-        "title": "Data Collection",
-        "desc": "StylePrompts does not collect any personal data. All operations are performed locally in your browser. We do not track your usage behavior or store your generated prompts."
-      },
-      "ownership": {
-        "title": "Prompt Ownership",
-        "desc": "All prompts you generate and copy from this site are entirely yours. You can use them freely in any AI tool without attribution."
-      },
-      "security": {
-        "title": "Data Security",
-        "desc": "Since we do not transmit or store any user data to servers, there is no risk of data breach. Your browser preferences are stored only in LocalStorage."
-      },
-      "cookies": {
-        "title": "Cookie Usage",
-        "desc": "This site only uses essential technical cookies for basic functionality (such as language preferences). We do not use any tracking or advertising cookies."
-      },
-      "lastUpdate": "Last updated: December 25, 2025"
+  "privacy": {
+    "title": "Privacy Policy",
+    "subtitle": "We value your privacy. StylePrompts is a purely frontend visual style library.",
+    "collection": {
+      "title": "Data Collection",
+      "desc": "StylePrompts does not collect any personal data. All operations are performed locally in your browser. We do not track your usage behavior or store your generated prompts."
     },
-    "terms": {
-      "title": "Terms of Use",
-      "subtitle": "Welcome to StylePrompts visual style library. By using this site, you agree to the following terms.",
-      "acceptance": {
-        "title": "Service Nature",
-        "desc": "StylePrompts is a free visual style prompt library, providing pre-designed UI style prompts for you to copy and use. This site does not provide AI generation services, only prompt content."
-      },
-      "account": {
-        "title": "License Scope",
-        "desc": "The visual style prompts provided on this site are freely licensed. You may use the generated prompts for personal or commercial projects without payment or attribution. However, style preview images are for reference only and not licensed for redistribution."
-      },
-      "usage": {
-        "title": "Fair Use",
-        "desc": "You agree not to: (1) scrape or auto-download site content in bulk; (2) repackage site content as a competing service; (3) remove or alter copyright notices on this site."
-      },
-      "changes": {
-        "title": "Content Updates",
-        "desc": "We continuously update the visual style library, add new styles, and optimize prompt content. Some base styles are permanently free, while advanced styles may require upgrading to Pro."
-      },
-      "disclaimer": {
-        "title": "Disclaimer",
-        "desc": "Prompts on this site are suggestions only. The final results of AI generation depend on your AI tool and model. We make no guarantees regarding the quality or suitability of AI-generated content."
-      },
-      "lastUpdate": "Last updated: December 25, 2025"
+    "ownership": {
+      "title": "Prompt Ownership",
+      "desc": "All prompts you generate and copy from this site are entirely yours. You can use them freely in any AI tool without attribution."
     },
-    "coffee": {
-      "title": "Buy Me a Coffee",
-      "subtitle": "If StylePrompts has been helpful to you, consider buying me a coffee to support the continued development of this project!",
-      "cta": "Buy me a coffee ☕",
-      "ctaDesc": "Your support is the biggest motivation for me to continue developing and maintaining this project. Every coffee represents your recognition and encouragement!",
-      "buyButton": "Buy me a coffee",
-      "whyTitle": "Why Support Us?",
-      "reason1": {
-        "title": "Indie Developer",
-        "desc": "This is a project built by an indie developer. Your support helps me focus on creating better tools."
-      },
-      "reason2": {
-        "title": "Continuous Updates",
-        "desc": "Your sponsorship helps me keep updating the visual style library with more curated design styles."
-      },
-      "reason3": {
-        "title": "Keep It Free",
-        "desc": "Your support helps keep the core features free, so more people can benefit from this tool."
-      },
-      "thanks": "Thank you to every supporter. Your encouragement keeps this project growing 💜"
+    "security": {
+      "title": "Data Security",
+      "desc": "Since we do not transmit or store any user data to servers, there is no risk of data breach. Your browser preferences are stored only in LocalStorage."
     },
-    "backToHome": "Back to Home"
+    "cookies": {
+      "title": "Cookie Usage",
+      "desc": "This site only uses essential technical cookies for basic functionality (such as language preferences). We do not use any tracking or advertising cookies."
+    },
+    "lastUpdate": "Last updated: December 25, 2025"
   },
-  "pricingAd": {
-    "title": "Unlock More",
-    "subtitle": "Upgrade to Pro for the complete design system",
-    "free": {
-      "badge": "Currently Using",
-      "feature1": "100+ Free Style Templates",
-      "feature2": "Basic Preview Features",
-      "feature3": "Community Support"
+  "terms": {
+    "title": "Terms of Use",
+    "subtitle": "Welcome to StylePrompts visual style library. By using this site, you agree to the following terms.",
+    "acceptance": {
+      "title": "Service Nature",
+      "desc": "StylePrompts is a free visual style prompt library, providing pre-designed UI style prompts for you to copy and use. This site does not provide AI generation services, only prompt content."
     },
-    "pro": {
-      "recommended": "Recommended",
-      "feature1": "10+ Pro Exclusive Styles",
-      "feature2": "6 Industry Landing Page Templates",
-      "feature3": "Commercial License",
-      "feature4": "Free Future Updates"
+    "account": {
+      "title": "License Scope",
+      "desc": "The visual style prompts provided on this site are freely licensed. You may use the generated prompts for personal or commercial projects without payment or attribution. However, style preview images are for reference only and not licensed for redistribution."
     },
-    "continueFree": "Continue with Free",
-    "upgradePro": "Upgrade to Pro"
+    "usage": {
+      "title": "Fair Use",
+      "desc": "You agree not to: (1) scrape or auto-download site content in bulk; (2) repackage site content as a competing service; (3) remove or alter copyright notices on this site."
+    },
+    "changes": {
+      "title": "Content Updates",
+      "desc": "We continuously update the visual style library, add new styles, and optimize prompt content. Some base styles are permanently free, while advanced styles may require upgrading to Pro."
+    },
+    "disclaimer": {
+      "title": "Disclaimer",
+      "desc": "Prompts on this site are suggestions only. The final results of AI generation depend on your AI tool and model. We make no guarantees regarding the quality or suitability of AI-generated content."
+    },
+    "lastUpdate": "Last updated: December 25, 2025"
   },
-  "payment": {
-    "success": {
-      "title": "🎉 Payment Successful!",
-      "subtitle": "Thank you for purchasing StylePrompts Pro!\nYou now have access to all Pro features.",
-      "orderId": "Order ID",
-      "proActivated": "Pro Version Activated!",
-      "syncing": "Syncing Pro status...",
-      "syncingTitle": "Syncing Pro Status",
-      "syncingDesc": "Please refresh the page or log in again",
-      "processing": "Processing upgrade, please wait...",
-      "startUsing": "Start Using Pro Features",
-      "viewHistory": "View Purchase History",
-      "tip": "If Pro status does not update automatically, please try logging out and logging back in."
+  "coffee": {
+    "title": "Buy Me a Coffee",
+    "subtitle": "If StylePrompts has been helpful to you, consider buying me a coffee to support the continued development of this project!",
+    "cta": "Buy me a coffee ",
+    "ctaDesc": "Your support is the biggest motivation for me to continue developing and maintaining this project. Every coffee represents your recognition and encouragement!",
+    "buyButton": "Buy me a coffee",
+    "whyTitle": "Why Support Us?",
+    "reason1": {
+      "title": "Indie Developer",
+      "desc": "This is a project built by an indie developer. Your support helps me focus on creating better tools."
     },
-    "failed": {
-      "title": "Payment Failed",
-      "subtitle": "Sorry, your payment could not be completed.\nPlease check your payment information and try again.",
-      "orderId": "Order ID",
-      "expired": "Order will expire in {{time}}",
-      "expiredStatus": "Order Expired",
-      "possibleCauses": "Possible Causes",
-      "cause1": "Insufficient funds or credit limit reached",
-      "cause2": "Incorrect credit card information",
-      "cause3": "Bank declined transaction (please contact your bank)",
-      "cause4": "Network connection interrupted",
-      "repay": "Try Again",
-      "processing": "Processing...",
-      "backHome": "Back to Home",
-      "contactSupport": "For assistance, please contact support: support@styleprompts.com"
-    }
+    "reason2": {
+      "title": "Continuous Updates",
+      "desc": "Your sponsorship helps me keep updating the visual style library with more curated design styles."
+    },
+    "reason3": {
+      "title": "Keep It Free",
+      "desc": "Your support helps keep the core features free, so more people can benefit from this tool."
+    },
+    "thanks": "Thank you to every supporter. Your encouragement keeps this project growing "
+  },
+  "backToHome": "Back to Home"
+},
+"pricingAd": {
+  "title": "Unlock More",
+  "subtitle": "Upgrade to Pro for the complete design system",
+  "free": {
+    "badge": "Currently Using",
+    "feature1": "100+ Free Style Templates",
+    "feature2": "Basic Preview Features",
+    "feature3": "Community Support"
+  },
+  "pro": {
+    "recommended": "Recommended",
+    "feature1": "100 Pro Exclusive Styles",
+    "feature2": "6 Industry Landing Page Templates",
+    "feature3": "Commercial License",
+    "feature4": "Free Future Updates"
+  },
+  "continueFree": "Continue with Free",
+  "upgradePro": "Upgrade to Pro",
+  "buyCoffee": "Buy Me a Coffee"
+},
+"payment": {
+  "success": {
+    "title": "",
+    "subtitle": "Thank you for purchasing StylePrompts Pro!\nYou now have access to all Pro features.",
+    "orderId": "Order ID",
+    "proActivated": "Pro Version Activated!",
+    "syncing": "Syncing Pro status...",
+    "syncingTitle": "Syncing Pro Status",
+    "syncingDesc": "Please refresh the page or log in again",
+    "processing": "Processing upgrade, please wait...",
+    "startUsing": "Start Using Pro Features",
+    "viewHistory": "View Purchase History",
+    "tip": "If Pro status does not update automatically, please try logging out and logging back in."
+  },
+  "failed": {
+    "title": "Payment Failed",
+    "subtitle": "Sorry, your payment could not be completed.\nPlease check your payment information and try again.",
+    "orderId": "Order ID",
+    "expired": "Order will expire in {{time}}",
+    "expiredStatus": "Order Expired",
+    "possibleCauses": "Possible Causes",
+    "cause1": "Insufficient funds or credit limit reached",
+    "cause2": "Incorrect credit card information",
+    "cause3": "Bank declined transaction (please contact your bank)",
+    "cause4": "Network connection interrupted",
+    "repay": "Try Again",
+    "processing": "Processing...",
+    "backHome": "Back to Home",
+    "contactSupport": "For assistance, please contact support: support@styleprompts.com"
   }
+}
 }

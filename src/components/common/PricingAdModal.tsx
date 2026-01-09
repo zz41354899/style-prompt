@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Check, Crown, Sparkles, ArrowRight } from 'lucide-react';
+import { X, Check, Crown, Sparkles, ArrowRight, Coffee } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
 
@@ -127,19 +127,28 @@ export const PricingAdModal: React.FC<PricingAdModalProps> = ({
                             </div>
 
                             {/* Actions */}
-                            <div className="flex flex-col sm:flex-row gap-3">
-                                <button
-                                    onClick={handleContinueFree}
-                                    className="flex-1 py-3 px-6 bg-white/10 hover:bg-white/20 text-white font-medium rounded-xl transition-all text-sm"
-                                >
-                                    {t('pricingAd.continueFree')}
-                                </button>
+                            <div className="flex flex-col gap-3">
+                                <div className="flex flex-col sm:flex-row gap-3">
+                                    <button
+                                        onClick={handleContinueFree}
+                                        className="flex-1 py-3 px-6 bg-white/10 hover:bg-white/20 text-white font-medium rounded-xl transition-all text-sm"
+                                    >
+                                        {t('pricingAd.continueFree')}
+                                    </button>
+                                    <Link
+                                        href="/pro"
+                                        className="flex-1 py-3 px-6 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-medium rounded-xl transition-all text-sm flex items-center justify-center gap-2"
+                                    >
+                                        {t('pricingAd.upgradePro')}
+                                        <ArrowRight className="w-4 h-4" />
+                                    </Link>
+                                </div>
                                 <Link
-                                    href="/pro"
-                                    className="flex-1 py-3 px-6 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-medium rounded-xl transition-all text-sm flex items-center justify-center gap-2"
+                                    href="/coffee"
+                                    className="w-full py-3 px-6 bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 text-white/80 font-medium rounded-xl transition-all text-sm flex items-center justify-center gap-2"
                                 >
-                                    {t('pricingAd.upgradePro')}
-                                    <ArrowRight className="w-4 h-4" />
+                                    <Coffee className="w-4 h-4" />
+                                    {t('pricingAd.buyCoffee')}
                                 </Link>
                             </div>
                         </div>

@@ -3,9 +3,9 @@
 import React from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
-import { Crown, Lock, Sparkles } from 'lucide-react';
-import { getThemeColor } from '@/data/themeColors';
+import { Crown, Sparkles } from 'lucide-react';
 import { useProLayoutContext, TRIAL_STYLE_COUNT } from './ProLayoutContext';
+import { ProStyleListItem } from './ProStyleListItem';
 
 export const ProDesktopSidebar: React.FC = () => {
     const { t } = useTranslation();
@@ -39,53 +39,17 @@ export const ProDesktopSidebar: React.FC = () => {
             )}
 
             <div className="flex-1 overflow-y-auto">
-                {proStyles.map((style) => {
-                    const themeColor = getThemeColor(style.id);
-                    const isSelected = selectedStyle === style.id;
-                    const isLocked = isStyleLocked(style.id);
-
-                    return (
-                        <button
-                            key={style.id}
-                            onClick={() => !isLocked && handleStyleSelect(style.id)}
-                            disabled={isLocked}
-                            className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-all border-b border-white/5 ${isSelected
-                                ? 'bg-purple-600/10 border-l-2 border-l-purple-500 shadow-[inset_0_0_20px_-10px_rgba(168,85,247,0.3)]'
-                                : isLocked
-                                    ? 'opacity-50 cursor-not-allowed hover:bg-white/[0.02]'
-                                    : 'hover:bg-white/5'
-                                }`}
-                        >
-                            <div
-                                className={`w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-bold shadow-lg ${isLocked ? 'grayscale' : ''}`}
-                                style={{ backgroundColor: themeColor }}
-                            >
-                                {isLocked ? <Lock className="w-3 h-3" /> : style.id.replace('S', '')}
-                            </div>
-                            <div className="flex-1 min-w-0">
-                                <div className={`text-sm font-medium truncate ${isSelected ? 'text-white' : isLocked ? 'text-white/40' : 'text-white/70'}`}>
-                                    {t(`styles.${style.id}.name`) || style.name}
-                                </div>
-                                <div className="text-xs text-white/40 truncate">
-                                    {t(`styles.${style.id}.description`) || style.description}
-                                </div>
-                            </div>
-                            {isLocked ? (
-                                <div className="px-1.5 py-0.5 bg-white/10 border border-white/20 rounded text-[10px] text-white/50 font-medium">
-                                    <Lock className="w-3 h-3" />
-                                </div>
-                            ) : hasPro ? (
-                                <div className="px-1.5 py-0.5 bg-purple-600/20 border border-purple-500/30 rounded text-[10px] text-purple-300 font-medium">
-                                    {t('pro.sidebar.proTag')}
-                                </div>
-                            ) : (
-                                <div className="px-1.5 py-0.5 bg-green-600/20 border border-green-500/30 rounded text-[10px] text-green-300 font-medium">
-                                    {t('pro.sidebar.trialTag')}
-                                </div>
-                            )}
-                        </button>
-                    );
-                })}
+                {proStyles.map((style) => (
+                    <ProStyleListItem
+                        key={style.id}
+                        style={style}
+                        isSelected={selectedStyle === style.id}
+                        isLocked={isStyleLocked(style.id)}
+                        hasPro={hasPro}
+                        onSelect={() => handleStyleSelect(style.id)}
+                        showDescription={true}
+                    />
+                ))}
             </div>
 
             {/* Footer Link */}

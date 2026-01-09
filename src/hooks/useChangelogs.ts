@@ -1,7 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { supabase } from '@/lib/supabaseClient';
+import { apiCache } from '@/lib/cache';
+
+const CACHE_KEY = 'changelogs:recent';
+const CACHE_TTL = 5 * 60 * 1000; // 5 分鐘
 
 interface Changelog {
     id: string;
@@ -14,54 +18,60 @@ interface Changelog {
 }
 
 /**
- * Hook 用於從 Supabase 讀取更新日誌
+ * Hook 用於從 Supabase 讀取更新日誌（帶快取）
  */
 export const useChangelogs = () => {
-    const [changelogs, setChangelogs] = useState<Changelog[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [changelogs, setChangelogs] = useState<Changelog[]>(() => {
+        return apiCache.get<Changelog[]>(CACHE_KEY) || [];
+    });
+    const [loading, setLoading] = useState(() => !apiCache.get(CACHE_KEY));
     const [error, setError] = useState<string | null>(null);
+    const mountedRef = useRef(true);
 
-    useEffect(() => {
-        const fetchChangelogs = async () => {
-            try {
-                setLoading(true);
-
-                // 檢查 Supabase 連線
-                if (!supabase) {
-                    throw new Error('Supabase client not initialized');
-                }
-
-                console.log('Fetching changelogs...');
-
-                const { data, error: fetchError } = await supabase
-                    .from('changelogs')
-                    .select('*')
-                    .order('published_at', { ascending: false })
-                    .limit(10); // 只取最新 10 筆
-
-                if (fetchError) {
-                    console.error('Changelogs fetch error:', fetchError);
-                    // 如果是權限錯誤，提供更具體的錯誤訊息
-                    if (fetchError.code === 'PGRST116') {
-                        console.error('Table "changelogs" does not exist or no permission to access');
-                    } else if (fetchError.message?.includes('permission denied')) {
-                        console.error('Permission denied accessing changelogs table. Check RLS policies.');
-                    }
-                    throw fetchError;
-                }
-
-                console.log('Changelogs fetched:', data?.length || 0, 'items');
-                setChangelogs(data || []);
-            } catch (err) {
-                console.error('Failed to fetch changelogs:', err);
-                setError(err instanceof Error ? err.message : 'Failed to fetch changelogs');
-            } finally {
+    const fetchChangelogs = useCallback(async (forceRefresh = false) => {
+        if (!forceRefresh) {
+            const cached = apiCache.get<Changelog[]>(CACHE_KEY);
+            if (cached) {
+                setChangelogs(cached);
                 setLoading(false);
+                return;
             }
-        };
+        }
 
-        fetchChangelogs();
+        try {
+            setLoading(true);
+
+            const { data, error: fetchError } = await supabase
+                .from('changelogs')
+                .select('*')
+                .order('published_at', { ascending: false })
+                .limit(10);
+
+            if (fetchError) throw fetchError;
+            if (!mountedRef.current) return;
+
+            const result = data || [];
+            apiCache.set(CACHE_KEY, result, CACHE_TTL);
+            setChangelogs(result);
+        } catch (err) {
+            if (!mountedRef.current) return;
+            console.error('Failed to fetch changelogs:', err);
+            setError(err instanceof Error ? err.message : 'Failed to fetch changelogs');
+        } finally {
+            if (mountedRef.current) setLoading(false);
+        }
     }, []);
 
-    return { changelogs, loading, error };
+    useEffect(() => {
+        mountedRef.current = true;
+        fetchChangelogs();
+        return () => { mountedRef.current = false; };
+    }, [fetchChangelogs]);
+
+    const refresh = useCallback(() => {
+        apiCache.invalidate(CACHE_KEY);
+        return fetchChangelogs(true);
+    }, [fetchChangelogs]);
+
+    return { changelogs, loading, error, refresh };
 };

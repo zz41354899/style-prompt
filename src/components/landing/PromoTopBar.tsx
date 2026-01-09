@@ -3,8 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Sparkles, ChevronRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export const PromoTopBar: React.FC = () => {
+    const { t } = useTranslation();
     const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
@@ -40,9 +42,7 @@ export const PromoTopBar: React.FC = () => {
                 className="relative z-10 inline-flex items-center gap-2 text-sm font-medium hover:underline underline-offset-4"
             >
                 <Sparkles className="w-4 h-4" />
-                <span>
-                    Introducing <strong>StylePrompts Pro</strong> — 解鎖 10+ 進階風格模板
-                </span>
+                <span>{t('promo.banner')}</span>
                 <ChevronRight className="w-4 h-4" />
             </Link>
         </div>

@@ -24,7 +24,7 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
     const effectiveStyleId = styleId || 'S01';
     const currentStyle = styles.find(s => s.id === effectiveStyleId);
 
-    // Select component based on tier and availability
+    // 判斷是否使用 Pro 版本
     const shouldUsePro = previewTier === 'pro' && hasProVersion(effectiveStyleId) && styleComponentsPro[effectiveStyleId];
     const SelectedComponent = shouldUsePro
         ? styleComponentsPro[effectiveStyleId]

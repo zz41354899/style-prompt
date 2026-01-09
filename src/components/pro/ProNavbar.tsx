@@ -65,9 +65,9 @@ export const ProNavbar: React.FC<ProNavbarProps> = ({
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16">
                         {/* Logo */}
-                        <Link
-                            href="/pro"
-                            className="flex items-center gap-2 sm:gap-3 group flex-shrink-0"
+                        <button
+                            onClick={handleLogoClick}
+                            className="flex items-center gap-2 sm:gap-3 group flex-shrink-0 cursor-pointer"
                         >
                             <div className="relative">
                                 <div className="absolute inset-0 bg-purple-600 blur-[20px] opacity-20 group-hover:opacity-40 transition-opacity duration-500" />
@@ -83,7 +83,7 @@ export const ProNavbar: React.FC<ProNavbarProps> = ({
                                 PRO
                             </span>
 
-                        </Link>
+                        </button>
 
                         {/* Desktop Nav */}
                         <div className="hidden md:flex items-center gap-1">
@@ -102,6 +102,13 @@ export const ProNavbar: React.FC<ProNavbarProps> = ({
 
                         {/* Right Actions */}
                         <div className="flex items-center gap-1 sm:gap-3">
+                            {/* 返回免費版 - 桌面版 */}
+                            <Link
+                                href="/"
+                                className="hidden md:flex items-center gap-1.5 px-3 py-2 text-white/50 hover:text-white hover:bg-white/5 rounded-lg transition-all text-sm font-medium"
+                            >
+                                <span>{t('pro.navbar.backToFree')}</span>
+                            </Link>
                             {/* Language Toggle - 桌面版顯示 */}
                             <button
                                 onClick={toggleLanguage}
@@ -209,6 +216,17 @@ export const ProNavbar: React.FC<ProNavbarProps> = ({
                                             </Link>
                                         </div>
                                     )}
+
+                                    {/* 手機版返回免費版 */}
+                                    <div className="pt-4 border-t border-white/5">
+                                        <Link
+                                            href="/"
+                                            onClick={() => setMobileMenuOpen(false)}
+                                            className="flex items-center gap-2 w-full py-3 px-4 text-white/60 hover:text-white hover:bg-white/5 rounded-lg transition-all font-medium"
+                                        >
+                                            {t('pro.navbar.backToFree')}
+                                        </Link>
+                                    </div>
 
                                     {/* 手機版語言切換 */}
                                     <div className="pt-4 border-t border-white/5">
