@@ -10,7 +10,6 @@ import { useProLayoutContext } from './ProLayoutContext';
 import { useAuth } from '@/components/providers/AuthProvider';
 import { UserDropdown } from '@/components/layout/UserDropdown';
 import { AuthModal } from '@/components/common';
-import NotificationBell from '@/components/common/NotificationBell';
 
 export const ProHeader: React.FC = () => {
     const pathname = usePathname();
