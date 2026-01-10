@@ -61,9 +61,9 @@ export default function AnnouncementsPage() {
     ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
     // Filter notifications based on active tab
-    const filteredNotifications = activeTab === 'all' 
+    const filteredNotifications = activeTab === 'all'
         ? allNotifications
-        : allNotifications.filter(item => 
+        : allNotifications.filter(item =>
             activeTab === 'changelog' ? item.type === 'changelog' : item.type === 'announcement'
         );
 
@@ -79,31 +79,28 @@ export default function AnnouncementsPage() {
                 <div className="inline-flex gap-2 bg-white/5 p-1 rounded-lg">
                     <button
                         onClick={() => setActiveTab('all')}
-                        className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                            activeTab === 'all'
+                        className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'all'
                                 ? 'bg-white/10 text-white'
                                 : 'text-white/50 hover:text-white'
-                        }`}
+                            }`}
                     >
                         {t('notification.all')}
                     </button>
                     <button
                         onClick={() => setActiveTab('changelog')}
-                        className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                            activeTab === 'changelog'
+                        className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'changelog'
                                 ? 'bg-white/10 text-white'
                                 : 'text-white/50 hover:text-white'
-                        }`}
+                            }`}
                     >
                         {t('notification.changelog')}
                     </button>
                     <button
                         onClick={() => setActiveTab('announcements')}
-                        className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                            activeTab === 'announcements'
+                        className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'announcements'
                                 ? 'bg-white/10 text-white'
                                 : 'text-white/50 hover:text-white'
-                        }`}
+                            }`}
                     >
                         {t('notification.announcements')}
                     </button>
@@ -155,7 +152,7 @@ export default function AnnouncementsPage() {
 
                                         {/* Content */}
                                         {item.content && (
-                                            <p className="text-white/60 text-sm leading-relaxed whitespace-pre-wrap line-clamp-3">
+                                            <p className="text-white/60 text-sm leading-relaxed whitespace-pre-wrap">
                                                 {item.content}
                                             </p>
                                         )}
