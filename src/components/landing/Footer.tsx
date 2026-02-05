@@ -39,8 +39,7 @@ export const Footer: React.FC<FooterProps> = ({ variant = 'free' }) => {
         ],
         legal: [
             { key: 'terms', path: '/pro/legal/terms' },
-            { key: 'privacy', path: '/pro/legal/privacy' },
-            { key: 'refund', path: '/pro/legal/refund' }
+            { key: 'privacy', path: '/pro/legal/privacy' }
         ]
     };
 

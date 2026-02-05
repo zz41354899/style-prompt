@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, Coffee } from 'lucide-react';
 import { fadeIn, staggerContainer } from '@/lib/motion';
 
 export const PricingSection: React.FC = () => {
@@ -81,9 +81,13 @@ export const PricingSection: React.FC = () => {
                                 </li>
                             ))}
                         </ul>
-                        <div className="w-full py-6 rounded-2xl bg-white/10 text-white/30 font-black text-sm uppercase tracking-widest text-center cursor-not-allowed">
-                            {t('landing.pricing.comingSoon')}
-                        </div>
+                        <Link
+                            href="/coffee"
+                            className="w-full py-6 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-black text-sm uppercase tracking-widest text-center transition-all shadow-lg shadow-purple-600/20 flex items-center justify-center gap-3"
+                        >
+                            <Coffee className="w-5 h-5" />
+                            {t('landing.pricing.sponsorSupport')}
+                        </Link>
                     </motion.div>
                 </motion.div>
             </div>

@@ -520,17 +520,17 @@
     "sidebar": {
       "title": "Pro Style Library",
       "stylesCount": "{{count}} Premium Styles",
-      "trialBanner": "Free Trial Active",
-      "trialProgress": "{{current}}/{{total}} styles available",
+      "trialBanner": "All Features Open",
+      "trialProgress": "All {{total}} styles available",
       "proTag": "PRO",
       "trialTag": "Trial",
       "lockedTag": "Locked",
       "proHomepage": "Pro Homepage"
     },
     "trial": {
-      "badge": "Free Trial Active",
-      "info": "Preview {{current}}/{{total}} styles · Copy feature requires Pro upgrade",
-      "upgradeCTA": "Upgrade Pro"
+      "badge": "All Features Open",
+      "info": "All {{total}} styles available for use and copy",
+      "upgradeCTA": "Support Us"
     },
     "hero": {
       "badge": "100+ Premium Style Templates",
@@ -626,15 +626,17 @@
       }
     },
     "pricing": {
-      "badge": "Simple Pricing",
-      "title1": "One-Time Purchase,",
-      "title2": "Lifetime Access",
-      "subtitle": "No subscription traps, no hidden fees. Own your professional design system.",
-      "planName": "Pro Lifetime License",
-      "planDesc": "Includes all future updates",
+      "badge": "Open Source",
+      "title1": "All Features",
+      "title2": "Free & Open",
+      "subtitle": "All style templates and design systems are now completely free. Support us if you find it useful.",
+      "planName": "Open Source",
+      "planDesc": "All Features Free & Open",
       "popular": "Most Popular",
       "buyNow": "Buy Now",
       "loginToBuy": "Login to Purchase",
+      "sponsorSupport": "Support Us ☕",
+      "sponsorNote": "Your support helps us develop more features",
       "note": "Secure Payment • Instant Delivery • Digital product, no refunds",
       "features": {
         "f1": "100+ Pro Exclusive Style Templates",
@@ -654,15 +656,15 @@
       "badge": "FAQ",
       "title": "Questions? We've Got Answers",
       "q1": "What's included in Pro?",
-      "a1": "Pro includes 100+ carefully designed advanced style templates, 6 industry Landing Page templates, each with complete design system prompts. You also get all future updates and priority support.",
-      "q2": "How do I use Pro styles after purchase?",
-      "a2": "After purchase, log in to your account and you'll see all Pro styles in the style library. Each Pro style has a dedicated label and you can copy the complete prompts directly.",
-      "q3": "Can I get a refund?",
-      "a3": "Under Taiwan's Consumer Protection Act Article 19, digital products are exempt from the 7-day return policy. For technical issues like checkout errors or duplicate charges, please contact support and we'll process refunds via PayUNi.",
-      "q4": "Will there be more Pro styles in the future?",
-      "a4": "Yes! We continuously add more advanced styles. All Pro users get all future updates for free, no additional payment required.",
-      "q5": "Can Pro styles be used commercially?",
-      "a5": "Yes. The Pro license includes commercial use rights. You can use the generated designs for commercial projects."
+      "a1": "Now everything is completely free! Pro includes 100+ carefully designed advanced style templates, 6 industry Landing Page templates, each with complete design system prompts.",
+      "q2": "How do I start using all styles?",
+      "a2": "Click 'Start Using All Styles' to browse all 100+ style templates instantly. No registration or payment required, and you can copy complete prompts directly.",
+      "q3": "How can I support this project?",
+      "a3": "You can sponsor us via Buy Me a Coffee to help us continue developing more features and style templates.",
+      "q4": "Will there be more styles in the future?",
+      "a4": "Yes! We continuously add more advanced styles. All updates will be provided free to all users.",
+      "q5": "Can these styles be used commercially?",
+      "a5": "Yes. All style templates can be used for commercial projects. You can use the generated designs for any commercial purpose."
     },
     "footer": {
       "description": "Design system library built for AI-powered design.",
@@ -742,14 +744,15 @@
       "subtitle": "View the latest updates and system announcements"
     },
     "pricing": {
-      "title": "Plans",
-      "subtitle": "Choose the plan for you",
-      "currentPlan": "Current Plan",
-      "proLifetime": "Pro Lifetime License",
-      "freePlan": "Free Plan",
+      "title": "Current Plan",
+      "subtitle": "All Features Open",
+      "currentPlan": "Current Plan: All Features Open",
+      "proPlan": "Pro",
+      "proLifetime": "Pro",
+      "freePlan": "Basic",
       "activated": "Activated",
       "oneTime": "One-time",
-      "browseFree": "Browse Free Library",
+      "browseFree": "Browse Open Source Library",
       "browsePro": "Go to Pro Library",
       "upgradeNow": "Upgrade Now",
       "recommended": "Recommended",
@@ -772,12 +775,12 @@
       },
       "faq": {
         "title": "FAQ",
-        "q1": "How do I use it after purchase?",
-        "a1": "After purchase, your Pro access is automatically activated and you can immediately access all Pro-exclusive content.",
-        "q2": "Can I get a refund?",
-        "a2": "Under Taiwan's Consumer Protection Act Article 19, digital products are exempt from the 7-day return policy, so refunds are not available unless there's a checkout error or duplicate transaction, which can be processed via PayUNi.",
-        "q3": "Will the price increase?",
-        "a3": "No, it will always be a one-time purchase of NT$2,000. The price will not increase even when new features are released."
+        "q1": "How do I get started?",
+        "a1": "Click 'Start Using All Styles' to browse all 100 style templates instantly, no registration or payment required.",
+        "q2": "Is everything really free?",
+        "a2": "Yes! All style templates and design systems are now completely free and open. Your sponsorship helps us continue development.",
+        "q3": "How can I support you?",
+        "a3": "Click the 'Support Us' button to sponsor via Buy Me a Coffee. Your support helps us develop more features."
       },
       "paymentFailed": "Payment Failed",
       "paymentFailedDesc": "There was an issue processing your payment. Please try again or use a different payment method.",
@@ -786,7 +789,8 @@
       "paymentTesting": "Payment System Testing",
       "paymentTestingDesc": "Payment feature coming soon. Try the free trial version first.",
       "comingSoon": "Coming Soon",
-      "tryProStyles": "Try 20 Pro Styles First"
+      "tryProStyles": "Start Using All Styles",
+      "sponsorSupport": "Support Us ☕"
     },
     "settings": {
       "title": "Settings",
@@ -924,10 +928,11 @@
     "pricing": {
       "title": "Simple, Transparent Pricing",
       "comingSoon": "Coming Soon",
+      "sponsorSupport": "Support Us ☕",
       "startNow": "Start Free",
       "free": {
-        "name": "Free",
-        "use": "For Personal & Commercial Use",
+        "name": "Open Source",
+        "use": "All Features Free & Open",
         "price": "0",
         "f1": "100 Base Visual Styles",
         "f2": "Commercial Use License",
@@ -1221,7 +1226,8 @@
     },
     "continueFree": "Continue with Free",
     "upgradePro": "Upgrade to Pro",
-    "buyCoffee": "Buy Me a Coffee"
+    "buyCoffee": "Buy Me a Coffee",
+    "sponsorSupport": "Support Us ☕"
   },
   "payment": {
     "success": {

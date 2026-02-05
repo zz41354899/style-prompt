@@ -9,7 +9,6 @@ import { styleComponents, styleComponentsPro } from '@/components/styles';
 import { useLayoutContext } from '@/components/MainLayout';
 import { PromptModal } from '@/components/PromptModal';
 import { ProUpgradeModal } from '@/components/pro';
-import { PricingAdModal } from '@/components/common';
 
 interface PreviewContentProps {
     styleId: string;
@@ -20,7 +19,6 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
     const { t } = useTranslation();
     const [isPromptModalOpen, setIsPromptModalOpen] = useState(false);
     const [isProModalOpen, setIsProModalOpen] = useState(false);
-    const [isPricingAdModalOpen, setIsPricingAdModalOpen] = useState(false);
     const effectiveStyleId = styleId || 'S01';
     const currentStyle = styles.find(s => s.id === effectiveStyleId);
 
@@ -41,15 +39,8 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
         return () => cancelAnimationFrame(rafId);
     }, [deviceMode]);
 
-    // 處理複製指示詞按鈕點擊
+    // 處理複製指示詞按鈕點擊 - 所有功能免費開放
     const handleCopyPromptClick = () => {
-        // 檢查 session 中是否已看過定價廣告
-        const hasSeenAd = typeof window !== 'undefined' && sessionStorage.getItem('hasSeenPricingAd');
-        if (!hasSeenAd) {
-            setIsPricingAdModalOpen(true);
-            return;
-        }
-
         // 檢查 Pro 權限
         if (previewTier === 'pro' && !isNewYearPromoActive()) {
             setIsProModalOpen(true);
@@ -58,16 +49,6 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
         }
     };
 
-    // 看完廣告後繼續使用
-    const handleContinueFree = () => {
-        setIsPricingAdModalOpen(false);
-        // 檢查 Pro 權限
-        if (previewTier === 'pro' && !isNewYearPromoActive()) {
-            setIsProModalOpen(true);
-        } else {
-            setIsPromptModalOpen(true);
-        }
-    };
 
     if (!currentStyle || !SelectedComponent) {
         return (
@@ -241,13 +222,6 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
                 isOpen={isProModalOpen}
                 onClose={() => setIsProModalOpen(false)}
                 styleName={currentStyle?.name || ''}
-            />
-
-            {/* Pricing Ad Modal - 定價廣告彈窗 */}
-            <PricingAdModal
-                isOpen={isPricingAdModalOpen}
-                onClose={() => setIsPricingAdModalOpen(false)}
-                onContinueFree={handleContinueFree}
             />
         </main>
     );

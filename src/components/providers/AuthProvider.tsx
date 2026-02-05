@@ -61,7 +61,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }, []);
 
     const isAdmin = role === 'admin';
-    const isPro = role === 'pro' || role === 'admin';
+    // 開源版本：所有用戶都有 Pro 權限
+    const isPro = true;
     const isSuspended = accountStatus === 'suspended';
 
     // 優化的 profile 請求（包含帳戶狀態）
@@ -73,13 +74,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 .select('display_name, status, deletion_status')
                 .eq('id', userId)
                 .single();
-            
+
             if (mountedRef.current && profile) {
                 if (profile.display_name) {
                     setProfileName(profile.display_name);
                 }
                 // 合併 status 和 deletion_status，優先使用 deletion_status
-                const effectiveStatus = 
+                const effectiveStatus =
                     profile.deletion_status === 'pending_deletion' || profile.deletion_status === 'deleted'
                         ? profile.deletion_status
                         : (profile.status || 'active') as AccountStatus;
@@ -97,7 +98,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             try {
                 const { data: { session } } = await supabase.auth.getSession();
                 if (!mountedRef.current) return;
-                
+
                 sessionRef.current = session;
                 setSession(session);
                 setUser(session?.user ?? null);
@@ -122,7 +123,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const { data: { subscription } } = supabase.auth.onAuthStateChange(
             async (event, session) => {
                 if (!mountedRef.current) return;
-                
+
                 sessionRef.current = session;
                 setSession(session);
                 setUser(session?.user ?? null);
@@ -178,7 +179,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const updateUserName = useCallback(async (name: string): Promise<{ error: Error | null }> => {
         if (!user) return { error: new Error('User not found') };
-        
+
         const currentSession = sessionRef.current;
         const currentToken = currentSession?.access_token;
         if (!currentToken) return { error: new Error('No access token') };

@@ -532,17 +532,17 @@
     "sidebar": {
       "title": "Pro 風格資源庫",
       "stylesCount": "{{count}} 個進階風格",
-      "trialBanner": "🎉 免費試用中",
-      "trialProgress": "{{current}}/{{total}} 風格可預覽",
+      "trialBanner": "🎉 所有功能開放",
+      "trialProgress": "全部 {{total}} 風格可使用",
       "proTag": "PRO",
       "trialTag": "試用",
       "lockedTag": "鎖定",
       "proHomepage": "Pro 首頁"
     },
     "trial": {
-      "badge": "🎉 免費試用中",
-      "info": "可預覽 {{current}}/{{total}} 風格 · 複製功能需升級 Pro",
-      "upgradeCTA": "升級 Pro"
+      "badge": "🎉 所有功能開放",
+      "info": "所有 {{total}} 種風格均可自由使用與複製",
+      "upgradeCTA": "贊助支持"
     },
     "hero": {
       "badge": "100+ 精選風格模板",
@@ -638,15 +638,17 @@
       }
     },
     "pricing": {
-      "badge": "簡單定價",
-      "title1": "一次購買，",
-      "title2": "終身使用",
-      "subtitle": "無訂閱陷阱，無隱藏費用。擁有屬於你的專業設計系統。",
-      "planName": "Pro 終身授權",
-      "planDesc": "包含所有未來更新",
+      "badge": "開源資源",
+      "title1": "所有功能",
+      "title2": "免費開放",
+      "subtitle": "所有風格模板與設計系統現在完全免費使用，歡迎贊助支持我們。",
+      "planName": "開源版",
+      "planDesc": "所有功能免費開放",
       "popular": "最受歡迎",
       "buyNow": "立即購買",
       "loginToBuy": "登入後購買",
+      "sponsorSupport": "贊助支持 ☕",
+      "sponsorNote": "您的贊助將幫助我們持續開發更多功能",
       "note": "安全付款 • 即時交付 • 數位商品售出不退",
       "features": {
         "f1": "100+ Pro 專屬風格模板",
@@ -666,15 +668,15 @@
       "badge": "常見問題",
       "title": "有疑問？我們來解答",
       "q1": "Pro 版包含哪些內容？",
-      "a1": "Pro 版包含 100+ 精心設計的進階風格模板、6 種產業 Landing Page Template，每個模板都附有完整的設計系統指示詞。您還能獲得未來所有更新，以及優先客服支援。",
-      "q2": "購買後如何使用 Pro 風格？",
-      "a2": "購買完成後，登入您的帳戶即可在風格資源庫中看到所有 Pro 風格。每個 Pro 風格都有專屬標籤，可直接複製完整指示詞。",
-      "q3": "可以退款嗎？",
-      "a3": "依據台灣《消費者保護法》第19條規定，數位商品不適用7天鑑賞期，售出後恕不退費。若遇結帳異常或重複扣款等技術問題，請聯繫客服，我們將透過 PayUNi 統一金流協助處理退款。",
-      "q4": "未來會有更多 Pro 風格嗎？",
-      "a4": "是的！我們會持續新增更多進階風格。所有已購買 Pro 的用戶都能免費獲得未來所有更新，無需額外付費。",
-      "q5": "Pro 風格可以商業使用嗎？",
-      "a5": "可以。Pro 版授權包含商業使用權，您可以將生成的設計用於商業專案。"
+      "a1": "現在所有功能完全免費開放！包含 100+ 精心設計的進階風格模板、6 種產業 Landing Page Template，每個模板都附有完整的設計系統指示詞。",
+      "q2": "如何開始使用所有風格？",
+      "a2": "直接點擊「開始使用所有風格」即可瀏覽全部 100+ 種風格模板，無需註冊或付費，每個風格都可直接複製完整指示詞。",
+      "q3": "如何贊助支持這個專案？",
+      "a3": "您可以透過 Buy Me a Coffee 贊助支持，讓我們持續開發更多功能和風格模板。",
+      "q4": "未來會有更多風格嗎？",
+      "a4": "是的！我們會持續新增更多進階風格，所有更新都將免費提供給所有用戶。",
+      "q5": "這些風格可以商業使用嗎？",
+      "a5": "可以。所有風格模板都可用於商業專案，您可以將生成的設計用於任何商業用途。"
     },
     "footer": {
       "description": "為 AI 設計而生的風格系統資源庫",
@@ -685,7 +687,6 @@
       "legal": "法律聲明",
       "terms": "使用條款",
       "privacy": "隱私政策",
-      "refund": "退款政策",
       "copyright": "© 2025 STYLEPROMPTS PRO. 保留所有權利。"
     },
     "legal": {
@@ -745,7 +746,6 @@
       "backToPro": "BACK TO PRO",
       "backToLibrary": "返回資源庫",
       "pricing": "方案",
-      "purchases": "購買紀錄",
       "settings": "設定",
       "announcements": "平台公告"
     },
@@ -754,18 +754,19 @@
       "subtitle": "查看最新的更新日誌與系統公告"
     },
     "pricing": {
-      "title": "方案",
-      "subtitle": "選擇適合您的方案",
-      "currentPlan": "目前方案",
+      "title": "目前方案",
+      "subtitle": "所有功能開放",
+      "currentPlan": "目前方案：所有功能開放",
+      "proPlan": "進階版",
       "proLifetime": "Pro 終身授權",
-      "freePlan": "Free 免費版",
-      "activated": "已啟用",
+      "freePlan": "基礎版",
+      "activated": "已開啟",
       "oneTime": "一次性",
-      "browseFree": "瀏覽 Free 資源庫",
+      "browseFree": "瀏覽開源版資源庫",
       "browsePro": "前往 Pro 資源庫",
       "upgradeNow": "立即升級",
       "recommended": "推薦",
-      "purchased": "已購買",
+      "purchased": "已啟用",
       "freeFeatures": {
         "f1": "100 種基礎風格模板",
         "f2": "即時 UI 預覽",
@@ -784,12 +785,12 @@
       },
       "faq": {
         "title": "常見問題",
-        "q1": "購買後如何使用？",
-        "a1": "購買完成後，系統會自動啟用您的 Pro 權限，立即可以存取所有 Pro 專屬內容。",
-        "q2": "可以退款嗎？",
-        "a2": "依據台灣《消費者保護法》第19條，數位商品不適用7天鑑賞期，故不提供退款，除非發生結帳錯誤或重複交易，可透過 PayUNi 統一金流處理。",
-        "q3": "未來會漲價嗎？",
-        "a3": "不會都是2000元台幣一次買斷，未來新功能上線都不會調整價位。"
+        "q1": "如何開始使用？",
+        "a1": "點擊「開始使用所有風格」即可直接瀏覽所有 100 種風格模板，無需註冊或付費。",
+        "q2": "所有功能都是免費的嗎？",
+        "a2": "是的！所有風格模板和設計系統現在完全免費開放使用，歡迎贊助支持我們持續開發。",
+        "q3": "如何贊助支持？",
+        "a3": "點擊「贊助支持」按鈕即可透過 Buy Me a Coffee 贊助，您的支持將幫助我們持續開發更多功能。"
       },
       "paymentFailed": "付款失敗",
       "paymentFailedDesc": "付款處理時發生問題，請再試一次或使用其他付款方式。",
@@ -798,7 +799,8 @@
       "paymentTesting": "金流系統測試中",
       "paymentTestingDesc": "付款功能即將開放，請先體驗免費試用版本",
       "comingSoon": "即將開放購買",
-      "tryProStyles": "先體驗前 20 個 Pro 風格"
+      "tryProStyles": "開始使用所有風格",
+      "sponsorSupport": "贊助支持 ☕"
     },
     "settings": {
       "title": "設定",
@@ -936,10 +938,11 @@
     "pricing": {
       "title": "簡單透明的價格",
       "comingSoon": "敬請期待",
+      "sponsorSupport": "贊助支持 ☕",
       "startNow": "免費開始",
       "free": {
-        "name": "免費版",
-        "use": "適合個人探索與商業使用",
+        "name": "開源版",
+        "use": "所有功能免費開放",
         "price": "0",
         "f1": "100 種基礎視覺風格",
         "f2": "商業使用授權",
@@ -1233,7 +1236,8 @@
     },
     "continueFree": "繼續免費使用",
     "upgradePro": "升級 Pro",
-    "buyCoffee": "贊助咖啡"
+    "buyCoffee": "贊助咖啡",
+    "sponsorSupport": "贊助支持 ☕"
   },
   "payment": {
     "success": {

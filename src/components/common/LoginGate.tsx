@@ -192,9 +192,7 @@ export const LoginGate: React.FC<LoginGateProps> = ({ children }) => {
                         <Link href="/pro/legal/privacy" className="hover:text-gray-300 transition-colors">
                             {t('pro.footer.privacy')}
                         </Link>
-                        <Link href="/pro/legal/refund" className="hover:text-gray-300 transition-colors">
-                            {t('pro.footer.refund')}
-                        </Link>
+
                     </div>
                     <LanguageSwitcher variant="header" />
                 </motion.footer>

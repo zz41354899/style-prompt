@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { CheckCircle2, Crown, ArrowRight, Sparkles, Zap, Shield, LayoutTemplate } from 'lucide-react';
+import { CheckCircle2, Crown, ArrowRight, Sparkles, Zap, Shield, LayoutTemplate, Coffee } from 'lucide-react';
 import { useAuth } from '@/components/providers/AuthProvider';
 import { useTranslation } from 'react-i18next';
 
@@ -81,24 +81,27 @@ export const ProPricingSection: React.FC = () => {
 
                                 <div className="flex items-baseline gap-2 mb-8">
                                     <div className="flex items-baseline">
-                                        <span className="text-2xl font-bold text-white mr-1">NT$</span>
-                                        <span className="text-7xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-white/70 tracking-tighter">
-                                            2,000
+                                        <span className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-white/70 tracking-tighter">
+                                            Free
                                         </span>
+                                    </div>
+                                    <div className="px-3 py-1 bg-green-500/20 text-green-400 text-sm font-bold rounded-full ml-4">
+                                        Open Source
                                     </div>
                                 </div>
 
                                 <Link
-                                    href={user ? '/dashboard/pricing' : '/pro/login'}
-                                    className="group w-full flex items-center justify-center gap-3 px-8 py-4 bg-white text-black font-bold text-lg rounded-xl transition-all hover:scale-[1.02] hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.5)] relative overflow-hidden"
+                                    href="/coffee"
+                                    className="group w-full flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold text-lg rounded-xl transition-all shadow-lg shadow-purple-600/20 relative overflow-hidden"
                                 >
-                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-shimmer" />
-                                    {user ? t('pro.pricing.buyNow') : t('pro.pricing.loginToBuy')}
+                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer" />
+                                    <Coffee className="w-5 h-5" />
+                                    {t('pro.pricing.sponsorSupport')}
                                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                 </Link>
 
                                 <p className="text-center text-xs text-white/30 mt-4">
-                                    {t('pro.pricing.note')}
+                                    {t('pro.pricing.sponsorNote')}
                                 </p>
                             </div>
 
@@ -122,26 +125,7 @@ export const ProPricingSection: React.FC = () => {
                     </div>
                 </motion.div>
 
-                {/* Trust Badges */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-white/40"
-                >
-                    <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-green-500 rounded-full" />
-                        {t('pro.pricing.trust.stripe')}
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-green-500 rounded-full" />
-                        {t('pro.pricing.trust.ssl')}
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-green-500 rounded-full" />
-                        {t('pro.pricing.trust.instant')}
-                    </div>
-                </motion.div>
+
             </div>
         </section>
     );

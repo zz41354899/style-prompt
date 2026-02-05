@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Crown, Sparkles } from 'lucide-react';
-import { useProLayoutContext, TRIAL_STYLE_COUNT } from './ProLayoutContext';
+import { Crown } from 'lucide-react';
+import { useProLayoutContext } from './ProLayoutContext';
 import { useTranslation } from 'react-i18next';
 import { ProStyleListItem } from './ProStyleListItem';
 
@@ -45,18 +45,6 @@ export const ProMobileSidebar: React.FC = () => {
                             <p className="text-xs text-white/40">{t('pro.sidebar.stylesCount', { count: proStyles.length })}</p>
                         </div>
 
-                        {/* 試用橫幅 */}
-                        {isTrial && (
-                            <div className="mx-3 mt-3 p-3 bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30 rounded-xl">
-                                <div className="flex items-center gap-2 mb-1">
-                                    <Sparkles className="w-4 h-4 text-purple-400" />
-                                    <span className="text-xs font-bold text-purple-300">{t('pro.sidebar.trialBanner')}</span>
-                                </div>
-                                <p className="text-[11px] text-white/60">
-                                    {t('pro.sidebar.trialProgress', { current: TRIAL_STYLE_COUNT, total: proStyles.length })}
-                                </p>
-                            </div>
-                        )}
 
                         <div className="flex-1 overflow-y-auto">
                             {proStyles.map((style) => (

@@ -18,14 +18,13 @@ const DashboardContent: React.FC<DashboardLayoutProps> = ({ children }) => {
     const { t, i18n } = useTranslation();
     const currentLang = i18n.language;
     const router = useRouter();
-    
+
     // 使用統一的帳戶狀態輪詢 hook
     const { status: localAccountStatus } = useAccountStatusPolling(user?.id);
 
     // 導航項目
     const navItems: NavItem[] = [
         { href: '/dashboard/pricing', label: t('dashboard.nav.pricing'), icon: Crown },
-        { href: '/dashboard/purchases', label: t('dashboard.nav.purchases'), icon: CreditCard },
         { href: '/dashboard/announcements', label: t('dashboard.nav.announcements'), icon: Bell },
         { href: '/dashboard/settings', label: t('dashboard.nav.settings'), icon: Settings },
     ];

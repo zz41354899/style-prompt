@@ -7,18 +7,17 @@ import { useAuth } from '@/components/providers/AuthProvider';
  * 整合 AuthProvider 的權限系統
  */
 export const usePurchase = () => {
-    const { user, role, isPro, loading } = useAuth();
+    const { user, role, loading } = useAuth();
 
-    // isPro 已經由 AuthProvider 計算：
-    // isPro = (role === 'admin' || role === 'pro')
-    //
+    // Open Source 版本：直接設為 true
+    // 未來如果要恢復付費制，可在此整合 subscriptions 表的檢查 logic
     // 未來可從 subscriptions 表查詢更詳細的訂閱資訊：
     // - 訂閱方案（monthly/yearly/lifetime）
     // - 到期日期
     // - 訂閱狀態（active/canceled/past_due）
 
     return {
-        hasPro: isPro,
+        hasPro: true, // Open Source version: All users have Pro access
         role,
         loading,
         user

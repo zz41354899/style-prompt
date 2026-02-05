@@ -6,8 +6,8 @@ import { styles, hasProVersion } from '@/data/styles';
 import { usePurchase } from '@/hooks/usePurchase';
 import { useDeviceMode, type DeviceMode } from '@/hooks/useDeviceMode';
 
-// 試用常數：免費用戶可試用的風格數量
-export const TRIAL_STYLE_COUNT = 20;
+// 所有風格開放使用常數
+export const TRIAL_STYLE_COUNT = 100;
 
 // Re-export type
 export type { DeviceMode } from '@/hooks/useDeviceMode';
@@ -20,7 +20,7 @@ export interface ProLayoutContextType {
     setSidebarOpen: (open: boolean) => void;
     handleStyleSelect: (styleId: string) => void;
     proStyles: typeof styles;
-    // 試用相關
+    // 開放相關
     isTrial: boolean;
     hasPro: boolean;
     trialStyles: typeof styles;
@@ -64,28 +64,22 @@ export const ProLayoutProvider: React.FC<ProLayoutProviderProps> = ({ children }
     const selectedStyle = extractProStyleId(pathname);
     const proStyles = styles.filter(s => hasProVersion(s.id));
 
-    // 試用模式邏輯
-    const isTrial = !!user && !hasPro;
-    const trialStyles = proStyles.slice(0, TRIAL_STYLE_COUNT);
-    const lockedStyles = proStyles.slice(TRIAL_STYLE_COUNT);
+    // 所有功能開放 - 不再有試用模式
+    const isTrial = false;
+    const trialStyles = proStyles; // 所有風格都可用
+    const lockedStyles: typeof styles = []; // 沒有鎖定風格
 
-    // 判斷特定風格是否被鎖定
-    const isStyleLocked = (styleId: string): boolean => {
-        if (hasPro) return false;
-        if (!user) return true;
-        const styleIndex = proStyles.findIndex(s => s.id === styleId);
-        return styleIndex >= TRIAL_STYLE_COUNT;
+    // 所有風格都不被鎖定
+    const isStyleLocked = (_styleId: string): boolean => {
+        return false;
     };
 
-    // 判斷特定風格是否可以複製提示詞
-    const canCopyStyle = (styleId: string): boolean => {
-        if (hasPro) return true;
-        if (!user) return false;
-        const styleIndex = proStyles.findIndex(s => s.id === styleId);
-        return styleIndex < TRIAL_STYLE_COUNT;
+    // 所有風格都可以複製提示詞
+    const canCopyStyle = (_styleId: string): boolean => {
+        return true;
     };
 
-    const canCopyPrompt = selectedStyle ? canCopyStyle(selectedStyle) : false;
+    const canCopyPrompt = true;
 
     const handleStyleSelect = (newStyleId: string) => {
         router.push(`/pro/${newStyleId}`);
@@ -102,7 +96,7 @@ export const ProLayoutProvider: React.FC<ProLayoutProviderProps> = ({ children }
                 setSidebarOpen,
                 handleStyleSelect,
                 proStyles,
-                // 試用相關
+                // 開放相關
                 isTrial,
                 hasPro,
                 trialStyles,

@@ -136,20 +136,14 @@ export const PricingAdModal: React.FC<PricingAdModalProps> = ({
                                         {t('pricingAd.continueFree')}
                                     </button>
                                     <Link
-                                        href="/pro"
+                                        href="/coffee"
                                         className="flex-1 py-3 px-6 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-medium rounded-xl transition-all text-sm flex items-center justify-center gap-2"
                                     >
-                                        {t('pricingAd.upgradePro')}
+                                        <Coffee className="w-4 h-4" />
+                                        {t('pricingAd.sponsorSupport')}
                                         <ArrowRight className="w-4 h-4" />
                                     </Link>
                                 </div>
-                                <Link
-                                    href="/coffee"
-                                    className="w-full py-3 px-6 bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 text-white/80 font-medium rounded-xl transition-all text-sm flex items-center justify-center gap-2"
-                                >
-                                    <Coffee className="w-4 h-4" />
-                                    {t('pricingAd.buyCoffee')}
-                                </Link>
                             </div>
                         </div>
                     </motion.div>
