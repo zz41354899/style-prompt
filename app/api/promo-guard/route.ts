@@ -3,14 +3,14 @@ import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
 // ============================================
-// 伺服器端 Pro 風格驗證（整合使用者認證）
-// 包含試用模式邏輯：前 20 個風格可供登入用戶複製
+// 伺服器端 Pro 風格驗證（開源版本）
+// 所有登入使用者都可以存取所有 Pro 風格
 // ============================================
 
-// Pro 風格配置
+// Pro 風格配置（保留以供參考）
 const PRO_CONFIG = {
     proStyleRange: { start: 1, end: 100 },
-    trialStyleCount: 20, // 試用用戶可複製的風格數量
+    trialStyleCount: 20, // 已廢棄，保留向下相容
 } as const;
 
 // 取得風格的數字索引
@@ -19,7 +19,7 @@ function getStyleIndex(styleId: string): number {
     return isNaN(num) ? -1 : num;
 }
 
-// 驗證是否可以訪問 Pro 風格（僅檢查 styleId 範圍）
+// 驗證是否在 Pro 風格範圍（僅檢查 styleId 範圍）
 function isStyleInProRange(styleId: string): boolean {
     const num = getStyleIndex(styleId);
 
@@ -29,12 +29,6 @@ function isStyleInProRange(styleId: string): boolean {
     }
 
     return true;
-}
-
-// 檢查是否在試用範圍內（前 20 個）
-function isStyleInTrialRange(styleId: string): boolean {
-    const num = getStyleIndex(styleId);
-    return num >= 1 && num <= PRO_CONFIG.trialStyleCount;
 }
 
 export async function POST(request: NextRequest) {
@@ -94,42 +88,9 @@ export async function POST(request: NextRequest) {
                 );
             }
 
-            // 檢查使用者角色
-            const role = user.app_metadata?.role;
-            const isPro = role === 'pro' || role === 'admin';
-
-            // 如果不是 Pro 用戶，檢查是否在試用範圍內
-            if (!isPro) {
-                const isInTrialRange = isStyleInTrialRange(styleId);
-
-                if (!isInTrialRange) {
-                    // 超出試用範圍，需要升級
-                    console.warn(`[PRO_GUARD] Trial limit exceeded: ${user.email} (role: ${role || 'free'}) attempted ${styleId} (index > ${PRO_CONFIG.trialStyleCount})`);
-                    return NextResponse.json(
-                        {
-                            error: 'Pro subscription required',
-                            reason: `This style requires Pro. Trial includes the first ${PRO_CONFIG.trialStyleCount} styles.`,
-                            userRole: role || 'free',
-                            trialLimit: PRO_CONFIG.trialStyleCount,
-                        },
-                        { status: 403 }
-                    );
-                }
-
-                // 在試用範圍內，允許存取（但標記為試用）
-                console.log(`[PRO_GUARD] ✅ Trial access granted: ${user.email} → ${styleId}`);
-                return NextResponse.json({
-                    success: true,
-                    styleId,
-                    tier: 'trial',
-                    isTrial: true,
-                    trialLimit: PRO_CONFIG.trialStyleCount,
-                    serverTime: new Date().toISOString(),
-                });
-            }
-
-            // Pro/Admin 用戶，完全存取
-            console.log(`[PRO_GUARD] ✅ Pro access granted: ${user.email} → ${styleId}`);
+            // 開源版本：所有登入使用者都有完整 Pro 存取權
+            // (已移除 Pro 角色檢查，所有功能免費開放)
+            console.log(`[PRO_GUARD] ✅ Access granted (open source): ${user.email} → ${styleId}`);
         }
 
         // 驗證通過，返回成功
@@ -168,17 +129,18 @@ export async function GET() {
 
         const { data: { user } } = await supabase.auth.getUser();
 
-        const role = user?.app_metadata?.role;
-        const isPro = role === 'pro' || role === 'admin';
+        // 開源版本：所有登入使用者都視為 Pro
+        const isLoggedIn = !!user;
 
         return NextResponse.json({
-            isAuthenticated: !!user,
-            isPro: isPro,
-            isTrial: !!user && !isPro,
-            role: role || 'free',
+            isAuthenticated: isLoggedIn,
+            isPro: isLoggedIn, // 登入即享有 Pro 權限
+            isTrial: false,   // 開源版無試用概念
+            role: isLoggedIn ? 'pro' : 'free', // 登入即為 Pro
             serverTime: new Date().toISOString(),
             proStyleRange: PRO_CONFIG.proStyleRange,
             trialStyleCount: PRO_CONFIG.trialStyleCount,
+            isOpenSource: true, // 標記為開源版本
         });
     } catch (error) {
         console.error('[PRO_GUARD] GET Error:', error);
