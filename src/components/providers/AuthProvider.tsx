@@ -224,10 +224,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const signInWithGoogle = useCallback(async () => {
         try {
+            const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
             const { error } = await supabase.auth.signInWithOAuth({
                 provider: 'google',
                 options: {
-                    redirectTo: `${window.location.origin}/auth/callback`,
+                    redirectTo: `${baseUrl}/auth/callback`,
                     queryParams: { prompt: 'select_account' },
                 },
             });
@@ -239,9 +240,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const signInWithGithub = useCallback(async () => {
         try {
+            const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
             const { error } = await supabase.auth.signInWithOAuth({
                 provider: 'github',
-                options: { redirectTo: `${window.location.origin}/auth/callback` },
+                options: { redirectTo: `${baseUrl}/auth/callback` },
             });
             return { error };
         } catch {
