@@ -63,20 +63,23 @@ export async function proxy(request: NextRequest) {
     };
 
     // 5. 路由保護邏輯
+    // 取得基礎 URL（優先使用環境變數）
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || request.url;
+    
     // --- ADMIN 保護區 ---
     // 使用 app_metadata.role 檢查權限（只能透過 Service Role Key 修改）
     if (path.startsWith('/pro/admin')) {
         // 未登入 -> 導向登入頁
         if (!user) {
             console.log('[Proxy] Admin access denied: User not logged in');
-            return redirectTo(new URL('/pro/login?redirect=/pro/admin', request.url));
+            return redirectTo(new URL('/pro/login?redirect=/pro/admin', baseUrl));
         }
 
         // 檢查 app_metadata.role 是否為 admin
         const role = user.app_metadata?.role;
         if (role !== 'admin') {
             console.warn(`[Proxy] Unauthorized admin access: ${user.email}, Role: ${role}`);
-            return redirectTo(new URL('/dashboard', request.url));
+            return redirectTo(new URL('/dashboard', baseUrl));
         }
 
         console.log('✅ [Proxy] Admin access GRANTED:', user.email);

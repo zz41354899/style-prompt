@@ -5,7 +5,8 @@ import { cookies } from 'next/headers';
 export async function GET(request: Request) {
     const requestUrl = new URL(request.url);
     const code = requestUrl.searchParams.get('code');
-    const origin = requestUrl.origin;
+    // 使用環境變數或 request origin
+    const origin = process.env.NEXT_PUBLIC_SITE_URL || requestUrl.origin;
 
     if (code) {
         const cookieStore = await cookies();
