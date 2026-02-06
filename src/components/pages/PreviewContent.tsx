@@ -209,12 +209,13 @@ export const PreviewContent: React.FC<PreviewContentProps> = ({ styleId }) => {
                 </Link>
             </div>
 
-            {/* Prompt Modal */}
+            {/* Prompt Modal - Open Source 版本所有用戶都有 Pro 權限 */}
             <PromptModal
                 isOpen={isPromptModalOpen}
                 onClose={() => setIsPromptModalOpen(false)}
                 styleId={effectiveStyleId}
                 tier={previewTier}
+                hasPro={true}
             />
 
             {/* Pro Modal */}
