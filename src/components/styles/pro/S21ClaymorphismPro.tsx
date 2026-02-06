@@ -15,11 +15,11 @@ export const S21ClaymorphismPro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
     };
 
     const clay = {
-        base: '8px 8px 16px rgba(163,177,198,0.6), -8px -8px 16px rgba(255,255,255,0.8)',
-        high: '12px 12px 24px rgba(163,177,198,0.5), -12px -12px 24px rgba(255,255,255,0.8), inset 4px 4px 8px rgba(255,255,255,0.3)',
-        pressed: 'inset 6px 6px 12px rgba(163,177,198,0.5), inset -6px -6px 12px rgba(255,255,255,0.8)',
-        gloss: 'linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 50%)',
-        inner: 'inset 2px 2px 4px rgba(255,255,255,0.4), inset -2px -2px 4px rgba(0,0,0,0.05)',
+        base: '10px 10px 20px rgba(166, 180, 200, 0.4), -10px -10px 20px rgba(255, 255, 255, 0.9)',
+        high: '20px 20px 40px rgba(166, 180, 200, 0.3), -20px -20px 40px rgba(255, 255, 255, 0.95), inset 4px 4px 10px rgba(255, 255, 255, 0.4)',
+        pressed: 'inset 8px 8px 16px rgba(166, 180, 200, 0.3), inset -8px -8px 16px rgba(255, 255, 255, 0.9)',
+        gloss: 'linear-gradient(145deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 60%)',
+        inner: 'inset 5px 5px 10px rgba(166, 180, 200, 0.1), inset -5px -5px 10px rgba(255, 255, 255, 0.8)',
     };
 
     const spacing = responsive.spacing;
@@ -91,89 +91,112 @@ export const S21ClaymorphismPro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
             </header>
 
             {/* ========== HERO ========== */}
-            <section style={{ padding: `120px 40px` }}>
-                <div className="max-w-7xl mx-auto">
-                    <div className="flex flex-col items-center text-center">
-                        <div className="inline-flex items-center gap-3 mb-10 p-3 px-6 rounded-full bg-white transition-all hover:-translate-y-1"
+            {/* ========== HERO ========== */}
+            <section style={{ padding: `140px 40px 100px` }}>
+                <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+                    <div className="flex flex-col items-start z-10">
+                        <div className="inline-flex items-center gap-3 mb-10 p-3 pr-6 rounded-full bg-[#F0F4F8] transition-all hover:scale-105 cursor-default"
                             style={{ boxShadow: clay.base }}>
-                            <Smile size={20} className="text-blue-500 animate-bounce" />
-                            <span className="text-[12px] font-black tracking-widest uppercase text-slate-400">Tactile_Experience_Design</span>
+                            <div className="w-8 h-8 rounded-full flex items-center justify-center bg-white shadow-sm">
+                                <Smile size={16} className="text-blue-500" />
+                            </div>
+                            <span className="text-xs font-bold tracking-widest uppercase text-slate-500">Soft UI Design System</span>
                         </div>
 
-                        <h1 className="mb-10 font-black leading-[1.1] max-w-4xl"
-                            style={{ fontSize: isMobile ? '56px' : '96px', color: colors.text.primary }}>
-                            SOFT_TO_<br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-pink-500">THE_TOUCH</span>
+                        <h1 className="mb-8 font-black leading-[1] text-6xl md:text-8xl tracking-tight text-slate-800">
+                            Make it <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">Pop & Soft.</span>
                         </h1>
 
-                        <p className="max-w-2xl font-bold leading-relaxed text-slate-400 mb-16"
-                            style={{ fontSize: '20px' }}>
-                            Design interfaces that feel like soft clay. Tactile, friendly, and incredibly inviting. Elevating UX through the magic of squishy surfaces.
+                        <p className="max-w-lg font-medium text-slate-500 mb-12 text-xl leading-relaxed">
+                            Interfaces that feel squishy, friendly, and touchable. A design language built on soft shadows and rounded dreams.
                         </p>
 
-                        <div className="flex gap-10 items-center" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
-                            <button className="group relative px-16 py-8 rounded-3xl font-black tracking-widest transition-all duration-500 hover:scale-105 active:scale-95 text-white"
-                                style={{ backgroundColor: colors.brand.primary, boxShadow: clay.high, background: `linear-gradient(135deg, ${colors.brand.primary}, ${colors.brand.secondary})` }}>
-                                <div className="absolute inset-0 rounded-3xl" style={{ background: clay.gloss }} />
-                                <div className="relative z-10 flex items-center gap-3">
-                                    START_MOULDING
-                                    <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform duration-500" />
-                                </div>
+                        <div className="flex gap-6 w-full sm:w-auto flex-col sm:flex-row">
+                            <button className="group relative px-10 py-5 rounded-[2rem] font-bold tracking-wider text-white transition-all hover:scale-105 active:scale-95"
+                                style={{ backgroundColor: colors.brand.primary, boxShadow: clay.high }}>
+                                <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-white/40 to-transparent pointer-events-none" />
+                                <span className="relative flex items-center gap-3">
+                                    Start Creating
+                                    <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                                </span>
                             </button>
-                            <button className="px-16 py-8 rounded-3xl font-black tracking-widest transition-all duration-500 hover:bg-white text-slate-600 active:scale-95"
+                            <button className="px-10 py-5 rounded-[2rem] font-bold tracking-wider text-slate-600 transition-all hover:text-blue-500 hover:scale-105 active:scale-95 bg-[#F0F4F8]"
                                 style={{ boxShadow: clay.base }}>
-                                VIEW_GALLERY
+                                View Kit
                             </button>
                         </div>
+                    </div>
 
-                        {/* Visual Ornament */}
-                        <div className="mt-40 relative">
-                            <div className="w-[300px] h-[300px] rounded-[4rem] bg-white relative overflow-hidden transition-all duration-1000 rotate-6 hover:rotate-0"
-                                style={{ boxShadow: clay.high }}>
-                                <div className="absolute inset-0 p-8 flex items-center justify-center">
-                                    <div className="w-full h-full rounded-[3rem] bg-blue-500 relative group overflow-hidden"
-                                        style={{ boxShadow: clay.high, background: `linear-gradient(135deg, #3B82F6, #8B5CF6)` }}>
-                                        <div className="absolute inset-0" style={{ background: clay.gloss }} />
-                                        <Heart size={80} className="text-white fill-white animate-pulse" />
-                                    </div>
+                    {/* Visual Ornament */}
+                    <div className="relative h-[500px] w-full flex items-center justify-center">
+                        {/* Floating Elements */}
+                        <div className="absolute w-64 h-64 bg-blue-400 rounded-[3rem] animate-[float_6s_ease-in-out_infinite]"
+                            style={{ boxShadow: clay.high, background: 'linear-gradient(135deg, #60A5FA, #3B82F6)' }}>
+                            <div className="absolute inset-0 rounded-[3rem]" style={{ background: clay.gloss }} />
+                        </div>
+
+                        <div className="absolute top-10 right-10 w-32 h-32 bg-purple-400 rounded-full animate-[float_8s_ease-in-out_infinite_reverse]"
+                            style={{ boxShadow: clay.high, background: 'linear-gradient(135deg, #A78BFA, #8B5CF6)' }}>
+                            <div className="absolute inset-0 rounded-full" style={{ background: clay.gloss }} />
+                        </div>
+
+                        <div className="absolute bottom-20 left-10 w-40 h-40 bg-pink-400 rounded-[2rem] rotate-12 animate-[float_7s_ease-in-out_infinite_1s]"
+                            style={{ boxShadow: clay.high, background: 'linear-gradient(135deg, #F472B6, #EC4899)' }}>
+                            <div className="absolute inset-0 rounded-[2rem]" style={{ background: clay.gloss }} />
+                        </div>
+
+                        {/* Glass Overlay Card */}
+                        <div className="absolute bottom-10 right-20 p-6 bg-white/40 backdrop-blur-xl rounded-3xl border border-white/40 shadow-xl animate-[pulse_4s_ease-in-out_infinite]">
+                            <div className="flex items-center gap-4">
+                                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm">
+                                    <Heart size={20} className="text-red-500 fill-red-500" />
+                                </div>
+                                <div className="text-sm font-bold text-slate-700">
+                                    <div className="text-xs text-slate-500 uppercase tracking-wider mb-1">Status</div>
+                                    Loved by Users
                                 </div>
                             </div>
-                            {/* Smaller Clay Blobs */}
-                            <div className="absolute -top-10 -right-10 w-24 h-24 rounded-full bg-pink-400 transition-all duration-700 hover:scale-125"
-                                style={{ boxShadow: clay.high, background: clay.gloss + ', #F472B6' }} />
-                            <div className="absolute -bottom-10 -left-10 w-32 h-32 rounded-[2rem] bg-emerald-400 rotate-12"
-                                style={{ boxShadow: clay.high, background: clay.gloss + ', #34D399' }} />
                         </div>
                     </div>
                 </div>
+
+                <style>{`
+                    @keyframes float {
+                        0%, 100% { transform: translateY(0px) rotate(0deg); }
+                        50% { transform: translateY(-20px) rotate(2deg); }
+                    }
+                `}</style>
             </section>
 
+            {/* ========== FEATURES ========== */}
             {/* ========== FEATURES ========== */}
             <section style={{ padding: `${spacing.section} ${spacing.lg}` }}>
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-24">
-                        <h2 className="font-black mb-6" style={{ fontSize: isMobile ? '36px' : '56px', color: colors.text.primary }}>
-                            THE_ART_OF_CLAY
+                        <h2 className="font-black mb-6 text-slate-800" style={{ fontSize: isMobile ? '36px' : '56px' }}>
+                            Squishy Features
                         </h2>
-                        <div className="w-24 h-2 bg-blue-500/10 rounded-full mx-auto" />
+                        <p className="max-w-2xl mx-auto text-xl text-slate-500 font-medium">
+                            Build interfaces that feel like they're made of soft, malleable materials.
+                        </p>
                     </div>
 
-                    <div className="grid gap-12" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
+                    <div className="grid gap-8" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
                         {[
-                            { icon: Circle, title: 'SOFT_GEOMETRY', desc: 'Interfaces built with friendly, rounded modules that invite interaction.', color: colors.brand.primary },
-                            { icon: Heart, title: 'TACTILE_MODES', desc: 'A design system that feels physical, warm, and human-centric.', color: colors.brand.accent },
-                            { icon: Smile, title: 'BOUNCY_FLOW', desc: 'Animation logic that prioritizes momentum and playful feedback cycles.', color: colors.brand.secondary },
+                            { icon: Circle, title: 'Soft Geometry', desc: 'Rounded modules that invite interaction.', color: colors.brand.primary },
+                            { icon: Heart, title: 'Tactile Modes', desc: 'A system that feels warm and human.', color: colors.brand.accent },
+                            { icon: Smile, title: 'Bouncy Flow', desc: 'Animation logic that prioritizes fun.', color: colors.brand.secondary },
                         ].map((item) => (
-                            <div key={item.title} className="group relative p-12 rounded-[3.5rem] bg-white transition-all duration-700 hover:-translate-y-4"
-                                style={{ boxShadow: clay.high }}>
-                                <div className="absolute inset-0 rounded-[3.5rem]" style={{ background: clay.gloss }} />
-                                <div className="w-20 h-20 rounded-[2rem] flex items-center justify-center mb-10 relative overflow-hidden group-hover:rotate-12 transition-transform duration-500"
-                                    style={{ backgroundColor: item.color, boxShadow: clay.base }}>
-                                    <div className="absolute inset-0" style={{ background: clay.gloss }} />
-                                    <item.icon size={36} color="white" fill="white" />
+                            <div key={item.title} className="group relative p-10 rounded-[3rem] bg-[#F0F4F8] transition-all duration-500 hover:-translate-y-2 hover:bg-white"
+                                style={{ boxShadow: clay.base }}>
+                                <div className="w-20 h-20 rounded-[2rem] flex items-center justify-center mb-8 transition-transform duration-500 group-hover:scale-110"
+                                    style={{ backgroundColor: item.color, boxShadow: clay.high }}>
+                                    <div className="absolute inset-0 rounded-[2rem] opacity-50" style={{ background: clay.gloss }} />
+                                    <item.icon size={32} color="white" strokeWidth={3} />
                                 </div>
-                                <h3 className="text-xl font-black mb-6 tracking-widest uppercase">{item.title}</h3>
-                                <p className="font-bold leading-relaxed text-slate-400" style={{ fontSize: '16px' }}>{item.desc}</p>
+                                <h3 className="text-2xl font-black mb-4 text-slate-700">{item.title}</h3>
+                                <p className="font-medium text-slate-400 leading-relaxed text-lg">{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -181,47 +204,57 @@ export const S21ClaymorphismPro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
             </section>
 
             {/* ========== PRICING ========== */}
-            <section style={{ padding: `${spacing.section} ${spacing.lg}`, backgroundColor: '#F8FAFC' }}>
+            {/* ========== PRICING ========== */}
+            <section style={{ padding: `${spacing.section} ${spacing.lg}` }}>
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-24">
-                        <h2 className="font-black mb-6" style={{ fontSize: isMobile ? '36px' : '56px', color: colors.text.primary }}>
-                            CLAY_TIERS
+                        <h2 className="font-black mb-6 text-slate-800" style={{ fontSize: isMobile ? '36px' : '56px' }}>
+                            Choose Your Mold
                         </h2>
                     </div>
 
-                    <div className="grid gap-12" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
+                    <div className="grid gap-8" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
                         {[
-                            { name: 'STARTER', price: '$19', color: colors.brand.primary, feats: ['Basic Moulds', 'Clay Cloud', 'Web Export'] },
-                            { name: 'DYNAMIC', price: '$49', color: colors.brand.secondary, feats: ['All Textures', 'Team Sculpt', 'Advanced Gloss', 'API Access'], hot: true },
-                            { name: 'MASTER', price: '$99', color: colors.brand.accent, feats: ['Custom Alloys', 'Priority Glaze', 'Master Classes'] },
+                            { name: 'Starter', price: '$19', color: colors.brand.primary, feats: ['Basic Moulds', 'Clay Cloud', 'Web Export'] },
+                            { name: 'Pro', price: '$49', color: colors.brand.secondary, feats: ['All Textures', 'Team Sculpt', 'Advanced Gloss', 'API Access'], hot: true },
+                            { name: 'Master', price: '$99', color: colors.brand.accent, feats: ['Custom Alloys', 'Priority Glaze', 'Master Classes'] },
                         ].map((plan, i) => (
-                            <div key={plan.name} className="relative group p-16 rounded-[4rem] bg-white transition-all duration-700 hover:scale-[1.05]"
+                            <div key={plan.name} className="relative group p-12 rounded-[3rem] bg-[#F0F4F8] transition-all duration-500 hover:bg-white hover:scale-105"
                                 style={{ boxShadow: plan.hot ? clay.high : clay.base }}>
                                 {plan.hot && (
-                                    <div className="absolute top-8 right-8 px-6 py-2 rounded-full bg-blue-500 text-white text-[10px] font-black tracking-widest uppercase shadow-lg">HOT</div>
+                                    <div className="absolute top-6 right-6 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white text-xs font-bold tracking-widest uppercase shadow-md">
+                                        Popular
+                                    </div>
                                 )}
-                                <div className="absolute inset-0 rounded-[4rem]" style={{ background: clay.gloss }} />
-                                <div className="mb-12">
-                                    <div className="text-[12px] font-black tracking-[0.3em] uppercase mb-4 opacity-30">{plan.name}_VOLUME</div>
-                                    <div className="flex items-baseline gap-2">
-                                        <span className="text-6xl font-black italic">{plan.price}</span>
-                                        <span className="text-sm opacity-40 uppercase tracking-widest">/mo</span>
+
+                                <div className="mb-10 text-center">
+                                    <div className="text-sm font-bold tracking-widest uppercase mb-4 text-slate-400">{plan.name}</div>
+                                    <div className="flex justify-center items-baseline gap-1 text-slate-800">
+                                        <span className="text-5xl font-black">{plan.price}</span>
+                                        <span className="text-lg font-bold opacity-40">/mo</span>
                                     </div>
                                 </div>
-                                <ul className="space-y-6 mb-16">
+
+                                <ul className="space-y-4 mb-12">
                                     {plan.feats.map((f) => (
-                                        <li key={f} className="flex items-center gap-4 text-[15px] font-bold text-slate-400">
-                                            <div className="w-6 h-6 rounded-full flex items-center justify-center bg-slate-100" style={{ boxShadow: clay.inner }}>
-                                                <Check size={12} style={{ color: plan.color }} strokeWidth={4} />
+                                        <li key={f} className="flex items-center gap-4 text-md font-bold text-slate-500">
+                                            <div className="w-8 h-8 rounded-full flex items-center justify-center bg-[#F0F4F8]" style={{ boxShadow: clay.inner }}>
+                                                <Check size={14} className="text-slate-400" strokeWidth={4} />
                                             </div>
                                             {f}
                                         </li>
                                     ))}
                                 </ul>
-                                <button className="w-full py-6 rounded-[2rem] font-black tracking-[0.2em] uppercase transition-all duration-500 relative overflow-hidden active:scale-95"
-                                    style={{ backgroundColor: plan.hot ? colors.brand.primary : 'transparent', color: plan.hot ? 'white' : colors.text.primary, boxShadow: clay.high }}>
-                                    <div className="absolute inset-0" style={{ background: clay.gloss }} />
-                                    SELECT_MODE
+
+                                <button className="w-full py-5 rounded-[2rem] font-black tracking-wider uppercase transition-all duration-300 relative overflow-hidden active:scale-95 text-sm"
+                                    style={{
+                                        backgroundColor: plan.hot ? colors.brand.secondary : 'transparent',
+                                        color: plan.hot ? 'white' : colors.text.primary,
+                                        boxShadow: plan.hot ? clay.high : clay.base,
+                                        background: plan.hot ? `linear-gradient(135deg, ${colors.brand.primary}, ${colors.brand.secondary})` : undefined
+                                    }}>
+                                    {plan.hot && <div className="absolute inset-0 opacity-50" style={{ background: clay.gloss }} />}
+                                    Get Started
                                 </button>
                             </div>
                         ))}
@@ -230,32 +263,33 @@ export const S21ClaymorphismPro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
             </section>
 
             {/* ========== FAQ ========== */}
+            {/* ========== FAQ ========== */}
             <section style={{ padding: `${spacing.section} ${spacing.lg}` }}>
-                <div className="max-w-4xl mx-auto">
+                <div className="max-w-3xl mx-auto">
                     <div className="text-center mb-24">
-                        <h2 className="font-black mb-6" style={{ fontSize: isMobile ? '36px' : '56px', color: colors.text.primary }}>
-                            KNOWLEDGE_POT
+                        <h2 className="font-black mb-6 text-slate-800" style={{ fontSize: isMobile ? '36px' : '56px' }}>
+                            Questions?
                         </h2>
                     </div>
 
-                    <div className="space-y-8">
+                    <div className="space-y-6">
                         {[
-                            { q: 'WHAT DEFINES THE CLAY AESTHETIC?', a: 'CLAYMORPHISM IS CHARACTERIZED BY SOFT INNER SHADOWS, MULTI-LAYERED EXTERNAL SHADOWS, AND HIGH BORDER RADII THAT MIMIC PLASTIC OR CLAY SURFACES.' },
-                            { q: 'CAN THE TEXTURES BE ANIMATED?', a: 'YES. ALL SURFACES IN OUR SYSTEM SUPPORT LIQUID SCALE TRANSITIONS AND SQUISHY PHYSICS LOOPS FOR MAXIMUM ENGAGEMENT.' },
-                            { q: 'IS THE GLAZE COMPATIBLE?', a: 'OUR HIGH-GLOSS OVERLAYS ARE OPTIMIZED FOR ALL MODERN BROWSERS AND HARDWARE-ACCELERATED FOR PEAK PERFORMANCE.' },
+                            { q: 'What is Claymorphism?', a: 'Claymorphism combines fluffy 3D shapes with soft inner shadows and pastel colors to create a friendly, touchable interface.' },
+                            { q: 'Is it accessible?', a: 'High contrast versions are available to ensure legitimate text readability while keeping the fun aesthetic.' },
+                            { q: 'Does it support dark mode?', a: 'Claymorphism works best on light backgrounds to show off the shadows, but "Night Clay" themes are possible.' },
                         ].map((item, i) => (
-                            <div key={i} className="group overflow-hidden rounded-[2.5rem] bg-white transition-all duration-500"
-                                style={{ boxShadow: expandedFaq === i ? clay.pressed : clay.base }}>
-                                <button className="w-full flex items-center justify-between p-10 text-left transition-all"
+                            <div key={i} className="group overflow-hidden rounded-[2rem] bg-[#F0F4F8] transition-all duration-300"
+                                style={{ boxShadow: expandedFaq === i ? clay.inner : clay.base }}>
+                                <button className="w-full flex items-center justify-between p-8 text-left transition-all"
                                     onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}>
-                                    <span className="text-xl font-black tracking-widest italic">{item.q}</span>
-                                    <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-white transition-all"
-                                        style={{ boxShadow: expandedFaq === i ? clay.pressed : clay.base, transform: expandedFaq === i ? 'rotate(180deg)' : 'none' }}>
-                                        <ChevronDown size={24} className="text-blue-500" />
+                                    <span className="text-lg font-bold text-slate-700">{item.q}</span>
+                                    <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[#F0F4F8] transition-transform duration-300"
+                                        style={{ boxShadow: clay.base, transform: expandedFaq === i ? 'rotate(180deg)' : 'none' }}>
+                                        <ChevronDown size={20} className="text-slate-400" />
                                     </div>
                                 </button>
                                 {expandedFaq === i && (
-                                    <div className="animate-in fade-in slide-in-from-top-4 duration-500" style={{ padding: '0 40px 40px', fontSize: '17px', lineHeight: 2, color: '#4A5568', fontWeight: 700 }}>
+                                    <div className="px-8 pb-8 text-slate-500 font-medium leading-relaxed">
                                         {item.a}
                                     </div>
                                 )}

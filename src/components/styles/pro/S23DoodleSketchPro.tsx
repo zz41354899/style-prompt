@@ -7,9 +7,10 @@ export const S23DoodleSketchPro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
     const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
     const responsive = useResponsive(deviceMode);
     const isMobile = responsive.nav.showMobile;
+    const spacing = responsive.spacing;
 
     const colors = {
-        bg: '#FFFEF7',
+        bg: '#FDFCF6', // Warmer paper color
         surface: '#FFFFFF',
         text: '#2D3436',
         muted: '#636E72',
@@ -21,18 +22,33 @@ export const S23DoodleSketchPro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
         border: '#2D3436'
     };
 
-    const sketchyBorder = '3px solid #2D3436';
+    const sketchyBorder = '2px solid #2D3436';
     const blobShape = '60% 40% 30% 70% / 60% 30% 70% 40%';
+
+    // SVG Filter for squiggly lines (to be used in style prop if needed, or just simulate with borders)
+    // For now we stick to the CSS border-radius trick which works well for performance.
 
     return (
         <div className="min-h-screen relative overflow-hidden"
             style={{ backgroundColor: colors.bg, color: colors.text, fontFamily: '"Patrick Hand", cursive' }}>
 
-            {/* Background elements */}
-            <div className="absolute inset-0 opacity-5 pointer-events-none"
+            {/* Background elements - Graph Paper */}
+            <div className="absolute inset-0 opacity-10 pointer-events-none"
                 style={{
-                    backgroundImage: `radial-gradient(${colors.muted} 1px, transparent 1px)`,
-                    backgroundSize: '20px 20px'
+                    backgroundImage: `
+                        linear-gradient(${colors.border} 1px, transparent 1px),
+                        linear-gradient(90deg, ${colors.border} 1px, transparent 1px)
+                    `,
+                    backgroundSize: '40px 40px',
+                    maskImage: 'radial-gradient(circle at center, black 60%, transparent 100%)'
+                }}
+            />
+
+            {/* Diagonal Scribbles background texture */}
+            <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
+                style={{
+                    backgroundImage: 'repeating-linear-gradient(45deg, #000 0, #000 1px, transparent 0, transparent 50%)',
+                    backgroundSize: '10px 10px'
                 }}
             />
 
@@ -101,8 +117,8 @@ export const S23DoodleSketchPro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
             </header>
 
             {/* Hero Section */}
-            <section style={{ padding: '80px 40px 120px' }}>
-                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <section style={{ padding: `80px ${spacing.xl} 120px` }}>
+                <div className="max-w-7xl mx-auto grid gap-16 items-center" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)' }}>
                     <div className="flex flex-col items-start text-left">
                         <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 bg-white border-2 border-black shadow-[4px_4px_0px_#000000] rotate-[-2deg]"
                             style={{ borderRadius: '255px 15px 225px 15px / 15px 225px 15px 255px' }}>
@@ -110,7 +126,7 @@ export const S23DoodleSketchPro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
                             <span className="font-bold">v2.0 Now Available!</span>
                         </div>
 
-                        <h1 className="text-6xl md:text-8xl font-black leading-none mb-8 relative">
+                        <h1 className="font-black leading-none relative" style={{ fontSize: isMobile ? responsive.fontSize['5xl'] : '80px', marginBottom: spacing.lg }}>
                             Sketch Your
                             <br />
                             <span className="relative inline-block mt-2 px-6" style={{ color: colors.pink }}>
@@ -180,31 +196,38 @@ export const S23DoodleSketchPro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
             </section>
 
             {/* Features Section */}
-            <section className="py-20 bg-white border-y-[3px] border-black"
-                style={{ backgroundImage: `linear-gradient(45deg, ${colors.bg} 25%, transparent 25%, transparent 75%, ${colors.bg} 75%, ${colors.bg}), linear-gradient(45deg, ${colors.bg} 25%, transparent 25%, transparent 75%, ${colors.bg} 75%, ${colors.bg})`, backgroundSize: '20px 20px', backgroundPosition: '0 0, 10px 10px' }}>
+            <section className="bg-white border-y-[3px] border-black"
+                style={{ padding: `${spacing.section} 0`, backgroundImage: `linear-gradient(45deg, ${colors.bg} 25%, transparent 25%, transparent 75%, ${colors.bg} 75%, ${colors.bg}), linear-gradient(45deg, ${colors.bg} 25%, transparent 25%, transparent 75%, ${colors.bg} 75%, ${colors.bg})`, backgroundSize: '20px 20px', backgroundPosition: '0 0, 10px 10px' }}>
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="text-center mb-16">
-                        <span className="inline-block px-4 py-1 mb-4 text-xl font-bold bg-yellow-300 border-2 border-black rounded-full rotate-[-2deg]">Why Choose Us?</span>
-                        <h2 className="text-5xl font-black">Sketchy but Professional</h2>
+                        <span className="inline-block px-6 py-2 mb-4 text-2xl font-bold bg-yellow-300 border-2 border-black rotate-[-2deg]"
+                            style={{ borderRadius: '255px 15px 225px 15px / 15px 225px 15px 255px', boxShadow: '4px 4px 0px #000' }}>
+                            Why Choose Us?
+                        </span>
+                        <h2 className="text-6xl font-black mt-6" style={{ fontFamily: '"Permanent Marker", cursive' }}>Sketchy but Professional</h2>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    <div className="grid gap-12" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
                         {[
-                            { icon: Palette, title: 'Color Palettes', desc: 'Hand-picked colors that pop.', color: colors.pink, rotate: '-1deg' },
-                            { icon: PenTool, title: 'Vector Brushes', desc: 'Scale infinitely without losing quality.', color: colors.cyan, rotate: '1deg' },
-                            { icon: Heart, title: 'Made with Love', desc: 'Every stroke crafted with care.', color: colors.yellow, rotate: '-2deg' },
+                            { icon: Palette, title: 'Hand-picked Colors', desc: 'Vibrant palettes that feel organic and human.', color: colors.pink, rotate: '-2deg' },
+                            { icon: PenTool, title: 'Vector Strokes', desc: 'Scalable imperfection. Works on any resolution.', color: colors.cyan, rotate: '1deg' },
+                            { icon: Heart, title: 'Made with Love', desc: 'Crafted with care for delightful interactions.', color: colors.yellow, rotate: '-1deg' },
                         ].map((feature, i) => (
-                            <div key={i} className="bg-white p-8 border-[3px] border-black transition-all hover:-translate-y-2 hover:shadow-[8px_8px_0px_#000]"
+                            <div key={i} className="bg-white p-10 border-[3px] border-black transition-all hover:scale-105 hover:z-10 relative group"
                                 style={{
                                     borderRadius: '255px 15px 225px 15px / 15px 225px 15px 255px',
-                                    transform: `rotate(${feature.rotate})`
+                                    transform: `rotate(${feature.rotate})`,
+                                    boxShadow: '10px 10px 0px #2D3436'
                                 }}>
-                                <div className="w-16 h-16 mb-6 flex items-center justify-center border-2 border-black rounded-full shadow-[4px_4px_0px_#000]"
-                                    style={{ backgroundColor: feature.color }}>
-                                    <feature.icon size={32} color="white" strokeWidth={3} />
+                                <div className="absolute -top-6 -left-6 transform -rotate-12 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <Sparkles size={40} className="text-yellow-400 fill-yellow-400" />
                                 </div>
-                                <h3 className="text-2xl font-bold mb-3">{feature.title}</h3>
-                                <p className="text-xl" style={{ color: colors.muted }}>{feature.desc}</p>
+                                <div className="w-20 h-20 mb-6 flex items-center justify-center border-2 border-black rounded-full shadow-[4px_4px 0px #000] -rotate-3 group-hover:rotate-6 transition-transform"
+                                    style={{ backgroundColor: feature.color }}>
+                                    <feature.icon size={36} color="white" strokeWidth={3} />
+                                </div>
+                                <h3 className="text-3xl font-bold mb-4">{feature.title}</h3>
+                                <p className="text-xl leading-relaxed" style={{ color: colors.muted }}>{feature.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -212,28 +235,44 @@ export const S23DoodleSketchPro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
             </section>
 
             {/* Testimonials */}
-            <section className="py-24 px-6 relative overflow-hidden">
+            <section className="relative overflow-hidden" style={{ padding: `${spacing.section} ${spacing.lg}` }}>
                 <div className="max-w-7xl mx-auto">
-                    <h2 className="text-5xl font-black text-center mb-16 relative inline-block left-1/2 -translate-x-1/2">
-                        <span className="relative z-10">Loved by Designers</span>
-                        <div className="absolute -bottom-2 -left-4 -right-4 h-6 bg-green-200 -z-10 -rotate-1 opacity-60" style={{ borderRadius: '50%' }} />
-                    </h2>
+                    <div className="text-center mb-20 relative">
+                        <h2 className="font-black relative inline-block transform -rotate-1"
+                            style={{ fontSize: isMobile ? responsive.fontSize['4xl'] : responsive.fontSize['5xl'], fontFamily: '"Permanent Marker", cursive' }}>
+                            Designers Love It!
+                            <svg className="absolute w-full h-8 -bottom-4 left-0 text-pink-300 -z-10" viewBox="0 0 100 20" preserveAspectRatio="none">
+                                <path d="M0 10 Q 50 20 100 10" stroke="currentColor" strokeWidth="8" fill="none" />
+                            </svg>
+                        </h2>
+                    </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="grid gap-10" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
                         {[
-                            { name: "Alex Maker", role: "Illustrator", text: "Finally a design system that feels human! Love the wobbly borders." },
-                            { name: "Sarah Draw", role: "UX Designer", text: "It's so fun to use. My clients love the playful vibe." },
-                            { name: "Mike Sketch", role: "Product Manager", text: "Increased our engagement by 40%. The handwritten font is perfect." }
+                            { name: "Alex Marker", role: "Illustrator", text: "Finally a design system that feels human! Love the wobbly borders.", color: '#FF7675' },
+                            { name: "Sarah Pencil", role: "UX Designer", text: "It's so fun to use. My clients love the playful vibe.", color: '#74B9FF' },
+                            { name: "Mike Sketch", role: "Product Manager", text: "Increased our engagement by 40%. The handwritten font is perfect.", color: '#FFEAA7' }
                         ].map((t, i) => (
-                            <div key={i} className="p-8 bg-white border-2 border-black shadow-[6px_6px_0px_#2D3436] relative"
-                                style={{ borderRadius: i % 2 === 0 ? '20px 40px 30px 50px' : '40px 20px 50px 30px' }}>
-                                <div className="absolute -top-4 -right-4 text-6xl text-gray-100 font-serif">"</div>
-                                <p className="text-xl mb-6 relative z-10 italic text-gray-600">{t.text}</p>
-                                <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 bg-gray-200 rounded-full border-2 border-black" />
+                            <div key={i} className="p-8 bg-white border-2 border-black relative transition-transform hover:-translate-y-2"
+                                style={{
+                                    borderRadius: i % 2 === 0 ? '5px' : '5px',
+                                    boxShadow: '8px 8px 0px rgba(0,0,0,0.8)',
+                                    transform: `rotate(${i % 2 === 0 ? '1deg' : '-1deg'})`
+                                }}>
+                                {/* Tape effect */}
+                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-32 h-8 bg-yellow-100/80 border border-white/50 shadow-sm transform rotate-1" />
+
+                                <div className="absolute -top-6 -right-6 text-8xl text-gray-100 font-serif z-0">"</div>
+                                <p className="text-xl mb-8 relative z-10 font-medium leading-relaxed" style={{ fontFamily: '"Patrick Hand", cursive' }}>{t.text}</p>
+
+                                <div className="flex items-center gap-4 border-t-2 border-dashed border-gray-200 pt-6">
+                                    <div className="w-12 h-12 rounded-full border-2 border-black flex items-center justify-center font-bold text-white text-xl"
+                                        style={{ backgroundColor: t.color }}>
+                                        {t.name[0]}
+                                    </div>
                                     <div>
-                                        <div className="font-bold">{t.name}</div>
-                                        <div className="text-sm text-gray-500 uppercase tracking-widest">{t.role}</div>
+                                        <div className="font-bold text-lg">{t.name}</div>
+                                        <div className="text-sm text-gray-400 uppercase tracking-widest font-bold">{t.role}</div>
                                     </div>
                                 </div>
                             </div>
@@ -243,7 +282,7 @@ export const S23DoodleSketchPro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
             </section>
 
             {/* FAQ */}
-            <section className="py-20 px-6 bg-white border-t-[3px] border-black" style={{ backgroundColor: '#F0F3FA' }}>
+            <section className="bg-white border-t-[3px] border-black" style={{ padding: `${spacing.section} ${spacing.lg}`, backgroundColor: '#F0F3FA' }}>
                 <div className="max-w-3xl mx-auto">
                     <h2 className="text-4xl font-black text-center mb-12">Common Questions</h2>
                     <div className="space-y-4">
@@ -271,19 +310,20 @@ export const S23DoodleSketchPro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
             </section>
 
             {/* CTA */}
-            <section className="py-24 px-6">
+            <section style={{ padding: `${spacing.section} ${spacing.lg}` }}>
                 <div className="max-w-5xl mx-auto bg-pink-400 p-12 md:p-20 text-center relative border-[3px] border-black shadow-[12px_12px_0px_#000]"
                     style={{ borderRadius: blobShape }}>
                     <div className="relative z-10">
-                        <h2 className="text-5xl md:text-7xl font-black text-white mb-8 text-shadow-lg" style={{ textShadow: '4px 4px 0px #000' }}>
+                        <h2 className="font-black text-white" style={{ fontSize: isMobile ? responsive.fontSize['4xl'] : responsive.fontSize['5xl'], marginBottom: spacing.lg, textShadow: '4px 4px 0px #000' }}>
                             Ready to get messy?
                         </h2>
-                        <p className="text-2xl text-white font-bold mb-10 max-w-2xl mx-auto">
+                        <p className="text-2xl text-white font-bold mb-10 max-w-2xl mx-auto transform rotate-1">
                             Join 10,000+ creative developers building fun apps.
                         </p>
-                        <button className="px-10 py-5 bg-white text-black text-2xl font-bold border-2 border-black shadow-[6px_6px_0px_#000] transition-transform hover:-translate-y-1 hover:shadow-[8px_8px_0px_#000]"
-                            style={{ borderRadius: '255px 15px 225px 15px' }}>
-                            Start Creating Now
+                        <button className="group relative px-10 py-5 bg-white text-black text-2xl font-bold border-2 border-black transition-all hover:-translate-y-2 hover:shadow-[8px_8px_0px_#000]"
+                            style={{ borderRadius: '255px 15px 225px 15px', boxShadow: '4px 4px 0px #000' }}>
+                            <span className="relative z-10">Start Creating Now</span>
+                            <div className="absolute inset-0 bg-yellow-200 -z-10 translate-x-2 translate-y-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" style={{ borderRadius: '255px 15px 225px 15px' }} />
                         </button>
                     </div>
                     {/* Floating doodle elements */}

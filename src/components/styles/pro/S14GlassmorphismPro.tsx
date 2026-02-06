@@ -22,11 +22,11 @@ export const S14GlassmorphismPro = ({ deviceMode }: { deviceMode?: 'desktop' | '
     };
 
     const glassStyle = {
-        backgroundColor: colors.glass,
-        backdropFilter: 'blur(32px) saturate(180%)',
-        WebkitBackdropFilter: 'blur(32px) saturate(180%)',
-        border: `1px solid ${colors.glassBorder}`,
-        boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)',
+        background: 'rgba(255, 255, 255, 0.4)',
+        backdropFilter: 'blur(40px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+        border: '1px solid rgba(255, 255, 255, 0.3)',
+        boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
     };
 
     const spacing = responsive.spacing;
@@ -95,70 +95,123 @@ export const S14GlassmorphismPro = ({ deviceMode }: { deviceMode?: 'desktop' | '
             </header>
 
             {/* ========== HERO ========== */}
-            <section style={{ padding: `${spacing.section} ${spacing.lg}` }}>
-                <div className="max-w-6xl mx-auto">
-                    <div className="grid items-center" style={{ gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '48px' : '80px' }}>
-                        <div className="relative z-10">
-                            <div className="inline-flex items-center gap-2 mb-8" style={{ padding: '8px 20px', backgroundColor: 'rgba(255,255,255,0.4)', borderRadius: '100px', border: `1px solid ${colors.glassBorder}`, backdropFilter: 'blur(10px)' }}>
-                                <Sparkles size={14} className="text-indigo-600" />
-                                <span style={{ fontSize: '13px', fontWeight: 600, letterSpacing: '0.02em', color: colors.text.primary, textTransform: 'uppercase' }}>The Future of UI</span>
+            <section style={{ padding: `${spacing.section} ${spacing.lg}`, perspective: '1000px' }}>
+                <div className="max-w-7xl mx-auto">
+                    <div className="grid items-center" style={{ gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '48px' : '0' }}>
+                        <div className="relative z-10 pr-12">
+                            <div className="inline-flex items-center gap-2 mb-8" style={{ padding: '8px 16px', backgroundColor: 'rgba(255,255,255,0.5)', borderRadius: '100px', border: '1px solid rgba(255,255,255,0.5)', backdropFilter: 'blur(20px)' }}>
+                                <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
+                                <span style={{ fontSize: '13px', fontWeight: 600, letterSpacing: '0.05em', color: colors.text.secondary, textTransform: 'uppercase' }}>Spatial Design Era</span>
                             </div>
-                            <h1 className="tracking-tight" style={{ fontSize: isMobile ? '42px' : '72px', fontWeight: 800, lineHeight: 1, color: colors.text.primary, marginBottom: '28px' }}>
-                                Design with <br />
-                                <span style={{ background: `linear-gradient(135deg, ${colors.brand.primary}, ${colors.brand.accent})`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Glass Effects</span>
+
+                            <h1 className="tracking-tighter" style={{ fontSize: isMobile ? '48px' : '96px', fontWeight: 800, lineHeight: 0.95, color: colors.text.primary, marginBottom: '32px' }}>
+                                Depth beyond <br />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">Boundaries.</span>
                             </h1>
-                            <p style={{ fontSize: '18px', lineHeight: 1.6, color: colors.text.secondary, marginBottom: '40px', maxWidth: '540px' }}>
-                                Create stunning interfaces with premium frosted glass aesthetics. Depth, blur, and transparency combined for the ultimate user experience.
+
+                            <p style={{ fontSize: '20px', lineHeight: 1.5, color: colors.text.secondary, marginBottom: '48px', maxWidth: '540px', fontWeight: 400 }}>
+                                Experience the next dimension of interface design. Fully immersive, translucent, and beautiful.
                             </p>
+
                             <div className="flex gap-4" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
-                                <button className="flex items-center justify-center gap-3 transition-all hover:scale-105 active:scale-95 shadow-xl shadow-indigo-500/20" style={{ padding: '18px 36px', background: `linear-gradient(135deg, ${colors.brand.primary}, ${colors.brand.secondary})`, color: 'white', borderRadius: '20px', fontSize: '16px', fontWeight: 600 }}>
-                                    Explore Now
-                                    <ArrowRight size={20} />
+                                <button className="group relative overflow-hidden" style={{ padding: '16px 40px', borderRadius: '32px', background: '#0F172A', color: 'white', fontSize: '16px', fontWeight: 600 }}>
+                                    <span className="relative z-10 flex items-center gap-2">
+                                        Enter Experience
+                                        <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                                    </span>
+                                    <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                 </button>
-                                <button className="transition-all hover:bg-white/40" style={{ padding: '18px 36px', backgroundColor: 'rgba(255,255,255,0.2)', border: `1px solid ${colors.glassBorder}`, borderRadius: '20px', backdropFilter: 'blur(10px)', fontSize: '16px', fontWeight: 600, color: colors.text.primary }}>
-                                    Watch Demo
+                                <button className="transition-all hover:bg-white/50" style={{ padding: '16px 40px', borderRadius: '32px', background: 'rgba(255,255,255,0.3)', color: colors.text.primary, fontSize: '16px', fontWeight: 600, border: '1px solid rgba(255,255,255,0.5)' }}>
+                                    View Reel
                                 </button>
                             </div>
                         </div>
 
-                        <div className="relative flex items-center justify-center">
-                            {/* Decorative Elements */}
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-fuchsia-400 rounded-full blur-[80px] opacity-20 animate-pulse" />
-                            <div className="absolute bottom-0 left-0 w-48 h-48 bg-indigo-400 rounded-full blur-[60px] opacity-20 animate-pulse delay-700" />
-
-                            <div className="relative group transition-transform duration-500 hover:scale-105" style={{ width: '90%', aspectRatio: '1', ...glassStyle, borderRadius: '48px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <div className="absolute inset-0 rounded-[48px] overflow-hidden">
-                                    <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent" />
+                        {/* 3D Floating Glass Elements */}
+                        <div className="relative h-[600px] flex items-center justify-center">
+                            {/* Main Glass Card */}
+                            <div className="absolute w-[400px] h-[500px] rounded-[48px] z-20 transition-transform duration-700 hover:scale-105"
+                                style={{
+                                    ...glassStyle,
+                                    background: 'linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 100%)',
+                                    transform: 'rotateY(-10deg) rotateX(5deg)',
+                                    boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(255,255,255,0.5)'
+                                }}>
+                                {/* Internal content */}
+                                <div className="absolute inset-x-8 top-8 bottom-8 flex flex-col justify-between">
+                                    <div className="flex justify-between items-start">
+                                        <div className="w-12 h-12 rounded-2xl bg-white/30 backdrop-blur-md flex items-center justify-center">
+                                            <Sparkles size={24} className="text-white" />
+                                        </div>
+                                        <div className="px-3 py-1 bg-black/5 rounded-full text-xs font-bold text-white/50 border border-white/10">PRO</div>
+                                    </div>
+                                    <div>
+                                        <div className="h-4 w-24 bg-white/40 rounded-full mb-4" />
+                                        <div className="h-32 w-full bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-3xl border border-white/20 backdrop-blur-md" />
+                                    </div>
                                 </div>
-                                <Sparkles size={120} color={colors.brand.primary} strokeWidth={0.5} className="relative z-10 drop-shadow-2xl" />
                             </div>
+
+                            {/* Background Elements */}
+                            <div className="absolute z-10 w-[300px] h-[400px] bg-gradient-to-br from-purple-500 to-pink-500 rounded-[40px] blur-sm opacity-60"
+                                style={{ transform: 'translate(100px, 40px) rotate(10deg)' }} />
+                            <div className="absolute z-0 w-[500px] h-[500px] rounded-full bg-blue-500/30 blur-[100px] -translate-x-20 -translate-y-20 animate-pulse" />
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* ========== FEATURES ========== */}
+            {/* ========== FEATURES (Bento Grid) ========== */}
             <section style={{ padding: `${spacing.section} ${spacing.lg}` }}>
                 <div className="max-w-6xl mx-auto">
                     <div className="text-center mb-16">
-                        <h2 className="tracking-tight" style={{ fontSize: isMobile ? '32px' : '48px', fontWeight: 800, color: colors.text.primary, marginBottom: '16px' }}>Glass Features</h2>
-                        <p style={{ color: colors.text.secondary, fontSize: '18px' }}>Crafted for modern design systems</p>
+                        <h2 className="tracking-tighter" style={{ fontSize: isMobile ? '32px' : '48px', fontWeight: 800, color: colors.text.primary, marginBottom: '16px' }}>Glass Features</h2>
+                        <p style={{ color: colors.text.secondary, fontSize: '18px' }}>Crafted for modern spatial interfaces</p>
                     </div>
 
-                    <div className="grid gap-8" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
-                        {[
-                            { icon: Sparkles, title: 'Frosted Glass', desc: 'Advanced backdrop-filter blur effects that add literal depth and sophistication to any interface.' },
-                            { icon: Zap, title: 'Performance', desc: 'GPU-accelerated blur effects optimized for butter-smooth scrolling and 60fps interaction.' },
-                            { icon: Shield, title: 'Accessibility', desc: 'Thoughtfully engineered to maintain high contrast and WCAG compliance across all glass layers.' },
-                        ].map((item) => (
-                            <div key={item.title} className="group transition-all hover:-translate-y-2" style={{ ...glassStyle, padding: '40px 32px', borderRadius: '32px' }}>
-                                <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:rotate-6 shadow-inner" style={{ background: `linear-gradient(135deg, ${colors.brand.primary}15, ${colors.brand.secondary}15)`, border: `1px solid ${colors.brand.primary}10` }}>
-                                    <item.icon size={28} color={colors.brand.primary} strokeWidth={1.5} />
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
+                        {/* Feature 1 - Large */}
+                        <div className="md:col-span-2 relative overflow-hidden group" style={{ ...glassStyle, borderRadius: '40px', padding: '40px' }}>
+                            <div className="relative z-10 h-full flex flex-col justify-end">
+                                <div className="w-16 h-16 rounded-3xl mb-6 flex items-center justify-center bg-white/20 backdrop-blur-md border border-white/20">
+                                    <Sparkles size={32} className="text-indigo-600" />
                                 </div>
-                                <h3 className="tracking-tight" style={{ fontSize: '22px', fontWeight: 700, marginBottom: '14px', color: colors.text.primary }}>{item.title}</h3>
-                                <p style={{ fontSize: '16px', color: colors.text.secondary, lineHeight: 1.7 }}>{item.desc}</p>
+                                <h3 className="text-3xl font-bold mb-4 text-[#0F172A]">Real-time Blur</h3>
+                                <p className="text-lg text-[#475569] max-w-md">Our engine calculates backdrop blur in real-time, ensuring 60fps performance on any device.</p>
                             </div>
-                        ))}
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/20 rounded-full blur-[80px] group-hover:scale-125 transition-transform duration-700" />
+                        </div>
+
+                        {/* Feature 2 - Tall */}
+                        <div className="md:row-span-2 relative overflow-hidden group" style={{ ...glassStyle, borderRadius: '40px', padding: '40px' }}>
+                            <div className="absolute inset-x-0 bottom-0 top-1/2 bg-gradient-to-t from-white/80 to-transparent pointer-events-none" />
+                            <div className="relative z-10 h-full flex flex-col">
+                                <div className="w-16 h-16 rounded-3xl mb-auto flex items-center justify-center bg-white/20 backdrop-blur-md border border-white/20">
+                                    <Zap size={32} className="text-purple-600" />
+                                </div>
+                                <h3 className="text-3xl font-bold mb-4 text-[#0F172A]">Instant <br />Render</h3>
+                                <p className="text-lg text-[#475569]">Zero latency compositing for immediate visual feedback.</p>
+                            </div>
+                            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                        </div>
+
+                        {/* Feature 3 - Standard */}
+                        <div className="relative overflow-hidden group" style={{ ...glassStyle, borderRadius: '40px', padding: '40px' }}>
+                            <div className="relative z-10">
+                                <Shield size={40} className="text-pink-600 mb-6" />
+                                <h3 className="text-2xl font-bold mb-2 text-[#0F172A]">Secure Layers</h3>
+                                <p className="text-[#475569]">Encrypted visual data.</p>
+                            </div>
+                            <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-pink-500/20 rounded-full blur-[40px] group-hover:scale-150 transition-transform duration-500" />
+                        </div>
+
+                        {/* Feature 4 - Standard */}
+                        <div className="relative overflow-hidden group flex items-center justify-center text-center p-8" style={{ ...glassStyle, borderRadius: '40px', background: 'rgba(255,255,255,0.2)' }}>
+                            <div>
+                                <h3 className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 mb-2">99%</h3>
+                                <p className="text-[#475569] font-medium">Performance Score</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -167,39 +220,50 @@ export const S14GlassmorphismPro = ({ deviceMode }: { deviceMode?: 'desktop' | '
             <section style={{ padding: `${spacing.section} ${spacing.lg}` }}>
                 <div className="max-w-6xl mx-auto">
                     <div className="text-center mb-16">
-                        <h2 className="tracking-tight" style={{ fontSize: isMobile ? '32px' : '48px', fontWeight: 800, color: colors.text.primary, marginBottom: '16px' }}>Pricing Plans</h2>
-                        <p style={{ color: colors.text.secondary, fontSize: '18px' }}>Choose the perfect scale for your design needs</p>
+                        <h2 className="tracking-tighter" style={{ fontSize: isMobile ? '32px' : '48px', fontWeight: 800, color: colors.text.primary, marginBottom: '16px' }}>Pricing Plans</h2>
+                        <p style={{ color: colors.text.secondary, fontSize: '18px' }}>Transparent pricing, literally.</p>
                     </div>
 
-                    <div className="grid gap-8" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', alignItems: 'center' }}>
+                    <div className="grid gap-8 items-center" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
                         {[
                             { name: 'Basic', price: '$19', features: ['Core components', 'Basic support', '1 project'] },
-                            { name: 'Professional', price: '$49', isPopular: true, features: ['All components', 'Priority support', 'Unlimited projects', 'Source files', 'Custom themes'] },
-                            { name: 'Enterprise', price: '$99', features: ['Everything in Pro', 'Team workspace', 'Dedicated support', 'Custom onboarding'] },
+                            { name: 'Vision', price: '$49', isPopular: true, features: ['All components', 'Priority support', 'Unlimited projects', 'Source files', 'Custom themes'] },
+                            { name: 'Spatial', price: '$99', features: ['Everything in Pro', 'Team workspace', 'Dedicated support', 'Custom onboarding'] },
                         ].map((plan) => (
-                            <div key={plan.name} className={`relative transition-all duration-300 ${plan.isPopular ? 'scale-105 z-10' : 'hover:scale-102 hover:bg-white/40'}`} style={{ ...glassStyle, padding: plan.isPopular ? '56px 40px' : '48px 32px', borderRadius: '40px', border: plan.isPopular ? `2px solid ${colors.brand.primary}` : `1px solid ${colors.glassBorder}` }}>
+                            <div key={plan.name} className={`relative transition-all duration-300 group ${plan.isPopular ? 'scale-105 z-10' : 'hover:scale-102 hover:bg-white/40'}`}
+                                style={{
+                                    ...glassStyle,
+                                    padding: '48px 40px',
+                                    borderRadius: '40px',
+                                    border: plan.isPopular ? '1px solid rgba(99, 102, 241, 0.5)' : glassStyle.border,
+                                    boxShadow: plan.isPopular ? '0 20px 60px -12px rgba(99, 102, 241, 0.3)' : glassStyle.boxShadow
+                                }}>
                                 {plan.isPopular && (
-                                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 px-5 py-1.5 rounded-full shadow-lg" style={{ background: `linear-gradient(135deg, ${colors.brand.primary}, ${colors.brand.accent})`, color: 'white', fontSize: '13px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                                        Most Popular
+                                    <div className="absolute top-0 right-0 p-6">
+                                        <div className="w-3 h-3 rounded-full bg-indigo-500 animate-pulse shadow-[0_0_15px_rgba(99,102,241,0.6)]" />
                                     </div>
                                 )}
-                                <h3 style={{ fontSize: '18px', fontWeight: 600, color: plan.isPopular ? colors.brand.primary : colors.text.secondary, marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{plan.name}</h3>
-                                <div className="flex items-baseline gap-1 mb-8" style={{ color: colors.text.primary }}>
-                                    <span style={{ fontSize: '56px', fontWeight: 800 }}>{plan.price}</span>
-                                    <span style={{ fontSize: '18px', fontWeight: 500, opacity: 0.6 }}>/mo</span>
+                                <h3 style={{ fontSize: '20px', fontWeight: 700, color: colors.text.primary, marginBottom: '32px', letterSpacing: '-0.02em' }}>{plan.name}</h3>
+                                <div className="flex items-baseline gap-1 mb-8">
+                                    <span className="tracking-tighter" style={{ fontSize: '64px', fontWeight: 800, color: colors.text.primary }}>{plan.price}</span>
+                                    <span style={{ fontSize: '18px', fontWeight: 500, color: colors.text.secondary }}>/mo</span>
                                 </div>
-                                <ul className="space-y-4 mb-10 text-left">
+                                <ul className="space-y-5 mb-12 text-left">
                                     {plan.features.map((f) => (
-                                        <li key={f} className="flex items-center gap-3" style={{ fontSize: '15px', color: colors.text.secondary, fontWeight: 500 }}>
-                                            <div className="w-5 h-5 rounded-full bg-indigo-500/10 flex items-center justify-center">
-                                                <Check size={14} color={colors.brand.primary} strokeWidth={3} />
+                                        <li key={f} className="flex items-center gap-4" style={{ fontSize: '15px', color: colors.text.secondary, fontWeight: 500 }}>
+                                            <div className="w-6 h-6 rounded-full bg-indigo-500/10 flex items-center justify-center">
+                                                <Check size={12} className="text-indigo-600" strokeWidth={3} />
                                             </div>
                                             {f}
                                         </li>
                                     ))}
                                 </ul>
-                                <button className="w-full transition-all active:scale-95" style={{ padding: '16px', borderRadius: '18px', fontSize: '16px', fontWeight: 700, background: plan.isPopular ? `linear-gradient(135deg, ${colors.brand.primary}, ${colors.brand.secondary})` : 'rgba(255,255,255,0.3)', color: plan.isPopular ? 'white' : colors.text.primary, border: plan.isPopular ? 'none' : `1px solid ${colors.glassBorder}`, boxShadow: plan.isPopular ? `0 10px 30px ${colors.brand.glow}` : 'none' }}>
-                                    {plan.isPopular ? 'Start Free Trial' : 'Get Started'}
+                                <button className="w-full h-14 rounded-2xl font-bold text-lg transition-all active:scale-95 flex items-center justify-center relative overflow-hidden group-hover:shadow-lg"
+                                    style={{
+                                        background: plan.isPopular ? '#0F172A' : 'rgba(255,255,255,0.5)',
+                                        color: plan.isPopular ? 'white' : colors.text.primary
+                                    }}>
+                                    Get Started
                                 </button>
                             </div>
                         ))}

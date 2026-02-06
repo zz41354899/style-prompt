@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Menu, X, ArrowRight, Check, ChevronDown, Rocket, Sparkles, Zap, TrendingUp } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Menu, X, ArrowRight, Check, ChevronDown, Rocket, Sparkles, Zap, TrendingUp, Layers, Box, Globe, Shield, Activity, Command } from 'lucide-react';
 import { useResponsive } from '@/hooks/useResponsive';
 
 export const S80StartupVibrantPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
@@ -8,108 +8,265 @@ export const S80StartupVibrantPro = ({ deviceMode }: { deviceMode?: 'desktop' | 
     const responsive = useResponsive(deviceMode);
     const isMobile = responsive.nav.showMobile;
 
-    const colors = { bg: '#FFFFFF', surface: '#F7F9FC', text: '#1A1A2E', muted: '#6B7280', purple: '#7C3AED', pink: '#EC4899', blue: '#3B82F6', gradient: 'linear-gradient(135deg, #7C3AED, #EC4899, #3B82F6)' };
-
     return (
-        <div className="min-h-screen" style={{ backgroundColor: colors.bg, color: colors.text, fontFamily: '"Poppins", "Inter", sans-serif' }}>
-            {/* Navigation */}
-            <header className="sticky top-0 z-50 backdrop-blur-sm" style={{ backgroundColor: `${colors.bg}E0` }}>
-                <div className="max-w-6xl mx-auto flex items-center justify-between p-4 px-6">
+        <div className="min-h-screen relative overflow-hidden bg-[#000212] text-white selection:bg-[#B4F9F8] selection:text-[#000212]">
+            <style>{`
+                @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+                .font-startup-display { font-family: 'Space Grotesk', sans-serif; }
+                .font-startup-body { font-family: 'Inter', sans-serif; }
+
+                /* Mesh Gradient Animation */
+                @keyframes gradient-flow {
+                    0% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                    100% { background-position: 0% 50%; }
+                }
+                
+                .mesh-gradient-bg {
+                    background: radial-gradient(circle at 15% 50%, rgba(124, 58, 237, 0.15), transparent 25%), 
+                                radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.15), transparent 25%);
+                }
+                
+                .text-gradient-vibrant {
+                    background: linear-gradient(to right, #A78BFA, #F472B6, #60A5FA);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-size: 200% auto;
+                    animation: gradient-flow 5s linear infinite;
+                }
+                
+                .btn-glow {
+                     box-shadow: 0 0 20px rgba(124, 58, 237, 0.5);
+                }
+
+                /* Bento Grid Hover Effect */
+                .bento-card {
+                    background: rgba(255, 255, 255, 0.03);
+                    border: 1px solid rgba(255, 255, 255, 0.05);
+                    transition: all 0.3s ease;
+                }
+                
+                .bento-card:hover {
+                    background: rgba(255, 255, 255, 0.06);
+                    border-color: rgba(255, 255, 255, 0.1);
+                    transform: translateY(-2px);
+                }
+                
+                /* Beam Animation */
+                .beam-line {
+                    position: absolute;
+                    height: 1px;
+                    width: 100px;
+                    background: linear-gradient(90deg, transparent, #fff, transparent);
+                    opacity: 0.3;
+                    pointer-events: none;
+                }
+                
+                @keyframes beam {
+                    0% { transform: translateX(-100%) translateY(0); opacity: 0; }
+                    50% { opacity: 0.5; }
+                    100% { transform: translateX(100%) translateY(100px); opacity: 0; }
+                }
+            `}</style>
+
+            {/* Ambient Background */}
+            <div className="fixed inset-0 mesh-gradient-bg z-[-1]"></div>
+
+            {/* Grid Overlay */}
+            <div className="fixed inset-0 z-[-1]" style={{ backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
+
+            {/* Navbar */}
+            <header className="sticky top-0 z-50 border-b border-white/5 bg-[#000212]/80 backdrop-blur-xl">
+                <div className="max-w-7xl mx-auto flex items-center justify-between p-4 px-6 md:px-10">
                     <div className="flex items-center gap-2">
-                        <Rocket size={24} style={{ color: colors.purple }} />
-                        <span className="text-lg font-bold">LaunchPad</span>
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-600 to-fuchsia-600 flex items-center justify-center">
+                            <Rocket size={18} className="text-white" />
+                        </div>
+                        <span className="text-xl font-startup-display font-bold tracking-tight">HyperScale</span>
                     </div>
+
                     {!isMobile && (
-                        <nav className="flex items-center gap-6">
-                            {['Product', 'Pricing', 'About'].map((item) => (<span key={item} className="font-medium cursor-pointer hover:text-purple-600" style={{ color: colors.muted }}>{item}</span>))}
-                            <button className="px-5 py-2 font-semibold text-white rounded-full" style={{ background: colors.gradient }}>Try Free</button>
+                        <nav className="flex items-center gap-8">
+                            {['Features', 'Integrations', 'Changelog', 'Pricing'].map((item) => (
+                                <a key={item} href="#" className="font-startup-body text-sm font-medium text-slate-400 hover:text-white transition-colors">
+                                    {item}
+                                </a>
+                            ))}
                         </nav>
                     )}
-                    {isMobile && <button onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X size={24} /> : <Menu size={24} />}</button>}
+
+                    <div className="flex items-center gap-4">
+                        {!isMobile && <button className="text-sm font-medium text-slate-400 hover:text-white">Log in</button>}
+                        <button className="px-5 py-2 bg-white text-black font-startup-body text-sm font-semibold rounded-full hover:bg-slate-200 transition-colors btn-glow">
+                            Join Waitlist
+                        </button>
+                        {isMobile && <button onClick={() => setMenuOpen(!menuOpen)} className="p-2 text-slate-400">{menuOpen ? <X size={24} /> : <Menu size={24} />}</button>}
+                    </div>
                 </div>
+
                 {menuOpen && isMobile && (
-                    <div className="p-4" style={{ backgroundColor: colors.surface }}>
-                        {['Product', 'Pricing', 'About'].map((item) => (<div key={item} className="py-2 font-medium" style={{ color: colors.muted }}>{item}</div>))}
-                        <button className="w-full mt-3 py-2 font-semibold text-white rounded-full" style={{ background: colors.gradient }}>Try Free</button>
+                    <div className="border-t border-white/5 bg-[#000212] p-4">
+                        <nav className="flex flex-col gap-4">
+                            {['Features', 'Integrations', 'Changelog', 'Pricing'].map((item) => (
+                                <div key={item} className="py-2 text-slate-400 font-medium hover:text-white transition-colors">
+                                    {item}
+                                </div>
+                            ))}
+                            <button className="w-full py-3 bg-white text-black rounded-full font-bold">Log in</button>
+                        </nav>
                     </div>
                 )}
             </header>
 
-            {/* Hero */}
-            <section style={{ padding: '80px 24px' }}>
-                <div className="max-w-5xl mx-auto text-center">
-                    <div className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full" style={{ backgroundColor: '#F3E8FF' }}>
-                        <Sparkles size={14} style={{ color: colors.purple }} />
-                        <span className="text-sm font-medium" style={{ color: colors.purple }}>New Feature Launch 🎉</span>
+            {/* Hero Section */}
+            <section className="py-24 lg:py-40 px-6 relative overflow-hidden">
+                <div className="max-w-5xl mx-auto text-center relative z-10">
+                    <div className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-violet-300 font-startup-body text-xs font-semibold uppercase tracking-wider backdrop-blur-md animate-fade-in-up">
+                        <Sparkles size={12} fill="currentColor" /> Public Beta 2.0
                     </div>
-                    <h1 className="mb-4 font-bold leading-tight" style={{ fontSize: isMobile ? '36px' : '64px' }}>
-                        Build Something <span style={{ background: colors.gradient, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Amazing</span>
+
+                    <h1 className="text-6xl md:text-8xl font-startup-display font-bold mb-8 leading-tight tracking-tight">
+                        Experience the <br />
+                        <span className="text-gradient-vibrant">next evolution</span>
                     </h1>
-                    <p className="max-w-lg mx-auto mb-8" style={{ color: colors.muted }}>Energetic startup vibes with bold gradients and modern aesthetics that inspire action.</p>
-                    <div className="flex gap-4 justify-center" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
-                        <button className="px-8 py-3 font-semibold text-white rounded-full flex items-center justify-center gap-2" style={{ background: colors.gradient }}>Get Started <ArrowRight size={18} /></button>
-                        <button className="px-8 py-3 font-semibold rounded-full border-2" style={{ borderColor: colors.purple, color: colors.purple }}>Watch Demo</button>
-                    </div>
-                    {/* Gradient Icons */}
-                    <div className="mt-12 flex justify-center gap-4">
-                        {[Rocket, Sparkles, Zap, TrendingUp].map((Icon, i) => (
-                            <div key={i} className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: colors.gradient }}><Icon size={24} color="white" /></div>
-                        ))}
+
+                    <p className="font-startup-body text-lg md:text-xl text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed">
+                        A unified workspace for engineering teams. Ship faster, coordinate seamlessly, and automate your workflows with AI.
+                    </p>
+
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <button className="px-8 py-4 bg-white text-black font-startup-body font-semibold rounded-full hover:bg-slate-200 transition-colors flex items-center gap-2 group">
+                            Get Started <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                        </button>
+                        <button className="px-8 py-4 bg-white/5 text-white font-startup-body font-semibold rounded-full border border-white/10 hover:bg-white/10 transition-colors flex items-center gap-2">
+                            <Command size={18} /> Command Menu
+                        </button>
                     </div>
                 </div>
+
+                {/* Abstract Background Effects */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-indigo-500/20 blur-[100px] rounded-full pointer-events-none"></div>
             </section>
 
-            {/* Features */}
-            <section style={{ padding: '60px 24px', backgroundColor: colors.surface }}>
-                <div className="max-w-5xl mx-auto">
-                    <h2 className="text-center text-3xl font-bold mb-10" style={{ background: colors.gradient, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Why Choose Us</h2>
-                    <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
-                        {[{ icon: Rocket, title: 'Launch Fast', color: colors.purple }, { icon: Zap, title: 'Scale Quickly', color: colors.pink }, { icon: TrendingUp, title: 'Grow Revenue', color: colors.blue }].map((item) => (
-                            <div key={item.title} className="p-6 rounded-2xl text-center" style={{ backgroundColor: colors.bg, boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
-                                <div className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: item.color + '20' }}><item.icon size={24} style={{ color: item.color }} /></div>
-                                <h3 className="font-bold mb-2">{item.title}</h3>
-                                <p className="text-sm" style={{ color: colors.muted }}>Startup-speed design.</p>
+            {/* Bento Grid Features */}
+            <section className="py-20 px-6">
+                <div className="max-w-6xl mx-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[300px]">
+
+                        {/* Large Card */}
+                        <div className="md:col-span-2 lg:col-span-2 row-span-1 bento-card rounded-3xl p-8 relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-violet-500/10 blur-[50px] rounded-full"></div>
+                            <Zap size={32} className="text-yellow-400 mb-6" />
+                            <h3 className="text-2xl font-startup-display font-bold mb-2">Lightning Fast</h3>
+                            <p className="text-slate-400 font-startup-body mb-8">Optimized for speed. Your workspace loads in under 100ms.</p>
+
+                            {/* Mockup */}
+                            <div className="absolute bottom-0 left-8 right-8 h-32 bg-[#0A0A0A] rounded-t-xl border-t border-x border-white/10 p-4">
+                                <div className="flex gap-2 mb-4">
+                                    <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                                    <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+                                    <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                                </div>
+                                <div className="space-y-2">
+                                    <div className="h-2 w-3/4 bg-white/20 rounded"></div>
+                                    <div className="h-2 w-1/2 bg-white/10 rounded"></div>
+                                </div>
                             </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
+                        </div>
 
-            {/* Pricing */}
-            <section style={{ padding: '60px 24px' }}>
-                <div className="max-w-5xl mx-auto">
-                    <h2 className="text-center text-3xl font-bold mb-10" style={{ background: colors.gradient, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Simple Pricing</h2>
-                    <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
-                        {[{ name: 'Starter', price: 'Free', hot: false }, { name: 'Growth', price: '$49', hot: true }, { name: 'Scale', price: '$149', hot: false }].map((plan) => (
-                            <div key={plan.name} className="relative p-6 rounded-2xl text-center" style={{ backgroundColor: colors.bg, border: plan.hot ? 'none' : `1px solid ${colors.muted}30`, background: plan.hot ? colors.gradient : colors.bg }}>
-                                {plan.hot && <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-xs font-semibold text-white bg-black">🔥 Most Popular</div>}
-                                <h3 className="font-bold mb-2" style={{ color: plan.hot ? 'white' : colors.text }}>{plan.name}</h3>
-                                <div className="text-4xl font-bold mb-4" style={{ color: plan.hot ? 'white' : colors.purple }}>{plan.price}</div>
-                                <ul className="space-y-2 mb-6 text-left">
-                                    {['All features', 'Support', 'Updates'].map((f) => (<li key={f} className="flex items-center gap-2 text-sm" style={{ color: plan.hot ? 'rgba(255,255,255,0.9)' : colors.muted }}><Check size={14} style={{ color: plan.hot ? 'white' : colors.purple }} /> {f}</li>))}
-                                </ul>
-                                <button className="w-full py-2 font-semibold rounded-full" style={{ backgroundColor: plan.hot ? 'white' : colors.purple, color: plan.hot ? colors.purple : 'white' }}>Get Started</button>
+                        {/* Tall Card */}
+                        <div className="md:col-span-1 lg:col-span-1 md:row-span-2 lg:row-span-2 bento-card rounded-3xl p-8 flex flex-col justify-between">
+                            <div>
+                                <Shield size={32} className="text-emerald-400 mb-6" />
+                                <h3 className="text-2xl font-startup-display font-bold mb-2">Secure by Design</h3>
+                                <p className="text-slate-400 font-startup-body">SOC2 Type II Certified. End-to-end encryption for all your data.</p>
                             </div>
-                        ))}
+                            <div className="mt-8 flex justify-center">
+                                <div className="w-32 h-32 rounded-full border-4 border-emerald-500/20 flex items-center justify-center p-2 relative">
+                                    <div className="absolute inset-0 border-t-4 border-emerald-500 rounded-full animate-spin"></div>
+                                    <Shield size={40} className="text-emerald-500" />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Small Card 1 */}
+                        <div className="md:col-span-1 lg:col-span-1 bento-card rounded-3xl p-8">
+                            <TrendingUp size={32} className="text-blue-400 mb-6" />
+                            <h3 className="text-xl font-startup-display font-bold mb-2">Real-time Sync</h3>
+                            <p className="text-slate-400 text-sm">Collaborate with your team instantly.</p>
+                        </div>
+
+                        {/* Small Card 2 */}
+                        <div className="md:col-span-1 lg:col-span-1 bento-card rounded-3xl p-8 relative overflow-hidden">
+                            <Globe size={32} className="text-fuchsia-400 mb-6" />
+                            <h3 className="text-xl font-startup-display font-bold mb-2">Global Edge</h3>
+                            <p className="text-slate-400 text-sm">Deployed on 400+ distinct edge nodes.</p>
+                            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+                        </div>
+
+                        {/* Wide Card */}
+                        <div className="md:col-span-2 lg:col-span-2 bento-card rounded-3xl p-8 flex items-center justify-between gap-8">
+                            <div className="flex-1">
+                                <Layers size={32} className="text-orange-400 mb-6" />
+                                <h3 className="text-2xl font-startup-display font-bold mb-2">Infinite Integrations</h3>
+                                <p className="text-slate-400 font-startup-body">Connect with GitLab, Slack, Linear, and countless other tools in your stack.</p>
+                            </div>
+                            <div className="hidden sm:flex gap-3">
+                                {[1, 2, 3].map((i) => (
+                                    <div key={i} className="w-12 h-12 rounded-xl bg-white/5 border border-white/10"></div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Small Card 3 */}
+                        <div className="md:col-span-2 lg:col-span-1 bento-card rounded-3xl p-8 flex flex-col justify-center items-center text-center">
+                            <div className="text-4xl font-startup-display font-bold text-white mb-2">99.9%</div>
+                            <div className="text-slate-400 text-sm">Uptime SLA</div>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            {/* FAQ */}
-            <section style={{ padding: '60px 24px', backgroundColor: colors.surface }}>
-                <div className="max-w-3xl mx-auto">
-                    <h2 className="text-center text-3xl font-bold mb-10" style={{ background: colors.gradient, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>FAQ</h2>
-                    <div className="space-y-3">
-                        {[{ q: 'What is Startup Vibrant style?', a: 'Energetic gradients and bold aesthetics that inspire action.' },
-                        { q: 'Customizable?', a: 'Full control over colors and branding.' },
-                        { q: 'Easy to implement?', a: 'Ready to use out of the box.' }
-                        ].map((item, i) => (
-                            <div key={i} className="rounded-2xl overflow-hidden" style={{ backgroundColor: colors.bg, boxShadow: '0 2px 10px rgba(0,0,0,0.05)' }}>
-                                <button className="w-full flex items-center justify-between p-4 text-left" onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}>
-                                    <span className="font-medium">{item.q}</span>
-                                    <ChevronDown size={18} style={{ color: colors.purple, transform: expandedFaq === i ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s' }} />
+            {/* Pricing Section */}
+            <section className="py-24 px-6 relative">
+                <div className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent top-0"></div>
+
+                <div className="max-w-5xl mx-auto">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl md:text-5xl font-startup-display font-bold mb-6">Simple, transparent pricing</h2>
+                        <p className="text-slate-400 text-lg">No hidden fees. Scale as you grow.</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {[
+                            { name: 'Starter', price: '$0', desc: 'For individuals', features: ['1 Workspace', 'Up to 3 members', 'Community Support'] },
+                            { name: 'Pro', price: '$29', desc: 'For startups', features: ['Unlimited Workspaces', 'Up to 20 members', 'Priority Support', 'API Access'], highlight: true },
+                            { name: 'Business', price: '$99', desc: 'For scaling teams', features: ['SSO Enforcement', 'Unlimited members', 'Dedicated Manager', 'Custom Contracts'] }
+                        ].map((plan, i) => (
+                            <div key={i} className={`relative p-8 rounded-3xl border flex flex-col ${plan.highlight ? 'bg-white/5 border-violet-500/50 shadow-[0_0_30px_rgba(124,58,237,0.1)]' : 'bg-transparent border-white/10'}`}>
+                                {plan.highlight && (
+                                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-violet-600 text-white text-xs font-bold rounded-full border border-violet-400">
+                                        MOST POPULAR
+                                    </div>
+                                )}
+
+                                <h3 className="text-xl font-bold font-startup-display mb-2">{plan.name}</h3>
+                                <div className="text-3xl font-bold font-startup-display mb-4">{plan.price}<span className="text-sm text-slate-500 font-normal">/mo</span></div>
+                                <p className="text-slate-400 text-sm mb-8">{plan.desc}</p>
+
+                                <button className={`w-full py-3 rounded-xl font-semibold text-sm mb-8 transition-colors ${plan.highlight ? 'bg-white text-black hover:bg-slate-200' : 'bg-white/10 text-white hover:bg-white/20'}`}>
+                                    {plan.highlight ? 'Start Free Trial' : 'Subscribe'}
                                 </button>
-                                {expandedFaq === i && <div className="px-4 pb-4 text-sm" style={{ color: colors.muted }}>{item.a}</div>}
+
+                                <ul className="space-y-4 mt-auto">
+                                    {plan.features.map((feature, j) => (
+                                        <li key={j} className="flex items-center gap-3 text-sm text-slate-300">
+                                            <Check size={16} className="text-violet-500" />
+                                            {feature}
+                                        </li>
+                                    ))}
+                                </ul>
                             </div>
                         ))}
                     </div>
@@ -117,19 +274,58 @@ export const S80StartupVibrantPro = ({ deviceMode }: { deviceMode?: 'desktop' | 
             </section>
 
             {/* CTA */}
-            <section style={{ padding: '60px 24px' }}>
-                <div className="max-w-3xl mx-auto p-10 rounded-2xl text-center text-white" style={{ background: colors.gradient }}>
-                    <Rocket size={40} className="mx-auto mb-4" />
-                    <h2 className="text-3xl font-bold mb-4">Ready to Launch?</h2>
-                    <button className="px-10 py-3 font-semibold rounded-full" style={{ backgroundColor: 'white', color: colors.purple }}>Start Free Trial</button>
+            <section className="py-24 px-6 text-center">
+                <div className="max-w-4xl mx-auto relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-violet-600/30 to-fuchsia-600/30 blur-[60px] rounded-full pointer-events-none"></div>
+
+                    <div className="relative z-10 border border-white/10 bg-white/5 backdrop-blur-xl rounded-3xl p-12 md:p-20">
+                        <h2 className="text-4xl md:text-5xl font-startup-display font-bold mb-8">
+                            Ready to ship your next big thing?
+                        </h2>
+
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button className="px-8 py-4 bg-white text-black font-semibold rounded-full hover:bg-slate-200 transition-colors">
+                                Start Building Now
+                            </button>
+                            <button className="px-8 py-4 bg-transparent text-white font-semibold rounded-full border border-white/20 hover:bg-white/10 transition-colors">
+                                Contact Sales
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </section>
 
             {/* Footer */}
-            <footer style={{ padding: '40px 24px', backgroundColor: colors.surface }}>
-                <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-                    <div className="flex items-center gap-2 font-bold"><Rocket size={20} style={{ color: colors.purple }} /> LaunchPad</div>
-                    <span className="text-sm" style={{ color: colors.muted }}>© 2025 Startup Vibrant</span>
+            <footer className="border-t border-white/10 bg-[#000212] pt-16 pb-8 px-6">
+                <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-6 gap-10">
+                    <div className="col-span-2">
+                        <div className="flex items-center gap-2 mb-4">
+                            <div className="w-6 h-6 rounded bg-gradient-to-br from-violet-600 to-fuchsia-600 flex items-center justify-center">
+                                <Rocket size={12} className="text-white" />
+                            </div>
+                            <span className="text-lg font-startup-display font-bold">HyperScale</span>
+                        </div>
+                        <p className="text-slate-500 text-sm max-w-xs">
+                            The platform for modern engineering teams.
+                        </p>
+                    </div>
+
+                    {['Product', 'Company', 'Resources', 'Legal'].map((col, i) => (
+                        <div key={i}>
+                            <h4 className="font-bold text-white mb-4 text-sm">{col}</h4>
+                            <ul className="space-y-3">
+                                {[1, 2, 3].map((item) => (
+                                    <li key={item}>
+                                        <a href="#" className="text-slate-500 hover:text-white transition-colors text-sm">Link {item}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-white/10 text-center text-slate-600 text-sm">
+                    © 2025 HyperScale Inc. All rights reserved.
                 </div>
             </footer>
         </div>

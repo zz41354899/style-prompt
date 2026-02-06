@@ -7,12 +7,13 @@ export const S24MinimalistLineArtPro = ({ deviceMode }: { deviceMode?: 'desktop'
     const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
     const responsive = useResponsive(deviceMode);
     const isMobile = responsive.nav.showMobile;
+    const spacing = responsive.spacing;
 
     const colors = {
         bg: '#ffffff',
         surface: '#FAFAFA',
-        text: '#000000',
-        muted: '#525252',
+        text: '#171717',
+        muted: '#737373',
         accent: '#000000',
         border: '#E5E5E5'
     };
@@ -21,12 +22,23 @@ export const S24MinimalistLineArtPro = ({ deviceMode }: { deviceMode?: 'desktop'
         <div className="min-h-screen relative overflow-hidden"
             style={{ backgroundColor: colors.bg, color: colors.text, fontFamily: '"Inter", sans-serif' }}>
 
-            {/* Background Grid - Ultra subtle */}
+            {/* Background Grid - Architectural */}
             <div className="absolute inset-0 pointer-events-none"
                 style={{
-                    backgroundImage: `linear-gradient(${colors.border} 1px, transparent 1px), linear-gradient(90deg, ${colors.border} 1px, transparent 1px)`,
-                    backgroundSize: '100px 100px',
-                    opacity: 0.5
+                    backgroundImage: `
+                        linear-gradient(to right, ${colors.border} 1px, transparent 1px),
+                        linear-gradient(to bottom, ${colors.border} 1px, transparent 1px)
+                    `,
+                    backgroundSize: '40px 40px',
+                    opacity: 0.6
+                }}
+            />
+            {/* Crosshairs at intersections (simulated) */}
+            <div className="absolute inset-0 pointer-events-none opacity-20"
+                style={{
+                    backgroundImage: `radial-gradient(circle, #000 1px, transparent 1px)`,
+                    backgroundSize: '240px 240px',
+                    backgroundPosition: '20px 20px'
                 }}
             />
 
@@ -77,60 +89,66 @@ export const S24MinimalistLineArtPro = ({ deviceMode }: { deviceMode?: 'desktop'
             </header>
 
             {/* Hero Section */}
-            <section className="relative pt-32 pb-20 px-6 border-b border-gray-100">
-                <div className="max-w-7xl mx-auto text-center">
-                    <div className="inline-block mb-12">
-                        <div className="w-[1px] h-24 bg-black mx-auto mb-8" />
-                        <span className="text-xs font-bold tracking-[0.3em] uppercase border border-black px-4 py-2">
-                            Est. 2025
-                        </span>
+            <section className="relative border-b border-gray-100" style={{ paddingTop: spacing.section, paddingBottom: spacing.xl, paddingLeft: spacing.lg, paddingRight: spacing.lg }}>
+                <div className="max-w-7xl mx-auto relative">
+                    {/* Measurement Lines */}
+                    <div className="absolute -left-8 top-0 bottom-0 w-px bg-black/10 hidden xl:block">
+                        <div className="absolute top-1/2 -left-3 text-[10px] -rotate-90 text-gray-400">720px</div>
+                    </div>
+                    <div className="absolute left-0 right-0 -top-12 h-px bg-black/10 hidden xl:block">
+                        <div className="absolute left-1/2 -top-4 text-[10px] text-gray-400">1280px</div>
                     </div>
 
-                    <h1 className="text-6xl md:text-9xl font-thin tracking-tighter mb-12 leading-[0.9]">
-                        PURE <br />
-                        <span className="font-bold italic">FORM</span>
-                    </h1>
+                    <div className="text-center relative z-10">
+                        <div className="inline-flex items-center gap-4 mb-16 border border-black px-6 py-2 bg-white duration-500 hover:tracking-[0.5em]">
+                            <span className="w-2 h-2 bg-black rounded-full animate-pulse" />
+                            <span className="text-xs font-mono font-bold tracking-[0.3em] uppercase">System_State: Stable</span>
+                        </div>
 
-                    <p className="max-w-xl mx-auto text-lg md:text-xl font-light leading-relaxed mb-16 text-gray-500">
-                        Stripped back to the essential. We create digital products that honor function through form.
-                    </p>
+                        <h1 className="font-thin tracking-tighter leading-[0.85] mix-blend-multiply" style={{ fontSize: isMobile ? responsive.fontSize['5xl'] : '120px', marginBottom: spacing.lg }}>
+                            PRECISION <br />
+                            <span className="font-bold block mt-2">ARCHITECT</span>
+                        </h1>
 
-                    <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
-                        <button className="group relative px-12 py-5 overflow-hidden border border-black">
-                            <div className="absolute inset-0 w-full h-full bg-black translate-x-[-100%] transition-transform duration-500 group-hover:translate-x-0" />
-                            <span className="relative z-10 text-xs font-bold tracking-[0.2em] uppercase transition-colors duration-500 group-hover:text-white flex items-center gap-2">
-                                View Case Studies <ArrowRight size={14} />
-                            </span>
-                        </button>
-                        <button className="px-12 py-5 text-xs font-bold tracking-[0.2em] uppercase border border-transparent hover:border-black transition-all">
-                            Our Philosophy
-                        </button>
+                        <p className="max-w-xl mx-auto text-lg font-light leading-relaxed mb-16 text-gray-500">
+                            Defined by lines. Measured by pixels. We build digital structures with absolute clarity and zero redundancy.
+                        </p>
+
+                        <div className="flex flex-col md:flex-row gap-8 justify-center items-center">
+                            <button className="group relative px-16 py-6 border border-black bg-white overflow-hidden transition-all hover:bg-black hover:text-white">
+                                <span className="relative z-10 text-xs font-mono font-bold tracking-[0.2em] uppercase flex items-center gap-4">
+                                    [ Initiate_Sequence ]
+                                    <ArrowRight size={14} />
+                                </span>
+                            </button>
+                            <button className="px-16 py-6 text-xs font-mono font-bold tracking-[0.2em] uppercase border border-gray-200 hover:border-black transition-colors">
+                                View_Schematics
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Floating Technical Elements */}
+                    <div className="absolute top-20 right-20 hidden lg:block opacity-30 animate-[spin_20s_linear_infinite]">
+                        <Grid3X3 size={120} strokeWidth={0.5} />
+                    </div>
+                    <div className="absolute bottom-20 left-20 hidden lg:block opacity-30">
+                        <Ruler size={80} strokeWidth={0.5} className="rotate-45" />
                     </div>
                 </div>
-
-                {/* Animated Lines Decoration */}
-                <svg className="absolute top-1/2 left-10 w-32 h-32 opacity-20 pointer-events-none hidden md:block" viewBox="0 0 100 100">
-                    <circle cx="50" cy="50" r="40" fill="none" stroke="black" strokeWidth="0.5" />
-                    <line x1="50" y1="10" x2="50" y2="90" stroke="black" strokeWidth="0.5" />
-                    <line x1="10" y1="50" x2="90" y2="50" stroke="black" strokeWidth="0.5" />
-                </svg>
-                <svg className="absolute bottom-20 right-10 w-48 h-48 opacity-20 pointer-events-none hidden md:block animate-[spin_10s_linear_infinite]" viewBox="0 0 100 100">
-                    <rect x="25" y="25" width="50" height="50" fill="none" stroke="black" strokeWidth="0.5" />
-                    <rect x="35" y="35" width="30" height="30" fill="none" stroke="black" strokeWidth="0.5" transform="rotate(45 50 50)" />
-                </svg>
             </section>
 
             {/* Features (Grid) */}
             <section className="border-b border-gray-100">
-                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-100">
+                <div className="max-w-7xl mx-auto grid divide-y divide-gray-100" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
                     {[
-                        { icon: Square, title: 'Structure', desc: 'Rigid grid systems ensuring perfect alignment.' },
-                        { icon: Triangle, title: 'Balance', desc: 'Asymmetric layouts that maintain equilibrium.' },
-                        { icon: Shield, title: 'Integrity', desc: 'Code that is as clean as the visual design.' }
+                        { icon: Square, title: 'Modular_Grid', desc: 'Content snaps to a rigid 8pt baseline. Absolute order.' },
+                        { icon: Triangle, title: 'Geometric_Core', desc: 'Shapes calculated for perfect optical balance.' },
+                        { icon: Shield, title: 'Vector_Guard', desc: 'Resolution independent interfaces. Scalable to infinity.' }
                     ].map((item, i) => (
-                        <div key={i} className="p-16 group hover:bg-gray-50 transition-colors duration-500">
-                            <item.icon size={32} strokeWidth={1} className="mb-8" />
-                            <h3 className="text-xl font-medium tracking-widest uppercase mb-4">{item.title}</h3>
+                        <div key={i} className="p-16 group hover:bg-gray-50 transition-colors duration-500 relative">
+                            <div className="absolute top-8 left-8 text-[10px] text-gray-300 font-mono">FIG_0{i + 1}</div>
+                            <item.icon size={32} strokeWidth={1} className="mb-8 opacity-70 group-hover:opacity-100 transition-opacity" />
+                            <h3 className="text-sm font-mono font-bold tracking-widest uppercase mb-4">{item.title}</h3>
                             <p className="font-light text-gray-500 leading-relaxed text-sm">{item.desc}</p>
                         </div>
                     ))}
@@ -138,7 +156,7 @@ export const S24MinimalistLineArtPro = ({ deviceMode }: { deviceMode?: 'desktop'
             </section>
 
             {/* Testimonials - Minimal Slider style */}
-            <section className="py-32 px-6 bg-black text-white">
+            <section className="bg-black text-white" style={{ padding: `${spacing.section} ${spacing.lg}` }}>
                 <div className="max-w-4xl mx-auto text-center">
                     <Quote size={48} className="mx-auto mb-12 opacity-50" />
                     <p className="text-2xl md:text-4xl font-light leading-tight mb-12 italic">
@@ -150,36 +168,39 @@ export const S24MinimalistLineArtPro = ({ deviceMode }: { deviceMode?: 'desktop'
                 </div>
             </section>
 
-            {/* Pricing - Table Style */}
-            <section className="py-32 px-6 border-b border-gray-100">
+            {/* Pricing - Technical Table */}
+            <section className="border-b border-gray-100" style={{ padding: `${spacing.section} ${spacing.lg}` }}>
                 <div className="max-w-5xl mx-auto">
-                    <div className="mb-20 text-center">
-                        <h2 className="text-sm font-bold tracking-[0.3em] uppercase mb-4">Investment</h2>
-                        <div className="w-12 h-[1px] bg-black mx-auto" />
+                    <div className="mb-20 flex items-center justify-between border-b pb-8">
+                        <h2 className="text-sm font-mono font-bold tracking-[0.3em] uppercase">Project_Scope</h2>
+                        <div className="text-xs text-gray-400 font-mono">SELECT_CONFIGURATION</div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div className="grid gap-px bg-gray-200 border border-gray-200" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
                         {[
-                            { name: 'Essential', price: '2,500', features: ['Concept Phase', 'Basic Grid', 'Mobile Response'] },
-                            { name: 'Standard', price: '5,000', features: ['Interaction Design', 'Advanced Layouts', 'Design System'], hot: true },
-                            { name: 'Complete', price: '9,500', features: ['Full Product', 'Development', 'Maintenance'] }
+                            { name: 'M1_Basic', price: '2,500', features: ['Wireframes', 'Grid Setup', 'Static Export'] },
+                            { name: 'M2_Pro', price: '5,000', features: ['Interactions', 'Component Lib', 'React Builds'], hot: true },
+                            { name: 'M3_Ultra', price: '9,500', features: ['Full System', 'Backend API', 'Lifetime Support'] }
                         ].map((plan) => (
-                            <div key={plan.name} className={`relative p-8 border ${plan.hot ? 'border-black bg-gray-50' : 'border-gray-200'} transition-all hover:-translate-y-2`}>
-                                {plan.hot && <div className="absolute top-0 right-0 bg-black text-white text-[10px] uppercase font-bold px-3 py-1 tracking-widest">Selected</div>}
-                                <h3 className="text-lg font-light tracking-widest uppercase mb-8">{plan.name}</h3>
-                                <div className="text-4xl font-bold mb-2">${plan.price}</div>
-                                <div className="text-xs text-gray-400 mb-12 tracking-widest uppercase">Starting at</div>
+                            <div key={plan.name} className="relative p-12 bg-white transition-all hover:bg-gray-50 group">
+                                {plan.hot && (
+                                    <div className="absolute top-0 inset-x-0 h-1 bg-black" />
+                                )}
+                                <h3 className="text-xs font-mono font-bold tracking-widest uppercase mb-8 text-gray-500">{plan.name}</h3>
+                                <div className="text-4xl font-light mb-2 tracking-tighter">${plan.price}</div>
+                                <div className="text-[10px] text-gray-400 mb-12 uppercase tracking-widest">USD / Project</div>
 
                                 <ul className="space-y-6 mb-12">
                                     {plan.features.map(f => (
                                         <li key={f} className="text-sm font-medium flex items-center gap-3">
-                                            <span className="w-1 h-1 bg-black rounded-full" /> {f}
+                                            <span className="w-1.5 h-1.5 border border-black rounded-full" />
+                                            <span className="text-gray-600">{f}</span>
                                         </li>
                                     ))}
                                 </ul>
 
-                                <button className={`w-full py-4 text-xs font-bold tracking-[0.2em] uppercase border transition-all ${plan.hot ? 'bg-black text-white border-black hover:bg-transparent hover:text-black' : 'border-black hover:bg-black hover:text-white'}`}>
-                                    Select
+                                <button className={`w-full py-4 text-[10px] font-mono font-bold tracking-[0.2em] uppercase border transition-all ${plan.hot ? 'bg-black text-white border-black hover:bg-white hover:text-black' : 'border-gray-200 hover:border-black'}`}>
+                                    Configure
                                 </button>
                             </div>
                         ))}
@@ -187,25 +208,29 @@ export const S24MinimalistLineArtPro = ({ deviceMode }: { deviceMode?: 'desktop'
                 </div>
             </section>
 
-            {/* FAQ - Accordion Minimal */}
-            <section className="py-32 px-6 bg-gray-50 border-b border-gray-100">
+            {/* FAQ - Schematic List */}
+            <section className="bg-white border-b border-gray-100" style={{ padding: `${spacing.section} ${spacing.lg}` }}>
                 <div className="max-w-3xl mx-auto">
-                    <h2 className="text-sm font-bold tracking-[0.3em] uppercase mb-16 text-center">Inquiries</h2>
+                    <div className="mb-16 pb-4 border-b border-black flex justify-between items-end">
+                        <h2 className="text-sm font-mono font-bold tracking-[0.3em] uppercase">System_Log</h2>
+                        <div className="text-xs font-mono text-gray-400">FAQ_MODULE</div>
+                    </div>
 
-                    <div className="space-y-0 divide-y divide-gray-200 border-y border-gray-200">
+                    <div className="space-y-0">
                         {[
-                            { q: "What is your design process?", a: "We strip away the non-essential. We start with content and structure, then apply visual form." },
-                            { q: "Do you work with startups?", a: "Yes, we partner with visionary founders who value design integrity." },
-                            { q: "Can you develop the backend too?", a: "We focus on frontend excellence but partner with backend experts." }
+                            { q: "PROTOCOL: How do you handle revisions?", a: "We operate in sprints. Each iteration is marked by a version number. Revisions are commits to the codebase." },
+                            { q: "PROTOCOL: Is the design scalable?", a: "Affirmative. We use atomic design principles. Components scale from mobile viewports to 8K displays without degradation." },
+                            { q: "PROTOCOL: What is the delivery format?", a: "You receive a complete Next.js repository, fully typed, linted, and ready for deployment." }
                         ].map((item, i) => (
-                            <div key={i} className="bg-transparent">
-                                <button className="w-full py-8 text-left flex justify-between items-center group"
+                            <div key={i} className="group border-b border-gray-100">
+                                <button className="w-full py-8 text-left flex justify-between items-center hover:bg-gray-50 transition-colors px-4 -mx-4"
                                     onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}>
-                                    <span className="text-lg font-medium transition-opacity group-hover:opacity-60">{item.q}</span>
-                                    <span className={`text-2xl font-light transition-transform duration-300 ${expandedFaq === i ? 'rotate-45' : ''}`}>+</span>
+                                    <span className="text-sm font-mono font-medium text-gray-800">{item.q}</span>
+                                    <span className={`text-xs font-mono transition-transform duration-300 ${expandedFaq === i ? 'rotate-180' : ''}`}>[ EXPAND ]</span>
                                 </button>
                                 {expandedFaq === i && (
-                                    <div className="pb-8 text-gray-500 font-light leading-relaxed animate-in fade-in slide-in-from-top-1">
+                                    <div className="pb-8 px-4 text-gray-500 font-light leading-loose text-sm pl-8 border-l border-black ml-4">
+                                        <span className="font-mono text-xs text-black block mb-2">{`>> RESPONSE:`}</span>
                                         {item.a}
                                     </div>
                                 )}
@@ -216,9 +241,9 @@ export const S24MinimalistLineArtPro = ({ deviceMode }: { deviceMode?: 'desktop'
             </section>
 
             {/* CTA */}
-            <section className="py-40 px-6 text-center">
+            <section className="text-center" style={{ padding: `${spacing.section} ${spacing.lg}` }}>
                 <div className="max-w-3xl mx-auto">
-                    <h2 className="text-4xl md:text-6xl font-thin tracking-tighter mb-12">
+                    <h2 className="font-thin tracking-tighter" style={{ fontSize: isMobile ? responsive.fontSize['4xl'] : responsive.fontSize['5xl'], marginBottom: spacing.lg }}>
                         Let's build something <br />
                         <span className="font-bold">timeless.</span>
                     </h2>

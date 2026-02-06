@@ -25,14 +25,14 @@ export const S16TerminalPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
     }, []);
 
     const colors = {
-        bg: '#08090A',
-        bgElevated: '#121417',
-        primary: '#00FF66', // Matrix Green
-        secondary: '#00E0FF', // Cyber Blue
-        accent: '#FFB000', // Amber
-        dim: '#00441B',
+        bg: '#0D0208', // Deep Void
+        bgElevated: '#1A0B0C',
+        primary: '#00FF41', // Phosphor Green
+        secondary: '#008F11', // Darker Green
+        accent: '#FF3C3C', // Error Red / Alert
+        dim: '#003B00',
         muted: '#1A2F25',
-        border: '#1E2D24',
+        border: '#33FF00',
     };
 
     const spacing = responsive.spacing;
@@ -96,86 +96,118 @@ export const S16TerminalPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
                 )}
             </header>
 
+            {/* ========== HERO ========== */}
             <section style={{ padding: `${spacing.section} ${spacing.lg}`, position: 'relative' }}>
                 <div className="max-w-6xl mx-auto">
-                    <div className="inline-block px-3 py-1 rounded-sm mb-8 border border-green-500/20 bg-green-500/5" style={{ color: colors.primary, fontSize: '11px', fontWeight: 700 }}>
-                        SYSTEM_AUTH_BYPASS: TRUE
+                    <div className="inline-block px-2 py-1 mb-8 border border-green-500/30 bg-green-500/10" style={{ color: colors.primary, fontSize: '11px', fontWeight: 700, fontFamily: 'monospace' }}>
+                        [SYSTEM_READY] :: KERNEL_V.9.0.1
                     </div>
+
                     <div className="grid gap-12" style={{ gridTemplateColumns: isMobile ? '1fr' : '1.2fr 0.8fr' }}>
                         <div>
-                            <div className="flex items-center gap-2 mb-4" style={{ color: colors.dim, fontSize: '13px' }}>
-                                <span style={{ color: colors.accent }}>┌─</span>
-                                <span>[guest@terminal-os]</span>
-                                <span style={{ color: colors.accent }}>─</span>
-                                <span>(~/home)</span>
-                            </div>
-                            <h1 style={{ fontSize: isMobile ? '32px' : '56px', fontWeight: 700, marginBottom: '32px', lineHeight: 1.1, letterSpacing: '-0.02em' }}>
-                                <span style={{ color: colors.accent }}>$</span> {typedText}
-                                <span className="animate-pulse bg-green-500/50" style={{ color: 'transparent' }}>_</span>
+                            {/* ASCII Art Logo (Hidden on mobile for space) */}
+                            {!isMobile && (
+                                <pre className="text-[10px] leading-[10px] mb-8 text-green-500/50 select-none whitespace-pre overflow-hidden">
+                                    {`
+  ████████╗███████╗██████╗ ███╗   ███╗██╗███╗   ██╗ █████╗ ██╗     
+  ╚══██╔══╝██╔════╝██╔══██╗████╗ ████║██║████╗  ██║██╔══██╗██║     
+     ██║   █████╗  ██████╔╝██╔████╔██║██║██╔██╗ ██║███████║██║     
+     ██║   ██╔══╝  ██╔══██╗██║╚██╔╝██║██║██║╚██╗██║██╔══██║██║     
+     ██║   ███████╗██║  ██║██║ ╚═╝ ██║██║██║ ╚████║██║  ██║███████╗
+     ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝
+`}
+                                </pre>
+                            )}
+
+                            <h1 style={{ fontSize: isMobile ? '32px' : '56px', fontWeight: 700, marginBottom: '32px', lineHeight: 1.1, letterSpacing: '-0.02em', textShadow: '0 0 10px rgba(0,255,65,0.5)' }}>
+                                <span style={{ color: colors.primary }}>usr@mnt:~$</span> {typedText}
+                                <span className="animate-pulse bg-green-500 inline-block w-4 h-12 ml-2 align-middle" />
                             </h1>
-                            <p style={{ fontSize: '18px', color: colors.primary, opacity: 0.8, marginBottom: '48px', maxWidth: '600px', lineHeight: 1.7 }}>
-                                {'>'} Zero abstraction. Maximum output. Build at the speed of thought with our CLI-first development environment.
+                            <p style={{ fontSize: '18px', color: colors.primary, opacity: 0.8, marginBottom: '48px', maxWidth: '600px', lineHeight: 1.7, borderLeft: `2px solid ${colors.dim}`, paddingLeft: '16px' }}>
+                                // A pure command-line interface for the modern web. <br />
+                                // Bypass the GUI. Access the mainframe directly.
                             </p>
                             <div className="flex gap-6" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
-                                <button className="flex items-center justify-center gap-3 px-8 py-4 rounded bg-green-500 text-black font-black transition-all hover:translate-y-[-2px] hover:shadow-[0_0_20px_rgba(0,255,102,0.4)] active:scale-95"
-                                    style={{ fontSize: '15px' }}>
-                                    $ npm install
+                                <button className="flex items-center justify-center gap-3 px-8 py-4 bg-green-500 text-black font-black transition-all hover:translate-y-[-2px] hover:shadow-[0_0_20px_rgba(0,255,65,0.6)] active:scale-95 uppercase tracking-widest text-sm">
+                                    [ EXECUTE_INIT ]
                                 </button>
-                                <button className="flex items-center justify-center gap-3 px-8 py-4 rounded border border-green-500 text-green-500 font-bold transition-all hover:bg-green-500/10 active:scale-95"
-                                    style={{ fontSize: '15px' }}>
-                                    $ man docs
+                                <button className="flex items-center justify-center gap-3 px-8 py-4 border border-green-500 text-green-500 font-bold transition-all hover:bg-green-500/10 active:scale-95 uppercase tracking-widest text-sm">
+                                    [ READ_MANUAL ]
                                 </button>
                             </div>
                         </div>
 
                         {!isMobile && (
-                            <div className="p-8 rounded-lg border border-green-500/20 relative group bg-black/40 backdrop-blur-sm" style={{ boxShadow: `inset 0 0 40px rgba(0,255,102,0.05)` }}>
-                                <div className="absolute top-2 left-4 flex gap-2">
-                                    <div className="w-2 h-2 rounded-full bg-red-500/50" />
-                                    <div className="w-2 h-2 rounded-full bg-yellow-500/50" />
-                                    <div className="w-2 h-2 rounded-full bg-green-500/50" />
+                            <div className="p-1 rounded-sm border border-green-500/30 relative group bg-black backdrop-blur-sm" style={{ boxShadow: `0 0 20px ${colors.dim}` }}>
+                                <div className="absolute top-0 left-0 w-full h-8 bg-green-500/10 border-b border-green-500/20 flex items-center px-4 justify-between">
+                                    <span className="text-xs text-green-500 font-bold">bash — 80x24</span>
+                                    <div className="flex gap-2">
+                                        <div className="w-2 h-2 rounded-full border border-green-500/50" />
+                                        <div className="w-2 h-2 rounded-full border border-green-500/50" />
+                                        <div className="w-2 h-2 rounded-full bg-green-500" />
+                                    </div>
                                 </div>
-                                <pre className="mt-8 text-[13px] leading-relaxed overflow-x-auto" style={{ color: colors.primary }}>
-                                    <code className="block">
-                                        <span style={{ color: colors.dim }}>1 </span><span style={{ color: colors.secondary }}>async function</span> <span style={{ color: colors.accent }}>initServer</span>() {'{'}<br />
-                                        <span style={{ color: colors.dim }}>2 </span>  <span style={{ color: colors.secondary }}>const</span> config = <span style={{ color: colors.secondary }}>await</span> fetchConfig();<br />
-                                        <span style={{ color: colors.dim }}>3 </span>  console.<span style={{ color: colors.accent }}>log</span>(<span style={{ color: '#E6DB74' }}>'Booting OS...'</span>);<br />
-                                        <span style={{ color: colors.dim }}>4 </span>  <span style={{ color: colors.secondary }}>return</span> config.<span style={{ color: colors.accent }}>start</span>();<br />
-                                        <span style={{ color: colors.dim }}>5 </span>{'}'}<br /><br />
-                                        <span style={{ color: colors.dim }}>6 </span><span style={{ color: colors.dim }}>// [SYSTEM] Listening on port 8080</span>
-                                    </code>
-                                </pre>
+                                <div className="mt-10 p-4 font-mono text-sm h-full overflow-hidden">
+                                    <div className="text-green-500/50 mb-2"># Initializing Protocol...</div>
+                                    <div className="text-green-500 mb-1">
+                                        <span className="text-white">{'>'}</span> npm install @terminal/core
+                                    </div>
+                                    <div className="text-white/70 mb-4">
+                                        + @terminal/core@4.2.0<br />
+                                        added 142 packages in 0.8s
+                                    </div>
+
+                                    <div className="text-green-500 mb-1">
+                                        <span className="text-white">{'>'}</span> ./deploy-mainframe.sh --force
+                                    </div>
+                                    <div className="text-primary animate-pulse">
+                                        [⣿⣿⣿⣿⣿⣿] 100% Uploading consciousness...
+                                    </div>
+                                </div>
+                                {/* CRT Scanline for the terminal window */}
+                                <div className="absolute inset-0 pointer-events-none opacity-10 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%]" />
                             </div>
                         )}
                     </div>
                 </div>
             </section>
 
+            {/* ========== FEATURES ========== */}
             <div className="max-w-6xl mx-auto">
                 <div className="flex items-center gap-2 mb-8" style={{ color: colors.dim, fontSize: '13px' }}>
                     <span style={{ color: colors.accent }}>┌─</span>
                     <span>[guest@terminal-os]</span>
                     <span style={{ color: colors.accent }}>─</span>
-                    <span>(~/features)</span>
+                    <span>(~/modules)</span>
                 </div>
 
-                <div className="grid gap-8" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)' }}>
+                <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)' }}>
                     {[
-                        { icon: Terminal, name: 'CORE_KERNEL', desc: 'Lightweight CLI architecture with zero GUI overhead for maximum performance.' },
-                        { icon: Code, name: 'HACKABLE_SRC', desc: 'Fully open system. Extend every command with custom JavaScript modules.' },
-                        { icon: Cpu, name: 'LOW_LATENCY', desc: 'Optimized execution engine with < 5ms response time across all operations.' },
-                        { icon: Zap, name: 'PLUGIN_SYST', desc: 'Atomic plugin architecture. Hot-reload modules without restarting the shell.' },
-                    ].map((item) => (
-                        <div key={item.name} className="group p-8 rounded-lg border border-white/5 transition-all hover:border-green-500/30 hover:bg-green-500/[0.02]"
-                            style={{ backgroundColor: colors.bgElevated }}>
-                            <div className="flex items-center justify-between mb-6">
-                                <div className="flex items-center gap-4">
-                                    <item.icon size={20} className="group-hover:animate-pulse" />
-                                    <span style={{ fontSize: '16px', fontWeight: 700, letterSpacing: '0.1em' }}>{item.name}</span>
+                        { icon: Terminal, name: 'KERNEL_CORE', desc: 'Direct hardware access. 0ms latency processing.', status: 'ACTIVE' },
+                        { icon: Code, name: 'OPEN_SOURCE', desc: 'MIT Licensed. Fork, modify, and deploy at will.', status: 'PUBLIC' },
+                        { icon: Cpu, name: 'MULTI_THREAD', desc: '128-core parallel execution pipeline enabled.', status: 'READY' },
+                        { icon: Zap, name: 'NET_Runner', desc: 'Gibson-grade encryption protocols active.', status: 'SECURE' },
+                    ].map((item, idx) => (
+                        <div key={item.name} className="group p-6 border border-green-500/30 transition-all hover:bg-green-500/10 hover:border-green-500"
+                            style={{ backgroundColor: 'rgba(0,20,0,0.4)', position: 'relative', overflow: 'hidden' }}>
+                            {/* Corner markers */}
+                            <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-green-500" />
+                            <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-green-500" />
+                            <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-green-500" />
+                            <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-green-500" />
+
+                            <div className="flex items-center justify-between mb-4">
+                                <div className="flex items-center gap-3">
+                                    <span style={{ color: colors.primary }}>{`0${idx + 1}`}</span>
+                                    <span style={{ fontSize: '16px', fontWeight: 700, letterSpacing: '0.1em', color: 'white' }}>{item.name}</span>
                                 </div>
-                                <span style={{ fontSize: '10px', color: colors.dim }}>[STATUS: OK]</span>
+                                <span className={`text-[10px] px-2 py-0.5 border ${item.status === 'SECURE' ? 'border-red-500 text-red-500' : 'border-green-500 text-green-500'}`}>
+                                    [{item.status}]
+                                </span>
                             </div>
-                            <p style={{ fontSize: '14px', color: colors.primary, opacity: 0.7, lineHeight: 1.6 }}>{`// ${item.desc}`}</p>
+                            <p style={{ fontSize: '14px', color: colors.primary, opacity: 0.7, lineHeight: 1.6, fontFamily: 'monospace' }}>
+                                {`>> ${item.desc}`}
+                            </p>
                         </div>
                     ))}
                 </div>
@@ -188,42 +220,40 @@ export const S16TerminalPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
                         <span style={{ color: colors.accent }}>┌─</span>
                         <span>[guest@terminal-os]</span>
                         <span style={{ color: colors.accent }}>─</span>
-                        <span>(~/pricing)</span>
+                        <span>(~/subscriptions)</span>
                     </div>
 
-                    <div className="grid gap-8" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
+                    <div className="grid gap-0 border border-green-500/20" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
                         {[
-                            { name: 'STDIO', price: '$0', cmd: 'apt-get install oss', features: ['Core CLI', 'Basic plugins', 'Community support'] },
-                            { name: 'SUDO', price: '$29', cmd: 'apt-get install pro', features: ['Advanced shell', 'Priority support', 'Commercial license', 'Custom aliasing'] },
-                            { name: 'ROOT', price: 'Custom', cmd: 'contact --sales', features: ['Cluster management', 'Dedicated support', 'Hotline access', 'Custom kernel'] },
+                            { name: 'LOCALHOST', price: '$0.00', cmd: 'apt-get install free', features: ['Single User', '128MB Storage', 'Community Wiki'] },
+                            { name: 'SYSADMIN', price: '$29.99', isRec: true, cmd: 'sudo apt-get install pro', features: ['Root Access', 'Unlimited Storage', 'Priority Ticket'] },
+                            { name: 'MAINFRAME', price: 'CUSTOM', cmd: 'contact --enterprise', features: ['Cluster Deploy', '24/7 Hotline', 'Custom Kernel'] },
                         ].map((plan, i) => (
-                            <div key={plan.name} className="relative group p-10 border transition-all hover:bg-green-500/[0.02]"
+                            <div key={plan.name} className="relative group p-8 md:border-r border-green-500/20 last:border-r-0 hover:bg-green-500/5 transition-colors"
                                 style={{
-                                    backgroundColor: colors.bgElevated,
-                                    borderColor: i === 1 ? colors.primary : colors.border,
-                                    boxShadow: i === 1 ? `0 0 30px ${colors.primary}10` : 'none'
+                                    backgroundColor: i === 1 ? 'rgba(0, 255, 65, 0.03)' : 'transparent',
                                 }}>
                                 {i === 1 && (
-                                    <div className="absolute -top-3 left-6 px-3 py-1 bg-green-500 text-black text-[10px] font-black italic">RECOMMENDED</div>
+                                    <div className="absolute top-0 left-0 w-full h-1 bg-green-500 animate-pulse" />
                                 )}
-                                <div className="mb-8">
-                                    <div style={{ fontSize: '14px', fontWeight: 700, color: colors.accent, marginBottom: '8px' }}>{plan.name}</div>
-                                    <div className="flex items-baseline gap-2">
-                                        <span style={{ fontSize: '48px', fontWeight: 700 }}>{plan.price}</span>
-                                        {plan.price !== 'Custom' && <span style={{ fontSize: '14px', color: colors.dim }}>/mo</span>}
+                                <div className="mb-8 font-mono text-center">
+                                    <div style={{ fontSize: '12px', color: colors.dim, marginBottom: '8px' }}>[{plan.name}_TIER]</div>
+                                    <div className="flex items-center justify-center gap-2">
+                                        <span style={{ fontSize: '32px', fontWeight: 700, color: i === 1 ? colors.primary : 'white' }}>{plan.price}</span>
+                                        {plan.price !== 'CUSTOM' && <span style={{ fontSize: '12px', color: colors.dim }}>/mo</span>}
                                     </div>
                                 </div>
-                                <ul className="space-y-4 mb-10">
+                                <ul className="space-y-4 mb-10 pl-4 border-l border-green-500/10">
                                     {plan.features.map(f => (
-                                        <li key={f} className="flex items-center gap-3" style={{ fontSize: '13px', color: colors.primary, opacity: 0.8 }}>
-                                            <span style={{ color: colors.accent }}>{'>'}</span>
+                                        <li key={f} className="flex items-center gap-3" style={{ fontSize: '12px', color: colors.primary, opacity: 0.9 }}>
+                                            <span style={{ color: colors.accent }}>+</span>
                                             {f}
                                         </li>
                                     ))}
                                 </ul>
-                                <button className="w-full py-4 border border-green-500/50 text-green-500 font-bold transition-all hover:bg-green-500 hover:text-black active:scale-95"
-                                    style={{ fontSize: '13px' }}>
-                                    {`$ ${plan.cmd}`}
+                                <button className="w-full py-3 border border-green-500 text-green-500 font-bold transition-all hover:bg-green-500 hover:text-black active:scale-95 text-xs tracking-wider uppercase">
+                                    <span className="animate-pulse mr-2">{'>'}</span>
+                                    {plan.cmd}
                                 </button>
                             </div>
                         ))}
@@ -231,34 +261,37 @@ export const S16TerminalPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
                 </div>
             </section>
 
-            <div className="max-w-3xl mx-auto">
-                <div className="flex items-center gap-2 mb-12" style={{ color: colors.dim, fontSize: '13px' }}>
+            <div className="max-w-3xl mx-auto mb-20">
+                <div className="flex items-center gap-2 mb-8" style={{ color: colors.dim, fontSize: '13px' }}>
                     <span style={{ color: colors.accent }}>┌─</span>
                     <span>[guest@terminal-os]</span>
                     <span style={{ color: colors.accent }}>─</span>
-                    <span>(~/faq)</span>
+                    <span>(~/man/faq)</span>
                 </div>
 
-                <div className="space-y-4">
-                    {[
-                        { q: 'SYS_CAPABILITIES?', a: 'TerminalOS operates as a pure CLI wrapper. Supports all major shells including Bash, Zsh, and Fish.' },
-                        { q: 'CROSS_PLATFORM?', a: 'Native support for Linux and MacOS. Windows supported via WSL2 or native PowerShell.' },
-                        { q: 'GUI_MODE_SUPPORT?', a: 'Denied. Our philosophy centers on pure terminal efficiency. No graphical menus provided.' },
-                    ].map((item, i) => (
-                        <div key={i} className="border border-white/5 overflow-hidden" style={{ backgroundColor: colors.bgElevated }}>
-                            <button className="w-full flex items-center justify-between p-6 text-left transition-all hover:bg-green-500/5" onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}>
-                                <span className="font-bold uppercase tracking-wider" style={{ fontSize: '14px' }}>[?] {item.q}</span>
-                                <div className="transition-transform duration-300" style={{ transform: expandedFaq === i ? 'rotate(180deg)' : 'rotate(0deg)' }}>
-                                    <ChevronDown size={18} />
-                                </div>
-                            </button>
-                            {expandedFaq === i && (
-                                <div className="animate-in fade-in slide-in-from-top-2" style={{ padding: '0 24px 24px', fontSize: '14px', color: colors.primary, opacity: 0.8, lineHeight: 1.6 }}>
-                                    {`&gt;&gt; ${item.a}`}
-                                </div>
-                            )}
-                        </div>
-                    ))}
+                <div className="border border-green-500/20 bg-black/50 p-6 font-mono text-sm">
+                    <div className="mb-4 text-green-500 opacity-50 border-b border-green-500/20 pb-2">
+                        MANUAL PAGE: FAQ(1) -- SECTION 1: GENERAL
+                    </div>
+
+                    <div className="space-y-6">
+                        {[
+                            { q: 'NAME', a: 'TerminalOS -- A pure CLI wrapper operating system.' },
+                            { q: 'SYNOPSIS', a: 'terminal [OPTION]... [FILE]...' },
+                            { q: 'DESCRIPTION', a: 'TerminalOS is designed for efficiency. No GUIs. No bloat. Just pure input/output streams.' },
+                            { q: 'COMPATIBILITY', a: 'Full support for POSIX standards. Works on all major architectures (x86, ARM).' },
+                            { q: 'BUGS', a: 'Report bugs to /dev/null or our issue tracker.' },
+                        ].map((item, i) => (
+                            <div key={i} className="group">
+                                <div className="font-bold text-white mb-1" style={{ fontSize: '13px' }}>{item.q}</div>
+                                <div className="pl-8 text-green-500 opacity-80 leading-relaxed" style={{ fontSize: '13px' }}>{item.a}</div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="mt-8 pt-4 border-t border-green-500/20 text-xs text-green-500/40 text-center animate-pulse">
+                        PRESS [Q] TO QUIT
+                    </div>
                 </div>
             </div>
 

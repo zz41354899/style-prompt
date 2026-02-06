@@ -9,13 +9,13 @@ export const S18RetroPixelUIPro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
     const isMobile = responsive.nav.showMobile;
 
     const colors = {
-        bg: '#0A0612', // Deep Space
-        bgElevated: '#1A1225',
-        primary: '#00F2FF', // Arcade Cyan
-        secondary: '#FF00D4', // Pixel Magenta
-        accent: '#FFF200', // Power-up Yellow
-        text: '#F0F0F0',
-        border: '#FFFFFF20',
+        bg: '#202028', // Dark Grey Cartridge
+        bgElevated: '#2D2D35',
+        primary: '#3BFFAC', // Mint Green (GameBoy Light)
+        secondary: '#FF0055', // Rad Red
+        accent: '#FFCC00', // Pac-Man Yellow
+        text: '#E0E0E0',
+        border: '#000000',
     };
 
     const spacing = responsive.spacing;
@@ -92,57 +92,60 @@ export const S18RetroPixelUIPro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
                 )}
             </header>
 
+            {/* ========== HERO ========== */}
             <section style={{ padding: `100px ${spacing.lg}`, position: 'relative' }}>
                 <div className="max-w-6xl mx-auto flex flex-col items-center text-center relative z-10">
                     <div className="mb-12 animate-bounce-slow">
-                        <div className="inline-block p-4 border-4 border-dashed border-primary/40 bg-black/40" style={{ boxShadow: `0 0 20px ${colors.primary}20` }}>
-                            <span style={{ fontSize: '14px', color: colors.accent, letterSpacing: '0.2em' }}>/// PLAYER_ONE_READY ///</span>
+                        <div className="inline-block px-6 py-2 bg-black border-4 border-white/20" style={{ boxShadow: `6px 6px 0 ${colors.secondary}` }}>
+                            <span style={{ fontSize: '16px', color: colors.primary, letterSpacing: '0.2em' }}>/// SYSTEM_READY ///</span>
                         </div>
                     </div>
 
-                    <h1 style={{ fontSize: isMobile ? '40px' : '72px', fontFamily: '"Press Start 2P", cursive', lineHeight: 1.4, marginBottom: '40px', letterSpacing: '-0.1em' }}>
-                        <span style={{ color: colors.secondary, textShadow: `4px 4px 0 #000, ${neonMagenta}` }}>NEXT_GEN</span><br />
-                        <span style={{ color: colors.primary, textShadow: `4px 4px 0 #000, ${neonCyan}` }}>8-BIT_ENGINE</span>
+                    <h1 style={{ fontSize: isMobile ? '40px' : '88px', fontFamily: '"Press Start 2P", cursive', lineHeight: 1.2, marginBottom: '40px', letterSpacing: '-0.05em', textShadow: `6px 6px 0 ${colors.bg}, 6px 6px 0 ${colors.secondary}` }}>
+                        <span className="block mb-4" style={{ color: '#FFF' }}>INSERT</span>
+                        <span style={{ color: colors.accent }}>COIN</span> TO START
                     </h1>
 
-                    <p style={{ fontSize: '20px', color: colors.text, opacity: 0.8, marginBottom: '56px', maxWidth: '600px', lineHeight: 1.8, fontWeight: 500 }}>
-                        ELEVATE YOUR PIXELS TO THE NEXT LEVEL. CRYSTAL CLEAR ARCADE PERFORMANCE ON EVERY DEVICE.
+                    <p style={{ fontSize: '24px', color: colors.text, marginBottom: '64px', maxWidth: '640px', lineHeight: 1.6, fontFamily: '"VT323", monospace' }}>
+                        &gt; A RETROGRADE DESIGN SYSTEM FOR THE MODERN WEB. <span className="animate-pulse">_</span>
                     </p>
 
                     <div className="flex gap-8 items-center" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
-                        <button className="group relative px-10 py-5 bg-cyan-500 font-bold hover:translate-x-1 hover:translate-y-1 active:translate-y-2 transition-all"
+                        <button className="group relative px-12 py-6 bg-primary font-bold hover:translate-y-2 hover:shadow-none transition-all"
                             style={{
-                                backgroundColor: colors.primary,
-                                color: '#000',
-                                boxShadow: `4px 4px 0 #000, 8px 8px 0 ${colors.secondary}80`,
-                                fontSize: '18px'
+                                backgroundColor: colors.secondary,
+                                color: '#FFF',
+                                border: '4px solid #000',
+                                boxShadow: `8px 8px 0 #000`,
+                                fontSize: '20px',
+                                fontFamily: '"Press Start 2P", cursive'
                             }}>
-                            <div className="flex items-center gap-4">
-                                <span>INSERT_COIN</span>
-                                <ArrowRight size={20} />
-                            </div>
+                            START GAME
                         </button>
-                        <button className="px-10 py-5 border-4 transition-all hover:bg-white/5"
+                        <button className="px-12 py-6 border-4 transition-all hover:bg-white/10"
                             style={{
-                                borderColor: colors.secondary,
-                                color: colors.secondary,
-                                boxShadow: `4px 4px 0 #000`,
-                                fontSize: '18px'
+                                borderColor: '#FFF',
+                                color: '#FFF',
+                                border: '4px solid #FFF',
+                                boxShadow: `8px 8px 0 #000`,
+                                fontSize: '20px',
+                                fontFamily: '"Press Start 2P", cursive'
                             }}>
-                            VIEW_DEMO
+                            OPTIONS
                         </button>
                     </div>
 
-                    <div className="mt-24 grid grid-cols-3 gap-12 border-4 border-white/5 p-8 bg-black/20 backdrop-blur-sm">
-                        {['FPS: 144', 'GPU: 100%', 'MEM: OK'].map(val => (
-                            <div key={val} className="text-xs font-bold tracking-widest opacity-60">{val}</div>
+                    <div className="mt-24 p-6 bg-black/50 border-4 border-white/10 backdrop-blur-md rounded-sm inline-flex gap-12">
+                        {['HIGH_SCORE: 999999', 'WORLD: 1-1', 'TIME: 042'].map(val => (
+                            <div key={val} className="text-xl font-bold tracking-widest text-white/80 font-mono">{val}</div>
                         ))}
                     </div>
                 </div>
             </section>
 
             {/* ========== STATS ========== */}
-            <section style={{ padding: '64px 24px', backgroundColor: colors.bgElevated, borderTop: `4px solid ${colors.secondary}`, borderBottom: `4px solid ${colors.primary}`, boxShadow: `inset 0 0 50px rgba(0,0,0,0.5)` }}>
+            {/* ========== STATS ========== */}
+            <section style={{ padding: '64px 24px', backgroundColor: colors.bgElevated, borderTop: `4px solid #FFF`, borderBottom: `4px solid #FFF` }}>
                 <div className="max-w-6xl mx-auto grid gap-8" style={{ gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)' }}>
                     {[
                         { icon: Trophy, value: '999K', label: 'HI_SCORE', color: colors.accent },
@@ -150,45 +153,49 @@ export const S18RetroPixelUIPro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
                         { icon: Zap, value: 'MAX', label: 'POWER', color: colors.primary },
                         { icon: Gamepad2, value: '1UP', label: 'LIVES', color: '#00FF00' },
                     ].map((stat) => (
-                        <div key={stat.label} className="group text-center p-8 bg-black/40 border-2 border-white/10 transition-all hover:border-white/30 hover:-translate-y-2 active:translate-y-0"
-                            style={{ boxShadow: `4px 4px 0 #000` }}>
+                        <div key={stat.label} className="group text-center p-8 bg-black border-4 border-white/10 transition-all hover:scale-105 active:scale-95"
+                            style={{ boxShadow: `8px 8px 0 rgba(0,0,0,0.5)` }}>
                             <div className="mb-6 flex justify-center">
-                                <div className="p-3 border-2 border-dashed border-white/20 group-hover:border-white/40 transition-all">
-                                    <stat.icon size={28} style={{ color: stat.color, filter: `drop-shadow(0 0 8px ${stat.color}80)` }} />
-                                </div>
+                                <stat.icon size={32} style={{ color: stat.color }} className="animate-pulse" />
                             </div>
-                            <div className="font-black mb-2 tracking-tighter" style={{ fontSize: '32px', color: stat.color, textShadow: `2px 2px 0 #000` }}>{stat.value}</div>
-                            <div className="font-bold tracking-[0.2em] opacity-50 uppercase" style={{ fontSize: '12px' }}>{stat.label}</div>
+                            <div className="font-black mb-2 tracking-widest font-mono" style={{ fontSize: '32px', color: stat.color, textShadow: `2px 2px 0 #000` }}>{stat.value}</div>
+                            <div className="font-bold tracking-[0.2em] opacity-50 uppercase" style={{ fontSize: '14px', fontFamily: '"Press Start 2P", cursive' }}>{stat.label}</div>
                         </div>
                     ))}
                 </div>
             </section>
 
             {/* ========== FEATURES ========== */}
+            {/* ========== FEATURES ========== */}
             <section style={{ padding: `${spacing.section} ${spacing.lg}` }}>
                 <div className="max-w-6xl mx-auto">
                     <div className="text-center mb-24">
-                        <div className="inline-block px-4 py-2 border-2 border-primary mb-6" style={{ boxShadow: `4px 4px 0 ${colors.secondary}` }}>
-                            <span className="font-black tracking-widest text-xs" style={{ color: colors.primary }}>POWER_UPS_AVAILABLE</span>
+                        <div className="inline-block px-4 py-2 bg-white text-black mb-6" style={{ boxShadow: `8px 8px 0 ${colors.secondary}` }}>
+                            <span className="font-black tracking-widest text-xs font-mono">POWER_UPS_AVAILABLE</span>
                         </div>
-                        <h2 style={{ fontSize: isMobile ? '32px' : '48px', fontFamily: '"Press Start 2P", cursive', lineHeight: 1.2 }}>CORE_SYSTEMS</h2>
+                        <h2 style={{ fontSize: isMobile ? '32px' : '64px', fontFamily: '"Press Start 2P", cursive', lineHeight: 1.2, textShadow: `4px 4px 0 ${colors.secondary}` }}>CORE_SYSTEMS</h2>
                     </div>
 
-                    <div className="grid gap-10" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)' }}>
+                    <div className="grid gap-12" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)' }}>
                         {[
-                            { title: 'PIXEL_GRID', desc: 'PERFECT 8X8 ALIGNMENT ENGINE FOR SUB-PIXEL PRECISION.', color: colors.primary, icon: Zap },
-                            { title: 'NEON_RENDER', desc: 'HIGH-INTENSITY GLOW SHADERS FOR ARCADE-PERFECT VISUALS.', color: colors.secondary, icon: Heart },
-                            { title: 'CHIP_OS', desc: 'FASTEST KERNEL EXECUTION IN THE RETRO ECOSYSTEM.', color: colors.accent, icon: Trophy },
-                            { title: 'SPRITE_MAX', desc: 'DYNAMIC OBJECT LIFECYCLE MANAGEMENT AND ANIMATION.', color: '#00FF00', icon: Gamepad2 },
+                            { title: 'PIXEL_PERFECT', desc: 'Auto-aligns elements to the 8px grid.', color: colors.primary, icon: Zap },
+                            { title: 'CRT_SHADER', desc: 'Simulates phosphors and scanlines.', color: colors.secondary, icon: Heart },
+                            { title: 'CHIP_TUNES', desc: 'Audio engine for UI interactions.', color: colors.accent, icon: Trophy },
+                            { title: 'SPRITE_LIB', desc: 'Includes 500+ 8-bit icons.', color: '#00FF00', icon: Gamepad2 },
                         ].map((item) => (
-                            <div key={item.title} className="group relative p-10 bg-black/20 border-4 border-white/5 transition-all hover:bg-white/5 hover:border-white/10"
-                                style={{ boxShadow: `8px 8px 0 #000` }}>
-                                <div className="absolute top-0 right-0 w-2 h-2 bg-white/20 group-hover:bg-primary transition-all" style={{ backgroundColor: item.color }} />
-                                <div className="mb-8 p-4 inline-block bg-black/40 border-2 border-white/10" style={{ borderColor: `${item.color}40` }}>
-                                    <item.icon size={32} style={{ color: item.color }} />
+                            <div key={item.title} className="group relative bg-[#111] border-4 border-white/20 p-2 transition-all hover:-translate-y-2"
+                                style={{ boxShadow: `12px 12px 0 #000` }}>
+                                {/* Cartridge Label */}
+                                <div className="h-full p-8 border-2 border-dashed border-white/10 flex flex-col items-start relative overflow-hidden">
+                                    <div className="absolute top-0 right-0 p-2 bg-white text-black font-black text-xs">ROM_01</div>
+                                    <div className="mb-6 p-4 bg-black border-2 border-white/20">
+                                        <item.icon size={40} style={{ color: item.color }} />
+                                    </div>
+                                    <h3 className="font-bold mb-4 font-mono text-3xl" style={{ color: item.color }}>{item.title}</h3>
+                                    <p style={{ fontSize: '18px', lineHeight: 1.6, color: '#AAA' }}>{item.desc}</p>
                                 </div>
-                                <h3 className="font-bold mb-4" style={{ fontSize: '24px', letterSpacing: '0.1em', color: item.color }}>{item.title}</h3>
-                                <p style={{ fontSize: '16px', lineHeight: 1.8, opacity: 0.6 }}>{item.desc}</p>
+                                {/* Cartridge Bottom */}
+                                <div className="absolute bottom-0 left-0 w-full h-2 bg-black opacity-50" />
                             </div>
                         ))}
                     </div>
@@ -196,48 +203,45 @@ export const S18RetroPixelUIPro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
             </section>
 
             {/* ========== PRICING ========== */}
+            {/* ========== PRICING ========== */}
             <section style={{ padding: `${spacing.section} ${spacing.lg}`, backgroundColor: colors.bgElevated, borderTop: `4px solid ${colors.primary}`, borderBottom: `4px solid ${colors.secondary}` }}>
                 <div className="max-w-6xl mx-auto">
                     <div className="text-center mb-24">
-                        <h2 style={{ fontSize: isMobile ? '32px' : '48px', fontFamily: '"Press Start 2P", cursive' }}>STORE_MODE</h2>
+                        <h2 style={{ fontSize: isMobile ? '32px' : '48px', fontFamily: '"Press Start 2P", cursive', textShadow: '4px 4px 0 #000' }}>SELECT WORLD</h2>
                     </div>
 
                     <div className="grid gap-8" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
                         {[
-                            { name: 'GUEST_PASS', price: 'FREE', color: colors.primary, feat: ['Limited Play', 'Ads', 'Public Sockets'] },
-                            { name: 'PRO_PLAYER', price: '$29', color: colors.secondary, feat: ['Unlimited Credits', 'No Ads', 'Private Lobby'], hot: true },
-                            { name: 'BOSS_LEVEL', price: '$99', color: colors.accent, feat: ['VIP Servers', 'Source Code', 'Dev Support'] },
+                            { name: 'WORLD 1-1', price: 'FREE', color: colors.primary, feat: ['2 Players', '3 Lives', 'No Saves'] },
+                            { name: 'WORLD 4-1', price: '$29', color: colors.secondary, feat: ['Multiplayer', '∞ Lives', 'Save State'], hot: true },
+                            { name: 'BOSS RUSH', price: '$99', color: colors.accent, feat: ['Debug Mode', 'All Assets', 'God Mode'] },
                         ].map((plan, i) => (
-                            <div key={plan.name} className="flex flex-col relative"
+                            <div key={plan.name} className="flex flex-col relative bg-black p-2 transition-all hover:-translate-y-4"
                                 style={{
-                                    padding: '64px 40px',
-                                    backgroundColor: plan.hot ? colors.bg : 'transparent',
-                                    border: `4px solid ${plan.hot ? plan.color : 'rgba(255,255,255,0.1)'}`,
-                                    boxShadow: plan.hot ? `0 0 30px ${plan.color}20, 8px 8px 0 #000` : `8px 8px 0 #000`
+                                    boxShadow: plan.hot ? `0 0 0 4px ${plan.color}, 8px 8px 0 #000` : `4px 4px 0 #000`
                                 }}>
-                                {plan.hot && <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 py-2 bg-white text-black font-black text-xs tracking-widest whitespace-nowrap border-2 border-black animate-pulse shadow-sm">MOST_POPULAR</div>}
-                                <div className="mb-8 font-black tracking-widest text-center" style={{ fontSize: '18px', color: plan.color }}>{plan.name}</div>
-                                <div className="mb-12 text-center">
-                                    <span style={{ fontSize: '48px', fontWeight: 900 }}>{plan.price}</span>
-                                    <span style={{ fontSize: '14px', opacity: 0.4, marginLeft: '4px' }}>/CREDIT</span>
+                                <div className={`h-full p-8 border-4 flex flex-col items-center text-center`} style={{ borderColor: plan.color }}>
+                                    {plan.hot && <span className="absolute -top-6 bg-white text-black px-4 py-1 font-black text-xs border-4 border-black animate-bounce">BEST VALUE</span>}
+
+                                    <h3 className="font-black mb-8" style={{ fontSize: '24px', color: plan.color, fontFamily: '"Press Start 2P", cursive' }}>{plan.name}</h3>
+                                    <div className="mb-8">
+                                        <div style={{ fontSize: '48px', fontWeight: 900, textShadow: `4px 4px 0 #333` }}>{plan.price}</div>
+                                    </div>
+
+                                    <ul className="space-y-4 mb-12 w-full text-left">
+                                        {plan.feat.map((f) => (
+                                            <li key={f} className="flex items-center gap-3 font-mono text-lg text-white/80">
+                                                <div className="w-2 h-2" style={{ backgroundColor: plan.color }} />
+                                                {f}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <button className="w-full py-4 text-black font-black font-mono text-xl hover:opacity-80 active:translate-y-1 transition-all"
+                                        style={{ backgroundColor: plan.color, boxShadow: `4px 4px 0 #333` }}>
+                                        SELECT
+                                    </button>
                                 </div>
-                                <ul className="space-y-6 mb-16 flex-grow">
-                                    {plan.feat.map((f) => (
-                                        <li key={f} className="flex items-center gap-4 font-bold" style={{ fontSize: '14px' }}>
-                                            <ArrowRight size={16} style={{ color: plan.color }} />
-                                            <span className="opacity-70">{f}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                                <button className="w-full py-5 font-bold transition-all hover:scale-105 active:scale-95"
-                                    style={{
-                                        backgroundColor: plan.color,
-                                        color: '#000',
-                                        boxShadow: `4px 4px 0 #000`,
-                                        fontSize: '16px'
-                                    }}>
-                                    PURCHASE_COINS
-                                </button>
                             </div>
                         ))}
                     </div>
@@ -245,34 +249,33 @@ export const S18RetroPixelUIPro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
             </section>
 
             {/* ========== FAQ ========== */}
+            {/* ========== FAQ ========== */}
             <section style={{ padding: `${spacing.section} ${spacing.lg}` }}>
                 <div className="max-w-4xl mx-auto">
                     <div className="text-center mb-24">
-                        <h2 style={{ fontSize: isMobile ? '32px' : '48px', fontFamily: '"Press Start 2P", cursive' }}>HELP_MENU</h2>
+                        <h2 style={{ fontSize: isMobile ? '32px' : '48px', fontFamily: '"Press Start 2P", cursive' }}>HINT_SYSTEM</h2>
                     </div>
 
-                    <div className="border-4 border-white/5 bg-black/20 backdrop-blur-md" style={{ boxShadow: `8px 8px 0 #000` }}>
-                        {[
-                            { q: 'WHAT IS PIXEL_UI_PRO?', a: 'A HIGH-PERFORMANCE REACT DESIGN SYSTEM BUILT ON 8-BIT PRINCIPLES AND NEON AESTHETICS.' },
-                            { q: 'COMPATIBILITY_MODE?', a: 'FULLY SUPPORTS ALL MODERN BROWSERS WHILE MAINTAINING RETRO VISUAL FIDELITY.' },
-                            { q: 'INPUT_SYSTEMS?', a: 'NATIVE KEYBOARD AND GAMEPAD SUPPORT INCLUDED. PLUG AND PLAY READY.' },
-                        ].map((item, i) => (
-                            <div key={i} className="transition-all hover:bg-white/5 group"
-                                style={{ borderBottom: i < 2 ? `4px solid rgba(255,255,255,0.05)` : 'none' }}>
-                                <button className="w-full flex items-center justify-between p-10 text-left" onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}>
-                                    <span className="font-bold group-hover:text-primary transition-colors" style={{ fontSize: '18px', color: colors.text }}>{`[0${i + 1}] ${item.q}`}</span>
-                                    <div className="w-10 h-10 border-2 border-white/10 flex items-center justify-center group-hover:border-primary transition-all overflow-hidden"
-                                        style={{ transform: expandedFaq === i ? 'rotate(180deg)' : 'none' }}>
-                                        <ChevronDown size={24} className="group-hover:text-primary" />
+                    <div className="bg-black/80 border-4 border-white p-2" style={{ boxShadow: `8px 8px 0 #000` }}>
+                        <div className="border-2 border-white/20 p-8">
+                            {[
+                                { q: 'HOW_TO_PLAY?', a: 'JUST CLICK AND DRAG. THE SYSTEM IS INTUITIVE LIKE AN NES CONTROLLER.' },
+                                { q: 'IS_IT_RETRO?', a: 'YES. WE USE AUTHENTIC 8-BIT COLOR PALETTES AND FONTS.' },
+                                { q: 'CHEAT_CODES?', a: 'TRY KONAMI CODE ON THE DASHBOARD :D' },
+                            ].map((item, i) => (
+                                <div key={i} className="mb-8 last:mb-0">
+                                    <div className="flex items-start gap-4 mb-2 cursor-pointer hover:text-primary transition-colors" onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}>
+                                        <div className="mt-1 animate-pulse" style={{ color: colors.accent }}>►</div>
+                                        <div className="font-bold font-mono text-xl">{item.q}</div>
                                     </div>
-                                </button>
-                                {expandedFaq === i && (
-                                    <div className="animate-in fade-in slide-in-from-top-4" style={{ padding: '0 40px 40px', fontSize: '16px', lineHeight: 1.8, opacity: 0.5 }}>
-                                        {item.a}
-                                    </div>
-                                )}
-                            </div>
-                        ))}
+                                    {expandedFaq === i && (
+                                        <div className="pl-8 text-lg font-mono text-white/60 typing-effect">
+                                            {item.a}
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </section>

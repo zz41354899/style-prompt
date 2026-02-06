@@ -9,16 +9,21 @@ export const S15NeumorphismPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
     const isMobile = responsive.nav.showMobile;
 
     const colors = {
-        bg: '#F0F2F5',
-        text: { primary: '#3C4858', secondary: '#6B7C93', muted: '#A0AEC0', inverse: '#FFFFFF' },
-        brand: { primary: '#4F46E5', secondary: '#7C3AED', accent: '#F59E0B' },
+        bg: '#EBECF0', // Classic Neumorphic Base
+        text: { primary: '#4A5568', secondary: '#718096', muted: '#A0AEC0', inverse: '#FFFFFF' },
+        brand: {
+            primary: '#6C5CE7', // Soft Purple
+            secondary: '#a29bfe',
+            accent: '#00CEC9' // Teal
+        },
     };
 
     const shadow = {
-        raised: '8px 8px 16px #d1d9e6, -8px -8px 16px #ffffff',
-        raisedSmall: '4px 4px 8px #d1d9e6, -4px -4px 8px #ffffff',
-        inset: 'inset 6px 6px 12px #d1d9e6, inset -6px -6px 12px #ffffff',
-        pressed: 'inset 3px 3px 6px #d1d9e6, inset -3px -3px 6px #ffffff',
+        raised: '6px 6px 12px #b8b9be, -6px -6px 12px #ffffff',
+        raisedSmall: '3px 3px 6px #b8b9be, -3px -3px 6px #ffffff',
+        inset: 'inset 4px 4px 8px #b8b9be, inset -4px -4px 8px #ffffff',
+        pressed: 'inset 2px 2px 4px #b8b9be, inset -2px -2px 4px #ffffff',
+        clay: '8px 8px 16px #b8b9be, -8px -8px 16px #ffffff, inset 4px 4px 8px rgba(255,255,255,0.5), inset -4px -4px 8px rgba(0,0,0,0.05)'
     };
 
     const spacing = responsive.spacing;
@@ -86,41 +91,48 @@ export const S15NeumorphismPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
                 <div className="max-w-6xl mx-auto">
                     <div className="grid items-center" style={{ gridTemplateColumns: isMobile ? '1fr' : '1.1fr 0.9fr', gap: isMobile ? '48px' : '100px' }}>
                         <div>
-                            <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-xl" style={{ boxShadow: shadow.inset, color: colors.brand.primary }}>
-                                <Circle size={12} fill={colors.brand.primary} />
-                                <span style={{ fontSize: '13px', fontWeight: 700, letterSpacing: '0.05em' }}>NEXT GENERATION UI</span>
+                            <div className="inline-flex items-center gap-2 mb-8 px-5 py-2 rounded-full" style={{ boxShadow: shadow.raisedSmall, color: colors.brand.primary, background: colors.bg }}>
+                                <div className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+                                <span style={{ fontSize: '13px', fontWeight: 700, letterSpacing: '0.08em' }}>SOFT UI SYSTEMS</span>
                             </div>
-                            <h1 style={{ fontSize: isMobile ? '44px' : '72px', fontWeight: 800, lineHeight: 1.1, letterSpacing: '-0.04em', marginBottom: '32px' }}>
-                                The Future <br />
-                                <span style={{ color: colors.brand.primary }}>Feels Real</span>
+                            <h1 style={{ fontSize: isMobile ? '44px' : '72px', fontWeight: 800, lineHeight: 1.1, letterSpacing: '-0.04em', marginBottom: '32px', color: colors.text.primary, textShadow: '2px 2px 4px rgba(0,0,0,0.1)' }}>
+                                Digital <br />
+                                <span style={{ color: colors.brand.primary }}>Claymorphism</span>
                             </h1>
                             <p style={{ fontSize: '19px', lineHeight: 1.7, color: colors.text.secondary, marginBottom: '48px', maxWidth: '520px' }}>
-                                A tactile exploration of interface design. Experience depth, soft shadows, and aUI that responds to every touch with a gentle press.
+                                A tactile exploration of interface design. Soft, extruded shapes that invite touch and feel physically present on the screen.
                             </p>
                             <div className="flex gap-6" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
-                                <button className="flex items-center justify-center gap-3 group transition-all hover:scale-[0.98] active:scale-95"
-                                    style={{ padding: '20px 40px', borderRadius: '24px', boxShadow: shadow.raised, fontSize: '16px', fontWeight: 700, color: colors.brand.primary }}>
-                                    Experience Now
+                                <button className="flex items-center justify-center gap-3 transition-all hover:scale-[0.98] active:scale-95 group"
+                                    style={{ padding: '20px 48px', borderRadius: '20px', boxShadow: shadow.clay, fontSize: '16px', fontWeight: 700, color: 'white', background: colors.brand.primary }}>
+                                    Start Building
                                     <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                                 </button>
                                 <button className="transition-all hover:scale-[0.98] active:scale-95"
-                                    style={{ padding: '20px 40px', borderRadius: '24px', boxShadow: shadow.inset, fontSize: '16px', fontWeight: 700, color: colors.text.secondary }}>
-                                    Learn More
+                                    style={{ padding: '20px 48px', borderRadius: '20px', boxShadow: shadow.raised, fontSize: '16px', fontWeight: 700, color: colors.text.secondary, background: colors.bg }}>
+                                    View Kit
                                 </button>
                             </div>
                         </div>
 
                         <div className="flex items-center justify-center relative">
+                            {/* Main Clay Element */}
                             <div className="relative w-full aspect-square max-w-[400px] flex items-center justify-center">
-                                <div className="absolute inset-0 rounded-[80px] rotate-[10deg] opacity-50" style={{ boxShadow: shadow.raised }} />
-                                <div className="w-[80%] h-[80%] rounded-full flex items-center justify-center" style={{ boxShadow: shadow.raised }}>
-                                    <div className="w-[60%] h-[60%] rounded-full flex items-center justify-center transition-all hover:scale-105 duration-700" style={{ boxShadow: shadow.inset }}>
-                                        <div className="w-16 h-16 rounded-3xl rotate-[20deg] flex items-center justify-center"
-                                            style={{ background: `linear-gradient(135deg, ${colors.brand.primary}, ${colors.brand.secondary})`, boxShadow: '0 20px 40px rgba(79, 70, 229, 0.4)' }}>
-                                            <Settings size={32} color="white" className="animate-spin-slow" />
-                                        </div>
+                                {/* Outer Ring */}
+                                <div className="absolute inset-0 rounded-[80px] rotate-[10deg]" style={{ boxShadow: shadow.raised, background: colors.bg }} />
+
+                                {/* Inner Concave */}
+                                <div className="absolute inset-8 rounded-[60px] rotate-[5deg] flex items-center justify-center" style={{ boxShadow: shadow.inset, background: colors.bg }}>
+                                    {/* Floating Center Pill */}
+                                    <div className="relative w-48 h-48 rounded-[40px] flex items-center justify-center transition-transform hover:scale-105 duration-500 cursor-pointer"
+                                        style={{ boxShadow: shadow.clay, background: colors.bg }}>
+                                        <Settings size={64} className="text-[#6C5CE7] animate-spin-slow drop-shadow-lg" strokeWidth={1.5} />
                                     </div>
                                 </div>
+
+                                {/* Floating Decor */}
+                                <div className="absolute top-0 right-0 w-20 h-20 rounded-full animate-bounce delay-100" style={{ boxShadow: shadow.clay, background: '#00CEC9' }} />
+                                <div className="absolute bottom-10 left-0 w-16 h-16 rounded-3xl animate-bounce delay-300" style={{ boxShadow: shadow.clay, background: '#a29bfe' }} />
                             </div>
                         </div>
                     </div>
@@ -131,7 +143,8 @@ export const S15NeumorphismPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
             <section style={{ padding: `${spacing.section} ${spacing.lg}` }}>
                 <div className="max-w-6xl mx-auto">
                     <div className="text-center mb-16">
-                        <h2 style={{ fontSize: isMobile ? '32px' : '48px', fontWeight: 800, letterSpacing: '-0.03em' }}>Tactile Features</h2>
+                        <h2 style={{ fontSize: isMobile ? '32px' : '48px', fontWeight: 800, letterSpacing: '-0.03em', color: colors.text.primary, marginBottom: '16px' }}>Tactile Features</h2>
+                        <p style={{ fontSize: '18px', color: colors.text.secondary }}>Interfaces you can almost feel</p>
                     </div>
 
                     <div className="grid gap-10" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
@@ -141,12 +154,12 @@ export const S15NeumorphismPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
                             { icon: Users, title: 'Human Centric', desc: 'Interfaces designed to mimic natural objects for intuitive use.' },
                         ].map((item) => (
                             <div key={item.title} className="group transition-all duration-500 hover:translate-y-[-8px]"
-                                style={{ padding: '48px 32px', borderRadius: '32px', boxShadow: shadow.raised }}>
-                                <div className="w-20 h-20 mx-auto mb-10 rounded-3xl flex items-center justify-center transition-all group-hover:scale-95"
-                                    style={{ boxShadow: shadow.inset }}>
-                                    <item.icon size={32} color={colors.brand.primary} />
+                                style={{ padding: '48px 32px', borderRadius: '40px', boxShadow: shadow.clay, background: colors.bg }}>
+                                <div className="w-24 h-24 mx-auto mb-10 rounded-full flex items-center justify-center transition-all group-hover:scale-95 duration-500"
+                                    style={{ boxShadow: shadow.inset, background: colors.bg }}>
+                                    <item.icon size={32} className="text-[#6C5CE7]" strokeWidth={2} />
                                 </div>
-                                <h3 style={{ fontSize: '22px', fontWeight: 700, marginBottom: '16px', letterSpacing: '-0.02em' }}>{item.title}</h3>
+                                <h3 style={{ fontSize: '22px', fontWeight: 800, marginBottom: '16px', letterSpacing: '-0.02em', color: colors.text.primary }}>{item.title}</h3>
                                 <p style={{ fontSize: '16px', color: colors.text.secondary, lineHeight: 1.7 }}>{item.desc}</p>
                             </div>
                         ))}
@@ -158,39 +171,50 @@ export const S15NeumorphismPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
             <section style={{ padding: `${spacing.section} ${spacing.lg}` }}>
                 <div className="max-w-6xl mx-auto">
                     <div className="text-center mb-16">
-                        <h2 style={{ fontSize: isMobile ? '32px' : '48px', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '16px' }}>Tactile Pricing</h2>
+                        <h2 style={{ fontSize: isMobile ? '32px' : '48px', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '16px', color: colors.text.primary }}>Tactile Pricing</h2>
                         <p style={{ fontSize: '18px', color: colors.text.secondary }}>Pricing that feels as good as it looks</p>
                     </div>
 
-                    <div className="grid gap-10" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
+                    <div className="grid gap-10 items-center" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
                         {[
                             { name: 'Seed', price: '$29', features: ['Standard components', 'Core layout engine', 'Community support'] },
                             { name: 'Pro', price: '$79', features: ['All components', 'Priority response', 'Source Figma files', 'Commercial usage'] },
                             { name: 'Enterprise', price: '$199', features: ['Global license', 'Custom branding', 'Direct engineer access', 'SLA support'] },
                         ].map((plan, i) => (
-                            <div key={plan.name} className="relative transition-all duration-500"
-                                style={{ padding: '64px 40px', borderRadius: '40px', boxShadow: i === 1 ? shadow.inset : shadow.raised }}>
+                            <div key={plan.name} className={`relative transition-all duration-500 group ${i === 1 ? 'z-10 scale-105' : 'hover:scale-102'}`}
+                                style={{
+                                    padding: '64px 40px',
+                                    borderRadius: '40px',
+                                    background: colors.bg,
+                                    boxShadow: i === 1 ? '12px 12px 24px #b8b9be, -12px -12px 24px #ffffff' : shadow.raised,
+                                    border: i === 1 ? '4px solid #EBECF0' : 'none'
+                                }}>
                                 {i === 1 && (
-                                    <div className="absolute top-8 right-8 px-4 py-1 rounded-full text-[10px] font-black tracking-widest text-white"
-                                        style={{ background: colors.brand.primary }}>POPULAR</div>
+                                    <div className="absolute top-8 right-8 w-4 h-4 rounded-full animate-pulse"
+                                        style={{ background: colors.brand.primary, boxShadow: '0 0 10px #6C5CE7' }} />
                                 )}
                                 <h3 style={{ fontSize: '15px', fontWeight: 800, color: colors.text.muted, letterSpacing: '0.1em', marginBottom: '24px' }}>{plan.name.toUpperCase()}</h3>
                                 <div className="flex items-baseline gap-1 mb-10">
-                                    <span style={{ fontSize: '56px', fontWeight: 800, color: i === 1 ? colors.brand.primary : colors.text.primary }}>{plan.price}</span>
+                                    <span style={{ fontSize: '56px', fontWeight: 800, color: i === 1 ? colors.brand.primary : colors.text.primary, letterSpacing: '-0.02em' }}>{plan.price}</span>
                                     <span style={{ fontSize: '18px', color: colors.text.muted }}>/mo</span>
                                 </div>
                                 <ul className="space-y-5 mb-12">
                                     {plan.features.map((f) => (
-                                        <li key={f} className="flex items-center gap-3">
-                                            <div className="w-6 h-6 rounded-full flex items-center justify-center transition-all" style={{ boxShadow: i === 1 ? shadow.raisedSmall : shadow.inset }}>
-                                                <Check size={14} color={colors.brand.primary} strokeWidth={3} />
+                                        <li key={f} className="flex items-center gap-4">
+                                            <div className="w-8 h-8 rounded-full flex items-center justify-center transition-all group-hover:scale-110" style={{ boxShadow: shadow.inset, background: colors.bg }}>
+                                                <Check size={14} className="text-[#6C5CE7]" strokeWidth={3} />
                                             </div>
                                             <span style={{ fontSize: '15px', fontWeight: 600, color: colors.text.secondary }}>{f}</span>
                                         </li>
                                     ))}
                                 </ul>
-                                <button className="w-full py-5 rounded-2xl font-bold transition-all active:scale-[0.97]"
-                                    style={{ boxShadow: i === 1 ? shadow.raised : shadow.inset, color: colors.brand.primary, fontSize: '16px' }}>
+                                <button className="w-full py-5 rounded-2xl font-bold transition-all active:scale-[0.97] hover:brightness-105"
+                                    style={{
+                                        boxShadow: i === 1 ? shadow.clay : shadow.raised,
+                                        color: i === 1 ? 'white' : colors.brand.primary,
+                                        background: i === 1 ? colors.brand.primary : colors.bg,
+                                        fontSize: '16px'
+                                    }}>
                                     Choose {plan.name}
                                 </button>
                             </div>
@@ -203,7 +227,7 @@ export const S15NeumorphismPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
             <section style={{ padding: `${spacing.section} ${spacing.lg}` }}>
                 <div className="max-w-3xl mx-auto">
                     <div className="text-center mb-16">
-                        <h2 style={{ fontSize: isMobile ? '32px' : '48px', fontWeight: 800 }}>Common Questions</h2>
+                        <h2 style={{ fontSize: isMobile ? '32px' : '48px', fontWeight: 800, color: colors.text.primary }}>Common Questions</h2>
                     </div>
 
                     <div className="space-y-6">
@@ -212,11 +236,12 @@ export const S15NeumorphismPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
                             { q: 'Is it hard to implement?', a: 'Not at all. With our systematic approach to shadow values, you can apply this look consistently across any platform.' },
                             { q: 'Is it accessible?', a: 'We pay close attention to shadow contrast and interactive cues to ensure the interface remains usable for everyone.' },
                         ].map((item, i) => (
-                            <div key={i} className="transition-all" style={{ borderRadius: '24px', boxShadow: expandedFaq === i ? shadow.inset : shadow.raised, overflow: 'hidden' }}>
+                            <div key={i} className="transition-all duration-300" style={{ borderRadius: '24px', boxShadow: expandedFaq === i ? shadow.inset : shadow.raised, overflow: 'hidden', background: colors.bg }}>
                                 <button className="w-full flex items-center justify-between p-8 text-left transition-colors hover:bg-black/5" onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}>
-                                    <span style={{ fontSize: '18px', fontWeight: 700 }}>{item.q}</span>
-                                    <div className="w-10 h-10 flex items-center justify-center transition-all" style={{ borderRadius: '12px', boxShadow: expandedFaq === i ? shadow.pressed : shadow.raised }}>
-                                        <ChevronDown size={22} color={colors.brand.primary} style={{ transform: expandedFaq === i ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s' }} />
+                                    <span style={{ fontSize: '18px', fontWeight: 700, color: colors.text.primary }}>{item.q}</span>
+                                    <div className="w-12 h-12 flex items-center justify-center transition-all rounded-xl"
+                                        style={{ boxShadow: expandedFaq === i ? shadow.pressed : shadow.raised, color: colors.brand.primary }}>
+                                        <ChevronDown size={22} style={{ transform: expandedFaq === i ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s' }} />
                                     </div>
                                 </button>
                                 {expandedFaq === i && (

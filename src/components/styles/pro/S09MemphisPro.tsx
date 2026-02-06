@@ -9,18 +9,25 @@ export const S09MemphisPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet
 
     // S09 Memphis Design Tokens
     const colors = {
-        bg: '#FFF5F7',
-        pink: '#FF6B9D',
-        teal: '#00D4AA',
-        yellow: '#FFE135',
-        purple: '#7C4DFF',
-        text: '#000000'
+        bg: '#FFF df9',   // Off-white
+        pink: '#FF90E8',  // Neon Pink
+        teal: '#23C9FF',  // Cyan
+        yellow: '#FFC900',// Sunflower
+        purple: '#9B51E0',// Electric Purple
+        black: '#000000',
+        white: '#FFFFFF'
     };
+
+    const patterns = {
+        dots: `radial-gradient(${colors.black} 2px, transparent 2px)`,
+        grid: `linear-gradient(${colors.teal} 1px, transparent 1px), linear-gradient(${colors.teal} 1px, transparent 1px)`,
+        zigzag: `linear-gradient(135deg, ${colors.yellow} 25%, transparent 25%) -50px 0, linear-gradient(225deg, ${colors.yellow} 25%, transparent 25%) -50px 0, linear-gradient(315deg, ${colors.yellow} 25%, transparent 25%), linear-gradient(45deg, ${colors.yellow} 25%, transparent 25%)`
+    }
 
     const shadow = (size: number = 6) => `${size}px ${size}px 0 #000`;
 
     return (
-        <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: colors.bg, color: colors.text, fontFamily: '"Nunito", sans-serif' }}>
+        <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: colors.bg, color: colors.black, fontFamily: '"Nunito", sans-serif' }}>
             {/* Decorative Shapes */}
             <div className="absolute top-8 right-12 w-24 h-24 rounded-full" style={{ backgroundColor: colors.teal }} />
             <div className="absolute top-32 right-32 w-16 h-16 rotate-45" style={{ backgroundColor: colors.yellow }} />
@@ -73,77 +80,83 @@ export const S09MemphisPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet
             </header>
 
             {/* ========== HERO ========== */}
-            <section className="relative z-10 px-6 py-16">
-                <div className="max-w-7xl mx-auto" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '4rem', alignItems: 'center' }}>
+            <section className="relative z-10 px-6 py-24 border-b-[6px] border-black bg-white overflow-hidden">
+                <div className="absolute inset-0 opacity-10"
+                    style={{
+                        backgroundImage: `${patterns.dots}`,
+                        backgroundSize: '20px 20px'
+                    }}
+                />
+
+                <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center relative z-10">
                     <div>
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-white border-[3px] border-black font-bold text-sm mb-8" style={{ boxShadow: shadow(4), color: colors.purple }}>
-                            <span className="w-3 h-3 rounded-full animate-pulse" style={{ backgroundColor: colors.teal }} />
-                            ALL SYSTEMS ONLINE
+                        <div className="inline-block px-4 py-2 bg-white border-[3px] border-black font-black text-sm mb-6 transform -rotate-3 hover:rotate-0 transition-transform shadow-[4px_4px_0px_#000]">
+                            <span style={{ color: colors.purple }}>★ EST. 1984 ★</span>
                         </div>
-                        <h1 style={{ fontSize: isMobile ? '3rem' : '4.5rem' }} className="font-black leading-[0.95] mb-6">
-                            <span style={{ color: colors.pink }}>Smart</span>
-                            <span style={{ color: colors.teal }}>Home</span><br />
-                            <span style={{ color: colors.purple }}>Fun</span>
-                            <span style={{ color: colors.yellow, textShadow: '3px 3px 0 #000' }}>Control</span>
+
+                        <h1 className={`${isMobile ? 'text-5xl' : 'text-8xl'} font-black leading-[0.9] mb-8 drop-shadow-[4px_4px_0px_rgba(0,0,0,1)]`}>
+                            <span className="block transform -rotate-1" style={{ color: colors.pink }}>RADICAL</span>
+                            <span className="block transform rotate-2 ml-12" style={{ color: colors.teal }}>DESIGN</span>
+                            <span className="block transform -rotate-1 text-black text-stroke-white">SYSTEM</span>
                         </h1>
-                        <p className="text-lg max-w-md mb-8 font-medium text-black leading-relaxed">
-                            Manage your home with playful precision. Temperature, lighting, security—all controlled with bold, joyful interfaces.
+
+                        <p className="text-xl font-bold mb-10 max-w-md leading-relaxed border-l-[6px] border-black pl-6 py-2 bg-white/50 backdrop-blur-sm">
+                            Don't be boring. Break the grid with bold shapes, loud colors, and zero apologies.
                         </p>
-                        <div className={`flex ${isMobile ? 'flex-col' : 'flex-row'} gap-4`}>
-                            <button className="px-8 py-4 text-white font-black text-lg border-[3px] border-black hover:translate-x-1 hover:-translate-y-1 transition-transform flex items-center gap-2"
-                                style={{ backgroundColor: colors.pink, boxShadow: '5px 5px 0 #000' }}>
-                                <span>Launch App</span>
-                                <ArrowRight size={20} />
+
+                        <div className="flex flex-col md:flex-row gap-6">
+                            <button className="px-10 py-5 bg-black text-white font-black text-xl border-[4px] border-transparent hover:bg-white hover:text-black hover:border-black transition-all shadow-[8px_8px_0px_#FFC900] hover:shadow-[4px_4px_0px_#FFC900] hover:translate-x-1 hover:translate-y-1">
+                                GET STARTED
                             </button>
-                            <button className="px-8 py-4 bg-white font-black text-lg text-black border-[3px] border-black hover:translate-x-1 hover:-translate-y-1 transition-transform"
-                                style={{ boxShadow: `5px 5px 0 ${colors.purple}` }}>
-                                Learn More
+                            <button className="px-10 py-5 bg-white text-black font-black text-xl border-[4px] border-black hover:bg-[#23C9FF] transition-all shadow-[8px_8px_0px_#000] hover:shadow-[4px_4px_0px_#000] hover:translate-x-1 hover:translate-y-1 transform rotate-1">
+                                VIEW DOCS
                             </button>
                         </div>
                     </div>
 
-                    {/* Visual: Thermostat */}
-                    {!isMobile && (
-                        <div className="relative">
-                            <div className="aspect-square max-w-md mx-auto bg-white border-[3px] border-black p-8 relative" style={{ boxShadow: '8px 8px 0 #000' }}>
-                                {/* Dial */}
-                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full border-[6px] border-black flex items-center justify-center relative"
-                                    style={{ backgroundColor: colors.yellow }}>
-                                    <div className="absolute -top-2 w-4 h-6 rounded-full" style={{ backgroundColor: colors.pink }} />
-                                    <div className="text-6xl font-black">72°</div>
-                                </div>
-                                {/* Corner Shapes */}
-                                <div className="absolute top-4 left-4 w-8 h-8 rounded-full border-[3px] border-black" style={{ backgroundColor: colors.teal }} />
-                                <div className="absolute top-4 right-4 w-8 h-8 rotate-45 border-[3px] border-black" style={{ backgroundColor: colors.pink }} />
-                                <div className="absolute bottom-4 left-4 w-8 h-8 border-[3px] border-black" style={{ backgroundColor: colors.purple }} />
-                                <div className="absolute bottom-4 right-4 w-8 h-8 rounded-full border-[3px] border-black" style={{ backgroundColor: colors.yellow }} />
-                            </div>
-                        </div>
-                    )}
+                    {/* Hero Visual - Abstract Collage */}
+                    <div className="relative h-[500px] w-full hidden md:block">
+                        {/* Background Shapes */}
+                        <div className="absolute top-10 right-10 w-64 h-64 rounded-full border-[6px] border-black bg-[#FF90E8]" />
+                        <div className="absolute bottom-10 left-10 w-48 h-48 border-[6px] border-black bg-[#FFC900] transform rotate-12" />
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-[url('https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=2670&auto=format&fit=crop')] bg-cover border-[6px] border-black shadow-[12px_12px_0px_#000000] z-20" />
+
+                        {/* Floating Elements */}
+                        <div className="absolute top-0 left-0 w-20 h-20 bg-black border-[4px] border-white rounded-full z-30 animate-bounce" />
+                        <div className="absolute bottom-20 right-20 w-0 h-0 border-l-[30px] border-l-transparent border-r-[30px] border-r-transparent border-b-[60px] border-b-[#9B51E0] transform -rotate-12 z-30" />
+
+                        {/* Squiggle SVG */}
+                        <svg className="absolute top-0 right-0 w-32 h-32 text-[#23C9FF] z-10" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="8">
+                            <path d="M0 50 Q 25 100 50 50 T 100 50" />
+                        </svg>
+                    </div>
                 </div>
             </section>
 
             {/* ========== BENTO CONTROLS ========== */}
-            <section className="relative z-10 py-16 px-6">
+            <section className="relative z-10 py-24 px-6 bg-[#23C9FF]" style={{ backgroundImage: patterns.grid, backgroundSize: '40px 40px' }}>
                 <div className="max-w-7xl mx-auto">
-                    <h2 style={{ fontSize: isMobile ? '1.875rem' : '3rem' }} className="font-black text-center mb-16">
-                        <span style={{ color: colors.purple }}>Smart</span>
-                        <span style={{ color: colors.pink }}> Modules</span>
-                    </h2>
+                    <div className="bg-white border-[6px] border-black p-4 inline-block transform -rotate-2 mb-12 shadow-[8px_8px_0px_#000]">
+                        <h2 style={{ fontSize: isMobile ? '1.875rem' : '3rem' }} className="font-black text-center leading-none">
+                            <span style={{ color: colors.purple }}>CONTROL</span>
+                            <span style={{ color: colors.pink }}> FREAK?</span>
+                        </h2>
+                    </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)', gap: '1.5rem' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)', gap: '2rem' }}>
                         {/* Card 1: Lighting */}
-                        <div style={{ gridColumn: isMobile ? 'span 1' : 'span 2' }} className="p-6 bg-white border-[3px] border-black hover:translate-x-1 hover:-translate-y-1 transition-transform" >
-                            <div className="flex justify-between mb-6">
-                                <h3 className="text-xl font-black" style={{ color: colors.pink }}>Lighting</h3>
-                                <div className="w-12 h-6 rounded-full border-[3px] border-black relative cursor-pointer" style={{ backgroundColor: colors.teal }}>
-                                    <div className="absolute right-1 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-white border-2 border-black" />
+                        <div style={{ gridColumn: isMobile ? 'span 1' : 'span 2' }} className="p-8 bg-white border-[4px] border-black shadow-[8px_8px_0px_#000] hover:shadow-[12px_12px_0px_#000] hover:-translate-y-1 transition-all relative overflow-hidden" >
+                            <div className="absolute top-0 right-0 w-16 h-16 bg-[#FFC900] border-l-[4px] border-b-[4px] border-black" />
+                            <div className="flex justify-between mb-8 items-start">
+                                <h3 className="text-3xl font-black" style={{ color: colors.pink, textShadow: '2px 2px 0 #000' }}>LIGHTING</h3>
+                                <div className="w-16 h-8 rounded-full border-[3px] border-black relative cursor-pointer bg-[#23C9FF]">
+                                    <div className="absolute right-1 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white border-[3px] border-black shadow-[2px_2px_0px_#000]" />
                                 </div>
                             </div>
-                            <div className="flex gap-3">
+                            <div className="flex gap-4">
                                 {[1, 2, 3, 4].map(i => (
-                                    <div key={i} className="flex-1 h-24 border-[3px] border-black relative overflow-hidden" style={{ backgroundColor: 'white' }}>
-                                        <div className="absolute bottom-0 w-full transition-all"
+                                    <div key={i} className="flex-1 h-32 border-[3px] border-black relative bg-white shadow-[4px_4px_0px_#000]">
+                                        <div className="absolute bottom-0 w-full transition-all border-t-[3px] border-black"
                                             style={{ height: i === 2 ? '70%' : '30%', backgroundColor: [colors.pink, colors.teal, colors.yellow, colors.purple][i - 1] }} />
                                     </div>
                                 ))}
@@ -151,21 +164,21 @@ export const S09MemphisPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet
                         </div>
 
                         {/* Card 2: Lock */}
-                        <div className="p-6 border-[3px] border-black flex flex-col items-center justify-center text-center hover:translate-x-1 hover:-translate-y-1 transition-transform" style={{ backgroundColor: colors.purple, boxShadow: shadow(), color: 'white' }}>
-                            <div className="w-16 h-16 rounded-full flex items-center justify-center border-[3px] border-black mb-4" style={{ backgroundColor: 'white' }}>
-                                <Lock size={28} className="text-black" />
+                        <div className="col-span-1 border-[4px] border-black flex flex-col items-center justify-center text-center shadow-[8px_8px_0px_white] hover:shadow-[12px_12px_0px_white] hover:-translate-y-1 transition-all" style={{ backgroundColor: colors.purple, color: 'white' }}>
+                            <div className="w-20 h-20 rounded-full flex items-center justify-center border-[4px] border-black mb-6 bg-white shadow-[4px_4px_0px_#000]">
+                                <Lock size={32} className="text-black" />
                             </div>
-                            <h3 className="font-black text-lg">Front Door</h3>
-                            <p className="text-xs font-bold mt-2 opacity-80">LOCKED • 2m AGO</p>
+                            <h3 className="font-black text-2xl uppercase">Security</h3>
+                            <p className="font-bold mt-2 bg-black text-white px-2 py-1 transform -rotate-2">LOCKED</p>
                         </div>
 
                         {/* Card 3: Scenes */}
-                        <div className="p-6 bg-white border-[3px] border-black hover:translate-x-1 hover:-translate-y-1 transition-transform" style={{ boxShadow: shadow() }}>
-                            <h3 className="font-black text-lg mb-4" style={{ color: colors.teal }}>Scenes</h3>
-                            <div className="space-y-3">
-                                {['Morning', 'Away', 'Movie'].map((scene, i) => (
-                                    <button key={scene} className="w-full py-2 border-[3px] border-black text-sm font-bold active:scale-95 transition-transform text-left px-4"
-                                        style={{ backgroundColor: [colors.yellow, colors.pink, colors.teal][i], boxShadow: '3px 3px 0 #000' }}>
+                        <div className="p-6 bg-[#FFC900] border-[4px] border-black shadow-[8px_8px_0px_#000] hover:shadow-[12px_12px_0px_#000] hover:-translate-y-1 transition-all relative">
+                            <div className="absolute inset-0 opacity-20" style={{ backgroundImage: patterns.dots }} />
+                            <h3 className="font-black text-2xl mb-6 relative z-10 text-white text-stroke-black">SCENES</h3>
+                            <div className="space-y-4 relative z-10">
+                                {['Morning', 'Party', 'Chill'].map((scene, i) => (
+                                    <button key={scene} className="w-full py-3 border-[3px] border-black text-lg font-black uppercase hover:scale-[1.02] active:scale-95 transition-transform text-center bg-white shadow-[4px_4px_0px_#000]">
                                         {scene}
                                     </button>
                                 ))}
@@ -176,28 +189,34 @@ export const S09MemphisPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet
             </section>
 
             {/* ========== PRICING ========== */}
-            <section className="relative z-10 py-16 px-6">
+            <section className="relative z-10 py-24 px-6 bg-white">
                 <div className="max-w-7xl mx-auto">
                     <h2 style={{ fontSize: isMobile ? '1.875rem' : '3rem' }} className="font-black text-center mb-16">
-                        <span style={{ color: colors.yellow, textShadow: '3px 3px 0 #000' }}>Price</span>
-                        <span style={{ color: colors.pink }}> Tags</span>
+                        <span className="bg-black text-white px-4 py-1 transform -rotate-3 inline-block mr-4 shadow-[5px_5px_0px_#FF90E8]">PRICE</span>
+                        <span style={{ color: colors.black }} className="text-stroke-pink">TAGS</span>
                     </h2>
-                    <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '2rem' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '3rem' }}>
                         {[
-                            { name: 'Basic', price: '$0', color: colors.yellow },
-                            { name: 'Pro', price: '$12', color: colors.pink },
-                            { name: 'Hub', price: '$49', color: colors.purple }
+                            { name: 'Basic', price: '$0', color: colors.yellow, rotate: '-rotate-2' },
+                            { name: 'Pro', price: '$12', color: colors.pink, rotate: 'rotate-2' },
+                            { name: 'Hub', price: '$49', color: colors.purple, rotate: '-rotate-1' }
                         ].map((plan, i) => (
-                            <div key={i} className="p-8 bg-white border-[3px] border-black hover:translate-x-1 hover:-translate-y-1 transition-transform text-center" style={{ boxShadow: '8px 8px 0 #000' }}>
-                                <h3 className="text-sm font-black uppercase tracking-widest mb-4" style={{ color: plan.color }}>{plan.name}</h3>
-                                <div className="text-5xl font-black mb-6" style={{ color: plan.color }}>{plan.price}</div>
-                                <div className="text-xs font-bold text-gray-500 mb-8">PER MONTH</div>
-                                <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-8 border-[3px] border-black" style={{ backgroundColor: plan.color }}>
-                                    <Star size={24} className={i === 2 ? 'text-white' : 'text-black'} />
-                                </div>
-                                <button className="w-full py-3 font-bold border-[3px] border-black active:scale-95 transition-transform"
+                            <div key={i} className={`p-8 bg-white border-[4px] border-black hover:-translate-y-2 transition-transform text-center relative ${plan.rotate}`} style={{ boxShadow: '12px 12px 0 #000' }}>
+                                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white border-[3px] border-black" />
+                                <h3 className="text-xl font-black uppercase tracking-widest mb-4 border-b-[3px] border-black pb-2 inline-block" style={{ color: plan.color }}>{plan.name}</h3>
+                                <div className="text-6xl font-black mb-6 text-black" style={{ textShadow: `3px 3px 0 ${plan.color}` }}>{plan.price}</div>
+                                <div className="text-sm font-black text-black mb-8 bg-[#eee] inline-block px-2">PER MONTH</div>
+
+                                <ul className="text-left space-y-3 mb-8 font-bold">
+                                    <li className="flex items-center gap-2"><span style={{ color: plan.color }}>●</span> 5 Devices</li>
+                                    <li className="flex items-center gap-2"><span style={{ color: plan.color }}>●</span> Basic Scenes</li>
+                                    {i > 0 && <li className="flex items-center gap-2"><span style={{ color: plan.color }}>●</span> Energy Stats</li>}
+                                    {i > 1 && <li className="flex items-center gap-2"><span style={{ color: plan.color }}>●</span> 24/7 Support</li>}
+                                </ul>
+
+                                <button className="w-full py-4 font-black border-[3px] border-black active:scale-95 transition-transform text-lg"
                                     style={{ backgroundColor: plan.color, boxShadow: '4px 4px 0 #000', color: i === 2 ? 'white' : 'black' }}>
-                                    Select
+                                    GRAB IT
                                 </button>
                             </div>
                         ))}
@@ -213,18 +232,28 @@ export const S09MemphisPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet
             />
 
             {/* ========== FOOTER ========== */}
-            <footer className="relative z-10 py-12 px-6">
-                <div className={`max-w-7xl mx-auto flex ${isMobile ? 'flex-col' : 'flex-row'} justify-between items-center gap-6`}>
-                    <div className="font-black text-sm">
-                        <span style={{ color: colors.pink }}>©</span>
-                        <span style={{ color: colors.teal }}> 2025</span>
-                        <span style={{ color: colors.yellow, textShadow: '1px 1px 0 #000' }}> MEMPHIS</span>
-                        <span style={{ color: colors.purple }}> HOME</span>
+            <footer className="relative z-10 py-16 px-6 border-t-[6px] border-black bg-black text-white">
+                <div className={`max-w-7xl mx-auto flex ${isMobile ? 'flex-col' : 'flex-row'} justify-between items-center gap-8`}>
+                    <div className="flex items-center gap-4">
+                        <div className="w-16 h-16 bg-white border-[4px] border-white rounded-full flex items-center justify-center">
+                            <span className="text-3xl">🤘</span>
+                        </div>
+                        <div className="font-black text-3xl tracking-tighter">
+                            MEMPHIS<br />
+                            <span style={{ color: colors.teal }}>HOME</span>
+                        </div>
                     </div>
-                    <div className="flex gap-2">
-                        {[colors.pink, colors.yellow, colors.teal, colors.purple].map((color, i) => (
-                            <div key={i} className="w-6 h-6 border-2 border-black" style={{ backgroundColor: color }} />
+
+                    <div className="flex gap-4">
+                        {['Terms', 'Privacy', 'Radical'].map(link => (
+                            <a key={link} href="#" className="font-bold uppercase border-[2px] border-white px-4 py-2 hover:bg-white hover:text-black transition-colors">{link}</a>
                         ))}
+                    </div>
+
+                    <div className="font-bold text-sm text-right">
+                        <span style={{ color: colors.pink }}>© 2025</span>
+                        <br />
+                        MADE WITH <span style={{ color: colors.yellow }}>ELECTRICITY</span>
                     </div>
                 </div>
             </footer>

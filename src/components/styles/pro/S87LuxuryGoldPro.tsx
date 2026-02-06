@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Menu, X, ArrowRight, Check, ChevronDown, Crown, Diamond, Star, Award } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Menu, X, ArrowRight, Check, ChevronDown, Crown, Diamond, Star, Award, Gem, Sparkles, Clock, Wine, ShieldCheck } from 'lucide-react';
 import { useResponsive } from '@/hooks/useResponsive';
 
 export const S87LuxuryGoldPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
@@ -8,128 +8,277 @@ export const S87LuxuryGoldPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tab
     const responsive = useResponsive(deviceMode);
     const isMobile = responsive.nav.showMobile;
 
-    const colors = { bg: '#0C0A08', surface: '#1A1610', text: '#F5F0E5', muted: '#A09080', gold: '#D4AF37', bronze: '#CD7F32', cream: '#FAF3E0', dark: '#050403' };
-    const goldGlow = '0 0 30px rgba(212,175,55,0.4)';
-
     return (
-        <div className="min-h-screen" style={{ backgroundColor: colors.bg, color: colors.text, fontFamily: '"Cormorant Garamond", "Playfair Display", serif' }}>
-            {/* Gold Accent Pattern */}
-            <div className="fixed inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='40' cy='40' r='30' fill='none' stroke='%23D4AF37' stroke-width='0.5'/%3E%3C/svg%3E")`, backgroundSize: '80px 80px' }} />
+        <div className="min-h-screen bg-[#0C0A08] text-[#F5F0E5] font-sans selection:bg-[#D4AF37] selection:text-[#0C0A08] overflow-x-hidden">
+            <style>{`
+                @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+                
+                .font-display { font-family: 'Cinzel', serif; }
+                .font-body { font-family: 'Cormorant Garamond', serif; }
+                
+                .gold-gradient-text {
+                    background: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+                
+                .gold-gradient-bg {
+                    background: linear-gradient(135deg, #BF953F 0%, #FCF6BA 50%, #B38728 100%);
+                }
+                
+                .gold-border {
+                    border-image: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728) 1;
+                }
 
-            {/* Navigation */}
-            <header className="sticky top-0 z-50 border-b" style={{ borderColor: colors.gold + '40', backgroundColor: `${colors.bg}F0`, backdropFilter: 'blur(10px)' }}>
-                <div className="max-w-6xl mx-auto flex items-center justify-between p-4 px-6">
+                .sparkle {
+                    animation: sparkle 2s infinite ease-in-out;
+                }
+
+                @keyframes sparkle {
+                    0%, 100% { opacity: 0.5; transform: scale(1); }
+                    50% { opacity: 1; transform: scale(1.2); }
+                }
+                
+                .marble-pattern {
+                    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+                }
+            `}</style>
+
+            {/* Background Texture */}
+            <div className="fixed inset-0 marble-pattern pointer-events-none z-0"></div>
+
+            {/* Navbar */}
+            <header className="sticky top-0 z-50 bg-[#0C0A08]/90 backdrop-blur-md border-b border-[#D4AF37]/30 transition-all duration-300">
+                <div className="max-w-7xl mx-auto px-8 h-24 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <Crown size={28} style={{ color: colors.gold }} />
-                        <span className="text-2xl italic">Luxuria</span>
+                        <div className="p-2 border border-[#D4AF37] rounded-full">
+                            <Crown size={24} className="text-[#D4AF37]" strokeWidth={1.5} />
+                        </div>
+                        <span className="text-3xl font-display font-medium gold-gradient-text tracking-widest">LUXURIA</span>
                     </div>
+
                     {!isMobile && (
-                        <nav className="flex items-center gap-8">
-                            {['Collection', 'Heritage', 'Atelier'].map((item) => (<span key={item} className="italic cursor-pointer hover:text-yellow-500" style={{ color: colors.muted }}>{item}</span>))}
-                            <button className="px-6 py-2 italic text-black" style={{ backgroundColor: colors.gold, boxShadow: goldGlow }}>Discover</button>
+                        <nav className="flex items-center gap-12">
+                            {['TIMEPIECES', 'JEWELRY', 'ATELIER', 'MAISON'].map((item) => (
+                                <a key={item} href="#" className="text-sm font-display tracking-[0.2em] text-[#A09080] hover:text-[#D4AF37] transition-colors relative group">
+                                    {item}
+                                    <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-[#D4AF37] transition-all duration-300 group-hover:w-full"></span>
+                                </a>
+                            ))}
+                            <button className="px-8 py-3 bg-transparent border border-[#D4AF37] text-[#D4AF37] text-xs font-display tracking-[0.2em] hover:bg-[#D4AF37] hover:text-[#0C0A08] transition-all duration-500">
+                                INQUIRE
+                            </button>
                         </nav>
                     )}
-                    {isMobile && <button onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X size={24} /> : <Menu size={24} />}</button>}
+
+                    {isMobile && (
+                        <button onClick={() => setMenuOpen(!menuOpen)} className="text-[#D4AF37] hover:text-white transition-colors">
+                            {menuOpen ? <X size={28} strokeWidth={1} /> : <Menu size={28} strokeWidth={1} />}
+                        </button>
+                    )}
                 </div>
+
                 {menuOpen && isMobile && (
-                    <div className="p-6 border-t" style={{ borderColor: colors.gold + '40', backgroundColor: colors.surface }}>
-                        {['Collection', 'Heritage', 'Atelier'].map((item) => (<div key={item} className="py-3 italic" style={{ color: colors.muted }}>{item}</div>))}
-                        <button className="w-full mt-4 py-3 italic text-black" style={{ backgroundColor: colors.gold }}>Discover</button>
+                    <div className="absolute top-24 left-0 w-full bg-[#0C0A08] border-b border-[#D4AF37]/30 p-8 flex flex-col gap-6 animate-in fade-in slide-in-from-top-4 duration-500 z-50">
+                        {['TIMEPIECES', 'JEWELRY', 'ATELIER', 'MAISON'].map((item) => (
+                            <a key={item} href="#" className="text-xl font-display tracking-widest text-[#F5F0E5] text-center py-2 border-b border-[#D4AF37]/10">
+                                {item}
+                            </a>
+                        ))}
                     </div>
                 )}
             </header>
 
-            {/* Hero */}
-            <section style={{ padding: '100px 24px' }}>
-                <div className="max-w-4xl mx-auto text-center">
-                    <div className="inline-flex items-center gap-2 mb-8 px-6 py-2 border" style={{ borderColor: colors.gold }}>
-                        <Diamond size={16} style={{ color: colors.gold }} />
-                        <span className="italic tracking-widest" style={{ color: colors.gold }}>EXCEPTIONAL LUXURY</span>
+            <main className="font-body relative z-10">
+                {/* Hero Section */}
+                <section className="relative min-h-[90vh] flex items-center justify-center px-6 overflow-hidden">
+                    {/* Hero Background Image */}
+                    <div className="absolute inset-0 z-0">
+                        <div className="absolute inset-0 bg-black/60 z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1617038224558-28ad3a0d1a12?auto=format&fit=crop&q=80&w=2000" alt="Luxury Texture" className="w-full h-full object-cover opacity-50" />
                     </div>
-                    <h1 className="mb-6 font-bold italic leading-tight" style={{ fontSize: isMobile ? '44px' : '80px', textShadow: goldGlow }}>
-                        <span style={{ color: colors.gold }}>Golden</span> Excellence
-                    </h1>
-                    <p className="max-w-lg mx-auto mb-10 text-lg italic" style={{ color: colors.muted }}>Opulent gold aesthetics with premium feel and timeless luxury elegance.</p>
-                    <div className="flex gap-6 justify-center" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
-                        <button className="px-10 py-4 italic text-black flex items-center justify-center gap-2" style={{ backgroundColor: colors.gold, boxShadow: goldGlow }}>Explore <ArrowRight size={20} /></button>
-                        <button className="px-10 py-4 italic border" style={{ borderColor: colors.gold, color: colors.gold }}>View Collection</button>
-                    </div>
-                </div>
-            </section>
 
-            {/* Features */}
-            <section style={{ padding: '80px 24px', backgroundColor: colors.surface }}>
-                <div className="max-w-5xl mx-auto">
-                    <h2 className="text-center text-3xl font-bold italic mb-12" style={{ color: colors.gold }}>Craftsmanship</h2>
-                    <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
-                        {[{ icon: Crown, title: 'Regal Quality' }, { icon: Diamond, title: 'Precious Design' }, { icon: Star, title: 'Elite Finish' }].map((item) => (
-                            <div key={item.title} className="p-6 text-center border" style={{ borderColor: colors.gold + '40', backgroundColor: colors.bg }}>
-                                <item.icon size={36} className="mx-auto mb-4" style={{ color: colors.gold }} />
-                                <h3 className="text-lg font-bold italic mb-2">{item.title}</h3>
-                                <p className="italic" style={{ color: colors.muted }}>Unparalleled luxury.</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
+                    <div className="relative z-20 text-center max-w-4xl mx-auto">
+                        <div className="inline-block mb-6 animate-fade-in-up">
+                            <span className="text-[#D4AF37] text-sm font-display tracking-[0.4em] uppercase border-b border-[#D4AF37] pb-2">Est. 1924</span>
+                        </div>
 
-            {/* Pricing */}
-            <section style={{ padding: '80px 24px' }}>
-                <div className="max-w-5xl mx-auto">
-                    <h2 className="text-center text-3xl font-bold italic mb-12" style={{ color: colors.gold }}>Membership</h2>
-                    <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
-                        {[{ name: 'Gold', price: '$299', hot: false }, { name: 'Platinum', price: '$599', hot: true }, { name: 'Diamond', price: '$999', hot: false }].map((plan) => (
-                            <div key={plan.name} className="relative p-6 text-center" style={{ backgroundColor: colors.surface, border: `2px solid ${plan.hot ? colors.gold : colors.gold + '40'}`, boxShadow: plan.hot ? goldGlow : 'none' }}>
-                                {plan.hot && <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 text-xs italic text-black" style={{ backgroundColor: colors.gold }}>★ Exclusive</div>}
-                                <h3 className="text-2xl font-bold italic mb-2">{plan.name}</h3>
-                                <div className="text-5xl font-bold mb-6" style={{ color: colors.gold }}>{plan.price}</div>
-                                <ul className="space-y-2 mb-6 text-left">
-                                    {['Full access', 'Concierge', 'Priority'].map((f) => (<li key={f} className="flex items-center gap-2 italic" style={{ color: colors.muted }}><Check size={16} style={{ color: colors.gold }} /> {f}</li>))}
-                                </ul>
-                                <button className="w-full py-3 italic" style={{ backgroundColor: plan.hot ? colors.gold : 'transparent', color: plan.hot ? 'black' : colors.gold, border: plan.hot ? 'none' : `1px solid ${colors.gold}` }}>Select</button>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
+                        <h1 className="text-6xl md:text-8xl lg:text-9xl font-display font-medium text-[#F5F0E5] mb-8 leading-none tracking-tight animate-fade-in-up animation-delay-300">
+                            TIMELESS <br /> <span className="text-[#D4AF37] italic font-body font-light">Elegance</span>
+                        </h1>
 
-            {/* FAQ */}
-            <section style={{ padding: '80px 24px', backgroundColor: colors.surface }}>
-                <div className="max-w-4xl mx-auto">
-                    <h2 className="text-center text-3xl font-bold italic mb-12" style={{ color: colors.gold }}>Questions</h2>
-                    <div className="space-y-4">
-                        {[{ q: 'What is Luxury Gold?', a: 'Opulent gold aesthetics with premium exclusivity.' },
-                        { q: 'Customizable?', a: 'Full control over luxury branding elements.' },
-                        { q: 'Support?', a: 'White-glove concierge service included.' }
-                        ].map((item, i) => (
-                            <div key={i} className="border overflow-hidden" style={{ borderColor: colors.gold + '40', backgroundColor: colors.bg }}>
-                                <button className="w-full flex items-center justify-between p-5 text-left" onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}>
-                                    <span className="font-semibold italic">{item.q}</span>
-                                    <ChevronDown size={20} style={{ color: colors.gold, transform: expandedFaq === i ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s' }} />
+                        <p className="text-xl md:text-2xl text-[#A09080] mb-12 max-w-2xl mx-auto italic font-light animate-fade-in-up animation-delay-500">
+                            Curating extraordinary moments through magnificent craftsmanship and unparalleled exclusivity.
+                        </p>
+
+                        <div className="flex flex-col md:flex-row gap-6 justify-center items-center animate-fade-in-up animation-delay-700">
+                            <button className="px-12 py-4 bg-[#D4AF37] text-[#0C0A08] font-display text-sm tracking-[0.2em] hover:bg-[#FBF5B7] transition-all duration-500 min-w-[200px]">
+                                DISCOVER
+                            </button>
+                            <button className="px-12 py-4 bg-transparent border border-[#F5F0E5]/20 text-[#F5F0E5] font-display text-sm tracking-[0.2em] hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all duration-500 min-w-[200px]">
+                                VIEW FILM
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Scroll Indicator */}
+                    <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-4 opacity-50 animate-bounce-slow">
+                        <span className="text-[10px] font-display tracking-[0.3em] rotate-90 origin-center translate-y-8">SCROLL</span>
+                        <div className="w-[1px] h-20 bg-gradient-to-b from-[#D4AF37] to-transparent"></div>
+                    </div>
+                </section>
+
+                {/* Collections Grid */}
+                <section className="py-32 px-6 bg-[#0C0A08]">
+                    <div className="max-w-7xl mx-auto">
+                        <div className="text-center mb-20">
+                            <span className="text-[#D4AF37] text-xs font-display tracking-[0.3em] uppercase block mb-4">The Collections</span>
+                            <h2 className="text-4xl md:text-5xl font-display text-[#F5F0E5] font-medium">Curated Excellence</h2>
+                        </div>
+
+                        <div className="grid md:grid-cols-3 gap-12">
+                            {[
+                                { title: "ROYAL", sub: "Signature Series", img: "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?auto=format&fit=crop&q=80&w=800" },
+                                { title: "NOIR", sub: "Black Diamond", img: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&q=80&w=800" },
+                                { title: "ETERNAL", sub: "Wedding Collection", img: "https://images.unsplash.com/photo-1515562141207-7a88fb0537bf?auto=format&fit=crop&q=80&w=800" }
+                            ].map((col, i) => (
+                                <div key={i} className="group cursor-pointer">
+                                    <div className="relative aspect-[3/4] overflow-hidden mb-8 border border-[#D4AF37]/20">
+                                        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all duration-700 z-10"></div>
+                                        <img src={col.img} alt={col.title} className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000" />
+
+                                        <div className="absolute inset-0 border-[1px] border-[#D4AF37]/0 group-hover:border-[#D4AF37]/50 m-4 transition-all duration-700 z-20"></div>
+                                    </div>
+                                    <div className="text-center">
+                                        <h3 className="text-2xl font-display text-[#F5F0E5] mb-2 tracking-widest group-hover:text-[#D4AF37] transition-colors duration-500">{col.title}</h3>
+                                        <p className="text-[#A09080] italic font-light tracking-wide">{col.sub}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* Features / Values */}
+                <section className="py-32 px-6 relative border-y border-[#D4AF37]/20">
+                    <div className="absolute inset-0 bg-[#0F0D0B]"></div>
+                    <div className="max-w-7xl mx-auto relative z-10">
+                        <div className="grid md:grid-cols-3 gap-16 text-center">
+                            {[
+                                { icon: Gem, title: "Rare Materials", desc: "Sourced from the most exclusive mines worldwide." },
+                                { icon: Sparkles, title: "Artisan Crafted", desc: "Hand-finished by master jewelers in our Paris atelier." },
+                                { icon: ShieldCheck, title: "Lifetime Warranty", desc: "A promise of enduring quality passed through generations." }
+                            ].map((f, i) => (
+                                <div key={i} className="group">
+                                    <div className="mb-8 inline-flex p-4 border border-[#D4AF37]/30 rotate-45 group-hover:border-[#D4AF37] transition-colors duration-500">
+                                        <f.icon size={32} className="text-[#D4AF37] -rotate-45" strokeWidth={1} />
+                                    </div>
+                                    <h3 className="text-xl font-display text-[#F5F0E5] mb-4 tracking-widest">{f.title}</h3>
+                                    <p className="text-[#A09080] font-light italic leading-relaxed max-w-xs mx-auto">{f.desc}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* Split Feature Section */}
+                <section className="grid lg:grid-cols-2 min-h-[800px]">
+                    <div className="relative h-full min-h-[500px]">
+                        <img src="https://images.unsplash.com/photo-1549488497-6003080a2569?auto=format&fit=crop&q=80&w=1000" alt="Watchmaking" className="absolute inset-0 w-full h-full object-cover" />
+                        <div className="absolute inset-0 bg-[#0C0A08]/30"></div>
+                    </div>
+                    <div className="flex items-center justify-center p-12 lg:p-24 bg-[#0C0A08]">
+                        <div className="max-w-md text-center lg:text-left">
+                            <h2 className="text-4xl lg:text-5xl font-display text-[#F5F0E5] mb-8 leading-tight">
+                                The Master's <br /> <span className="text-[#D4AF37] italic font-body">Touch</span>
+                            </h2>
+                            <p className="text-[#A09080] text-lg font-light leading-relaxed mb-10 italic">
+                                "True luxury lies not in the price, but in the relentless pursuit of perfection. Every piece tells a story of patience, precision, and passion."
+                            </p>
+                            <div className="flex flex-col gap-8">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-12 h-[1px] bg-[#D4AF37]"></div>
+                                    <span className="text-xs font-display tracking-[0.2em] text-[#F5F0E5]">ALEXANDER V., HEAD JEWELER</span>
+                                </div>
+                                <button className="text-[#D4AF37] text-left font-display tracking-[0.2em] text-xs hover:text-white transition-colors">
+                                    READ OUR STORY &rarr;
                                 </button>
-                                {expandedFaq === i && <div className="px-5 pb-5 italic" style={{ color: colors.muted }}>{item.a}</div>}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Membership Inquiry */}
+                <section className="py-32 px-6 bg-[#0F0D0B] relative overflow-hidden">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#D4AF37]/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+                    <div className="max-w-4xl mx-auto relative z-10 border border-[#D4AF37]/30 p-1 bg-[#0C0A08]/50 backdrop-blur-sm">
+                        <div className="border border-[#D4AF37]/30 p-12 md:p-20 text-center">
+                            <Crown size={40} className="mx-auto mb-8 text-[#D4AF37]" strokeWidth={1} />
+
+                            <h2 className="text-3xl md:text-5xl font-display text-[#F5F0E5] mb-6">Private Membership</h2>
+                            <p className="text-[#A09080] text-lg italic mb-12 max-w-lg mx-auto">
+                                Gain access to exclusive collections, private viewings, and our global concierge service.
+                            </p>
+
+                            <div className="grid md:grid-cols-3 gap-6 mb-12 text-left bg-[#0C0A08] p-8 border border-[#D4AF37]/10">
+                                {[
+                                    { level: "GOLD", price: "$5,000", perks: "Seasonal Access" },
+                                    { level: "PLATINUM", price: "$15,000", perks: "Priority Access" },
+                                    { level: "OBSIDIAN", price: "Invitation", perks: "Full Concierge" }
+                                ].map((plan, i) => (
+                                    <div key={i} className={`p-4 ${i === 1 ? 'border border-[#D4AF37]/40 bg-[#D4AF37]/5' : ''}`}>
+                                        <div className="text-xs text-[#D4AF37] font-display tracking-[0.2em] mb-2">{plan.level}</div>
+                                        <div className="text-2xl font-display text-[#F5F0E5] mb-2">{plan.price}</div>
+                                        <div className="text-[#A09080] text-sm italic">{plan.perks}</div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <button className="px-12 py-4 bg-[#D4AF37] text-[#0C0A08] font-display text-sm tracking-[0.2em] hover:bg-[#FBF5B7] transition-all duration-500 w-full md:w-auto">
+                                REQUEST INVITATION
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Footer */}
+                <footer className="bg-[#080605] pt-24 pb-12 px-6 border-t border-[#D4AF37]/20">
+                    <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-16 mb-20 text-center md:text-left">
+                        <div className="md:col-span-1">
+                            <span className="text-2xl font-display font-medium gold-gradient-text tracking-widest block mb-8">LUXURIA</span>
+                            <p className="text-[#665] text-sm italic leading-relaxed font-body font-light">
+                                Defining the standard of luxury since 1924. A heritage of gold, a legacy of excellence.
+                            </p>
+                        </div>
+
+                        {[
+                            { head: "BOUTIQUES", links: ["Paris Vendôme", "New York 5th Ave", "Dubai Mall", "Tokyo Ginza"] },
+                            { head: "CLIENT CARE", links: ["Contact Concierge", "Shipping & Returns", "Warranty", "Book Appointment"] },
+                            { head: "LEGAL", links: ["Privacy Policy", "Terms of Use", "Accessibility", "Sitemap"] }
+                        ].map((col, i) => (
+                            <div key={i}>
+                                <h4 className="text-[#D4AF37] text-xs font-display tracking-[0.2em] mb-6">{col.head}</h4>
+                                <ul className="space-y-4">
+                                    {col.links.map(link => (
+                                        <li key={link}>
+                                            <a href="#" className="text-[#888] hover:text-[#D4AF37] font-body italic text-sm transition-colors">{link}</a>
+                                        </li>
+                                    ))}
+                                </ul>
                             </div>
                         ))}
                     </div>
-                </div>
-            </section>
 
-            {/* CTA */}
-            <section style={{ padding: '80px 24px' }}>
-                <div className="max-w-4xl mx-auto p-12 text-center" style={{ backgroundColor: colors.surface, border: `2px solid ${colors.gold}`, boxShadow: goldGlow }}>
-                    <Award size={48} className="mx-auto mb-6" style={{ color: colors.gold }} />
-                    <h2 className="text-3xl font-bold italic mb-6" style={{ textShadow: goldGlow }}>Experience Luxury</h2>
-                    <button className="px-12 py-4 italic text-black" style={{ backgroundColor: colors.gold }}>Begin</button>
-                </div>
-            </section>
-
-            {/* Footer */}
-            <footer className="border-t" style={{ borderColor: colors.gold + '40', padding: '40px 24px', backgroundColor: colors.surface }}>
-                <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-                    <div className="flex items-center gap-2 italic"><Crown size={20} style={{ color: colors.gold }} /> Luxuria</div>
-                    <span className="italic" style={{ color: colors.muted }}>© 2025 Luxury Gold</span>
-                </div>
-            </footer>
+                    <div className="max-w-7xl mx-auto pt-8 border-t border-[#D4AF37]/10 flex flex-col md:flex-row justify-between items-center gap-6">
+                        <p className="text-[#444] text-xs font-display tracking-[0.2em]">© 2025 LUXURIA MAISON. ALL RIGHTS RESERVED.</p>
+                        <div className="flex gap-4">
+                            <Diamond size={16} className="text-[#333]" />
+                            <Award size={16} className="text-[#333]" />
+                        </div>
+                    </div>
+                </footer>
+            </main>
         </div>
     );
 };

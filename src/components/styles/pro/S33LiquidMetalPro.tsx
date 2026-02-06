@@ -7,6 +7,7 @@ export const S33LiquidMetalPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
     const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
     const responsive = useResponsive(deviceMode);
     const isMobile = responsive.nav.showMobile;
+    const spacing = responsive.spacing;
 
     const colors = {
         bg: '#050508',
@@ -41,15 +42,26 @@ export const S33LiquidMetalPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
                 animation: morph 8s ease-in-out infinite;
             }
             .chrome-text {
-                background: linear-gradient(to bottom, #fff 0%, #999 50%, #fff 100%);
+                background: linear-gradient(to bottom, #ffffff 0%, #e0e0e0 40%, #a0a0a0 50%, #ffffff 55%, #b0b0b0 100%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
-                text-shadow: 0 2px 10px rgba(255,255,255,0.2);
+                text-shadow: 0 2px 5px rgba(255,255,255,0.3);
+                filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5));
             }
             .liquid-button {
                 transition: all 0.3s ease;
-                background-size: 200% 200%;
-                animation: flow 3s infinite linear;
+                background-size: 200% auto;
+                animation: flow 4s infinite linear;
+                position: relative;
+                overflow: hidden;
+            }
+            .liquid-button::after {
+                content: '';
+                position: absolute;
+                top: 0; left: 0; right: 0; bottom: 50%;
+                background: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,255,255,0.1));
+                opacity: 0.3;
+                border-radius: 9999px;
             }
             .liquid-button:hover {
                 transform: scale(1.05);
@@ -268,7 +280,8 @@ export const S33LiquidMetalPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
                     <h2 className="text-center font-black text-5xl mb-20 chrome-text">ACQUIRE</h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {[{ name: 'Solid', price: '$29', hot: false }, { name: 'Liquid', price: '$99', hot: true }, { name: 'Gas', price: '$199', hot: false }].map((plan, i) => (
-                            <div key={i} className={`p-8 rounded-[40px] flex flex-col items-center text-center transition-all duration-500 ${plan.hot ? 'glass-panel scale-105 border-white/30 shadow-[0_0_50px_rgba(255,255,255,0.1)]' : 'border border-white/5 hover:border-white/20 bg-white/[0.02]'}`}>
+                            <div key={i} className={`p-8 rounded-[40px] flex flex-col items-center text-center transition-all duration-500 relative overflow-hidden group ${plan.hot ? 'glass-panel scale-105 border-white/40 shadow-[0_0_50px_rgba(255,255,255,0.2)]' : 'border border-white/10 hover:border-white/30 bg-white/[0.02]'}`}>
+                                <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                                 <h3 className="text-lg font-bold text-gray-400 uppercase tracking-widest mb-4">{plan.name}</h3>
                                 <div className="text-5xl font-black text-white mb-8 tracking-tighter">{plan.price}</div>
 

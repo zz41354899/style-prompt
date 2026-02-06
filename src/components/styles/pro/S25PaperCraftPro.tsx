@@ -7,6 +7,7 @@ export const S25PaperCraftPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tab
     const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
     const responsive = useResponsive(deviceMode);
     const isMobile = responsive.nav.showMobile;
+    const spacing = responsive.spacing;
 
     const colors = {
         bg: '#fdfbf7',
@@ -31,9 +32,11 @@ export const S25PaperCraftPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tab
         <div className="min-h-screen relative overflow-hidden"
             style={{ backgroundColor: colors.bg, color: colors.text, fontFamily: '"Merriweather", "Georgia", serif' }}>
 
-            {/* Grain Texture Overlay */}
-            <div className="fixed inset-0 pointer-events-none opacity-40 z-50 mix-blend-multiply"
-                style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/cream-paper.png")' }} />
+            {/* Grain Texture Overlay - CSS Only */}
+            <div className="fixed inset-0 pointer-events-none opacity-20 z-50 mix-blend-multiply"
+                style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+                }} />
 
             {/* Navigation */}
             <header className="fixed top-0 w-full z-40 p-4 pt-6 transition-all">
@@ -41,8 +44,11 @@ export const S25PaperCraftPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tab
                     style={{ backgroundColor: colors.surface, boxShadow: shadows.md, border: '1px solid rgba(0,0,0,0.05)' }}>
 
                     {/* Tape Effect */}
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-32 h-8 bg-yellow-100 opacity-60 transform -rotate-2"
-                        style={{ boxShadow: '0 1px 2px rgba(0,0,0,0.1)' }} />
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-32 h-8 bg-yellow-100 opacity-80 transform -rotate-2 backdrop-blur-sm"
+                        style={{
+                            boxShadow: '0 1px 2px rgba(0,0,0,0.1)',
+                            maskImage: 'linear-gradient(90deg, transparent 2%, black 5%, black 95%, transparent 98%)'
+                        }} />
 
                     <div className="flex items-center gap-3">
                         <div className="p-2 rounded-md text-white rotate-3" style={{ backgroundColor: colors.navy }}>
@@ -84,14 +90,14 @@ export const S25PaperCraftPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tab
             </header>
 
             {/* Hero Section */}
-            <section className="pt-40 pb-24 px-6 relative">
-                <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <section className="relative" style={{ paddingTop: '160px', paddingBottom: spacing.section, paddingLeft: spacing.lg, paddingRight: spacing.lg }}>
+                <div className="max-w-6xl mx-auto grid gap-16 items-center" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)' }}>
                     <div className="order-2 md:order-1 space-y-8">
                         <div className="inline-block px-4 py-1 bg-teal-100 text-teal-800 font-bold text-sm tracking-wider uppercase transform -rotate-2 border border-teal-200 rounded-sm shadow-sm">
                             Handmade Digital Assets
                         </div>
 
-                        <h1 className="text-5xl md:text-7xl font-black text-gray-800 leading-[1.1]">
+                        <h1 className="font-black text-gray-800 leading-[1.1]" style={{ fontSize: isMobile ? responsive.fontSize['4xl'] : responsive.fontSize['5xl'] }}>
                             Layers of <br />
                             <span className="relative inline-block mt-2">
                                 <span className="relative z-10 text-white drop-shadow-md"
@@ -150,15 +156,17 @@ export const S25PaperCraftPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tab
             </section>
 
             {/* Features with Torn Paper Effect */}
-            <section className="py-24 bg-white relative">
-                {/* Torn Edge Top */}
-                <div className="absolute top-0 left-0 w-full h-8 bg-repeat-x"
+            <section className="bg-white relative" style={{ padding: `${spacing.section} 0` }}>
+                {/* Torn Edge Top - CSS Generated */}
+                <div className="absolute top-0 left-0 w-full h-4 bg-white"
                     style={{
-                        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'%3E%3Cpath d='M0 20 L0 0 L25 10 L50 0 L75 10 L100 0 L100 20 Z' fill='%23fdfbf7'/%3E%3C/svg%3E")`,
-                        backgroundSize: '40px 100%',
-                        transform: 'rotate(180deg)'
+                        maskImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 40 4\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0 4 L5 0 L10 4 L15 0 L20 4 L25 0 L30 4 L35 0 L40 4 V4 H0 Z\' fill=\'black\'/%3E%3C/svg%3E")',
+                        maskSize: '20px 100%',
+                        backgroundColor: '#fdfbf7' // Match background color to hide the hard edge
                     }}
                 />
+                {/* Shadow for edge */}
+                <div className="absolute top-0 left-0 w-full h-1 bg-black/10" />
 
                 <div className="max-w-6xl mx-auto px-6">
                     <div className="text-center mb-16">
@@ -169,7 +177,7 @@ export const S25PaperCraftPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tab
                         </h2>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    <div className="grid gap-10" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
                         {[
                             { icon: Layers, title: "Physical Depth", desc: "Shadows that feel created by light, not code." },
                             { icon: Sticker, title: "Texture Packs", desc: "Includes high-res paper, cardboard, and tape textures." },
@@ -189,11 +197,11 @@ export const S25PaperCraftPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tab
             </section>
 
             {/* Testimonials - Sticky Notes */}
-            <section className="py-24 px-6 overflow-hidden relative" style={{ backgroundColor: colors.kraft }}>
+            <section className="overflow-hidden relative" style={{ padding: `${spacing.section} ${spacing.lg}`, backgroundColor: colors.kraft }}>
                 <div className="max-w-7xl mx-auto relative z-10">
                     <h2 className="text-center text-4xl font-black text-gray-800 mb-20">Community Notes</h2>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="grid gap-8" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
                         {[
                             { text: "It's like scrapbooking but for websites. Absolutely love the vibe!", author: "Jamie L.", bg: "#feff9c", rotate: "-2deg" },
                             { text: "My portfolio went from flat to fantastic. The textures are so high quality.", author: "Sam K.", bg: "#ff7eb9", rotate: "1deg" },
@@ -206,7 +214,9 @@ export const S25PaperCraftPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tab
                                     fontFamily: '"Patrick Hand", cursive' // Assuming we can use cursive for notes
                                 }}>
                                 {/* Tape */}
-                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-24 h-8 bg-white opacity-40 transform rotate-1 shadow-sm"></div>
+                                <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-6 bg-white/60 transform rotate-1 shadow-sm backdrop-blur-[1px]"
+                                    style={{ clipPath: 'polygon(2% 0, 98% 2%, 100% 100%, 0% 98%)' }}
+                                />
 
                                 <p className="text-2xl font-medium mb-6 leading-tight text-gray-800">"{note.text}"</p>
                                 <div className="text-right font-bold text-gray-700 font-sans tracking-tight">- {note.author}</div>
@@ -217,9 +227,9 @@ export const S25PaperCraftPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tab
             </section>
 
             {/* Pricing - Cardboard Cards */}
-            <section className="py-24 px-6 bg-white">
+            <section className="bg-white" style={{ padding: `${spacing.section} ${spacing.lg}` }}>
                 <div className="max-w-5xl mx-auto">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div className="grid gap-12 items-center" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)' }}>
                         <div className="p-10 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-300 relative">
                             <h3 className="text-2xl font-bold text-gray-400 mb-2">Free Tier</h3>
                             <div className="text-5xl font-black mb-6">$0</div>

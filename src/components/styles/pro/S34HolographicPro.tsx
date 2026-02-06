@@ -7,6 +7,7 @@ export const S34HolographicPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
     const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
     const responsive = useResponsive(deviceMode);
     const isMobile = responsive.nav.showMobile;
+    const spacing = responsive.spacing;
 
     const colors = {
         bg: '#050510',
@@ -59,7 +60,22 @@ export const S34HolographicPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
             .glitch-hover:hover {
                 animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
                 color: #00FFFF;
-                text-shadow: 2px 2px #FF00FF;
+                text-shadow: 3px 0 #FF00FF, -3px 0 #00FFFF;
+            }
+            .crt-overlay {
+                background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+                background-size: 100% 2px, 3px 100%;
+                pointer-events: none;
+            }
+            .holo-shimmer {
+                 background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.4) 40%, rgba(255, 255, 255, 0.4) 60%, transparent 80%);
+                 background-size: 200% 100%;
+                 background-position: 200% 0;
+                 transition: background-position 0s;
+            }
+            .holo-card:hover .holo-shimmer {
+                background-position: -200% 0;
+                transition: background-position 1.5s;
             }
             .holo-card {
                 background: rgba(255, 255, 255, 0.05);
@@ -97,6 +113,8 @@ export const S34HolographicPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
             {/* Ambient Background Glows */}
             <div className="absolute top-[-20%] left-[-10%] w-[800px] h-[800px] rounded-full mix-blend-screen opacity-20 blur-[100px]" style={{ background: 'radial-gradient(circle, #FF00FF 0%, transparent 70%)' }}></div>
             <div className="absolute bottom-[-20%] right-[-10%] w-[800px] h-[800px] rounded-full mix-blend-screen opacity-20 blur-[100px]" style={{ background: 'radial-gradient(circle, #00FFFF 0%, transparent 70%)' }}></div>
+
+            <div className="absolute inset-0 z-50 crt-overlay opacity-20 pointer-events-none"></div>
 
             {/* Grid Overlay */}
             <div className="absolute inset-0 opacity-10"

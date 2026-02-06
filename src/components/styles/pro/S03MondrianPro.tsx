@@ -8,18 +8,18 @@ export const S03MondrianPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
     const responsive = useResponsive(deviceMode);
     const isMobile = responsive.nav.showMobile;
 
-    // S03 Mondrian Design Tokens
+    // S03 Mondrian Design Tokens (Refined - Neoplasticism)
     const colors = {
         bg: '#FFFFFF',
-        primary: '#111111',
-        red: '#D92525',
-        blue: '#0059A9',
-        yellow: '#F0C233',
-        gray: '#F0F0F0'
+        primary: '#000000', // Ink Black
+        red: '#E81F1F',     // Vibrant Vermilion
+        blue: '#0044CC',    // Cobolt Blue
+        yellow: '#FFD700',  // Pure Yellow
+        gray: '#F3F4F6'
     };
 
     const spacing = responsive.spacing;
-    const border = { width: '3px', style: 'solid', color: '#111111' }; // Thicker, bolder lines
+    const border = { width: '4px', style: 'solid', color: '#000000' }; // Thicker 4px lines for structural weight
 
     return (
         <div className="min-h-screen" style={{ backgroundColor: colors.bg, color: colors.primary, fontFamily: '"Helvetica Neue", Arial, sans-serif' }}>
@@ -79,21 +79,25 @@ export const S03MondrianPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
                     <div className="grid" style={{ gridTemplateColumns: isMobile ? '1fr' : '8fr 4fr', minHeight: '600px' }}>
                         <div className="flex flex-col justify-between" style={{ padding: spacing.xl, borderRight: !isMobile ? `${border.width} ${border.style} ${border.color}` : 'none' }}>
                             <div>
-                                <div style={{ display: 'inline-block', backgroundColor: colors.blue, color: colors.bg, padding: '8px 16px', fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: spacing.lg }}>
+                                <div style={{ display: 'inline-block', backgroundColor: colors.blue, color: 'white', padding: '12px 20px', fontSize: '14px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: spacing.lg }}>
                                     New Collection 2025
                                 </div>
-                                <h1 style={{ fontSize: isMobile ? '48px' : '80px', fontWeight: '800', lineHeight: 1, textTransform: 'uppercase', marginBottom: spacing.lg }}>
+                                <h1 style={{ fontSize: isMobile ? '56px' : '96px', fontWeight: '900', lineHeight: 0.9, textTransform: 'uppercase', marginBottom: spacing.lg, letterSpacing: '-0.02em' }}>
                                     Universal<br />Harmony.
                                 </h1>
-                                <p style={{ fontSize: '18px', lineHeight: 1.6, maxWidth: '500px', fontWeight: '500' }}>
+                                <p style={{ fontSize: '20px', lineHeight: 1.5, maxWidth: '500px', fontWeight: '600', marginBottom: spacing.xl }}>
                                     Reducing design to its purest elements. We build digital and physical spaces using fundamental geometric principles.
                                 </p>
                             </div>
-                            <div className="mt-12 bg-white" style={{ border: `${border.width} ${border.style} ${border.color}`, display: 'flex', flexDirection: isMobile ? 'column' : 'row' }}>
-                                <button style={{ padding: '20px 40px', borderRight: !isMobile ? `${border.width} ${border.style} ${border.color}` : 'none', borderBottom: isMobile ? `${border.width} ${border.style} ${border.color}` : 'none', background: colors.red, color: 'white', fontWeight: '700', textTransform: 'uppercase', cursor: 'pointer' }}>
+                            <div className="mt-12 bg-white" style={{ border: `${border.width} ${border.style} ${border.color}`, display: 'flex', flexDirection: isMobile ? 'column' : 'row', boxShadow: '8px 8px 0px black' }}>
+                                <button
+                                    className="hover:bg-red-600 transition-colors"
+                                    style={{ padding: '24px 48px', borderRight: !isMobile ? `${border.width} ${border.style} ${border.color}` : 'none', borderBottom: isMobile ? `${border.width} ${border.style} ${border.color}` : 'none', background: colors.red, color: 'white', fontWeight: '800', textTransform: 'uppercase', cursor: 'pointer', fontSize: '16px' }}>
                                     View Projects
                                 </button>
-                                <button style={{ padding: '20px 40px', background: 'transparent', fontWeight: '700', textTransform: 'uppercase', cursor: 'pointer' }}>
+                                <button
+                                    className="hover:bg-yellow-100 transition-colors"
+                                    style={{ padding: '24px 48px', background: 'transparent', fontWeight: '800', textTransform: 'uppercase', cursor: 'pointer', fontSize: '16px' }}>
                                     Contact
                                 </button>
                             </div>
@@ -133,17 +137,21 @@ export const S03MondrianPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
                     {[
                         { title: 'The Void', desc: 'Chaos in modern design creates visual noise.', color: colors.bg, text: colors.primary },
                         { title: 'The Line', desc: 'Structure provides meaning and clarity.', color: colors.primary, text: colors.bg },
-                        { title: 'The Plane', desc: 'Color defines space and emotion.', color: colors.blue, text: colors.bg }
+                        { title: 'The Plane', desc: 'Color defines space and emotion.', color: colors.blue, text: 'white' }
                     ].map((item, i) => (
                         <div key={i} style={{
                             padding: spacing.xl,
                             backgroundColor: item.color,
                             color: item.text,
                             borderRight: (i < 2 && !isMobile) ? `${border.width} ${border.style} ${border.color}` : 'none',
-                            borderBottom: isMobile ? `${border.width} ${border.style} ${border.color}` : 'none'
+                            borderBottom: isMobile ? `${border.width} ${border.style} ${border.color}` : 'none',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'space-between',
+                            height: '100%'
                         }}>
-                            <h3 style={{ fontSize: '24px', fontWeight: '800', textTransform: 'uppercase', marginBottom: spacing.md }}>0{i + 1}. {item.title}</h3>
-                            <p style={{ fontSize: '16px', lineHeight: 1.5, opacity: 0.9 }}>{item.desc}</p>
+                            <h3 style={{ fontSize: '32px', fontWeight: '900', textTransform: 'uppercase', marginBottom: spacing.md, lineHeight: 0.9 }}>0{i + 1}.<br />{item.title}</h3>
+                            <p style={{ fontSize: '18px', lineHeight: 1.4, fontWeight: '500' }}>{item.desc}</p>
                         </div>
                     ))}
                 </div>
@@ -176,26 +184,29 @@ export const S03MondrianPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
                 <div className="max-w-6xl mx-auto px-6">
                     <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)', gridTemplateRows: isMobile ? 'auto' : 'repeat(2, 1fr)', gap: 0, border: `${border.width} ${border.style} ${border.color}` }}>
                         {/* Large Box */}
-                        <div style={{ gridColumn: isMobile ? 'span 1' : 'span 2', gridRow: isMobile ? 'auto' : 'span 2', padding: '2rem', borderRight: !isMobile ? `${border.width} ${border.style} ${border.color}` : 'none', borderBottom: isMobile ? `${border.width} ${border.style} ${border.color}` : 'none' }}>
-                            <h3 style={{ fontSize: '32px', fontWeight: '800', textTransform: 'uppercase', marginBottom: spacing.md }}>Residential<br />Architecture</h3>
-                            <p style={{ fontSize: '18px', marginBottom: spacing.xl }}>Creating living spaces that function as total works of art (Gesamtkunstwerk).</p>
-                            <div style={{ width: '100%', height: '200px', backgroundColor: colors.gray, border: `${border.width} ${border.style} ${border.color}` }} />
+                        <div style={{ gridColumn: isMobile ? 'span 1' : 'span 2', gridRow: isMobile ? 'auto' : 'span 2', padding: '3rem', borderRight: !isMobile ? `${border.width} ${border.style} ${border.color}` : 'none', borderBottom: isMobile ? `${border.width} ${border.style} ${border.color}` : 'none', backgroundColor: 'white' }}>
+                            <h3 style={{ fontSize: '42px', fontWeight: '900', textTransform: 'uppercase', marginBottom: spacing.md, lineHeight: 0.9 }}>Residential<br />Architecture</h3>
+                            <p style={{ fontSize: '20px', marginBottom: spacing.xl, fontWeight: '500' }}>Creating living spaces that function as total works of art (Gesamtkunstwerk).</p>
+                            <div style={{ width: '100%', height: '240px', backgroundColor: colors.gray, border: `${border.width} ${border.style} ${border.color}`, position: 'relative' }}>
+                                <div style={{ position: 'absolute', top: '20px', left: '20px', right: '20px', bottom: '20px', border: `${border.width} ${border.style} ${border.color}`, backgroundColor: colors.blue }} />
+                                <div style={{ position: 'absolute', bottom: '0', right: '0', width: '60px', height: '60px', backgroundColor: colors.yellow, borderLeft: `${border.width} ${border.style} ${border.color}`, borderTop: `${border.width} ${border.style} ${border.color}` }} />
+                            </div>
                         </div>
                         {/* Box 2 */}
-                        <div style={{ padding: '2rem', backgroundColor: colors.yellow, borderRight: !isMobile ? `${border.width} ${border.style} ${border.color}` : 'none', borderBottom: `${border.width} ${border.style} ${border.color}` }}>
-                            <h4 style={{ fontWeight: '800', textTransform: 'uppercase' }}>Interior</h4>
+                        <div style={{ padding: '2rem', backgroundColor: colors.yellow, borderRight: !isMobile ? `${border.width} ${border.style} ${border.color}` : 'none', borderBottom: `${border.width} ${border.style} ${border.color}`, display: 'flex', alignItems: 'flex-end' }}>
+                            <h4 style={{ fontWeight: '800', textTransform: 'uppercase', fontSize: '24px' }}>Interior</h4>
                         </div>
                         {/* Box 3 */}
-                        <div style={{ padding: '2rem', borderBottom: `${border.width} ${border.style} ${border.color}` }}>
-                            <h4 style={{ fontWeight: '800', textTransform: 'uppercase' }}>Landscape</h4>
+                        <div style={{ padding: '2rem', borderBottom: `${border.width} ${border.style} ${border.color}`, display: 'flex', alignItems: 'flex-end' }}>
+                            <h4 style={{ fontWeight: '800', textTransform: 'uppercase', fontSize: '24px' }}>Landscape</h4>
                         </div>
                         {/* Box 4 */}
-                        <div style={{ padding: '2rem', backgroundColor: colors.red, borderRight: !isMobile ? `${border.width} ${border.style} ${border.color}` : 'none' }}>
-                            <h4 style={{ fontWeight: '800', textTransform: 'uppercase', color: 'white' }}>Furniture</h4>
+                        <div style={{ padding: '2rem', backgroundColor: colors.red, borderRight: !isMobile ? `${border.width} ${border.style} ${border.color}` : 'none', display: 'flex', alignItems: 'flex-end' }}>
+                            <h4 style={{ fontWeight: '800', textTransform: 'uppercase', color: 'white', fontSize: '24px' }}>Furniture</h4>
                         </div>
                         {/* Box 5 */}
-                        <div style={{ padding: '2rem', backgroundColor: colors.blue }}>
-                            <h4 style={{ fontWeight: '800', textTransform: 'uppercase', color: 'white' }}>Urban</h4>
+                        <div style={{ padding: '2rem', backgroundColor: colors.blue, display: 'flex', alignItems: 'flex-end' }}>
+                            <h4 style={{ fontWeight: '800', textTransform: 'uppercase', color: 'white', fontSize: '24px' }}>Urban</h4>
                         </div>
                     </div>
                 </div>
@@ -244,18 +255,21 @@ export const S03MondrianPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
                             { name: 'Design', price: '12k', highlight: true },
                             { name: 'Build', price: '25k' }
                         ].map((plan, i) => (
-                            <div key={i} style={{
+                            <div key={i} className="group" style={{
                                 padding: spacing.xl,
                                 borderRight: (i < 2 && !isMobile) ? `${border.width} ${border.style} ${border.color}` : 'none',
                                 borderBottom: isMobile ? `${border.width} ${border.style} ${border.color}` : 'none',
-                                backgroundColor: plan.highlight ? colors.yellow : 'white'
+                                backgroundColor: plan.highlight ? colors.yellow : 'white',
+                                transition: 'background-color 0.2s',
                             }}>
-                                <h3 style={{ fontSize: '16px', fontWeight: '800', textTransform: 'uppercase', marginBottom: spacing.md }}>{plan.name}</h3>
-                                <div style={{ fontSize: '64px', fontWeight: '800', marginBottom: spacing.lg }}>${plan.price}</div>
-                                <p style={{ fontSize: '14px', marginBottom: spacing.xl, lineHeight: 1.5 }}>
+                                <h3 style={{ fontSize: '20px', fontWeight: '900', textTransform: 'uppercase', marginBottom: spacing.md, letterSpacing: '0.1em' }}>{plan.name}</h3>
+                                <div style={{ fontSize: '72px', fontWeight: '900', marginBottom: spacing.lg }}>${plan.price}</div>
+                                <p style={{ fontSize: '16px', marginBottom: spacing.xl, lineHeight: 1.5, fontWeight: '500' }}>
                                     Comprehensive analysis including spatial composition and color theory application.
                                 </p>
-                                <button style={{ width: '100%', padding: '16px', border: `${border.width} ${border.style} ${border.color}`, backgroundColor: 'white', fontWeight: '700', textTransform: 'uppercase', cursor: 'pointer', boxShadow: '4px 4px 0px black' }}>
+                                <button
+                                    className="hover:translate-x-1 hover:-translate-y-1 transition-transform"
+                                    style={{ width: '100%', padding: '20px', border: `${border.width} ${border.style} ${border.color}`, backgroundColor: 'white', fontWeight: '900', textTransform: 'uppercase', cursor: 'pointer', boxShadow: '8px 8px 0px black', fontSize: '16px' }}>
                                     Select
                                 </button>
                             </div>

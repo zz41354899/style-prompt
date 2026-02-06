@@ -1,142 +1,369 @@
-import { useState } from 'react';
-import { Menu, X, ArrowRight, Check, ChevronDown, Code, FileCode, Braces, Hash } from 'lucide-react';
+import React, { useState } from 'react';
 import { useResponsive } from '@/hooks/useResponsive';
+import {
+    FileCode,
+    GitBranch,
+    Search,
+    Settings,
+    Box,
+    Play,
+    Terminal,
+    Menu,
+    X,
+    ChevronRight,
+    ChevronDown,
+    Command,
+    Globe,
+    Zap,
+    Layout,
+    Cpu,
+    Code2,
+    Cloud
+} from 'lucide-react';
 
 export const S94CodeEditorPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
     const responsive = useResponsive(deviceMode);
-    const isMobile = responsive.nav.showMobile;
+    const isStrictMobile = deviceMode === 'mobile';
+    const isDesktop = deviceMode === 'desktop';
+    const isNavMobile = responsive.nav.showMobile;
+    const spacing = responsive.spacing;
 
-    const colors = { bg: '#1E1E1E', surface: '#252526', text: '#D4D4D4', muted: '#808080', blue: '#569CD6', green: '#4EC9B0', yellow: '#DCDCAA', orange: '#CE9178', purple: '#C586C0', lineNum: '#858585' };
+    const codeExcerpt = [
+        '<span class="text-[#C586C0]">const</span> <span class="text-[#9CDCFE]">builder</span> = <span class="text-[#C586C0]">new</span> <span class="text-[#4EC9B0]">Architect</span>();',
+        '<span class="text-[#9CDCFE]">builder</span>.<span class="text-[#DCDCAA]">deploy</span>({',
+        '  target: <span class="text-[#CE9178]">"production"</span>,',
+        '  optimization: <span class="text-[#B5CEA8]">true</span>,',
+        '  scaling: <span class="text-[#CE9178]">"automatic"</span>',
+        '});'
+    ];
 
     return (
-        <div className="min-h-screen" style={{ backgroundColor: colors.bg, color: colors.text, fontFamily: '"Fira Code", "Consolas", monospace' }}>
-            {/* Navigation - Tab Bar Style */}
-            <header className="sticky top-0 z-50" style={{ backgroundColor: colors.surface }}>
-                <div className="max-w-6xl mx-auto flex items-center justify-between">
-                    <div className="flex items-center">
-                        <div className="px-4 py-3 border-r flex items-center gap-2" style={{ borderColor: colors.bg, backgroundColor: colors.bg }}>
-                            <Code size={18} style={{ color: colors.blue }} />
-                            <span className="text-sm">DevCode</span>
+        <div className="min-h-screen bg-[#1E1E1E] text-[#D4D4D4] font-sans selection:bg-[#264F78] selection:text-white">
+            {/* Navigation */}
+            <header className="sticky top-0 z-50 bg-[#1e1e1e]/90 backdrop-blur-md border-b border-white/5">
+                <div
+                    className="max-w-screen-2xl mx-auto flex items-center justify-between"
+                    style={{ padding: `${spacing.md} ${spacing.lg}` }}
+                >
+                    <div className="flex items-center gap-4 group cursor-pointer">
+                        <div className="w-10 h-10 bg-[#007acc] rounded-lg flex items-center justify-center rotate-[-10deg] group-hover:rotate-0 transition-transform duration-300">
+                            <Code2 size={24} className="text-white" />
                         </div>
-                        {!isMobile && (
-                            <div className="flex">
-                                {['index.tsx', 'styles.css', 'config.json'].map((tab, i) => (
-                                    <div key={tab} className="px-4 py-3 text-sm border-r flex items-center gap-2" style={{ borderColor: colors.bg, backgroundColor: i === 0 ? colors.bg : 'transparent', color: i === 0 ? colors.text : colors.muted }}>
-                                        <FileCode size={14} />
-                                        {tab}
-                                    </div>
-                                ))}
-                            </div>
-                        )}
+                        <div className="flex flex-col">
+                            <span className="text-xl font-bold tracking-tight text-white">Code<span className="text-[#007acc]">Draft</span></span>
+                            <span className="text-[10px] uppercase tracking-widest text-white/40">IDE Framework v1.0.4</span>
+                        </div>
                     </div>
-                    {!isMobile && <button className="px-4 py-2 mr-4 text-sm" style={{ backgroundColor: colors.blue, color: 'white' }}>Run ▶</button>}
-                    {isMobile && <button className="p-3" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X size={20} /> : <Menu size={20} />}</button>}
+
+                    {!isNavMobile && (
+                        <nav className="flex items-center gap-8">
+                            {['Explorer', 'Extensions', 'GitHub'].map((item) => (
+                                <span key={item} className="text-sm font-medium text-white/60 hover:text-white cursor-pointer transition-colors relative group">
+                                    {item}
+                                    <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-[#007acc] transition-all duration-300 group-hover:w-full"></span>
+                                </span>
+                            ))}
+                            <button className="px-6 py-2 rounded-md bg-[#007acc] text-white text-sm font-bold hover:bg-[#0088e2] transition-colors border border-white/10">
+                                Launch IDE
+                            </button>
+                        </nav>
+                    )}
+                    {isNavMobile && (
+                        <button
+                            onClick={() => setMenuOpen(!menuOpen)}
+                            className="p-3 rounded-lg bg-white/5 border border-white/10 active:bg-white/10"
+                        >
+                            {menuOpen ? <X size={20} className="text-white" /> : <Menu size={20} className="text-white" />}
+                        </button>
+                    )}
                 </div>
-                {menuOpen && isMobile && (
-                    <div className="p-4 border-t" style={{ borderColor: colors.bg, backgroundColor: colors.surface }}>
-                        {['index.tsx', 'styles.css', 'config.json'].map((tab) => (<div key={tab} className="py-2 text-sm" style={{ color: colors.muted }}>{tab}</div>))}
-                        <button className="w-full mt-3 py-2 text-sm" style={{ backgroundColor: colors.blue, color: 'white' }}>Run ▶</button>
+
+                {menuOpen && isNavMobile && (
+                    <div className="bg-[#1e1e1e] border-b border-white/10 absolute w-full z-40 animate-in slide-in-from-top duration-300">
+                        {['Explorer', 'Extensions', 'GitHub'].map((item) => (
+                            <div key={item} className="p-6 text-sm font-medium text-white/70 border-b border-white/5 active:bg-white/5">{item}</div>
+                        ))}
                     </div>
                 )}
             </header>
 
-            {/* Hero - Code Style */}
-            <section style={{ padding: '60px 24px' }}>
-                <div className="max-w-4xl mx-auto">
-                    <div className="p-6 rounded" style={{ backgroundColor: colors.surface }}>
-                        <div className="flex items-center gap-4 mb-4 text-sm" style={{ color: colors.lineNum }}>
-                            <span>1</span><span style={{ color: colors.purple }}>import</span> <span style={{ color: colors.text }}>{'{ '}</span><span style={{ color: colors.yellow }}>CodeEditor</span><span style={{ color: colors.text }}>{' }'}</span> <span style={{ color: colors.purple }}>from</span> <span style={{ color: colors.orange }}>&apos;./styles&apos;</span><span style={{ color: colors.text }}>;</span>
-                        </div>
-                        <h1 className="mb-4 leading-tight" style={{ fontSize: isMobile ? '32px' : '48px' }}>
-                            <span style={{ color: colors.blue }}>const</span> <span style={{ color: colors.yellow }}>editor</span> = <span style={{ color: colors.orange }}>&quot;Code Editor&quot;</span>;
-                        </h1>
-                        <p className="mb-6" style={{ color: colors.green }}>// IDE-inspired aesthetics with syntax highlighting and developer-friendly design.</p>
-                        <div className="flex gap-4" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
-                            <button className="px-6 py-2 text-sm text-white flex items-center gap-2" style={{ backgroundColor: colors.blue }}>Execute <ArrowRight size={16} /></button>
-                            <button className="px-6 py-2 text-sm border" style={{ borderColor: colors.muted, color: colors.text }}>View Docs</button>
-                        </div>
+            <main>
+                {/* Hero Section */}
+                <section
+                    className="relative overflow-hidden"
+                    style={{ padding: `${spacing.section} ${spacing.lg}` }}
+                >
+                    <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20">
+                        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#007acc] rounded-full blur-[120px]"></div>
                     </div>
-                </div>
-            </section>
 
-            {/* Features */}
-            <section style={{ padding: '60px 24px', backgroundColor: colors.surface }}>
-                <div className="max-w-5xl mx-auto">
-                    <h2 className="text-xl mb-8"><span style={{ color: colors.green }}>// </span>Features</h2>
-                    <div className="grid gap-4" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
-                        {[{ icon: Braces, title: 'Syntax Colors', color: colors.yellow }, { icon: Hash, title: 'Line Numbers', color: colors.blue }, { icon: Code, title: 'Mono Font', color: colors.green }].map((item) => (
-                            <div key={item.title} className="p-4 rounded" style={{ backgroundColor: colors.bg }}>
-                                <item.icon size={24} className="mb-3" style={{ color: item.color }} />
-                                <h3 className="text-sm mb-1" style={{ color: item.color }}>{item.title}</h3>
-                                <p className="text-xs" style={{ color: colors.muted }}>Developer focused.</p>
+                    <div className="max-w-screen-2xl mx-auto w-full grid md:grid-cols-2 gap-16 items-center">
+                        <div className="relative z-10">
+                            <div
+                                className="inline-flex items-center gap-2 mb-8 px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[#007acc] font-mono text-xs uppercase tracking-widest"
+                                style={{ marginBottom: spacing.lg }}
+                            >
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#007acc] animate-pulse"></span>
+                                Production Ready v2.4
                             </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
 
-            {/* Pricing */}
-            <section style={{ padding: '60px 24px' }}>
-                <div className="max-w-5xl mx-auto">
-                    <h2 className="text-xl mb-8"><span style={{ color: colors.green }}>// </span>Plans</h2>
-                    <div className="grid gap-4" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
-                        {[{ name: 'Starter', price: '$0', hot: false }, { name: 'Pro', price: '$12', hot: true }, { name: 'Team', price: '$29', hot: false }].map((plan) => (
-                            <div key={plan.name} className="relative p-4 rounded" style={{ backgroundColor: colors.surface, border: plan.hot ? `1px solid ${colors.blue}` : 'none' }}>
-                                {plan.hot && <div className="absolute -top-2 right-2 px-2 text-xs" style={{ backgroundColor: colors.blue, color: 'white' }}>Popular</div>}
-                                <h3 className="text-sm mb-1" style={{ color: colors.yellow }}>{plan.name}</h3>
-                                <div className="text-3xl mb-4" style={{ color: colors.blue }}>{plan.price}<span className="text-sm" style={{ color: colors.muted }}>/mo</span></div>
-                                <ul className="space-y-1 mb-4 text-sm">
-                                    {['All themes', 'Extensions', 'Sync'].map((f) => (<li key={f} className="flex items-center gap-2" style={{ color: colors.muted }}><Check size={12} style={{ color: colors.green }} /> {f}</li>))}
-                                </ul>
-                                <button className="w-full py-2 text-sm rounded" style={{ backgroundColor: plan.hot ? colors.blue : colors.bg, color: plan.hot ? 'white' : colors.text }}>Select</button>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
+                            <h1
+                                className="font-bold tracking-tight text-white mb-6 leading-[1.1]"
+                                style={{
+                                    fontSize: isStrictMobile ? responsive.fontSize['4xl'] : responsive.fontSize['5xl'],
+                                    marginBottom: spacing.md
+                                }}
+                            >
+                                The IDE for <br />
+                                <span className="text-[#007acc]">Next-Gen Builders.</span>
+                            </h1>
 
-            {/* FAQ */}
-            <section style={{ padding: '60px 24px', backgroundColor: colors.surface }}>
-                <div className="max-w-3xl mx-auto">
-                    <h2 className="text-xl mb-8"><span style={{ color: colors.green }}>// </span>FAQ</h2>
-                    <div className="space-y-0">
-                        {[{ q: 'What is Code Editor style?', a: 'IDE-inspired aesthetics with syntax highlighting colors.' },
-                        { q: 'Customizable themes?', a: 'Dark, light, and custom color schemes available.' },
-                        { q: 'Works everywhere?', a: 'All browsers supported.' }
-                        ].map((item, i) => (
-                            <div key={i} className="border-b" style={{ borderColor: colors.bg }}>
-                                <button className="w-full flex items-center justify-between py-3 text-left text-sm" onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}>
-                                    <span>{item.q}</span>
-                                    <ChevronDown size={16} style={{ color: colors.muted, transform: expandedFaq === i ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s' }} />
+                            <p
+                                className="text-white/40 max-w-xl font-medium leading-relaxed"
+                                style={{
+                                    fontSize: isStrictMobile ? '1.125rem' : '1.5rem',
+                                    marginBottom: spacing.xl
+                                }}
+                            >
+                                Ship faster with built-in extensions, cloud syncing, and zero-config deployment. Designed exclusively for productivity.
+                            </p>
+
+                            <div className="flex flex-col sm:flex-row gap-4">
+                                <button
+                                    className="bg-[#007acc] hover:bg-[#0088e2] text-white font-bold text-lg rounded-md transition-all flex items-center justify-center gap-2 border border-white/20"
+                                    style={{ padding: `${spacing.md} ${spacing.xl}` }}
+                                >
+                                    <Play size={20} fill="currentColor" /> Start Coding
                                 </button>
-                                {expandedFaq === i && <div className="pb-3 text-sm" style={{ color: colors.muted }}>{item.a}</div>}
+                                <button
+                                    className="bg-white/5 border border-white/10 hover:bg-white/10 text-white font-bold text-lg rounded-md transition-colors"
+                                    style={{ padding: `${spacing.md} ${spacing.xl}` }}
+                                >
+                                    Features
+                                </button>
                             </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
+                        </div>
 
-            {/* CTA */}
-            <section style={{ padding: '60px 24px' }}>
-                <div className="max-w-3xl mx-auto p-8 text-center rounded" style={{ backgroundColor: colors.surface }}>
-                    <Code size={32} className="mx-auto mb-4" style={{ color: colors.blue }} />
-                    <h2 className="text-xl mb-4"><span style={{ color: colors.yellow }}>startCoding</span><span style={{ color: colors.text }}>();</span></h2>
-                    <button className="px-8 py-2 text-sm" style={{ backgroundColor: colors.blue, color: 'white' }}>Get Started</button>
-                </div>
-            </section>
-
-            {/* Footer - Status Bar Style */}
-            <footer style={{ padding: '8px 16px', backgroundColor: colors.blue }}>
-                <div className="max-w-6xl mx-auto flex justify-between items-center text-xs text-white">
-                    <div className="flex items-center gap-4">
-                        <span>DevCode</span>
-                        <span>UTF-8</span>
+                        <div className="relative group">
+                            <div
+                                className="bg-[#252526] rounded-xl border border-white/10 shadow-2xl overflow-hidden"
+                                style={{ padding: isStrictMobile ? spacing.xs : spacing.sm }}
+                            >
+                                <div
+                                    className="flex items-center gap-2 bg-[#1e1e1e] border border-white/5 rounded-lg mb-4"
+                                    style={{ padding: isStrictMobile ? spacing.sm : spacing.md, marginBottom: spacing.md }}
+                                >
+                                    <div className="flex gap-1.5">
+                                        <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+                                        <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+                                        <div className="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+                                    </div>
+                                    <div className="mx-auto text-[10px] text-white/30 font-mono tracking-wider">main.ts — CodeDraft</div>
+                                </div>
+                                <div
+                                    className="bg-[#1e1e1e] rounded-lg font-mono text-sm overflow-hidden"
+                                    style={{ padding: spacing.lg }}
+                                >
+                                    {codeExcerpt.map((line, i) => (
+                                        <div key={i} className="flex gap-4 group/line">
+                                            <span className="w-6 text-white/20 text-right select-none">{i + 1}</span>
+                                            <span className="text-white/80 whitespace-pre" dangerouslySetInnerHTML={{ __html: line }}></span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <span>© 2025 Code Editor</span>
-                </div>
-            </footer>
+                </section>
+
+                {/* Features Section */}
+                <section
+                    className="bg-[#1e1e1e]"
+                    style={{ padding: `${spacing.section} ${spacing.lg}` }}
+                >
+                    <div className="max-w-screen-2xl mx-auto">
+                        <div className="mb-16">
+                            <h2
+                                className="font-bold tracking-tight text-white mb-4"
+                                style={{
+                                    fontSize: isStrictMobile ? responsive.fontSize['3xl'] : responsive.fontSize['4xl'],
+                                    marginBottom: spacing.sm
+                                }}
+                            >Engineered for Speed</h2>
+                            <p
+                                className="text-[#007acc] font-mono"
+                                style={{ fontSize: responsive.fontSize.lg }}
+                            >
+                                $&gt; grep "performance" ./features
+                            </p>
+                        </div>
+
+                        <div
+                            className="grid gap-6 items-start"
+                            style={{
+                                gridTemplateColumns: isStrictMobile ? '1fr' : 'repeat(3, 1fr)',
+                                gap: spacing.lg
+                            }}
+                        >
+                            {[
+                                { icon: Terminal, title: "Native Terminal", desc: "Full power of ZSH and Bash directly in your workspace." },
+                                { icon: GitBranch, title: "Git Integrated", desc: "Conflict resolution and branch management out of the box." },
+                                { icon: Cpu, title: "Low Overhead", desc: "Uses less than 200MB of RAM even with 50+ extensions active." },
+                            ].map((f, i) => (
+                                <div
+                                    key={i}
+                                    className="p-8 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-colors group"
+                                    style={{ padding: spacing.xl }}
+                                >
+                                    <div
+                                        className="w-12 h-12 bg-[#007acc]/10 rounded-lg flex items-center justify-center text-[#007acc] group-hover:scale-110 transition-transform mb-6"
+                                        style={{ marginBottom: spacing.md }}
+                                    >
+                                        <f.icon size={24} />
+                                    </div>
+                                    <h3
+                                        className="text-white font-bold mb-4"
+                                        style={{ fontSize: '1.25rem', marginBottom: spacing.sm }}
+                                    >
+                                        {f.title}
+                                    </h3>
+                                    <p className="text-white/40 leading-relaxed font-medium">{f.desc}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* Pricing Section */}
+                <section
+                    className="bg-[#1e1e1e] border-y border-white/5"
+                    style={{ padding: `${spacing.section} ${spacing.lg}` }}
+                >
+                    <div className="max-w-screen-xl mx-auto">
+                        <div
+                            className="grid gap-8"
+                            style={{
+                                gridTemplateColumns: isStrictMobile ? '1fr' : 'repeat(3, 1fr)',
+                                gap: spacing.lg
+                            }}
+                        >
+                            {[
+                                { name: 'Community', price: '0', icon: Cloud, desc: 'Ideal for OSS contributors' },
+                                { name: 'Pro', price: '12', icon: Zap, desc: 'Professional developers', active: true },
+                                { name: 'Studio', price: '29', icon: Box, desc: 'Teams and startups' }
+                            ].map((plan) => (
+                                <div
+                                    key={plan.name}
+                                    className={`flex flex-col rounded-2xl border transition-all ${plan.active ? 'bg-[#252526] border-[#007acc] scale-105 z-10' : 'bg-white/5 border-white/10 opacity-70'}`}
+                                    style={{ padding: spacing.xxl }}
+                                >
+                                    <div
+                                        className="flex justify-between items-start"
+                                        style={{ marginBottom: spacing.md }}
+                                    >
+                                        <div className="p-3 bg-white/5 rounded-lg text-white/40">
+                                            <plan.icon size={20} />
+                                        </div>
+                                        <span className="text-[10px] font-mono text-white/20 uppercase tracking-[0.2em]">{plan.name}</span>
+                                    </div>
+
+                                    <div
+                                        className="flex items-baseline gap-1 text-white font-mono"
+                                        style={{ marginBottom: spacing.lg }}
+                                    >
+                                        <span className="text-white/40 font-sans">$</span>
+                                        <span
+                                            className="font-bold tracking-tighter"
+                                            style={{ fontSize: isStrictMobile ? '3rem' : '3.75rem' }}
+                                        >
+                                            {plan.price}
+                                        </span>
+                                        <span className="text-white/20 text-xs uppercase tracking-widest">/mo</span>
+                                    </div>
+
+                                    <p
+                                        className="text-white/40 font-medium mb-8"
+                                        style={{ marginBottom: spacing.xl }}
+                                    >
+                                        {plan.desc}
+                                    </p>
+
+                                    <ul className="space-y-4 mb-12 flex-grow">
+                                        {['Cloud Sync', 'Unlimited Repos', '24/7 Support'].map((f) => (
+                                            <li key={f} className="flex items-center gap-3 text-xs text-white/50 font-mono tracking-tight">
+                                                <div className="w-1 h-1 rounded-full bg-[#007acc]"></div> {f}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <button
+                                        className={`w-full py-4 rounded-lg font-bold text-sm transition-all ${plan.active ? 'bg-[#007acc] text-white' : 'bg-white/5 text-white/60 hover:bg-white/10'}`}
+                                        style={{ padding: `${spacing.md} 0` }}
+                                    >
+                                        Get Started
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* CTA Section */}
+                <section style={{ padding: `${spacing.xxl} ${spacing.lg}` }}>
+                    <div
+                        className="max-w-screen-2xl mx-auto bg-[#007acc] rounded-2xl relative overflow-hidden group shadow-2xl shadow-[#007acc]/20"
+                        style={{ padding: isStrictMobile ? spacing.xl : spacing.xxxl }}
+                    >
+                        <div className="absolute top-0 right-0 w-full h-full opacity-10 pointer-events-none">
+                            <Code2 size={400} className="absolute -top-20 -right-20 rotate-[-20deg]" />
+                        </div>
+
+                        <div className={`relative z-10 flex ${isStrictMobile ? 'flex-col' : 'flex-row'} justify-between items-center`} style={{ gap: spacing.lg }}>
+                            <div className={`${isStrictMobile ? 'text-center' : 'text-left'}`}>
+                                <h2
+                                    className="font-bold text-white mb-2 leading-tight"
+                                    style={{
+                                        fontSize: isStrictMobile ? responsive.fontSize['3xl'] : responsive.fontSize['5xl']
+                                    }}
+                                >Available everywhere.</h2>
+                                <p
+                                    className="text-white/70 font-medium"
+                                    style={{ fontSize: responsive.fontSize.lg }}
+                                >
+                                    Download for macOS, Windows, or Linux.
+                                </p>
+                            </div>
+                            <button
+                                className="bg-white text-[#007acc] font-bold rounded-lg hover:scale-105 active:scale-95 transition-all shadow-xl shadow-black/10"
+                                style={{
+                                    padding: `${spacing.lg} ${spacing.xxl}`,
+                                    fontSize: responsive.fontSize.lg
+                                }}
+                            >
+                                Download Stable v1.8
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <footer className="bg-[#1E1E1E] border-t border-[#333333] py-12 px-6 text-sm text-[#858585]">
+                    <div className={`max-w-7xl mx-auto flex ${isStrictMobile ? 'flex-col' : 'flex-row'} justify-between items-center gap-6`}>
+                        <div className="flex items-center gap-2">
+                            <FileCode size={20} className="text-[#007ACC]" />
+                            <span className="text-[#CCCCCC] font-bold">DevStudio</span>
+                        </div>
+                        <div className="flex gap-6">
+                            {['Support', 'Privacy', 'Terms of Use', 'License'].map(link => (
+                                <a key={link} href="#" className="hover:text-white transition-colors">{link}</a>
+                            ))}
+                        </div>
+                        <div>
+                            &copy; 2024 DevStudio Project.
+                        </div>
+                    </div>
+                </footer>
+            </main>
         </div>
     );
 };

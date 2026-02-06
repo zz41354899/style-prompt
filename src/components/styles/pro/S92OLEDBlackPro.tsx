@@ -1,131 +1,246 @@
-import { useState } from 'react';
-import { Menu, X, ArrowRight, Check, ChevronDown, Moon, Sparkles, Zap, Eye } from 'lucide-react';
+import React, { useState } from 'react';
+import {
+    Zap,
+    Moon,
+    Smartphone,
+    Battery,
+    Maximize,
+    Eye,
+    ChevronDown,
+    ArrowRight,
+    Menu,
+    X
+} from 'lucide-react';
 import { useResponsive } from '@/hooks/useResponsive';
 
 export const S92OLEDBlackPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
-    const [menuOpen, setMenuOpen] = useState(false);
-    const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
     const responsive = useResponsive(deviceMode);
-    const isMobile = responsive.nav.showMobile;
-
-    const colors = { bg: '#000000', surface: '#0A0A0A', text: '#FFFFFF', muted: '#666666', accent: '#FFFFFF', dim: '#333333' };
+    const isMobile = deviceMode === 'mobile';
+    const isTablet = deviceMode === 'tablet';
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
-        <div className="min-h-screen" style={{ backgroundColor: colors.bg, color: colors.text, fontFamily: '"SF Pro Display", "Inter", sans-serif' }}>
+        <div className="min-h-screen bg-black text-white font-sans selection:bg-cyan-500 selection:text-black">
+            {/* 
+        OLED BLACK THEME
+        - Pure black (#000000) background
+        - Neon accents: Cyan (#06b6d4), Magenta (#d946ef)
+        - Glow effects using box-shadow and text-shadow
+        - Minimalist, futuristic, high-tech
+      */}
+
             {/* Navigation */}
-            <header className="sticky top-0 z-50 border-b" style={{ borderColor: colors.dim, backgroundColor: colors.bg }}>
-                <div className="max-w-5xl mx-auto flex items-center justify-between p-4 px-6">
+            <nav className="sticky top-0 z-50 bg-black/80 backdrop-blur-lg border-b border-white/10">
+                <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                        <Moon size={24} style={{ color: colors.text }} />
-                        <span className="text-lg font-medium tracking-tight">Noir</span>
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center">
+                            <Moon size={16} className="text-white fill-current" />
+                        </div>
+                        <span className="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
+                            ONYX<span className="text-cyan-500">.</span>
+                        </span>
                     </div>
-                    {!isMobile && (
-                        <nav className="flex items-center gap-6">
-                            {['Features', 'Themes', 'Download'].map((item) => (<span key={item} className="cursor-pointer hover:text-white" style={{ color: colors.muted }}>{item}</span>))}
-                            <button className="px-4 py-2 text-black" style={{ backgroundColor: colors.text }}>Get App</button>
-                        </nav>
+
+                    {!isMobile && !isTablet && (
+                        <div className="flex items-center gap-8 text-sm font-medium text-gray-400">
+                            {['Features', 'Specs', 'Gallery', 'Reviews'].map((item) => (
+                                <a key={item} href="#" className="hover:text-white transition-colors duration-300">
+                                    {item}
+                                </a>
+                            ))}
+                            <button className="px-5 py-2 rounded-full border border-white/20 hover:border-cyan-500 hover:text-cyan-400 transition-all duration-300">
+                                Pre-order
+                            </button>
+                        </div>
                     )}
-                    {isMobile && <button onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X size={24} /> : <Menu size={24} />}</button>}
-                </div>
-                {menuOpen && isMobile && (
-                    <div className="p-4 border-t" style={{ borderColor: colors.dim, backgroundColor: colors.surface }}>
-                        {['Features', 'Themes', 'Download'].map((item) => (<div key={item} className="py-2" style={{ color: colors.muted }}>{item}</div>))}
-                        <button className="w-full mt-3 py-2 text-black" style={{ backgroundColor: colors.text }}>Get App</button>
-                    </div>
-                )}
-            </header>
 
-            {/* Hero */}
-            <section style={{ padding: '100px 24px' }}>
-                <div className="max-w-4xl mx-auto text-center">
-                    <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border" style={{ borderColor: colors.dim }}>
-                        <Eye size={14} style={{ color: colors.muted }} />
-                        <span style={{ color: colors.muted }}>True Black Display</span>
-                    </div>
-                    <h1 className="mb-6 font-bold leading-tight" style={{ fontSize: isMobile ? '40px' : '72px' }}>
-                        Pure. <span style={{ opacity: 0.5 }}>Dark.</span> Beautiful.
-                    </h1>
-                    <p className="max-w-md mx-auto mb-10" style={{ color: colors.muted }}>OLED-optimized pure black aesthetics with pixel-off dark mode and stunning contrast.</p>
-                    <div className="flex gap-4 justify-center" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
-                        <button className="px-8 py-3 text-black flex items-center justify-center gap-2" style={{ backgroundColor: colors.text }}>Download <ArrowRight size={18} /></button>
-                        <button className="px-8 py-3 border" style={{ borderColor: colors.dim, color: colors.text }}>Learn More</button>
-                    </div>
+                    {(isMobile || isTablet) && (
+                        <button
+                            className="text-gray-400"
+                            onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        >
+                            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                        </button>
+                    )}
                 </div>
-            </section>
+            </nav>
 
-            {/* Features */}
-            <section style={{ padding: '80px 24px', backgroundColor: colors.surface }}>
-                <div className="max-w-5xl mx-auto">
-                    <h2 className="text-center text-2xl font-medium mb-12">Features</h2>
-                    <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
-                        {[{ icon: Moon, title: 'True Black' }, { icon: Zap, title: 'Battery Saver' }, { icon: Eye, title: 'Eye Comfort' }].map((item) => (
-                            <div key={item.title} className="p-6 text-center border" style={{ borderColor: colors.dim, backgroundColor: colors.bg }}>
-                                <item.icon size={28} className="mx-auto mb-4" />
-                                <h3 className="font-medium mb-2">{item.title}</h3>
-                                <p className="text-sm" style={{ color: colors.muted }}>OLED optimized.</p>
+            <main>
+                {/* HERO */}
+                <section className="relative pt-24 pb-32 px-6 overflow-hidden">
+                    {/* Background Glows */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-600/20 rounded-full blur-[120px] pointer-events-none animate-pulse-slow"></div>
+
+                    <div className="max-w-6xl mx-auto text-center relative z-10">
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-cyan-400 text-xs font-bold tracking-wide uppercase mb-8">
+                            <Zap size={12} className="fill-current" />
+                            <span>Infinite Contrast Ratio</span>
+                        </div>
+
+                        <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter leading-none mb-8">
+                            <span className="block text-white">True</span>
+                            <span className="block text-transparent bg-clip-text bg-gradient-to-br from-gray-500 to-black stroke-white" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.3)' }}>Black.</span>
+                        </h1>
+
+                        <p className="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto mb-12">
+                            Experience absolute darkness. The world's first true-black display technology
+                            that turns pixels off completely for zero light emission.
+                        </p>
+
+                        <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+                            <button className="h-14 px-8 rounded-full bg-white text-black font-bold text-lg hover:bg-cyan-400 hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)]">
+                                Experience Onyx
+                            </button>
+                            <button className="h-14 px-8 rounded-full bg-black border border-gray-700 text-white font-medium hover:border-white transition-all duration-300 flex items-center gap-2">
+                                View Tech Specs <ChevronDown size={18} />
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Abstract Phone visualization */}
+                    <div className="mt-24 relative max-w-4xl mx-auto h-[400px] md:h-[600px]">
+                        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10"></div>
+                        <div className="w-full h-full border border-white/10 rounded-t-[40px] bg-gradient-to-b from-[#111] to-black flex items-center justify-center overflow-hidden">
+                            <div className="text-[200px] font-bold text-white/5 select-none">OLED</div>
+                            {/* Floating elements */}
+                            <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-br from-cyan-500 to-purple-600 rounded-full blur-[40px]"></div>
+                            <div className="absolute bottom-1/3 right-1/4 w-40 h-40 bg-gradient-to-br from-pink-500 to-orange-500 rounded-full blur-[50px] opacity-70"></div>
+                        </div>
+                    </div>
+                </section>
+
+
+                {/* METRICS SECTION */}
+                <section className="py-24 border-t border-white/5 bg-[#050505]">
+                    <div className="max-w-7xl mx-auto px-6">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
+                            {[
+                                { val: "0", unit: "nits", label: "Black Level" },
+                                { val: "1B", unit: "+", label: "Colors" },
+                                { val: "120", unit: "Hz", label: "Refresh Rate" },
+                                { val: "∞", unit: ":1", label: "Contrast" },
+                            ].map((stat, i) => (
+                                <div key={i} className="text-center">
+                                    <div className="text-4xl md:text-5xl font-bold text-white mb-2 font-mono">
+                                        {stat.val}<span className="text-gray-600 text-2xl">{stat.unit}</span>
+                                    </div>
+                                    <div className="text-sm font-medium text-gray-500 uppercase tracking-widest">{stat.label}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+
+                {/* FEATURE: BATTERY */}
+                <section className="py-32 px-6 relative overflow-hidden">
+                    <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
+                        <div className="order-2 md:order-1 relative">
+                            <div className="w-full aspect-square border border-white/10 rounded-3xl bg-neutral-900/50 p-8 flex items-center justify-center relative backdrop-blur-sm">
+                                {/* Simulated "Dark Mode" battery saving */}
+                                <div className="relative w-48 h-80 bg-black border-4 border-gray-800 rounded-[2rem] p-4 flex flex-col justify-between shadow-2xl">
+                                    <div className="flex justify-between text-gray-500 text-xs">
+                                        <span>10:30</span>
+                                        <Battery size={14} className="text-green-500" />
+                                    </div>
+                                    <div className="space-y-4">
+                                        <div className="h-2 w-12 bg-gray-800 rounded"></div>
+                                        <div className="h-2 w-20 bg-gray-800 rounded"></div>
+                                    </div>
+                                </div>
+
+                                {/* Glow indicating power */}
+                                <div className="absolute inset-0 bg-green-500/10 rounded-3xl animate-pulse"></div>
                             </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
+                        </div>
 
-            {/* Pricing */}
-            <section style={{ padding: '80px 24px' }}>
-                <div className="max-w-5xl mx-auto">
-                    <h2 className="text-center text-2xl font-medium mb-12">Plans</h2>
-                    <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
-                        {[{ name: 'Free', price: '$0', hot: false }, { name: 'Pro', price: '$4', hot: true }, { name: 'Ultra', price: '$9', hot: false }].map((plan) => (
-                            <div key={plan.name} className="relative p-6 text-center border" style={{ borderColor: plan.hot ? colors.text : colors.dim, backgroundColor: colors.surface }}>
-                                {plan.hot && <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 text-xs text-black" style={{ backgroundColor: colors.text }}>Popular</div>}
-                                <h3 className="font-medium mb-2">{plan.name}</h3>
-                                <div className="text-4xl font-bold mb-4">{plan.price}<span className="text-sm font-normal" style={{ color: colors.muted }}>/mo</span></div>
-                                <ul className="space-y-2 mb-6 text-left text-sm">
-                                    {['All themes', 'Sync', 'No ads'].map((f) => (<li key={f} className="flex items-center gap-2" style={{ color: colors.muted }}><Check size={14} /> {f}</li>))}
-                                </ul>
-                                <button className="w-full py-2" style={{ backgroundColor: plan.hot ? colors.text : 'transparent', color: plan.hot ? 'black' : colors.text, border: plan.hot ? 'none' : `1px solid ${colors.dim}` }}>Select</button>
+                        <div className="order-1 md:order-2 space-y-6">
+                            <div className="w-12 h-12 bg-green-900/30 rounded-full flex items-center justify-center text-green-400 mb-4">
+                                <Battery size={24} />
                             </div>
-                        ))}
+                            <h2 className="text-4xl md:text-5xl font-bold">Pixels that turn off. <br />Power that stays on.</h2>
+                            <p className="text-xl text-gray-400">
+                                OLED technology doesn't just display black—it creates it by completely switching off individual pixels. This saves immense power when using Dark Mode.
+                            </p>
+                            <ul className="space-y-4 pt-4">
+                                {[
+                                    "Up to 40% battery savings in dark mode",
+                                    "Cooler running device temperature",
+                                    "Extended panel lifespan"
+                                ].map((item, i) => (
+                                    <li key={i} className="flex items-center gap-3 text-gray-300">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            {/* FAQ */}
-            <section style={{ padding: '80px 24px', backgroundColor: colors.surface }}>
-                <div className="max-w-3xl mx-auto">
-                    <h2 className="text-center text-2xl font-medium mb-12">FAQ</h2>
-                    <div className="space-y-0">
-                        {[{ q: 'What is OLED Black?', a: 'Pure black #000000 design that turns off pixels on OLED screens.' },
-                        { q: 'Battery savings?', a: 'Up to 30% less battery on OLED displays.' },
-                        { q: 'Works everywhere?', a: 'Best on OLED, works on all screens.' }
-                        ].map((item, i) => (
-                            <div key={i} className="border-b" style={{ borderColor: colors.dim }}>
-                                <button className="w-full flex items-center justify-between py-4 text-left" onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}>
-                                    <span>{item.q}</span>
-                                    <ChevronDown size={18} style={{ color: colors.muted, transform: expandedFaq === i ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s' }} />
-                                </button>
-                                {expandedFaq === i && <div className="pb-4 text-sm" style={{ color: colors.muted }}>{item.a}</div>}
-                            </div>
-                        ))}
+
+                {/* FEATURE: COLORS */}
+                <section className="py-32 px-6 bg-gradient-to-b from-black to-[#050505]">
+                    <div className="max-w-7xl mx-auto">
+                        <div className="text-center max-w-3xl mx-auto mb-20 space-y-6">
+                            <h2 className="text-4xl md:text-5xl font-bold">Colors that scream.</h2>
+                            <p className="text-xl text-gray-400">
+                                Against a perfectly black canvas, colors appear more vibrant and lifelike than ever before. 100% DCI-P3 color gamut coverage.
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            {[
+                                { title: "Neon Cyan", color: "bg-cyan-500", glow: "shadow-[0_0_50px_rgba(6,182,212,0.4)]" },
+                                { title: "Hot Magenta", color: "bg-fuchsia-500", glow: "shadow-[0_0_50px_rgba(217,70,239,0.4)]" },
+                                { title: "Lime Shock", color: "bg-lime-500", glow: "shadow-[0_0_50px_rgba(132,204,22,0.4)]" },
+                            ].map((card, i) => (
+                                <div key={i} className="group relative aspect-[4/5] rounded-2xl overflow-hidden border border-white/5 bg-neutral-900/20">
+                                    <div className={`absolute inset-0 ${card.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <div className={`w-32 h-32 rounded-full ${card.color} ${card.glow} opacity-80 group-hover:scale-125 transition-transform duration-700`}></div>
+                                    </div>
+                                    <div className="absolute bottom-0 w-full p-8">
+                                        <h3 className="text-2xl font-bold text-white">{card.title}</h3>
+                                        <p className="text-sm text-gray-500 mt-2">Extreme Saturation</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            {/* CTA */}
-            <section style={{ padding: '80px 24px' }}>
-                <div className="max-w-3xl mx-auto p-12 text-center border" style={{ borderColor: colors.dim }}>
-                    <Sparkles size={32} className="mx-auto mb-4" />
-                    <h2 className="text-2xl font-medium mb-6">Experience true darkness</h2>
-                    <button className="px-10 py-3 text-black" style={{ backgroundColor: colors.text }}>Download</button>
-                </div>
-            </section>
 
-            {/* Footer */}
-            <footer className="border-t" style={{ borderColor: colors.dim, padding: '30px 24px' }}>
-                <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-                    <div className="flex items-center gap-2"><Moon size={18} /> Noir</div>
-                    <span className="text-sm" style={{ color: colors.muted }}>© 2025 OLED Black</span>
+                {/* CTA */}
+                <section className="py-32 px-6 text-center relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#111] to-black"></div>
+                    <div className="relative z-10 max-w-4xl mx-auto space-y-10">
+                        <h2 className="text-5xl md:text-7xl font-bold tracking-tighter">Ready to go dark?</h2>
+                        <p className="text-xl text-gray-400">Join the OLED revolution. Once you see it, you can't go back.</p>
+                        <button className="h-16 px-12 rounded-full bg-white text-black font-bold text-xl hover:bg-cyan-400 transition-colors shadow-lg">
+                            Buy Onyx Pro — $999
+                        </button>
+                    </div>
+                </section>
+            </main>
+
+            {/* FOOTER */}
+            <footer className="py-12 px-6 border-t border-white/5 text-gray-600 text-sm">
+                <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div className="flex items-center gap-2">
+                        <Moon size={16} className="text-gray-500" />
+                        <span className="font-bold text-gray-400">ONYX</span>
+                    </div>
+                    <div className="flex gap-8">
+                        <a href="#" className="hover:text-white transition-colors">Privacy</a>
+                        <a href="#" className="hover:text-white transition-colors">Terms</a>
+                        <a href="#" className="hover:text-white transition-colors">Support</a>
+                    </div>
+                    <div>
+                        &copy; 2024 Onyx Display systems.
+                    </div>
                 </div>
             </footer>
         </div>
     );
-};
+}

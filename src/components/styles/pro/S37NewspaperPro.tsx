@@ -7,6 +7,7 @@ export const S37NewspaperPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
     const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
     const responsive = useResponsive(deviceMode);
     const isMobile = responsive.nav.showMobile;
+    const spacing = responsive.spacing;
 
     const colors = {
         bg: '#FDF8F3',
@@ -49,16 +50,64 @@ export const S37NewspaperPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
                     font-style: italic;
                     color: ${colors.muted};
                 }
+                .dateline {
+                    font-style: italic;
+                    color: ${colors.muted};
+                }
+                .paper-texture {
+                    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+                    pointer-events: none;
+                }
+                .weather-ear {
+                    border: 1px solid ${colors.border};
+                    padding: 0.5rem;
+                    text-align: center;
+                    font-size: 0.75rem;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                }
+                .coupon-border {
+                    border: 2px dashed ${colors.ink};
+                    position: relative;
+                }
+                .coupon-border::after {
+                    content: '✂';
+                    position: absolute;
+                    top: -12px;
+                    left: 20px;
+                    background: ${colors.bg};
+                    padding: 0 4px;
+                    font-size: 14px;
+                }
             `}</style>
+
+            <div className="absolute inset-0 paper-texture z-50 mix-blend-multiply"></div>
 
             {/* Masthead */}
             <header className="border-b-4 border-double border-black bg-white">
                 <div className="max-w-screen-xl mx-auto">
                     {/* Top Bar */}
-                    <div className="flex justify-between items-center px-6 py-2 border-b border-gray-300 text-xs uppercase tracking-widest" style={{ fontFamily: 'Georgia, serif' }}>
-                        <span className="dateline">Est. 1892</span>
-                        <span>Vol. CXXXI, No. 47</span>
-                        <span>{new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                    <div className="flex justify-between items-center px-6 py-4 border-b border-gray-300 text-xs uppercase tracking-widest relative" style={{ fontFamily: 'Georgia, serif' }}>
+                        <div className="weather-ear w-24 hidden md:flex absolute left-6 top-2">
+                            <span className="font-bold">Weather</span>
+                            <span>Fair, 72°F</span>
+                        </div>
+                        <div className="flex flex-col items-center mx-auto">
+                            <span className="dateline">Est. 1892 &bull; New York Edition</span>
+                            <div className="flex gap-4 font-bold mt-1">
+                                <span>Vol. CXXXI, No. 47</span>
+                                <span>&bull;</span>
+                                <span>{new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                                <span>&bull;</span>
+                                <span>$2.00</span>
+                            </div>
+                        </div>
+                        <div className="weather-ear w-24 hidden md:flex absolute right-6 top-2">
+                            <span className="font-bold">Index</span>
+                            <span>Dow <span className="text-green-700">▲</span> 1.2%</span>
+                        </div>
                     </div>
 
                     {/* Masthead Title */}
@@ -105,7 +154,7 @@ export const S37NewspaperPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
                 <div className="max-w-screen-xl mx-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         {/* Main Story */}
-                        <div className="lg:col-span-2 border-r border-gray-300 pr-8">
+                        <div className="lg:col-span-2 lg:border-r border-gray-300 lg:pr-8">
                             <div className="flex items-center gap-3 mb-4">
                                 <span className="bg-red-800 text-white px-3 py-1 text-xs font-bold uppercase tracking-widest">Breaking</span>
                                 <span className="dateline text-sm">Just Now</span>
@@ -253,18 +302,19 @@ export const S37NewspaperPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
                 </div>
             </section>
 
-            {/* CTA */}
-            <section className="py-20 px-6 bg-black text-white">
-                <div className="max-w-screen-lg mx-auto text-center">
+            {/* CTA - Coupon */}
+            <section className="py-20 px-6 bg-white text-black border-t-4 border-double border-black">
+                <div className="max-w-screen-lg mx-auto text-center coupon-border p-12 bg-[#FDF8F3]">
                     <h2 className="text-4xl md:text-6xl font-black mb-6" style={{ fontFamily: '"Playfair Display", serif' }}>
-                        Subscribe Today
+                        Limited Time Offer
                     </h2>
-                    <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
-                        Join millions of readers who trust The Daily Chronicle for their news
+                    <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto font-serif italic">
+                        "The most trusted name in journalism." — Cut out and save 20% on your first year.
                     </p>
-                    <button className="px-12 py-4 bg-white text-black font-bold uppercase tracking-widest hover:bg-gray-200 transition-colors inline-flex items-center gap-3">
-                        Start Reading <ArrowRight size={20} />
+                    <button className="px-12 py-4 bg-black text-white font-bold uppercase tracking-widest hover:bg-red-800 transition-colors inline-flex items-center gap-3">
+                        Subscribe Today <ArrowRight size={20} />
                     </button>
+                    <div className="mt-4 text-xs uppercase tracking-widest text-gray-500">Offer Code: CHRONICLE2025</div>
                 </div>
             </section>
 

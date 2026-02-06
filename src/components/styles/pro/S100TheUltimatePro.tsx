@@ -1,156 +1,286 @@
-import { useState } from 'react';
-import { Menu, X, ArrowRight, Check, ChevronDown, Crown, Sparkles, Star, Zap, Diamond, Award } from 'lucide-react';
+import React, { useState } from 'react';
 import { useResponsive } from '@/hooks/useResponsive';
+import {
+    Sparkles,
+    Crown,
+    Infinity,
+    Hexagon,
+    Zap,
+    Globe,
+    Menu,
+    X,
+    Play,
+    ArrowRight
+} from 'lucide-react';
 
 export const S100TheUltimatePro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
     const responsive = useResponsive(deviceMode);
-    const isMobile = responsive.nav.showMobile;
-
-    const colors = { bg: '#050510', surface: '#0A0A1A', text: '#FFFFFF', muted: '#9090B0', gold: '#FFD700', platinum: '#E5E4E2', diamond: '#B9F2FF', purple: '#A855F7', pink: '#EC4899', blue: '#3B82F6' };
-    const ultimateGradient = 'linear-gradient(135deg, #FFD700 0%, #A855F7 33%, #EC4899 66%, #3B82F6 100%)';
-    const shimmer = 'linear-gradient(45deg, transparent 25%, rgba(255,255,255,0.1) 50%, transparent 75%)';
+    const isStrictMobile = deviceMode === 'mobile';
+    const isDesktop = deviceMode === 'desktop';
+    const isNavMobile = responsive.nav.showMobile;
+    const spacing = responsive.spacing;
 
     return (
-        <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: colors.bg, color: colors.text, fontFamily: '"Playfair Display", "Inter", serif' }}>
-            {/* Animated Background */}
-            <div className="fixed inset-0 pointer-events-none">
-                <div className="absolute w-full h-full" style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(168,85,247,0.15) 0%, transparent 50%)' }} />
-                <div className="absolute w-96 h-96 rounded-full blur-3xl opacity-20" style={{ background: colors.gold, top: '10%', right: '-5%' }} />
-                <div className="absolute w-80 h-80 rounded-full blur-3xl opacity-15" style={{ background: colors.pink, bottom: '20%', left: '-5%' }} />
+        <div className="min-h-screen bg-black text-white font-sans selection:bg-fuchsia-500 selection:text-white overflow-x-hidden relative">
+            {/* 
+        THE ULTIMATE PRO
+        - Theme: Iridescent / Holographic / The Pinnacle
+        - Colors: Multi-gradient (Cyan, Fuchsia, Yellow, White)
+        - Style: "God Mode", clean but rich, glass, glow
+      */}
+
+            {/* Aurora Background */}
+            <div className="fixed inset-0 pointer-events-none z-0">
+                <div className="absolute top-[-50%] left-[-20%] w-[150vw] h-[150vw] bg-radial-gradient from-indigo-900 via-transparent to-transparent opacity-40 animate-pulse-slow"></div>
+                <div className="absolute bottom-[-20%] right-[-10%] w-[100vw] h-[100vw] bg-purple-900/40 rounded-full blur-[150px]"></div>
+
+                {/* Noise */}
+                <div className="absolute inset-0 opacity-[0.15] mix-blend-overlay" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
             </div>
 
-            {/* Gradient Top Border */}
-            <div className="h-1" style={{ background: ultimateGradient }} />
-
             {/* Navigation */}
-            <header className="sticky top-0 z-50" style={{ backgroundColor: `${colors.bg}E0`, backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-                <div className="max-w-6xl mx-auto flex items-center justify-between p-4 px-6">
-                    <div className="flex items-center gap-3">
-                        <Crown size={28} style={{ color: colors.gold }} />
-                        <span className="text-xl font-bold tracking-wide">ULTIMATE</span>
+            <header className="fixed top-0 w-full z-50 bg-black/20 backdrop-blur-xl border-b border-white/10">
+                <div
+                    className="max-w-screen-2xl mx-auto flex items-center justify-between"
+                    style={{ padding: `${spacing.md} ${spacing.lg}` }}
+                >
+                    <div className="flex items-center gap-3 group cursor-pointer">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-cyan-400 via-fuchsia-500 to-yellow-400 p-[2px]">
+                            <div className="w-full h-full rounded-full bg-black flex items-center justify-center">
+                                <Zap className="text-white fill-white" size={20} />
+                            </div>
+                        </div>
+                        <span className="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-white to-white/50 tracking-tighter">ULTIMATE</span>
                     </div>
-                    {!isMobile && (
-                        <nav className="flex items-center gap-8">
-                            {['Experience', 'Collection', 'Legacy'].map((item) => (<span key={item} className="cursor-pointer tracking-wide" style={{ color: colors.muted }}>{item}</span>))}
-                            <button className="px-6 py-2.5 font-bold tracking-wider text-black" style={{ background: ultimateGradient }}>Begin</button>
+
+                    {!isNavMobile && (
+                        <nav className="flex items-center gap-10">
+                            {['Ecosystem', 'Vision', 'Genesis'].map((item) => (
+                                <a key={item} href="#" className="text-sm font-bold uppercase tracking-[0.2em] text-white/40 hover:text-white transition-colors duration-500">
+                                    {item}
+                                </a>
+                            ))}
+                            <button className="px-8 py-3 rounded-full bg-white text-black font-black text-xs uppercase tracking-widest hover:scale-105 active:scale-95 transition-all duration-300 shadow-[0_0_30px_rgba(255,255,255,0.3)]">
+                                Enter Portal
+                            </button>
                         </nav>
                     )}
-                    {isMobile && <button onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X size={24} /> : <Menu size={24} />}</button>}
+
+                    {isNavMobile && (
+                        <button
+                            onClick={() => setMenuOpen(!menuOpen)}
+                            className="p-3 rounded-full bg-white/5 border border-white/10"
+                        >
+                            {menuOpen ? <X size={20} className="text-white" /> : <Menu size={20} className="text-white" />}
+                        </button>
+                    )}
                 </div>
-                {menuOpen && isMobile && (
-                    <div className="p-6 border-t" style={{ borderColor: 'rgba(255,255,255,0.1)', backgroundColor: colors.surface }}>
-                        {['Experience', 'Collection', 'Legacy'].map((item) => (<div key={item} className="py-3 tracking-wide" style={{ color: colors.muted }}>{item}</div>))}
-                        <button className="w-full mt-4 py-2.5 font-bold tracking-wider text-black" style={{ background: ultimateGradient }}>Begin</button>
+
+                {menuOpen && isNavMobile && (
+                    <div className="bg-black/90 backdrop-blur-3xl border-b border-white/10 p-8 space-y-6 animate-in fade-in slide-in-from-top-4 duration-500">
+                        {['Ecosystem', 'Vision', 'Genesis'].map((item) => (
+                            <a key={item} href="#" className="block text-lg font-bold uppercase tracking-widest text-white/50">{item}</a>
+                        ))}
+                        <button className="w-full py-5 rounded-full bg-white text-black font-black uppercase text-sm tracking-widest italic">
+                            Enter Portal
+                        </button>
                     </div>
                 )}
             </header>
 
-            {/* Hero */}
-            <section className="relative z-10" style={{ padding: '100px 24px' }}>
-                <div className="max-w-5xl mx-auto text-center">
-                    <div className="inline-flex items-center gap-3 mb-8 px-5 py-2 rounded-full" style={{ border: '1px solid rgba(255,215,0,0.5)', backgroundColor: 'rgba(255,215,0,0.1)' }}>
-                        <Diamond size={18} style={{ color: colors.diamond }} />
-                        <span className="font-bold tracking-widest" style={{ color: colors.gold }}>THE PINNACLE</span>
+            <main>
+                {/* Hero Section */}
+                <section
+                    className="relative min-h-[100vh] flex items-center overflow-hidden"
+                    style={{ padding: `${spacing.section} ${spacing.lg}` }}
+                >
+                    {/* Background Visuals */}
+                    <div className="absolute inset-0 z-0">
+                        <div className="absolute top-[20%] left-[-10%] w-[60%] h-[60%] bg-fuchsia-600/20 rounded-full blur-[150px] animate-pulse"></div>
+                        <div className="absolute bottom-[20%] right-[-10%] w-[60%] h-[60%] bg-cyan-600/20 rounded-full blur-[150px] animate-pulse" style={{ animationDelay: '2s' }}></div>
                     </div>
-                    <h1 className="mb-6 font-bold leading-tight" style={{ fontSize: isMobile ? '44px' : '80px' }}>
-                        <span style={{ background: ultimateGradient, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>The Ultimate</span><br />Experience
-                    </h1>
-                    <p className="max-w-lg mx-auto mb-10 text-lg" style={{ color: colors.muted }}>The culmination of 100 styles. Premium finishes, stunning gradients, and unmatched elegance.</p>
-                    <div className="flex gap-6 justify-center" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
-                        <button className="px-10 py-4 font-bold tracking-wider text-black flex items-center justify-center gap-2" style={{ background: ultimateGradient }}>Experience Now <ArrowRight size={20} /></button>
-                        <button className="px-10 py-4 font-bold tracking-wider border" style={{ borderColor: colors.gold, color: colors.gold }}>View Collection</button>
-                    </div>
-                    {/* Ultimate Icons */}
-                    <div className="mt-16 flex justify-center gap-4">
-                        {[{ icon: Crown, color: colors.gold }, { icon: Diamond, color: colors.diamond }, { icon: Star, color: colors.pink }, { icon: Zap, color: colors.purple }].map((item, i) => (
-                            <div key={i} className="w-14 h-14 rounded-xl flex items-center justify-center" style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: `1px solid ${item.color}40` }}><item.icon size={24} style={{ color: item.color }} /></div>
-                        ))}
-                    </div>
-                </div>
-            </section>
 
-            {/* Features */}
-            <section className="relative z-10" style={{ padding: '80px 24px' }}>
-                <div className="max-w-5xl mx-auto">
-                    <h2 className="text-center text-3xl font-bold mb-12" style={{ background: ultimateGradient, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Excellence</h2>
-                    <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
-                        {[{ icon: Crown, title: 'Premium', color: colors.gold }, { icon: Sparkles, title: 'Stunning', color: colors.pink }, { icon: Award, title: 'Ultimate', color: colors.purple }].map((item) => (
-                            <div key={item.title} className="p-6 rounded-2xl text-center" style={{ backgroundColor: colors.surface, border: `1px solid ${item.color}30` }}>
-                                <item.icon size={36} className="mx-auto mb-4" style={{ color: item.color }} />
-                                <h3 className="font-bold text-xl mb-2">{item.title}</h3>
-                                <p style={{ color: colors.muted }}>Unmatched quality.</p>
+                    <div
+                        className="max-w-screen-2xl mx-auto w-full relative z-10 grid gap-16"
+                        style={{
+                            gridTemplateColumns: isDesktop ? '1fr 1fr' : '1fr',
+                            gap: spacing.xxl
+                        }}
+                    >
+                        <div className="flex flex-col justify-center items-start">
+                            <div
+                                className="inline-flex items-center gap-3 px-4 py-1 rounded-full bg-white/5 border border-white/10 text-white/60 mb-8 backdrop-blur-sm"
+                                style={{ marginBottom: spacing.lg }}
+                            >
+                                <span className="w-2 h-2 rounded-full bg-yellow-400 shadow-[0_0_10px_#facc15]"></span>
+                                <span className="text-[10px] font-bold uppercase tracking-[0.3em]">Quantum Edition 2024</span>
                             </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
 
-            {/* Pricing */}
-            <section className="relative z-10" style={{ padding: '80px 24px', backgroundColor: colors.surface }}>
-                <div className="max-w-5xl mx-auto">
-                    <h2 className="text-center text-3xl font-bold mb-12" style={{ background: ultimateGradient, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Membership</h2>
-                    <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
-                        {[{ name: 'Gold', price: '$199', icon: Star, color: colors.gold, hot: false },
-                        { name: 'Platinum', price: '$499', icon: Diamond, color: colors.platinum, hot: true },
-                        { name: 'Diamond', price: '$999', icon: Crown, color: colors.diamond, hot: false }
-                        ].map((plan) => (
-                            <div key={plan.name} className="relative p-6 rounded-2xl text-center" style={{ backgroundColor: colors.bg, border: `2px solid ${plan.hot ? 'transparent' : plan.color + '40'}`, background: plan.hot ? ultimateGradient : colors.bg }}>
-                                {plan.hot && <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold" style={{ backgroundColor: colors.bg, color: colors.platinum }}>★ ULTIMATE ★</div>}
-                                <plan.icon size={32} className="mx-auto mb-3" style={{ color: plan.hot ? colors.bg : plan.color }} />
-                                <h3 className="text-xl font-bold mb-2" style={{ color: plan.hot ? colors.bg : colors.text }}>{plan.name}</h3>
-                                <div className="text-4xl font-bold mb-4" style={{ color: plan.hot ? colors.bg : plan.color }}>{plan.price}</div>
-                                <ul className="space-y-2 mb-6 text-left">
-                                    {['All 100 styles', 'Lifetime updates', 'VIP support'].map((f) => (<li key={f} className="flex items-center gap-2" style={{ color: plan.hot ? 'rgba(0,0,0,0.7)' : colors.muted }}><Check size={16} style={{ color: plan.hot ? colors.bg : plan.color }} /> {f}</li>))}
-                                </ul>
-                                <button className="w-full py-3 rounded-lg font-bold tracking-wide" style={{ backgroundColor: plan.hot ? colors.bg : 'transparent', color: plan.hot ? colors.platinum : plan.color, border: plan.hot ? 'none' : `1px solid ${plan.color}` }}>Select</button>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
+                            <h1
+                                className="font-black text-white leading-[0.9] tracking-tighter mb-8 italic"
+                                style={{
+                                    fontSize: isStrictMobile ? responsive.fontSize['4xl'] : responsive.fontSize['5xl'],
+                                    marginBottom: spacing.md
+                                }}
+                            >
+                                THE <br />
+                                <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-fuchsia-500 to-yellow-400">UNREAL</span> <br />
+                                STANDARD.
+                            </h1>
 
-            {/* FAQ */}
-            <section className="relative z-10" style={{ padding: '80px 24px' }}>
-                <div className="max-w-3xl mx-auto">
-                    <h2 className="text-center text-3xl font-bold mb-12" style={{ background: ultimateGradient, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Questions</h2>
-                    <div className="rounded-2xl overflow-hidden" style={{ backgroundColor: colors.surface, border: '1px solid rgba(255,255,255,0.1)' }}>
-                        {[{ q: 'What is The Ultimate?', a: 'The pinnacle of 100 styles - premium finishes, stunning gradients, and unmatched elegance.' },
-                        { q: 'Customizable?', a: 'Full control over every aspect of the design.' },
-                        { q: 'What\'s included?', a: 'Access to all 100 styles with lifetime updates.' }
-                        ].map((item, i) => (
-                            <div key={i} className="border-b last:border-b-0" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
-                                <button className="w-full flex items-center justify-between p-5 text-left" onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}>
-                                    <span className="font-semibold">{item.q}</span>
-                                    <ChevronDown size={20} style={{ color: colors.gold, transform: expandedFaq === i ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s' }} />
+                            <p
+                                className="text-white/40 max-w-xl font-medium leading-relaxed italic"
+                                style={{
+                                    fontSize: isStrictMobile ? '1.125rem' : '1.5rem',
+                                    marginBottom: spacing.xxl
+                                }}
+                            >
+                                Experience the pinnacle of interactive design. A fusion of holographic aesthetics and high-performance engineering.
+                            </p>
+
+                            <div className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto">
+                                <button
+                                    className="group relative px-10 py-5 rounded-full bg-white text-black font-black uppercase text-sm tracking-widest italic overflow-hidden transition-all hover:scale-105 active:scale-95"
+                                    style={{ padding: `${spacing.md} ${spacing.xl}` }}
+                                >
+                                    <span className="relative z-10">Start Transcending</span>
+                                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-fuchsia-500 to-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                                 </button>
-                                {expandedFaq === i && <div className="px-5 pb-5" style={{ color: colors.muted }}>{item.a}</div>}
+                                <button
+                                    className="px-10 py-5 rounded-full bg-transparent border-2 border-white/20 text-white font-black uppercase text-sm tracking-widest italic hover:bg-white/5 transition-all"
+                                    style={{ padding: `${spacing.md} ${spacing.xl}` }}
+                                >
+                                    View Manifest
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Interactive Visual Element */}
+                        <div className="relative group perspective-1000">
+                            <div className="relative aspect-square rounded-[40px] bg-white/5 border border-white/10 backdrop-blur-md rotate-3 group-hover:rotate-0 transition-all duration-1000 overflow-hidden shadow-2xl flex items-center justify-center">
+                                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 via-transparent to-fuchsia-500/20"></div>
+                                <Zap className="text-white/20 w-1/2 h-1/2 animate-bounce" strokeWidth={0.5} />
+                                <div className="absolute bottom-8 left-8 right-8 p-6 bg-black/60 backdrop-blur-xl rounded-2xl border border-white/10">
+                                    <div className="h-2 w-24 bg-white/10 rounded-full mb-3 overflow-hidden">
+                                        <div className="h-full w-2/3 bg-gradient-to-r from-cyan-400 to-fuchsia-500 animate-pulse"></div>
+                                    </div>
+                                    <div className="text-[10px] font-bold text-white/40 uppercase tracking-widest italic">Signal Integrity: 99.4%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* TRIFECTA FEATURES */}
+                <section className="py-32 px-6">
+                    <div
+                        className="max-w-7xl mx-auto grid gap-8"
+                        style={{ gridTemplateColumns: isStrictMobile ? '1fr' : 'repeat(3, 1fr)', gap: spacing.lg }}
+                    >
+                        {[
+                            {
+                                title: "Holographic",
+                                subtitle: "Material",
+                                desc: "Surfaces that bend light and shift color as you interact.",
+                                gradient: "from-cyan-500 to-blue-500"
+                            },
+                            {
+                                title: "Infinite",
+                                subtitle: "Performance",
+                                desc: "Powered by a quantum engine that scales endlessly.",
+                                gradient: "from-fuchsia-500 to-purple-500"
+                            },
+                            {
+                                title: "Ethereal",
+                                subtitle: "Experience",
+                                desc: "Interactions so smooth they feel like magic.",
+                                gradient: "from-yellow-400 to-orange-500"
+                            }
+                        ].map((card, i) => (
+                            <div key={i} className="group relative h-[500px] rounded-[40px] border border-white/10 bg-black overflow-hidden hover:border-white/30 transition-colors duration-500">
+                                {/* Hover Glow */}
+                                <div className={`absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br ${card.gradient} rounded-full blur-[80px] opacity-20 group-hover:opacity-40 transition-opacity duration-500`}></div>
+
+                                <div className="absolute bottom-0 left-0 p-10 space-y-4" style={{ padding: spacing.xl }}>
+                                    <div className="text-sm font-medium uppercase tracking-widest opacity-50">{card.subtitle}</div>
+                                    <h2 className="text-4xl font-bold" style={{ fontSize: responsive.fontSize['3xl'] }}>{card.title}</h2>
+                                    <p className="text-white/60 leading-relaxed max-w-xs">{card.desc}</p>
+                                    <div className="pt-4 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
+                                        <ArrowRight className="text-white" />
+                                    </div>
+                                </div>
+
+                                {/* Center Icon Graphic */}
+                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 group-hover:opacity-20 group-hover:scale-110 transition-all duration-700">
+                                    <Hexagon size={200} strokeWidth={0.5} />
+                                </div>
                             </div>
                         ))}
                     </div>
-                </div>
-            </section>
+                </section>
 
-            {/* CTA */}
-            <section className="relative z-10" style={{ padding: '80px 24px' }}>
-                <div className="max-w-4xl mx-auto p-12 rounded-2xl text-center" style={{ background: ultimateGradient }}>
-                    <Crown size={48} className="mx-auto mb-6" style={{ color: colors.bg }} />
-                    <h2 className="text-3xl font-bold mb-6" style={{ color: colors.bg }}>The Ultimate Awaits</h2>
-                    <button className="px-12 py-4 rounded-lg font-bold tracking-wider text-white" style={{ backgroundColor: colors.bg }}>Begin Journey</button>
-                </div>
-            </section>
+                {/* BIG STATEMENT */}
+                <section className="py-40 px-6 relative overflow-hidden">
+                    {/* Background Mesh */}
+                    <div className="absolute inset-0 opacity-20">
+                        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+                    </div>
 
-            {/* Footer */}
-            <footer className="relative z-10 border-t" style={{ borderColor: 'rgba(255,255,255,0.1)', padding: '40px 24px' }}>
-                <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-                    <div className="flex items-center gap-2"><Crown size={20} style={{ color: colors.gold }} /> <span className="font-bold tracking-wide">ULTIMATE</span></div>
-                    <span style={{ color: colors.muted }}>© 2025 The Ultimate - Style #100</span>
+                    <div className="max-w-5xl mx-auto text-center relative z-10">
+                        <h2
+                            className="font-bold tracking-tight mb-12"
+                            style={{
+                                fontSize: isStrictMobile ? '2.5rem' : '5rem',
+                                marginBottom: spacing.xl
+                            }}
+                        >
+                            " Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away. "
+                        </h2>
+                        <p className="text-sm uppercase tracking-widest opacity-40">— Antoine de Saint-Exupéry</p>
+                    </div>
+                </section>
+
+                {/* PRICING / ACCESS */}
+                <section className="py-32 px-6">
+                    <div
+                        className="max-w-4xl mx-auto bg-gradient-to-b from-[#111] to-black border border-white/10 rounded-[48px] text-center relative overflow-hidden"
+                        style={{ padding: isStrictMobile ? spacing.xl : spacing.xxxl }}
+                    >
+                        {/* Iridescent Border */}
+                        <div className="absolute inset-0 p-[1px] rounded-[48px] bg-gradient-to-br from-cyan-500 via-fuchsia-500 to-yellow-500 opacity-30 -z-10"></div>
+
+                        <Crown size={48} className="mx-auto text-white mb-8 opacity-80" />
+
+                        <h2
+                            className="font-bold mb-6"
+                            style={{ fontSize: isStrictMobile ? '2.25rem' : '3.75rem' }}
+                        >The Founder's Edition</h2>
+                        <p className="text-xl text-white/50 mb-12 max-w-xl mx-auto">
+                            Lifetime access to the Ultimate Pro suite. Includes concierge onboarding and early access to future systems.
+                        </p>
+
+                        <div className="text-6xl font-bold mb-4">$999<span className="text-2xl text-white/30 font-normal">.00</span></div>
+                        <p className="text-sm text-white/30 uppercase tracking-widest mb-12">Limited to 100 Units</p>
+
+                        <button
+                            className="px-16 py-5 bg-white text-black font-bold text-lg rounded-full hover:bg-gray-200 transition-colors"
+                            style={{ width: isStrictMobile ? '100%' : 'auto' }}
+                        >
+                            Secure Your Access
+                        </button>
+                    </div>
+                </section>
+            </main>
+
+            <footer className="py-20 px-6 border-t border-white/5 text-center">
+                <div className="flex items-center justify-center gap-2 mb-8 opacity-50">
+                    <Infinity size={24} />
                 </div>
+                <p className="text-white/30 text-sm tracking-widest uppercase">
+                    Constructed in the Void. &copy; 2024 Ultimate Systems.
+                </p>
             </footer>
-
-            {/* Gradient Bottom Border */}
-            <div className="h-1" style={{ background: ultimateGradient }} />
         </div>
     );
 };

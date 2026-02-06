@@ -8,8 +8,15 @@ export const S04SwissPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
     const responsive = useResponsive(deviceMode);
     const isMobile = responsive.nav.showMobile;
 
-    // S04 Swiss Design Tokens
-    const colors = { bg: '#FFFFFF', text: '#000000', accent: '#F03E3E', gray: '#E6E6E6', lightGray: '#F5F5F5' };
+    // S04 Swiss Design Tokens (International Style)
+    const colors = {
+        bg: '#FFFFFF',
+        text: '#000000',
+        accent: '#FF3300', // Swiss Red
+        gray: '#CCCCCC',
+        lightGray: '#F2F2F2',
+        offWhite: '#FAFAFA'
+    };
     const spacing = responsive.spacing;
 
     return (
@@ -53,25 +60,39 @@ export const S04SwissPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
             </header>
 
             {/* ========== 2. HERO ========== */}
-            <section className="pt-12 pb-20 px-6">
-                <div className="max-w-7xl mx-auto" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(12, 1fr)', gap: '3rem' }}>
+            <section className="pt-20 pb-24 px-8 border-b-2 border-black">
+                <div className="max-w-7xl mx-auto" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(12, 1fr)', gap: '4rem' }}>
                     <div style={{ gridColumn: isMobile ? 'span 1' : 'span 8' }}>
-                        <h1 style={{ fontSize: isMobile ? '60px' : '120px', lineHeight: 0.85, fontWeight: 'bold', letterSpacing: '-0.05em', marginBottom: '3rem' }}>
+                        <h1 style={{
+                            fontSize: isMobile ? '80px' : '160px',
+                            lineHeight: 0.8,
+                            fontWeight: '700',
+                            letterSpacing: '-0.06em',
+                            marginBottom: '4rem',
+                            marginLeft: '-0.04em' // Optical alignment
+                        }}>
                             Design<br />
-                            <span className="text-red-600">Is</span><br />
-                            Structure.
+                            <span style={{ color: colors.accent }}>Is</span><br />
+                            Order.
                         </h1>
-                        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '3rem' }} className="max-w-2xl border-t-2 border-black pt-8">
+                        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '4rem' }} className="max-w-3xl border-t-4 border-black pt-8">
                             <div>
-                                <h3 className="text-sm font-bold uppercase mb-2">Manifesto 2025</h3>
-                                <p className="text-lg leading-relaxed text-gray-600">
+                                <h3 className="text-sm font-bold uppercase mb-4 tracking-widest">Manifesto 2025</h3>
+                                <p className="text-xl leading-tight font-medium">
                                     Objective clarity through grid systems. We provide the fundamental tools for rational design communication.
                                 </p>
                             </div>
-                            <div className="flex flex-col justify-between">
-                                <div className={`flex ${isMobile ? 'flex-col' : 'flex-row'} gap-4`}>
-                                    <button className="bg-red-600 text-white px-8 py-4 font-bold uppercase tracking-widest hover:bg-black transition-colors">Start Creating</button>
-                                    <button className="border-2 border-black px-8 py-4 font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors">Manifesto</button>
+                            <div className="flex flex-col justify-between items-start">
+                                <div className={`flex ${isMobile ? 'flex-col' : 'flex-row'} gap-6 w-full`}>
+                                    <button
+                                        style={{ backgroundColor: colors.accent }}
+                                        className="text-white px-10 py-5 font-bold uppercase tracking-widest hover:bg-black transition-colors text-sm w-full md:w-auto"
+                                    >
+                                        Start
+                                    </button>
+                                    <button className="border-2 border-black px-10 py-5 font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors text-sm w-full md:w-auto">
+                                        Read
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -79,15 +100,26 @@ export const S04SwissPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
 
                     {/* Visual: The Grid */}
                     {!isMobile && (
-                        <div style={{ gridColumn: 'span 4' }} className="relative">
-                            <div className="absolute inset-0 grid grid-cols-4 gap-4 opacity-20 pointer-events-none">
-                                {Array.from({ length: 16 }).map((_, i) => (
-                                    <div key={i} className="bg-red-600 h-32 w-full" />
-                                ))}
-                            </div>
-                            <div className="absolute top-1/2 left-0 w-full border-t border-red-600 transform -translate-y-1/2 flex justify-between text-xs font-mono text-red-600 pt-1">
-                                <span>0px</span>
-                                <span>1024px</span>
+                        <div style={{ gridColumn: 'span 4' }} className="relative h-full min-h-[500px] border-l-2 border-black pl-8">
+                            <div className="h-full flex flex-col justify-between">
+                                <div className="grid grid-cols-2 gap-4 h-1/2">
+                                    <div className="bg-black w-full h-full"></div>
+                                    <div style={{ backgroundColor: colors.accent }} className="w-full h-full rounded-full"></div>
+                                </div>
+                                <div className="space-y-4 font-mono text-xs font-bold uppercase">
+                                    <div className="flex justify-between border-b border-black pb-1">
+                                        <span>Grid Unit</span>
+                                        <span>12pt</span>
+                                    </div>
+                                    <div className="flex justify-between border-b border-black pb-1">
+                                        <span>Column</span>
+                                        <span>60px</span>
+                                    </div>
+                                    <div className="flex justify-between border-b border-black pb-1">
+                                        <span>Gutter</span>
+                                        <span>20px</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     )}
@@ -98,9 +130,9 @@ export const S04SwissPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
             <section className="py-12 border-y border-gray-200 bg-gray-50">
                 <div className="max-w-7xl mx-auto px-6">
                     <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)', gap: '2rem' }}>
-                        <div className="text-sm font-bold uppercase tracking-widest text-gray-400">Trusted By</div>
+                        <div className="text-xs font-bold uppercase tracking-widest text-black/50 pt-2">Trusted By</div>
                         {['Braun', 'Lufthansa', 'SBB CFF FFS', 'Knoll'].map(brand => (
-                            <div key={brand} className="text-2xl font-bold tracking-tight text-gray-900">{brand}</div>
+                            <div key={brand} className="text-3xl font-bold tracking-tighter text-black">{brand}</div>
                         ))}
                     </div>
                 </div>
@@ -121,9 +153,9 @@ export const S04SwissPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
                             { title: 'Noise', desc: 'Decoration distracts from the message. Essentialism is the only path.' },
                             { title: 'Entropy', desc: 'Systems naturally decay. Rigid structures are needed to maintain order.' }
                         ].map((item, i) => (
-                            <div key={i} className="p-8 bg-gray-50 border-l-4 border-black hover:border-red-600 transition-colors">
-                                <h3 className="text-xl font-bold mb-3">{item.title}</h3>
-                                <p className="text-gray-600 leading-relaxed">{item.desc}</p>
+                            <div key={i} className="p-8 bg-white border-l-4 border-black group hover:bg-black hover:text-white transition-colors cursor-default">
+                                <h3 className="text-xl font-bold mb-4 uppercase tracking-wide group-hover:text-white">{item.title}</h3>
+                                <p className="text-black/70 leading-relaxed font-medium group-hover:text-white/80">{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -134,40 +166,42 @@ export const S04SwissPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
             <section className="py-32 bg-black text-white px-6">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex justify-between items-end mb-16 border-b border-white/20 pb-8">
-                        <h2 style={{ fontSize: isMobile ? '2.5rem' : '3.75rem' }} className="font-bold">The Foundry</h2>
-                        <span className="font-mono text-sm">EST. 1957</span>
+                        <h2 style={{ fontSize: isMobile ? '2.5rem' : '5rem', letterSpacing: '-0.04em' }} className="font-bold">The Foundry</h2>
+                        <span className="font-mono text-sm tracking-widest">EST. 1957</span>
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '4px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '1px', backgroundColor: '#333', border: '1px solid #333' }}>
                         {/* Large Primary Box */}
                         <div style={{ gridColumn: isMobile ? 'span 1' : 'span 2' }} className="bg-white text-black p-12 min-h-[400px] relative overflow-hidden group">
-                            <div className="absolute top-4 right-4 text-xs font-bold uppercase border border-black px-2 py-1">Best Seller</div>
-                            <h3 className="text-8xl font-bold tracking-tight mb-4 group-hover:tracking-normal transition-all duration-500">Neue<br />Haas<br />Grotesk</h3>
-                            <div className="absolute bottom-12 right-12 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <ArrowRight size={48} />
+                            <div className="absolute top-0 right-0 text-xs font-bold uppercase bg-black text-white px-4 py-2">Best Seller</div>
+                            <h3 className="text-9xl font-bold tracking-tighter mb-4 transition-all duration-500 transform origin-left group-hover:scale-105">Neue<br />Haas<br />Grotesk</h3>
+                            <div className="absolute bottom-12 right-12 bg-black text-white p-4 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                                <ArrowRight size={32} />
                             </div>
                         </div>
 
-                        <div className="bg-[#E6E6E6] text-black p-8 flex flex-col justify-between hover:bg-red-600 hover:text-white transition-colors">
-                            <div className="text-6xl font-bold">Aa</div>
+                        <div className="bg-[#EFEEEE] text-black p-10 flex flex-col justify-between hover:bg-[#FF3300] hover:text-white transition-colors group">
+                            <div className="text-8xl font-bold tracking-tighter">Aa</div>
                             <div>
-                                <h4 className="text-xl font-bold">Glyph Set</h4>
-                                <p className="text-sm opacity-70">724 Characters</p>
+                                <h4 className="text-xl font-bold uppercase mb-1">Glyph Set</h4>
+                                <p className="text-sm font-mono opacity-70">724 Characters</p>
                             </div>
                         </div>
 
-                        <div className="bg-[#333] p-8 flex flex-col justify-between border border-white/10">
-                            <Grid size={32} className="mb-4" />
-                            <h4 className="text-xl font-bold">Grid Builder</h4>
-                            <p className="text-gray-400 text-sm">Automated layouts</p>
-                        </div>
-
-                        <div style={{ gridColumn: isMobile ? 'span 1' : 'span 2' }} className="bg-[#1a1a1a] p-12 flex items-center justify-between border border-white/10">
+                        <div className="bg-[#111] text-white p-10 flex flex-col justify-between">
+                            <Grid size={48} strokeWidth={1} className="mb-4 text-[#CCCCCC]" />
                             <div>
-                                <h3 className="text-3xl font-bold mb-2">Web Licensing</h3>
-                                <p className="text-gray-400">Self-hosted WOFF2 files for uncompromising speed.</p>
+                                <h4 className="text-xl font-bold uppercase mb-1">Grid Builder</h4>
+                                <p className="text-[#999] text-sm font-mono">Automated layouts</p>
                             </div>
-                            <button className="bg-white text-black px-6 py-3 font-bold uppercase hover:bg-red-600 hover:text-white transition-colors">View Plans</button>
+                        </div>
+
+                        <div style={{ gridColumn: isMobile ? 'span 1' : 'span 2' }} className="bg-[#1a1a1a] p-12 flex items-center justify-between">
+                            <div>
+                                <h3 className="text-3xl font-bold mb-2 tracking-tight">Web Licensing</h3>
+                                <p className="text-gray-400 font-medium max-w-md">Self-hosted WOFF2 files for uncompromising speed. Zero layout shift.</p>
+                            </div>
+                            <button className="bg-white text-black px-8 py-4 font-bold uppercase hover:bg-[#FF3300] hover:text-white transition-colors text-sm tracking-widest">View Plans</button>
                         </div>
                     </div>
                 </div>
@@ -227,15 +261,16 @@ export const S04SwissPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
                                 { name: 'Standard', price: '49', pl: 'per weight' },
                                 { name: 'Family', price: '299', pl: 'full family', highlight: true }
                             ].map((plan, i) => (
-                                <div key={i} className={`p-10 border-2 ${plan.highlight ? 'border-red-600 bg-white' : 'border-gray-200 bg-transparent'}`}>
+                                <div key={i} className={`p-10 border-2 ${plan.highlight ? 'border-[#FF3300] bg-white' : 'border-black bg-transparent'} relative`}>
+                                    {plan.highlight && <div className="absolute -top-3 left-10 bg-[#FF3300] text-white text-xs font-bold uppercase px-2 py-1">Recommended</div>}
                                     <h3 className="text-lg font-bold uppercase tracking-widest mb-4">{plan.name}</h3>
-                                    <div className="text-6xl font-bold mb-2">€{plan.price}</div>
-                                    <div className="text-sm text-gray-400 uppercase mb-8">{plan.pl}</div>
-                                    <ul className="space-y-3 mb-8">
-                                        <li className="flex items-center gap-3 text-sm font-medium"><Check size={16} /> Commercial Use</li>
-                                        <li className="flex items-center gap-3 text-sm font-medium"><Check size={16} /> Perpetual License</li>
+                                    <div className="text-7xl font-bold mb-2 tracking-tighter">€{plan.price}</div>
+                                    <div className="text-sm text-gray-400 uppercase mb-8 font-mono">{plan.pl}</div>
+                                    <ul className="space-y-4 mb-8">
+                                        <li className="flex items-center gap-3 text-sm font-bold"><div className="w-4 h-4 bg-black flex items-center justify-center text-white"><Check size={10} /></div> Commercial Use</li>
+                                        <li className="flex items-center gap-3 text-sm font-bold"><div className="w-4 h-4 bg-black flex items-center justify-center text-white"><Check size={10} /></div> Perpetual License</li>
                                     </ul>
-                                    <button className={`w-full py-4 text-sm font-bold uppercase tracking-widest ${plan.highlight ? 'bg-red-600 text-white' : 'bg-black text-white'}`}>Purchase</button>
+                                    <button className={`w-full py-5 text-sm font-bold uppercase tracking-widest hover:opacity-90 transition-opacity ${plan.highlight ? 'bg-[#FF3300] text-white' : 'bg-black text-white'}`}>Purchase</button>
                                 </div>
                             ))}
                         </div>

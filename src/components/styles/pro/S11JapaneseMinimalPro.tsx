@@ -10,10 +10,10 @@ export const S11JapaneseMinimalPro = ({ deviceMode }: { deviceMode?: 'desktop' |
 
     // S11 Japanese Minimal Design Tokens
     const colors = {
-        bg: { primary: '#FAFAF8', secondary: '#F5F5F0', elevated: '#FFFFFF', paper: '#FBFBF9' },
-        border: { subtle: 'rgba(44, 44, 44, 0.06)', strong: 'rgba(44, 44, 44, 0.12)' },
-        text: { primary: '#2C2C2C', secondary: '#5C5C5C', muted: '#9C9C9C', inverse: '#FFFFFF' },
-        brand: { primary: '#8B7355', accent: '#C4A77D', stroke: '#2C2C2C' },
+        bg: { primary: '#FDFBF7', secondary: '#F4F1EA', elevated: '#FFFFFF', paper: '#FDFBF7' }, // Washi Paper warm white
+        border: { subtle: 'rgba(56, 54, 51, 0.08)', strong: 'rgba(56, 54, 51, 0.15)' },
+        text: { primary: '#2A2926', secondary: '#5F5C56', muted: '#8F8B83', inverse: '#FFFFFF' }, // Sumi Ink black/grey
+        brand: { primary: '#787363', accent: '#D4CDC0', stroke: '#2A2926' }, // Tea Green / Stone
     };
 
     const spacing = responsive.spacing;
@@ -87,76 +87,88 @@ export const S11JapaneseMinimalPro = ({ deviceMode }: { deviceMode?: 'desktop' |
             </header>
 
             {/* ========== HERO ========== */}
-            <section style={{ padding: `${spacing.section} ${spacing.lg}` }}>
-                <div className="max-w-6xl mx-auto">
-                    <div className="grid items-center" style={{ gridTemplateColumns: isMobile ? '1fr' : '1.2fr 0.8fr', gap: isMobile ? '64px' : '100px' }}>
-                        <div className="relative z-10">
-                            <div className="overflow-hidden mb-8">
-                                <div className="animate-reveal-up" style={{ fontSize: '11px', letterSpacing: '0.4em', color: colors.brand.primary, fontWeight: 500, textTransform: 'uppercase' }}>
-                                    DESIGN PHILOSOPHY
-                                </div>
+            <section style={{ padding: `${spacing.section} ${spacing.lg}`, minHeight: '90vh', display: 'flex', alignItems: 'center' }}>
+                <div className="max-w-7xl mx-auto w-full">
+                    <div className="grid items-center relative" style={{ gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '64px' : '0' }}>
+
+                        {/* Text Content (Left on Desktop) */}
+                        <div className="relative z-10 pr-0 md:pr-24">
+                            <div className="inline-block border-l-2 border-[#2A2926] pl-6 py-1 mb-12">
+                                <span style={{ fontSize: '11px', letterSpacing: '0.4em', color: colors.text.secondary, fontWeight: 500, textTransform: 'uppercase' }}>
+                                    Komorebi Design
+                                </span>
                             </div>
-                            <h1 style={{ fontSize: isMobile ? '40px' : '72px', fontWeight: 300, lineHeight: 1.1, letterSpacing: '-0.02em', marginBottom: '40px' }}>
-                                The Art of<br />
-                                <span className="italic" style={{ color: colors.brand.primary, fontFamily: 'serif' }}>Intentional Space</span>
+
+                            <h1 style={{ fontSize: isMobile ? '3rem' : '5rem', fontWeight: 300, lineHeight: 1.1, letterSpacing: '-0.03em', marginBottom: '48px', color: colors.text.primary }}>
+                                Emptiness is <br />
+                                <span className="font-serif italic text-[#787363]">Fullness</span>
                             </h1>
-                            <p style={{ fontSize: '16px', lineHeight: 2.2, color: colors.text.secondary, marginBottom: '56px', maxWidth: '480px', fontWeight: 300 }}>
-                                In the pursuit of minimalism, we discover true abundance.
-                                Every element serves a purpose, every space carries meaning.
-                                <br />
-                                <span style={{ color: colors.text.muted, fontSize: '14px' }}>侘寂 (Wabi-sabi) — Finding beauty in the imperfect.</span>
-                            </p>
-                            <div className="flex items-center gap-10">
-                                <button className="group flex items-center gap-4 transition-all" style={{ fontSize: '13px', letterSpacing: '0.2em', textTransform: 'uppercase', fontWeight: 500 }}>
-                                    <span>Explore Works</span>
-                                    <div className="relative overflow-hidden w-5 h-5">
-                                        <ArrowRight size={18} className="absolute inset-0 group-hover:translate-x-full transition-transform duration-300" />
-                                        <ArrowRight size={18} className="absolute inset-0 -translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
-                                    </div>
-                                </button>
-                                <div className="h-px w-20 bg-black/10 flex-shrink-0" />
+
+                            <div className="flex flex-col gap-6 max-w-sm">
+                                <p style={{ fontSize: '15px', lineHeight: 2, color: colors.text.secondary }}>
+                                    We design spaces that breathe. Removing the unnecessary to reveal the essential beauty of form and function.
+                                </p>
+                                <div className="flex items-center gap-12 mt-4">
+                                    <button className="group flex items-center gap-2 border-b border-[#2A2926] pb-2 text-sm tracking-[0.2em] uppercase hover:text-[#787363] transition-colors">
+                                        View Collection
+                                        <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
-                        {/* Visual Element */}
-                        <div className="relative flex items-center justify-center">
-                            <div className="relative w-full aspect-[4/5] flex items-center justify-center" style={{ border: `1px solid ${colors.border.subtle}`, padding: '40px' }}>
-                                <div className="absolute inset-0 bg-secondary opacity-20" />
-                                <div className="relative z-10 flex flex-col items-center gap-8">
-                                    <div className="w-1 bg-brand-primary h-24 opacity-20" />
-                                    <span style={{ fontSize: isMobile ? '120px' : '180px', fontWeight: 200, color: colors.text.primary, fontFamily: 'serif', opacity: 0.8 }}>静</span>
-                                    <div className="text-[10px] tracking-[0.5em] text-muted-foreground uppercase opacity-40">Silence</div>
-                                </div>
-                                {/* Floating decorative lines */}
-                                <div className="absolute top-10 left-10 w-px h-12 bg-black/5" />
-                                <div className="absolute bottom-10 right-10 w-12 h-px bg-black/5" />
+                        {/* Visual Element (Right on Desktop) */}
+                        <div className="relative h-[600px] flex items-center justify-center md:justify-end">
+                            {/* Main Image Container */}
+                            <div className="relative w-full md:w-[80%] h-full bg-[#F4F1EA] overflow-hidden">
+                                <img
+                                    src="https://images.unsplash.com/photo-1599692996521-1200057ce50c?q=80&w=2574&auto=format&fit=crop"
+                                    alt="Minimalist Architecture"
+                                    className="w-full h-full object-cover grayscale contrast-[0.95] opacity-90 transition-transform duration-[2s] hover:scale-105"
+                                />
+                                <div className="absolute inset-0 bg-[#FDFBF7] mix-blend-color opacity-20" />
                             </div>
-                            <div className="absolute -top-10 -right-10 w-1/2 h-1/2 bg-secondary/5 blur-3xl -z-10" />
+
+                            {/* Floating 'Kanji' Card */}
+                            <div className="absolute -left-12 top-24 bg-white p-8 shadow-[0_4px_24px_rgba(0,0,0,0.04)] hidden md:block">
+                                <div className="flex flex-col items-center gap-6 writing-vertical-rl" style={{ writingMode: 'vertical-rl' }}>
+                                    <span className="text-4xl font-serif text-[#2A2926]">静寂</span>
+                                    <div className="w-px h-12 bg-[#2A2926]/20" />
+                                    <span className="text-[10px] tracking-[0.3em] uppercase text-[#8F8B83] rotate-180">Silence</span>
+                                </div>
+                            </div>
+
+                            {/* Circular Element */}
+                            <div className="absolute bottom-12 -right-6 w-32 h-32 rounded-full border border-[#2A2926]/10 flex items-center justify-center animate-[spin_30s_linear_infinite]">
+                                <Leaf size={16} className="text-[#787363] opacity-40" />
+                            </div>
+                        </div>
+
+                        {/* Traditional Vertical Text (Absolute) */}
+                        <div className="absolute top-0 right-0 h-full hidden md:flex flex-col justify-center select-none pointer-events-none opacity-10">
+                            <div className="text-[8rem] font-serif leading-none" style={{ writingMode: 'vertical-rl' }}>
+                                自然と調和
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* ========== PROBLEM / TENSION ========== */}
+            {/* ========== PHILOSOPHY (Triptych) ========== */}
             <section style={{ padding: `${spacing.section} ${spacing.lg}`, backgroundColor: colors.bg.secondary }}>
                 <div className="max-w-6xl mx-auto">
-                    <div className="text-center" style={{ marginBottom: '80px' }}>
-                        <div className="w-px h-16 bg-brand-primary mx-auto mb-8 opacity-30" />
-                        <h2 style={{ fontSize: isMobile ? '28px' : '40px', fontWeight: 300, letterSpacing: '-0.01em', fontFamily: 'serif' }}>
-                            The Weight of <span className="italic">Complexity</span>
-                        </h2>
-                    </div>
-
-                    <div className="grid gap-12" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
+                    <div className="grid md:grid-cols-3 gap-12 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-[#2A2926]/10">
                         {[
-                            { title: 'Visual Noise', desc: 'Overwhelming designs that distract rather than guide. The mind seeks clarity but finds clutter.' },
-                            { title: 'Lost Purpose', desc: 'Decoration without meaning, complexity without clarity. Form should follow the spirit.' },
-                            { title: 'Rushed Experience', desc: 'No room to breathe, no space to contemplate. A life without "Ma" is a life unsettled.' },
-                        ].map((item) => (
-                            <div key={item.title} className="group transition-all duration-700" style={{ padding: '64px 40px', backgroundColor: colors.bg.elevated, border: `1px solid ${colors.border.subtle}`, position: 'relative', overflow: 'hidden' }}>
-                                <div className="absolute top-0 left-0 w-1 h-0 group-hover:h-full transition-all duration-700" style={{ backgroundColor: colors.brand.primary, opacity: 0.3 }} />
-                                <h3 className="italic mb-6" style={{ fontSize: '18px', fontWeight: 400, letterSpacing: '0.05em', fontFamily: 'serif' }}>{item.title}</h3>
-                                <p style={{ fontSize: '14px', color: colors.text.secondary, lineHeight: 2.2, fontWeight: 300 }}>{item.desc}</p>
+                            { title: 'Ma (間)', subtitle: 'Negative Space', desc: 'The space between things is as important as the things themselves. It creates room for the mind to breathe.' },
+                            { title: 'Wabi (侘)', subtitle: 'Rustic Simplicity', desc: 'Finding beauty in the understated and the quiet. Elegance that does not shout.' },
+                            { title: 'Sabi (寂)', subtitle: 'Patina of Time', desc: 'Appreciating the cycle of life and the graceful aging of all things.' },
+                        ].map((item, i) => (
+                            <div key={item.title} className="px-8 py-12 text-center group hover:bg-[#FDFBF7] transition-colors duration-500">
+                                <span className="block text-4xl mb-4 font-serif text-[#2A2926] opacity-80">{item.title}</span>
+                                <span className="block text-[10px] uppercase tracking-[0.25em] text-[#8F8B83] mb-8">{item.subtitle}</span>
+                                <p className="text-sm leading-8 text-[#5F5C56] font-light">
+                                    {item.desc}
+                                </p>
                             </div>
                         ))}
                     </div>
@@ -206,29 +218,50 @@ export const S11JapaneseMinimalPro = ({ deviceMode }: { deviceMode?: 'desktop' |
                 </div>
             </section>
 
-            {/* ========== FEATURES ========== */}
-            <section style={{ padding: `${spacing.section} ${spacing.lg}`, backgroundColor: colors.bg.secondary }}>
+            {/* ========== FEATURES (Tatami Grid) ========== */}
+            <section style={{ padding: `${spacing.section} ${spacing.lg}` }}>
                 <div className="max-w-6xl mx-auto">
-                    <div className="text-center" style={{ marginBottom: '80px' }}>
-                        <h2 style={{ fontSize: isMobile ? '28px' : '40px', fontWeight: 300, letterSpacing: '-0.01em', fontFamily: 'serif' }}>The Craft</h2>
+                    <div className="mb-16 flex items-end justify-between border-b border-[#2A2926]/10 pb-6">
+                        <h2 className="text-3xl font-serif text-[#2A2926]">Crafted Elements</h2>
+                        <span className="text-[10px] uppercase tracking-[0.2em] text-[#8F8B83]">Function & Form</span>
                     </div>
 
-                    <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)' }}>
-                        {[
-                            { title: 'Brand Identity', desc: 'Minimal, purposeful visual systems that resonate with authenticity.', detail: 'Typography • Color • Form' },
-                            { title: 'Web Design', desc: 'Clean interfaces with intentional space for seamless digital movement.', detail: 'UI • UX • Development' },
-                            { title: 'Art Direction', desc: 'Visual storytelling through simplicity and refined aesthetics.', detail: 'Photography • Layout • Styling' },
-                            { title: 'Consultation', desc: 'Strategic guidance for brands seeking to embrace minimalism.', detail: 'Strategy • Reviews • Workshops' },
-                        ].map((item) => (
-                            <div key={item.title} className="group hover:bg-white transition-all duration-500" style={{ padding: '64px 48px', backgroundColor: colors.bg.elevated, border: `1px solid ${colors.border.subtle}` }}>
-                                <h3 className="mb-4" style={{ fontSize: '20px', fontWeight: 400, letterSpacing: '0.05em', fontFamily: 'serif' }}>{item.title}</h3>
-                                <p style={{ fontSize: '15px', color: colors.text.secondary, marginBottom: '32px', lineHeight: 2, fontWeight: 300 }}>{item.desc}</p>
-                                <div className="flex items-center gap-4">
-                                    <div className="w-8 h-px bg-black/10 group-hover:w-12 transition-all" />
-                                    <span style={{ fontSize: '10px', letterSpacing: '0.2em', color: colors.text.muted, textTransform: 'uppercase' }}>{item.detail}</span>
-                                </div>
+                    <div className="grid md:grid-cols-4 gap-4 h-auto md:h-[600px]">
+                        {/* Main Feature - Large Tatami */}
+                        <div className="md:col-span-2 md:row-span-2 bg-[#F4F1EA] p-12 relative group overflow-hidden border border-[#2A2926]/5 hover:border-[#2A2926]/20 transition-colors">
+                            <div className="absolute top-0 right-8 w-px h-full bg-[#2A2926]/5" />
+                            <h3 className="text-2xl font-serif mb-4 relative z-10">Essentialism</h3>
+                            <p className="text-sm leading-7 text-[#5F5C56] max-w-xs relative z-10">
+                                Strip away the non-essential. What remains is the pure essence of the product, unburdened by decoration.
+                            </p>
+                            <div className="absolute bottom-[-20%] right-[-20%] w-[300px] h-[300px] rounded-full border-[20px] border-white/40 group-hover:scale-110 transition-transform duration-[1.5s]" />
+                        </div>
+
+                        {/* Feature 2 */}
+                        <div className="bg-white p-8 md:col-span-2 flex items-center justify-between border border-[#2A2926]/5 hover:shadow-sm transition-shadow">
+                            <div>
+                                <h3 className="text-lg font-serif mb-2">Typography</h3>
+                                <p className="text-xs text-[#8F8B83] uppercase tracking-widest">Serif & Sans</p>
                             </div>
-                        ))}
+                            <span className="text-4xl font-serif opacity-10">Aa</span>
+                        </div>
+
+                        {/* Feature 3 */}
+                        <div className="bg-[#2A2926] text-[#FDFBF7] p-8 flex flex-col justify-between group hover:bg-[#3E3D3A] transition-colors">
+                            <Leaf className="opacity-50 group-hover:opacity-100 transition-opacity" />
+                            <div>
+                                <h3 className="text-lg font-serif mb-2">Organic</h3>
+                                <p className="text-xs opacity-60">Natural Connection</p>
+                            </div>
+                        </div>
+
+                        {/* Feature 4 */}
+                        <div className="bg-white p-8 flex flex-col justify-center items-center text-center border border-[#2A2926]/5">
+                            <div className="w-12 h-12 rounded-full border border-[#2A2926]/20 flex items-center justify-center mb-4">
+                                <span className="font-serif italic">i</span>
+                            </div>
+                            <h3 className="text-lg font-serif">Intuitive</h3>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -247,46 +280,37 @@ export const S11JapaneseMinimalPro = ({ deviceMode }: { deviceMode?: 'desktop' |
                 </div>
             </section>
 
-            {/* ========== PRICING ========== */}
-            <section style={{ padding: `${spacing.section} ${spacing.lg}`, backgroundColor: colors.bg.secondary }}>
-                <div className="max-w-6xl mx-auto">
-                    <div className="text-center" style={{ marginBottom: '80px' }}>
-                        <h2 style={{ fontSize: isMobile ? '28px' : '40px', fontWeight: 300, letterSpacing: '-0.01em', marginBottom: '20px', fontFamily: 'serif' }}>The Investment</h2>
-                        <p style={{ fontSize: '15px', color: colors.text.secondary, fontWeight: 300, fontStyle: 'italic' }}>Thoughtful engagement for lasting impact</p>
+            {/* ========== PRICING (Menu Style) ========== */}
+            <section style={{ padding: `${spacing.section} ${spacing.lg}`, backgroundColor: '#FDFBF7' }}>
+                <div className="max-w-3xl mx-auto p-12 bg-white border border-[#2A2926]/5 shadow-[0_20px_40px_rgba(0,0,0,0.02)]">
+                    <div className="text-center mb-16">
+                        <span className="inline-block border text-[10px] border-[#2A2926] px-3 py-1 uppercase tracking-[0.2em] mb-6">Selection</span>
+                        <h2 className="text-3xl font-serif text-[#2A2926]">Guidance & Growth</h2>
                     </div>
 
-                    <div className="grid gap-px bg-black/5" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', border: `1px solid black/5` }}>
+                    <div className="space-y-12">
                         {[
-                            { name: 'Kanso (Essential)', price: '$2,900', features: ['Core Brand Identity', 'Primary Logo Design', 'Strategic Review', '2 Rounds of Refinement'] },
-                            { name: 'Shibui (Complete)', price: '$6,900', features: ['Full Visual System', 'Web Design • App', 'Art Direction', 'Unlimited Thoughtful Refinement'] },
-                            { name: 'Yugen (Bespoke)', price: 'Custom', features: ['Holistic Partnership', 'Ongoing Evolution', 'Dedicated Craft Team', 'Priority Engagement'] },
+                            { name: 'Essence', price: '$2,400', desc: 'Design Audit & Strategy', detail: 'Ideal for early stage clarity.' },
+                            { name: 'Balance', price: '$4,800', desc: 'Visual Identity System', detail: 'For brands seeking harmony.' },
+                            { name: 'Harmony', price: '$8,200', desc: 'Full Digital Experience', detail: 'Complete holistic presence.' },
                         ].map((plan, i) => (
-                            <div key={plan.name} className="flex flex-col group bg-white hover:z-10 transition-all" style={{ padding: '80px 48px' }}>
-                                <h3 className="text-center italic mb-10" style={{ fontSize: '15px', letterSpacing: '0.2em', textTransform: 'uppercase', color: colors.brand.primary, fontFamily: 'serif' }}>{plan.name}</h3>
-                                <div className="text-center" style={{ fontSize: '48px', fontWeight: 200, marginBottom: '48px', fontFamily: 'serif' }}>{plan.price}</div>
-                                <ul className="space-y-6 mb-16 flex-grow" style={{ fontSize: '14px' }}>
-                                    {plan.features.map((feature) => (
-                                        <li key={feature} className="flex items-start gap-4">
-                                            <div className="w-1 h-1 rounded-full bg-black/20 mt-2.5 flex-shrink-0" />
-                                            <span style={{ color: colors.text.secondary, fontWeight: 300, lineHeight: 1.6 }}>{feature}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                                <button className="transition-all duration-500" style={{
-                                    width: '100%',
-                                    padding: '20px',
-                                    fontSize: '12px',
-                                    letterSpacing: '0.3em',
-                                    backgroundColor: i === 1 ? colors.text.primary : 'transparent',
-                                    color: i === 1 ? 'white' : colors.text.primary,
-                                    border: `1px solid ${colors.text.primary}`,
-                                    textTransform: 'uppercase',
-                                    fontWeight: 600
-                                }}>
-                                    Begin Journey
-                                </button>
+                            <div key={plan.name} className="group cursor-pointer">
+                                <div className="flex justify-between items-baseline mb-2 border-b border-dashed border-[#2A2926]/20 pb-2 group-hover:border-solid group-hover:border-[#2A2926] transition-all">
+                                    <h3 className="text-lg font-serif">{plan.name}</h3>
+                                    <span className="text-lg font-serif">{plan.price}</span>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-xs text-[#5F5C56] tracking-wide">{plan.desc}</span>
+                                    <span className="text-[10px] text-[#8F8B83] uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">{plan.detail}</span>
+                                </div>
                             </div>
                         ))}
+                    </div>
+
+                    <div className="mt-16 text-center">
+                        <button className="text-xs uppercase tracking-[0.25em] border-b border-[#2A2926] pb-1 hover:text-[#787363] hover:border-[#787363] transition-colors">
+                            Request Consultation
+                        </button>
                     </div>
                 </div>
             </section>

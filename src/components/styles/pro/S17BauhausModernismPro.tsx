@@ -9,13 +9,13 @@ export const S17BauhausModernismPro = ({ deviceMode }: { deviceMode?: 'desktop' 
     const isMobile = responsive.nav.showMobile;
 
     const colors = {
-        bg: '#F8F4F0', // Paper White
-        text: { primary: '#0D0D0D', secondary: '#2A2A2A', muted: '#4D4D4D' },
+        bg: '#F2EFEC', // Warmer Paper
+        text: { primary: '#1A1A1A', secondary: '#2A2A2A', muted: '#4D4D4D' },
         brand: {
-            red: '#E63946',
-            blue: '#1D3557',
-            yellow: '#F1A139',
-            black: '#1D1B1B'
+            red: '#D93025', // Bauhaus Red
+            blue: '#1A4FBA', // Bauhaus Blue
+            yellow: '#FFC804', // Bauhaus Yellow
+            black: '#1A1A1A'
         },
     };
 
@@ -78,48 +78,47 @@ export const S17BauhausModernismPro = ({ deviceMode }: { deviceMode?: 'desktop' 
                 )}
             </header>
 
-            <section style={{ padding: `80px ${spacing.lg}`, borderBottom: `8px solid ${colors.brand.black}` }}>
-                <div className="max-w-7xl mx-auto">
-                    <div className="grid items-stretch" style={{ gridTemplateColumns: isMobile ? '1fr' : '1.2fr 0.8fr', gap: '80px' }}>
+            {/* ========== HERO ========== */}
+            <section style={{ padding: `80px ${spacing.lg}`, borderBottom: `12px solid ${colors.brand.black}`, position: 'relative' }}>
+                <div className="absolute top-0 right-20 w-32 h-full bg-black/5" />
+                <div className="max-w-7xl mx-auto relative z-10">
+                    <div className="grid items-center" style={{ gridTemplateColumns: isMobile ? '1fr' : '1.3fr 0.7fr', gap: '80px' }}>
                         <div className="flex flex-col justify-center">
-                            <div className="flex gap-2 mb-8 items-center">
-                                <Triangle size={24} fill={colors.brand.red} style={{ color: colors.brand.red }} />
-                                <span className="font-bold uppercase tracking-widest text-[11px]">Manifesto 2025</span>
+                            <div className="flex gap-4 mb-12 items-center">
+                                <div className="w-4 h-4 rounded-full bg-red-600" />
+                                <div className="w-4 h-4 bg-blue-600" />
+                                <div className="w-0 h-0 border-l-[8px] border-l-transparent border-t-[12px] border-t-yellow-400 border-r-[8px] border-r-transparent" />
+                                <span className="font-bold uppercase tracking-[0.3em] text-sm">Design Manifesto 01</span>
                             </div>
-                            <h1 style={{ fontSize: isMobile ? '56px' : '110px', fontWeight: 900, lineHeight: 0.85, marginBottom: '48px', letterSpacing: '-0.06em' }}>
-                                FORM<br />
-                                FOLLOWS<br />
-                                <span className="p-4 inline-block bg-yellow-400 text-black border-4 border-black translate-x-4 -rotate-2" style={{ backgroundColor: colors.brand.yellow }}>FUNCTION</span>
+                            <h1 style={{ fontSize: isMobile ? '64px' : '120px', fontWeight: 900, lineHeight: 0.8, marginBottom: '56px', letterSpacing: '-0.04em' }}>
+                                <span className="block text-transparent stroke-black text-stroke-2 hover:text-black transition-colors duration-300">LESS</span>
+                                <span className="block pl-12">IS</span>
+                                <span className="inline-block bg-yellow-400 px-6 transform -rotate-2 border-4 border-black box-shadow-hard ml-4">MORE</span>
                             </h1>
-                            <p style={{ fontSize: '20px', lineHeight: 1.6, color: colors.text.secondary, marginBottom: '56px', maxWidth: '500px', fontWeight: 600 }}>
-                                Stripping away the excess. Embracing the essential geometric purity of modern existence.
+                            <p style={{ fontSize: '24px', lineHeight: 1.5, color: colors.text.primary, marginBottom: '64px', maxWidth: '540px', fontWeight: 700, borderLeft: `8px solid ${colors.brand.red}`, paddingLeft: '32px' }}>
+                                Functional design that rejects the ornamental. Pure geometry for the modern age.
                             </p>
-                            <div className="flex gap-6" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
-                                <button className="flex items-center justify-center gap-4 px-10 py-5 bg-red-600 text-white font-black hover:translate-x-3 hover:-translate-y-3 hover:shadow-[-12px_12px_0_#000] transition-all border-4 border-black"
-                                    style={{ fontSize: '16px', backgroundColor: colors.brand.red }}>
-                                    ENTDECKEN
-                                    <ArrowRight size={20} />
+                            <div className="flex gap-0" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
+                                <button className="h-20 px-12 bg-black text-white font-black hover:bg-red-600 hover:scale-105 transition-all text-xl uppercase tracking-widest border-4 border-black">
+                                    Start Now
                                 </button>
-                                <button className="px-10 py-5 border-4 border-black font-black hover:bg-black hover:text-white transition-all"
-                                    style={{ fontSize: '16px' }}>
-                                    MANIFEST
+                                <button className="h-20 px-12 bg-white text-black font-black hover:bg-blue-600 hover:text-white transition-all text-xl uppercase tracking-widest border-y-4 border-r-4 border-black">
+                                    Explore
                                 </button>
                             </div>
                         </div>
 
-                        <div className="relative border-8 border-black aspect-square overflow-hidden group">
-                            <div className="absolute inset-0 bg-blue-900/5 group-hover:scale-110 transition-transform duration-1000" />
-                            {/* Bauhaus Composition */}
-                            <div className="absolute top-0 left-0 w-2/3 h-1/2 border-b-8 border-r-8 border-black flex items-center justify-center">
-                                <div className="w-32 h-32 rounded-full border-8 border-black animate-spin-slow" style={{ backgroundColor: colors.brand.yellow }} />
-                            </div>
-                            <div className="absolute top-0 right-0 w-1/3 h-1/2 bg-black" />
-                            <div className="absolute bottom-0 left-0 w-full h-1/2 border-t-8 border-black flex">
-                                <div className="w-1/2 h-full border-r-8 border-black" style={{ backgroundColor: colors.brand.red }} />
-                                <div className="w-1/2 h-full flex items-center justify-center bg-white">
-                                    <div className="w-24 h-24 rotate-45 border-8 border-black" style={{ backgroundColor: colors.brand.blue }} />
+                        <div className="relative aspect-square">
+                            <div className="absolute inset-0 bg-neutral-200 rounded-full border-[12px] border-black overflow-hidden group">
+                                <div className="absolute w-full h-1/2 top-0 bg-yellow-400 border-b-[12px] border-black transition-transform duration-700 group-hover:-translate-y-full" />
+                                <div className="absolute w-1/2 h-full left-0 bg-blue-600 border-r-[12px] border-black transition-transform duration-700 delay-100 group-hover:-translate-x-full" />
+                                <div className="absolute w-1/2 h-1/2 bottom-0 right-0 bg-red-600 transition-transform duration-700 delay-200 group-hover:translate-x-full group-hover:translate-y-full" />
+                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-500">
+                                    <span className="text-4xl font-black tracking-tighter">BAUHAUS</span>
                                 </div>
                             </div>
+                            {/* Decorative Grid */}
+                            <div className="absolute -z-10 -bottom-12 -right-12 w-full h-full border-[4px] border-black/10" />
                         </div>
                     </div>
                 </div>
@@ -147,12 +146,15 @@ export const S17BauhausModernismPro = ({ deviceMode }: { deviceMode?: 'desktop' 
             </section>
 
             {/* ========== FEATURES ========== */}
-            <section style={{ padding: `${spacing.section} ${spacing.lg}`, borderBottom: `8px solid ${colors.brand.black}` }}>
-                <div className="max-w-7xl mx-auto text-center mb-24">
-                    <h2 style={{ fontSize: isMobile ? '40px' : '64px', fontWeight: 900, letterSpacing: '-0.05em' }}>KERN_ELEMENTE</h2>
+            <section style={{ padding: `${spacing.section} ${spacing.lg}`, borderBottom: `12px solid ${colors.brand.black}` }}>
+                <div className="max-w-7xl mx-auto text-center mb-24 relative">
+                    <h2 style={{ fontSize: isMobile ? '40px' : '96px', fontWeight: 900, letterSpacing: '-0.05em', lineHeight: 0.9 }}>
+                        KERN<br />ELEMENTE
+                    </h2>
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-yellow-400 rounded-full mix-blend-multiply opacity-50 pointer-events-none" />
                 </div>
                 <div className="max-w-7xl mx-auto">
-                    <div className="grid" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', border: `8px solid ${colors.brand.black}` }}>
+                    <div className="grid" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', border: `12px solid ${colors.brand.black}` }}>
                         {[
                             { shape: Circle, color: colors.brand.blue, title: 'GEOMETRIE', desc: 'The circle is the most pure of all forms.' },
                             { shape: Square, color: colors.brand.red, title: 'STRUKTUR', desc: 'Order is the foundation of artistic creation.' },
@@ -161,14 +163,14 @@ export const S17BauhausModernismPro = ({ deviceMode }: { deviceMode?: 'desktop' 
                             <div key={item.title} className="group transition-all hover:bg-black hover:text-white"
                                 style={{
                                     padding: '64px 40px',
-                                    borderRight: isMobile ? 'none' : i < 2 ? `8px solid ${colors.brand.black}` : 'none',
-                                    borderBottom: isMobile && i < 2 ? `8px solid ${colors.brand.black}` : 'none'
+                                    borderRight: isMobile ? 'none' : i < 2 ? `12px solid ${colors.brand.black}` : 'none',
+                                    borderBottom: isMobile && i < 2 ? `12px solid ${colors.brand.black}` : 'none'
                                 }}>
-                                <div className="mb-10 w-20 h-20 mx-auto border-4 border-black group-hover:border-white transition-all flex items-center justify-center bg-white">
-                                    <item.shape size={40} className="transition-transform group-hover:rotate-180 duration-700" style={{ color: item.color, fill: item.color }} />
+                                <div className="mb-10 w-24 h-24 mx-auto border-[6px] border-black group-hover:border-white transition-all flex items-center justify-center bg-white shadow-[8px_8px_0_#000] group-hover:shadow-[8px_8px_0_#FFF]">
+                                    <item.shape size={48} className="transition-transform group-hover:rotate-180 duration-700" style={{ color: item.color, fill: item.color }} />
                                 </div>
-                                <h3 className="font-black mb-6" style={{ fontSize: '24px', letterSpacing: '0.1em' }}>{item.title}</h3>
-                                <p style={{ fontSize: '15px', lineHeight: 1.6, opacity: 0.8 }}>{item.desc}</p>
+                                <h3 className="font-black mb-6 uppercase" style={{ fontSize: '32px', letterSpacing: '-0.02em' }}>{item.title}</h3>
+                                <p style={{ fontSize: '18px', lineHeight: 1.4, fontWeight: 500 }}>{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -176,50 +178,45 @@ export const S17BauhausModernismPro = ({ deviceMode }: { deviceMode?: 'desktop' 
             </section>
 
             {/* ========== PRICING ========== */}
-            <section style={{ padding: `${spacing.section} ${spacing.lg}`, backgroundColor: '#FFFFFF', borderBottom: `8px solid ${colors.brand.black}` }}>
+            <section style={{ padding: `${spacing.section} ${spacing.lg}`, backgroundColor: '#FFFFFF', borderBottom: `12px solid ${colors.brand.black}` }}>
                 <div className="max-w-7xl mx-auto">
-                    <div className="text-center mb-24">
-                        <h2 style={{ fontSize: isMobile ? '40px' : '64px', fontWeight: 900, letterSpacing: '-0.05em' }}>TARIFE</h2>
+                    <div className="flex items-end justify-between mb-24 border-b-[12px] border-black pb-8">
+                        <h2 style={{ fontSize: isMobile ? '40px' : '120px', fontWeight: 900, letterSpacing: '-0.05em', lineHeight: 0.8, color: colors.brand.black }}>TARIFE</h2>
+                        {!isMobile && <div className="w-32 h-32 bg-blue-600 rounded-full" />}
                     </div>
 
-                    <div className="grid" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', border: `8px solid ${colors.brand.black}`, backgroundColor: colors.brand.black }}>
+                    <div className="grid" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', border: `12px solid ${colors.brand.black}`, backgroundColor: colors.brand.black, gap: '12px' }}>
                         {[
                             { name: 'ENTWURF', price: '$29', color: colors.brand.yellow, features: ['Basiswerkzeuge', 'Updates', 'Support'] },
                             { name: 'MEISTER', price: '$99', color: colors.brand.red, features: ['Alle Werkzeuge', 'Priorität', 'Zertifikat'] },
                             { name: 'AKADEMIE', price: '$299', color: colors.brand.blue, features: ['Team Werkzeug', 'Workshops', 'Direktleitung'] },
                         ].map((plan, i) => (
-                            <div key={plan.name} className="flex flex-col"
+                            <div key={plan.name} className="flex flex-col relative group"
                                 style={{
-                                    padding: '80px 48px',
-                                    backgroundColor: i === 1 ? colors.brand.black : colors.bg,
-                                    color: i === 1 ? '#FFF' : colors.text.primary,
-                                    borderRight: isMobile ? 'none' : i < 2 ? `8px solid ${colors.brand.black}` : 'none',
-                                    borderBottom: isMobile && i < 2 ? `1px solid ${colors.brand.black}` : 'none'
+                                    padding: '64px 40px',
+                                    backgroundColor: colors.bg,
+                                    color: colors.text.primary,
                                 }}>
+                                <div className="absolute top-0 left-0 w-full h-4" style={{ backgroundColor: plan.color }} />
+
                                 <div className="mb-12 flex items-center justify-between">
-                                    <div className="w-12 h-12 border-4 border-black" style={{ backgroundColor: plan.color, borderColor: i === 1 ? '#FFF' : '#000' }} />
-                                    {i === 1 && <span className="px-3 py-1 bg-white text-black font-black text-[10px] tracking-widest">BEFORZUGT</span>}
+                                    <div className="w-16 h-16 border-[6px] border-black transition-transform group-hover:rotate-12" style={{ backgroundColor: plan.color }} />
+                                    {i === 1 && <span className="px-4 py-2 bg-black text-white font-black text-xs tracking-widest uppercase transform rotate-2">Empfohlen</span>}
                                 </div>
-                                <h3 style={{ fontSize: '20px', fontWeight: 900, letterSpacing: '0.2em', marginBottom: '8px' }}>{plan.name}</h3>
+                                <h3 style={{ fontSize: '24px', fontWeight: 900, letterSpacing: '-0.02em', marginBottom: '8px' }}>{plan.name}</h3>
                                 <div className="flex items-baseline mb-12">
-                                    <span style={{ fontSize: '64px', fontWeight: 900, lineHeight: 1 }}>{plan.price}</span>
-                                    <span style={{ fontSize: '14px', fontWeight: 700, marginLeft: '8px', opacity: 0.6 }}>/MO</span>
+                                    <span style={{ fontSize: '80px', fontWeight: 900, lineHeight: 0.9 }}>{plan.price}</span>
                                 </div>
                                 <ul className="space-y-6 mb-16 flex-grow">
                                     {plan.features.map((f) => (
-                                        <li key={f} className="flex items-center gap-4 font-bold" style={{ fontSize: '14px' }}>
-                                            <div className="w-4 h-4 rounded-full border-2 border-current" style={{ backgroundColor: i === 1 ? colors.brand.yellow : colors.brand.blue }} />
+                                        <li key={f} className="flex items-center gap-4 font-bold" style={{ fontSize: '16px' }}>
+                                            <div className="w-3 h-3 bg-black" />
                                             {f}
                                         </li>
                                     ))}
                                 </ul>
-                                <button className="w-full py-5 font-black text-lg border-4 transition-all hover:scale-105 active:scale-95 shadow-[0_8px_0_#000]"
-                                    style={{
-                                        backgroundColor: i === 1 ? '#FFF' : '#000',
-                                        color: i === 1 ? '#000' : '#FFF',
-                                        borderColor: i === 1 ? '#FFF' : '#000'
-                                    }}>
-                                    WÄHLEN
+                                <button className="w-full h-16 bg-white border-[6px] border-black font-black text-lg transition-all hover:bg-black hover:text-white uppercase tracking-widest">
+                                    AuswÄhlen
                                 </button>
                             </div>
                         ))}
@@ -228,29 +225,32 @@ export const S17BauhausModernismPro = ({ deviceMode }: { deviceMode?: 'desktop' 
             </section>
 
             {/* ========== FAQ ========== */}
-            <section style={{ padding: `${spacing.section} ${spacing.lg}`, borderBottom: `8px solid ${colors.brand.black}` }}>
-                <div className="max-w-4xl mx-auto">
-                    <div className="text-center mb-24">
-                        <h2 style={{ fontSize: isMobile ? '40px' : '64px', fontWeight: 900, letterSpacing: '-0.05em' }}>FRAGEN</h2>
+            <section style={{ padding: `${spacing.section} ${spacing.lg}`, borderBottom: `12px solid ${colors.brand.black}` }}>
+                <div className="max-w-5xl mx-auto">
+                    <div className="flex justify-start mb-24">
+                        <h2 className="bg-black text-white px-8 py-4 inline-block" style={{ fontSize: isMobile ? '40px' : '64px', fontWeight: 900, letterSpacing: '-0.05em' }}>FRAGEN?</h2>
                     </div>
 
-                    <div style={{ border: `8px solid ${colors.brand.black}` }}>
+                    <div style={{ borderTop: `12px solid ${colors.brand.black}` }}>
                         {[
                             { q: 'What is Bauhaus?', a: 'Bauhaus was a radical concept for its time, unifying fine art, craft, and technology in a single progressive school.' },
                             { q: 'Geometric forms?', a: 'Universal clarity. Shapes like circles and squares represent a timeless language that transcends borders and culture.' },
                             { q: 'Modern design?', a: 'The principles of the Bauhaus foundation continue to underpin contemporary digital interfaces and spatial architecture.' },
                         ].map((item, i) => (
-                            <div key={i} className="transition-all hover:bg-yellow-400/5 group"
-                                style={{ borderBottom: i < 2 ? `8px solid ${colors.brand.black}` : 'none' }}>
+                            <div key={i} className="transition-all hover:bg-white group"
+                                style={{ borderBottom: `4px solid ${colors.brand.black}`, backgroundColor: expandedFaq === i ? 'white' : 'transparent' }}>
                                 <button className="w-full flex items-center justify-between p-10 text-left" onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}>
-                                    <span style={{ fontSize: '18px', fontWeight: 900, letterSpacing: '0.05em' }}>[0{i + 1}] {item.q}</span>
-                                    <div className="w-12 h-12 border-4 border-black flex items-center justify-center group-hover:bg-black group-hover:text-white transition-all"
-                                        style={{ transform: expandedFaq === i ? 'rotate(180deg)' : 'none' }}>
-                                        <ChevronDown size={24} />
+                                    <span style={{ fontSize: '24px', fontWeight: 900, letterSpacing: '-0.02em', textTransform: 'uppercase' }}>
+                                        <span className="inline-block w-16 text-red-600">0{i + 1}.</span>
+                                        {item.q}
+                                    </span>
+                                    <div className="w-16 h-16 border-[6px] border-black flex items-center justify-center transition-all bg-yellow-400 group-hover:bg-black group-hover:text-white"
+                                        style={{ transform: expandedFaq === i ? 'rotate(90deg)' : 'none' }}>
+                                        {expandedFaq === i ? <X size={32} /> : <ArrowRight size={32} />}
                                     </div>
                                 </button>
                                 {expandedFaq === i && (
-                                    <div className="animate-in fade-in slide-in-from-top-4" style={{ padding: '0 40px 40px', fontSize: '16px', fontWeight: 500, lineHeight: 1.8, color: colors.text.secondary }}>
+                                    <div className="animate-in fade-in slide-in-from-left-4" style={{ padding: '0 40px 40px', fontSize: '20px', fontWeight: 700, lineHeight: 1.4, maxWidth: '800px', marginLeft: '64px' }}>
                                         {item.a}
                                     </div>
                                 )}

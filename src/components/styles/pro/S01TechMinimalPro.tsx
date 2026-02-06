@@ -14,44 +14,51 @@ export const S01TechMinimalPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
     const isMobile = deviceMode === 'mobile';
     const isTablet = deviceMode === 'tablet';
 
-    // S01 Tech Minimal Design Tokens (from spec)
+
+    // S01 Tech Minimal Design Tokens (Refined for High Quality)
     const colors = {
         bg: {
             primary: '#FFFFFF',
-            secondary: '#F9FAFB',
+            secondary: '#F8FAFC', // Slate-50
             elevated: '#FFFFFF',
+            glass: 'rgba(255, 255, 255, 0.8)',
         },
         border: {
-            subtle: '#E2E8F0',
-            strong: '#CBD5E1',
+            subtle: '#E2E8F0', // Slate-200
+            strong: '#CBD5E1', // Slate-300
+            active: '#94A3B8', // Slate-400
         },
         text: {
-            primary: '#0F172A',
-            secondary: '#475569',
-            muted: '#94A3B8',
+            primary: '#0F172A', // Slate-900
+            secondary: '#475569', // Slate-600
+            muted: '#64748B', // Slate-500
             inverse: '#FFFFFF',
         },
         brand: {
-            primary: '#2563EB',
-            primaryHover: '#1D4ED8',
-            primaryActive: '#1E40AF',
+            primary: '#2563EB', // Blue-600
+            primaryHover: '#1D4ED8', // Blue-700
+            primaryActive: '#1E40AF', // Blue-800
+            subtle: '#EFF6FF', // Blue-50
         },
         status: {
-            success: '#16A34A',
-            warning: '#F59E0B',
-            danger: '#DC2626',
+            success: '#10B981', // Emerald-500
+            warning: '#F59E0B', // Amber-500
+            danger: '#EF4444', // Red-500
         },
     };
 
     const radius = {
-        sm: '10px',
-        md: '14px',
-        lg: '18px',
+        sm: '8px',
+        md: '12px',
+        lg: '20px',
+        xl: '32px',
     };
 
     const shadow = {
         none: 'none',
-        soft: '0 1px 2px rgba(15, 23, 42, 0.06)',
+        soft: '0 2px 8px -2px rgba(15, 23, 42, 0.05), 0 1px 2px -1px rgba(15, 23, 42, 0.04)',
+        medium: '0 10px 30px -4px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04)',
+        glow: '0 0 20px rgba(37, 99, 235, 0.15)',
     };
 
     const spacing = responsive.spacing;
@@ -205,12 +212,13 @@ export const S01TechMinimalPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
                                     backgroundColor: colors.bg.elevated,
                                     border: `1px solid ${colors.border.subtle}`,
                                     borderRadius: '100px', // Full pill
-                                    padding: '4px 12px',
-                                    paddingRight: '16px',
+                                    padding: '6px 16px',
                                     fontSize: '13px',
                                     fontWeight: 500,
                                     color: colors.text.secondary,
                                     boxShadow: shadow.soft,
+                                    backdropFilter: 'blur(8px)',
+                                    marginBottom: spacing.lg,
                                 }}
                             >
                                 <div style={{
@@ -326,8 +334,10 @@ export const S01TechMinimalPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
                                     backgroundColor: colors.bg.elevated,
                                     border: `1px solid ${colors.border.subtle}`,
                                     borderRadius: radius.lg,
-                                    boxShadow: '0 20px 40px -12px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0,0,0,0.02)',
+                                    boxShadow: shadow.medium,
                                     overflow: 'hidden',
+                                    transform: 'perspective(1000px) rotateY(-2deg)',
+                                    transition: 'transform 0.5s ease',
                                 }}
                             >
                                 {/* Window Chrome */}
@@ -427,12 +437,25 @@ export const S01TechMinimalPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
                                     border: `1px solid ${colors.border.subtle}`,
                                     borderRadius: radius.md,
                                     padding: spacing.xl,
+                                    boxShadow: shadow.soft,
+                                    transition: 'all 0.3s ease',
+                                    cursor: 'default',
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.transform = 'translateY(-4px)';
+                                    e.currentTarget.style.boxShadow = shadow.medium;
+                                    e.currentTarget.style.borderColor = colors.border.strong;
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.transform = 'translateY(0)';
+                                    e.currentTarget.style.boxShadow = shadow.soft;
+                                    e.currentTarget.style.borderColor = colors.border.subtle;
                                 }}
                             >
                                 <h3 style={{ fontSize: '18px', fontWeight: 600, marginBottom: spacing.sm, color: colors.text.primary }}>
                                     {item.title}
                                 </h3>
-                                <p style={{ fontSize: '14px', color: colors.text.secondary, lineHeight: 1.5 }}>
+                                <p style={{ fontSize: '15px', color: colors.text.secondary, lineHeight: 1.6 }}>
                                     {item.desc}
                                 </p>
                             </div>
@@ -575,11 +598,23 @@ export const S01TechMinimalPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
                             style={{
                                 gridColumn: isMobile ? 'span 1' : 'span 2',
                                 backgroundColor: colors.bg.secondary,
-                                borderLeft: `2px solid ${colors.brand.primary}`,
-                                borderRadius: radius.md,
+                                border: `1px solid ${colors.border.subtle}`, // Changed from left border to full
+                                borderRadius: radius.lg,
                                 padding: spacing.xl,
+                                position: 'relative',
+                                overflow: 'hidden',
                             }}
                         >
+                            <div
+                                style={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    width: '4px',
+                                    height: '100%',
+                                    backgroundColor: colors.brand.primary,
+                                }}
+                            />
                             <div className="flex items-center gap-3 mb-4">
                                 <GitBranch size={24} style={{ color: colors.brand.primary }} />
                                 <h3 style={{ fontSize: '18px', fontWeight: 600, color: colors.text.primary }}>Model Lifecycle</h3>
@@ -745,7 +780,7 @@ export const S01TechMinimalPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
                             <div
                                 key={integration}
                                 style={{
-                                    backgroundColor: colors.bg.secondary,
+                                    backgroundColor: colors.bg.elevated,
                                     border: `1px solid ${colors.border.subtle}`,
                                     borderRadius: radius.sm,
                                     padding: spacing.md,
@@ -753,6 +788,19 @@ export const S01TechMinimalPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
                                     fontSize: '14px',
                                     fontWeight: 500,
                                     color: colors.text.secondary,
+                                    boxShadow: shadow.none,
+                                    transition: 'all 0.2s ease',
+                                    cursor: 'default',
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.borderColor = colors.brand.primary;
+                                    e.currentTarget.style.boxShadow = shadow.soft;
+                                    e.currentTarget.style.color = colors.brand.primary;
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.borderColor = colors.border.subtle;
+                                    e.currentTarget.style.boxShadow = shadow.none;
+                                    e.currentTarget.style.color = colors.text.secondary;
                                 }}
                             >
                                 {integration}
@@ -929,6 +977,9 @@ export const S01TechMinimalPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
                                     borderRadius: radius.md,
                                     padding: spacing.xl,
                                     position: 'relative',
+                                    boxShadow: plan.popular ? shadow.medium : shadow.soft,
+                                    transition: 'all 0.3s ease',
+                                    transform: plan.popular ? 'translateY(-4px)' : 'none',
                                 }}
                             >
                                 {plan.popular && (

@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Menu, X, ArrowRight, Check, ChevronDown, Gem, Shield, Star, Award } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Menu, X, ArrowRight, Check, ChevronDown, Gem, Shield, Star, Award, Layers, Monitor, Hexagon, Aperture, Circle } from 'lucide-react';
 import { useResponsive } from '@/hooks/useResponsive';
 
 export const S88LuxurySilverPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
@@ -8,128 +8,243 @@ export const S88LuxurySilverPro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
     const responsive = useResponsive(deviceMode);
     const isMobile = responsive.nav.showMobile;
 
-    const colors = { bg: '#0A0A0C', surface: '#141418', text: '#F0F0F5', muted: '#9090A0', silver: '#C0C0C0', platinum: '#E5E4E2', chrome: '#DBE4EB', dark: '#050506' };
-    const silverGlow = '0 0 30px rgba(192,192,192,0.3)';
-
     return (
-        <div className="min-h-screen" style={{ backgroundColor: colors.bg, color: colors.text, fontFamily: '"Bodoni Moda", "Didot", serif' }}>
-            {/* Silver Pattern */}
-            <div className="fixed inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='0' y1='30' x2='60' y2='30' stroke='%23C0C0C0' stroke-width='0.5'/%3E%3Cline x1='30' y1='0' x2='30' y2='60' stroke='%23C0C0C0' stroke-width='0.5'/%3E%3C/svg%3E")`, backgroundSize: '60px 60px' }} />
+        <div className="min-h-screen bg-[#F3F4F6] text-[#1F2937] font-sans selection:bg-[#9CA3AF] selection:text-white overflow-x-hidden">
+            <style>{`
+                @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
+                
+                .font-future { font-family: 'Syncopate', sans-serif; }
+                .font-clean { font-family: 'Montserrat', sans-serif; }
+                
+                .silver-gradient-text {
+                    background: linear-gradient(135deg, #1F2937 0%, #9CA3AF 50%, #D1D5DB 100%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+                
+                .platinum-card {
+                    background: linear-gradient(145deg, #ffffff, #e6e6e6);
+                    box-shadow: 20px 20px 60px #d1d1d1, -20px -20px 60px #ffffff;
+                }
 
-            {/* Navigation */}
-            <header className="sticky top-0 z-50 border-b" style={{ borderColor: colors.silver + '40', backgroundColor: `${colors.bg}F0`, backdropFilter: 'blur(10px)' }}>
-                <div className="max-w-6xl mx-auto flex items-center justify-between p-4 px-6">
+                .metallic-shine {
+                    position: relative;
+                    overflow: hidden;
+                }
+                
+                .metallic-shine::after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: -100%;
+                    width: 50%;
+                    height: 100%;
+                    background: linear-gradient(to right, transparent, rgba(255,255,255,0.8), transparent);
+                    transform: skewX(-25deg);
+                    animation: shine 4s infinite;
+                }
+                
+                @keyframes shine {
+                    0%, 70% { left: -100%; }
+                    100% { left: 200%; }
+                }
+                
+                .brushed-metal {
+                    background-color: #e5e5e5;
+                    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E");
+                }
+            `}</style>
+
+            {/* Background Texture */}
+            <div className="fixed inset-0 brushed-metal opacity-20 pointer-events-none z-0"></div>
+
+            {/* Navbar */}
+            <header className="sticky top-0 z-50 bg-[#F3F4F6]/80 backdrop-blur-md border-b border-gray-200">
+                <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <Gem size={28} style={{ color: colors.silver }} />
-                        <span className="text-2xl tracking-widest">ARGENT</span>
+                        <Hexagon size={28} className="text-gray-800" strokeWidth={1.5} />
+                        <span className="text-xl font-future font-bold text-gray-900 tracking-wider">PLATINUM</span>
                     </div>
+
                     {!isMobile && (
                         <nav className="flex items-center gap-8">
-                            {['Collection', 'Craft', 'Legacy'].map((item) => (<span key={item} className="tracking-wide cursor-pointer hover:text-white" style={{ color: colors.muted }}>{item}</span>))}
-                            <button className="px-6 py-2 tracking-wide text-black" style={{ backgroundColor: colors.silver, boxShadow: silverGlow }}>Discover</button>
+                            {['TECHNOLOGY', 'DESIGN', 'PERFORMANCE'].map((item) => (
+                                <a key={item} href="#" className="text-xs font-future font-bold text-gray-500 hover:text-gray-900 transition-colors uppercase tracking-[0.15em]">
+                                    {item}
+                                </a>
+                            ))}
+                            <button className="px-6 py-2.5 bg-gray-900 text-white text-xs font-future font-bold tracking-widest hover:bg-gray-700 transition-all metallic-shine shadow-lg">
+                                CONFIGURE
+                            </button>
                         </nav>
                     )}
-                    {isMobile && <button onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X size={24} /> : <Menu size={24} />}</button>}
+
+                    {isMobile && (
+                        <button onClick={() => setMenuOpen(!menuOpen)} className="p-2 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">
+                            {menuOpen ? <X size={24} /> : <Menu size={24} />}
+                        </button>
+                    )}
                 </div>
+
                 {menuOpen && isMobile && (
-                    <div className="p-6 border-t" style={{ borderColor: colors.silver + '40', backgroundColor: colors.surface }}>
-                        {['Collection', 'Craft', 'Legacy'].map((item) => (<div key={item} className="py-3 tracking-wide" style={{ color: colors.muted }}>{item}</div>))}
-                        <button className="w-full mt-4 py-3 tracking-wide text-black" style={{ backgroundColor: colors.silver }}>Discover</button>
+                    <div className="absolute top-20 left-0 w-full bg-[#F3F4F6] border-b border-gray-200 shadow-xl p-6 flex flex-col gap-6 animate-in slide-in-from-top-4 duration-300 z-50">
+                        {['TECHNOLOGY', 'DESIGN', 'PERFORMANCE'].map((item) => (
+                            <a key={item} href="#" className="text-lg font-future font-bold text-gray-800 tracking-widest py-2 border-b border-gray-200">
+                                {item}
+                            </a>
+                        ))}
                     </div>
                 )}
             </header>
 
-            {/* Hero */}
-            <section style={{ padding: '100px 24px' }}>
-                <div className="max-w-4xl mx-auto text-center">
-                    <div className="inline-flex items-center gap-2 mb-8 px-6 py-2 border" style={{ borderColor: colors.silver }}>
-                        <Shield size={16} style={{ color: colors.silver }} />
-                        <span className="tracking-widest" style={{ color: colors.silver }}>REFINED ELEGANCE</span>
-                    </div>
-                    <h1 className="mb-6 font-bold tracking-wider leading-tight" style={{ fontSize: isMobile ? '44px' : '80px', color: colors.platinum, textShadow: silverGlow }}>
-                        Silver <span style={{ color: colors.silver }}>Prestige</span>
-                    </h1>
-                    <p className="max-w-lg mx-auto mb-10 text-lg" style={{ color: colors.muted }}>Sleek silver aesthetics with cool metallic tones and refined sophistication.</p>
-                    <div className="flex gap-6 justify-center" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
-                        <button className="px-10 py-4 tracking-wide text-black flex items-center justify-center gap-2" style={{ backgroundColor: colors.silver, boxShadow: silverGlow }}>Explore <ArrowRight size={20} /></button>
-                        <button className="px-10 py-4 tracking-wide border" style={{ borderColor: colors.silver, color: colors.silver }}>View Collection</button>
-                    </div>
-                </div>
-            </section>
+            <main className="font-clean relative z-10 text-gray-800">
+                {/* Hero Section */}
+                <section className="relative min-h-[80vh] flex items-center justify-center px-6 overflow-hidden bg-gray-50">
+                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-gray-200 to-transparent"></div>
 
-            {/* Features */}
-            <section style={{ padding: '80px 24px', backgroundColor: colors.surface }}>
-                <div className="max-w-5xl mx-auto">
-                    <h2 className="text-center text-3xl font-bold tracking-widest mb-12" style={{ color: colors.silver }}>EXCELLENCE</h2>
-                    <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
-                        {[{ icon: Gem, title: 'REFINED' }, { icon: Shield, title: 'TIMELESS' }, { icon: Star, title: 'PREMIUM' }].map((item) => (
-                            <div key={item.title} className="p-6 text-center border" style={{ borderColor: colors.silver + '40', backgroundColor: colors.bg }}>
-                                <item.icon size={36} className="mx-auto mb-4" style={{ color: colors.silver }} />
-                                <h3 className="text-lg font-bold tracking-wider mb-2">{item.title}</h3>
-                                <p style={{ color: colors.muted }}>Sophisticated luxury.</p>
+                    {/* Abstract Silver Orb */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-gray-100 to-gray-300 rounded-full blur-3xl opacity-50 animate-pulse-slow"></div>
+
+                    <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center relative z-10">
+                        <div>
+                            <div className="inline-block mb-8">
+                                <span className="text-gray-400 font-future text-[10px] tracking-[0.4em] uppercase border border-gray-300 px-3 py-1 bg-white/50 backdrop-blur-sm">Series X</span>
                             </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
 
-            {/* Pricing */}
-            <section style={{ padding: '80px 24px' }}>
-                <div className="max-w-5xl mx-auto">
-                    <h2 className="text-center text-3xl font-bold tracking-widest mb-12" style={{ color: colors.silver }}>TIERS</h2>
-                    <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
-                        {[{ name: 'STERLING', price: '$249', hot: false }, { name: 'PLATINUM', price: '$499', hot: true }, { name: 'RHODIUM', price: '$899', hot: false }].map((plan) => (
-                            <div key={plan.name} className="relative p-6 text-center" style={{ backgroundColor: colors.surface, border: `2px solid ${plan.hot ? colors.silver : colors.silver + '40'}`, boxShadow: plan.hot ? silverGlow : 'none' }}>
-                                {plan.hot && <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 text-xs tracking-widest text-black" style={{ backgroundColor: colors.silver }}>★ ELITE</div>}
-                                <h3 className="text-xl font-bold tracking-widest mb-2">{plan.name}</h3>
-                                <div className="text-5xl font-bold mb-6" style={{ color: colors.silver }}>{plan.price}</div>
-                                <ul className="space-y-2 mb-6 text-left">
-                                    {['Full access', 'Priority', 'Concierge'].map((f) => (<li key={f} className="flex items-center gap-2" style={{ color: colors.muted }}><Check size={16} style={{ color: colors.silver }} /> {f}</li>))}
-                                </ul>
-                                <button className="w-full py-3 tracking-wide" style={{ backgroundColor: plan.hot ? colors.silver : 'transparent', color: plan.hot ? 'black' : colors.silver, border: plan.hot ? 'none' : `1px solid ${colors.silver}` }}>SELECT</button>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
+                            <h1 className="text-5xl md:text-7xl lg:text-8xl font-future font-bold text-gray-900 mb-8 leading-none tracking-tight">
+                                PURE <br /> <span className="silver-gradient-text">METAL</span>
+                            </h1>
 
-            {/* FAQ */}
-            <section style={{ padding: '80px 24px', backgroundColor: colors.surface }}>
-                <div className="max-w-4xl mx-auto">
-                    <h2 className="text-center text-3xl font-bold tracking-widest mb-12" style={{ color: colors.silver }}>FAQ</h2>
-                    <div className="space-y-4">
-                        {[{ q: 'What is Luxury Silver?', a: 'Sleek metallic aesthetics with refined sophistication.' },
-                        { q: 'Customizable?', a: 'Full control over metallic branding elements.' },
-                        { q: 'Support?', a: 'Priority concierge service included.' }
-                        ].map((item, i) => (
-                            <div key={i} className="border overflow-hidden" style={{ borderColor: colors.silver + '40', backgroundColor: colors.bg }}>
-                                <button className="w-full flex items-center justify-between p-5 text-left" onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}>
-                                    <span className="font-semibold tracking-wide">{item.q}</span>
-                                    <ChevronDown size={20} style={{ color: colors.silver, transform: expandedFaq === i ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s' }} />
+                            <p className="text-lg md:text-xl text-gray-500 mb-12 max-w-lg leading-relaxed font-light">
+                                Engineered for perfection. A synthesis of advanced materials and minimalist design language. The future, refined.
+                            </p>
+
+                            <div className="flex flex-col sm:flex-row gap-6">
+                                <button className="px-10 py-5 bg-gray-900 text-white font-future text-xs font-bold tracking-widest hover:bg-gray-800 transition-all shadow-[0_10px_20px_rgba(0,0,0,0.1)] metallic-shine">
+                                    DISCOVER
                                 </button>
-                                {expandedFaq === i && <div className="px-5 pb-5" style={{ color: colors.muted }}>{item.a}</div>}
+                                <button className="px-10 py-5 bg-white border border-gray-300 text-gray-900 font-future text-xs font-bold tracking-widest hover:bg-gray-50 transition-all flex items-center justify-center gap-3">
+                                    <Aperture size={16} /> SPECS
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="relative h-[500px] flex items-center justify-center">
+                            {/* Product Placeholder - Silver aesthetic */}
+                            <div className="relative w-full aspect-square max-w-[500px] bg-gradient-to-br from-gray-100 to-gray-300 rounded-[3rem] shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff] flex items-center justify-center overflow-hidden border border-white">
+                                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1000')] bg-cover bg-center opacity-80 mix-blend-multiply transition-transform duration-700 hover:scale-105"></div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 to-transparent"></div>
+
+                                <div className="absolute bottom-10 left-10 text-white">
+                                    <div className="text-xs font-future tracking-widest mb-1 opacity-80">EDITION 01</div>
+                                    <h3 className="text-3xl font-bold">Titanium</h3>
+                                </div>
+
+                                <div className="absolute top-10 right-10 w-16 h-16 rounded-full border border-white/30 backdrop-blur-md flex items-center justify-center text-white">
+                                    <Shield size={24} strokeWidth={1} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Specs Grid */}
+                <section className="py-24 px-6 bg-white border-y border-gray-100">
+                    <div className="max-w-7xl mx-auto">
+                        <div className="flex justify-between items-end mb-16 border-b border-gray-100 pb-6">
+                            <h2 className="text-3xl font-future font-bold text-gray-900">SPECIFICATIONS</h2>
+                            <div className="text-xs font-future tracking-widest text-gray-400">V.2025.1</div>
+                        </div>
+
+                        <div className="grid md:grid-cols-4 gap-px bg-gray-200 border border-gray-200">
+                            {[
+                                { label: "Material", val: "Aerospace Grade" },
+                                { label: "Finish", val: "Brushed Platinum" },
+                                { label: "Weight", val: "Ultra-Light" },
+                                { label: "Warranty", val: "Lifetime" }
+                            ].map((spec, i) => (
+                                <div key={i} className="bg-white p-10 hover:bg-gray-50 transition-colors group text-center md:text-left">
+                                    <div className="text-xs font-future tracking-[0.2em] text-gray-400 mb-4 group-hover:text-gray-900 transition-colors uppercase">{spec.label}</div>
+                                    <div className="text-2xl font-bold text-gray-900">{spec.val}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* Feature Showcase */}
+                <section className="py-32 px-6 bg-[#F3F4F6] relative overflow-hidden">
+                    <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-12">
+                        {[
+                            { icon: Layers, title: "Layered Precision", desc: "Multi-stage machining process ensures tolerance within microns." },
+                            { icon: Gem, title: "Premium Finish", desc: "Hand-polished surfaces treated for distinct scratch resistance." },
+                            { icon: Monitor, title: "Integration", desc: "Seamlessly connects with your existing premium ecosystem." }
+                        ].map((f, i) => (
+                            <div key={i} className="bg-white p-10 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
+                                <div className="w-14 h-14 bg-gray-100 rounded-xl flex items-center justify-center mb-8 group-hover:bg-gray-900 transition-colors duration-300">
+                                    <f.icon size={28} className="text-gray-600 group-hover:text-white transition-colors duration-300" strokeWidth={1.5} />
+                                </div>
+                                <h3 className="text-xl font-bold font-future tracking-wide text-gray-900 mb-4">{f.title}</h3>
+                                <p className="text-gray-500 leading-relaxed font-light">{f.desc}</p>
                             </div>
                         ))}
                     </div>
-                </div>
-            </section>
+                </section>
 
-            {/* CTA */}
-            <section style={{ padding: '80px 24px' }}>
-                <div className="max-w-4xl mx-auto p-12 text-center" style={{ backgroundColor: colors.surface, border: `2px solid ${colors.silver}`, boxShadow: silverGlow }}>
-                    <Award size={48} className="mx-auto mb-6" style={{ color: colors.silver }} />
-                    <h2 className="text-3xl font-bold tracking-widest mb-6">EXPERIENCE PRESTIGE</h2>
-                    <button className="px-12 py-4 tracking-wide text-black" style={{ backgroundColor: colors.silver }}>BEGIN</button>
-                </div>
-            </section>
+                {/* Minimalist Pricing */}
+                <section className="py-32 px-6 bg-gray-900 text-white">
+                    <div className="max-w-7xl mx-auto">
+                        <div className="text-center mb-20">
+                            <h2 className="text-4xl font-future font-bold mb-4">ACQUIRE</h2>
+                            <p className="text-gray-400 font-light max-w-lg mx-auto">Select your configuration. Each piece is made to order.</p>
+                        </div>
 
-            {/* Footer */}
-            <footer className="border-t" style={{ borderColor: colors.silver + '40', padding: '40px 24px', backgroundColor: colors.surface }}>
-                <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-                    <div className="flex items-center gap-2 tracking-widest"><Gem size={20} style={{ color: colors.silver }} /> ARGENT</div>
-                    <span style={{ color: colors.muted }}>© 2025 Luxury Silver</span>
-                </div>
-            </footer>
+                        <div className="grid md:grid-cols-3 gap-8 text-center text-gray-900">
+                            {[
+                                { name: "Silver", price: "$499", detail: "Essential Series" },
+                                { name: "Platinum", price: "$999", detail: "Signature Series", highlight: true },
+                                { name: "Rhodium", price: "$2,499", detail: "Limited Edition" }
+                            ].map((plan, i) => (
+                                <div key={i} className={`p-10 transition-transform duration-300 ${plan.highlight ? 'bg-white scale-105 shadow-2xl' : 'bg-gray-800 text-white border border-gray-700 hover:border-gray-500'}`}>
+                                    <div className={`text-xs font-future tracking-[0.2em] mb-4 ${plan.highlight ? 'text-gray-500' : 'text-gray-400'}`}>{plan.name}</div>
+                                    <div className={`text-5xl font-bold mb-4 ${plan.highlight ? 'text-gray-900' : 'text-white'}`}>{plan.price}</div>
+                                    <div className={`text-sm mb-10 ${plan.highlight ? 'text-gray-500' : 'text-gray-400'}`}>{plan.detail}</div>
+
+                                    <button className={`w-full py-4 text-xs font-future font-bold tracking-widest transition-colors border ${plan.highlight ? 'bg-gray-900 text-white hover:bg-gray-800 border-transparent' : 'bg-transparent text-white border-white hover:bg-white hover:text-gray-900'}`}>
+                                        SELECT
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* Footer */}
+                <footer className="bg-white pt-24 pb-12 px-6 border-t border-gray-200">
+                    <div className="max-w-7xl mx-auto flex flex-col items-center">
+                        <Hexagon size={40} className="text-gray-900 mb-8" strokeWidth={1} />
+
+                        <div className="flex flex-wrap justify-center gap-12 mb-16">
+                            {['About', 'Contact', 'Press', 'Legal', 'Privacy'].map(link => (
+                                <a key={link} href="#" className="text-xs font-bold font-future text-gray-500 hover:text-gray-900 uppercase tracking-widest transition-colors">
+                                    {link}
+                                </a>
+                            ))}
+                        </div>
+
+                        <div className="w-full h-px bg-gray-100 mb-8"></div>
+
+                        <div className="flex flex-col md:flex-row justify-between items-center w-full gap-4 text-xs text-gray-400 font-future tracking-widest">
+                            <span>© 2025 PLATINUM DESIGN GROUP</span>
+                            <div className="flex gap-4">
+                                <span>LONDON</span>
+                                <span>TOKYO</span>
+                                <span>NEW YORK</span>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </main>
         </div>
     );
 };

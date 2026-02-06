@@ -10,20 +10,20 @@ export const S19AestheticHarmonyPro = ({ deviceMode }: { deviceMode?: 'desktop' 
 
     const colors = {
         bg: {
-            paper: '#F7F3EE',
-            surface: '#F1EDE8',
-            card: 'rgba(255, 255, 255, 0.4)'
+            paper: '#FDFBF7', // Lighter, cleaner paper
+            surface: '#F5F5F0',
+            card: 'rgba(255, 255, 255, 0.6)'
         },
         text: {
-            primary: '#1A1A1A',
-            secondary: '#4A4A4A',
+            primary: '#2C2C2C', // Soft Black
+            secondary: '#555555',
             muted: '#8C8C8C',
-            accent: '#7D8C83' // Sage Green
+            accent: '#8CA093' // Eucalyptus
         },
         brand: {
-            primary: '#5D6D7E', // Slate
-            secondary: '#A9B2AC', // Stone Sage
-            accent: '#D4B499' // Sand
+            primary: '#708090', // Slate Grey
+            secondary: '#C0C0B0', // Dried Sage
+            accent: '#E0D0C0' // Pale Clay
         },
     };
 
@@ -93,73 +93,82 @@ export const S19AestheticHarmonyPro = ({ deviceMode }: { deviceMode?: 'desktop' 
             </header>
 
             {/* ========== HERO ========== */}
-            <section style={{ padding: `120px ${spacing.lg}`, position: 'relative' }}>
+            <section style={{ padding: `140px ${spacing.lg}`, position: 'relative' }}>
                 <div className="max-w-7xl mx-auto">
-                    <div className="flex flex-col items-center text-center">
-                        <div className="mb-12 opacity-40 italic tracking-widest font-serif" style={{ fontSize: '16px' }}>Wabi-sabi: The beauty of things imperfect.</div>
+                    <div className="flex flex-col items-center text-center relative z-10">
+                        <div className="mb-12 opacity-60 italic tracking-widest font-serif flex items-center gap-4" style={{ fontSize: '14px' }}>
+                            <div className="w-8 h-[1px] bg-stone-400" />
+                            <span>WABI-SABI AESTHETIC</span>
+                            <div className="w-8 h-[1px] bg-stone-400" />
+                        </div>
 
-                        <h1 className="mb-12 font-serif leading-[1.1] max-w-4xl"
-                            style={{ fontSize: isMobile ? '56px' : '96px', fontWeight: 200, letterSpacing: '-0.02em' }}>
-                            Seeking <span className="italic" style={{ color: colors.brand.primary }}>Balance</span> in every <br />
-                            <span className="font-bold underline decoration-stone-300 underline-offset-[12px]">Digital Breath</span>
+                        <h1 className="mb-12 font-serif leading-[1.05] max-w-5xl mix-blend-multiply"
+                            style={{ fontSize: isMobile ? '64px' : '110px', fontWeight: 100, letterSpacing: '-0.03em', color: '#1a1a1a' }}>
+                            <span className="block italic opacity-80" style={{ transform: 'translateX(-2rem)' }}>Seeking</span>
+                            <span className="block font-normal">Equilibrium</span>
+                            <span className="block italic opacity-80 text-right" style={{ fontSize: '0.6em', marginTop: '-0.2em' }}>in the digital void</span>
                         </h1>
 
-                        <p className="max-w-2xl font-sans"
-                            style={{ fontSize: '20px', lineHeight: 2, color: colors.text.secondary, marginBottom: '64px', fontWeight: 300 }}>
-                            A design system rooted in intentionality. Transcending the purely visual to reach a state of functional tranquility and aesthetic equilibrium.
+                        <p className="max-w-xl font-sans"
+                            style={{ fontSize: '18px', lineHeight: 2.2, color: colors.text.secondary, marginBottom: '64px', fontWeight: 300 }}>
+                            A design system rooted in intentionality. We strip away the unnecessary to reveal the profound beauty of structure and space.
                         </p>
 
-                        <div className="flex gap-12 items-center" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
-                            <button className="group relative px-12 py-5 bg-stone-800 text-[#F7F3EE] hover:bg-stone-700 transition-all duration-700 flex items-center gap-4"
-                                style={{ borderRadius: '2px', fontSize: '14px', letterSpacing: '0.2em' }}>
-                                START_ENQUIRY
-                                <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform duration-700" />
+                        <div className="flex gap-16 items-center" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
+                            <button className="group relative px-6 py-2 border-b border-stone-800 text-stone-800 hover:opacity-60 transition-all duration-700 flex items-center gap-4"
+                                style={{ fontSize: '13px', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+                                Begin Journey
                             </button>
-                            <button className="px-12 py-5 border border-stone-300 hover:bg-white/30 transition-all duration-700"
-                                style={{ borderRadius: '2px', fontSize: '14px', letterSpacing: '0.2em' }}>
-                                PHILOSOPHY
+                            <button className="group relative px-6 py-2 border-b border-transparent hover:border-stone-300 text-stone-500 transition-all duration-700"
+                                style={{ fontSize: '13px', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+                                Read Philosophy
                             </button>
                         </div>
                     </div>
 
-                    <div className="mt-32 grid grid-cols-1 md:grid-cols-3 gap-24 items-end">
-                        <div className="aspect-[3/4] bg-stone-200/50 rounded-[4rem] flex items-center justify-center p-12 group overflow-hidden">
-                            <div className="w-full h-full border border-stone-300 rounded-[3rem] group-hover:scale-105 transition-transform duration-1000 flex items-center justify-center italic text-stone-400">Zen_01</div>
+                    <div className="mt-40 grid grid-cols-1 md:grid-cols-12 gap-8 items-end relative">
+                        {/* Decorative Lines */}
+                        <div className="absolute top-0 left-1/4 w-[1px] h-full bg-stone-200" />
+                        <div className="absolute top-1/4 right-0 w-full h-[1px] bg-stone-200" />
+
+                        <div className="md:col-span-4 aspect-[3/4] bg-[#F0F0F0] p-8 group transition-all duration-1000 hover:-translate-y-4 shadow-sm" style={{ transform: 'rotate(-2deg) translateY(4rem)' }}>
+                            <div className="w-full h-full bg-stone-200 opacity-50 overflow-hidden relative">
+                                <div className="absolute inset-0 bg-stone-300/20" />
+                                <div className="absolute bottom-4 left-4 font-serif italic text-stone-500">Fig. 01 — Stone</div>
+                            </div>
                         </div>
-                        <div className="aspect-[3/4] bg-stone-300/50 rounded-full flex items-center justify-center p-12 group overflow-hidden opacity-80 scale-90">
-                            <div className="w-full h-full border border-stone-400 rounded-full group-hover:scale-105 transition-transform duration-1000 flex items-center justify-center italic text-stone-500">Form_02</div>
+
+                        <div className="md:col-span-4 md:col-start-6 aspect-[3/4] bg-white p-6 shadow-2xl z-10 transition-all duration-1000 hover:scale-105">
+                            <div className="w-full h-full border border-stone-100 flex items-center justify-center bg-[#FAFAKA]">
+                                <div className="w-32 h-32 rounded-full bg-stone-100 flex items-center justify-center opacity-50 blur-xl animate-pulse" />
+                                <span className="absolute font-serif text-4xl italic opacity-30">Void</span>
+                            </div>
                         </div>
-                        <div className="aspect-[3/4] bg-stone-100/80 rounded-[4rem] flex items-center justify-center p-12 group overflow-hidden shadow-sm">
-                            <div className="w-full h-full border border-stone-300 rounded-[3rem] group-hover:scale-105 transition-transform duration-1000 flex items-center justify-center italic text-stone-400">Still_03</div>
+
+                        <div className="md:col-span-3 md:col-start-10 aspect-[4/5] bg-[#F5F5F0] p-4 transition-all duration-1000 hover:rotate-2 shadow-sm" style={{ transform: 'translateY(-2rem)' }}>
+                            <div className="w-full h-full border border-stone-200 flex items-center justify-center">
+                                <span className="font-serif italic text-stone-400">Fig. 03</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
             {/* ========== FEATURES ========== */}
+            {/* ========== PRINCIPLES ========== */}
             <section style={{ padding: `${spacing.section} ${spacing.lg}`, position: 'relative' }}>
-                <div className="max-w-7xl mx-auto">
-                    <div className="text-center mb-32">
-                        <h2 className="font-serif italic mb-6" style={{ fontSize: isMobile ? '32px' : '48px', fontWeight: 300 }}>The Art of Intent</h2>
-                        <div className="w-12 h-[1px] bg-stone-300 mx-auto" />
-                    </div>
-
-                    <div className="grid gap-24" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
+                <div className="absolute top-1/2 left-0 w-full h-[1px] bg-stone-200" />
+                <div className="max-w-7xl mx-auto relative z-10">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border border-stone-200 bg-white">
                         {[
-                            { icon: Palette, title: 'Natural Palette', desc: 'Colors derived from earth and stone, creating a seamless connection to the natural environment.' },
-                            { icon: Sparkles, title: 'Soft Shadows', desc: 'Depth redefined through subtle gradients and diffusion, mimicking the play of light on textured paper.' },
-                            { icon: Wand2, title: 'Divine Proportions', desc: 'Layouts balanced on the golden ratio, ensuring every pixel feels intentional and grounded.' },
+                            { title: 'Natural Palette', desc: 'Colors derived from earth and stone, creating a seamless connection to the natural environment.' },
+                            { title: 'Soft Shadows', desc: 'Depth redefined through subtle gradients and diffusion, mimicking the play of light on textured paper.' },
+                            { title: 'Divine Proportions', desc: 'Layouts balanced on the golden ratio, ensuring every pixel feels intentional and grounded.' },
                         ].map((item, i) => (
-                            <div key={item.title} className="group flex flex-col items-center text-center">
-                                <div className="mb-12 relative">
-                                    <div className="w-20 h-20 rounded-full border border-stone-200 flex items-center justify-center transition-all duration-700 group-hover:bg-white"
-                                        style={{ backgroundColor: `${colors.brand.secondary}10` }}>
-                                        <item.icon size={28} style={{ color: colors.brand.primary, opacity: 0.6 }} />
-                                    </div>
-                                    <div className="absolute -top-4 -right-4 font-serif italic text-stone-300 pointer-events-none" style={{ fontSize: '14px' }}>0{i + 1}</div>
-                                </div>
-                                <h3 className="font-serif mb-6" style={{ fontSize: '24px', fontWeight: 400, letterSpacing: '0.05em' }}>{item.title}</h3>
-                                <p style={{ fontSize: '16px', color: colors.text.secondary, lineHeight: 2, fontWeight: 300 }}>{item.desc}</p>
+                            <div key={item.title} className="group p-16 md:border-r border-stone-200 last:border-r-0 hover:bg-[#FDFBF7] transition-colors duration-700">
+                                <div className="mb-12 font-serif italic text-stone-400">0{i + 1}</div>
+                                <h3 className="font-serif mb-8 text-2xl tracking-wide">{item.title}</h3>
+                                <p className="font-sans text-sm leading-loose opacity-60 max-w-xs">{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -167,83 +176,64 @@ export const S19AestheticHarmonyPro = ({ deviceMode }: { deviceMode?: 'desktop' 
             </section>
 
             {/* ========== PRICING ========== */}
+            {/* ========== OFFERINGS ========== */}
             <section style={{ padding: `${spacing.section} ${spacing.lg}`, backgroundColor: colors.bg.surface }}>
-                <div className="max-w-7xl mx-auto">
+                <div className="max-w-5xl mx-auto">
                     <div className="text-center mb-32">
-                        <h2 className="font-serif italic mb-6" style={{ fontSize: isMobile ? '32px' : '48px', fontWeight: 300 }}>Offerings</h2>
-                        <p className="tracking-[0.2em] text-stone-400 uppercase text-[11px] font-bold">Choosing your path of tranquility</p>
+                        <h2 className="font-serif text-3xl tracking-[0.2em] uppercase mb-4 opacity-40">Offerings</h2>
                     </div>
 
-                    <div className="grid gap-12" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
-                        {[
-                            { name: 'Seed', price: '$19', features: ['Core Meditations', 'Standard Wisdom', '1 Private Garden'] },
-                            { name: 'Sprout', price: '$49', features: ['All Zen Elements', 'Priority Counsel', 'Unlimited Gardens', 'Sacred Assets'], highlight: true },
-                            { name: 'Forest', price: '$99', features: ['Collective Access', 'Sanctuary License', 'Bespoke Spirit', 'Masterclasses'] },
-                        ].map((plan, i) => (
-                            <div key={plan.name} className="relative group transition-all duration-1000 hover:-translate-y-4"
-                                style={{
-                                    padding: '80px 48px',
-                                    backgroundColor: plan.highlight ? colors.brand.primary : 'rgba(255,255,255,0.4)',
-                                    color: plan.highlight ? '#F7F3EE' : colors.text.primary,
-                                    border: plan.highlight ? 'none' : '1px solid rgba(0,0,0,0.05)',
-                                    boxShadow: plan.highlight ? `0 40px 80px ${colors.brand.primary}33` : 'none'
-                                }}>
-                                {plan.highlight && (
-                                    <div className="absolute top-0 right-0 p-6 text-[10px] font-black tracking-widest uppercase opacity-40">MOST_ALIGNED</div>
-                                )}
-                                <h3 className="font-serif mb-12 italic opacity-60" style={{ fontSize: '20px' }}>{plan.name}</h3>
-                                <div className="mb-16">
-                                    <span className="font-serif italic" style={{ fontSize: '64px', fontWeight: 200 }}>{plan.price}</span>
-                                    <span className="text-[12px] tracking-widest uppercase opacity-40 ml-4">/cycle</span>
+                    <div className="bg-white p-16 shadow-sm border border-stone-100">
+                        <div className="space-y-12">
+                            {[
+                                { name: 'Seed', price: '$19', features: 'Essential wisdom for the beginning seeker.', highlight: false },
+                                { name: 'Sprout', price: '$49', features: 'Deepening roots with collective access.', highlight: true },
+                                { name: 'Forest', price: '$99', features: 'Complete immersion in the sanctuary.', highlight: false },
+                            ].map((plan) => (
+                                <div key={plan.name} className="group flex items-center justify-between border-b border-stone-100 pb-12 hover:pl-8 transition-all duration-700 cursor-pointer">
+                                    <div>
+                                        <div className="flex items-center gap-4 mb-2">
+                                            <h3 className="font-serif text-3xl italic">{plan.name}</h3>
+                                            {plan.highlight && <span className="text-[10px] uppercase tracking-widest border border-stone-200 px-2 py-1 rounded-full text-stone-400">Recommended</span>}
+                                        </div>
+                                        <p className="font-sans text-sm opacity-50 tracking-wide">{plan.features}</p>
+                                    </div>
+                                    <div className="flex items-center gap-12">
+                                        <span className="font-serif text-2xl opacity-40">{plan.price}</span>
+                                        <div className="w-12 h-12 rounded-full border border-stone-200 flex items-center justify-center group-hover:bg-stone-800 group-hover:text-white transition-all duration-500">
+                                            <ArrowRight size={16} />
+                                        </div>
+                                    </div>
                                 </div>
-                                <ul className="space-y-8 mb-20 opacity-80">
-                                    {plan.features.map((f) => (
-                                        <li key={f} className="flex items-center gap-4 text-[14px] font-light tracking-wide">
-                                            <div className="w-1 h-1 rounded-full bg-current opacity-30" />
-                                            {f}
-                                        </li>
-                                    ))}
-                                </ul>
-                                <button className="w-full py-6 text-[12px] font-bold tracking-[0.3em] uppercase transition-all duration-700"
-                                    style={{
-                                        backgroundColor: plan.highlight ? '#F7F3EE' : 'transparent',
-                                        color: plan.highlight ? colors.brand.primary : colors.text.primary,
-                                        border: plan.highlight ? 'none' : '1px solid rgba(0,0,0,0.1)',
-                                    }}>
-                                    EMBRACE
-                                </button>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
                 </div>
             </section>
 
             {/* ========== FAQ ========== */}
+            {/* ========== ENQUIRY ========== */}
             <section style={{ padding: `${spacing.section} ${spacing.lg}` }}>
-                <div className="max-w-4xl mx-auto">
-                    <div className="text-center mb-24">
-                        <h2 className="font-serif italic mb-6" style={{ fontSize: isMobile ? '32px' : '48px', fontWeight: 300 }}>Shared Enquiry</h2>
-                        <div className="w-12 h-[1px] bg-stone-300 mx-auto" />
+                <div className="max-w-4xl mx-auto flex flex-col items-center">
+                    <div className="mb-24 text-center">
+                        <div className="w-px h-16 bg-stone-300 mx-auto mb-8" />
+                        <h2 className="font-serif text-4xl italic text-stone-600">Common Enquiries</h2>
                     </div>
 
-                    <div className="space-y-2">
+                    <div className="w-full border-t border-stone-200">
                         {[
                             { q: 'What defines this aesthetic?', a: 'A commitment to wabi-sabi principles, finding beauty in the natural, the simple, and the slightly irregular.' },
                             { q: 'Can the spirit be modified?', a: 'The system is built to be fluid. Every variable can be tuned to resonate with your unique creative vision.' },
                             { q: 'Is there a digital garden guide?', a: 'Full documentation on cultivating your digital presence is included in the sacred archives.' },
                         ].map((item, i) => (
-                            <div key={i} className="group overflow-hidden rounded-sm transition-all duration-700"
-                                style={{ borderBottom: '1px solid rgba(0,0,0,0.05)' }}>
-                                <button className="w-full flex items-center justify-between p-10 text-left transition-all hover:bg-white/30"
+                            <div key={i} className="group border-b border-stone-200">
+                                <button className="w-full flex items-center justify-between py-12 text-left hover:pl-8 transition-all duration-500"
                                     onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}>
-                                    <span className="font-serif italic text-stone-600 group-hover:text-stone-900 transition-colors" style={{ fontSize: '22px' }}>{item.q}</span>
-                                    <div className="w-8 h-8 rounded-full border border-stone-200 flex items-center justify-center group-hover:border-stone-400 transition-all rotate-0"
-                                        style={{ transform: expandedFaq === i ? 'rotate(180deg)' : 'none' }}>
-                                        <ChevronDown size={16} strokeWidth={1} />
-                                    </div>
+                                    <span className="font-serif text-xl tracking-wide text-stone-700">{item.q}</span>
+                                    <span className="font-serif italic opacity-30 group-hover:opacity-100 transition-opacity">{expandedFaq === i ? 'Close' : 'Read'}</span>
                                 </button>
                                 {expandedFaq === i && (
-                                    <div className="animate-in fade-in slide-in-from-top-4 duration-700" style={{ padding: '0 40px 40px', fontSize: '16px', lineHeight: 2, color: colors.text.secondary, fontWeight: 300 }}>
+                                    <div className="pb-12 text-stone-500 leading-loose max-w-2xl font-light">
                                         {item.a}
                                     </div>
                                 )}

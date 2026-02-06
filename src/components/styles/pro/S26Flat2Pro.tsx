@@ -7,18 +7,20 @@ export const S26Flat2Pro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
     const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
     const responsive = useResponsive(deviceMode);
     const isMobile = responsive.nav.showMobile;
+    const spacing = responsive.spacing;
 
     const colors = {
         bg: '#F8F9FA',
         surface: '#FFFFFF',
         text: '#212529',
         muted: '#6C757D',
-        primary: '#4361EE',
-        secondary: '#3F37C9',
-        accent: '#4895EF',
-        success: '#4CC9F0',
-        warning: '#F72585',
-        orange: '#FF9E00'
+        primary: '#4CC9F0', // Vibrant Cyan
+        secondary: '#4361EE', // Blue
+        accent: '#7209B7', // Purple
+        success: '#2EC4B6', // Teal
+        warning: '#F72585', // Pink
+        orange: '#FF9E00',
+        heroGradient: 'linear-gradient(135deg, #4CC9F0 0%, #4361EE 100%)'
     };
 
     return (
@@ -70,10 +72,13 @@ export const S26Flat2Pro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
             </header>
 
             {/* Hero Section */}
-            <section className="pt-20 pb-32 px-6 overflow-hidden">
+            <section className="pt-20 pb-32 px-6 overflow-hidden relative">
+                {/* Background Shapes */}
+                <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-blue-50 to-purple-50 rounded-full blur-3xl opacity-50 translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+
                 <div className="max-w-7xl mx-auto text-center relative z-10">
                     <div className="inline-flex items-center gap-2 mb-8 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm transition-transform hover:scale-105"
-                        style={{ backgroundColor: '#E0F2FE', color: colors.primary }}>
+                        style={{ backgroundColor: 'rgba(76, 201, 240, 0.1)', color: colors.secondary }}>
                         <Sparkles size={14} className="fill-current" />
                         New System v2.0
                     </div>
@@ -82,7 +87,7 @@ export const S26Flat2Pro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
                         Clean. Colorful. <br />
                         <span className="text-transparent bg-clip-text"
                             style={{ backgroundImage: `linear-gradient(135deg, ${colors.primary}, ${colors.warning})` }}>
-                            Flat 2.0 Design.
+                            Flat 2.0.
                         </span>
                     </h1>
 
@@ -92,29 +97,33 @@ export const S26Flat2Pro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' 
 
                     <div className="flex gap-4 justify-center flex-col sm:flex-row">
                         <button className="px-10 py-5 rounded-xl font-bold text-lg text-white flex items-center justify-center gap-2 transition-all hover:scale-105 hover:shadow-xl active:scale-95"
-                            style={{ background: colors.primary, boxShadow: `0 10px 20px -10px ${colors.primary}` }}>
+                            style={{ background: colors.heroGradient, boxShadow: `0 10px 25px -10px ${colors.secondary}80` }}>
                             Start Building <ArrowRight size={20} />
                         </button>
-                        <button className="px-10 py-5 rounded-xl font-bold text-lg bg-white border-2 border-gray-200 transition-all hover:border-gray-300 hover:bg-gray-50 text-gray-700">
+                        <button className="px-10 py-5 rounded-xl font-bold text-lg bg-white border-2 border-gray-100 transition-all hover:border-gray-300 hover:bg-gray-50 text-gray-700 shadow-sm hover:shadow-md">
                             Documentation
                         </button>
                     </div>
 
-                    {/* Hero Visuals */}
+                    {/* Hero Visuals - Geometric Illustrations */}
                     <div className="mt-24 grid gap-8 grid-cols-1 md:grid-cols-3 max-w-5xl mx-auto">
                         {[
-                            { color: colors.primary, icon: Square, label: "Structure" },
-                            { color: colors.success, icon: Circle, label: "Access" },
-                            { color: colors.warning, icon: Triangle, label: "Impact" }
+                            { color: colors.primary, icon: Square, label: "Structure", shape: "rounded-2xl" },
+                            { color: colors.warning, icon: Circle, label: "Access", shape: "rounded-full" },
+                            { color: colors.accent, icon: Triangle, label: "Impact", shape: "rounded-[2rem]" }
                         ].map((item, i) => (
-                            <div key={i} className="group p-8 rounded-3xl bg-white border border-gray-100 shadow-xl transition-all hover:-translate-y-2 hover:shadow-2xl relative overflow-hidden">
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-white/20 to-transparent rounded-bl-full opacity-50 pointer-events-none" />
-                                <div className="w-20 h-20 rounded-2xl flex items-center justify-center mb-6 mx-auto shadow-lg transition-transform group-hover:rotate-12 group-hover:scale-110"
+                            <div key={i} className="group p-10 rounded-3xl bg-white border border-gray-100 shadow-xl transition-all hover:-translate-y-2 hover:shadow-2xl relative overflow-hidden">
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-white/40 to-transparent rounded-bl-full opacity-50 pointer-events-none" />
+
+                                {/* Geometric Shape */}
+                                <div className={`w-24 h-24 ${item.shape} flex items-center justify-center mb-8 mx-auto shadow-lg transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110 relative overflow-hidden`}
                                     style={{ background: item.color }}>
-                                    <item.icon size={40} color="white" strokeWidth={2.5} />
+                                    <div className="absolute inset-0 bg-white opacity-20 rotate-45 translate-y-1/2" />
+                                    <item.icon size={40} color="white" strokeWidth={2.5} className="relative z-10" />
                                 </div>
-                                <h3 className="text-xl font-bold mb-2">{item.label}</h3>
-                                <div className="h-2 w-12 rounded-full mx-auto opacity-20" style={{ background: item.color }} />
+
+                                <h3 className="text-xl font-bold mb-3">{item.label}</h3>
+                                <div className="h-2 w-12 rounded-full mx-auto" style={{ background: item.color, opacity: 0.2 }} />
                             </div>
                         ))}
                     </div>

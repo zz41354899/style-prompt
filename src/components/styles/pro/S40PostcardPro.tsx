@@ -7,6 +7,7 @@ export const S40PostcardPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
     const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
     const responsive = useResponsive(deviceMode);
     const isMobile = responsive.nav.showMobile;
+    const spacing = responsive.spacing;
 
     return (
         <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: '#FDF6E3', color: '#3D3D3D', fontFamily: '"Caveat", "Brush Script MT", cursive' }}>
@@ -16,7 +17,17 @@ export const S40PostcardPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
                 .postmark { border: 2px solid #8B4513; border-radius: 50%; opacity: 0.6; transform: rotate(-15deg); }
                 .handwritten { font-family: "Caveat", "Brush Script MT", cursive; }
                 .torn-edge { clip-path: polygon(0 0, 5% 2%, 10% 0, 15% 3%, 20% 0, 25% 2%, 30% 0, 35% 3%, 40% 0, 45% 2%, 50% 0, 55% 2%, 60% 0, 65% 3%, 70% 0, 75% 2%, 80% 0, 85% 3%, 90% 0, 95% 2%, 100% 0, 100% 100%, 0 100%); }
+                .paper-texture {
+                    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+                    pointer-events: none;
+                }
+                .airmail-border {
+                    background-image: repeating-linear-gradient(135deg, #D9534F 0, #D9534F 10px, transparent 10px, transparent 20px, #337AB7 20px, #337AB7 30px, transparent 30px, transparent 40px);
+                    padding: 8px;
+                }
             `}</style>
+
+            <div className="absolute inset-0 paper-texture z-50 pointer-events-none mix-blend-multiply"></div>
 
             <header className="sticky top-0 z-50 bg-amber-100/95 backdrop-blur-sm border-b-2 border-amber-200">
                 <div className="max-w-screen-xl mx-auto flex items-center justify-between p-4 px-6">
@@ -66,17 +77,34 @@ export const S40PostcardPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
                         </div>
                     </div>
                     <div className="hidden lg:block">
-                        <div className="bg-white p-6 postcard-shadow transform rotate-3 relative">
-                            <div className="absolute top-4 right-4 stamp p-4 transform rotate-12">
-                                <div className="text-xs text-amber-800 font-bold">AIR MAIL</div>
-                                <div className="text-2xl handwritten text-amber-600">$0.55</div>
-                            </div>
-                            <div className="aspect-[4/3] bg-gradient-to-br from-amber-100 to-orange-100 mb-4 flex items-center justify-center rounded">
-                                <Mountain size={80} className="text-amber-300" strokeWidth={1} />
-                            </div>
-                            <div className="handwritten text-2xl text-amber-800">Having a wonderful time!</div>
-                            <div className="flex items-center gap-2 mt-2 text-amber-600">
-                                <MapPin size={16} /> Somewhere Beautiful
+                        <div className="bg-white postcard-shadow transform rotate-3 relative airmail-border">
+                            <div className="bg-white p-6 h-full relative">
+                                <div className="absolute top-4 right-4 stamp p-4 transform rotate-12 bg-white z-10">
+                                    <div className="text-xs text-amber-800 font-bold">AIR MAIL</div>
+                                    <div className="text-2xl handwritten text-amber-600">$0.55</div>
+                                </div>
+                                {/* Postmark SVG */}
+                                <div className="absolute top-4 right-16 opacity-70 transform -rotate-12 pointer-events-none z-20">
+                                    <svg width="100" height="100" viewBox="0 0 100 100">
+                                        <circle cx="50" cy="50" r="40" fill="none" stroke="#8B4513" strokeWidth="2" />
+                                        <path id="curve" d="M 20 50 A 30 30 0 1 1 80 50" fill="transparent" />
+                                        <text width="100">
+                                            <textPath href="#curve" startOffset="50%" textAnchor="middle" fill="#8B4513" fontSize="10" className="uppercase font-bold tracking-widest">
+                                                Postcard Service
+                                            </textPath>
+                                        </text>
+                                        <text x="50" y="60" textAnchor="middle" fill="#8B4513" fontSize="12" fontWeight="bold">2025</text>
+                                        <line x1="10" y1="50" x2="30" y2="50" stroke="#8B4513" strokeWidth="2" strokeDasharray="4 2" />
+                                        <line x1="70" y1="50" x2="90" y2="50" stroke="#8B4513" strokeWidth="2" strokeDasharray="4 2" />
+                                    </svg>
+                                </div>
+                                <div className="aspect-[4/3] bg-gradient-to-br from-amber-100 to-orange-100 mb-4 flex items-center justify-center rounded">
+                                    <Mountain size={80} className="text-amber-300" strokeWidth={1} />
+                                </div>
+                                <div className="handwritten text-2xl text-amber-800">Having a wonderful time!</div>
+                                <div className="flex items-center gap-2 mt-2 text-amber-600">
+                                    <MapPin size={16} /> Somewhere Beautiful
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -8,6 +8,7 @@ export const S35BlueprintPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
     const responsive = useResponsive(deviceMode);
     const isMobile = responsive.nav.showMobile;
+    const spacing = responsive.spacing;
 
     const colors = {
         bg: '#002B36',
@@ -99,7 +100,7 @@ export const S35BlueprintPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
     }, []);
 
     return (
-        <div className="min-h-screen relative overflow-x-hidden tech-font selection:bg-[#2AA198] selection:text-white"
+        <div className="min-h-screen relative overflow-x-hidden tech-font selection:bg-[#2AA198] selection:text-white cursor-crosshair"
             style={{ backgroundColor: colors.bg, color: colors.text }}>
 
             {/* Grid Background */}
@@ -298,6 +299,12 @@ export const S35BlueprintPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
                                     </div>
                                     <Layers size={20} className={plan.hot ? 'text-[#2AA198]' : 'text-[#586E75]'} />
                                 </div>
+
+                                {plan.hot && (
+                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-4 border-[#2AA198] text-[#2AA198] px-4 py-1 text-2xl font-black tracking-widest uppercase opacity-20 -rotate-12 pointer-events-none whitespace-nowrap">
+                                        APPROVED
+                                    </div>
+                                )}
 
                                 <div className="mb-8 border-b border-dashed border-[#586E75] pb-8">
                                     <div className="text-5xl font-mono handwritten text-[#FDF6E3] mb-1">{plan.price}</div>

@@ -7,6 +7,7 @@ export const S28SolarpunkPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
     const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
     const responsive = useResponsive(deviceMode);
     const isMobile = responsive.nav.showMobile;
+    const spacing = responsive.spacing;
 
     const colors = {
         bg: '#F2F8F1',
@@ -35,28 +36,33 @@ export const S28SolarpunkPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
                     backdrop-filter: blur(16px);
                     -webkit-backdrop-filter: blur(16px);
                     border: 1px solid ${colors.glassBorder};
-                    box-shadow: 0 8px 32px 0 rgba(76, 175, 80, 0.15);
+                    box-shadow: 0 8px 32px 0 rgba(76, 175, 80, 0.15), inset 0 0 0 1px rgba(255,255,255,0.4);
                 }
                 .organic-radius {
-                    border-radius: 20px 50px 30px 60px / 50px 30px 60px 20px;
+                    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
                 }
                 .organic-radius-2 {
-                    border-radius: 60px 20px 50px 30px / 30px 60px 20px 50px;
+                    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
                 }
                 @keyframes float {
                     0% { transform: translateY(0px) rotate(0deg); }
-                    50% { transform: translateY(-10px) rotate(2deg); }
+                    50% { transform: translateY(-15px) rotate(2deg); }
                     100% { transform: translateY(0px) rotate(0deg); }
                 }
                 .animate-float {
-                    animation: float 6s ease-in-out infinite;
+                    animation: float 8s ease-in-out infinite;
+                }
+                .sun-glare {
+                    background: radial-gradient(circle at 50% 0%, rgba(255,215,0,0.15) 0%, transparent 70%);
+                    pointer-events: none;
                 }
             `}</style>
 
-            {/* Background Organic Blurs */}
-            <div className="absolute top-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full blur-[100px] opacity-30 animate-pulse"
+            {/* Background Organic Blurs & Glare */}
+            <div className="absolute inset-0 sun-glare z-10" />
+            <div className="absolute top-[-20%] right-[-10%] w-[60vw] h-[60vw] rounded-full blur-[120px] opacity-40 animate-pulse"
                 style={{ background: colors.green }} />
-            <div className="absolute bottom-[-10%] left-[-10%] w-[40vw] h-[40vw] rounded-full blur-[80px] opacity-30 animate-pulse"
+            <div className="absolute bottom-[-10%] left-[-20%] w-[50vw] h-[50vw] rounded-full blur-[100px] opacity-30 animate-pulse"
                 style={{ background: colors.gold, animationDelay: '2s' }} />
 
             {/* Navigation */}
@@ -225,7 +231,7 @@ export const S28SolarpunkPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
                             { name: 'Sapling', price: '$49', hot: true },
                             { name: 'Forest', price: '$99', hot: false }
                         ].map((plan) => (
-                            <div key={plan.name} className={`relative glass-panel p-10 flex flex-col items-center text-center transition-all duration-300 ${plan.hot ? 'scale-105 z-10 organic-radius' : 'scale-100 rounded-[3rem]'}`}>
+                            <div key={plan.name} className={`relative glass-panel p-10 flex flex-col items-center text-center transition-all duration-300 rounded-[3rem] ${plan.hot ? 'scale-105 z-10' : 'scale-100'}`}>
                                 {plan.hot && (
                                     <div className="absolute -top-4 px-6 py-2 rounded-full text-sm font-bold text-white shadow-lg animate-bounce"
                                         style={{ background: goldGradient }}>

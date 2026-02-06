@@ -1,140 +1,214 @@
-import { useState } from 'react';
-import { Menu, X, ArrowRight, Check, ChevronDown, Droplets, Waves, Wind, Palette } from 'lucide-react';
+import React, { useState } from 'react';
+import {
+    Layout,
+    MessageCircle,
+    Calendar,
+    CheckCircle2,
+    Menu,
+    X,
+    Search,
+    Bell,
+    User,
+    MoreHorizontal,
+    Plus,
+    ArrowRight,
+    Smile
+} from 'lucide-react';
 import { useResponsive } from '@/hooks/useResponsive';
 
 export const S98AcrylicFluidPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
-    const [menuOpen, setMenuOpen] = useState(false);
-    const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
     const responsive = useResponsive(deviceMode);
-    const isMobile = responsive.nav.showMobile;
-
-    const colors = { bg: '#0F0F1A', surface: '#1A1A2E', text: '#FFFFFF', muted: '#8888AA', pink: '#FF6B9D', blue: '#4ECDC4', purple: '#A855F7', border: 'rgba(255,255,255,0.1)' };
-    const fluidGradient = 'linear-gradient(135deg, #FF6B9D 0%, #A855F7 50%, #4ECDC4 100%)';
-    const acrylicBg = 'rgba(255,255,255,0.05)';
+    const isMobile = deviceMode === 'mobile';
+    const isTablet = deviceMode === 'tablet';
+    const spacing = responsive.spacing;
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
-        <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: colors.bg, color: colors.text, fontFamily: '"Poppins", "Inter", sans-serif' }}>
-            {/* Fluid Background Shapes */}
-            <div className="fixed inset-0 pointer-events-none">
-                <div className="absolute w-96 h-96 rounded-full blur-3xl opacity-30" style={{ background: colors.pink, top: '-10%', right: '-5%' }} />
-                <div className="absolute w-80 h-80 rounded-full blur-3xl opacity-25" style={{ background: colors.purple, bottom: '10%', left: '-10%' }} />
-                <div className="absolute w-64 h-64 rounded-full blur-3xl opacity-20" style={{ background: colors.blue, top: '40%', right: '20%' }} />
+        <div className="min-h-screen bg-[#F3F3F3] text-[#1a1a1a] font-[Segou UI, sans-serif] selection:bg-[#0078D4] selection:text-white overflow-x-hidden relative">
+            {/* 
+        ACRYLIC FLUID PRO (Windows 11 / Mica)
+        - Background: Light Gray #F3F3F3
+        - Material: Mica (subtle noise + gradients)
+        - Components: White with opacity, rounded corners (8px)
+        - Typography: Segoe UI style, clear hierarchy
+      */}
+
+            {/* Mica Textures */}
+            <div className="fixed inset-0 pointer-events-none z-0">
+                <div className="absolute top-[-20%] left-[-10%] w-[60vw] h-[60vw] bg-[#E0F2F1] rounded-full blur-[80px] opacity-60"></div>
+                <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-[#E3F2FD] rounded-full blur-[100px] opacity-80"></div>
+                <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
             </div>
 
-            {/* Navigation */}
-            <header className="sticky top-0 z-50" style={{ backgroundColor: acrylicBg, backdropFilter: 'blur(20px)', borderBottom: `1px solid ${colors.border}` }}>
-                <div className="max-w-5xl mx-auto flex items-center justify-between p-4 px-6">
+            {/* NAVBAR */}
+            <nav className="sticky top-0 z-50 px-4 py-2">
+                <div className="max-w-7xl mx-auto bg-white/70 backdrop-blur-md border border-white/50 rounded-lg h-12 flex items-center justify-between px-4 shadow-sm">
+                    <div className="flex items-center gap-6">
+                        <div className="flex items-center gap-2">
+                            <div className="w-6 h-6 bg-gradient-to-br from-[#0078D4] to-[#00B7C3] rounded-sm grid place-items-center">
+                                <Layout size={14} className="text-white" />
+                            </div>
+                            <span className="font-semibold text-sm">FluidWork</span>
+                        </div>
+                        {!isMobile && !isTablet && (
+                            <div className="flex gap-1 text-xs">
+                                {['Home', 'Projects', 'Team', 'Settings'].map(item => (
+                                    <button key={item} className="px-3 py-1.5 hover:bg-black/5 rounded text-[#1a1a1a]/80 transition-colors">
+                                        {item}
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+
                     <div className="flex items-center gap-2">
-                        <Droplets size={24} style={{ color: colors.pink }} />
-                        <span className="text-lg font-semibold">Fluid</span>
+                        {!isMobile && (
+                            <div className="flex items-center bg-white/50 border border-black/5 rounded-md px-3 h-8 w-64">
+                                <Search size={14} className="text-black/40 mr-2" />
+                                <input type="text" placeholder="Search" className="bg-transparent border-none outline-none text-xs w-full placeholder:text-black/40" />
+                            </div>
+                        )}
+                        <button className="w-8 h-8 flex items-center justify-center hover:bg-black/5 rounded-md transition-colors text-black/60">
+                            <Bell size={16} />
+                        </button>
+                        <div className="w-8 h-8 bg-gradient-to-br from-pink-400 to-red-400 rounded-full border-2 border-white shadow-sm"></div>
                     </div>
-                    {!isMobile && (
-                        <nav className="flex items-center gap-6">
-                            {['Features', 'Gallery', 'About'].map((item) => (<span key={item} className="cursor-pointer hover:text-white" style={{ color: colors.muted }}>{item}</span>))}
-                            <button className="px-5 py-2 rounded-full font-semibold text-white" style={{ background: fluidGradient }}>Try Now</button>
-                        </nav>
-                    )}
-                    {isMobile && <button onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X size={24} /> : <Menu size={24} />}</button>}
                 </div>
-                {menuOpen && isMobile && (
-                    <div className="p-4 border-t" style={{ borderColor: colors.border }}>
-                        {['Features', 'Gallery', 'About'].map((item) => (<div key={item} className="py-2" style={{ color: colors.muted }}>{item}</div>))}
-                        <button className="w-full mt-3 py-2 rounded-full font-semibold text-white" style={{ background: fluidGradient }}>Try Now</button>
-                    </div>
-                )}
-            </header>
+            </nav>
 
-            {/* Hero */}
-            <section className="relative z-10" style={{ padding: '100px 24px' }}>
-                <div className="max-w-4xl mx-auto text-center">
-                    <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full" style={{ backgroundColor: acrylicBg, border: `1px solid ${colors.border}` }}>
-                        <Waves size={16} style={{ color: colors.blue }} />
-                        <span className="text-sm" style={{ color: colors.muted }}>Fluid Design System</span>
+            <main className="relative z-10 p-4 md:p-8 max-w-7xl mx-auto">
+
+                {/* HERO */}
+                <section className="flex flex-col items-center text-center" style={{ marginBottom: spacing.section, paddingTop: spacing.xl }}>
+                    <div className="inline-flex items-center gap-2 bg-white/60 border border-white/50 px-3 py-1 rounded-full shadow-sm" style={{ marginBottom: spacing.lg }}>
+                        <span className="text-xs font-semibold text-[#0078D4]">New</span>
+                        <span className="text-xs text-[#1a1a1a]/70">FluidWork 2.0 is here</span>
                     </div>
-                    <h1 className="mb-6 font-bold leading-tight" style={{ fontSize: isMobile ? '40px' : '72px', background: fluidGradient, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                        Acrylic Fluid Motion
+
+                    <h1 className="font-semibold text-[#1a1a1a] tracking-tight" style={{ fontSize: isMobile ? responsive.fontSize['4xl'] : responsive.fontSize['5xl'], marginBottom: spacing.lg }}>
+                        Design your flow.
                     </h1>
-                    <p className="max-w-md mx-auto mb-10" style={{ color: colors.muted }}>Flowing acrylic aesthetics with fluid gradients and smooth organic shapes.</p>
-                    <div className="flex gap-4 justify-center" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
-                        <button className="px-8 py-3 rounded-full font-semibold text-white flex items-center justify-center gap-2" style={{ background: fluidGradient }}>Get Started <ArrowRight size={18} /></button>
-                        <button className="px-8 py-3 rounded-full font-semibold" style={{ backgroundColor: acrylicBg, border: `1px solid ${colors.border}` }}>Learn More</button>
-                    </div>
-                </div>
-            </section>
+                    <p className="text-xl text-[#1a1a1a]/60 max-w-xl mx-auto mb-10">
+                        A workspace that adapts to you. Organize tasks, documents, and chats in one fluid interface.
+                    </p>
 
-            {/* Features */}
-            <section className="relative z-10" style={{ padding: '60px 24px' }}>
-                <div className="max-w-5xl mx-auto">
-                    <h2 className="text-center text-2xl font-bold mb-10" style={{ background: fluidGradient, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Features</h2>
-                    <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
-                        {[{ icon: Waves, title: 'Fluid Motion', color: colors.blue }, { icon: Wind, title: 'Smooth Flow', color: colors.purple }, { icon: Palette, title: 'Rich Colors', color: colors.pink }].map((item) => (
-                            <div key={item.title} className="p-6 rounded-2xl text-center" style={{ backgroundColor: acrylicBg, border: `1px solid ${colors.border}`, backdropFilter: 'blur(10px)' }}>
-                                <item.icon size={32} className="mx-auto mb-4" style={{ color: item.color }} />
-                                <h3 className="font-bold mb-2">{item.title}</h3>
-                                <p style={{ color: colors.muted }}>Acrylic design.</p>
+                    <button className="px-8 py-3 bg-[#0078D4] hover:bg-[#006CA0] text-white rounded-md font-medium shadow-md hover:shadow-lg transition-all active:scale-95">
+                        Download for Windows
+                    </button>
+                </section>
+
+                {/* APP INTERFACE SHOWCASE */}
+                <section className="perspective-1000" style={{ marginBottom: spacing.section }}>
+                    <div className="bg-[#FFFFFE]/80 backdrop-blur-xl border border-white/50 rounded-xl shadow-[0_20px_60px_-10px_rgba(0,0,0,0.1)] p-1 overflow-hidden h-[600px] flex flex-col">
+                        {/* Title Bar */}
+                        <div className="h-10 flex items-center justify-between px-4 draggable">
+                            <div className="text-xs font-medium text-[#1a1a1a]/60">FluidWork - Team Dashboard</div>
+                            <div className="flex gap-2">
+                                <div className="hover:bg-black/5 p-2 rounded"><span className="block w-2.5 h-[1px] bg-black"></span></div>
+                                <div className="hover:bg-black/5 p-2 rounded"><div className="w-2.5 h-2.5 border border-black"></div></div>
+                                <div className="hover:bg-red-500 hover:text-white p-2 rounded"><X size={14} /></div>
                             </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
+                        </div>
 
-            {/* Pricing */}
-            <section className="relative z-10" style={{ padding: '60px 24px' }}>
-                <div className="max-w-5xl mx-auto">
-                    <h2 className="text-center text-2xl font-bold mb-10" style={{ background: fluidGradient, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Plans</h2>
-                    <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
-                        {[{ name: 'Basic', price: '$12', hot: false }, { name: 'Pro', price: '$36', hot: true }, { name: 'Team', price: '$72', hot: false }].map((plan) => (
-                            <div key={plan.name} className="relative p-6 rounded-2xl text-center" style={{ backgroundColor: acrylicBg, border: `1px solid ${plan.hot ? colors.purple : colors.border}`, backdropFilter: 'blur(10px)' }}>
-                                {plan.hot && <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-xs font-bold text-white" style={{ background: fluidGradient }}>Popular</div>}
-                                <h3 className="font-bold mb-2">{plan.name}</h3>
-                                <div className="text-4xl font-bold mb-4" style={{ background: fluidGradient, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{plan.price}<span className="text-sm font-normal" style={{ color: colors.muted, WebkitTextFillColor: colors.muted }}>/mo</span></div>
-                                <ul className="space-y-2 mb-6 text-left">
-                                    {['All effects', 'Support', 'Updates'].map((f) => (<li key={f} className="flex items-center gap-2" style={{ color: colors.muted }}><Check size={14} style={{ color: colors.blue }} /> {f}</li>))}
-                                </ul>
-                                <button className="w-full py-2 rounded-full font-semibold" style={{ background: plan.hot ? fluidGradient : 'transparent', color: 'white', border: plan.hot ? 'none' : `1px solid ${colors.border}` }}>Select</button>
+                        <div className="flex-1 flex overflow-hidden bg-[#F3F3F3]/50">
+                            {/* Sidebar */}
+                            <div className="w-60 bg-white/50 border-r border-black/5 p-4 flex flex-col gap-6 hidden md:flex">
+                                <div className="space-y-1">
+                                    {['My Day', 'Important', 'Planned', 'Tasks'].map((item, i) => (
+                                        <button key={item} className={`w-full text-left px-3 py-2 rounded-md text-sm flex items-center gap-3 ${i === 0 ? 'bg-[#0078D4]/10 text-[#0078D4] font-semibold' : 'hover:bg-black/5 text-[#1a1a1a]/70'}`}>
+                                            {i === 0 && <div className="w-1 h-3 bg-[#0078D4] rounded-full"></div>}
+                                            {item}
+                                        </button>
+                                    ))}
+                                </div>
+                                <div className="mt-auto bg-[#E3F2FD] p-4 rounded-lg">
+                                    <h4 className="text-xs font-semibold text-[#0078D4] mb-1">Pro Plan</h4>
+                                    <p className="text-[10px] text-[#0078D4]/70 mb-2">You are using 80% storage.</p>
+                                    <div className="h-1 bg-white rounded-full overflow-hidden mb-2"><div className="w-[80%] h-full bg-[#0078D4]"></div></div>
+                                    <button className="text-[10px] font-semibold bg-white text-[#0078D4] px-2 py-1 rounded shadow-sm">Upgrade</button>
+                                </div>
                             </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
 
-            {/* FAQ */}
-            <section className="relative z-10" style={{ padding: '60px 24px' }}>
-                <div className="max-w-3xl mx-auto">
-                    <h2 className="text-center text-2xl font-bold mb-10" style={{ background: fluidGradient, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>FAQ</h2>
-                    <div className="rounded-2xl overflow-hidden" style={{ backgroundColor: acrylicBg, border: `1px solid ${colors.border}`, backdropFilter: 'blur(10px)' }}>
-                        {[{ q: 'What is Acrylic Fluid?', a: 'Flowing gradient aesthetics with organic shapes and smooth motion.' },
-                        { q: 'Customizable?', a: 'Full control over colors and flow patterns.' },
-                        { q: 'Works everywhere?', a: 'All modern browsers supported.' }
-                        ].map((item, i) => (
-                            <div key={i} className="border-b last:border-b-0" style={{ borderColor: colors.border }}>
-                                <button className="w-full flex items-center justify-between p-4 text-left" onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}>
-                                    <span>{item.q}</span>
-                                    <ChevronDown size={18} style={{ color: colors.muted, transform: expandedFaq === i ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s' }} />
-                                </button>
-                                {expandedFaq === i && <div className="px-4 pb-4" style={{ color: colors.muted }}>{item.a}</div>}
+                            {/* Main Content */}
+                            <div className="flex-1 p-8 overflow-y-auto">
+                                <div className="flex items-center justify-between mb-8">
+                                    <div>
+                                        <h2 className="text-2xl font-semibold mb-1">My Day</h2>
+                                        <p className="text-sm text-[#1a1a1a]/50">Monday, October 24</p>
+                                    </div>
+                                    <button className="bg-[#0078D4] text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md hover:bg-[#006CA0]"><Plus size={18} /></button>
+                                </div>
+
+                                {/* Cards Grid */}
+                                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                    {[
+                                        { title: "Design Review", time: "10:00 AM", tag: "Work", color: "bg-orange-100 text-orange-700" },
+                                        { title: "Team Sync", time: "2:00 PM", tag: "Meeting", color: "bg-blue-100 text-blue-700" },
+                                        { title: "Grocery Run", time: "6:00 PM", tag: "Personal", color: "bg-green-100 text-green-700" },
+                                    ].map((card, i) => (
+                                        <div key={i} className="bg-white p-4 rounded-lg shadow-sm border border-black/5 hover:shadow-md transition-shadow">
+                                            <div className="flex justify-between items-start mb-4">
+                                                <div className="w-5 h-5 border-2 border-[#1a1a1a]/20 rounded-full hover:border-[#0078D4] cursor-pointer"></div>
+                                                <MoreHorizontal size={16} className="text-[#1a1a1a]/40 cursor-pointer" />
+                                            </div>
+                                            <h3 className="font-semibold mb-1">{card.title}</h3>
+                                            <p className="text-xs text-[#1a1a1a]/50 mb-3">{card.time}</p>
+                                            <span className={`text-[10px] font-medium px-2 py-1 rounded-full ${card.color}`}>{card.tag}</span>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                        ))}
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            {/* CTA */}
-            <section className="relative z-10" style={{ padding: '60px 24px' }}>
-                <div className="max-w-3xl mx-auto p-10 rounded-2xl text-center" style={{ background: fluidGradient }}>
-                    <Droplets size={32} className="mx-auto mb-4" />
-                    <h2 className="text-2xl font-bold mb-6">Flow with the design</h2>
-                    <button className="px-10 py-3 rounded-full font-semibold" style={{ backgroundColor: 'white', color: colors.purple }}>Get Started</button>
-                </div>
-            </section>
 
-            {/* Footer */}
-            <footer className="relative z-10 border-t" style={{ borderColor: colors.border, padding: '30px 24px' }}>
-                <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-                    <div className="flex items-center gap-2"><Droplets size={18} style={{ color: colors.pink }} /> Fluid</div>
-                    <span style={{ color: colors.muted }}>© 2025 Acrylic Fluid</span>
-                </div>
-            </footer>
-        </div>
+                {/* FEATURES */}
+                <section className="grid gap-6" style={{ marginBottom: spacing.section, gridTemplateColumns: `repeat(${isMobile ? 1 : 3}, 1fr)` }}>
+                    {[
+                        { icon: Layout, title: "Native Feel", desc: "Designed to feel right at home on Windows 11." },
+                        { icon: CheckCircle2, title: "Focus Assist", desc: "Integrates with system focus modes to silence notifications." },
+                        { icon: Smile, title: "Fluent Design", desc: "Beautiful acrylic materials and subtle motion effects." },
+                    ].map((feat, i) => (
+                        <div key={i} className="bg-white/60 p-6 rounded-xl shadow-sm border border-white/50 hover:bg-white/80 transition-colors">
+                            <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-[#0078D4] mb-4 shadow-sm">
+                                <feat.icon size={20} />
+                            </div>
+                            <h3 className="font-semibold mb-2">{feat.title}</h3>
+                            <p className="text-sm text-[#1a1a1a]/60">{feat.desc}</p>
+                        </div>
+                    ))}
+                </section>
+
+
+                <section className="bg-gradient-to-r from-[#0078D4] to-[#00B7C3] rounded-2xl text-center text-white shadow-xl relative overflow-hidden" style={{ padding: spacing.section, marginBottom: spacing.section }}>
+                    <div className="relative z-10">
+                        <h2 className="font-semibold" style={{ fontSize: responsive.fontSize['3xl'], marginBottom: spacing.md }}>Get productive today.</h2>
+                        <p className="mb-8 opacity-90">Join 2 million users organizing their life with FluidWork.</p>
+                        <button className="bg-white text-[#0078D4] px-8 py-3 rounded-md font-medium hover:bg-neutral-50 transition-colors shadow-lg">
+                            Get from Microsoft Store
+                        </button>
+                    </div>
+
+                    {/* Decorative circles */}
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
+                </section>
+
+
+                {/* FOOTER */}
+                <footer className="border-t border-black/5 pt-12 pb-8 flex flex-col md:flex-row justify-between items-center text-xs text-[#1a1a1a]/50">
+                    <div>
+                        © 2024 FluidWork Corp. All rights reserved.
+                    </div>
+                    <div className="flex gap-6 mt-4 md:mt-0">
+                        <a href="#" className="hover:underline">Privacy</a>
+                        <a href="#" className="hover:underline">Terms</a>
+                        <a href="#" className="hover:underline">Cookies</a>
+                    </div>
+                </footer>
+
+            </main>
+        </div >
     );
-};
+}

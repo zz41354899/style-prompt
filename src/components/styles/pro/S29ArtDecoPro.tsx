@@ -7,6 +7,7 @@ export const S29ArtDecoPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet
     const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
     const responsive = useResponsive(deviceMode);
     const isMobile = responsive.nav.showMobile;
+    const spacing = responsive.spacing;
 
     const colors = {
         bg: '#0F0F0F',
@@ -58,11 +59,11 @@ export const S29ArtDecoPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet
                 }
                 @keyframes shimmer {
                     0% { background-position: 0% 50%; }
-                    100% { background-position: 100% 50%; }
+                    100% { background-position: 200% 50%; }
                 }
                 .text-shimmer {
                     background-size: 200% auto;
-                    animation: shimmer 5s linear infinite;
+                    animation: shimmer 8s linear infinite reverse;
                 }
             `}</style>
 
@@ -164,7 +165,7 @@ export const S29ArtDecoPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet
                                     <item.icon size={40} className="-rotate-45 text-[#D4AF37] group-hover:text-black transition-colors" />
                                 </div>
                                 <h3 className="text-2xl font-bold tracking-[0.2em] uppercase mb-4 text-center text-[#F5F5DC]">{item.title}</h3>
-                                <div className="w-12 h-px bg-[#D4AF37] mx-auto mb-6"></div>
+                                <div className="w-12 h-px bg-[#D4AF37] mx-auto mb-6 transform group-hover:scale-x-150 transition-transform duration-500"></div>
                                 <p className="text-center tracking-wider font-light leading-7" style={{ color: colors.muted }}>{item.desc}</p>
                             </div>
                         ))}

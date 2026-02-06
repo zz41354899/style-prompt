@@ -7,6 +7,7 @@ export const S39ComicBookPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
     const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
     const responsive = useResponsive(deviceMode);
     const isMobile = responsive.nav.showMobile;
+    const spacing = responsive.spacing;
 
     return (
         <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: '#FFF9E6', color: '#1A1A1A', fontFamily: '"Bangers", "Comic Sans MS", cursive' }}>
@@ -15,7 +16,8 @@ export const S39ComicBookPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
                 .halftone { background: radial-gradient(circle, #000 1px, transparent 1px); background-size: 4px 4px; }
                 .speech-bubble { position: relative; background: #fff; border: 3px solid #000; border-radius: 20px; }
                 .speech-bubble::after { content: ''; position: absolute; bottom: -20px; left: 30px; border: 10px solid transparent; border-top-color: #000; }
-                .pow-effect { text-shadow: 4px 4px 0 #000, -2px -2px 0 #FFF; }
+                .pow-effect { text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; color: #FFD700; -webkit-text-stroke: 1px black; }
+                .comics-seal { border: 4px solid #fff; border-radius: 50%; width: 60px; height: 60px; background: #000; color: #fff; font-size: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-weight: bold; transform: rotate(-10deg); box-shadow: 0 0 0 4px #000; }
                 .skew-panel { transform: skewX(-3deg); }
                 @keyframes bounce-in { 0% { transform: scale(0); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
                 .animate-bounce-in { animation: bounce-in 0.5s ease-out; }
@@ -178,8 +180,16 @@ export const S39ComicBookPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tabl
                         <div className="w-12 h-12 bg-yellow-400 border-4 border-white rounded-full flex items-center justify-center">
                             <Zap size={24} className="text-black" fill="currentColor" />
                         </div>
-                        <span className="text-3xl text-yellow-400">HEROUI</span>
+                        <span className="text-3xl text-yellow-400 pow-effect">HEROUI</span>
                     </div>
+
+                    <div className="comics-seal hidden md:flex">
+                        <span>APPROVED</span>
+                        <span className="text-[6px] my-0.5">BY THE</span>
+                        <span>HERO CODE</span>
+                        <span>AUTHORITY</span>
+                    </div>
+
                     <div className="text-center md:text-right">
                         <div className="text-sm opacity-60">© 2025 HeroUI. All rights reserved.</div>
                     </div>

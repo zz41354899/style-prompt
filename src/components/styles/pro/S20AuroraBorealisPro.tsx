@@ -9,9 +9,9 @@ export const S20AuroraBorealisPro = ({ deviceMode }: { deviceMode?: 'desktop' | 
     const isMobile = responsive.nav.showMobile;
 
     const colors = {
-        bg: { primary: '#0A0E27', secondary: '#151933' },
-        text: { primary: '#E8F4FD', secondary: '#B8D4E3', muted: '#7A9BB0' },
-        brand: { primary: '#00D4FF', secondary: '#7B2FF7', accent: '#00FF88' },
+        bg: { primary: '#030508', secondary: '#0B101A' }, // Ultra dark void
+        text: { primary: '#E0F7FF', secondary: '#9ACBD9', muted: '#5A7B8C' },
+        brand: { primary: '#4CC9F0', secondary: '#7209B7', accent: '#4361EE' }, // Neon Cyber
     };
 
     const spacing = responsive.spacing;
@@ -103,80 +103,86 @@ export const S20AuroraBorealisPro = ({ deviceMode }: { deviceMode?: 'desktop' | 
             </header>
 
             {/* ========== HERO ========== */}
-            <section style={{ padding: `160px ${spacing.lg}`, position: 'relative' }}>
-                <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
-                    <div className="mb-12 inline-block px-8 py-2 rounded-full border border-sky-400/20 bg-sky-950/20 backdrop-blur-md shadow-[0_0_30px_rgba(0,212,255,0.1)]">
-                        <span className="text-[11px] font-black tracking-[0.4em] uppercase text-sky-400 group flex items-center gap-3">
-                            <Star size={12} className="animate-pulse" />
-                            Celestial_Experience_System
+            <section style={{ padding: `180px ${spacing.lg} 120px`, position: 'relative' }}>
+                <div className="max-w-7xl mx-auto flex flex-col items-center text-center relative z-10">
+                    <div className="mb-12 inline-flex items-center gap-4 px-6 py-2 rounded-full border border-white/5 bg-white/5 backdrop-blur-md">
+                        <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_10px_#4CC9F0]" />
+                        <span className="text-[11px] font-bold tracking-[0.3em] uppercase text-cyan-100">
+                            Atmospheric_Interface_System
                         </span>
                     </div>
 
-                    <h1 className="mb-12 font-black leading-[1.1] max-w-5xl italic"
-                        style={{ fontSize: isMobile ? '64px' : '110px', textShadow: '0 0 40px rgba(0,212,255,0.4)' }}>
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-emerald-400 animate-gradient-x">TRANSCEND</span> <br />
-                        THE BEYOND
+                    <h1 className="mb-12 font-bold leading-[1] max-w-6xl tracking-tight"
+                        style={{ fontSize: isMobile ? '56px' : '120px', textShadow: '0 0 80px rgba(76, 201, 240, 0.3)' }}>
+                        <span className="block text-transparent bg-clip-text bg-gradient-to-b from-white to-cyan-200">LUMINOUS</span>
+                        <span className="block text-transparent bg-clip-text bg-gradient-to-b from-cyan-400 via-purple-400 to-blue-500 animate-gradient-x">HORIZONS</span>
                     </h1>
 
-                    <p className="max-w-2xl font-light"
-                        style={{ fontSize: '20px', lineHeight: 2, color: '#B8D4E3', marginBottom: '64px' }}>
-                        Architecting digital interfaces with the luminous flow and ethereal energy of cosmic phenomena. Elevating interactions to a celestial state.
+                    <p className="max-w-2xl font-light opacity-80"
+                        style={{ fontSize: '22px', lineHeight: 1.8, color: colors.text.secondary, marginBottom: '72px' }}>
+                        A visual language born from the collision of solar winds and magnetic fields. Experience the ethereal flow of pure light.
                     </p>
 
                     <div className="flex gap-12 items-center" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
-                        <button className="group relative px-16 py-6 overflow-hidden rounded-2xl shadow-[0_0_50px_rgba(0,212,255,0.3)] hover:shadow-[0_0_80px_rgba(0,212,255,0.5)] transition-all duration-700">
-                            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-600 animate-pulse" />
-                            <div className="relative z-10 flex items-center gap-4 text-white font-black tracking-widest text-sm uppercase">
-                                ENTER_VAULT
-                                <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform duration-500" />
-                            </div>
+                        <button className="group relative px-12 py-5 overflow-hidden rounded-full shadow-[0_0_40px_rgba(76,201,240,0.4)] hover:shadow-[0_0_80px_rgba(114,9,183,0.6)] transition-all duration-500">
+                            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-600 group-hover:scale-110 transition-transform duration-700" />
+                            <span className="relative z-10 text-white font-bold tracking-[0.2em] text-sm uppercase flex items-center gap-3">
+                                Enter Velocity
+                                <ArrowRight size={16} />
+                            </span>
                         </button>
-                        <button className="px-16 py-6 border border-sky-400/30 rounded-2xl bg-sky-950/20 backdrop-blur-md hover:bg-sky-400/10 transition-all duration-700 text-sky-200 font-black tracking-widest text-sm uppercase">
-                            VIEW_GALAXY
+                        <button className="px-12 py-5 rounded-full border border-white/10 hover:bg-white/5 transition-all duration-500 text-cyan-100 font-bold tracking-[0.2em] text-sm uppercase backdrop-blur-sm">
+                            Explore Data
                         </button>
                     </div>
 
                     {/* Stats Display */}
-                    <div className="mt-40 grid grid-cols-2 md:grid-cols-4 gap-12 w-full max-w-4xl">
-                        {[
-                            { label: 'COSMIC_SCALE', value: '4.8M+' },
-                            { label: 'LITE_YEARS', value: '99.9%' },
-                            { label: 'QUASAR_CORE', value: '88ms' },
-                            { label: 'VOID_NODES', value: '2.4K' }
-                        ].map((stat) => (
-                            <div key={stat.label} className="text-center group">
-                                <div className="text-3xl font-black mb-4 group-hover:text-cyan-400 transition-colors" style={{ textShadow: '0 0 10px rgba(0,212,255,0.2)' }}>{stat.value}</div>
-                                <div className="text-[10px] font-black tracking-widest uppercase opacity-40">{stat.label}</div>
-                            </div>
-                        ))}
+                    <div className="mt-48 w-full border-t border-white/5 pt-12">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
+                            {[
+                                { label: 'Luminosity', value: '100%' },
+                                { label: 'Refraction', value: '1.45' },
+                                { label: 'Frequency', value: '60Hz' },
+                                { label: 'Spectrum', value: 'Full' }
+                            ].map((stat) => (
+                                <div key={stat.label} className="text-center group cursor-default">
+                                    <div className="text-3xl font-bold mb-2 group-hover:text-cyan-400 transition-colors duration-500">{stat.value}</div>
+                                    <div className="text-[10px] uppercase tracking-[0.3em] opacity-30 group-hover:opacity-60 transition-opacity">{stat.label}</div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </section>
 
             {/* ========== FEATURES ========== */}
+            {/* ========== FEATURES ========== */}
             <section style={{ padding: `${spacing.section} ${spacing.lg}` }}>
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-32">
-                        <h2 className="font-black italic mb-6 uppercase tracking-[0.2em]"
-                            style={{ fontSize: isMobile ? '32px' : '48px', textShadow: '0 0 20px rgba(0,212,255,0.3)' }}>
-                            Luminous_Systems
+                        <h2 className="font-bold mb-6 uppercase tracking-[0.2em] text-sm text-cyan-400">
+                            Core Flux
                         </h2>
-                        <div className="w-24 h-[1px] bg-sky-400 opacity-20 mx-auto" />
+                        <div className="text-4xl md:text-5xl font-bold tracking-tight max-w-2xl mx-auto">
+                            Systems designed for <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">infinite scalability</span>
+                        </div>
                     </div>
 
-                    <div className="grid gap-12" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
+                    <div className="grid gap-8" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
                         {[
-                            { icon: Sparkles, title: 'Ether_Fluidity', desc: 'Seamlessly flowing interfaces that adapt to user intent with liquid precision.', color: colors.brand.primary },
-                            { icon: Moon, title: 'Dark_Matter', desc: 'Deep-space aesthetic optimization ensuring high visual comfort and elite focus.', color: colors.brand.secondary },
-                            { icon: Star, title: 'Stellar_Speed', desc: 'Hardware-accelerated rendering processes for light-speed performance levels.', color: colors.brand.accent },
+                            { icon: Sparkles, title: 'Ether Fluidity', desc: 'Seamlessly flowing interfaces that adapt to user intent with liquid precision.', color: colors.brand.primary },
+                            { icon: Moon, title: 'Dark Matter', desc: 'Deep-space aesthetic optimization ensuring high visual comfort and elite focus.', color: colors.brand.secondary },
+                            { icon: Star, title: 'Stellar Speed', desc: 'Hardware-accelerated rendering processes for light-speed performance levels.', color: colors.brand.accent },
                         ].map((item) => (
-                            <div key={item.title} className="group relative p-12 rounded-[2rem] border border-sky-400/10 bg-sky-950/10 backdrop-blur-xl transition-all duration-700 hover:-translate-y-4 hover:border-sky-400/30">
-                                <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-700" style={{ background: `radial-gradient(circle at center, ${item.color}, transparent 70%)` }} />
-                                <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-8 bg-sky-900/20 border border-sky-400/20 shadow-[0_0_20px_rgba(0,212,255,0.1)]">
-                                    <item.icon size={32} style={{ color: item.color }} className="group-hover:scale-110 transition-transform duration-500" />
+                            <div key={item.title} className="group relative p-12 rounded-[2rem] border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] transition-all duration-500 overflow-hidden">
+                                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-cyan-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+
+                                <div className="mb-8 w-14 h-14 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:scale-110 transition-transform duration-500">
+                                    <item.icon size={24} style={{ color: item.color }} />
                                 </div>
-                                <h3 className="font-black mb-6 tracking-widest uppercase italic text-sky-100" style={{ fontSize: '20px' }}>{item.title}</h3>
-                                <p className="font-light leading-relaxed opacity-60" style={{ fontSize: '16px' }}>{item.desc}</p>
+
+                                <h3 className="font-bold mb-4 text-xl tracking-tight">{item.title}</h3>
+                                <p className="font-light leading-relaxed opacity-60 text-sm">{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -184,45 +190,51 @@ export const S20AuroraBorealisPro = ({ deviceMode }: { deviceMode?: 'desktop' | 
             </section>
 
             {/* ========== PRICING ========== */}
+            {/* ========== PRICING ========== */}
             <section style={{ padding: `${spacing.section} ${spacing.lg}`, position: 'relative' }}>
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-32">
-                        <h2 className="font-black italic mb-6 uppercase tracking-[0.2em]"
-                            style={{ fontSize: isMobile ? '32px' : '48px', textShadow: '0 0 20px rgba(0,212,255,0.3)' }}>
-                            Expansion_Plans
+                        <h2 className="font-bold mb-6 uppercase tracking-[0.2em] text-sm text-purple-400">
+                            Clearance Levels
                         </h2>
                     </div>
 
-                    <div className="grid gap-8" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
+                    <div className="grid gap-6" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
                         {[
-                            { name: 'Starlight', price: '$29', color: colors.brand.primary, feats: ['Orbital Auth', 'Spectral Support', '1 Space Port'] },
-                            { name: 'Aurora', price: '$79', color: colors.brand.secondary, feats: ['All Phenomena', '24/7 Intel', 'Unlimited Ports', 'Core Shaders'], hot: true },
-                            { name: 'Cosmos', price: '$149', color: colors.brand.accent, feats: ['Void Access', 'Priority Stream', 'Custom Nebulas', 'Dev Council'] },
+                            { name: 'Observer', price: '$29', color: colors.brand.primary, feats: ['Orbital Auth', 'Spectral Support', '1 Space Port'] },
+                            { name: 'Voyager', price: '$79', color: colors.brand.secondary, feats: ['All Phenomena', '24/7 Intel', 'Unlimited Ports', 'Core Shaders'], hot: true },
+                            { name: 'Architect', price: '$149', color: colors.brand.accent, feats: ['Void Access', 'Priority Stream', 'Custom Nebulas', 'Dev Council'] },
                         ].map((plan, i) => (
-                            <div key={plan.name} className="relative group p-16 rounded-[3rem] border border-sky-400/10 bg-sky-950/10 backdrop-blur-3xl overflow-hidden flex flex-col h-full"
-                                style={{ boxShadow: plan.hot ? `0 0 50px ${colors.brand.secondary}20` : 'none' }}>
+                            <div key={plan.name} className="relative group p-10 rounded-[2rem] border border-white/10 bg-black/40 backdrop-blur-xl flex flex-col h-full hover:border-white/20 transition-all duration-500"
+                                style={{ boxShadow: plan.hot ? `0 0 50px ${plan.color}10` : 'none' }}>
+
                                 {plan.hot && (
-                                    <div className="absolute top-0 right-0 px-8 py-3 bg-gradient-to-l from-purple-600 to-cyan-500 text-[10px] font-black tracking-widest uppercase">MOST_ALIGNED</div>
-                                )}
-                                <div className="mb-12">
-                                    <div className="text-[12px] font-black tracking-[0.3em] uppercase mb-4" style={{ color: plan.color }}>{plan.name}_PHASE</div>
-                                    <div className="flex items-baseline gap-2">
-                                        <span className="text-6xl font-black italic">{plan.price}</span>
-                                        <span className="text-sm opacity-40 uppercase tracking-widest">/cycle</span>
+                                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-6 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-gradient-to-r from-cyan-500 to-purple-600 text-white shadow-lg">
+                                        Recommended
                                     </div>
+                                )}
+
+                                <div className="mb-8 p-4 rounded-xl bg-white/5 border border-white/5 text-center">
+                                    <div className="text-sm font-bold tracking-widest uppercase mb-2 opacity-60">{plan.name}</div>
+                                    <div className="text-4xl font-bold tracking-tight">{plan.price}</div>
                                 </div>
-                                <ul className="space-y-6 mb-16 flex-grow">
+
+                                <ul className="space-y-4 mb-12 flex-grow px-4">
                                     {plan.feats.map((f) => (
-                                        <li key={f} className="flex items-center gap-4 text-[14px] font-light tracking-wide italic opacity-70">
-                                            <Check size={16} style={{ color: plan.color }} />
+                                        <li key={f} className="flex items-center gap-3 text-sm font-light opacity-70">
+                                            <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: plan.color }} />
                                             {f}
                                         </li>
                                     ))}
                                 </ul>
-                                <button className="w-full py-6 rounded-2xl font-black tracking-[0.2em] uppercase transition-all duration-700 relative overflow-hidden group/btn">
-                                    <div className="absolute inset-0 transition-opacity duration-700 opacity-10 group-hover/btn:opacity-40" style={{ backgroundColor: plan.color }} />
-                                    <div className="absolute inset-0 border border-sky-400/20 group-hover/btn:border-sky-400/60 rounded-2xl transition-all" />
-                                    <span style={{ color: plan.color }}>COMMENCE</span>
+
+                                <button className="w-full py-4 rounded-xl font-bold tracking-widest uppercase text-xs transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+                                    style={{
+                                        backgroundColor: plan.hot ? 'white' : 'transparent',
+                                        color: plan.hot ? 'black' : 'white',
+                                        border: plan.hot ? 'none' : '1px solid rgba(255,255,255,0.2)'
+                                    }}>
+                                    Initialize
                                 </button>
                             </div>
                         ))}
@@ -231,32 +243,31 @@ export const S20AuroraBorealisPro = ({ deviceMode }: { deviceMode?: 'desktop' | 
             </section>
 
             {/* ========== FAQ ========== */}
+            {/* ========== FAQ ========== */}
             <section style={{ padding: `${spacing.section} ${spacing.lg}` }}>
-                <div className="max-w-4xl mx-auto">
+                <div className="max-w-3xl mx-auto">
                     <div className="text-center mb-24">
-                        <h2 className="font-black italic mb-6 uppercase tracking-[0.2em]"
-                            style={{ fontSize: isMobile ? '32px' : '48px', textShadow: '0 0 20px rgba(0,212,255,0.3)' }}>
-                            Cosmic_Enquiry
+                        <h2 className="font-bold mb-6 uppercase tracking-[0.2em] text-sm text-white/40">
+                            Void Log
                         </h2>
                     </div>
 
-                    <div className="space-y-4">
+                    <div className="space-y-px bg-white/10 border border-white/5 rounded-2xl overflow-hidden">
                         {[
-                            { q: 'WHAT IS THE SOURCE OF THE LIGHT?', a: 'OUR DESIGN SYSTEM HARNESSES HIGH-PERFORMANCE CSS MESH GRADIENTS AND OPTIMIZED RADIANCE SHADERS FOR A CELESTIAL EXPERIENCE.' },
-                            { q: 'ARE THE SYSTEMS INTERSTELLAR-READY?', a: 'YES. ALL COMPONENTS ARE BUILT WITH QUANTUM-SAFE SCALING AND FULL CROSS-GALAXY BROWSER COMPATIBILITY.' },
-                            { q: 'CAN I CUSTOMIZE THE NEBULA?', a: 'ABSOLUTELY. EVERY RADIANT VARIABLE AND GLOW PARAMETER CAN BE TUNED THROUGH OUR STELLAR DASHBOARD.' },
+                            { q: 'WHAT IS THE SOURCE OF THE LIGHT?', a: 'Our design system harnesses high-performance CSS mesh gradients and optimized radiance shaders for a celestial experience.' },
+                            { q: 'ARE THE SYSTEMS INTERSTELLAR-READY?', a: 'Yes. All components are built with quantum-safe scaling and full cross-galaxy browser compatibility.' },
+                            { q: 'CAN I CUSTOMIZE THE NEBULA?', a: 'Absolutely. Every radiant variable and glow parameter can be tuned through our stellar dashboard.' },
                         ].map((item, i) => (
-                            <div key={i} className="group overflow-hidden rounded-[2rem] border border-sky-400/10 bg-sky-950/10 backdrop-blur-xl transition-all duration-700">
-                                <button className="w-full flex items-center justify-between p-10 text-left transition-all hover:bg-sky-400/5"
+                            <div key={i} className="group bg-[#0B101A]">
+                                <button className="w-full flex items-center justify-between p-8 text-left hover:bg-white/5 transition-colors duration-300"
                                     onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}>
-                                    <span className="font-black tracking-widest text-sky-100 italic" style={{ fontSize: '18px' }}>{item.q}</span>
-                                    <div className="w-10 h-10 rounded-full border border-sky-400/20 flex items-center justify-center group-hover:border-sky-400/50 transition-all"
-                                        style={{ transform: expandedFaq === i ? 'rotate(180deg)' : 'none' }}>
-                                        <ChevronDown size={20} className="text-sky-400" />
+                                    <span className="font-medium tracking-wide text-sm">{item.q}</span>
+                                    <div className={`transition-transform duration-300 ${expandedFaq === i ? 'rotate-180' : ''} opacity-50`}>
+                                        <ChevronDown size={16} />
                                     </div>
                                 </button>
                                 {expandedFaq === i && (
-                                    <div className="animate-in fade-in slide-in-from-top-4 duration-700" style={{ padding: '0 40px 40px', fontSize: '15px', lineHeight: 2, color: '#B8D4E3', fontWeight: 300 }}>
+                                    <div className="px-8 pb-8 pt-0 text-sm leading-relaxed opacity-60 font-light">
                                         {item.a}
                                     </div>
                                 )}

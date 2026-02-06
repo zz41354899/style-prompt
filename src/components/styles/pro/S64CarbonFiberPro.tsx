@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Menu, X, ArrowRight, Check, ChevronDown, Layers, Gauge, Zap, Shield } from 'lucide-react';
+import { Menu, X, ArrowRight, Check, ChevronDown, Layers, Gauge, Zap, Shield, Battery, Trophy, Timer } from 'lucide-react';
 import { useResponsive } from '@/hooks/useResponsive';
 
 export const S64CarbonFiberPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
@@ -8,113 +8,217 @@ export const S64CarbonFiberPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
     const responsive = useResponsive(deviceMode);
     const isMobile = responsive.nav.showMobile;
 
-    const colors = { bg: '#0A0A0C', surface: '#141418', text: '#E8E8EC', muted: '#6B6B70', carbon: '#1A1A1F', red: '#EF4444', silver: '#9CA3AF' };
-    const carbonPattern = `repeating-linear-gradient(45deg, ${colors.carbon} 0px, ${colors.carbon} 2px, transparent 2px, transparent 4px),
-                           repeating-linear-gradient(-45deg, ${colors.carbon} 0px, ${colors.carbon} 2px, transparent 2px, transparent 4px)`;
-
     return (
-        <div className="min-h-screen" style={{ backgroundColor: colors.bg, color: colors.text, fontFamily: '"Rajdhani", "Orbitron", sans-serif' }}>
-            {/* Carbon Weave Pattern */}
-            <div className="fixed inset-0 opacity-30 pointer-events-none" style={{ backgroundImage: carbonPattern, backgroundSize: '8px 8px' }} />
+        <div className="min-h-screen relative overflow-hidden bg-[#0A0A0C] text-[#E8E8EC] selection:bg-[#EF4444] selection:text-white">
+            <style>{`
+                @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap');
 
-            {/* Navigation */}
-            <header className="sticky top-0 z-50 border-b" style={{ borderColor: colors.carbon, backgroundColor: `${colors.bg}F0`, backdropFilter: 'blur(10px)' }}>
-                <div className="max-w-6xl mx-auto flex items-center justify-between p-4 px-6">
+                .font-carbon-head { font-family: 'Orbitron', sans-serif; }
+                .font-carbon-body { font-family: 'Rajdhani', sans-serif; }
+
+                /* Carbon Weave Pattern w/ Gloss */
+                .carbon-weave {
+                    background-color: #141416;
+                    background-image: 
+                        linear-gradient(45deg, #1A1A1D 25%, transparent 25%, transparent 75%, #1A1A1D 75%, #1A1A1D), 
+                        linear-gradient(45deg, #1A1A1D 25%, transparent 25%, transparent 75%, #1A1A1D 75%, #1A1A1D);
+                    background-position: 0 0, 10px 10px;
+                    background-size: 20px 20px;
+                }
+                
+                /* Glossy Overlay */
+                .glossy-finish::before {
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 40%, rgba(255,255,255,0.02) 100%);
+                    pointer-events: none;
+                }
+
+                /* Red Accent Glow */
+                .neon-accent {
+                    box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+                }
+                
+                /* Speed Lines */
+                .speed-lines {
+                    background: repeating-linear-gradient(90deg, transparent, transparent 10px, rgba(255,255,255,0.05) 10px, rgba(255,255,255,0.05) 11px);
+                    mask-image: linear-gradient(to right, transparent, black, transparent);
+                }
+
+                /* Slanted Container */
+                .slanted {
+                    transform: skewX(-15deg);
+                }
+                .slanted-reverse {
+                    transform: skewX(15deg);
+                }
+                
+                /* Metallic Gradient Text */
+                .chrome-text {
+                    background: linear-gradient(to bottom, #FFFFFF 0%, #B0B0B0 50%, #4A4A4A 51%, #858585 100%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+            `}</style>
+
+            <div className="absolute inset-0 bg-[#0A0A0C] fixed z-[-2]"></div>
+            <div className="absolute inset-0 carbon-weave opacity-40 fixed z-[-1] pointer-events-none"></div>
+
+            {/* Navbar */}
+            <header className="sticky top-0 z-50 bg-[#0F0F11]/90 backdrop-blur-md border-b border-[#EF4444] shadow-[0_0_20px_rgba(239,68,68,0.2)]">
+                <div className="max-w-7xl mx-auto flex items-center justify-between p-4 px-6 md:px-10">
                     <div className="flex items-center gap-3">
-                        <Layers size={24} style={{ color: colors.red }} />
-                        <span className="font-bold tracking-widest">CARBON</span>
+                        <div className="slanted bg-[#EF4444] px-3 py-1">
+                            <Layers size={20} className="text-white transform skew-x-[15deg]" />
+                        </div>
+                        <span className="text-2xl font-carbon-head italic font-black tracking-widest text-[#EF4444] drop-shadow-sm">
+                            CARBON<span className="text-white">X</span>
+                        </span>
                     </div>
+
                     {!isMobile && (
-                        <nav className="flex items-center gap-6">
-                            {['Tech', 'Speed', 'Power'].map((item) => (<span key={item} className="font-medium tracking-wide cursor-pointer hover:text-red-400" style={{ color: colors.muted }}>{item}</span>))}
-                            <button className="px-5 py-2 font-bold tracking-wide text-white" style={{ backgroundColor: colors.red }}>Launch</button>
+                        <nav className="flex items-center gap-10">
+                            {['Aerodynamics', 'Telekom', 'Engine'].map((item) => (
+                                <a key={item} href="#" className="font-carbon-head italic text-[#9CA3AF] hover:text-[#EF4444] text-xs font-bold uppercase tracking-wider transition-colors">
+                                    {item}
+                                </a>
+                            ))}
+                            <button className="px-8 py-2 bg-[#EF4444] text-white font-carbon-head text-xs font-bold italic uppercase tracking-widest slanted hover:bg-[#DC2626] transition-opacity neo-accent">
+                                <span className="block transform skew-x-[15deg]">Start Engine</span>
+                            </button>
                         </nav>
                     )}
-                    {isMobile && <button onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X size={24} /> : <Menu size={24} />}</button>}
+
+                    {isMobile && <button onClick={() => setMenuOpen(!menuOpen)} className="text-[#EF4444]">{menuOpen ? <X size={28} /> : <Menu size={28} />}</button>}
                 </div>
+
                 {menuOpen && isMobile && (
-                    <div className="p-4 border-t" style={{ borderColor: colors.carbon, backgroundColor: colors.surface }}>
-                        {['Tech', 'Speed', 'Power'].map((item) => (<div key={item} className="py-2 font-medium tracking-wide" style={{ color: colors.muted }}>{item}</div>))}
-                        <button className="w-full mt-3 py-2 font-bold tracking-wide text-white" style={{ backgroundColor: colors.red }}>Launch</button>
+                    <div className="absolute w-full px-6 py-6 bg-[#0F0F11] border-b border-[#EF4444] shadow-2xl">
+                        {['Aerodynamics', 'Telekom', 'Engine'].map((item) => (
+                            <div key={item} className="py-4 font-carbon-head italic text-white border-b border-[#1A1A1F] uppercase tracking-wider">{item}</div>
+                        ))}
                     </div>
                 )}
             </header>
 
-            {/* Hero */}
-            <section style={{ padding: '80px 24px' }}>
-                <div className="max-w-5xl mx-auto text-center">
-                    <div className="inline-flex items-center gap-2 mb-6 px-5 py-2 border" style={{ borderColor: colors.red }}>
-                        <Gauge size={16} style={{ color: colors.red }} />
-                        <span className="text-sm font-medium tracking-widest" style={{ color: colors.muted }}>HIGH PERFORMANCE</span>
+            {/* Hero Section */}
+            <section className="py-20 lg:py-32 px-6 relative overflow-hidden">
+                <div className="absolute top-1/2 left-0 w-full h-64 -translate-y-1/2 speed-lines opacity-30 pointer-events-none"></div>
+
+                <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
+                    <div>
+                        <div className="inline-flex items-center gap-2 mb-6 px-4 py-1 border-l-4 border-[#EF4444] bg-white/5 backdrop-blur-sm">
+                            <Gauge size={16} className="text-[#EF4444]" />
+                            <span className="font-carbon-head font-bold text-xs uppercase tracking-widest text-[#EF4444]">High Performance Composite</span>
+                        </div>
+
+                        <h1 className="text-6xl md:text-8xl font-carbon-head font-black italic text-white mb-6 leading-none">
+                            LIGHTER. <br />
+                            STRONGER. <br />
+                            <span className="text-[#EF4444]">FASTER.</span>
+                        </h1>
+
+                        <p className="font-carbon-body text-xl md:text-2xl text-[#9CA3AF] max-w-lg mb-10 font-medium leading-relaxed">
+                            Engineered for maximum velocity. The ultimate fusion of woven composite technology and aerodynamic design.
+                        </p>
+
+                        <div className="flex flex-col sm:flex-row items-center gap-6">
+                            <button className="px-10 py-5 bg-[#EF4444] text-white font-carbon-head text-xl font-bold italic uppercase tracking-widest slanted hover:scale-105 transition-transform shadow-[0_0_20px_rgba(239,68,68,0.5)] w-full sm:w-auto">
+                                <span className="block transform skew-x-[15deg]">Accelerate</span>
+                            </button>
+                            <button className="px-10 py-5 bg-transparent text-white font-carbon-head text-xl font-bold italic uppercase tracking-widest border border-[#374151] slanted hover:border-[#EF4444] hover:text-[#EF4444] transition-colors w-full sm:w-auto">
+                                <span className="block transform skew-x-[15deg]">Telemetry</span>
+                            </button>
+                        </div>
                     </div>
-                    <h1 className="mb-4 font-bold tracking-wider leading-tight" style={{ fontSize: isMobile ? '44px' : '80px' }}>
-                        <span style={{ color: colors.red }}>CARBON</span> FIBER
-                    </h1>
-                    <p className="max-w-lg mx-auto mb-8" style={{ color: colors.muted }}>Lightweight performance aesthetics with woven carbon textures and racing vibes.</p>
-                    <div className="flex gap-4 justify-center" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
-                        <button className="px-8 py-3 font-bold tracking-wide text-white flex items-center justify-center gap-2" style={{ backgroundColor: colors.red }}>ACCELERATE <ArrowRight size={18} /></button>
-                        <button className="px-8 py-3 font-bold tracking-wide border" style={{ borderColor: colors.silver, color: colors.text }}>EXPLORE</button>
-                    </div>
-                    {/* Carbon Icons */}
-                    <div className="mt-12 flex justify-center gap-4">
-                        {[Layers, Gauge, Zap, Shield].map((Icon, i) => (
-                            <div key={i} className="w-12 h-12 flex items-center justify-center border" style={{ borderColor: colors.red, backgroundColor: colors.surface }}><Icon size={24} style={{ color: colors.red }} /></div>
-                        ))}
+
+                    <div className="relative">
+                        {/* Speedometer Graphic Simulation */}
+                        <div className="w-full aspect-square rounded-full border-[20px] border-[#1A1A1F] relative flex items-center justify-center glossy-finish bg-[#0F0F11] shadow-[0_0_50px_rgba(0,0,0,0.8)]">
+                            <div className="absolute inset-4 rounded-full border-[2px] border-[#EF4444] opacity-20"></div>
+                            <div className="absolute top-1/2 left-1/2 w-1/2 h-1 bg-gradient-to-r from-transparent to-[#EF4444] origin-left rotate-[135deg] animate-[spin_3s_ease-in-out_infinite_alternate]"></div>
+                            <div className="text-center">
+                                <div className="text-8xl font-carbon-head font-black italic text-white tabular-nums drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">328</div>
+                                <div className="text-xl font-carbon-head font-bold text-[#EF4444] tracking-widest">KM/H</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            {/* Features */}
-            <section style={{ padding: '60px 24px', backgroundColor: colors.surface }}>
-                <div className="max-w-5xl mx-auto">
-                    <h2 className="text-center text-2xl font-bold tracking-widest mb-10" style={{ color: colors.red }}>FEATURES</h2>
-                    <div className="grid gap-4" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
-                        {[{ icon: Layers, title: 'WEAVE PATTERN' }, { icon: Gauge, title: 'PERFORMANCE' }, { icon: Zap, title: 'SPEED DESIGN' }].map((item) => (
-                            <div key={item.title} className="p-5 border" style={{ borderColor: colors.carbon, backgroundColor: colors.bg }}>
-                                <item.icon size={24} className="mb-3" style={{ color: colors.red }} />
-                                <h3 className="font-bold tracking-wide mb-1">{item.title}</h3>
-                                <p className="text-sm" style={{ color: colors.muted }}>Carbon fiber aesthetics.</p>
+            {/* Features (Dashboard) */}
+            <section className="py-24 px-6 relative bg-[#0F0F11]">
+                <div className="max-w-7xl mx-auto relative z-10">
+                    <div className="flex items-center gap-4 mb-16">
+                        <div className="h-1 flex-grow bg-[#1A1A1F]"></div>
+                        <h2 className="text-3xl font-carbon-head font-bold italic uppercase tracking-widest text-white">System Status</h2>
+                        <div className="h-1 w-24 bg-[#EF4444]"></div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {[
+                            { icon: Shield, title: "Impact Shield", value: "100%", color: "#EF4444" },
+                            { icon: Zap, title: "Power Output", value: "980 HP", color: "#3B82F6" },
+                            { icon: Timer, title: "Lap Time", value: "1:24.40", color: "#10B981" }
+                        ].map((f, i) => (
+                            <div key={i} className="group relative p-8 bg-[#141417] border border-[#1F2937] glossy-finish hover:border-[#EF4444] transition-colors">
+                                <div className="flex items-start justify-between mb-8">
+                                    <f.icon className={`w-8 h-8`} style={{ color: f.color }} />
+                                    <div className="w-16 h-1 flex gap-1">
+                                        <div className={`h-full w-full bg-[#1A1A1F] group-hover:bg-[${f.color}] transition-colors`}></div>
+                                        <div className={`h-full w-1/2 bg-[#1A1A1F] group-hover:bg-[${f.color}] transition-colors delay-75`}></div>
+                                    </div>
+                                </div>
+                                <h3 className="text-sm font-carbon-head font-bold text-[#6B7280] uppercase tracking-widest mb-1">{f.title}</h3>
+                                <p className="text-4xl font-carbon-head font-black italic text-white tracking-wider">{f.value}</p>
                             </div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* Pricing */}
-            <section style={{ padding: '60px 24px' }}>
-                <div className="max-w-5xl mx-auto">
-                    <h2 className="text-center text-2xl font-bold tracking-widest mb-10" style={{ color: colors.red }}>PRICING</h2>
-                    <div className="grid gap-4" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
-                        {[{ name: 'SPORT', price: '$49', hot: false }, { name: 'RACING', price: '$99', hot: true }, { name: 'PRO', price: '$199', hot: false }].map((plan) => (
-                            <div key={plan.name} className="relative p-5 border" style={{ borderColor: plan.hot ? colors.red : colors.carbon, backgroundColor: colors.surface }}>
-                                {plan.hot && <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-3 py-0.5 text-xs font-bold tracking-wider text-white" style={{ backgroundColor: colors.red }}>★ HOT</div>}
-                                <h3 className="font-bold tracking-wide mb-1">{plan.name}</h3>
-                                <div className="text-3xl font-bold mb-4" style={{ color: colors.red }}>{plan.price}</div>
-                                <ul className="space-y-2 mb-5">
-                                    {['All patterns', 'Updates', 'Support'].map((f) => (<li key={f} className="flex items-center gap-2 text-sm" style={{ color: colors.muted }}><Check size={14} style={{ color: colors.red }} /> {f}</li>))}
+            {/* Pricing (Specs) */}
+            <section className="py-24 px-6 relative">
+                {/* Diagonal Divider */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#0F0F11] to-[#0A0A0C] via-[#0D0D10]" style={{ clipPath: 'polygon(0 0, 100% 10%, 100% 100%, 0 90%)' }}></div>
+
+                <div className="max-w-5xl mx-auto relative z-10">
+                    <div className="text-center mb-16">
+                        <h2 className="text-5xl font-carbon-head font-black italic text-white mb-2 tracking-tighter">TRIM LEVELS</h2>
+                        <p className="font-carbon-body text-[#EF4444] uppercase tracking-[0.3em] font-bold">Select Your Configuration</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {[
+                            { name: 'GT', price: '$85k', features: ['Carbon Hood', 'Sport Suspension', 'V6 Engine'] },
+                            { name: 'GTR', price: '$120k', features: ['Full Carbon Body', 'Active Aero', 'V8 Twin Turbo'], highlight: true },
+                            { name: 'GTS', price: '$240k', features: ['Monocoque Chassis', 'Race Slicks', 'V10 Hybrid'] }
+                        ].map((plan, i) => (
+                            <div key={i} className={`relative p-8 bg-[#141416] border transition-all duration-300 ${plan.highlight ? 'border-[#EF4444] shadow-[0_0_30px_rgba(239,68,68,0.2)] transform scale-105 z-10' : 'border-[#1F2937] hover:border-[#4B5563] opacity-80'}`}>
+                                {plan.highlight && (
+                                    <div className="absolute top-0 right-0 p-2 bg-[#EF4444] slanted transform translate-x-4 -translate-y-4 shadow-lg">
+                                        <Trophy size={16} className="text-white transform skew-x-[15deg]" />
+                                    </div>
+                                )}
+
+                                <div className="mb-8 pb-8 border-b border-[#27272A] border-dashed">
+                                    <h3 className="text-3xl font-carbon-head font-black italic text-white uppercase tracking-wider">{plan.name}</h3>
+                                    <div className="text-5xl font-carbon-head font-bold mt-2 text-[#EF4444] italic chrome-text" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.2)' }}>{plan.price}</div>
+                                </div>
+
+                                <ul className="space-y-4 mb-8">
+                                    {plan.features.map((feature, j) => (
+                                        <li key={j} className="flex items-center gap-3 font-carbon-body font-bold text-[#D1D5DB] text-lg">
+                                            <div className={`w-2 h-2 transform rotate-45 ${plan.highlight ? 'bg-[#EF4444]' : 'bg-[#4B5563]'}`}></div>
+                                            {feature}
+                                        </li>
+                                    ))}
                                 </ul>
-                                <button className="w-full py-2 text-sm font-bold tracking-wide" style={{ backgroundColor: plan.hot ? colors.red : 'transparent', color: plan.hot ? 'white' : colors.text, border: plan.hot ? 'none' : `1px solid ${colors.silver}` }}>SELECT</button>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
 
-            {/* FAQ */}
-            <section style={{ padding: '60px 24px', backgroundColor: colors.surface }}>
-                <div className="max-w-3xl mx-auto">
-                    <h2 className="text-center text-2xl font-bold tracking-widest mb-10" style={{ color: colors.red }}>FAQ</h2>
-                    <div className="space-y-3">
-                        {[{ q: 'WHAT IS CARBON FIBER STYLE?', a: 'Woven carbon textures with high-performance racing aesthetics.' },
-                        { q: 'CUSTOMIZABLE?', a: 'Full control over weave patterns and accent colors.' },
-                        { q: 'WORKS EVERYWHERE?', a: 'All browsers supported.' }
-                        ].map((item, i) => (
-                            <div key={i} className="border overflow-hidden" style={{ borderColor: colors.carbon, backgroundColor: colors.bg }}>
-                                <button className="w-full flex items-center justify-between p-4 text-left text-sm" onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}>
-                                    <span className="font-medium tracking-wide">{item.q}</span>
-                                    <ChevronDown size={16} style={{ color: colors.red, transform: expandedFaq === i ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s' }} />
+                                <button className={`w-full py-4 font-carbon-head font-bold italic uppercase tracking-widest slanted transition-all ${plan.highlight ? 'bg-[#EF4444] text-white hover:bg-[#DC2626]' : 'bg-[#27272A] text-[#9CA3AF] hover:bg-[#3F3F46]'}`}>
+                                    <span className="block transform skew-x-[15deg]">Configure</span>
                                 </button>
-                                {expandedFaq === i && <div className="px-4 pb-4 text-sm" style={{ color: colors.muted }}>{item.a}</div>}
                             </div>
                         ))}
                     </div>
@@ -122,19 +226,40 @@ export const S64CarbonFiberPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
             </section>
 
             {/* CTA */}
-            <section style={{ padding: '60px 24px' }}>
-                <div className="max-w-3xl mx-auto p-10 text-center border" style={{ borderColor: colors.red, backgroundColor: colors.surface }}>
-                    <Gauge size={40} className="mx-auto mb-4" style={{ color: colors.red }} />
-                    <h2 className="text-2xl font-bold tracking-widest mb-4">MAXIMUM SPEED</h2>
-                    <button className="px-10 py-3 font-bold tracking-wide text-white" style={{ backgroundColor: colors.red }}>LAUNCH NOW</button>
+            <section className="py-24 px-6 relative bg-[#EF4444] overflow-hidden">
+                <div className="absolute inset-0 carbon-weave opacity-20 mix-blend-multiply"></div>
+                <div className="absolute top-0 right-0 w-1/2 h-full bg-black/10 transform skew-x-[-20deg]"></div>
+
+                <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between relative z-10 gap-8">
+                    <div className="text-left">
+                        <h2 className="text-5xl font-carbon-head font-black italic text-white mb-2 uppercase tracking-tighter shadow-black drop-shadow-lg">Ignition Ready</h2>
+                        <p className="font-carbon-body text-xl text-white/90 font-bold uppercase tracking-widest">
+                            The track is waiting. Are you?
+                        </p>
+                    </div>
+                    <button className="px-12 py-5 bg-[#0F0F11] text-white font-carbon-head text-xl font-bold italic uppercase tracking-widest slanted border-2 border-white/20 hover:scale-110 transition-transform shadow-2xl">
+                        <span className="block transform skew-x-[15deg]">Launch Control</span>
+                    </button>
                 </div>
             </section>
 
             {/* Footer */}
-            <footer className="border-t" style={{ borderColor: colors.carbon, padding: '30px 24px', backgroundColor: colors.surface }}>
-                <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-                    <span className="font-bold tracking-widest">CARBON</span>
-                    <span className="text-sm" style={{ color: colors.muted }}>© 2025 Carbon Fiber</span>
+            <footer className="py-12 px-6 bg-[#0A0A0C] border-t border-[#1F2937]">
+                <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+                    <div className="flex items-center gap-2">
+                        <Layers size={24} className="text-[#EF4444]" />
+                        <span className="text-xl font-carbon-head font-bold italic tracking-widest text-[#9CA3AF]">CARBON<span className="text-[#EF4444]">X</span></span>
+                    </div>
+
+                    <div className="flex gap-8 text-xs font-carbon-head font-bold italic uppercase tracking-widest text-[#4B5563]">
+                        <a href="#" className="hover:text-[#EF4444] transition-colors">Privacy</a>
+                        <a href="#" className="hover:text-[#EF4444] transition-colors">Terms</a>
+                        <a href="#" className="hover:text-[#EF4444] transition-colors">Legal</a>
+                    </div>
+
+                    <div className="font-carbon-body font-medium text-xs text-[#374151] uppercase tracking-widest">
+                        © 2025 Carbon Composites.
+                    </div>
                 </div>
             </footer>
         </div>

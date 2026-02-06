@@ -7,23 +7,24 @@ export const S38MagazinePro = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
     const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
     const responsive = useResponsive(deviceMode);
     const isMobile = responsive.nav.showMobile;
+    const spacing = responsive.spacing;
 
     return (
         <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: '#FFFFFF', color: '#1A1A1A', fontFamily: '"Montserrat", sans-serif' }}>
             <style>{`
-                .magazine-gradient { background: linear-gradient(135deg, #FF1493, #00CED1); }
-                .text-gradient { background: linear-gradient(135deg, #FF1493, #00CED1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-                .hover-lift { transition: transform 0.3s, box-shadow 0.3s; }
-                .hover-lift:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+                @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&display=swap');
+                .fashion-font { fontFamily: 'Playfair Display', serif; }
+                .magazine-gradient { background: linear-gradient(135deg, #D4AF37, #C5A028); }
+                .magazine-text-gradient { background: linear-gradient(135deg, #D4AF37, #C5A028); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+                .hover-lift { transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1); }
+                .hover-lift:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+                .drop-cap { float: left; font-size: 4rem; line-height: 0.8; font-weight: 700; margin-right: 0.5rem; }
             `}</style>
 
             <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100">
                 <div className="max-w-screen-xl mx-auto flex items-center justify-between p-4 px-6">
                     <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 magazine-gradient rounded-full flex items-center justify-center">
-                            <Sparkles size={24} className="text-white" />
-                        </div>
-                        <span className="text-2xl font-black tracking-tight">VOGUE<span className="text-gradient">UI</span></span>
+                        <span className="text-3xl font-black tracking-tighter fashion-font">VOGUE<span className="magazine-text-gradient italic">UI</span></span>
                     </div>
                     {!isMobile && (
                         <nav className="flex items-center gap-8">
@@ -51,8 +52,8 @@ export const S38MagazinePro = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
                             <Star size={16} className="text-pink-500" fill="currentColor" />
                             <span className="text-sm font-semibold text-pink-600 uppercase tracking-widest">Editor's Pick</span>
                         </div>
-                        <h1 className="text-6xl md:text-8xl font-black leading-[0.95] tracking-tight mb-8">
-                            The Art of<br /><span className="text-gradient">Modern Design</span>
+                        <h1 className="text-6xl md:text-8xl font-black leading-[0.9] tracking-tight mb-8 fashion-font">
+                            The Art of<br /><span className="magazine-text-gradient italic">Modern Design</span>
                         </h1>
                         <p className="text-xl text-gray-600 max-w-lg mb-12 leading-relaxed">Discover the perfect blend of aesthetics and functionality.</p>
                         <div className="flex flex-col sm:flex-row gap-4">
@@ -167,8 +168,7 @@ export const S38MagazinePro = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
             <footer className="bg-gray-900 text-gray-400 py-16 px-6">
                 <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 magazine-gradient rounded-full flex items-center justify-center"><Sparkles size={20} className="text-white" /></div>
-                        <span className="text-xl font-black text-white">VOGUEUI</span>
+                        <span className="text-2xl font-black text-white fashion-font">VOGUE<span className="italic text-yellow-500">UI</span></span>
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-sm">
                         {['Products', 'Resources', 'Company', 'Legal'].map(col => (

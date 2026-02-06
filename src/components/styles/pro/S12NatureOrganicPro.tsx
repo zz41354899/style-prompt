@@ -8,12 +8,13 @@ export const S12NatureOrganicPro = ({ deviceMode }: { deviceMode?: 'desktop' | '
     const responsive = useResponsive(deviceMode);
     const isMobile = responsive.nav.showMobile;
 
+    // S12 Eco-Luxury Design Tokens
     const colors = {
-        bg: { primary: '#FDFCF7', secondary: '#F1F5E9', elevated: '#FFFFFF', accent: '#E8EDD8' },
-        border: { subtle: '#E0E0E0' }, // Re-added for header border
-        text: { primary: '#2D3321', secondary: '#4A5535', muted: '#8A9970', inverse: '#FFFFFF' },
-        brand: { primary: '#5B703F', secondary: '#7C945C', accent: '#A4B48A' },
-        forest: { deep: '#1B2E1C', light: '#E8F5E9', leaf: '#4CAF50' }
+        bg: { primary: '#EBE9E4', secondary: '#E6E2DD', elevated: '#F5F5F0', accent: '#D5D9C8' }, // Warm Stone / Linen
+        border: { subtle: 'rgba(74, 85, 53, 0.08)', strong: 'rgba(74, 85, 53, 0.15)' },
+        text: { primary: '#2A3022', secondary: '#5C6152', muted: '#8F9485', inverse: '#FFFFFF' }, // Deep Moss
+        brand: { primary: '#4A5535', secondary: '#7C856C', accent: '#A8B398' }, // Olive / Sage
+        forest: { deep: '#1F2618', light: '#F1F3ED', leaf: '#4A5535' }
     };
 
     const spacing = responsive.spacing;
@@ -82,80 +83,103 @@ export const S12NatureOrganicPro = ({ deviceMode }: { deviceMode?: 'desktop' | '
             </header>
 
             {/* ========== HERO ========== */}
-            <section style={{ padding: `${spacing.section} ${spacing.lg}` }}>
-                <div className="max-w-6xl mx-auto">
-                    <div className="grid items-center" style={{ gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '48px' : '100px' }}>
-                        <div>
-                            <div className="inline-flex items-center gap-2 mb-8 py-2 px-4 rounded-full"
-                                style={{ backgroundColor: `${colors.brand.primary}10`, border: `1px solid ${colors.brand.primary}20` }}>
-                                <Sprout size={14} color={colors.brand.primary} />
-                                <span style={{ fontSize: '13px', color: colors.brand.primary, fontWeight: 600, letterSpacing: '0.05em' }}>ROOTED IN NATURE</span>
+            <section className="relative min-h-[90vh] flex items-center pt-20" style={{ padding: `${spacing.section} ${spacing.lg}` }}>
+                {/* Background Texture */}
+                <div className="absolute inset-0 z-0 opacity-40 mix-blend-multiply"
+                    style={{ backgroundImage: `url("https://www.transparenttextures.com/patterns/cubes.png")` }} />
+
+                <div className="max-w-7xl mx-auto w-full relative z-10">
+                    <div className="grid md:grid-cols-12 gap-12 items-center">
+                        {/* Text Content */}
+                        <div className="md:col-span-6 md:pr-12">
+                            <div className="inline-flex items-center gap-3 mb-8">
+                                <span className="h-px w-8 bg-[#4A5535]" />
+                                <span className="text-xs uppercase tracking-[0.2em] text-[#5C6152] font-medium">Conscious Living</span>
                             </div>
-                            <h1 style={{ fontSize: isMobile ? '44px' : '72px', fontWeight: 700, lineHeight: 1, letterSpacing: '-0.04em', marginBottom: '32px' }}>
-                                Breathe <span style={{ color: colors.brand.primary }}>Life</span> <br />
-                                Into Your Design
+
+                            <h1 className="text-5xl md:text-7xl font-serif mb-8 text-[#2A3022] leading-[1.1]">
+                                <span className="italic block font-light text-[#7C856C]">Return to</span>
+                                the Source.
                             </h1>
-                            <p style={{ fontSize: '18px', lineHeight: 1.8, color: colors.text.secondary, marginBottom: '48px', maxWidth: '480px' }}>
-                                A design system inspired by the fluid beauty of the natural world. Harmonious, sustainable, and purely organic.
+
+                            <p className="text-lg md:text-xl text-[#5C6152] leading-relaxed mb-12 font-light max-w-md">
+                                A curated collection of organic elements designed to restore balance to your digital environment.
                             </p>
-                            <div className="flex gap-4" style={{ flexDirection: isMobile ? 'column' : 'row' }}>
-                                <button className="flex items-center justify-center gap-2 group transition-all hover:translate-y-[-2px]"
-                                    style={{ padding: '18px 40px', backgroundColor: colors.brand.primary, color: 'white', borderRadius: '18px', fontSize: '16px', fontWeight: 600, boxShadow: `0 12px 24px ${colors.brand.primary}30` }}>
-                                    Start Growing
-                                    <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+
+                            <div className="flex flex-col md:flex-row gap-6 items-start">
+                                <button className="group flex items-center gap-4 bg-[#4A5535] text-white px-8 py-4 rounded-full text-xs uppercase tracking-widest hover:bg-[#3E472C] transition-colors">
+                                    Explore Collection
+                                    <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                                 </button>
-                                <button className="transition-all hover:bg-neutral-50"
-                                    style={{ padding: '18px 40px', border: `2px solid ${colors.brand.primary}20`, borderRadius: '18px', fontSize: '16px', fontWeight: 600 }}>
-                                    Learn More
+                                <button className="flex items-center gap-2 px-8 py-4 text-[#4A5535] text-xs uppercase tracking-widest hover:opacity-70 transition-opacity">
+                                    Our Story
                                 </button>
                             </div>
                         </div>
 
-                        <div className="relative flex items-center justify-center">
-                            <div className="relative w-full aspect-square max-w-[500px]">
-                                {/* Animated SVG Blob */}
-                                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="absolute inset-0 w-full h-full opacity-10 animate-spin-slow">
-                                    <path fill={colors.brand.primary} d="M44.7,-76.4C58.3,-69.2,70,-57.9,77.7,-44.7C85.4,-31.5,89.1,-15.8,88.4,-0.4C87.7,14.9,82.5,30,74.3,43.2C66.1,56.4,54.8,67.7,41.2,74.9C27.6,82,11.8,85,-3.4,90.8C-18.6,96.6,-33.2,105.1,-46.8,103.1C-60.4,101.1,-73.1,88.5,-81.9,73.8C-90.7,59.1,-95.6,42.3,-97,25.6C-98.4,8.9,-96.3,-7.7,-91.3,-23.1C-86.4,-38.5,-78.6,-52.7,-67.2,-61.7C-55.8,-70.7,-40.8,-74.6,-26.1,-80.4C-11.4,-86.2,2.9,-93.9,18.6,-92.4C34.3,-90.9,44.7,-76.4,44.7,-76.4Z" transform="translate(100 100)" />
-                                </svg>
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                    <div className="w-[60%] h-[60%] rounded-[40px] rotate-[10deg] flex items-center justify-center transition-transform hover:rotate-[0deg] duration-700"
-                                        style={{ backgroundColor: colors.bg.elevated, border: `1px solid ${colors.brand.primary}15`, boxShadow: '0 32px 64px -16px rgba(45,51,33,0.1)' }}>
-                                        <div className="text-center p-8">
-                                            <div className="w-16 h-16 rounded-[20px] bg-secondary mx-auto mb-6 flex items-center justify-center" style={{ backgroundColor: colors.bg.secondary }}>
-                                                <Sun size={32} color={colors.brand.primary} className="animate-pulse" />
-                                            </div>
-                                            <div style={{ fontSize: '14px', fontWeight: 700, letterSpacing: '0.1em', opacity: 0.4 }}>SOLAR SYSTEM</div>
+                        {/* Visual Content */}
+                        <div className="md:col-span-6 relative">
+                            <div className="relative aspect-[4/5] md:aspect-[3/4] rounded-t-[200px] overflow-hidden">
+                                <img
+                                    src="https://images.unsplash.com/photo-1542601906990-b4d3ab778ca3?q=80&w=2574&auto=format&fit=crop"
+                                    alt="Organic Texture"
+                                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-[2s]"
+                                />
+                                <div className="absolute inset-0 bg-[#4A5535] mix-blend-overlay opacity-20" />
+
+                                {/* Floating Label */}
+                                <div className="absolute bottom-8 left-8 right-8 bg-white/90 backdrop-blur-sm p-6 rounded-2xl border border-white/50">
+                                    <div className="flex justify-between items-center">
+                                        <div>
+                                            <div className="text-xs uppercase tracking-wider text-[#8F9485] mb-1">Featured</div>
+                                            <div className="font-serif text-[#2A3022] text-lg">The Stone Collection</div>
+                                        </div>
+                                        <div className="w-10 h-10 rounded-full border border-[#4A5535]/20 flex items-center justify-center">
+                                            <Leaf size={16} className="text-[#4A5535]" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                            {/* Decorative Elements */}
+                            <div className="absolute -top-12 -right-12 w-64 h-64 bg-[#D5D9C8] rounded-full mix-blend-multiply filter blur-3xl opacity-50 -z-10 animate-pulse" />
+                            <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-[#A8B398] rounded-full mix-blend-multiply filter blur-3xl opacity-50 -z-10 animate-pulse delay-700" />
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* ========== FEATURES ========== */}
+            {/* ========== FEATURES (Organic Grid) ========== */}
             <section style={{ padding: `${spacing.section} ${spacing.lg}`, backgroundColor: colors.bg.secondary }}>
                 <div className="max-w-6xl mx-auto">
-                    <div className="text-center mb-12">
-                        <h2 style={{ fontSize: isMobile ? '28px' : '36px', fontWeight: 600, marginBottom: '16px' }}>Rooted in Principles</h2>
-                        <p style={{ fontSize: '16px', color: colors.text.secondary }}>Our core values for a thriving digital ecosystem</p>
+                    <div className="text-center mb-20">
+                        <h2 className="text-4xl font-serif text-[#2A3022] mb-6">Rooted in Principles</h2>
+                        <div className="w-24 h-1 bg-[#4A5535]/20 mx-auto rounded-full" />
                     </div>
 
-                    <div className="grid gap-8" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
+                    <div className="grid md:grid-cols-3 gap-8">
                         {[
-                            { icon: Leaf, title: 'Sustainable Core', desc: 'Built with longevity and ecological balance in mind.', color: '#4CAF50' },
-                            { icon: Wind, title: 'Fluid Motion', desc: 'Interfaces that move with the ease of a summer breeze.', color: '#00BCD4' },
-                            { icon: Cloud, title: 'Natural Focus', desc: 'Removing the synthetic to reveal the essential beauty.', color: '#90CAF9' },
-                        ].map((item) => (
-                            <div key={item.title} className="group transition-all duration-500 hover:translate-y-[-8px]"
-                                style={{ padding: '48px 32px', backgroundColor: colors.bg.elevated, borderRadius: '32px', border: `1px solid ${colors.brand.primary}10`, boxShadow: '0 10px 30px -10px rgba(45,51,33,0.05)' }}>
-                                <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-8 transition-transform group-hover:scale-110"
-                                    style={{ backgroundColor: `${item.color}15`, color: item.color }}>
-                                    <item.icon size={28} />
+                            { icon: Leaf, title: 'Sustainable Core', desc: 'Built with longevity and ecological balance in mind.', img: 'https://images.unsplash.com/photo-1518531933037-91b2f5d2294c?q=80&w=2696&auto=format&fit=crop' },
+                            { icon: Wind, title: 'Fluid Motion', desc: 'Interfaces that move with the ease of a summer breeze.', img: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=2674&auto=format&fit=crop' },
+                            { icon: Cloud, title: 'Natural Focus', desc: 'Removing the synthetic to reveal the essential beauty.', img: 'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?q=80&w=2574&auto=format&fit=crop' },
+                        ].map((item, i) => (
+                            <div key={item.title} className="group relative h-[400px] rounded-[32px] overflow-hidden">
+                                {/* Background Image */}
+                                <img src={item.img} alt={item.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110 grayscale-[0.5] group-hover:grayscale-0" />
+                                <div className="absolute inset-0 bg-[#1F2618]/40 group-hover:bg-[#1F2618]/20 transition-colors" />
+
+                                {/* Content */}
+                                <div className="absolute inset-0 p-8 flex flex-col justify-end text-white">
+                                    <div className="mb-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                        <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center mb-4">
+                                            <item.icon size={20} className="text-white" />
+                                        </div>
+                                        <h3 className="text-2xl font-serif mb-2">{item.title}</h3>
+                                        <p className="text-white/80 font-light leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                                            {item.desc}
+                                        </p>
+                                    </div>
                                 </div>
-                                <h3 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '16px', letterSpacing: '-0.02em' }}>{item.title}</h3>
-                                <p style={{ fontSize: '16px', color: colors.text.secondary, lineHeight: 1.7, fontWeight: 400 }}>{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -204,35 +228,32 @@ export const S12NatureOrganicPro = ({ deviceMode }: { deviceMode?: 'desktop' | '
                 </div>
             </section>
 
-            {/* ========== PRICING ========== */}
-            <section style={{ padding: `${spacing.section} ${spacing.lg}` }}>
+            {/* ========== PRICING (Sanctuary Cards) ========== */}
+            <section style={{ padding: `${spacing.section} ${spacing.lg}`, backgroundColor: colors.bg.primary }}>
                 <div className="max-w-6xl mx-auto">
-                    <div className="text-center mb-16">
-                        <h2 style={{ fontSize: isMobile ? '32px' : '48px', fontWeight: 700, letterSpacing: '-0.03em', marginBottom: '16px' }}>Simple Pricing</h2>
-                        <p style={{ fontSize: '18px', color: colors.text.secondary }}>Choose the path that fits your growth</p>
+                    <div className="text-center mb-20">
+                        <h2 className="text-4xl font-serif text-[#2A3022] mb-6">Invest in Calm</h2>
+                        <p className="text-[#5C6152] font-light">Sustainable plans for organic growth.</p>
                     </div>
 
-                    <div className="grid gap-8" style={{ gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)' }}>
+                    <div className="grid md:grid-cols-3 gap-8 items-center">
                         {[
-                            { name: 'Seedling', price: '$29', color: colors.brand.accent, features: ['Core Components', 'Basic Support', 'Community Access'] },
-                            { name: 'Sapling', price: '$79', color: colors.brand.primary, features: ['Advanced Features', 'Priority Support', 'Component Library', 'Design Files'] },
-                            { name: 'Forest', price: '$199', color: colors.forest.deep, features: ['Unlimited Access', '24/7 Support', 'Custom Integration', 'Team License'] },
+                            { name: 'Seedling', price: '$29', color: '#A8B398', features: ['Core Components', 'Basic Support', 'Community Access'] },
+                            { name: 'Grove', price: '$79', color: '#4A5535', features: ['Advanced Features', 'Priority Support', 'Component Library', 'Design Files'], highlight: true },
+                            { name: 'Forest', price: '$199', color: '#2A3022', features: ['Unlimited Access', '24/7 Support', 'Custom Integration', 'Team License'] },
                         ].map((plan, i) => (
-                            <div key={plan.name} className="relative group overflow-hidden"
-                                style={{ padding: '64px 40px', backgroundColor: i === 1 ? colors.brand.primary : colors.bg.elevated, color: i === 1 ? 'white' : colors.text.primary, borderRadius: '40px', border: `1px solid ${colors.brand.primary}10`, boxShadow: i === 1 ? `0 32px 64px -16px ${colors.brand.primary}40` : '0 16px 32px -12px rgba(45,51,33,0.05)' }}>
-                                {i === 1 && <div className="absolute top-0 right-0 py-2 px-6 rounded-bl-3xl" style={{ backgroundColor: colors.forest.leaf, fontSize: '12px', fontWeight: 800 }}>MOST POPULAR</div>}
-                                <h3 style={{ fontSize: '14px', fontWeight: 800, letterSpacing: '0.1em', marginBottom: '24px', opacity: 0.8 }}>{plan.name.toUpperCase()}</h3>
-                                <div style={{ fontSize: '56px', fontWeight: 700, letterSpacing: '-0.04em', marginBottom: '40px' }}>{plan.price}</div>
-                                <ul className="space-y-4 mb-12 flex-grow">
+                            <div key={plan.name} className={`relative p-8 md:p-12 rounded-[32px] transition-all duration-500 ${plan.highlight ? 'bg-[#4A5535] text-white shadow-[0_20px_40px_rgba(74,85,53,0.2)] transform md:-translate-y-4' : 'bg-white text-[#2A3022] border border-[#E6E2DD]'}`}>
+                                <h3 className="text-sm uppercase tracking-[0.25em] mb-8 font-medium opacity-80">{plan.name}</h3>
+                                <div className="text-5xl font-serif mb-8">{plan.price}</div>
+                                <ul className="space-y-4 mb-12">
                                     {plan.features.map((feature) => (
-                                        <li key={feature} className="flex items-center gap-3">
-                                            <Check size={18} style={{ opacity: 0.6 }} />
-                                            <span style={{ fontSize: '15px', fontWeight: 500, opacity: 0.9 }}>{feature}</span>
+                                        <li key={feature} className="flex items-center gap-3 text-sm tracking-wide font-light opacity-90">
+                                            <Check size={16} className={plan.highlight ? 'text-[#D5D9C8]' : 'text-[#4A5535]'} />
+                                            {feature}
                                         </li>
                                     ))}
                                 </ul>
-                                <button className="transition-all active:scale-95"
-                                    style={{ width: '100%', padding: '18px', borderRadius: '20px', fontSize: '16px', fontWeight: 700, backgroundColor: i === 1 ? 'white' : colors.brand.primary, color: i === 1 ? colors.brand.primary : 'white' }}>
+                                <button className={`w-full py-4 rounded-xl text-xs uppercase tracking-[0.2em] transition-colors ${plan.highlight ? 'bg-white text-[#4A5535] hover:bg-[#F5F5F0]' : 'bg-[#F5F5F0] text-[#2A3022] hover:bg-[#E6E2DD]'}`}>
                                     Start Growing
                                 </button>
                             </div>

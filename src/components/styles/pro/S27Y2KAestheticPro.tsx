@@ -7,6 +7,7 @@ export const S27Y2KAestheticPro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
     const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
     const responsive = useResponsive(deviceMode);
     const isMobile = responsive.nav.showMobile;
+    const spacing = responsive.spacing;
 
     const colors = {
         bg: '#000000',
@@ -19,9 +20,9 @@ export const S27Y2KAestheticPro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
         silver: '#C0C0C0'
     };
 
-    // Chrome gradient
-    const gradient = `linear-gradient(180deg, #FFFFFF 0%, ${colors.silver} 45%, ${colors.muted} 50%, ${colors.silver} 100%)`;
-    const neonGradient = `linear-gradient(90deg, ${colors.pink}, ${colors.cyan})`;
+    // Chrome gradient - Enhanced for more metallic look
+    const gradient = `linear-gradient(180deg, #FFFFFF 0%, #E0E0E0 30%, #A0A0A0 49%, #FFFFFF 50%, #C0C0C0 51%, #808080 100%)`;
+    const neonGradient = `linear-gradient(90deg, ${colors.pink}, ${colors.cyan}, ${colors.lime})`;
 
     return (
         <div className="min-h-screen relative overflow-x-hidden font-mono tracking-wider"
@@ -47,6 +48,44 @@ export const S27Y2KAestheticPro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
                     background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.5) 51%);
                     background-size: 100% 4px;
                     pointer-events: none;
+                }
+                .glitch-text {
+                    position: relative;
+                }
+                .glitch-text::before,
+                .glitch-text::after {
+                    content: attr(data-text);
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                }
+                .glitch-text::before {
+                    left: 2px;
+                    text-shadow: -1px 0 #ff00c1;
+                    clip: rect(44px, 450px, 56px, 0);
+                    animation: glitch-anim 5s infinite linear alternate-reverse;
+                }
+                .glitch-text::after {
+                    left: -2px;
+                    text-shadow: -1px 0 #00fff9;
+                    clip: rect(44px, 450px, 56px, 0);
+                    animation: glitch-anim2 5s infinite linear alternate-reverse;
+                }
+                @keyframes glitch-anim {
+                    0% { clip: rect(31px, 9999px, 94px, 0); }
+                    4.166666667% { clip: rect(91px, 9999px, 43px, 0); }
+                    8.333333333% { clip: rect(6px, 9999px, 83px, 0); }
+                    12.5% { clip: rect(13px, 9999px, 94px, 0); }
+                    16.66666667% { clip: rect(76px, 9999px, 3px, 0); }
+                    20.83333333% { clip: rect(67px, 9999px, 57px, 0); }
+                    25% { clip: rect(2px, 9999px, 25px, 0); }
+                    100% { clip: rect(66px, 9999px, 3px, 0); }
+                }
+                @keyframes glitch-anim2 {
+                    0% { clip: rect(65px, 9999px, 100px, 0); }
+                    100% { clip: rect(43px, 9999px, 93px, 0); }
                 }
             `}</style>
 
@@ -126,7 +165,7 @@ export const S27Y2KAestheticPro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
 
                     <h1 className="mb-6 text-5xl md:text-8xl font-black italic tracking-tighter" style={{ textShadow: `4px 4px 0px ${colors.surface}, 6px 6px 0px ${colors.pink}` }}>
                         WELCOME TO <br />
-                        <span className="text-transparent bg-clip-text" style={{ backgroundImage: neonGradient }}>THE FUTURE</span>
+                        <span className="text-transparent bg-clip-text glitch-text" data-text="THE FUTURE" style={{ backgroundImage: neonGradient }}>THE FUTURE</span>
                     </h1>
 
                     <p className="max-w-2xl mx-auto mb-10 text-lg md:text-xl text-gray-400 font-medium">

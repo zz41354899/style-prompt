@@ -13,12 +13,13 @@ export const S08Retro70sPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
     // S08 Retro 70s Tokens
     const theme = {
         colors: {
-            bg: '#F7E8D0',      // Beige
-            brown: '#5D4037',   // Dark Brown
-            orange: '#E65100',  // Vibrant Orange
-            amber: '#FF8F00',   // Warm Amber
-            cream: '#FFF8E1',   // Light Cream (Cards)
-            lightBrown: '#8D6E63',
+            bg: '#F9F1E5',      // Aged Paper
+            brown: '#4A3728',   // Espresso
+            orange: '#D95D39',  // Burnt Orange
+            yellow: '#F0A202',  // Mustard
+            cream: '#FFF8E7',   // Cream
+            blue: '#5E8C94',    // Faded Teal (Accent)
+            text: '#3E2723'
         }
     };
 
@@ -85,125 +86,132 @@ export const S08Retro70sPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
                 )}
             </header>
 
-            {/* Hero Section */}
-            <section className={`relative z-10 ${isMobile ? 'py-16' : 'py-32'} border-b-2 border-[#5D4037] overflow-hidden`}>
-                <div className={`max-w-7xl mx-auto px-6 grid ${isMobile ? 'grid-cols-1' : 'grid-cols-2'} gap-16 items-center`}>
-                    <div>
-                        <span className="inline-block px-3 py-1 mb-6 rounded-full bg-[#E65100]/10 text-[#E65100] text-xs font-bold uppercase tracking-widest border border-[#E65100]/20">
-                            Est. 1974
-                        </span>
-                        <h1 className={`${isMobile ? 'text-5xl' : 'text-8xl'} font-black leading-[0.9] mb-8`} style={{ fontFamily: 'Georgia, serif', letterSpacing: '-0.04em' }}>
-                            Design <br />
-                            <span className="text-[#E65100]">With Soul.</span>
+            {/* Hero Section (Magazine Cover) */}
+            <section className={`relative z-10 ${isMobile ? 'py-12' : 'py-20'} border-b-4 border-[#4A3728] overflow-hidden`}>
+                <div className={`max-w-7xl mx-auto px-6 grid ${isMobile ? 'grid-cols-1' : 'grid-cols-12'} gap-12 items-end`}>
+
+                    {/* Left Column: Headlines */}
+                    <div className="col-span-12 md:col-span-7 relative z-10">
+                        <div className="flex items-center gap-4 mb-8 border-b-2 border-[#4A3728] pb-4 inline-block pr-12">
+                            <span className="font-black uppercase tracking-widest text-xs">Vol. 74</span>
+                            <span className="w-2 h-2 rounded-full bg-[#D95D39]" />
+                            <span className="font-black uppercase tracking-widest text-xs">October Issue</span>
+                            <span className="w-2 h-2 rounded-full bg-[#F0A202]" />
+                            <span className="font-black uppercase tracking-widest text-xs">$2.50</span>
+                        </div>
+
+                        <h1 className={`${isMobile ? 'text-6xl' : 'text-[9rem]'} font-black leading-[0.85] mb-8 text-[#4A3728]`} style={{ fontFamily: 'Georgia, serif', letterSpacing: '-0.06em' }}>
+                            Retro <br />
+                            <span className="text-[#D95D39] italic pr-4">Revival</span>
                         </h1>
-                        <p className={`${isMobile ? 'text-lg' : 'text-2xl'} text-[#8D6E63] mb-10 max-w-lg leading-relaxed font-sans`}>
-                            Return to the warmth of analog. A design system inspired by the golden age of print editorial, typography, and grain.
+
+                        <p className={`${isMobile ? 'text-xl' : 'text-3xl'} text-[#4A3728] mb-12 max-w-xl leading-tight font-serif italic border-l-4 border-[#F0A202] pl-6`}>
+                            "The golden age of design returns with a vengeance. Warm tones, bold type, and zero apologies."
                         </p>
-                        <div className={`flex ${isMobile ? 'flex-col' : 'flex-row'} gap-4`}>
-                            <button className="px-8 py-4 bg-[#5D4037] text-[#FFF8E1] font-bold text-lg rounded-lg shadow-[4px_4px_0px_#E65100] hover:translate-y-1 hover:shadow-none transition-all">
-                                View Collection
+
+                        <div className={`flex ${isMobile ? 'flex-col' : 'flex-row'} gap-6 items-center`}>
+                            <button className="px-10 py-5 bg-[#4A3728] text-[#F9F1E5] font-black text-xl rounded-full hover:bg-[#D95D39] transition-colors shadow-[4px_4px_0px_#000000] hover:shadow-[2px_2px_0px_#000000] hover:translate-x-[2px] hover:translate-y-[2px]">
+                                Read Issue
                             </button>
-                            <button className="px-8 py-4 border-2 border-[#5D4037] text-[#5D4037] font-bold text-lg rounded-lg hover:bg-[#5D4037]/5 transition-colors">
-                                Read the Story
+                            <button className="flex items-center gap-2 font-bold text-[#4A3728] uppercase tracking-widest hover:gap-4 transition-all">
+                                <span className="border-b-2 border-[#4A3728]">Subscribe Now</span> <ArrowRight />
                             </button>
                         </div>
                     </div>
 
-                    {/* Hero Visual - Abstract 70s Art */}
-                    <div className={`relative ${isMobile ? 'aspect-square' : 'aspect-[4/3]'} rounded-t-full border-2 border-[#5D4037] overflow-hidden bg-[#FFF8E1]`}>
-                        {/* Concentric Circles */}
-                        {[100, 85, 70, 55, 40, 25, 10].map((size, i) => (
-                            <div
-                                key={i}
-                                className="absolute left-1/2 bottom-0 -translate-x-1/2 rounded-full border-2 border-[#5D4037]"
-                                style={{
-                                    width: `${size}%`,
-                                    paddingBottom: `${size / 2}%`, // Half-circle aspect
-                                    backgroundColor: i % 2 === 0 ? '#FFB74D' : i % 3 === 0 ? '#E65100' : '#FFF8E1',
-                                    zIndex: i
-                                }}
-                            />
-                        ))}
-                        <div className="absolute inset-0 flex items-center justify-center z-20">
-                            <div className="bg-[#FFF8E1] px-6 py-4 border-2 border-[#5D4037] shadow-[4px_4px_0px_#5D4037] rotate-[-5deg]">
-                                <span className="font-black text-4xl text-[#5D4037]">GROOVY</span>
+                    {/* Right Column: Visual */}
+                    <div className="col-span-12 md:col-span-5 relative">
+                        <div className="aspect-[3/4] rounded-t-[10rem] bg-[#F0A202] border-4 border-[#4A3728] relative overflow-hidden shadow-[12px_12px_0px_rgba(74,55,40,0.2)]">
+                            {/* Abstract Shapes */}
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-[#D95D39] rounded-full mix-blend-multiply opacity-80" />
+                            <div className="absolute top-1/4 left-1/4 w-[80%] h-[80%] bg-[#5E8C94] rounded-full mix-blend-multiply opacity-80" />
+
+                            <div className="absolute inset-0 flex flex-col items-center justify-center text-[#F9F1E5] mix-blend-hard-light">
+                                <Star size={120} fill="currentColor" className="animate-spin-slow" style={{ animationDuration: '20s' }} />
+                                <span className="font-black text-2xl uppercase tracking-[0.5em] mt-8 transform -rotate-90 absolute -right-12 top-1/2">Groovy</span>
                             </div>
+
+                            {/* Texture Texture */}
+                            <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]" />
+                        </div>
+
+                        {/* Badge */}
+                        <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-[#F9F1E5] rounded-full border-4 border-[#4A3728] flex items-center justify-center p-4 text-center transform -rotate-12 shadow-lg">
+                            <span className="font-black text-[#D95D39] leading-none text-sm">
+                                BEST <br /> OF <br /> 1974
+                            </span>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Features / Pillars */}
-            <section className="relative z-10 py-24 bg-[#EFEBE9] border-b-2 border-[#5D4037]">
+            {/* Pillars of Design (Editorial Columns) */}
+            <section className="relative z-10 py-24 bg-[#EFEBE9] border-b-2 border-[#4A3728]">
                 <div className="max-w-7xl mx-auto px-6">
-                    <div className={`grid ${isMobile ? 'grid-cols-1' : 'grid-cols-3'} gap-12`}>
+                    <div className="grid md:grid-cols-3 gap-12 divide-y md:divide-y-0 md:divide-x divide-[#4A3728]">
                         {[
-                            { icon: Type, title: 'Bold Typography', desc: 'Display fonts that demand attention, paired with highly readable serifs for long-form content.' },
-                            { icon: Layout, title: 'Editorial Grids', desc: 'Break the mold with multi-column layouts inspired by vintage magazines and newspapers.' },
-                            { icon: Feather, title: 'Organic Textures', desc: 'Subtle grain, noise, and paper textures that bring digital interfaces to life.' },
+                            { letter: 'T', title: 'Typography', desc: 'Display fonts that demand attention, paired with highly readable serifs for long-form content.' },
+                            { letter: 'L', title: 'Layouts', desc: 'Break the mold with multi-column grids inspired by vintage newspapers and avant-garde zines.' },
+                            { letter: 'G', title: 'Grain', desc: 'Subtle noise and paper textures that bring digital interfaces to life, adding warmth and depth.' },
                         ].map((feature, i) => (
-                            <div key={i} className="group">
-                                <div className="w-16 h-16 rounded-full bg-[#FFF8E1] border-2 border-[#5D4037] flex items-center justify-center mb-6 shadow-[4px_4px_0px_#5D4037] group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-none transition-all">
-                                    <feature.icon className="text-[#E65100]" />
+                            <div key={i} className={`pt-8 md:pt-0 ${i > 0 ? 'md:pl-12' : ''}`}>
+                                <div className="float-left mr-4 font-black text-6xl text-[#D95D39] leading-[0.8]" style={{ fontFamily: 'Georgia, serif' }}>
+                                    {feature.letter}
                                 </div>
-                                <h3 className="text-2xl font-black mb-4" style={{ fontFamily: 'Georgia, serif' }}>{feature.title}</h3>
-                                <p className="text-[#8D6E63] font-sans leading-relaxed text-lg">{feature.desc}</p>
+                                <h3 className="text-xl font-bold uppercase tracking-widest mb-2 text-[#4A3728]">{feature.title}</h3>
+                                <p className="text-[#5D4037] leading-relaxed font-serif text-lg">
+                                    {feature.desc}
+                                </p>
                             </div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* Bento Grid / Gallery */}
-            <section className="relative z-10 py-24">
+            {/* The Collection (Polaroid Grid) */}
+            <section className="relative z-10 py-32 bg-[#F9F1E5]">
                 <div className="max-w-7xl mx-auto px-6">
-                    <div className="text-center mb-16">
-                        <h2 className="text-5xl font-black mb-4" style={{ fontFamily: 'Georgia, serif' }}>The Collection</h2>
-                        <p className="text-[#8D6E63] font-sans">Curated layouts for the modern web.</p>
+                    <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b-4 border-[#4A3728] pb-4">
+                        <h2 className="text-6xl md:text-8xl font-black text-[#4A3728]" style={{ fontFamily: 'Georgia, serif', letterSpacing: '-0.05em' }}>
+                            Archive
+                        </h2>
+                        <span className="font-bold uppercase tracking-widest text-[#D95D39] mb-2">Est. October 1974</span>
                     </div>
 
-                    <div className={`grid ${isMobile ? 'grid-cols-1' : 'grid-cols-4 grid-rows-2'} gap-6 ${isMobile ? 'h-auto' : 'h-[800px]'}`}>
-                        {/* Large Main Feature */}
-                        <div className={`${isMobile ? '' : 'col-span-2 row-span-2'} bg-[#FFCC80] rounded-xl border-2 border-[#5D4037] p-8 flex flex-col justify-between relative overflow-hidden group`}>
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-[#E65100] rounded-full blur-[80px] opacity-20 group-hover:scale-125 transition-transform duration-700" />
-                            <div>
-                                <div className="inline-block px-3 py-1 bg-[#5D4037] text-[#F7E8D0] text-xs font-bold uppercase tracking-wider rounded mb-4">Featured</div>
-                                <h3 className="text-4xl font-black leading-tight text-[#5D4037] mb-4">The Sunday <br /> Edition Layout</h3>
+                    <div className="grid md:grid-cols-3 gap-8">
+                        {/* Item 1 */}
+                        <div className="bg-white p-4 pb-12 shadow-xl transform -rotate-2 hover:rotate-0 transition-transform duration-500 hover:z-10 relative">
+                            <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-32 h-8 bg-[#F0A202]/80 transform rotate-1" /> {/* Tape */}
+                            <div className="bg-[#4A3728] aspect-square mb-4 overflow-hidden grayscale contrast-125 hover:grayscale-0 transition-all duration-500">
+                                <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2670&auto=format&fit=crop" alt="70s Interior" className="w-full h-full object-cover" />
                             </div>
-                            <div className="bg-[#FFF8E1] p-6 border-2 border-[#5D4037] shadow-[8px_8px_0px_#5D4037] rotate-2 group-hover:rotate-0 transition-transform">
-                                <div className="flex gap-4 mb-4">
-                                    <div className="w-full h-32 bg-[#D7CCC8] rounded  animate-pulse" />
-                                    <div className="w-full h-32 bg-[#D7CCC8] rounded  animate-pulse delay-75" />
+                            <h3 className="font-bold text-center text-[#4A3728] text-xl" style={{ fontFamily: 'Courier New, monospace' }}>The Living Room</h3>
+                            <p className="text-center text-xs text-gray-500 font-mono mt-1">FIG. A // 1974</p>
+                        </div>
+
+                        {/* Item 2 */}
+                        <div className="bg-white p-4 pb-12 shadow-xl transform rotate-3 hover:rotate-0 transition-transform duration-500 hover:z-10 relative md:top-12">
+                            <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-32 h-8 bg-[#D95D39]/80 transform -rotate-2" /> {/* Tape */}
+                            <div className="bg-[#D95D39] aspect-square mb-4 overflow-hidden flex items-center justify-center p-8">
+                                <div className="text-center">
+                                    <h4 className="font-black text-6xl text-[#F9F1E5] leading-none mb-2">PURE<br />FUNK</h4>
                                 </div>
-                                <div className="h-4 bg-[#D7CCC8] rounded w-3/4 mb-2" />
-                                <div className="h-4 bg-[#D7CCC8] rounded w-1/2" />
                             </div>
+                            <h3 className="font-bold text-center text-[#4A3728] text-xl" style={{ fontFamily: 'Courier New, monospace' }}>Type Specimen</h3>
+                            <p className="text-center text-xs text-gray-500 font-mono mt-1">FIG. B // BOLD</p>
                         </div>
 
-                        {/* Tall Vertical */}
-                        <div className={`${isMobile ? '' : 'row-span-2'} bg-[#FFF8E1] rounded-xl border-2 border-[#5D4037] p-8 flex flex-col items-center text-center group hover:bg-[#FFE0B2] transition-colors`}>
-                            <div className="w-20 h-20 rounded-full bg-[#E65100] text-[#FFF8E1] flex items-center justify-center mb-6">
-                                <Coffee size={32} />
+                        {/* Item 3 */}
+                        <div className="bg-white p-4 pb-12 shadow-xl transform -rotate-1 hover:rotate-0 transition-transform duration-500 hover:z-10 relative">
+                            <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-32 h-8 bg-[#4A3728]/80 transform rotate-1" /> {/* Tape */}
+                            <div className="bg-[#F0A202] aspect-square mb-4 overflow-hidden relative">
+                                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#FFF8E7_10%,_transparent_10%),_radial-gradient(circle_at_center,_#FFF8E7_10%,_transparent_10%)] bg-[length:20px_20px] bg-[position:0_0,10px_10px]" />
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <Coffee size={80} className="text-[#4A3728]" />
+                                </div>
                             </div>
-                            <h3 className="text-2xl font-black mb-2">Warm<br />Palette</h3>
-                            <p className="text-sm text-[#8D6E63] mb-6">Earthy tones that comfort the eye.</p>
-                            <div className="w-full space-y-2">
-                                {['#5D4037', '#E65100', '#FF8F00', '#F7E8D0'].map(c => (
-                                    <div key={c} className="w-full h-12 rounded border-2 border-[#5D4037]" style={{ backgroundColor: c }} />
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Small Square A */}
-                        <div className="bg-[#A1887F] rounded-xl border-2 border-[#5D4037] p-6 flex flex-col justify-center text-[#FFF8E1]">
-                            <Type size={48} className="mb-4" />
-                            <h3 className="text-xl font-bold">Serif<br />Dominance</h3>
-                        </div>
-
-                        {/* Small Square B */}
-                        <div className="bg-[#FFB74D] rounded-xl border-2 border-[#5D4037] p-6 flex flex-col justify-center text-[#5D4037]">
-                            <ImageIcon size={48} className="mb-4" />
-                            <h3 className="text-xl font-bold">Grain<br />Filters</h3>
+                            <h3 className="font-bold text-center text-[#4A3728] text-xl" style={{ fontFamily: 'Courier New, monospace' }}>Morning Brew</h3>
+                            <p className="text-center text-xs text-gray-500 font-mono mt-1">FIG. C // WARMTH</p>
                         </div>
                     </div>
                 </div>
@@ -222,48 +230,36 @@ export const S08Retro70sPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
                 </div>
             </section>
 
-            {/* Pricing */}
-            <section className="relative z-10 py-24">
-                <div className="max-w-5xl mx-auto px-6">
-                    <div className="text-center mb-16">
-                        <span className="text-[#E65100] font-bold uppercase tracking-widest">Membership</span>
-                        <h2 className="text-5xl font-black" style={{ fontFamily: 'Georgia, serif' }}>Join the Club</h2>
-                    </div>
+            {/* Subscribe (Club) */}
+            <section className="relative z-10 py-24 bg-[#E65100] text-[#FFF8E7]">
+                <div className="max-w-4xl mx-auto px-6 text-center">
+                    <div className="border-4 border-[#FFF8E7] p-12 relative overflow-hidden">
+                        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cartographer.png')] opacity-10" />
 
-                    <div className={`grid ${isMobile ? 'grid-cols-1' : 'grid-cols-2'} gap-8 items-center`}>
-                        {/* Free Tier */}
-                        <div className="bg-[#FFF8E1] p-8 rounded-xl border-2 border-[#5D4037]">
-                            <h3 className="text-2xl font-black mb-2 text-[#5D4037]">Reader</h3>
-                            <div className="text-4xl font-black mb-6">$0<span className="text-lg text-[#8D6E63]">/mo</span></div>
-                            <ul className="space-y-4 mb-8">
-                                <li className="flex items-center gap-3"><Check size={18} /> Access to free articles</li>
-                                <li className="flex items-center gap-3"><Check size={18} /> Weekly newsletter</li>
-                            </ul>
-                            <button className="w-full py-4 border-2 border-[#5D4037] font-bold rounded-lg hover:bg-[#5D4037] hover:text-[#FFF8E1] transition-colors">
-                                Sign Up Free
-                            </button>
-                        </div>
+                        <div className="relative z-10">
+                            <h2 className="text-5xl md:text-7xl font-black mb-6 tracking-tight" style={{ fontFamily: 'Georgia, serif' }}>
+                                JOINT THE CLUB
+                            </h2>
+                            <p className="text-xl md:text-2xl font-bold mb-10 max-w-lg mx-auto leading-relaxed opacity-90">
+                                Get exclusive access to our entire archive of templates, fonts, and textures.
+                            </p>
 
-                        {/* Pro Tier */}
-                        <div className={`bg-[#E65100] p-10 rounded-xl border-2 border-[#5D4037] text-white shadow-[12px_12px_0px_#5D4037] ${isMobile ? '' : 'transform -translate-y-4'}`}>
-                            <div className="flex justify-between items-start mb-2">
-                                <h3 className="text-3xl font-black">Editor</h3>
-                                <span className="bg-[#FFCC80] text-[#5D4037] text-xs font-bold px-3 py-1 rounded-full uppercase">Best Value</span>
+                            <div className="grid md:grid-cols-2 gap-6 max-w-lg mx-auto mb-10">
+                                <div className="bg-[#4A3728] p-6 text-left shadow-[8px_8px_0px_#000000]">
+                                    <div className="text-xs uppercase tracking-widest text-[#F0A202] mb-2">Digital Only</div>
+                                    <div className="text-4xl font-black mb-2">$12</div>
+                                    <div className="text-sm opacity-70">Single user license</div>
+                                </div>
+                                <div className="bg-[#FFF8E7] p-6 text-left text-[#4A3728] shadow-[8px_8px_0px_#000000] relative">
+                                    <div className="absolute -top-3 -right-3 bg-[#F0A202] text-[#4A3728] text-[10px] font-black uppercase px-2 py-1 rotate-12">Best Value</div>
+                                    <div className="text-xs uppercase tracking-widest text-[#D95D39] mb-2">Full Access</div>
+                                    <div className="text-4xl font-black mb-2">$29</div>
+                                    <div className="text-sm opacity-70">Everything included</div>
+                                </div>
                             </div>
-                            <div className="text-5xl font-black mb-6">$29<span className="text-xl opacity-80">/mo</span></div>
-                            <p className="mb-8 opacity-90 font-serif italic text-lg">For the true connoisseur of design.</p>
-                            <ul className="space-y-4 mb-8">
-                                {[
-                                    'Unlimited Template Access',
-                                    'Custom Font Uploads',
-                                    'Commercial License',
-                                    'Priority Support'
-                                ].map(item => (
-                                    <li key={item} className="flex items-center gap-3 font-bold"><Check size={18} /> {item}</li>
-                                ))}
-                            </ul>
-                            <button className="w-full py-4 bg-[#FFF8E1] text-[#5D4037] font-black rounded-lg shadow-[4px_4px_0px_#5D4037] hover:translate-y-1 hover:shadow-none transition-all">
-                                Get Full Access
+
+                            <button className="px-12 py-4 bg-[#4A3728] text-white font-black text-xl hover:bg-black transition-colors shadow-[8px_8px_0px_white] hover:shadow-[4px_4px_0px_white] hover:translate-x-[4px] hover:translate-y-[4px]">
+                                BECOME A MEMBER
                             </button>
                         </div>
                     </div>
@@ -271,37 +267,25 @@ export const S08Retro70sPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'table
             </section>
 
             {/* Footer */}
-            <footer className="bg-[#5D4037] text-[#FFF8E1] py-16">
-                <div className={`max-w-7xl mx-auto px-6 grid ${isMobile ? 'grid-cols-1' : 'grid-cols-4'} gap-12 text-sm`}>
-                    <div className={`${isMobile ? '' : 'col-span-2'}`}>
-                        <div className="flex items-center gap-2 mb-6">
-                            <div className="w-8 h-8 rounded-full bg-[#E65100] flex items-center justify-center text-[#F7E8D0]">
-                                <PenTool size={16} />
-                            </div>
-                            <span className="text-xl font-black">GROOVY</span>
+            <footer className="bg-[#2D241E] text-[#9E8C7E] py-16 border-t-8 border-[#D95D39]">
+                <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+                    <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-full bg-[#D95D39] flex items-center justify-center text-[#2D241E] font-black text-xl">R</div>
+                        <div>
+                            <span className="block text-2xl font-black text-[#F9F1E5] tracking-widest">GROOVY</span>
+                            <span className="text-xs uppercase tracking-widest">Est. 1974</span>
                         </div>
-                        <p className="max-w-xs opacity-70 leading-relaxed">
-                            Crafting digital experiences with the soul of analog print.
-                            Established 2024.
-                        </p>
                     </div>
 
-                    <div>
-                        <h4 className="font-bold uppercase tracking-widest mb-6 text-[#FFCC80]">Sitemap</h4>
-                        <ul className="space-y-3 opacity-70">
-                            <li><a href="#" className="hover:text-white">Home</a></li>
-                            <li><a href="#" className="hover:text-white">Manifesto</a></li>
-                            <li><a href="#" className="hover:text-white">Pricing</a></li>
-                        </ul>
+                    <div className="flex gap-8 font-bold uppercase tracking-widest text-xs">
+                        <a href="#" className="hover:text-[#D95D39] transition-colors">Archive</a>
+                        <a href="#" className="hover:text-[#D95D39] transition-colors">Manifesto</a>
+                        <a href="#" className="hover:text-[#D95D39] transition-colors">Contact</a>
                     </div>
 
-                    <div>
-                        <h4 className="font-bold uppercase tracking-widest mb-6 text-[#FFCC80]">Social</h4>
-                        <ul className="space-y-3 opacity-70">
-                            <li><a href="#" className="hover:text-white">Twitter</a></li>
-                            <li><a href="#" className="hover:text-white">Instagram</a></li>
-                            <li><a href="#" className="hover:text-white">Dribbble</a></li>
-                        </ul>
+                    <div className="text-xs font-mono opacity-50">
+                        © 2024 Retro Revival Inc. <br />
+                        Printed in Cyberspace.
                     </div>
                 </div>
             </footer>
