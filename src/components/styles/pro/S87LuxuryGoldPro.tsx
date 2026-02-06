@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, ArrowRight, Check, ChevronDown, Crown, Diamond, Star, Award, Gem, Sparkles, Clock, Wine, ShieldCheck } from 'lucide-react';
 import { useResponsive } from '@/hooks/useResponsive';
+import { SafeImage } from '@/components/common/SafeImage';
 
 export const S87LuxuryGoldPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -95,7 +96,12 @@ export const S87LuxuryGoldPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tab
                     {/* Hero Background Image */}
                     <div className="absolute inset-0 z-0">
                         <div className="absolute inset-0 bg-black/60 z-10"></div>
-                        <img src="https://images.unsplash.com/photo-1617038224558-28ad3a0d1a12?auto=format&fit=crop&q=80&w=2000" alt="Luxury Texture" className="w-full h-full object-cover opacity-50" />
+                        <SafeImage 
+                                        src="https://images.unsplash.com/photo-1617038224558-28ad3a0d1a12?auto=format&fit=crop&q=80&w=2000" 
+                                        alt="Luxury Texture" 
+                                        className="w-full h-full object-cover opacity-50"
+                                        fallbackColor="#1a1a1a"
+                                    />
                     </div>
 
                     <div className="relative z-20 text-center max-w-4xl mx-auto">
@@ -138,14 +144,14 @@ export const S87LuxuryGoldPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tab
 
                         <div className="grid md:grid-cols-3 gap-12">
                             {[
-                                { title: "ROYAL", sub: "Signature Series", img: "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?auto=format&fit=crop&q=80&w=800" },
-                                { title: "NOIR", sub: "Black Diamond", img: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&q=80&w=800" },
-                                { title: "ETERNAL", sub: "Wedding Collection", img: "https://images.unsplash.com/photo-1515562141207-7a88fb0537bf?auto=format&fit=crop&q=80&w=800" }
+                                { title: "ROYAL", sub: "Signature Series", img: "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?auto=format&fit=crop&q=80&w=800", fallbackColor: "#2a2420" },
+                                { title: "NOIR", sub: "Black Diamond", img: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&q=80&w=800", fallbackColor: "#1a1a1a" },
+                                { title: "ETERNAL", sub: "Wedding Collection", img: "https://images.unsplash.com/photo-1515562141207-7a88fb0537bf?auto=format&fit=crop&q=80&w=800", fallbackColor: "#f5f0e5" }
                             ].map((col, i) => (
                                 <div key={i} className="group cursor-pointer">
                                     <div className="relative aspect-[3/4] overflow-hidden mb-8 border border-[#D4AF37]/20">
                                         <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all duration-700 z-10"></div>
-                                        <img src={col.img} alt={col.title} className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000" />
+                                        <SafeImage src={col.img} alt={col.title} className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000" fallbackColor={col.fallbackColor} />
 
                                         <div className="absolute inset-0 border-[1px] border-[#D4AF37]/0 group-hover:border-[#D4AF37]/50 m-4 transition-all duration-700 z-20"></div>
                                     </div>
@@ -184,7 +190,12 @@ export const S87LuxuryGoldPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tab
                 {/* Split Feature Section */}
                 <section className="grid lg:grid-cols-2 min-h-[800px]">
                     <div className="relative h-full min-h-[500px]">
-                        <img src="https://images.unsplash.com/photo-1549488497-6003080a2569?auto=format&fit=crop&q=80&w=1000" alt="Watchmaking" className="absolute inset-0 w-full h-full object-cover" />
+                        <SafeImage 
+                        src="https://images.unsplash.com/photo-1549488497-6003080a2569?auto=format&fit=crop&q=80&w=1000" 
+                        alt="Watchmaking" 
+                        className="absolute inset-0 w-full h-full object-cover"
+                        fallbackColor="#2a2420"
+                    />
                         <div className="absolute inset-0 bg-[#0C0A08]/30"></div>
                     </div>
                     <div className="flex items-center justify-center p-12 lg:p-24 bg-[#0C0A08]">

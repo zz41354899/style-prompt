@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Menu, X, ArrowRight, Check, ChevronDown, ChevronUp, Leaf, Sprout, TreeDeciduous, Sun, Wind, Cloud } from 'lucide-react';
 import { useResponsive } from '@/hooks/useResponsive';
+import { SafeImage } from '@/components/common/SafeImage';
 
 export const S12NatureOrganicPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -120,10 +121,11 @@ export const S12NatureOrganicPro = ({ deviceMode }: { deviceMode?: 'desktop' | '
                         {/* Visual Content */}
                         <div className="md:col-span-6 relative">
                             <div className="relative aspect-[4/5] md:aspect-[3/4] rounded-t-[200px] overflow-hidden">
-                                <img
-                                    src="https://images.unsplash.com/photo-1542601906990-b4d3ab778ca3?q=80&w=2574&auto=format&fit=crop"
+                                <SafeImage
+                                    src="https://images.unsplash.com/photo-1518531933037-91b2f5d2294c?q=80&w=1000&auto=format&fit=crop"
                                     alt="Organic Texture"
                                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-[2s]"
+                                    fallbackColor="#E6E2DD"
                                 />
                                 <div className="absolute inset-0 bg-[#4A5535] mix-blend-overlay opacity-20" />
 
@@ -159,13 +161,13 @@ export const S12NatureOrganicPro = ({ deviceMode }: { deviceMode?: 'desktop' | '
 
                     <div className="grid md:grid-cols-3 gap-8">
                         {[
-                            { icon: Leaf, title: 'Sustainable Core', desc: 'Built with longevity and ecological balance in mind.', img: 'https://images.unsplash.com/photo-1518531933037-91b2f5d2294c?q=80&w=2696&auto=format&fit=crop' },
-                            { icon: Wind, title: 'Fluid Motion', desc: 'Interfaces that move with the ease of a summer breeze.', img: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=2674&auto=format&fit=crop' },
-                            { icon: Cloud, title: 'Natural Focus', desc: 'Removing the synthetic to reveal the essential beauty.', img: 'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?q=80&w=2574&auto=format&fit=crop' },
+                            { icon: Leaf, title: 'Sustainable Core', desc: 'Built with longevity and ecological balance in mind.', img: 'https://images.unsplash.com/photo-1518531933037-91b2f5d2294c?q=80&w=2696&auto=format&fit=crop', fallbackColor: '#4A5535' },
+                            { icon: Wind, title: 'Fluid Motion', desc: 'Interfaces that move with the ease of a summer breeze.', img: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=2674&auto=format&fit=crop', fallbackColor: '#7C856C' },
+                            { icon: Cloud, title: 'Natural Focus', desc: 'Removing the synthetic to reveal the essential beauty.', img: 'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?q=80&w=2574&auto=format&fit=crop', fallbackColor: '#A8B398' },
                         ].map((item, i) => (
                             <div key={item.title} className="group relative h-[400px] rounded-[32px] overflow-hidden">
                                 {/* Background Image */}
-                                <img src={item.img} alt={item.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110 grayscale-[0.5] group-hover:grayscale-0" />
+                                <SafeImage src={item.img} alt={item.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110 grayscale-[0.5] group-hover:grayscale-0" fallbackColor={item.fallbackColor} />
                                 <div className="absolute inset-0 bg-[#1F2618]/40 group-hover:bg-[#1F2618]/20 transition-colors" />
 
                                 {/* Content */}

@@ -8,3 +8,4 @@ export { GlobeLoader } from './GlobeLoader';
 export { StyleLoadingSkeleton } from './StyleLoadingSkeleton';
 export { LoadingSpinner } from './LoadingSpinner';
 export { Pagination, usePagination } from './Pagination';
+export { SafeImage } from './SafeImage';

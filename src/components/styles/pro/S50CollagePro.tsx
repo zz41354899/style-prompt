@@ -160,7 +160,7 @@ export const S50CollagePro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet
                         <div className="absolute top-10 left-10 w-64 h-80 bg-white p-2 transform -rotate-6 shadow-xl z-10 transition-transform hover:scale-105 hover:rotate-0 duration-500">
                             <div className="scotch-tape -top-4 left-1/3 rotate-12"></div>
                             <div className="w-full h-full bg-[#333] grayscale contrast-125 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?q=80&w=25432&auto=format&fit=crop" alt="Vintage vibe" className="w-full h-full object-cover opacity-80" />
+                                <img src="https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?q=80&w=1000&auto=format&fit=crop" alt="Vintage vibe" className="w-full h-full object-cover opacity-80" />
                             </div>
                             <div className="absolute bottom-4 right-4 font-collage-marker text-[#E63946] text-xl transform -rotate-12 bg-white px-2 shadow-sm">Analog Soul</div>
                         </div>

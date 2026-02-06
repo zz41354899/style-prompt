@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Menu, X, ArrowRight, Star, ShoppingBag, Globe, Feather, Diamond, Crown, Watch } from 'lucide-react';
 import { useResponsive } from '@/hooks/useResponsive';
+import { SafeImage } from '@/components/common/SafeImage';
 
 export const S10LuxuryEditorialPro = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -102,10 +103,11 @@ export const S10LuxuryEditorialPro = ({ deviceMode }: { deviceMode?: 'desktop' |
                             <div className="relative aspect-[3/4] md:aspect-[4/5] bg-[#F5F5F4]">
                                 {/* Main Image */}
                                 <div className="absolute inset-0 overflow-hidden">
-                                    <img
+                                    <SafeImage
                                         src="https://images.unsplash.com/photo-1549488497-63a232f3ddde?q=80&w=2670&auto=format&fit=crop"
                                         alt="Luxury Fashion"
                                         className="w-full h-full object-cover grayscale contrast-[.9] brightness-[1.1]"
+                                        fallbackColor="#F5F5F4"
                                     />
                                     <div className="absolute inset-0 bg-[#C6A87C] mix-blend-multiply opacity-20" />
                                 </div>
@@ -163,10 +165,11 @@ export const S10LuxuryEditorialPro = ({ deviceMode }: { deviceMode?: 'desktop' |
                     <div className="grid md:grid-cols-3 gap-8">
                         {/* Large Item: Editorial Feature */}
                         <div className="md:col-span-2 relative aspect-[16/9] md:aspect-auto bg-white group overflow-hidden">
-                            <img
+                            <SafeImage
                                 src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2670&auto=format&fit=crop"
                                 alt="Collection"
                                 className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105"
+                                fallbackColor="#FAFAF9"
                             />
                             <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all duration-700" />
                             <div className="absolute bottom-8 left-8 text-white">
@@ -236,7 +239,12 @@ export const S10LuxuryEditorialPro = ({ deviceMode }: { deviceMode?: 'desktop' |
                         </div>
 
                         <div className="relative aspect-[3/4] bg-[#F5F5F4] p-8 md:p-12 flex flex-col justify-between overflow-hidden group">
-                            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1537832816519-689ad163238b?q=80&w=2559&auto=format&fit=crop')] bg-cover opacity-80 group-hover:scale-105 transition-transform duration-[2s]" />
+                            <SafeImage
+                                src="https://images.unsplash.com/photo-1537832816519-689ad163238b?q=80&w=1000&auto=format&fit=crop"
+                                alt="Membership"
+                                className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-[2s]"
+                                fallbackColor="#0C0A09"
+                            />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
 
                             <div className="relative z-10 flex justify-between items-start text-white/80">
