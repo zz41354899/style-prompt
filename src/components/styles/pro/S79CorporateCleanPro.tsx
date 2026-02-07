@@ -62,9 +62,9 @@ export const S79CorporateCleanPro = ({ deviceMode }: { deviceMode?: 'desktop' | 
             `}</style>
 
             {/* Background */}
-            <div className="fixed inset-0 dot-pattern opacity-40 z-[-1]"></div>
-            <div className="fixed top-0 right-0 w-[800px] h-[800px] bg-sky-100/50 rounded-full blur-3xl opacity-50 z-[-2] -translate-y-1/2 translate-x-1/2"></div>
-            <div className="fixed bottom-0 left-0 w-[600px] h-[600px] bg-slate-100/50 rounded-full blur-3xl opacity-50 z-[-2] translate-y-1/3 -translate-x-1/3"></div>
+            <div className="absolute inset-0 dot-pattern opacity-40 z-[-1] pointer-events-none"></div>
+            <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-sky-100/50 rounded-full blur-3xl opacity-50 z-[-2] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-slate-100/50 rounded-full blur-3xl opacity-50 z-[-2] translate-y-1/3 -translate-x-1/3 pointer-events-none"></div>
 
             {/* Navbar */}
             <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur-md">
