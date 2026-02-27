@@ -1,6 +1,6 @@
 {
   "promo": {
-    "banner": "Introducing StylePrompts Pro — Unlock 100+ Premium Style Templates"
+    "banner": "Introducing StylePrompts Pro — Unlock 101+ Premium Style Templates"
   },
   "common": {
     "language": "Language",
@@ -431,6 +431,10 @@
     "S100": {
       "name": "The Ultimate",
       "description": "Holographic 3D interactive experience"
+    },
+    "S101": {
+      "name": "Chinese Ink Wash",
+      "description": "Traditional ink wash aesthetics with rice paper texture and vermillion seal accents"
     }
   },
   "industries": {
@@ -477,11 +481,11 @@
   "proModal": {
     "title": "Upgrade to Pro",
     "subtitle": "Unlock {{styleName}} and more premium styles",
-    "feature1": "100 Pro Exclusive Styles",
+    "feature1": "101 Pro Exclusive Styles",
     "feature2": "Complete Design System Prompts",
     "feature3": "Lifetime Free Updates",
     "feature4": "Commercial Use License",
-    "feature1_title": "100+ Premium Styles",
+    "feature1_title": "101+ Premium Styles",
     "feature2_title": "Full Source Prompts",
     "feature3_title": "Prioritized Updates",
     "upgradeCTA": "Upgrade Pro",
@@ -533,7 +537,7 @@
       "upgradeCTA": "Support Us"
     },
     "hero": {
-      "badge": "100+ Premium Style Templates",
+      "badge": "101+ Premium Style Templates",
       "title1": "Generate",
       "title2": "Pro-Level UI with AI",
       "subtitle": "Say goodbye to mediocre AI output. Precision-tuned design system prompts for professional results every time.",
@@ -551,10 +555,10 @@
       "title": "Save Hours of Design Time",
       "subtitle": "Stop tweaking prompts endlessly. Get proven, professional design systems instantly.",
       "proStyles": {
-        "title": "100+ Pro Styles",
+        "title": "101+ Pro Styles",
         "subtitle": "Every design aesthetic covered",
         "description": "From tech minimal to cyberpunk, from Japanese zen to European luxury. Each style comes with complete design prompts, ready to copy and use.",
-        "stats": "100+ Styles"
+        "stats": "101+ Styles"
       },
       "templates": {
         "title": "6 Industry Templates",
@@ -639,7 +643,7 @@
       "sponsorNote": "Your support helps us develop more features",
       "note": "Secure Payment • Instant Delivery • Digital product, no refunds",
       "features": {
-        "f1": "100+ Pro Exclusive Style Templates",
+        "f1": "101+ Pro Exclusive Style Templates",
         "f2": "6 Industry Landing Page Templates",
         "f3": "Complete Design System Prompts",
         "f4": "All Future Updates Free",
@@ -656,9 +660,9 @@
       "badge": "FAQ",
       "title": "Questions? We've Got Answers",
       "q1": "What's included in Pro?",
-      "a1": "Now everything is completely free! Pro includes 100+ carefully designed advanced style templates, 6 industry Landing Page templates, each with complete design system prompts.",
+      "a1": "Now everything is completely free! Pro includes 101+ carefully designed advanced style templates, 6 industry Landing Page templates, each with complete design system prompts.",
       "q2": "How do I start using all styles?",
-      "a2": "Click 'Start Using All Styles' to browse all 100+ style templates instantly. No registration or payment required, and you can copy complete prompts directly.",
+      "a2": "Click 'Start Using All Styles' to browse all 101+ style templates instantly. No registration or payment required, and you can copy complete prompts directly.",
       "q3": "How can I support this project?",
       "a3": "You can sponsor us via Buy Me a Coffee to help us continue developing more features and style templates.",
       "q4": "Will there be more styles in the future?",
@@ -758,7 +762,7 @@
       "recommended": "Recommended",
       "purchased": "Purchased",
       "freeFeatures": {
-        "f1": "100 Base Style Templates",
+        "f1": "101 Base Style Templates",
         "f2": "Live UI Preview",
         "f3": "Basic Prompt Copy",
         "f4": "Commercial Use License",
@@ -769,14 +773,14 @@
         "f1": "All Basic Style Templates",
         "f2": "Unlimited Browsing",
         "f3": "Full Prompt Copy",
-        "f4": "100+ Pro Exclusive Styles",
+        "f4": "101+ Pro Exclusive Styles",
         "f5": "Commercial Use License",
         "f6": "All Future Updates Free"
       },
       "faq": {
         "title": "FAQ",
         "q1": "How do I get started?",
-        "a1": "Click 'Start Using All Styles' to browse all 100 style templates instantly, no registration or payment required.",
+        "a1": "Click 'Start Using All Styles' to browse all 101 style templates instantly, no registration or payment required.",
         "q2": "Is everything really free?",
         "a2": "Yes! All style templates and design systems are now completely free and open. Your sponsorship helps us continue development.",
         "q3": "How can I support you?",

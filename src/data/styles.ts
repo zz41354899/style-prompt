@@ -9,7 +9,7 @@ export interface StyleData {
 // Helper to check if a style has Pro version available (S01-S100 have Pro versions)
 export const hasProVersion = (id: string): boolean => {
   const num = parseInt(id.replace('S', ''), 10);
-  return num >= 1 && num <= 100;
+  return num >= 1 && num <= 101;
 };
 
 // ============================================
@@ -18,7 +18,7 @@ export const hasProVersion = (id: string): boolean => {
 
 // Pro 風格配置
 const PRO_CONFIG = {
-  proStyleRange: { start: 1, end: 100 },
+  proStyleRange: { start: 1, end: 101 },
 } as const;
 
 // Pro 永久啟用
@@ -558,5 +558,11 @@ export const styles: StyleData[] = [
     id: 'S100',
     name: 'The Ultimate',
     description: 'A "Meta" style combining elements effectively',
+  },
+  // Batch 18: Cultural
+  {
+    id: 'S101',
+    name: 'Chinese Ink Wash',
+    description: 'Traditional Chinese ink wash (水墨) style with rice paper textures, brush strokes, and vermillion accents',
   },
 ];

@@ -46,9 +46,9 @@ const createLazyStyleComponent = (styleId: string): React.LazyExoticComponent<St
 // 動態風格元件映射
 // ============================================
 
-// 生成 S01 - S100 的風格 ID
+// 生成 S01 - S101 的風格 ID
 const generateStyleIds = (): string[] => {
-  return Array.from({ length: 100 }, (_, i) => {
+  return Array.from({ length: 101 }, (_, i) => {
     const num = i + 1;
     return num < 10 ? `S0${num}` : `S${num}`;
   });
@@ -169,6 +169,7 @@ import { S97FrostedGlass } from './S97FrostedGlass';
 import { S98AcrylicFluid } from './S98AcrylicFluid';
 import { S99MaterialYou } from './S99MaterialYou';
 import { S100TheUltimate } from './S100TheUltimate';
+import { S101ChineseInkWash } from './S101ChineseInkWash';
 
 // Pro 元件導入
 import { S01TechMinimalPro } from './pro/S01TechMinimalPro';
@@ -271,6 +272,7 @@ import { S97FrostedGlassPro } from './pro/S97FrostedGlassPro';
 import { S98AcrylicFluidPro } from './pro/S98AcrylicFluidPro';
 import { S99MaterialYouPro } from './pro/S99MaterialYouPro';
 import { S100TheUltimatePro } from './pro/S100TheUltimatePro';
+import { S101ChineseInkWashPro } from './pro/S101ChineseInkWashPro';
 
 // ============================================
 // 向後相容的靜態映射
@@ -377,9 +379,10 @@ export const styleComponents: Record<string, React.FC<StyleComponentProps>> = {
   S98: S98AcrylicFluid,
   S99: S99MaterialYou,
   S100: S100TheUltimate,
+  S101: S101ChineseInkWash,
 };
 
-// Pro 元件映射 (S01-S100)
+// Pro 元件映射 (S01-S101)
 export const styleComponentsPro: Record<string, React.FC<StyleComponentProps>> = {
   S01: S01TechMinimalPro,
   S02: S02MinimalistMonochromePro,
@@ -481,6 +484,7 @@ export const styleComponentsPro: Record<string, React.FC<StyleComponentProps>> =
   S98: S98AcrylicFluidPro,
   S99: S99MaterialYouPro,
   S100: S100TheUltimatePro,
+  S101: S101ChineseInkWashPro,
 };
 
 // ============================================
@@ -588,4 +592,5 @@ export {
   S98AcrylicFluid,
   S99MaterialYou,
   S100TheUltimate,
+  S101ChineseInkWash,
 };

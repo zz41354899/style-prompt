@@ -22,7 +22,7 @@ export const S100TheUltimatePro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
     const spacing = responsive.spacing;
 
     return (
-        <div className="min-h-screen bg-black text-white font-sans selection:bg-fuchsia-500 selection:text-white overflow-x-hidden relative">
+        <div className="min-h-screen bg-black text-white font-sans selection:bg-fuchsia-500 selection:text-white relative overflow-clip">
             {/* 
         THE ULTIMATE PRO
         - Theme: Iridescent / Holographic / The Pinnacle
@@ -31,16 +31,16 @@ export const S100TheUltimatePro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
       */}
 
             {/* Aurora Background */}
-            <div className="fixed inset-0 pointer-events-none z-0">
-                <div className="absolute top-[-50%] left-[-20%] w-[150vw] h-[150vw] bg-radial-gradient from-indigo-900 via-transparent to-transparent opacity-40 animate-pulse-slow"></div>
-                <div className="absolute bottom-[-20%] right-[-10%] w-[100vw] h-[100vw] bg-purple-900/40 rounded-full blur-[150px]"></div>
+            <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+                <div className="absolute top-[-10%] left-[-5%] w-[800px] h-[800px] bg-radial-gradient from-indigo-900 via-transparent to-transparent opacity-40 animate-pulse-slow"></div>
+                <div className="absolute bottom-[-10%] right-[-5%] w-[600px] h-[600px] bg-purple-900/40 rounded-full blur-[150px]"></div>
 
                 {/* Noise */}
                 <div className="absolute inset-0 opacity-[0.15] mix-blend-overlay" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
             </div>
 
             {/* Navigation */}
-            <header className="fixed top-0 w-full z-50 bg-black/20 backdrop-blur-xl border-b border-white/10">
+            <header className="sticky top-0 w-full z-50 bg-black/20 backdrop-blur-xl border-b border-white/10">
                 <div
                     className="max-w-screen-2xl mx-auto flex items-center justify-between"
                     style={{ padding: `${spacing.md} ${spacing.lg}` }}
@@ -89,16 +89,16 @@ export const S100TheUltimatePro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
                 )}
             </header>
 
-            <main>
+            <main className="relative z-10">
                 {/* Hero Section */}
                 <section
-                    className="relative min-h-[100vh] flex items-center overflow-hidden"
-                    style={{ padding: `${spacing.section} ${spacing.lg}` }}
+                    className="relative min-h-screen flex items-center"
+                    style={{ paddingTop: spacing.section, paddingBottom: spacing.section, paddingLeft: spacing.lg, paddingRight: spacing.lg, overflow: 'hidden' }}
                 >
                     {/* Background Visuals */}
                     <div className="absolute inset-0 z-0">
-                        <div className="absolute top-[20%] left-[-10%] w-[60%] h-[60%] bg-fuchsia-600/20 rounded-full blur-[150px] animate-pulse"></div>
-                        <div className="absolute bottom-[20%] right-[-10%] w-[60%] h-[60%] bg-cyan-600/20 rounded-full blur-[150px] animate-pulse" style={{ animationDelay: '2s' }}></div>
+                        <div className="absolute top-[20%] left-0 w-[500px] h-[500px] bg-fuchsia-600/20 rounded-full blur-[150px] animate-pulse"></div>
+                        <div className="absolute bottom-[20%] right-0 w-[500px] h-[500px] bg-cyan-600/20 rounded-full blur-[150px] animate-pulse" style={{ animationDelay: '2s' }}></div>
                     </div>
 
                     <div
@@ -173,7 +173,7 @@ export const S100TheUltimatePro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
                 </section>
 
                 {/* TRIFECTA FEATURES */}
-                <section className="py-32 px-6">
+                <section style={{ paddingTop: spacing.section, paddingBottom: spacing.section, paddingLeft: spacing.md, paddingRight: spacing.md, overflow: 'hidden' }}>
                     <div
                         className="max-w-7xl mx-auto grid gap-8"
                         style={{ gridTemplateColumns: isStrictMobile ? '1fr' : 'repeat(3, 1fr)', gap: spacing.lg }}
@@ -221,7 +221,7 @@ export const S100TheUltimatePro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
                 </section>
 
                 {/* BIG STATEMENT */}
-                <section className="py-40 px-6 relative overflow-hidden">
+                <section className="relative" style={{ paddingTop: spacing.xxxl, paddingBottom: spacing.xxxl, paddingLeft: spacing.md, paddingRight: spacing.md, overflow: 'hidden' }}>
                     {/* Background Mesh */}
                     <div className="absolute inset-0 opacity-20">
                         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
@@ -242,7 +242,7 @@ export const S100TheUltimatePro = ({ deviceMode }: { deviceMode?: 'desktop' | 't
                 </section>
 
                 {/* PRICING / ACCESS */}
-                <section className="py-32 px-6">
+                <section style={{ paddingTop: spacing.section, paddingBottom: spacing.section, paddingLeft: spacing.md, paddingRight: spacing.md, overflow: 'hidden' }}>
                     <div
                         className="max-w-4xl mx-auto bg-gradient-to-b from-[#111] to-black border border-white/10 rounded-[48px] text-center relative overflow-hidden"
                         style={{ padding: isStrictMobile ? spacing.xl : spacing.xxxl }}

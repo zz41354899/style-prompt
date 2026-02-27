@@ -22,7 +22,7 @@ export const MobileSidebar: React.FC = () => {
         return null;
     }
 
-    // Free 版本固定顯示所有 100 個風格
+    // Free 版本固定顯示所有 101 個風格
     const previewTier = 'free';
 
     const onStyleSelect = (styleId: string) => {

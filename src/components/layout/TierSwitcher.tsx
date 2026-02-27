@@ -23,7 +23,7 @@ export const TierSwitcher: React.FC<TierSwitcherProps> = ({
                     }`}
             >
                 Free
-                <span className="text-white/30 text-[10px]">(100)</span>
+                <span className="text-white/30 text-[10px]">(101)</span>
             </button>
             <button
                 onClick={() => setPreviewTier('pro')}

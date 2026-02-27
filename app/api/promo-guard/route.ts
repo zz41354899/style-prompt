@@ -9,7 +9,7 @@ import { cookies } from 'next/headers';
 
 // Pro 風格配置（保留以供參考）
 const PRO_CONFIG = {
-    proStyleRange: { start: 1, end: 100 },
+    proStyleRange: { start: 1, end: 101 },
     trialStyleCount: 20, // 已廢棄，保留向下相容
 } as const;
 

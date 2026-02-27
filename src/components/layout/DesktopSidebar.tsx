@@ -12,7 +12,7 @@ export const DesktopSidebar: React.FC = () => {
     const { t } = useTranslation();
     const { selectedStyle, handleStyleSelect } = useLayoutContext();
 
-    // Free 版本固定顯示所有 100 個風格，previewTier 固定為 'free'
+    // Free 版本固定顯示所有 101 個風格，previewTier 固定為 'free'
     const previewTier = 'free';
 
     return (

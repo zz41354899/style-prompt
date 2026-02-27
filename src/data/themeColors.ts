@@ -100,6 +100,7 @@ export const themeColors: Record<string, string> = {
     'S98': '#82E0AA',
     'S99': '#6750A4',
     'S100': '#F39C12',
+    'S101': '#C41E3A',
 };
 
 // 取得樣式主題色，若不存在則回傳預設色
