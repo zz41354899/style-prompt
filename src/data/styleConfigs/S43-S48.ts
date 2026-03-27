@@ -2,59 +2,56 @@ import type { StyleDNAConfig } from './types';
 
 export const S43_S48_Configs: Record<string, StyleDNAConfig> = {
   'S43': {
-    paletteStrategy: 'Vibrant polygons with computed lighting (facets). Bright saturated colors.',
-    typography: 'Geometric Sans (low detail, clean shapes).',
-    radiusPolicy: 'Sharp, angular edges.',
-    shadowPolicy: 'Hard faceted shadows (no blurs).',
-    borderLanguage: 'None (edges defined by color change).',
-    patterns: 'Triangular meshes, crystalline structures.',
-    motion: 'Snappy rotations, faceted transitions.',
-    dos: ['Use triangles', 'Use flat shading', 'Keep it geometric', 'Simulate 3D'],
-    donts: ['Don\'t use gradients', 'Don\'t use curves', 'Don\'t use realistic textures', 'Don\'t clutter'],
+    paletteStrategy: 'Pure black (#000000) background. High contrast white/gray text.',
+    typography: 'Clean sans-serif. High legibility in dark mode.',
+    radiusPolicy: 'Rounded corners (12-24px) to soften the high contrast.',
+    shadowPolicy: 'Subtle glowing shadows or none. Rely on pure black borders.',
+    borderLanguage: 'Dark gray (e.g. #1A1A1A) to separate panels.',
+    patterns: 'None. Complete darkness.',
+    motion: 'Smooth, fluid fades.',
+    dos: ['Use pure black #000000 backgrounds', 'Ensure high contrast for text', 'Use subtle dark gray borders', 'Keep UI minimal and focused'],
+    donts: ['Don\'t use bright colored backgrounds', 'Don\'t use heavy drop shadows', 'Don\'t use low contrast text', 'Don\'t overcrowd the screen'],
     tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S43"
-    style_name: "Low Poly"
+    style_name: "OLED Black"
     industry: "SaaS"
     use_case: "Full Landing Page"
   color:
     bg:
-      primary: "#2C3E50"
-      secondary: "#34495E"
+      primary: "#000000"
+      secondary: "#111111"
+      elevated: "#1A1A1A"
     text:
       primary: "#FFFFFF"
-      secondary: "#BDC3C7"
-      muted: "#7F8C8D"
+      secondary: "#A1A1AA"
+      muted: "#52525B"
     brand:
-      primary: "#9B59B6"
-      accent: "#3498DB"
-    accent:
-      purple: "#9B59B6"
-      blue: "#3498DB"
-      green: "#2ECC71"
+      primary: "#FFFFFF"
+      accent: "#3B82F6"
     border:
-      strong: "#7F8C8D"
-      subtle: "rgba(127,140,141,0.3)"
+      strong: "#27272A"
+      subtle: "#18181B"
     state:
-      success: "#2ECC71"
-      warning: "#F39C12"
-      error: "#E74C3C"
+      success: "#10B981"
+      warning: "#F59E0B"
+      error: "#EF4444"
     focus:
-      ring: "#9B59B6"
+      ring: "#FFFFFF"
   radius:
     none: 0
-    sm: 0
-    md: 0
-    lg: 0
+    sm: 8
+    md: 16
+    lg: 24
   border:
     width:
       hairline: 1
-      medium: 2
-      strong: 3
+      medium: 1
+      strong: 2
   shadow:
-    facet: "inset 0 0 20px rgba(0,0,0,0.2)"
-    polygon: "8px 8px 0 rgba(0,0,0,0.3)"
+    glow: "0 0 20px rgba(255,255,255,0.05)"
+    panel: "0 4px 6px rgba(0,0,0,1)"
   layout:
     container:
       content: 1120
@@ -70,462 +67,172 @@ tokens:
     duration:
       fast: 150
       normal: 300
-    easing: "cubic-bezier(0.4, 0, 0.2, 1)"
-  typography:
-    font:
-      sans:
-        primary: "Exo 2"
-        fallback:
-          - "Montserrat"
-          - "sans-serif"
-      display:
-        primary: "Orbitron"
-        fallback:
-          - "sans-serif"
-    scale:
-      h1: { size: 52, line: 60, weight: 700, tracking: 0.01 }
-      h2: { size: 40, line: 48, weight: 600, tracking: 0 }
-      h3: { size: 28, line: 36, weight: 600, tracking: 0 }
-      body: { size: 16, line: 26, weight: 400, tracking: 0 }
-      small: { size: 14, line: 22, weight: 400, tracking: 0 }
-  spacing:
-    base: 8
-    section_py:
-      mobile: [56, 72]
-      desktop: [96, 120]
-\`\`\``,
-  },
-  'S44': {
-    paletteStrategy: 'Pastel colors with distinct light/dark sides for 3D effect.',
-    typography: 'Monospace or Technical Sans.',
-    radiusPolicy: 'Consistent rounding or sharp, depending on object type.',
-    shadowPolicy: 'Long casting shadows (45 degrees).',
-    borderLanguage: 'Optional thick outlines for cartoonish look.',
-    patterns: 'Isometric grids, stacked layers.',
-    motion: 'Elevator lifts, sliding on grid axes.',
-    dos: ['Use strict 30-degree angles', 'Stack elements', 'Use consistent lighting', ' Build vertically'],
-    donts: ['Don\'t mix perspectives', 'Don\'t flatter the design', 'Don\'t ignore depth', 'Don\'t use random angles'],
-    tokens: `\`\`\`yaml
-tokens:
-  meta:
-    style_id: "S44"
-    style_name: "Isometric"
-    industry: "SaaS"
-    use_case: "Full Landing Page"
-  color:
-    bg:
-      primary: "#F0F4F8"
-      secondary: "#D9E2EC"
-    text:
-      primary: "#102A43"
-      secondary: "#486581"
-      muted: "#829AB1"
-    brand:
-      primary: "#62B0E8"
-      accent: "#4098D7"
-    cube:
-      top: "#62B0E8"
-      left: "#4098D7"
-      right: "#102A43"
-    border:
-      strong: "#9FB3C8"
-      subtle: "#BCCCDC"
-    state:
-      success: "#4CAF50"
-      warning: "#FF9800"
-      error: "#F44336"
-    focus:
-      ring: "#62B0E8"
-  radius:
-    none: 0
-    sm: 4
-    md: 8
-    lg: 12
-    soft: 8
-  border:
-    width:
-      outline: 2
-      medium: 3
-      strong: 4
-  shadow:
-    iso: "10px 10px 0px rgba(0,0,0,0.1)"
-    deep: "15px 15px 0px rgba(0,0,0,0.15)"
-  layout:
-    container:
-      content: 1120
-      wide: 1280
-    grid:
-      desktop: 12
-      tablet: 8
-      mobile: 4
-    gutter:
-      mobile: 16
-      desktop: 24
-  motion:
-    duration:
-      fast: 200
-      normal: 400
     easing: "ease-in-out"
   typography:
     font:
       sans:
-        primary: "Space Grotesk"
+        primary: "Inter"
         fallback:
+          - "system-ui"
           - "sans-serif"
-      mono:
-        primary: "JetBrains Mono"
-        fallback:
-          - "monospace"
     scale:
-      h1: { size: 48, line: 56, weight: 600, tracking: 0 }
-      h2: { size: 36, line: 44, weight: 600, tracking: 0 }
-      h3: { size: 24, line: 32, weight: 600, tracking: 0 }
+      h1: { size: 56, line: 64, weight: 600, tracking: -0.02 }
+      h2: { size: 40, line: 48, weight: 500, tracking: -0.01 }
+      h3: { size: 28, line: 36, weight: 500, tracking: 0 }
       body: { size: 16, line: 26, weight: 400, tracking: 0 }
       small: { size: 14, line: 22, weight: 400, tracking: 0 }
   spacing:
     base: 8
     section_py:
-      mobile: [56, 72]
-      desktop: [88, 112]
+      mobile: [64, 80]
+      desktop: [112, 128]
 \`\`\``,
   },
-  'S45': {
-    paletteStrategy: 'Blocky colors, pixel art palette translated to 3D.',
-    typography: 'Pixel fonts or chunky Sans Serif.',
-    radiusPolicy: 'Zero radius (cubes).',
-    shadowPolicy: 'Drop shadows or ambient occlusion.',
-    borderLanguage: 'None or voxel edges.',
-    patterns: 'Voxel grids, staircases, block terrain.',
-    motion: 'Step-by-step movement, building up blocks.',
-    dos: ['Think in cubes', 'Use grid layouts', 'Simulate Minecraft/Lego', 'Keep it chunky'],
-    donts: ['Don\'t use smooth curves', 'Don\'t use high-res textures', 'Don\'t break the grid', 'Don\'t get too serious'],
+  'S44': {
+    paletteStrategy: 'Cyan, bright blue, orange warnings on dark/transparent backgrounds.',
+    typography: 'Tech/military monospace or wide futuristic sans.',
+    radiusPolicy: 'Angled corners (chamfered) instead of rounded.',
+    shadowPolicy: 'Glowing edges, drop shadows simulating light projection.',
+    borderLanguage: 'Fine lines, crosshairs, corner brackets.',
+    patterns: 'Hexagons, grid overlays, radar sweeps, data streams.',
+    motion: 'Fast, glitchy, UI unfolding.',
+    dos: ['Use HUD elements (crosshairs, brackets)', 'Use tech/monospace fonts', 'Use glowing accents', 'Make it feel like a cockpit'],
+    donts: ['Don\'t use large solid color blocks', 'Don\'t use soft pill corners', 'Don\'t make it look cute', 'Don\'t use organic shapes'],
     tokens: `\`\`\`yaml
 tokens:
   meta:
-    style_id: "S45"
-    style_name: "Voxel"
-    industry: "SaaS"
+    style_id: "S44"
+    style_name: "Sci-Fi HUD"
+    industry: "Gaming/Tech"
     use_case: "Full Landing Page"
   color:
     bg:
-      primary: "#87CEEB"
-      secondary: "#B0E0E6"
-      ground: "#2ECC71"
+      primary: "rgba(10, 15, 20, 0.9)"
+      secondary: "rgba(15, 25, 35, 0.7)"
     text:
-      primary: "#2C3E50"
-      secondary: "#34495E"
-      muted: "#7F8C8D"
+      primary: "#00F0FF"
+      secondary: "#70A0B0"
+      muted: "#305060"
     brand:
-      primary: "#2ECC71"
-      accent: "#F39C12"
-    block:
-      dirt: "#8B4513"
-      stone: "#7F8C8D"
-      grass: "#2ECC71"
-      water: "#3498DB"
+      primary: "#00F0FF"
+      accent: "#FF4500"
     border:
-      strong: "#34495E"
-      subtle: "#7F8C8D"
+      strong: "#00F0FF"
+      subtle: "rgba(0, 240, 255, 0.3)"
     state:
-      success: "#2ECC71"
-      warning: "#F39C12"
-      error: "#E74C3C"
+      success: "#00FF00"
+      warning: "#FF8C00"
+      error: "#FF0000"
     focus:
-      ring: "#3498DB"
+      ring: "#00F0FF"
   radius:
     none: 0
     sm: 0
     md: 0
-    lg: 0
-  border:
-    width:
-      pixel: 2
-      medium: 4
-      strong: 6
-  shadow:
-    block: "4px 4px 0 rgba(0,0,0,0.2)"
-    voxel: "8px 8px 0 rgba(0,0,0,0.3)"
-  layout:
-    container:
-      content: 1080
-      wide: 1200
-    grid:
-      desktop: 12
-      tablet: 8
-      mobile: 4
-    gutter:
-      mobile: 16
-      desktop: 24
-  motion:
-    duration:
-      fast: 100
-      normal: 200
-    easing: "steps(4)"
-  typography:
-    font:
-      sans:
-        primary: "VT323"
-        fallback:
-          - "Press Start 2P"
-          - "monospace"
-      display:
-        primary: "Press Start 2P"
-        fallback:
-          - "monospace"
-    scale:
-      h1: { size: 36, line: 44, weight: 400, tracking: 0.02 }
-      h2: { size: 28, line: 36, weight: 400, tracking: 0.01 }
-      h3: { size: 20, line: 28, weight: 400, tracking: 0 }
-      body: { size: 16, line: 24, weight: 400, tracking: 0 }
-      small: { size: 14, line: 20, weight: 400, tracking: 0 }
-  spacing:
-    base: 8
-    section_py:
-      mobile: [48, 64]
-      desktop: [72, 96]
-\`\`\``,
-  },
-  'S46': {
-    paletteStrategy: 'Pastel pinks, blues, yellows with black patterns.',
-    typography: 'Geometrical Sans, quirky display fonts.',
-    radiusPolicy: 'Mixed: some pills, some circles, some triangles.',
-    shadowPolicy: 'Offset hard shadows (confetti style).',
-    borderLanguage: 'Squiggles, zigzags, dots.',
-    patterns: 'Confetti, bacteria shapes, grids, squiggles.',
-    motion: 'Floating, bouncing, rotating.',
-    dos: ['Use geometric shapes', 'Be playful', 'Mix patterns', 'Use asymmetry'],
-    donts: ['Don\'t align everything', 'Don\'t be boring', 'Don\'t adhere to a strict grid', 'Don\'t use muted colors'],
-    tokens: `\`\`\`yaml
-tokens:
-  meta:
-    style_id: "S46"
-    style_name: "Abstract Memphis"
-    industry: "SaaS"
-    use_case: "Full Landing Page"
-  color:
-    bg:
-      primary: "#FFF0F5"
-      secondary: "#FFFFFF"
-    text:
-      primary: "#000000"
-      secondary: "#333333"
-      muted: "#666666"
-    brand:
-      primary: "#FF69B4"
-      accent: "#00CED1"
-    shape:
-      pink: "#FF69B4"
-      cyan: "#00CED1"
-      yellow: "#FFD700"
-      black: "#000000"
-    border:
-      strong: "#000000"
-      subtle: "#333333"
-    state:
-      success: "#32CD32"
-      warning: "#FFD700"
-      error: "#FF6347"
-    focus:
-      ring: "#00CED1"
-  radius:
-    none: 0
-    sm: 8
-    md: 16
-    lg: 9999
-    wild: "50% 20% / 10% 40%"
-  border:
-    width:
-      outline: 3
-      medium: 4
-      strong: 6
-  shadow:
-    hard: "8px 8px 0 #000"
-    offset: "6px 6px 0 #FF69B4"
-  layout:
-    container:
-      content: 1080
-      wide: 1200
-    grid:
-      desktop: 12
-      tablet: 8
-      mobile: 4
-    gutter:
-      mobile: 16
-      desktop: 24
-  motion:
-    duration:
-      fast: 200
-      normal: 400
-    easing: "cubic-bezier(0.68, -0.55, 0.27, 1.55)"
-  typography:
-    font:
-      sans:
-        primary: "Fredoka One"
-        fallback:
-          - "Quicksand"
-          - "sans-serif"
-      display:
-        primary: "Bungee"
-        fallback:
-          - "sans-serif"
-    scale:
-      h1: { size: 56, line: 64, weight: 400, tracking: 0.01 }
-      h2: { size: 42, line: 50, weight: 400, tracking: 0 }
-      h3: { size: 28, line: 36, weight: 400, tracking: 0 }
-      body: { size: 16, line: 26, weight: 400, tracking: 0 }
-      small: { size: 14, line: 22, weight: 500, tracking: 0 }
-  spacing:
-    base: 8
-    section_py:
-      mobile: [56, 72]
-      desktop: [96, 120]
-\`\`\``,
-  },
-  'S47': {
-    paletteStrategy: 'Concrete greys, raw materials, metallic accents.',
-    typography: 'Massive, bold, industrial Sans Serif.',
-    radiusPolicy: 'Minimal or zero.',
-    shadowPolicy: 'Deep, heavy shadows to show mass.',
-    borderLanguage: 'Thick, structural borders.',
-    patterns: 'Concrete textures, metal grids.',
-    motion: 'Heavy impacts, slow sturdy movements.',
-    dos: ['Use large text', 'Show structure', 'Use raw materials', 'Be imposing'],
-    donts: ['Don\'t decorate', 'Don\'t be soft', 'Don\'t use delicate fonts', 'Don\'t hide the grid'],
-    tokens: `\`\`\`yaml
-tokens:
-  meta:
-    style_id: "S47"
-    style_name: "Brutalist 3D"
-    industry: "SaaS"
-    use_case: "Full Landing Page"
-  color:
-    bg:
-      primary: "#D3D3D3"
-      secondary: "#A9A9A9"
-    text:
-      primary: "#111111"
-      secondary: "#333333"
-      muted: "#666666"
-      accent: "#FF4500"
-    brand:
-      primary: "#111111"
-      accent: "#FF4500"
-    border:
-      strong: "#111111"
-      subtle: "#666666"
-    state:
-      success: "#228B22"
-      warning: "#FF4500"
-      error: "#DC143C"
-    focus:
-      ring: "#111111"
-  radius:
-    none: 0
-    sm: 0
-    md: 2
-    lg: 4
-  border:
-    width:
-      thin: 2
-      medium: 4
-      thick: 8
-  shadow:
-    deep: "20px 20px 40px #bebebe, -20px -20px 40px #ffffff"
-    brutal: "12px 12px 0 #111111"
-  layout:
-    container:
-      content: 1200
-      wide: 1400
-    grid:
-      desktop: 12
-      tablet: 8
-      mobile: 4
-    gutter:
-      mobile: 16
-      desktop: 24
-  motion:
-    duration:
-      fast: 100
-      normal: 200
-    easing: "ease-out"
-  typography:
-    font:
-      sans:
-        primary: "Archivo Black"
-        fallback:
-          - "Impact"
-          - "sans-serif"
-      body:
-        primary: "Inter"
-        fallback:
-          - "sans-serif"
-    scale:
-      h1: { size: 80, line: 84, weight: 900, tracking: -0.02 }
-      h2: { size: 56, line: 60, weight: 900, tracking: -0.01 }
-      h3: { size: 36, line: 42, weight: 700, tracking: 0 }
-      body: { size: 16, line: 26, weight: 400, tracking: 0 }
-      small: { size: 14, line: 22, weight: 400, tracking: 0 }
-  spacing:
-    base: 8
-    section_py:
-      mobile: [56, 72]
-      desktop: [96, 128]
-\`\`\``,
-  },
-  'S48': {
-    paletteStrategy: 'Liquid gradients, iridescent colors, oil slicks.',
-    typography: 'Warped or floating Sans Serif.',
-    radiusPolicy: 'Organic, fluid shapes (blobs).',
-    shadowPolicy: 'Soft, colored glows.',
-    borderLanguage: 'None, edges defined by liquidity.',
-    patterns: 'Lava lamp blobs, ripples, waves.',
-    motion: 'Morphing, flowing, dripping.',
-    dos: ['Use organic shapes', 'Use gradients', 'Make it flow', 'Simulate liquid'],
-    donts: ['Don\'t use straight lines', 'Don\'t use solid flat colors', 'Don\'t be static', 'Don\'t use sharp corners'],
-    tokens: `\`\`\`yaml
-tokens:
-  meta:
-    style_id: "S48"
-    style_name: "Fluid 3D"
-    industry: "SaaS"
-    use_case: "Full Landing Page"
-  color:
-    bg:
-      primary: "#000000"
-      secondary: "#0A0A0A"
-    text:
-      primary: "#FFFFFF"
-      secondary: "#E0E0E0"
-      muted: "#888888"
-    brand:
-      primary: "#FF00CC"
-      accent: "#3333FF"
-    gradient:
-      main: "linear-gradient(45deg, #FF00CC, #3333FF)"
-      alt: "linear-gradient(135deg, #00FF88, #00CCFF)"
-    border:
-      strong: "#FF00CC"
-      subtle: "rgba(255,0,204,0.3)"
-    state:
-      success: "#00FF88"
-      warning: "#FFCC00"
-      error: "#FF3366"
-    focus:
-      ring: "#FF00CC"
-  radius:
-    none: 0
-    sm: 24
-    md: 48
-    lg: 9999
-    blob: "60% 40% 30% 70% / 60% 30% 70% 40%"
+    chamfer: "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)"
   border:
     width:
       hairline: 1
       medium: 2
       strong: 3
   shadow:
-    glow: "0 0 60px rgba(255,0,204,0.5)"
-    soft: "0 20px 60px rgba(0,0,0,0.4)"
+    glow: "0 0 10px rgba(0,240,255,0.5)"
+    text_glow: "0 0 5px #00F0FF"
+  layout:
+    container:
+      content: 1200
+      wide: 1440
+    grid:
+      desktop: 12
+      tablet: 8
+      mobile: 4
+    gutter:
+      mobile: 16
+      desktop: 24
+  motion:
+    duration:
+      fast: 50
+      normal: 150
+    easing: "step-end"
+  typography:
+    font:
+      sans:
+        primary: "Rajdhani"
+        fallback:
+          - "Orbitron"
+          - "sans-serif"
+      mono:
+        primary: "Share Tech Mono"
+        fallback:
+          - "monospace"
+    scale:
+      h1: { size: 56, line: 64, weight: 600, tracking: 0.1 }
+      h2: { size: 40, line: 48, weight: 500, tracking: 0.05 }
+      h3: { size: 28, line: 36, weight: 500, tracking: 0.05 }
+      body: { size: 16, line: 24, weight: 400, tracking: 0.02 }
+      small: { size: 12, line: 16, weight: 400, tracking: 0.1 }
+  spacing:
+    base: 8
+    section_py:
+      mobile: [40, 64]
+      desktop: [80, 120]
+\`\`\``,
+  },
+  'S45': {
+    paletteStrategy: 'Dark grays, electric blue, chrome silver. Nanotech vibe.',
+    typography: 'Ultra-modern, sleek sans-serif.',
+    radiusPolicy: 'Sharp angles mixed with smooth curves.',
+    shadowPolicy: 'Subtle metallic reflections, inner glows.',
+    borderLanguage: 'Metallic trims, glowing inset lines.',
+    patterns: 'Carbon fiber, circuitry, fine dot matrices.',
+    motion: 'Smooth, hydraulic-like easing.',
+    dos: ['Use metallic gradients', 'Add subtle glowing lines', 'Combine sharp and smooth shapes', 'Create a premium tech feel'],
+    donts: ['Don\'t use retro elements', 'Don\'t make it messy', 'Don\'t use warm/earthy colors', 'Don\'t use flat design'],
+    tokens: `\`\`\`yaml
+tokens:
+  meta:
+    style_id: "S45"
+    style_name: "Cybernetic"
+    industry: "Tech/Hardware"
+    use_case: "Full Landing Page"
+  color:
+    bg:
+      primary: "#111418"
+      secondary: "#1A1F26"
+    text:
+      primary: "#E2E8F0"
+      secondary: "#94A3B8"
+      muted: "#64748B"
+    brand:
+      primary: "#38BDF8"
+      accent: "#818CF8"
+    chrome:
+      base: "linear-gradient(135deg, #334155 0%, #0F172A 100%)"
+      highlight: "#CBD5E1"
+    border:
+      strong: "#334155"
+      subtle: "#1E293B"
+      glow: "#38BDF8"
+    state:
+      success: "#10B981"
+      warning: "#F59E0B"
+      error: "#EF4444"
+    focus:
+      ring: "#38BDF8"
+  radius:
+    none: 0
+    sm: 4
+    md: 8
+    lg: 16
+    mixed: "16px 0 16px 0"
+  border:
+    width:
+      hairline: 1
+      medium: 2
+      strong: 3
+  shadow:
+    cyber: "0 0 15px rgba(56,189,248,0.2), inset 0 0 10px rgba(56,189,248,0.1)"
+    metallic: "inset 0 1px 1px rgba(255,255,255,0.1), 0 4px 6px rgba(0,0,0,0.5)"
   layout:
     container:
       content: 1120
@@ -539,31 +246,294 @@ tokens:
       desktop: 24
   motion:
     duration:
-      fast: 500
-      normal: 1000
-    easing: "cubic-bezier(0.4, 0, 0.2, 1)"
+      fast: 200
+      normal: 400
+    easing: "cubic-bezier(0.25, 0.1, 0.25, 1)"
   typography:
     font:
       sans:
-        primary: "Comfortaa"
+        primary: "Michroma"
         fallback:
-          - "Varela Round"
+          - "Exo 2"
           - "sans-serif"
-      display:
-        primary: "Righteous"
+    scale:
+      h1: { size: 56, line: 64, weight: 400, tracking: 0.05 }
+      h2: { size: 36, line: 44, weight: 400, tracking: 0.02 }
+      h3: { size: 24, line: 32, weight: 400, tracking: 0.02 }
+      body: { size: 16, line: 26, weight: 400, tracking: 0 }
+      small: { size: 14, line: 20, weight: 400, tracking: 0 }
+  spacing:
+    base: 8
+    section_py:
+      mobile: [64, 80]
+      desktop: [104, 128]
+\`\`\``,
+  },
+  'S46': {
+    paletteStrategy: 'Dark background, large animated colorful gradients (green, purple, blue).',
+    typography: 'Elegant, modern sans or display fonts. Large tracking.',
+    radiusPolicy: 'Soft, rounded containers.',
+    shadowPolicy: 'Colored glows from the background.',
+    borderLanguage: 'Translucent borders (glass effect).',
+    patterns: 'Swirling color meshes, grainy gradients.',
+    motion: 'Slow, continuous background color shifting.',
+    dos: ['Use large gradient meshes', 'Keep foreground elements clean', 'Use frosted glass for readability', 'Make colors flow together'],
+    donts: ['Don\'t use harsh lines', 'Don\'t use solid color blocks', 'Don\'t use fast jarring animations', 'Don\'t make it messy'],
+    tokens: `\`\`\`yaml
+tokens:
+  meta:
+    style_id: "S46"
+    style_name: "Aurora Borealis"
+    industry: "SaaS"
+    use_case: "Full Landing Page"
+  color:
+    bg:
+      primary: "#050510"
+      secondary: "rgba(25,25,35,0.4)"
+      mesh: "radial-gradient(at 0% 0%, #4c1d95 0px, transparent 50%), radial-gradient(at 100% 0%, #065f46 0px, transparent 50%), radial-gradient(at 100% 100%, #1e3a8a 0px, transparent 50%)"
+    text:
+      primary: "#FFFFFF"
+      secondary: "#CBD5E1"
+      muted: "#94A3B8"
+    brand:
+      primary: "#34D399"
+      accent: "#A78BFA"
+    border:
+      strong: "rgba(255,255,255,0.2)"
+      subtle: "rgba(255,255,255,0.05)"
+    state:
+      success: "#34D399"
+      warning: "#FCD34D"
+      error: "#F87171"
+    focus:
+      ring: "#A78BFA"
+  radius:
+    none: 0
+    sm: 12
+    md: 20
+    lg: 32
+    pill: 9999
+  border:
+    width:
+      hairline: 1
+      medium: 2
+      strong: 3
+  shadow:
+    glass: "0 8px 32px 0 rgba(0,0,0,0.37)"
+    glow: "0 0 40px rgba(52,211,153,0.3)"
+  layout:
+    container:
+      content: 1120
+      wide: 1280
+    grid:
+      desktop: 12
+      tablet: 8
+      mobile: 4
+    gutter:
+      mobile: 16
+      desktop: 24
+  motion:
+    duration:
+      fast: 300
+      normal: 600
+      slow: 10000 # For bg animation
+    easing: "ease"
+  typography:
+    font:
+      sans:
+        primary: "Syne"
+        fallback:
+          - "Inter"
+          - "sans-serif"
+    scale:
+      h1: { size: 64, line: 72, weight: 700, tracking: -0.02 }
+      h2: { size: 48, line: 56, weight: 700, tracking: -0.01 }
+      h3: { size: 32, line: 40, weight: 600, tracking: 0 }
+      body: { size: 18, line: 28, weight: 400, tracking: 0 }
+      small: { size: 14, line: 22, weight: 400, tracking: 0 }
+  spacing:
+    base: 8
+    section_py:
+      mobile: [80, 96]
+      desktop: [128, 160]
+\`\`\``,
+  },
+  'S47': {
+    paletteStrategy: 'Iridescent colors, silver/white, glowing edges. Prism effects.',
+    typography: 'Ultra-thin sans-serif or clean geometric.',
+    radiusPolicy: 'Smooth, subtle curves.',
+    shadowPolicy: 'Rainbow/prismatic shadows.',
+    borderLanguage: 'Iridescent borders, 1px thin.',
+    patterns: 'Holographic foil textures, light refractions.',
+    motion: 'Shimmering, tilted reflections.',
+    dos: ['Use iridescent gradients (pink/blue/silver)', 'Use thin, precise lines', 'Create light refraction effects', 'Keep the layout airy'],
+    donts: ['Don\'t use matte colors', 'Don\'t use heavy blocky fonts', 'Don\'t clutter with dark elements', 'Don\'t use flat shadows'],
+    tokens: `\`\`\`yaml
+tokens:
+  meta:
+    style_id: "S47"
+    style_name: "Holographic"
+    industry: "Creative/Tech"
+    use_case: "Full Landing Page"
+  color:
+    bg:
+      primary: "#FAFAFA"
+      secondary: "#F4F4F5"
+      holo: "linear-gradient(135deg, rgba(238,174,202,0.3) 0%, rgba(148,187,233,0.3) 100%)"
+    text:
+      primary: "#18181B"
+      secondary: "#52525B"
+      muted: "#A1A1AA"
+    brand:
+      primary: "#E879F9"
+      secondary: "#38BDF8"
+      accent: "#34D399"
+    border:
+      strong: "linear-gradient(90deg, #E879F9, #38BDF8)"
+      subtle: "rgba(0,0,0,0.05)"
+    state:
+      success: "#34D399"
+      warning: "#FBBF24"
+      error: "#F43F5E"
+    focus:
+      ring: "#E879F9"
+  radius:
+    none: 0
+    sm: 8
+    md: 16
+    lg: 24
+  border:
+    width:
+      hairline: 1
+      medium: 2
+      strong: 3
+  shadow:
+    holo: "0 10px 30px rgba(232,121,249,0.15), 0 4px 10px rgba(56,189,248,0.15)"
+    soft: "0 4px 12px rgba(0,0,0,0.05)"
+  layout:
+    container:
+      content: 1120
+      wide: 1280
+    grid:
+      desktop: 12
+      tablet: 8
+      mobile: 4
+    gutter:
+      mobile: 16
+      desktop: 24
+  motion:
+    duration:
+      fast: 200
+      normal: 500
+    easing: "cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+  typography:
+    font:
+      sans:
+        primary: "Jost"
         fallback:
           - "sans-serif"
     scale:
-      h1: { size: 56, line: 64, weight: 700, tracking: 0 }
-      h2: { size: 42, line: 50, weight: 600, tracking: 0 }
-      h3: { size: 28, line: 36, weight: 500, tracking: 0 }
-      body: { size: 16, line: 28, weight: 400, tracking: 0 }
-      small: { size: 14, line: 22, weight: 400, tracking: 0 }
+      h1: { size: 60, line: 68, weight: 300, tracking: 0.05 }
+      h2: { size: 40, line: 48, weight: 300, tracking: 0.02 }
+      h3: { size: 28, line: 36, weight: 400, tracking: 0.01 }
+      body: { size: 16, line: 26, weight: 300, tracking: 0 }
+      small: { size: 14, line: 22, weight: 300, tracking: 0 }
   spacing:
     base: 8
     section_py:
       mobile: [64, 80]
       desktop: [112, 144]
+\`\`\``,
+  },
+  'S48': {
+    paletteStrategy: 'Silver, grey, black. Liquid mercury reflections.',
+    typography: 'Fluid, curvy fonts or distorted display types.',
+    radiusPolicy: 'Extreme organic roundness. Melting forms.',
+    shadowPolicy: 'High contrast specular highlights and deep contact shadows.',
+    borderLanguage: 'None. Forms define themselves.',
+    patterns: 'Liquid ripples, chrome reflections.',
+    motion: 'Viscous, morphing, fluid dynamics.',
+    dos: ['Use liquid metallic textures', 'Use high contrast lighting effects', 'Create organic, flowing shapes', 'Keep it monochromatic or chrome'],
+    donts: ['Don\'t use sharp corners', 'Don\'t use bright primary colors', 'Don\'t use flat design', 'Don\'t make it stiff'],
+    tokens: `\`\`\`yaml
+tokens:
+  meta:
+    style_id: "S48"
+    style_name: "Liquid Metal"
+    industry: "Creative"
+    use_case: "Full Landing Page"
+  color:
+    bg:
+      primary: "#111111"
+      secondary: "#1A1A1A"
+    text:
+      primary: "#EAEAEA"
+      secondary: "#A0A0A0"
+      muted: "#666666"
+    brand:
+      primary: "#D4D4D4"
+      accent: "#FFFFFF"
+    chrome:
+      light: "#FFFFFF"
+      base: "#888888"
+      dark: "#222222"
+      gradient: "linear-gradient(180deg, #FFFFFF 0%, #888888 40%, #222222 50%, #666666 100%)"
+    border:
+      strong: transparent
+      subtle: transparent
+    state:
+      success: "#55AA55"
+      warning: "#AAAA55"
+      error: "#AA5555"
+    focus:
+      ring: "#FFFFFF"
+  radius:
+    none: 0
+    sm: 16
+    md: 24
+    lg: 40
+    fluid: "60% 40% 30% 70% / 60% 30% 70% 40%"
+  border:
+    width:
+      hairline: 0
+      medium: 0
+      strong: 0
+  shadow:
+    liquid: "inset 0 10px 20px rgba(255,255,255,0.8), inset 0 -10px 20px rgba(0,0,0,0.8), 0 10px 20px rgba(0,0,0,0.5)"
+    drop: "0 20px 40px rgba(0,0,0,0.6)"
+  layout:
+    container:
+      content: 1120
+      wide: 1280
+    grid:
+      desktop: 12
+      tablet: 8
+      mobile: 4
+    gutter:
+      mobile: 16
+      desktop: 24
+  motion:
+    duration:
+      fast: 300
+      normal: 700
+    easing: "cubic-bezier(0.25, 1, 0.5, 1)" # Smooth, heavy flow
+  typography:
+    font:
+      sans:
+        primary: "Syncopate"
+        fallback:
+          - "sans-serif"
+    scale:
+      h1: { size: 64, line: 72, weight: 700, tracking: 0.1 }
+      h2: { size: 40, line: 48, weight: 700, tracking: 0.05 }
+      h3: { size: 24, line: 32, weight: 700, tracking: 0.02 }
+      body: { size: 16, line: 26, weight: 400, tracking: 0.05 }
+      small: { size: 12, line: 20, weight: 400, tracking: 0.05 }
+  spacing:
+    base: 8
+    section_py:
+      mobile: [80, 100]
+      desktop: [144, 180]
 \`\`\``,
   },
 };
