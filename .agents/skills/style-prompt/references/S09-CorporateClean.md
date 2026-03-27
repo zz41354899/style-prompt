@@ -104,7 +104,7 @@ tokens:
   layout:
     container: { content: 1120, wide: 1280 }
     grid: { desktop: 12, tablet: 8, mobile: 4 }
-    gutter: mobile: 16, desktop: 24
+    gutter: { mobile: 16, desktop: 24 }
   motion:
     duration: { fast: 150, normal: 300 }
     easing: ease-in-out

@@ -1,5 +1,4 @@
-// Redesigning S10 Memphis Component
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   Menu, X, ArrowRight, Zap, Box, Star,
   Music, Smile, Check,
@@ -40,9 +39,14 @@ const MemphisShape = ({ type, color, size, top, left, rotate, delay = 0 }: any) 
 };
 
 export const S10Memphis = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
+  const [hasMounted, setHasMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const isMobile = deviceMode === 'mobile';
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
 
   return (
     <div className="min-h-screen bg-white text-black font-sans selection:bg-[#FFE100] selection:text-black overflow-x-hidden">
@@ -182,7 +186,7 @@ export const S10Memphis = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' |
                 </div>
             </div>
             {/* Floating particles */}
-            {[...Array(8)].map((_, i) => (
+            {hasMounted && [...Array(8)].map((_, i) => (
                 <div key={i} className="absolute w-6 h-6 border-4 border-black bg-white rounded-full animate-pulse" 
                      style={{ top: `${Math.random()*100}%`, left: `${Math.random()*100}%`, animationDelay: `${i*0.5}s` }} />
             ))}

@@ -2,258 +2,221 @@ import type { StyleDNAConfig } from './types';
 
 export const S19_S24_Configs: Record<string, StyleDNAConfig> = {
   'S19': {
-    paletteStrategy: 'High-contrast neon colors (Cyan, Magenta, Yellow) on deep black backgrounds. Glitch effects and digital distortions.',
-    typography: 'Futuristic sans-serif and monospace fonts. Glowing text effects. Mixed widths.',
-    radiusPolicy: 'Sharp angles mixed with precise circular cutouts. Mechanical feel.',
-    shadowPolicy: 'Heavy neon glows (outer glow) in vibrant colors. No soft natural shadows.',
-    borderLanguage: 'Thin, glowing neon borders. Circuit-like patterns.',
-    patterns: 'Circuit boards, digital noise, glitch lines, scanlines.',
-    motion: 'Fast, glitchy transitions. Pulsing glows. Digital interference effects.',
-    dos: ['Use vibrant neon on dark backgrounds', 'Incorporate digital glitch effects', 'Use futuristic monospace fonts', 'Add glowing neon accents'],
-    donts: ['Don\'t use muted or natural colors', 'Don\'t use soft, rounded shapes', 'Don\'t make it look "clean" or corporate', 'Don\'t use traditional serifs'],
+    paletteStrategy: 'Elegant theme with creams, subtle golds, and stark black. High-end fashion feel.',
+    typography: 'Refined serif (Bodoni MT) with high stroke contrast mixed with minimalist sans.',
+    radiusPolicy: 'Zero radius (0px). Architectural luxury precision.',
+    shadowPolicy: 'Very subtle or none. Reliance on whitespace and layout balance.',
+    borderLanguage: 'Hairline borders (0.5px) used sparingly for structure.',
+    patterns: 'High-end editorial magazine grids.',
+    motion: 'Slow, graceful fade-in transitions.',
+    dos: ['Use high-contrast serif typography', 'Maximize whitespace', 'Maintain architectural precision'],
+    donts: ['Don\'t use rounded corners', 'Don\'t use bright colors', 'Don\'t use bouncy animations'],
     tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S19"
-    style_name: "Cyberpunk"
-    industry: "Gaming/Tech"
+    style_name: "Luxury Editorial"
+    industry: "Luxury / E-commerce"
     use_case: "Full Landing Page"
   color:
     bg:
-      primary: "#050505"
-      secondary: "#0D0D0D"
+      primary: "#FDFCF0"
+      secondary: "#F9F9F9"
     text:
-      primary: "#00FFF2"
-      secondary: "#FF00FF"
-      muted: "#4D4D4D"
+      primary: "#111111"
     brand:
-      primary: "#FF00FF"
-      accent: "#00FFF2"
-    border:
-      strong: "#FF00FF"
-      glow: "#00FFF2"
-    focus:
-      ring: "#00FFF2"
-  radius:
-    none: 0
-    sm: 0
-    md: 0
+      primary: "#000000"
+      accent: "#D4AF37"
+  radius: { none: 0 }
   border:
-    width:
-      hairline: 1
-      medium: 2
-      glow: 4
-  shadow:
-    neon: "0 0 15px rgba(255, 0, 255, 0.8), 0 0 30px rgba(0, 255, 242, 0.4)"
-  layout:
-    container:
-      content: 1120
-      wide: 1280
-  motion:
-    duration:
-      fast: 100
-      glitch: 50
-    easing: "steps(4)"
+    width: { hairline: 0.5, medium: 1 }
   typography:
     font:
-      sans: { primary: "Orbitron", fallback: ["sans-serif"] }
-      mono: { primary: "Fira Code", fallback: ["monospace"] }
+      serif: { primary: "Bodoni MT" }
+      sans: { primary: "Inter" }
     scale:
-      h1: { size: 60, line: 68, weight: 900, tracking: 0.1 }
+      h1: { size: 60, weight: 400, tracking: 0.05 }
+      body: { size: 18, weight: 400 }
 \`\`\``,
   },
   'S20': {
-    paletteStrategy: 'Vibrant neon pinks, cyans, and purples against dark grays. High saturation.',
-    typography: 'Bold, geometric sans-serif fonts with glow effects. Retro-futuristic.',
-    radiusPolicy: 'Soft rounding (8-12px) for a retro-tech feel.',
-    shadowPolicy: 'Heavy colored glows (neon glows).',
-    borderLanguage: 'Glowing borders in secondary neon colors.',
-    patterns: 'Synthwave grids, sunbursts, scanlines.',
-    motion: 'Smooth, glowing transitions. Pulsing neon effects.',
-    dos: ['Use vibrant neon colors', 'Add synthwave grids', 'Include neon glow effects', 'Use bold retro typography'],
-    donts: ['Don\'t use muted colors', 'Don\'t use sharp, brutalist edges', 'Don\'t make it look modern-clean', 'Don\'t forget the glow'],
+    paletteStrategy: 'Earthy greens, browns, soft terracottas, and warm whites.',
+    typography: 'Humanist sans-serif or soft, approachable serif (Lora). Approacheable.',
+    radiusPolicy: 'Organic, irregular curves or very large border-radius (32px).',
+    shadowPolicy: 'Soft, diffused, natural-looking shadows.',
+    borderLanguage: 'None or soft, colored borders (sage or clay colors).',
+    patterns: 'Leaf motifs, organic blobs, and subtle grain textures.',
+    motion: 'Gentle, flowing, natural easing curves.',
+    dos: ['Use earthy palettes', 'Use organic fluid shapes', 'Add subtle noise textures'],
+    donts: ['Don\'t use harsh vector lines', 'Don\'t use pure black', 'Don\'t use neon colors'],
     tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S20"
-    style_name: "Retro 80s / Synthwave"
-    industry: "Entertainment"
+    style_name: "Nature Organic"
+    industry: "Lifestyle / Eco"
     use_case: "Full Landing Page"
   color:
     bg:
-      primary: "#1A1A2E"
-      secondary: "#16213E"
+      primary: "#F9F6F0"
+      secondary: "#EDE9DF"
     text:
-      primary: "#00FFFF"
-      secondary: "#FF00FF"
+      primary: "#2C1E1B"
     brand:
-      primary: "#FF00FF"
-      accent: "#00FFFF"
-    border:
-      strong: "#FF00FF"
-    focus:
-      ring: "#00FFFF"
+      primary: "#4F6D43"
+      accent: "#C1795E"
   radius:
-    md: 8
-  shadow:
-    neon: "0 0 20px #FF00FF"
+    lg: 32
+    organic: "60% 40% 30% 70% / 60% 30% 70% 40%"
   typography:
     font:
-      sans: { primary: "Bebas Neue", fallback: ["sans-serif"] }
+      sans: { primary: "Nunito" }
+      serif: { primary: "Lora" }
     scale:
-      h1: { size: 64, line: 72, weight: 700, tracking: 0.05 }
+      h1: { size: 56, weight: 600 }
 \`\`\``,
   },
   'S21': {
-    paletteStrategy: 'Earthy oranges, mustards, avocados, and browns. Warm and nostalgic.',
-    typography: 'Rounded, chunky display fonts. Groovy sans-serifs.',
-    radiusPolicy: 'Generous rounding (16-24px). Soft, bubble-like shapes.',
-    shadowPolicy: 'Soft, warm drop shadows.',
-    borderLanguage: 'None or soft, colored borders matching the palette.',
-    patterns: 'Floral motifs, geometric waves, bold stripes.',
-    motion: 'Bouncy, groovy transitions. "Lazy" easing.',
-    dos: ['Use warm, earthy tones', 'Use rounded, chunky fonts', 'Embrace bold patterns', 'Make it feel warm and inviting'],
-    donts: ['Don\'t use cool blue neons', 'Don\'t use sharp edges', 'Don\'t use minimal whitespace', 'Don\'t use modern tech fonts'],
+    paletteStrategy: 'Natural greens, warm yellows, white/cream. Sustainable and hopeful feel.',
+    typography: 'Rounded sans-serif (Quicksand) or soft serif.',
+    radiusPolicy: 'Organic, heavily rounded corners.',
+    shadowPolicy: 'Soft, diffused "sunlight" shadows.',
+    borderLanguage: 'Organic lines and leaf shapes.',
+    patterns: 'Leaves, hexagons, and nature textures.',
+    motion: 'Gentle, growing, flowing transitions.',
+    dos: ['Use nature-inspired colors', 'Emphasize sustainability', 'Use organic shapes'],
+    donts: ['Don\'t use industrial grays', 'Don\'t use sharp shapes', 'Don\'t use synthetic neons'],
     tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S21"
-    style_name: "Retro 60s-70s / Groovy"
-    industry: "Lifestyle"
+    style_name: "Solarpunk"
+    industry: "SaaS / Energy"
     use_case: "Full Landing Page"
   color:
     bg:
-      primary: "#F4E0C0"
-      secondary: "#E67E22"
-    text:
-      primary: "#3D2B1F"
+      primary: "#FDFCF8"
+      secondary: "#F0FDF4"
     brand:
-      primary: "#E67E22"
-      accent: "#F1C40F"
-    border:
-      strong: "#3D2B1F"
+      primary: "#10B981"
+      accent: "#F59E0B"
   radius:
     lg: 24
-  shadow:
-    soft: "0 10px 20px rgba(61, 43, 31, 0.2)"
+    organic: "60% 40% 50% 50% / 40% 60% 50% 50%"
   typography:
     font:
-      sans: { primary: "Luckiest Guy", fallback: ["cursive"] }
+      sans: { primary: "Quicksand" }
     scale:
-      h1: { size: 60, line: 68, weight: 400, tracking: 0.02 }
+      h1: { size: 52, weight: 700 }
 \`\`\``,
   },
   'S22': {
-    paletteStrategy: 'Hot pink, electric blue, silver/chrome, black.',
-    typography: 'Extended sans-serif, futuristic fonts.',
-    radiusPolicy: 'Mixed: Pills and sharp angles.',
-    shadowPolicy: 'Glows, metallic reflections.',
-    borderLanguage: 'Thick metallic borders or none.',
-    patterns: 'Blobs, liquid metal, grid backgrounds, stars.',
-    motion: 'Bouncy, fast, energetic.',
-    dos: ['Use chrome textures', 'Use bright neon colors', 'Use futuristic shapes', 'Embrace 2000s tech nostalgia'],
-    donts: ['Don\'t make it boring', 'Don\'t use muted colors', 'Don\'t stick to standard grids', 'Don\'t ignore the vibe'],
+    paletteStrategy: 'Deep obsidian black and 24K gold. High luxury, heavy contrast.',
+    typography: 'Ultra-refined serif (Bodoni) with high stroke contrast.',
+    radiusPolicy: 'Strict sharp edges (0px) for architectural luxury.',
+    shadowPolicy: 'Subtle gold glows or deep velvet-like shadows.',
+    borderLanguage: 'Thin gold hairlines (0.5px). Double headers.',
+    patterns: 'Silk textures and gold foil grain.',
+    motion: 'Extremely slow, deliberate fades.',
+    dos: ['Use absolute black and gold', 'Apply high-stroke-contrast serifs', 'Keep whitespace expansive'],
+    donts: ['Don\'t use rounded corners', 'Don\'t use playful colors', 'Don\'t use standard SaaS shadows'],
     tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S22"
-    style_name: "Y2K Aesthetic"
-    industry: "Creative"
+    style_name: "Luxury Gold"
+    industry: "High-End Luxury"
     use_case: "Full Landing Page"
   color:
     bg:
       primary: "#000000"
-      secondary: "#1A1A1A"
+      secondary: "#0A0A0A"
     text:
-      primary: "#FFFFFF"
-      secondary: "#D1D5DB"
+      primary: "#D4AF37"
     brand:
-      primary: "#FF00FF"
-      accent: "#00FFFF"
-  radius:
-    pill: 9999
+      primary: "#D4AF37"
+      accent: "#C5A037"
+  radius: { none: 0 }
+  border:
+    width: { hairline: 0.5 }
   shadow:
-    glow: "0 0 15px #FF00FF"
+    gold_glow: "0 0 20px rgba(212, 175, 55, 0.3)"
   typography:
     font:
-      sans: { primary: "Righteous", fallback: ["sans-serif"] }
+      serif: { primary: "Bodoni MT" }
     scale:
-      h1: { size: 56, line: 64, weight: 400, tracking: 0.02 }
+      h1: { size: 64, weight: 400, tracking: 0.1 }
 \`\`\``,
   },
   'S23': {
-    paletteStrategy: 'Windows 95 Gray (#C0C0C0), Black, White, Navy Blue title bars.',
-    typography: 'Pixelated sans-serif (MS Sans Serif) or System fonts.',
-    radiusPolicy: 'Zero radius for windows.',
-    shadowPolicy: 'Classic bevels: Light top-left, dark bottom-right.',
-    borderLanguage: 'Beveled edges (3D borders).',
-    patterns: 'Dithered gradients, strict grids.',
-    motion: 'Instant, snapping windows.',
-    dos: ['Use #C0C0C0 background', 'Use beveled buttons', 'Use pixel fonts', 'Keep it nostalgic'],
-    donts: ['Don\'t use smooth gradients', 'Don\'t use rounded corners', 'Don\'t use transparency'],
+    paletteStrategy: 'Brushed silver, platinum, and cool whites. Modern luxury.',
+    typography: 'Sophisticated modern sans-serif with wide tracking (Montserrat).',
+    radiusPolicy: 'Subtle rounding (4px) for a "machined" feel.',
+    shadowPolicy: 'Cool, diffused silver shadows with metallic reflections.',
+    borderLanguage: 'Silver/Chrome thin lines. Machined precision weight.',
+    patterns: 'Brushed metal textures and light refractions.',
+    motion: 'Slick, effortless, weightless movements.',
+    dos: ['Use cool silver tones', 'Combine with deep navy or black', 'Wide tracking'],
+    donts: ['Don\'t use warm gold', 'Don\'t use heavy textures', 'Don\'t use handwritten fonts'],
     tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S23"
-    style_name: "Windows 95"
-    industry: "Tech/Nostalgia"
+    style_name: "Luxury Silver"
+    industry: "Tech Luxury"
     use_case: "Full Landing Page"
   color:
     bg:
-      primary: "#C0C0C0"
-      active: "#000080"
+      primary: "#E5E5E5"
+      secondary: "#D1D5DB"
     text:
-      primary: "#000000"
-      inverse: "#FFFFFF"
-  radius:
-    none: 0
-  border:
-    width: { medium: 2 }
+      primary: "#111827"
+    brand:
+      primary: "#9CA3AF"
+      accent: "#6B7280"
+  radius: { sm: 4 }
   shadow:
-    out: "inset 1px 1px #dfdfdf, inset -1px -1px #000000, inset 2px 2px #ffffff, inset -2px -2px #808080"
+    silver: "0 10px 30px rgba(156, 163, 175, 0.2)"
   typography:
     font:
-      sans: { primary: "MS Sans Serif", fallback: ["Tahoma"] }
+      sans: { primary: "Montserrat" }
     scale:
-      h1: { size: 24, line: 28, weight: 700 }
+      h1: { size: 56, weight: 300, tracking: 0.05 }
 \`\`\``,
   },
   'S24': {
-    paletteStrategy: 'Rich brass, copper, and bronze tones against deep leather browns and charcoal grays. Industrial warmth.',
-    typography: 'Victorian-style serifs mixed with heavy industrial sans-serifs. Ornamental but functional.',
-    radiusPolicy: 'Sharp edges mixed with mechanical curves (gears). Subtle rounding on "hand-crafted" elements.',
-    shadowPolicy: 'Deep, heavy shadows. Metallic reflections and soot-like darkness.',
-    borderLanguage: 'Thick rivets, ornate ironwork, and copper piping.',
-    patterns: 'Gears, clockwork, weathered paper, Victorian wallpaper scrolls.',
-    motion: 'Mechanical, jerky movements. Steam-powered reveals. Gear-like rotations.',
-    dos: ['Use warm metallic colors (Copper/Brass)', 'Incorporate mechanical elements (Gears/Pipes)', 'Use Victorian typography', 'Add weathered/industrial textures'],
-    donts: ['Don\'t use clean neons', 'Don\'t use modern minimalist whitespace', 'Don\'t make it look "digital"', 'Don\'t use bright primary colors'],
+    paletteStrategy: 'High-end fashion editorial. Creams and stark black. Focus on typography.',
+    typography: 'Ultra-refined serif (Didot/Bodoni) with high contrast.',
+    radiusPolicy: 'Strict sharp edges (0px). Architectural grid.',
+    shadowPolicy: 'Subtle, elegant drop shadows.',
+    borderLanguage: 'Minimally used borders, hairline weight.',
+    patterns: 'High-end editorial grids and high-fashion dividers.',
+    motion: 'Slow, graceful transitions.',
+    dos: ['Use high-stroke-contrast serifs', 'Keep whitespace expansive', 'Maintain precision'],
+    donts: ['Don\'t use rounded corners', 'Don\'t use casual fonts', 'Don\'t overcrowd'],
     tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S24"
-    style_name: "Steampunk"
-    industry: "SaaS"
+    style_name: "Minimalist Serif"
+    industry: "Creative / SaaS"
     use_case: "Full Landing Page"
   color:
     bg:
-      primary: "#2B1E16"
-      secondary: "#1A130E"
+      primary: "#FAFAFA"
+      secondary: "#FFFFFF"
     text:
-      primary: "#D4AF37"
+      primary: "#000000"
     brand:
-      primary: "#B87333"
-      accent: "#8B4513"
-  radius:
-    none: 0
+      primary: "#000000"
+  radius: { none: 0 }
   shadow:
-    heavy: "8px 8px 0 rgba(0,0,0,0.5)"
+    soft: "0 10px 30px rgba(0,0,0,0.05)"
   typography:
     font:
-      sans: { primary: "Courier New", fallback: ["monospace"] }
-      serif: { primary: "Playfair Display", fallback: ["serif"] }
+      serif: { primary: "Bodoni MT", fallback: ["Didot"] }
     scale:
-      h1: { size: 56, line: 64, weight: 700 }
+      h1: { size: 64, weight: 400, tracking: -0.01 }
 \`\`\``,
   },
 };

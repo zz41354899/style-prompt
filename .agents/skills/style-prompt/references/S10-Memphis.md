@@ -3,30 +3,31 @@
 ## Overview
 - **ID**: S10
 - **Name**: Memphis
-- **Industries**: Creative, Lifestyle
-- **Category**: Artistic
+- **Industries**: Creative, Lifestyle, Modern SaaS, Fashion
+- **Category**: Artistic / Post-Modern
 
 ## Design DNA
-- **Palette Strategy**: Bold primary colors. White backgrounds. Systematic palette.
-- **Typography**: Roboto or similar. Clear hierarchy. Medium weights.
-- **Radius Policy**: Consistent (4-8px). Systematic.
-- **Shadow Policy**: Elevation system. Multiple levels.
-- **Border Language**: Minimal borders. Rely on shadows.
-- **Patterns**: Geometric patterns, dots, stripes.
-- **Motion**: Responsive animations. Standard curves.
+- **Palette Strategy**: High-saturation primary colors (Pink, Yellow, Cyan, Lime) paired with stark white and thick black. "Color Blocking" technique.
+- **Typography**: Bold, playful sans-serifs (Fredoka, Montserrat) with heavy weights. Irregular alignments.
+- **Radius Policy**: Mixed geometry. Perfect circles next to sharp squares and triangles.
+- **Shadow Policy**: "Hard Offset" shadows. Solid black shadows displaced by 4-8px without any blur.
+- **Border Language**: Extremely thick black borders (3px - 6px) on almost every container and element.
+- **Patterns**: "Confetti" patterns: random floating dots, zigzags, wavy lines, and geometric shapes.
+- **Motion**: Bouncy, playful transitions (300ms - 500ms). Exaggerated "Pop" effects.
 
 ## Rules
 ### Do
-- Use elevation and shadows
-- Follow material principles
-- Use bold colors with purpose
-- Maintain clear hierarchy
+- Use thick black outlines on everything
+- Embrace "Tactile" depth with hard offset shadows
+- Mix seemingly clashing primary colors
+- Add randomized floating shapes (dots, zigzags) as background elements
+- Use bold, tilted, or non-traditional text placements
 
 ### Don't
-- Don't use flat design exclusively
-- Don't ignore elevation levels
-- Don't use too many elevations
-- Don't use low-quality icons
+- Don't use soft gradients or realistic shadows
+- Don't follow a strict, quiet grid (needs some "ordered chaos")
+- Don't use thin, delicate lines
+- Don't keep everything aligned to the center; use asymmetry
 
 ---
 
@@ -35,36 +36,28 @@
 # Memphis SaaS Landing Page Prompt (S10)
 
 ## Objective
-Design and specify a **conversion-focused Full Landing Page** for a **SaaS product** using the **S10 Memphis** style. Output must be **engineering-ready**: tokens, layout specs, components, responsive behavior, and accessibility.
+Design and specify a **High-Energy, Post-Modern Full Landing Page** for a **Creative SaaS product** using the **S10 Memphis** style. Output must be a **Visual Explosion** of geometry and color.
 
 ## Inputs
 - **Style:** S10 — Memphis
-- **Industry:** SaaS
+- **Industry:** Creative Tech
 - **Use:** Full Landing Page
 
-## Assumptions
-- Product name placeholder: **[Automatic naming]**
-- Core value prop placeholder: **[One-line Value Proposition]**
-- Primary CTA: **Start free trial**
-- Secondary CTA: **Book a demo**
-- Target audience: **B2B teams and developers**
-- No real metrics, certifications, or customer logos are claimed; all proof uses placeholders
-- Target stack: **React + Next.js (App Router) + TypeScript + Tailwind CSS** using **CSS variables** for theming
+## Style DNA Implementation (S10)
 
----
+### 1. Visual Geometry & Colors
+- **Background**: Start with a pure white base but liberally use "Confetti" patterns (floating black dots, pink triangles, cyan squiggles).
+- **Core Elements**: Every card or section must have a **4px solid black border** and a **8px hard black offset shadow**.
+- **Palette**: Use `#FF61D2` (Pink), `#FFE100` (Yellow), `#00F0FF` (Cyan), and `#C1FF00` (Lime).
 
-## Style DNA (S10 – Memphis)
+### 2. Typography & Headers
+- **Headers**: Use `Montserrat` Black or a similar heavy font. Tilt some sub-headers by -2 to 3 degrees. 
+- **Hierarchy**: Use "Colored Blocks" as backgrounds for text to make it pop.
 
-### Style Seeds
-- **Palette strategy:** Bold primary colors. White backgrounds. Systematic palette.
-- **Typography:** Roboto or similar. Clear hierarchy. Medium weights.
-- **Radius policy:** Consistent (4-8px). Systematic.
-- **Shadow policy:** Elevation system. Multiple levels.
-- **Border language:** Minimal borders. Rely on shadows.
-- **Patterns/textures:** Geometric patterns, dots, stripes.
-- **Motion:** Responsive animations. Standard curves.
-
-Tone: confident, precise, non-hype.
+### 3. Components
+- **Hero**: Use overlapping geometric shapes (large circles and triangles) behind the main product image. 
+- **Features**: Instead of a clean grid, use slightly offset cards with varying border colors.
+- **Buttons**: Thick borders, vibrant colors, "Pop-up" motion on hover (moving the button away from its shadow).
 
 ---
 
@@ -73,58 +66,44 @@ tokens:
   meta:
     style_id: "S10"
     style_name: "Memphis"
-    industry: "SaaS"
+    industry: "Creative SaaS"
     use_case: "Full Landing Page"
   color:
     bg:
       primary: "#FFFFFF"
-      secondary: "#FAFAFA"
-      surface: "#FFFFFF"
+      secondary: "#FFB0E0"
     text:
-      primary: "#212121"
-      secondary: "#757575"
-      muted: "#9E9E9E"
+      primary: "#000000"
+      secondary: "#222222"
+      muted: "#555555"
     brand:
-      primary: "#6200EE"
-      secondary: "#03DAC6"
-      accent: "#FF5722"
+      primary: "#FF61D2"
+      secondary: "#FFE100"
+      accent: "#00F0FF"
     border:
-      strong: "#E0E0E0"
-      subtle: "#F5F5F5"
-    state: { success: "#03DAC6", warning: "#FF5722", error: "#6200EE" }
-    focus: { ring: "#6200EE" }
+      strong: "#000000"
+      accent: "#C1FF00"
+    focus:
+      ring: "#000000"
   radius:
     none: 0
-    sm: 4
-    md: 8
-    lg: 16
+    full: 9999
   border:
-    width: { hairline: 1, medium: 2, strong: 3 }
+    width: { hairline: 2, medium: 4, strong: 6 }
   shadow:
-    elevation1: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)"
-    elevation2: "0 3px 6px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.12)"
-    elevation3: "0 10px 20px rgba(0,0,0,0.15), 0 3px 6px rgba(0,0,0,0.10)"
+    hard: "8px 8px 0 #000000"
+    hard_sm: "4px 4px 0 #000000"
   layout:
     container: { content: 1120, wide: 1280 }
-    grid: { desktop: 12, tablet: 8, mobile: 4 }
-    gutter: mobile: 16, desktop: 24
   motion:
-    duration: { fast: 150, normal: 250 }
-    easing: "cubic-bezier(0.4, 0, 0.2, 1)"
+    duration: { fast: 150, normal: 300, bouncy: 500 }
+    easing: "cubic-bezier(0.68, -0.55, 0.265, 1.55)"
   typography:
     font:
-      sans: { primary: "Roboto", fallback: ["Inter", "system-ui", "Segoe UI"] }
-      mono: { primary: "JetBrains Mono", fallback: ["ui-monospace"] }
+      sans: { primary: "Montserrat", fallback: ["Fredoka One", "sans-serif"] }
     scale:
-      h1: { size: 56, line: 64, weight: 600, tracking: -0.02 }
-      h2: { size: 40, line: 48, weight: 600, tracking: -0.01 }
-      h3: { size: 28, line: 36, weight: 600, tracking: -0.005 }
-      body: { size: 16, line: 24, weight: 450, tracking: 0 }
-      small: { size: 14, line: 20, weight: 450, tracking: 0 }
-    measure: { hero_max: "48ch", body_max: "72ch" }
-  spacing:
-    base: 8
-    section_py: { mobile: [64, 80], desktop: [112, 128] }
+      h1: { size: 84, weight: 900, tracking: -0.05 }
+      body: { size: 18, weight: 700, tracking: 0 }
 ```
 
 ---

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   ArrowRight, Menu, X, Check, Star, 
   Github, Twitter, Linkedin, ChevronDown, ChevronUp,
@@ -7,9 +7,14 @@ import {
 } from 'lucide-react';
 
 export const S30AuroraBorealis = ({ deviceMode }: { deviceMode?: 'desktop' | 'tablet' | 'mobile' }) => {
+  const [hasMounted, setHasMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const isMobile = deviceMode === 'mobile';
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#020617] text-white font-sans antialiased selection:bg-[#22D3EE] selection:text-[#020617] overflow-x-hidden">
@@ -244,8 +249,11 @@ export const S30AuroraBorealis = ({ deviceMode }: { deviceMode?: 'desktop' | 'ta
                                 key={i} 
                                 className="flex-1 rounded-t-sm transition-all duration-700"
                                 style={{ 
-                                   height: `${20 + Math.sin(i * 0.5) * 40 + Math.random() * 30}%`,
-                                   background: `linear-gradient(to top, rgba(34, 211, 238, 0.2), rgba(16, 185, 129, ${0.3 + Math.random() * 0.4}))`
+                                   height: hasMounted ? `${20 + Math.sin(i * 0.5) * 40 + Math.random() * 30}%` : `${20 + Math.sin(i * 0.5) * 40}%`,
+                                   background: hasMounted 
+                                       ? `linear-gradient(to top, rgba(34, 211, 238, 0.2), rgba(16, 185, 129, ${0.3 + Math.random() * 0.4}))`
+                                       : `linear-gradient(to top, rgba(34, 211, 238, 0.2), rgba(16, 185, 129, 0.5))`
+
                                 }}
                              />
                           ))}

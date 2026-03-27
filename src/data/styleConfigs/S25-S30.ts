@@ -2,214 +2,220 @@ import type { StyleDNAConfig } from './types';
 
 export const S25_S30_Configs: Record<string, StyleDNAConfig> = {
   'S25': {
-    paletteStrategy: 'High-end fashion editorial. Creams, subtle golds, stark black and white.',
-    typography: 'Elegant serif headers (Didot, Bodoni), clean sans-serif body.',
-    radiusPolicy: 'Zero radius. Sharp, magazine-like edges.',
-    shadowPolicy: 'Subtle, elegant drop shadows on images, not UI elements.',
-    borderLanguage: 'Thin, precise hairlines used for structure and separation.',
-    patterns: 'None. Focus on large, high-quality typography and imagery.',
-    motion: 'Smooth, slow reveals. Elegant fade-ins.',
-    dos: ['Use high-contrast elegant typography', 'Embrace whitespace', 'Use thin elegant lines', 'Keep it sophisticated'],
-    donts: ['Don\'t use bright, playful colors', 'Don\'t use thick, clunky borders', 'Don\'t crowd the layout', 'Don\'t use heavy drop shadows'],
+    paletteStrategy: 'Vibrant startup design, energetic and modern (Inter/Blue/Green).',
+    typography: 'Modern sans-serif (Inter). Clean and approachable.',
+    radiusPolicy: 'Medium rounding (8-12px) for a soft tech feel.',
+    shadowPolicy: 'Soft, modern elevation.',
+    borderLanguage: 'Subtle borders for structural definition.',
+    patterns: 'Modern geometric motifs/dots.',
+    motion: 'Energetic, fast transitions (150-250ms).',
+    dos: ['Use energetic accent colors', 'Keep it fast-looking', 'Use Inter font'],
+    donts: ['Don\'t use dull grays', 'Don\'t use complex serifs'],
     tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S25"
-    style_name: "Luxury Editorial"
-    industry: "Luxury/Fashion"
+    style_name: "Startup Vibrant"
+    industry: "SaaS / Tech"
     use_case: "Full Landing Page"
   color:
     bg:
-      primary: "#FAFAFA"
-      secondary: "#F2EBE5"
+      primary: "#FFFFFF"
+      secondary: "#F3F4F6"
     brand:
-      primary: "#000000"
-      accent: "#B89B72"
-  radius: { none: 0 }
+      primary: "#3B82F6"
+      secondary: "#10B981"
+      accent: "#8B5CF6"
+    text:
+      primary: "#111827"
+    border:
+      strong: "#E5E7EB"
+  radius: { sm: 4, md: 8, lg: 12 }
+  shadow:
+    md: "0 4px 6px -1px rgba(0, 0, 0, 0.1)"
   typography:
     font:
-      sans: { primary: "Inter", fallback: ["sans-serif"] }
-      serif: { primary: "Playfair Display", fallback: ["serif"] }
+      sans: { primary: "Inter" }
     scale:
-      h1: { size: 64, line: 72, weight: 400, tracking: -0.02 }
+      h1: { size: 56, weight: 800, tracking: -0.02 }
 \`\`\``,
   },
   'S26': {
-    paletteStrategy: 'Earthy greens, browns, soft terracottas, warm whites.',
-    typography: 'Humanist sans-serif or soft, approachable serif.',
-    radiusPolicy: 'Organic, irregular curves or very large border-radius.',
-    shadowPolicy: 'Soft, diffused, natural-looking shadows.',
-    borderLanguage: 'None or soft, colored borders.',
-    patterns: 'Leaf motifs, organic blobs, grain/noise textures.',
-    motion: 'Gentle, flowing, natural easing.',
-    dos: ['Use earthy, natural palettes', 'Use organic, fluid shapes', 'Add subtle noise/grain', 'Make it feel approachable'],
-    donts: ['Don\'t use harsh vector lines', 'Don\'t use pure black or white', 'Don\'t use strict grids entirely', 'Don\'t use neon colors'],
+    paletteStrategy: 'Deep enterprise blues and professional grays. High trust.',
+    typography: 'Serious, professional sans-serif (Inter/Roboto). Clear hierarchy.',
+    radiusPolicy: 'Conservative rounding (4-6px). Systematic.',
+    shadowPolicy: 'Subtle, systematic elevation.',
+    borderLanguage: 'Clean, thin borders (1px). Organized sections.',
+    patterns: 'Subtle corporate motifs.',
+    motion: 'Subtle, professional fades.',
+    dos: ['Use established blue palettes', 'Prioritize readability', 'Maintain strict alignment'],
+    donts: ['Don\'t use fun neons', 'Don\'t use irregular shapes'],
     tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S26"
-    style_name: "Nature / Organic"
-    industry: "Lifestyle/Eco"
+    style_name: "Enterprise Blue"
+    industry: "Corporate / Finance"
     use_case: "Full Landing Page"
   color:
     bg:
-      primary: "#F9F6F0"
-      secondary: "#EDE9DF"
+      primary: "#FFFFFF"
+      secondary: "#F8FAFC"
     brand:
-      primary: "#4F6D43"
-      accent: "#C1795E"
-  radius:
-    lg: 32
-    organic: "60% 40% 30% 70% / 60% 30% 70% 40%"
+      primary: "#0F172A"
+      secondary: "#334155"
+    text:
+      primary: "#0F172A"
+    border:
+      strong: "#CBD5E1"
+  radius: { sm: 4, md: 6 }
   typography:
     font:
-      sans: { primary: "Nunito", fallback: ["sans-serif"] }
-      serif: { primary: "Lora", fallback: ["serif"] }
+      sans: { primary: "Inter" }
     scale:
-      h1: { size: 56, line: 68, weight: 600 }
+      h1: { size: 48, weight: 700 }
 \`\`\``,
   },
   'S27': {
-    paletteStrategy: 'Natural greens, warm yellows, white/cream. Organic feel.',
-    typography: 'Rounded sans-serif or soft serif.',
-    radiusPolicy: 'Organic, heavily rounded corners.',
-    shadowPolicy: 'Soft, diffused sunlight shadows.',
-    borderLanguage: 'Organic lines, leaf shapes.',
-    patterns: 'Leaves, solar panels, hexagons, nature textures.',
-    motion: 'Gentle, growing, flowing.',
-    dos: ['Use nature-inspired colors', 'Emphasize sustainability', 'Use organic shapes', 'Keep it hopeful'],
-    donts: ['Don\'t use industrial grays', 'Don\'t use sharp, aggressive shapes', 'Don\'t make it look dystopian', 'Don\'t use synthetic neons'],
+    paletteStrategy: 'Green/Blue clean palettes focus on financial trust.',
+    typography: 'Precise, technical sans-serif. Clarity-first.',
+    radiusPolicy: 'Soft, safe rounding (8-12px).',
+    shadowPolicy: 'Clear, modern depth.',
+    borderLanguage: 'Structural dividers and grid motifs.',
+    patterns: 'Abstract data visuals.',
+    motion: 'Reliable, steady transitions.',
+    dos: ['Focus on data clarity', 'Use safe color palettes'],
+    donts: ['Don\'t use chaotic patterns'],
     tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S27"
-    style_name: "Solarpunk"
-    industry: "SaaS"
+    style_name: "Fintech Trust"
+    industry: "Finance / SaaS"
     use_case: "Full Landing Page"
   color:
     bg:
-      primary: "#FDFCF8"
-      secondary: "#F0FDF4"
+      primary: "#FFFFFF"
+      secondary: "#F0FDFA"
     brand:
-      primary: "#10B981"
-      accent: "#F59E0B"
-  radius:
-    lg: 24
-    organic: "60% 40% 50% 50% / 40% 60% 50% 50%"
+      primary: "#059669"
+      secondary: "#0284C7"
+    text:
+      primary: "#064E3B"
+  radius: { md: 12 }
   typography:
     font:
-      sans: { primary: "Quicksand", fallback: ["sans-serif"] }
+      sans: { primary: "Inter" }
     scale:
-      h1: { size: 52, line: 64, weight: 700 }
+      h1: { size: 48, weight: 700 }
 \`\`\``,
   },
   'S28': {
-    paletteStrategy: 'Deep forest greens, soft sage, and natural wood tones. Sustainability focus.',
-    typography: 'Friendly modern sans-serif. High legibility, approachable.',
-    radiusPolicy: 'Significant rounding (12-16px). Soft and non-threatening.',
-    shadowPolicy: 'Minimal, soft elevation. Focus on flat surfaces with natural textures.',
-    borderLanguage: 'Subtle green or earthy-toned borders. Leaf-like accents.',
-    patterns: 'Recycled paper textures, subtle leaf patterns, grid of pods.',
-    motion: 'Calm, slow transitions. Evokes a sense of peace and steady growth.',
-    dos: ['Use sustainable-themed colors (Green/Brown)', 'Incorporate natural textures', 'Keep layout balanced and calm', 'Use soft, rounded UI elements'],
-    donts: ['Don\'t use harsh industrial blacks', 'Don\'t use aggressive neons', 'Don\'t use sharp, corporate edges', 'Don\'t overcrowd the design'],
+    paletteStrategy: 'Soft, candy-like pastels. 3D depth puffy clay effect.',
+    typography: 'Friendly, rounded sans-serif (Nunito). Playful.',
+    radiusPolicy: 'Extremely large radius (24-40px). Squircle shapes.',
+    shadowPolicy: 'Inner shadows + drop shadows for 3D clay effect.',
+    borderLanguage: 'None. Form defined by shadows.',
+    patterns: 'None. Solid 3D forms.',
+    motion: 'Squishy, elastic, bouncy animations.',
+    dos: ['Use layered shadows for 3D', 'Create puffy forms', 'Use pastels'],
+    donts: ['Don\'t use sharp corners', 'Don\'t use flat design'],
     tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S28"
-    style_name: "Eco / Green"
-    industry: "Sustainability"
+    style_name: "Claymorphism"
+    industry: "Creative / SaaS"
     use_case: "Full Landing Page"
   color:
     bg:
-      primary: "#FBFAF8"
-      secondary: "#F1F8E9"
+      primary: "#F3F6FD"
+      secondary: "#E8EEF9"
     brand:
-      primary: "#2E7D32"
-      accent: "#8BC34A"
-  radius:
-    md: 12
-    lg: 16
+      primary: "#4E7CFF"
+      accent: "#FF6B8B"
+  radius: { lg: 32, xl: 40 }
+  shadow:
+    clay: "8px 8px 16px rgba(166, 180, 200, 0.5), inset -4px -4px 8px rgba(166, 180, 200, 0.3)"
   typography:
     font:
-      sans: { primary: "Inter", fallback: ["sans-serif"] }
+      sans: { primary: "Nunito" }
     scale:
-      h1: { size: 52, line: 64, weight: 700 }
+      h1: { size: 56, weight: 800 }
 \`\`\``,
   },
   'S29': {
-    paletteStrategy: 'Deep obsidian black and 24K gold. High luxury, heavy contrast.',
-    typography: 'Ultra-refined serif (Didot/Bodoni) with high stroke contrast. Spaced headers.',
-    radiusPolicy: 'Strict sharp edges (0px) for architectural luxury.',
-    shadowPolicy: 'Subtle gold glows or deep velvet-like shadows. Elite depth.',
-    borderLanguage: 'Thin gold hairlines (0.5px - 1px). Double borders for high-end feel.',
-    patterns: 'Silk textures, gold foil grain, minimalist geometric motifs.',
-    motion: 'Extremely slow, deliberate fades. Elegant reveal-on-scroll.',
-    dos: ['Use absolute black and gold', 'Apply high-stroke-contrast serifs', 'Keep whitespace expansive', 'Use thin gold rules'],
-    donts: ['Don\'t use rounded corners', 'Don\'t use playful/vibrant colors', 'Don\'t follow standard SaaS patterns', 'Don\'t use drop shadows'],
+    paletteStrategy: 'Obsidian black base with intense crimson red neon accents. Cyber-noir.',
+    typography: 'Teko for headings, Michroma for body.',
+    radiusPolicy: 'Zero rounded corners. Sharp chamfered polygon edges.',
+    shadowPolicy: 'Intense red neon outer glows. Deep inset shadows.',
+    borderLanguage: 'Thin red glowing hairlines. Light-strip effects.',
+    patterns: 'Carbon fiber textures and horizontal CRT scanlines.',
+    motion: 'Armor plates lifting, pulsing red core glow.',
+    dos: ['Use obsidian black #050505', 'Apply crimson red glow', 'Use Teko font'],
+    donts: ['Don\'t use blue/cyan neons', 'Don\'t use rounded corners'],
     tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S29"
-    style_name: "Luxury Gold"
-    industry: "High-End Luxury"
+    style_name: "Cyber-Bio Noir"
+    industry: "High-Tech / Future"
     use_case: "Full Landing Page"
   color:
     bg:
-      primary: "#000000"
-      secondary: "#0A0A0A"
-    text:
-      primary: "#D4AF37"
-      secondary: "#E5E5E5"
+      primary: "#050505"
+      secondary: "#020202"
     brand:
-      primary: "#D4AF37"
-      accent: "#C5A037"
+      primary: "#dc2626"
+    text:
+      primary: "#FFFFFF"
+      accent: "#dc2626"
   radius: { none: 0 }
-  border:
-    width: { hairline: 0.5, medium: 1 }
   shadow:
-    gold_glow: "0 0 20px rgba(212, 175, 55, 0.3)"
+    neon: "0 0 15px rgba(220, 38, 38, 0.7)"
   typography:
     font:
-      serif: { primary: "Bodoni MT", fallback: ["serif"] }
+      display: "Teko"
+      sans: "Michroma"
+      mono: "Share Tech Mono"
     scale:
-      h1: { size: 64, line: 72, weight: 400, tracking: 0.1 }
+      h1: { size: 96, weight: 600 }
 \`\`\``,
   },
   'S30': {
-    paletteStrategy: 'Brushed silver, platinum, and cool whites. Modern luxury, tech-forward.',
-    typography: 'Sophisticated modern sans-serif with wide tracking. Minimalist.',
-    radiusPolicy: 'Subtle rounding (4px) or zero. "Machined" look.',
-    shadowPolicy: 'Cool, diffused silver shadows. Soft metallic reflections.',
-    borderLanguage: 'Silver/Chrome thin lines. Machined precision.',
-    patterns: 'Brushed metal textures, light refractions, cool gradients.',
-    motion: 'Slick, effortless movements. "Weightless" feel.',
-    dos: ['Use cool silver and platinum tones', 'Combine with deep navy or solid black', 'Keep typography minimal and wide-tracked', 'Simulate metallic surfaces'],
-    donts: ['Don\'t use warm gold or brass', 'Don\'t use heavy textures', 'Don\'t use handwritten fonts', 'Don\'t use vibrant colors'],
+    paletteStrategy: 'Dark background with large animated colorful mesh gradients.',
+    typography: 'Elegant, modern sans (Syne). Large tracking.',
+    radiusPolicy: 'Soft, rounded containers (32px or pill).',
+    shadowPolicy: 'Subtle glass effect shadows. Colored glows from mesh.',
+    borderLanguage: 'Translucent frosted glass borders.',
+    patterns: 'Swirling color meshes, grainy animated gradients.',
+    motion: 'Slow, continuous background color shifting.',
+    dos: ['Use large gradient meshes', 'Keep foreground clean', 'Use Syne font'],
+    donts: ['Don\'t use harsh lines', 'Don\'t use solid color blocks'],
     tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S30"
-    style_name: "Luxury Silver"
-    industry: "Tech Luxury"
+    style_name: "Aurora Borealis"
+    industry: "Creative / SaaS"
     use_case: "Full Landing Page"
   color:
     bg:
-      primary: "#E5E5E5"
-      secondary: "#D1D5DB"
+      primary: "#050510"
+      mesh: "radial-gradient(at 0% 0%, #4c1d95 0px, transparent 50%)"
     text:
-      primary: "#111827"
+      primary: "#FFFFFF"
     brand:
-      primary: "#9CA3AF"
-      accent: "#6B7280"
-  radius: { sm: 4 }
+      primary: "#34D399"
+      accent: "#A78BFA"
+  radius: { lg: 32, pill: 9999 }
   shadow:
-    silver: "0 10px 30px rgba(156, 163, 175, 0.2)"
+    glass: "0 8px 32px 0 rgba(0,0,0,0.37)"
   typography:
     font:
-      sans: { primary: "Montserrat", fallback: ["sans-serif"] }
+      sans: { primary: "Syne" }
     scale:
-      h1: { size: 56, line: 64, weight: 300, tracking: 0.05 }
+      h1: { size: 64, weight: 700 }
 \`\`\``,
   },
 };

@@ -115,7 +115,7 @@ tokens:
       desktop: 12
       tablet: 6
       mobile: 4
-    gutter: mobile: 16, desktop: 32
+    gutter: { mobile: 16, desktop: 32 }
   motion:
     duration: { fast: 100, normal: 200 }
     easing: "linear"

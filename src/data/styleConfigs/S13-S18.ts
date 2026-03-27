@@ -2,385 +2,298 @@ import type { StyleDNAConfig } from './types';
 
 export const S13_S18_Configs: Record<string, StyleDNAConfig> = {
   'S13': {
-    paletteStrategy: 'Playful pastel palette. Bright, cheerful colors. Hand-drawn aesthetic.',
-    typography: 'Mixed fonts. Handwritten feel with sans-serif readability. Varied styles.',
-    radiusPolicy: 'Mixed. Organic shapes. Hand-drawn feel.',
-    shadowPolicy: 'Soft, playful shadows. Colorful depth.',
-    borderLanguage: 'Hand-drawn borders. Doodle patterns.',
-    patterns: 'Crayon textures. Doodle patterns. Playful elements.',
-    motion: 'Bouncy, playful animations (300-500ms). Fun easing.',
-    dos: ['Use hand-drawn elements', 'Add playful patterns', 'Use vibrant colors', 'Create organic shapes'],
-    donts: ['Don\'t be too rigid', 'Don\'t use perfect lines', 'Don\'t forget the fun', 'Don\'t make it too serious'],
+    paletteStrategy: 'Black, gold, and deep jewel tones. High luxury and high contrast.',
+    typography: 'Geometric serif or Art Deco display fonts (Cormorant Garamond). High precision.',
+    radiusPolicy: 'Sharp or geometric cuts. High architectural precision.',
+    shadowPolicy: 'Subtle gold glows or none. Emphasis on geometry and metallic sheen.',
+    borderLanguage: 'Ornate geometric borders. Gold hairlines and sunburst motifs.',
+    patterns: 'Sunbursts, fans, and geometric overlays in gold/black.',
+    motion: 'Elegant, sophisticated slow transitions.',
+    dos: ['Use geometric patterns', 'Apply gold and black palette', 'Emphasize luxury', 'Use high-contrast typography'],
+    donts: ['Don\'t use rounded corners', 'Don\'t use casual fonts', 'Don\'t use bright non-luxury colors'],
     tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S13"
-    style_name: "Doodle Sketch"
-    industry: "SaaS"
-    use_case: "Full Landing Page"
-  color:
-    bg:
-      primary: "#FFFFFF"
-      secondary: "#FFFEF0"
-    text:
-      primary: "#3D3D3D"
-      secondary: "#5A5A5A"
-      muted: "#888888"
-    brand:
-      primary: "#FF6B9D"
-      secondary: "#66D9EF"
-      accent: "#A8E6CF"
-    border:
-      strong: "#5A5A5A"
-      subtle: "#E0E0E0"
-      doodle: "#FFB347"
-    state:
-      success: "#A8E6CF"
-      warning: "#FFDAB9"
-      error: "#FF6B9D"
-    focus:
-      ring: "#66D9EF"
-  radius:
-    none: 0
-    sm: 8
-    md: 16
-    lg: 24
-    organic: "40% 60% 60% 40% / 60% 40% 60% 40%"
-  border:
-    width:
-      hairline: 2
-      medium: 3
-      strong: 4
-  shadow:
-    soft: "0 4px 12px rgba(61,61,61,0.1)"
-    colorful: "0 4px 12px rgba(255,107,157,0.2)"
-    handdrawn: "2px 2px 0 #FFB347"
-  layout:
-    container:
-      content: 1100
-      wide: 1260
-    grid:
-      desktop: 12
-      tablet: 8
-      mobile: 4
-    gutter:
-      mobile: 18
-      desktop: 26
-  motion:
-    duration:
-      fast: 300
-      normal: 400
-      slow: 500
-    easing: "cubic-bezier(0.68, -0.55, 0.265, 1.55)"
-  typography:
-    font:
-      sans:
-        primary: "Comic Neue"
-        fallback:
-          - "Comic Sans MS"
-          - "sans-serif"
-      mono:
-        primary: "JetBrains Mono"
-        fallback:
-          - "ui-monospace"
-          - "SFMono-Regular"
-    scale:
-      h1: { size: 56, line: 64, weight: 700, tracking: -0.02 }
-      h2: { size: 40, line: 48, weight: 700, tracking: -0.01 }
-      h3: { size: 28, line: 36, weight: 700, tracking: -0.005 }
-      body: { size: 16, line: 26, weight: 500, tracking: 0 }
-      small: { size: 14, line: 22, weight: 500, tracking: 0 }
-    measure:
-      hero_max: "48ch"
-      body_max: "72ch"
-  spacing:
-    base: 8
-    section_py:
-      mobile: [80, 96]
-      desktop: [128, 144]
-\`\`\``,
-  },
-  'S14': {
-    paletteStrategy: 'Minimal cyan/blue palette. Clean tech aesthetic. High contrast.',
-    typography: 'Geometric monospace. Tech feel. Clean lines.',
-    radiusPolicy: 'Minimal (0-4px). Sharp, tech aesthetic.',
-    shadowPolicy: 'Subtle tech shadows. Glow effects.',
-    borderLanguage: 'Thin tech borders. Cyan accents.',
-    patterns: 'Tech grid patterns. Minimal lines.',
-    motion: 'Fast, precise animations (150-300ms). Tech feel.',
-    dos: ['Use clean geometric lines', 'Create minimal compositions', 'Use cyan/blue accents', 'Keep it precise'],
-    donts: ['Don\'t add unnecessary details', 'Don\'t use complex shapes', 'Don\'t overcomplicate', 'Don\'t break the minimalism'],
-    tokens: `\`\`\`yaml
-tokens:
-  meta:
-    style_id: "S14"
-    style_name: "Minimalist Line Art"
-    industry: "SaaS"
-    use_case: "Full Landing Page"
-  color:
-    bg:
-      primary: "#0F172A"
-      secondary: "#1E293B"
-    text:
-      primary: "#FFFFFF"
-      secondary: "#94A3B8"
-      muted: "#64748B"
-    brand:
-      primary: "#06B6D4"
-      secondary: "#3B82F6"
-      accent: "#10B981"
-    border:
-      strong: "#334155"
-      subtle: "#1E293B"
-    state:
-      success: "#10B981"
-      warning: "#F59E0B"
-      error: "#EF4444"
-    focus:
-      ring: "#06B6D4"
-  radius:
-    none: 0
-    sm: 2
-    md: 4
-    lg: 8
-  border:
-    width:
-      hairline: 1
-      medium: 2
-      strong: 3
-  shadow:
-    tech: "0 0 20px rgba(6, 182, 212, 0.3)"
-    elevation: "0 4px 16px rgba(0,0,0,0.2)"
-  layout:
-    container:
-      content: 1040
-      wide: 1200
-    grid:
-      desktop: 12
-      tablet: 8
-      mobile: 4
-    gutter:
-      mobile: 12
-      desktop: 20
-  motion:
-    duration:
-      fast: 150
-      normal: 200
-    easing: "cubic-bezier(0.4, 0, 0.2, 1)"
-  typography:
-    font:
-      sans:
-        primary: "JetBrains Mono"
-        fallback: ["monospace"]
-      mono:
-        primary: "JetBrains Mono"
-        fallback: ["monospace"]
-    scale:
-      h1: { size: 56, line: 64, weight: 700, tracking: -0.02 }
-      h2: { size: 40, line: 48, weight: 700, tracking: -0.01 }
-      h3: { size: 28, line: 36, weight: 700, tracking: -0.005 }
-      body: { size: 16, line: 24, weight: 400, tracking: 0 }
-      small: { size: 14, line: 20, weight: 400, tracking: 0 }
-\`\`\``,
-  },
-  'S15': {
-    paletteStrategy: 'Gold, black, navy blue, emerald green. Luxury contrast.',
-    typography: 'Geometric sans or stylized serif (e.g., Broadway style).',
-    radiusPolicy: 'Sharp angles mixed with perfect circles.',
-    shadowPolicy: 'Hard shadows or gold glow.',
-    borderLanguage: 'Double lines, gold borders.',
-    patterns: 'Sunbursts, fans, geometric repetitions.',
-    motion: 'Fast, precise, elegant.',
-    dos: ['Use gold accents', 'Use geometric patterns', 'Keep typography elegant', 'Use high contrast'],
-    donts: ['Don\'t use slopy fonts', 'Don\'t use grunge textures', 'Don\'t use cheap-looking colors', 'Don\'t clutter'],
-    tokens: `\`\`\`yaml
-tokens:
-  meta:
-    style_id: "S15"
     style_name: "Art Deco"
-    industry: "SaaS"
+    industry: "Luxury/Lifestyle"
     use_case: "Full Landing Page"
   color:
     bg:
-      primary: "#0F172A"
-      secondary: "#1E293B"
+      primary: "#111111"
+      secondary: "#1A1A1A"
     text:
-      primary: "#FCD34D"
-      secondary: "#E2E8F0"
-      muted: "#94A3B8"
+      primary: "#D4AF37"
+      secondary: "#B89B72"
+      muted: "#786542"
     brand:
       primary: "#D4AF37"
-      accent: "#059669"
+      accent: "#C0C0C0"
     border:
       strong: "#D4AF37"
-    state:
-      success: "#059669"
-      warning: "#D4AF37"
-      error: "#DC2626"
+      subtle: "rgba(212, 175, 55, 0.2)"
     focus:
       ring: "#D4AF37"
   radius:
     none: 0
-    sm: 0
-    md: 0
-    lg: 0
-    circle: 9999
+    sm: 2
   border:
-    width:
-      thin: 1
-      medium: 2
-      thick: 4
+    width: { hairline: 1, medium: 1, strong: 2 }
   shadow:
-    gold: "0 0 30px rgba(212,175,55,0.4)"
-    hard: "8px 8px 0 rgba(0,0,0,0.3)"
+    gold_glow: "0 0 15px rgba(212, 175, 55, 0.3)"
   layout:
-    container:
-      content: 1080
-      wide: 1200
+    container: { content: 1100, wide: 1200 }
   motion:
-    duration:
-      fast: 150
-      normal: 300
+    duration: { fast: 300, normal: 600 }
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)"
+  typography:
+    font:
+      serif: { primary: "Cormorant Garamond", fallback: ["serif"] }
+      sans: { primary: "Montserrat", fallback: ["sans-serif"] }
+    scale:
+      h1: { size: 60, line: 68, weight: 600, tracking: 0.1 }
+      h2: { size: 44, line: 52, weight: 500, tracking: 0.05 }
+      body: { size: 18, line: 28, weight: 400, tracking: 0.02 }
+  spacing:
+    base: 12
+    section_py: { mobile: [80, 100], desktop: [120, 160] }
+\`\`\``,
+  },
+  'S14': {
+    paletteStrategy: 'Soft, organic colors. Muted pastels mixed with dark gold or charcoal.',
+    typography: 'Curvy, expressive serif fonts. Hand-lettered feel.',
+    radiusPolicy: 'Organic, asymmetrical rounding. Whimsical shapes.',
+    shadowPolicy: 'None or very soft, diffused shadows.',
+    borderLanguage: 'Floral motifs, flowing lines, and decorative ironwork borders.',
+    patterns: 'Vines, flowers, flowing hair motifs, and organic growth patterns.',
+    motion: 'Slow, flowing, rhythmic transitions.',
+    dos: ['Use flowing, organic lines', 'Incorporate floral motifs', 'Use expressive typography', 'Maintain a soft palette'],
+    donts: ['Don\'t use strict grids', 'Don\'t use harsh geometric shapes', 'Don\'t use high-saturation neons'],
+    tokens: `\`\`\`yaml
+tokens:
+  meta:
+    style_id: "S14"
+    style_name: "Art Nouveau"
+    industry: "SaaS/Creative"
+    use_case: "Full Landing Page"
+  color:
+    bg:
+      primary: "#FDFCF0"
+      secondary: "#F0EAD6"
+    text:
+      primary: "#2C3E50"
+      secondary: "#7F8C8D"
+      muted: "#95A5A6"
+    brand:
+      primary: "#8E44AD"
+      accent: "#27AE60"
+    border:
+      strong: "#D4AF37"
+      subtle: "rgba(212, 175, 55, 0.2)"
+    focus:
+      ring: "#8E44AD"
+  radius:
+    none: 0
+    sm: 12
+    md: 20
+    lg: 40
+    pill: 9999
+  border:
+    width: { hairline: 1, medium: 2, strong: 3 }
+  shadow:
+    soft: "0 10px 30px rgba(0,0,0,0.05)"
+  layout:
+    container: { content: 1100, wide: 1200 }
+  motion:
+    duration: { fast: 400, normal: 800 }
     easing: "cubic-bezier(0.4, 0, 0.2, 1)"
   typography:
     font:
-      sans: { primary: "Josefin Sans", fallback: ["sans-serif"] }
-      display: { primary: "Playfair Display", fallback: ["serif"] }
+      serif: { primary: "Fraunces", fallback: ["serif"] }
+      sans: { primary: "Quicksand", fallback: ["sans-serif"] }
     scale:
       h1: { size: 56, line: 64, weight: 600, tracking: 0.05 }
-      h2: { size: 42, line: 50, weight: 500, tracking: 0.03 }
-      h3: { size: 28, line: 36, weight: 500, tracking: 0.02 }
-      body: { size: 16, line: 26, weight: 400, tracking: 0.01 }
+      h2: { size: 40, line: 48, weight: 600, tracking: 0.02 }
+      body: { size: 18, line: 30, weight: 400, tracking: 0.05 }
+  spacing:
+    base: 10
+    section_py: { mobile: [80, 100], desktop: [140, 180] }
+\`\`\``,
+  },
+  'S15': {
+    paletteStrategy: 'Deep black, charcoal, and dark burgundy/purple. High drama.',
+    typography: 'Blackletter or tall, condensed serifs (UnifrakturMaguntia). Verticality.',
+    radiusPolicy: 'Sharp, pointed arches and zero-radius corners.',
+    shadowPolicy: 'Deep, heavy, dramatic shadows. Architectural depth.',
+    borderLanguage: 'Pointed arches, wrought iron borders, and heavy stonework.',
+    patterns: 'Stone textures, rose windows, and cross-hatching noise.',
+    motion: 'Heavy, dramatic, slow-paced transitions.',
+    dos: ['Use dramatic verticality', 'Apply heavy/dark palette', 'Incorporate architectural arches'],
+    donts: ['Don\'t use light/airy whitespace', 'Don\'t use rounded corners', 'Don\'t use playful colors'],
+    tokens: `\`\`\`yaml
+tokens:
+  meta:
+    style_id: "S15"
+    style_name: "Gothic"
+    industry: "SaaS/Creative"
+    use_case: "Full Landing Page"
+  color:
+    bg:
+      primary: "#000000"
+      secondary: "#0D0D0D"
+    text:
+      primary: "#E0E0E0"
+      secondary: "#8A8A8A"
+      muted: "#4A4A4A"
+    brand:
+      primary: "#800000"
+      accent: "#4B0082"
+    border:
+      strong: "#333333"
+      subtle: "#1A1A1A"
+    focus:
+      ring: "#800000"
+  radius:
+    none: 0
+    sm: 0
+    md: 0
+  border:
+    width: { hairline: 1, medium: 2, strong: 4 }
+  shadow:
+    dramatic: "0 10px 40px rgba(0,0,0,0.9)"
+  layout:
+    container: { content: 1100, wide: 1200 }
+  motion:
+    duration: { fast: 400, normal: 800 }
+    easing: "cubic-bezier(0.4, 0, 0.2, 1)"
+  typography:
+    font:
+      serif: { primary: "Cinzel Decorative", fallback: ["serif"] }
+      sans: { primary: "UnifrakturMaguntia", fallback: ["serif"] }
+    scale:
+      h1: { size: 60, line: 68, weight: 400, tracking: 0.1 }
+      h2: { size: 44, line: 52, weight: 400, tracking: 0.05 }
+      body: { size: 18, line: 30, weight: 400, tracking: 0.02 }
+  spacing:
+    base: 12
+    section_py: { mobile: [100, 120], desktop: [180, 240] }
 \`\`\``,
   },
   'S16': {
-    paletteStrategy: 'CMYK primaries, extremely vibrant and contrasting.',
-    typography: 'Bold comic fonts, Ben-Day dots.',
-    radiusPolicy: 'Standard rounding or sharp.',
-    shadowPolicy: 'Black halftone drop shadows.',
-    borderLanguage: 'Thick black outlines.',
-    patterns: 'Ben-Day dots, starbursts, stripes.',
-    motion: 'Pop-in, comic pow effects.',
-    dos: ['Use halftones', 'Use bold outlines', 'Be loud', 'Reference Lichtenstein/Warhol'],
-    donts: ['Don\'t use muted colors', 'Don\'t be subtle', 'Don\'t use realistic gradients', 'Don\'t take itself seriously'],
+    paletteStrategy: 'High-contrast "Electric Cyan" and "Void Black". Pure black backgrounds (#000000) with atmospheric depth.',
+    typography: 'Technical sans-serif (Orbitron) for headers. Wide-tracked mono (Rajdhani) for labels.',
+    radiusPolicy: 'Strict binary: 0px tactical or 100% (Circle) identity disks.',
+    shadowPolicy: 'Intense CSS Bloom mapping the glow of lightcycles.',
+    borderLanguage: 'Thin 1px "Light Streak" borders using varying opacities.',
+    patterns: '3D perspective grids, vertical light beams, and atmospheric digital fog.',
+    motion: 'Fast, data-driven linear sweeps. Light-speed transitions.',
+    dos: ['Use absolute black #000000', 'Prioritize lighting over color', 'Center a vertical light beam', 'Include recursive 3D planes'],
+    donts: ['Don\'t use border-radius (unless circles)', 'Don\'t use soft modern shadows', 'Don\'t use organic shapes'],
     tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S16"
-    style_name: "Pop Art"
-    industry: "SaaS"
+    style_name: "Cyberpunk / TRON"
+    industry: "High-Tech / Digital Frontier"
     use_case: "Full Landing Page"
   color:
     bg:
-      primary: "#FFFFFF"
-      secondary: "#F0F0F0"
-    text:
       primary: "#000000"
-      secondary: "#333333"
+      secondary: "#050505"
+      beam: "rgba(0, 229, 255, 0.15)"
+    text:
+      primary: "#FFFFFF"
+      secondary: "rgba(0, 229, 255, 0.7)"
+      glow: "#00E5FF"
     brand:
-      primary: "#EC008C"
-      accent: "#00ADEF"
+      primary: "#00E5FF"
+      accent: "#FF9100"
     border:
-      strong: "#000000"
-  radius:
-    none: 0
-    sm: 4
-    md: 8
-  border:
-    width:
-      outline: 4
+      glow: "rgba(0, 229, 255, 0.5)"
+  radius: { none: 0, disk: 9999 }
   shadow:
-    halftone: "8px 8px 0 #000"
+    bloom: "0 0 15px rgba(0, 229, 255, 0.8), 0 0 30px rgba(0, 229, 255, 0.4)"
+  motion:
+    duration: { fast: 100, normal: 300, beam: 2000 }
   typography:
     font:
-      sans: { primary: "Bangers", fallback: ["Impact"] }
-      body: { primary: "Comic Neue", fallback: ["cursive"] }
+      display: "Orbitron"
+      mono: "Rajdhani"
     scale:
-      h1: { size: 64, line: 68, weight: 400, tracking: 0.02 }
+      h1: { size: 72, tracking: 0.1, weight: 900 }
+      body: { size: 16, weight: 400 }
 \`\`\``,
   },
   'S17': {
-    paletteStrategy: 'Muted golds, olive greens, floral tones.',
-    typography: 'Ornamental, flowing Serif.',
-    radiusPolicy: 'Complex curves, floral motifs.',
-    shadowPolicy: 'Soft, natural shadows.',
-    borderLanguage: 'Intricate floral borders.',
-    patterns: 'Vines, flowers, Mucha-style curves.',
-    motion: 'Growing vines, elegant fades.',
-    dos: ['Use curves', 'Be ornamental', 'Reference nature', 'Use muted elegance'],
-    donts: ['Don\'t use straight lines', 'Don\'t use neon', 'Don\'t be minimal', 'Don\'t be industrial'],
+    paletteStrategy: 'Vibrant neon pinks, cyans, and purples against dark grays. High saturation.',
+    typography: 'Bold, geometric sans-serif (Bebas Neue) with glow effects. Retro-futuristic.',
+    radiusPolicy: 'Soft rounding (8-12px) for a retro-tech feel.',
+    shadowPolicy: 'Heavy colored glows (neon glows).',
+    borderLanguage: 'Glowing borders in secondary neon colors.',
+    patterns: 'Synthwave grids, sunbursts, scanlines.',
+    motion: 'Smooth, glowing transitions. Pulsing neon effects.',
+    dos: ['Use vibrant neon colors', 'Add synthwave grids', 'Include neon glow effects'],
+    donts: ['Don\'t use muted colors', 'Don\'t use sharp, brutalist edges'],
     tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S17"
-    style_name: "Art Nouveau"
-    industry: "SaaS"
+    style_name: "Retro 80s / Synthwave"
+    industry: "Entertainment"
     use_case: "Full Landing Page"
   color:
     bg:
-      primary: "#F5F5DC"
-      secondary: "#EADDCA"
+      primary: "#1A1A2E"
+      secondary: "#16213E"
     text:
-      primary: "#3D3D3D"
+      primary: "#00FFFF"
+      secondary: "#FF00FF"
     brand:
-      primary: "#C5A059"
-      accent: "#556B2F"
-    border:
-      strong: "#8B7355"
-  radius:
-    none: 0
-    sm: 8
-    md: 16
-    ornate: 16
+      primary: "#FF00FF"
+      accent: "#00FFFF"
+  radius: { md: 8 }
   shadow:
-    soft: "0 4px 16px rgba(0,0,0,0.1)"
+    neon: "0 0 20px #FF00FF"
   typography:
     font:
-      serif: { primary: "Cinzel Decorative", fallback: ["serif"] }
-      body: { primary: "Playfair Display", fallback: ["serif"] }
+      sans: { primary: "Bebas Neue", fallback: ["sans-serif"] }
     scale:
-      h1: { size: 52, line: 64, weight: 400, tracking: 0.02 }
+      h1: { size: 64, weight: 700 }
 \`\`\``,
   },
   'S18': {
-    paletteStrategy: 'Crimson red, deep blacks, dark purples. High contrast, dramatic lighting.',
-    typography: 'Ornate blackletter or gothic serif headings. Clean but elegant serif body.',
-    radiusPolicy: 'Sharp corners. Pointed arches (if possible in CSS shapes).',
-    shadowPolicy: 'Deep, dramatic drop shadows and inner glows.',
-    borderLanguage: 'Intricate, thick borders. Often framing content like a stained glass window.',
-    patterns: 'Damask textures, intricate lace, architectural motifs.',
-    motion: 'Slow, dramatic fades. Ethereal, floating movements.',
-    dos: ['Use dark, rich colors', 'Use elegant, ornate typography', 'Create a sense of drama', 'Use intricate borders'],
-    donts: ['Don\'t use bright, cheerful colors', 'Don\'t use modern, geometric grotesques', 'Don\'t make it looking flimsy', 'Don\'t skimp on contrast'],
+    paletteStrategy: 'Glossy and futuristic 2000s style. Frosted and iridescent colors.',
+    typography: 'Techno-style fonts (Michroma, Jura). Wide tracking.',
+    radiusPolicy: 'Large, rounded corners (16-32px). Liquid-like feel.',
+    shadowPolicy: 'Soft, glossy reflections and iridescent glows.',
+    borderLanguage: 'Translucent glassmorphic borders with iridescent highlights.',
+    patterns: 'Bubbles, spheres, translucent blobs, chrome textures.',
+    motion: 'Fluid, morphing animations. Energy-filled.',
+    dos: ['Use iridescent colors', 'Apply glossy reflections', 'Use large rounded corners'],
+    donts: ['Don\'t use flat colors', 'Don\'t use sharp corners', 'Don\'t use heavy solid borders'],
     tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S18"
-    style_name: "Gothic"
-    industry: "SaaS"
+    style_name: "Y2K Aesthetic"
+    industry: "Consumer Tech"
     use_case: "Full Landing Page"
   color:
     bg:
-      primary: "#0A0A0A"
-      secondary: "#1A1515"
-    text:
-      primary: "#EAEAEA"
+      primary: "#E5E7EB"
+      secondary: "#D1D5DB"
+      gradient: "linear-gradient(135deg, #FF00FF 0%, #00FFFF 100%)"
     brand:
-      primary: "#8B0000"
-      accent: "#4B0082"
-    border:
-      strong: "#8B0000"
-  radius:
-    none: 0
-    arch: "50% 50% 0 0 / 100% 100% 0 0"
+      primary: "#FF00FF"
+      accent: "#00FFFF"
+  radius: { lg: 32, pill: 9999 }
   shadow:
-    deep: "0 10px 30px rgba(0,0,0,0.8)"
+    gloss: "inset 0 2px 4px rgba(255,255,255,0.5), 0 4px 12px rgba(0,0,0,0.1)"
   typography:
     font:
-      serif: { primary: "UnifrakturMaguntia", fallback: ["serif"] }
-      body: { primary: "Crimson Text", fallback: ["serif"] }
+      sans: { primary: "Michroma" }
     scale:
-      h1: { size: 60, line: 68, weight: 400, tracking: 0 }
+      h1: { size: 56, weight: 600 }
 \`\`\``,
   },
 };

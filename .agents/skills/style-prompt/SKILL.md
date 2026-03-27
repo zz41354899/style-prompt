@@ -16,11 +16,11 @@ Identify the target `styleId` (S01-S30) based on the user's industry, desired mo
 
 | User Need | Recommended Style(s) | Key Aesthetic |
 | :--- | :--- | :--- |
-| **Clean & Professional** | S01, S09, S26 | Minimalist, Corporate, Trustbound |
-| **Luxury & Premium** | S13, S19, S22, S23 | Gold/Silver, Editorial, High-Contrast |
+| **Clean & Professional** | S01, S09, S26 | Minimalist, Corporate, Enterprise Blue |
+| **Luxury & Premium** | S13, S19, S22, S23 | Art Deco, Editorial, Gold, Silver |
 | **Futuristic & Tech** | S06, S16, S17, S29 | Bauhaus, Cyberpunk, Synthwave, Bio-Noir |
 | **Playful & Creative** | S10, S11, S12, S28 | Memphis, Neo-Brutalism, Doodle, Claymorphism |
-| **Natural & Soft** | S05, S20, S21, S30 | Japanese Minimal, Nature, Solarpark, Aurora |
+| **Natural & Soft** | S05, S20, S21, S30 | Japanese Minimal, Nature, Solarpunk, Aurora |
 
 ### Phase 2: DNA Extraction (Deep Reading)
 Locate and read the specific reference file in `.agents/skills/style-prompt/references/S[ID]-[Name].md`.
@@ -51,7 +51,7 @@ Access the full specification files using the links below:
 | **S13** | Art Deco | [S13-ArtDeco.md](./references/S13-ArtDeco.md) |
 | **S14** | Art Nouveau | [S14-ArtNouveau.md](./references/S14-ArtNouveau.md) |
 | **S15** | Gothic | [S15-Gothic.md](./references/S15-Gothic.md) |
-| **S16** | Cyberpunk | [S16-Cyberpunk.md](./references/S16-Cyberpunk.md) |
+| **S16** | Cyberpunk / TRON | [S16-Cyberpunk.md](./references/S16-Cyberpunk.md) |
 | **S17** | Retro 80s (Synthwave) | [S17-Synthwave.md](./references/S17-Synthwave.md) |
 | **S18** | Y2K Aesthetic | [S18-Y2K.md](./references/S18-Y2K.md) |
 | **S19** | Luxury Editorial | [S19-LuxuryEditorial.md](./references/S19-LuxuryEditorial.md) |

@@ -39,36 +39,36 @@ const allConfigs = {
 
 // 精選 30 個風格的 ID 列表與其原始配置 ID 的映射
 const styleIdMapping: Record<string, string> = {
-  'S01': 'S01', // Tech Minimal
-  'S02': 'S02', // Minimalist Monochrome
-  'S03': 'S03', // Swiss Design
-  'S04': 'S04', // Brutalist
-  'S05': 'S05', // Japanese Minimal
-  'S06': 'S06', // Bauhaus
-  'S07': 'S07', // Glassmorphism
-  'S08': 'S08', // Dark Mode Elegance
-  'S09': 'S09', // Corporate Clean
-  'S10': 'S11', // Memphis
-  'S11': 'S12', // Neo-Brutalism
-  'S12': 'S13', // Doodle Sketch
-  'S13': 'S15', // Art Deco
-  'S14': 'S17', // Art Nouveau
-  'S15': 'S18', // Gothic
-  'S16': 'S19', // Cyberpunk
-  'S17': 'S20', // Retro 80s (Synthwave)
-  'S18': 'S22', // Y2K Aesthetic
-  'S19': 'S25', // Luxury Editorial
-  'S20': 'S26', // Nature Organic
-  'S21': 'S27', // Solarpunk
-  'S22': 'S29', // Luxury Gold
-  'S23': 'S30', // Luxury Silver
-  'S24': 'S31', // Minimalist Serif
-  'S25': 'S32', // Startup Vibrant
-  'S26': 'S33', // Enterprise Blue
-  'S27': 'S34', // Fintech Trust
-  'S28': 'S40', // Claymorphism
-  'S29': 'S45', // Cyber-Bio Noir
-  'S30': 'S46', // Aurora Borealis
+  'S01': 'S01',
+  'S02': 'S02',
+  'S03': 'S03',
+  'S04': 'S04',
+  'S05': 'S05',
+  'S06': 'S06',
+  'S07': 'S07',
+  'S08': 'S08',
+  'S09': 'S09',
+  'S10': 'S10',
+  'S11': 'S11',
+  'S12': 'S12',
+  'S13': 'S13',
+  'S14': 'S14',
+  'S15': 'S15',
+  'S16': 'S16',
+  'S17': 'S17',
+  'S18': 'S18',
+  'S19': 'S19',
+  'S20': 'S20',
+  'S21': 'S21',
+  'S22': 'S22',
+  'S23': 'S23',
+  'S24': 'S24',
+  'S25': 'S25',
+  'S26': 'S26',
+  'S27': 'S27',
+  'S28': 'S28',
+  'S29': 'S29',
+  'S30': 'S30',
 };
 
 // 只導出精選的 30 個風格配置

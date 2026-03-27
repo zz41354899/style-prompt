@@ -1,10 +1,10 @@
 {
   "name": "style-prompt-skill",
-  "version": "1.0.0",
-  "description": "30+ UI Design Styles for AI Agents (Cursor, Windsurf, Claude Code)",
+  "version": "1.1.0",
+  "description": "30+ High-Fidelity UI Design Styles for AI Agents (Cursor, Windsurf, Claude Code)",
   "main": "SKILL.md",
   "bin": {
-    "style-prompt": "./bin/cli.js"
+    "style-prompt-skill": "./bin/cli.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,9 +19,10 @@
     "design",
     "styles",
     "tailwind",
-    "react"
+    "react",
+    "uiprompt"
   ],
-  "author": "",
+  "author": "zz41354899",
   "license": "MIT",
   "dependencies": {
     "fs-extra": "^11.3.4",
