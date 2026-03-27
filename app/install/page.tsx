@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SubPageLayout } from '@/components/SubPageLayout';
-import { Terminal, Copy, Check, Zap, Cpu, Layers } from 'lucide-react';
+import { Terminal, Copy, Check, Zap, Cpu, Layers, Github, ExternalLink, Package } from 'lucide-react';
 
 export default function InstallPage() {
     const { t } = useTranslation();
@@ -58,7 +58,7 @@ export default function InstallPage() {
                         <Terminal className="w-8 h-8 text-purple-500" />
                         {t('pages.install.quickStart.title')}
                     </h2>
-                    
+
                     <div className="space-y-10">
                         <div className="p-8 rounded-[2rem] bg-white/[0.02] border border-white/5">
                             <h3 className="text-xl font-bold mb-2">{t('pages.install.quickStart.npx.title')}</h3>
@@ -122,6 +122,47 @@ export default function InstallPage() {
                             <code className="text-purple-400 text-sm block mb-2 font-mono">references/</code>
                             <p className="text-sm text-white/40">{t('pages.install.structure.item2')}</p>
                         </div>
+                    </div>
+                </section>
+
+                {/* Source Links */}
+                <section>
+                    <h2 className="text-2xl font-bold mb-8">{t('pages.install.links.title')}</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <a
+                            href="https://github.com/zz41354899/style-prompt"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 flex items-center justify-between group hover:bg-white/[0.04] hover:border-purple-500/30 transition-all"
+                        >
+                            <div className="flex items-center gap-4">
+                                <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-purple-500/20 transition-colors">
+                                    <Github className="w-5 h-5" />
+                                </div>
+                                <div>
+                                    <h4 className="font-bold mb-0.5">{t('pages.install.links.github')}</h4>
+                                    <p className="text-xs text-white/30 font-mono">github.com/zz41354899/style-prompt</p>
+                                </div>
+                            </div>
+                            <ExternalLink className="w-4 h-4 text-white/20 group-hover:text-white transition-colors" />
+                        </a>
+                        <a
+                            href="https://www.npmjs.com/package/style-prompt-skill"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 flex items-center justify-between group hover:bg-white/[0.04] hover:border-purple-500/30 transition-all"
+                        >
+                            <div className="flex items-center gap-4">
+                                <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-red-500/20 transition-colors">
+                                    <Package className="w-5 h-5 text-white group-hover:text-red-400" />
+                                </div>
+                                <div>
+                                    <h4 className="font-bold mb-0.5">{t('pages.install.links.npm')}</h4>
+                                    <p className="text-xs text-white/30 font-mono">npmjs.com/package/style-prompt-skill</p>
+                                </div>
+                            </div>
+                            <ExternalLink className="w-4 h-4 text-white/20 group-hover:text-white transition-colors" />
+                        </a>
                     </div>
                 </section>
 

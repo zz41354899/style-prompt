@@ -618,6 +618,7 @@
       "a3": "This is a completely free open-source project! If you find it helpful, feel free to support us via 'Buy Me a Coffee' to help us continue developing more features and styles."
     },
     "footer": {
+      "tagline": "Design system library built for AI-powered design.",
       "description": "Your AI visual style library. 30 curated styles, one-click prompt generation, accelerating your UI development.",
       "system": "Product",
       "coreTech": "Style Library",
@@ -628,6 +629,8 @@
       "privacy": "Privacy Policy",
       "terms": "Terms of Use",
       "coffee": "Support Us",
+      "support": "Support Us",
+      "rights": "All rights reserved.",
       "copyright": "© 2026 STYLEPROMPTS. Visual Style Library."
     }
   },
@@ -674,6 +677,11 @@
         "title": "Structure",
         "item1": "SKILL.md: The main entry point for AI agents.",
         "item2": "references/: 30 individual markdown files containing Design DNA, tokens, and prompts."
+      },
+      "links": {
+        "title": "Source Links",
+        "github": "GitHub Source",
+        "npm": "NPM Package"
       }
     },
     "coreTech": {

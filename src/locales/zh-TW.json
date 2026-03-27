@@ -628,6 +628,7 @@
       "a3": "這是一個完全免費的開源專案！如果您覺得有幫助，歡迎透過「專屬支持」支持我們，讓我們能持續開發更多功能和風格。"
     },
     "footer": {
+      "tagline": "為 AI 設計而生的風格系統資源庫",
       "description": "您的 AI 視覺風格資源庫。30 種精選風格,一鍵生成高品質提示詞,加速您的 UI 開發流程.",
       "system": "產品",
       "coreTech": "風格庫",
@@ -638,6 +639,8 @@
       "privacy": "隱私政策",
       "terms": "使用條款",
       "coffee": "專屬支持",
+      "support": "專屬支持",
+      "rights": "保留所有權利。",
       "copyright": " 2026 STYLEPROMPTS. 視覺風格資源庫."
     }
   },
@@ -684,6 +687,11 @@
         "title": "結構",
         "item1": "SKILL.md：AI Agents 的主要進入點。",
         "item2": "references/：30 個獨立的 markdown 檔案，包含設計 DNA、Token 和提示詞。"
+      },
+      "links": {
+        "title": "來源連結",
+        "github": "GitHub 原始碼",
+        "npm": "NPM 套件"
       }
     },
     "coreTech": {
