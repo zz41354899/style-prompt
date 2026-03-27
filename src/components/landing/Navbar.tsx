@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
-import { ChevronRight, Sparkles } from 'lucide-react';
+import { ChevronRight, Coffee } from 'lucide-react';
 import { BaseNavbar } from '@/components/shared';
 
 interface NavbarProps {
@@ -31,11 +31,11 @@ export const Navbar: React.FC<NavbarProps> = ({
             currentLang={currentLang}
             extraNavLinks={
                 <Link
-                    href="/pro"
-                    className="flex items-center gap-1.5 text-purple-400 hover:text-purple-300 transition-colors"
+                    href="/coffee"
+                    className="flex items-center gap-1.5 text-amber-400 hover:text-amber-300 transition-colors"
                 >
-                    <Sparkles className="w-3.5 h-3.5" />
-                    Pro
+                    <Coffee className="w-3.5 h-3.5" />
+                    贊助咖啡
                 </Link>
             }
             rightContent={
@@ -49,13 +49,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             }
             mobileExtraContent={
                 <>
-                    <Link
-                        href="/pro"
-                        className="flex items-center gap-2 w-full py-3 text-purple-400 font-medium border-b border-white/5"
-                    >
-                        <Sparkles className="w-4 h-4" />
-                        Pro 版本
-                    </Link>
                     <Link
                         href="/S01"
                         className="block w-full py-4 bg-purple-600 text-white text-sm font-bold rounded-2xl hover:bg-purple-500 active:bg-purple-700 transition-all text-center mt-4"

@@ -4,87 +4,38 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Copy, Check, Terminal, Loader2, Crown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { styles, hasProVersion } from '../data/styles';
+import { styles } from '../data/styles';
 import { assemblePrompt } from '@/lib/promptEngine';
-import { ProUpgradePrompt } from './pro';
 
 interface PromptModalProps {
   styleId: string;
   isOpen: boolean;
   onClose: () => void;
-  tier?: 'free' | 'pro';
-  hasPro?: boolean; // 是否已購買 Pro
 }
 
 export const PromptModal: React.FC<PromptModalProps> = ({
   styleId,
   isOpen,
   onClose,
-  tier = 'free',
-  hasPro = false
 }) => {
   const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
   const [promptText, setPromptText] = useState('');
   const [isCopying, setIsCopying] = useState(false);
-  const [showUpgradePrompt, setShowUpgradePrompt] = useState(false);
 
   const currentStyle = styles.find(s => s.id === styleId);
-  const isProStyle = currentStyle ? hasProVersion(currentStyle.id) : false;
-  const needsProAccess = isProStyle && tier === 'pro' && !hasPro;
 
   useEffect(() => {
     if (!isOpen || !currentStyle) return;
 
-    // 如果是 Pro 風格且未購買，顯示升級提示
-    if (needsProAccess) {
-      setShowUpgradePrompt(true);
-      return;
-    }
-
     const generatePrompt = async () => {
       try {
-        // Pro 模式：先呼叫後端驗證（包含試用範圍檢查）
-        if (tier === 'pro') {
-          const response = await fetch('/api/promo-guard', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ styleId: currentStyle.id, tier: 'pro' }),
-          });
-
-          const data = await response.json();
-
-          if (!response.ok) {
-            console.warn('[PromptModal] Access denied:', data);
-            // 如果是試用限制，顯示升級提示
-            if (data.trialLimit) {
-              setShowUpgradePrompt(true);
-              return;
-            }
-            // 其他錯誤：降級到 Free 版
-            const prompt = assemblePrompt({
-              styleId: currentStyle.id,
-              industryId: 'SaaS',
-              useId: 'FullLandingPage',
-              tier: 'free',
-            });
-            setPromptText(prompt);
-            return;
-          }
-
-          // 驗證通過（可能是 Pro 或試用範圍內）
-          console.log('[PromptModal] Access granted:', data.isTrial ? 'Trial' : 'Pro');
-        }
-
-        // 驗證通過，生成提示詞
         const prompt = assemblePrompt({
           styleId: currentStyle.id,
           industryId: 'SaaS',
           useId: 'FullLandingPage',
-          tier: hasPro ? tier : 'free',
         });
         setPromptText(prompt);
-
       } catch (err) {
         console.error('Failed to generate prompt', err);
         setPromptText(t('promptModal.generateFailed') || 'Failed to generate prompt');
@@ -92,15 +43,9 @@ export const PromptModal: React.FC<PromptModalProps> = ({
     };
 
     generatePrompt();
-  }, [isOpen, currentStyle, tier, hasPro, needsProAccess, t]);
+  }, [isOpen, currentStyle, t]);
 
   const handleCopy = async () => {
-    // 如果是 Pro 風格且未購買，顯示升級提示
-    if (needsProAccess) {
-      setShowUpgradePrompt(true);
-      return;
-    }
-
     try {
       setIsCopying(true);
       await navigator.clipboard.writeText(promptText);
@@ -121,20 +66,6 @@ export const PromptModal: React.FC<PromptModalProps> = ({
   };
 
   if (!currentStyle) return null;
-
-  // 如果需要升級，顯示升級提示
-  if (showUpgradePrompt && needsProAccess) {
-    return (
-      <ProUpgradePrompt
-        isOpen={true}
-        onClose={() => {
-          setShowUpgradePrompt(false);
-          onClose();
-        }}
-        styleName={currentStyle.name}
-      />
-    );
-  }
 
   return (
     <AnimatePresence>
@@ -170,12 +101,6 @@ export const PromptModal: React.FC<PromptModalProps> = ({
                   <span className="hidden md:inline">prompt_generator.exe</span>
                   <span className="hidden md:inline text-white/20">/</span>
                   <span className="text-white/60 font-medium truncate">{currentStyle.name}</span>
-                  {isProStyle && hasPro && (
-                    <span className="px-1.5 py-0.5 bg-purple-600 text-white text-[10px] font-bold rounded flex items-center gap-1">
-                      <Crown className="w-2.5 h-2.5" />
-                      Pro
-                    </span>
-                  )}
                 </div>
               </div>
               <button
@@ -201,7 +126,6 @@ export const PromptModal: React.FC<PromptModalProps> = ({
                     </div>
                     <div>// Target: SaaS Full Landing Page</div>
                     <div>// Output: Markdown</div>
-                    {isProStyle && hasPro && <div className="text-purple-400">// License: Pro</div>}
                   </div>
                   <pre className="text-sm font-mono text-[#d4d4d4] whitespace-pre-wrap break-words leading-relaxed pb-8 pr-2">
                     <span className="text-green-500/50 select-none mr-2">{'>'}</span>

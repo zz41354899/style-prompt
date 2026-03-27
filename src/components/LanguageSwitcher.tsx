@@ -45,14 +45,5 @@ export const LanguageSwitcher = ({ variant = 'floating' }: LanguageSwitcherProps
     );
   }
 
-  return (
-    <button
-      onClick={toggleLanguage}
-      className="hidden md:flex fixed bottom-6 right-6 z-50 items-center justify-center gap-2 px-4 py-3 bg-white hover:bg-gray-100 text-black rounded-full shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 border border-gray-200"
-      title={isZh ? 'Switch to English' : '切換至中文'}
-    >
-      <Globe size={20} />
-      <span className="font-medium">{isZh ? 'EN' : '中文'}</span>
-    </button>
-  );
+  return null;
 };

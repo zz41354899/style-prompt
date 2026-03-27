@@ -29,9 +29,7 @@ export const StyleRenderer: React.FC<StyleRendererProps> = ({
             try {
                 // 動態導入 index 來避免循環引用
                 const stylesModule = await import('./index');
-                const componentMap = variant === 'pro' 
-                    ? stylesModule.styleComponentsPro 
-                    : stylesModule.styleComponents;
+                const componentMap = stylesModule.styleComponents;
                 
                 if (!cancelled) {
                     const LoadedComponent = componentMap[styleId];

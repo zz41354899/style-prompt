@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { use, useState, useEffect } from 'react';
+import { use } from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeft } from 'lucide-react';
@@ -15,26 +15,8 @@ export default function FullStylePage({
 }) {
     const { styleId } = use(params);
     const { t } = useTranslation();
-    const [deviceMode, setDeviceMode] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
     const SelectedComponent = styleComponents[styleId];
     const currentStyle = styles.find(s => s.id === styleId);
-
-    useEffect(() => {
-        const updateDeviceMode = () => {
-            const width = window.innerWidth;
-            if (width < 768) {
-                setDeviceMode('mobile');
-            } else if (width < 1024) {
-                setDeviceMode('tablet');
-            } else {
-                setDeviceMode('desktop');
-            }
-        };
-
-        updateDeviceMode();
-        window.addEventListener('resize', updateDeviceMode);
-        return () => window.removeEventListener('resize', updateDeviceMode);
-    }, []);
 
     if (!SelectedComponent || !currentStyle) {
         return (
@@ -51,7 +33,7 @@ export default function FullStylePage({
             transition={{ duration: 0.5 }}
             className="min-h-screen bg-[#030303] relative"
         >
-            <SelectedComponent deviceMode={deviceMode} />
+            <SelectedComponent />
 
             {/* Floating Right Dock */}
             <div className="fixed right-6 top-1/2 -translate-y-1/2 z-50">

@@ -1,35 +1,103 @@
 # StylePrompts
 
-一個現代化的設計風格展示與提示詞生成工具，提供 16 種專業設計風格的完整提示詞模板，支援響應式預覽和一鍵複製功能。
+一個現代化的設計風格展示與提示詞生成工具，提供 **50 種精選專業設計風格**的完整提示詞模板，支援產業分類篩選、響應式預覽和一鍵複製功能。
 
 ## ✨ 功能特色
 
-- 🎨 **16 種設計風格**：涵蓋從極簡主義到賽博龐克的各種設計風格
-- 📱 **響應式預覽**：支援桌面和手機版預覽，使用 iframe 隔離展示
+- 🎨 **50 種精選設計風格**：從 101 個風格中精選出最實用的 50 個專業設計風格
+- 🏢 **產業分類系統**：12 個產業分類，快速找到適合您行業的設計風格
+- � **智能篩選**：支援產業、模式（Light/Dark）和關鍵字搜尋
+- � **響應式預覽**：支援桌面和手機版預覽，使用 iframe 隔離展示
 - 📋 **一鍵複製**：快速複製完整的設計提示詞到剪貼板
-- 🔍 **動態載入**：提示詞內容動態載入，優化性能
 - 🎯 **專業提示詞**：每種風格都包含詳細的設計規範和技術指南
-- 💻 **現代化 UI**：基於 React + TypeScript + Tailwind CSS 的現代化介面
+- 💻 **現代化 UI**：基於 Next.js + TypeScript + Tailwind CSS 的現代化介面
 - 🌙 **深色主題**：專業的深色主題設計，提升使用體驗
+- ✨ **風格瀏覽器**：全新的風格瀏覽頁面，提供更好的瀏覽體驗
 
-## 🎨 包含的設計風格
+## 🎨 精選 50 個設計風格
 
-1. **S01 - Tech Minimal**：科技極簡風格，乾淨俐落的介面設計
-2. **S02 - Minimalist Monochrome**：極簡黑白編輯風格，強調排版與對比
-3. **S03 - Mondrian / De Stijl**：蒙德里安風格，幾何色塊與直線構成
-4. **S04 - Swiss / International Typographic**：瑞士國際字體風格，網格系統與無襯線字體
-5. **S05 - Brutalist**：粗獷主義，原始、大膽、不修飾的設計
-6. **S06 - Cyberpunk**：賽博龐克，霓虹燈光與未來科技感
-7. **S07 - Retro 80s (Synthwave)**：80年代復古合成波，漸層霓虹與網格
-8. **S08 - Retro 60s–70s (Print Grain)**：60-70年代印刷風格，復古色調與顆粒質感
-9. **S09 - Memphis**：Memphis 設計，幾何圖形與鮮豔色彩
-10. **S10 - Luxury Editorial**：奢華編輯風格，優雅襯線字體與精緻排版
-11. **S11 - Japanese Minimal**：日式極簡，留白美學與禪意設計
-12. **S12 - Nature Organic**：自然有機風格，柔和曲線與大地色系
-13. **S13 - Material-ish**：Material Design 風格，陰影層次與色彩系統
-14. **S14 - Glassmorphism**：玻璃擬態，毛玻璃效果與透明層次
-15. **S15 - Neumorphism**：新擬態設計，柔和陰影與凸起效果
-16. **S16 - Terminal / Hacker**：終端機風格，綠色文字與駭客美學
+### 現代科技 (10 個)
+- **S01 - Tech Minimal** - 科技極簡風格
+- **S02 - Minimalist Monochrome** - 極簡黑白編輯風格
+- **S04 - Swiss / International Typographic** - 瑞士國際字體風格
+- **S05 - Brutalist** - 粗獷主義
+- **S11 - Japanese Minimal** - 日式極簡
+- **S13 - Material-ish** - Material Design 風格
+- **S14 - Glassmorphism** - 玻璃擬態
+- **S22 - Dark Mode Elegance** - 深色模式優雅風格
+- **S79 - Corporate Clean** - 企業清爽風格
+- **S99 - Material 3** - Material 3 設計
+
+### 創意藝術 (8 個)
+- **S09 - Memphis** - Memphis 設計
+- **S17 - Bauhaus Modernism** - 包浩斯現代主義
+- **S23 - Doodle Sketch** - 塗鴉素描風格
+- **S24 - Minimalist Line Art** - 極簡線條藝術
+- **S29 - Art Deco** - 裝飾藝術
+- **S52 - Pop Art** - 普普藝術
+- **S54 - Art Nouveau** - 新藝術風格
+- **S78 - Gothic** - 哥德式風格
+
+### 復古懷舊 (6 個)
+- **S06 - Cyberpunk** - 賽博龐克
+- **S07 - Retro 80s (Synthwave)** - 80年代合成波
+- **S08 - Retro 60s–70s (Print Grain)** - 60-70年代印刷風格
+- **S27 - Y2K Aesthetic** - Y2K 美學
+- **S32 - Windows 95** - Windows 95 風格
+- **S68 - Steampunk** - 蒸汽龐克
+
+### 電商生活 (7 個)
+- **S10 - Luxury Editorial** - 奢華編輯風格
+- **S12 - Nature Organic** - 自然有機風格
+- **S28 - Solarpunk** - 太陽龐克
+- **S84 - Eco / Green** - 生態環保風格
+- **S87 - Luxury Gold** - 奢華金色
+- **S88 - Luxury Silver** - 奢華銀色
+- **S89 - Minimalist Serif** - 極簡襯線風格
+
+### 金融企業 (5 個)
+- **S80 - Startup Vibrant** - 新創活力風格
+- **S81 - Enterprise Blue** - 企業藍色
+- **S82 - Fintech Trust** - 金融科技信任風格
+- **S95 - Data Dashboard** - 數據儀表板
+- **S30 - Industrial** - 工業風格
+
+### 健康教育 (4 個)
+- **S83 - Health / Medical** - 醫療保健風格
+- **S85 - Kids / Playful** - 兒童趣味風格
+- **S19 - Aesthetic Harmony** - 美學和諧
+- **S21 - Claymorphism** - 黏土擬態
+
+### 技術開發 (5 個)
+- **S16 - Terminal / Hacker** - 終端機風格
+- **S94 - Code Editor** - 程式碼編輯器風格
+- **S92 - OLED** - OLED 顯示風格
+- **S96 - HUD** - 抬頭顯示器風格
+- **S67 - Cybernetic** - 機械電子風格
+
+### 特效風格 (5 個)
+- **S20 - Aurora Borealis** - 極光風格
+- **S34 - Holographic** - 全息投影風格
+- **S33 - Liquid Metal** - 液態金屬風格
+- **S97 - Frosted Glass (Strong)** - 強毛玻璃風格
+- **S98 - Acrylic** - 壓克力風格
+
+## 🏢 產業分類
+
+每個風格都標記了適用的產業，方便快速找到最適合的設計風格：
+
+- **Tech/SaaS** - 科技與 SaaS 產品
+- **E-commerce** - 電子商務
+- **Creative/Agency** - 創意與設計公司
+- **Finance** - 金融服務
+- **Health/Medical** - 醫療保健
+- **Education** - 教育培訓
+- **Entertainment** - 娛樂媒體
+- **Luxury/Fashion** - 奢侈品與時尚
+- **Food/Restaurant** - 餐飲美食
+- **Real Estate** - 房地產
+- **Non-profit** - 非營利組織
+- **Corporate** - 企業公司
 
 ## 🚀 快速開始
 

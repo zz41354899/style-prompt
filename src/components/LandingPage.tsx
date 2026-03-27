@@ -11,16 +11,13 @@ import {
     WorkflowBento,
     FaqSection,
     CtaSection,
-    ContactSection,
-    Footer,
-    BentoModal,
-    PromoTopBar,
-    type BentoItem
+    Footer
 } from './landing';
+import { WorkflowModal } from './landing/WorkflowModal';
 
 export const LandingPage: React.FC = () => {
     const { t, i18n } = useTranslation();
-    const [selectedBento, setSelectedBento] = useState<number | null>(null);
+    const [selectedWorkflow, setSelectedWorkflow] = useState<number | null>(null);
 
     const toggleLanguage = () => {
         const nextLang = i18n.language === 'zh-TW' ? 'en' : 'zh-TW';
@@ -44,18 +41,8 @@ export const LandingPage: React.FC = () => {
         }
     };
 
-    // Bento items for WorkflowBento and BentoModal
-    const bentoItems: BentoItem[] = [
-        { id: 1, title: t('landing.workflow.b1.title'), desc: t('landing.workflow.b1.desc'), icon: <Monitor className="w-5 h-5 text-purple-400" /> },
-        { id: 2, title: t('landing.workflow.b2.title'), desc: t('landing.workflow.b2.desc'), icon: <Layers className="w-5 h-5 text-purple-400" /> },
-        { id: 3, title: t('landing.workflow.b3.title'), desc: t('landing.workflow.b3.desc'), icon: <Zap className="w-5 h-5 text-purple-400" /> },
-        { id: 4, title: t('landing.workflow.b4.title'), desc: t('landing.workflow.b4.desc'), icon: <Database className="w-5 h-5 text-purple-400" /> }
-    ];
-
     return (
         <div className="min-h-screen bg-[#030303] text-white selection:bg-purple-500/30">
-            {/* Pro Promo Top Bar */}
-            <PromoTopBar />
 
             {/* Background Gradients */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none">
@@ -87,7 +74,14 @@ export const LandingPage: React.FC = () => {
             <FeaturesSection />
 
             {/* Workflow Bento Grid */}
-            <WorkflowBento onSelectBento={setSelectedBento} />
+            <WorkflowBento onSelectBento={setSelectedWorkflow} />
+
+            {/* Workflow Modal */}
+            <WorkflowModal 
+                isOpen={selectedWorkflow !== null}
+                onClose={() => setSelectedWorkflow(null)}
+                workflowId={selectedWorkflow}
+            />
 
             {/* FAQ Section */}
             <FaqSection />
@@ -95,18 +89,9 @@ export const LandingPage: React.FC = () => {
             {/* Final CTA Section */}
             <CtaSection />
 
-            {/* Contact Section */}
-            <ContactSection />
 
             {/* Footer */}
             <Footer />
-
-            {/* Bento Modal */}
-            <BentoModal
-                selectedBento={selectedBento}
-                bentoItems={bentoItems}
-                onClose={() => setSelectedBento(null)}
-            />
         </div>
     );
 };

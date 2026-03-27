@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Languages, ChevronRight, Menu, X, Sparkles } from 'lucide-react';
+import { Languages, ChevronRight, Menu, X } from 'lucide-react';
 
 export interface BaseNavbarProps {
     variant: 'free' | 'pro';
@@ -32,52 +32,25 @@ export const BaseNavbar: React.FC<BaseNavbarProps> = ({
 }) => {
     const { t } = useTranslation();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [promoBarVisible, setPromoBarVisible] = useState(true);
-
-    const isPro = variant === 'pro';
-
-    // 監聽滾動，與 PromoTopBar 保持同步
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 100) {
-                setPromoBarVisible(false);
-            } else {
-                setPromoBarVisible(true);
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
 
     const handleLogoClick = (e: React.MouseEvent) => {
         e.preventDefault();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    // Free 版本：PromoBar 顯示時 top-10，隱藏時 top-0
-    // Pro 版本：始終 top-0
-    const topPosition = isPro ? 'top-0' : (promoBarVisible ? 'top-10' : 'top-0');
-
     return (
-        <nav className={`fixed ${topPosition} left-0 right-0 z-50 ${isPro ? 'bg-[#030303]/80' : 'bg-[#030303]/70'} backdrop-blur-xl border-b ${isPro ? 'border-white/[0.08]' : 'border-white/5'} supports-[backdrop-filter]:bg-[#030303]/60 transition-all duration-300`}>
+        <nav className="fixed top-0 left-0 right-0 z-50 bg-[#030303]/70 backdrop-blur-xl border-b border-white/5 supports-[backdrop-filter]:bg-[#030303]/60">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     {/* Logo */}
                     <Link
-                        href={isPro ? '/pro' : '/'}
+                        href="/"
                         onClick={handleLogoClick}
                         className="flex items-center space-x-2 group"
                     >
                         <span className="text-xl font-bold tracking-tight">
                             Style<span className="text-purple-400">Prompts</span>
                         </span>
-                        {isPro && (
-                            <span className="px-2 py-0.5 bg-purple-600 text-white text-[10px] font-black uppercase rounded-full flex items-center gap-1">
-                                <Sparkles className="w-3 h-3" />
-                                Pro
-                            </span>
-                        )}
                     </Link>
 
                     {/* Desktop Nav */}

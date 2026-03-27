@@ -12,14 +12,12 @@ export interface BaseFooterProps {
 
 export const BaseFooter: React.FC<BaseFooterProps> = ({ variant }) => {
     const { t } = useTranslation();
-    const isPro = variant === 'pro';
 
     const currentYear = new Date().getFullYear();
 
     const footerLinks = [
         { label: t('landing.footer.features'), href: '#features' },
         { label: t('landing.footer.faq'), href: '#faq' },
-        { label: t('landing.footer.pricing'), href: isPro ? '#pricing' : '/pro' },
     ];
 
     const legalLinks = [
@@ -28,7 +26,7 @@ export const BaseFooter: React.FC<BaseFooterProps> = ({ variant }) => {
     ];
 
     return (
-        <footer className={`relative py-16 border-t ${isPro ? 'border-white/[0.08] bg-[#030303]' : 'border-white/5 bg-[#0a0a0a]'}`}>
+        <footer className="relative py-16 border-t border-white/5 bg-[#0a0a0a]">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-8">
                     {/* Logo & Brand */}
@@ -38,9 +36,8 @@ export const BaseFooter: React.FC<BaseFooterProps> = ({ variant }) => {
                         viewport={{ once: true }}
                         className="flex flex-col items-center md:items-start"
                     >
-                        <Link href={isPro ? '/pro' : '/'} className="text-2xl font-bold tracking-tight mb-2">
+                        <Link href="/" className="text-2xl font-bold tracking-tight mb-2">
                             Style<span className="text-purple-400">Prompts</span>
-                            {isPro && <span className="ml-2 text-sm text-purple-400 font-normal">Pro</span>}
                         </Link>
                         <p className="text-sm text-white/40">{t('landing.footer.tagline')}</p>
                     </motion.div>

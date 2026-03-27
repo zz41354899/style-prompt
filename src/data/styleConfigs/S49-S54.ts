@@ -2,193 +2,59 @@ import type { StyleDNAConfig } from './types';
 
 export const S49_S54_Configs: Record<string, StyleDNAConfig> = {
   'S49': {
-    paletteStrategy: 'Washed out pastels, translucent layers, paper textures.',
-    typography: 'Artistic Serif or handwritten Script.',
-    radiusPolicy: 'Organic, bleeding edges.',
-    shadowPolicy: 'Soft, diffuse spreading shadows (wet look).',
-    borderLanguage: 'None or rough irregular pencil lines.',
-    patterns: 'Paper grain, paint splashes, wet edges.',
-    motion: 'Flowing, seeping, slow fade-ins.',
-    dos: ['Use texture', 'Layer transparencies', 'Be subtle', 'Use natural colors'],
-    donts: ['Don\'t use sharp vectors', 'Don\'t use harsh blacks', 'Don\'t be rigid', 'Don\'t use solid fills'],
+    paletteStrategy: 'Strongly translucent white/gray backgrounds over colorful gradient patterns. High-blur glass effect.',
+    typography: 'Modern, high-visibility sans-serif. Clean and legible.',
+    radiusPolicy: 'Soft, large rounding (20-32px) for a "melty" glass look.',
+    shadowPolicy: 'Subtle, diffused shadows to separate glass layers.',
+    borderLanguage: 'Translucent 1px borders (glass edges).',
+    patterns: 'Heavy background blurs, colorful blobs behind glass.',
+    motion: 'Smooth, slow parallax or floating effects.',
+    dos: ['Use heavy blur (20px+)', 'Apply translucent borders', 'Layer glass elements', 'Use vibrant background colors'],
+    donts: ['Don\'t use opaque blocks', 'Don\'t use low blur', 'Don\'t use harsh black borders', 'Don\'t clutter'],
     tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S49"
-    style_name: "Watercolor"
+    style_name: "Frosted Glass (Strong)"
     industry: "SaaS"
     use_case: "Full Landing Page"
   color:
-    bg:
-      primary: "#FFFAF0"
-      secondary: "#F5F5DC"
-      paper: "#F5F5DC"
-    text:
-      primary: "#4A4A4A"
-      secondary: "#6A6A6A"
-      muted: "#8A8A8A"
-    brand:
-      primary: "rgba(65, 105, 225, 0.7)"
-      accent: "rgba(255, 182, 193, 0.8)"
-    paint:
-      blue: "rgba(65, 105, 225, 0.5)"
-      pink: "rgba(255, 182, 193, 0.6)"
-      green: "rgba(144, 238, 144, 0.4)"
-      yellow: "rgba(255, 255, 150, 0.5)"
-    border:
-      strong: "rgba(74,74,74,0.3)"
-      subtle: "rgba(74,74,74,0.1)"
-    state:
-      success: "rgba(144, 238, 144, 0.7)"
-      warning: "rgba(255, 200, 100, 0.7)"
-      error: "rgba(255, 100, 100, 0.7)"
-    focus:
-      ring: "rgba(65, 105, 225, 0.5)"
-  radius:
-    none: 0
-    sm: 12
-    md: 20
-    lg: 32
-    organic: "30% 70% 70% 30% / 30% 30% 70% 70%"
-  border:
-    width:
-      hairline: 1
-      medium: 2
-      strong: 3
-  shadow:
-    wet: "0 8px 32px rgba(100,100,100,0.15)"
-    soft: "0 4px 16px rgba(0,0,0,0.08)"
-  layout:
-    container:
-      content: 1000
-      wide: 1120
-    grid:
-      desktop: 12
-      tablet: 8
-      mobile: 4
-    gutter:
-      mobile: 16
-      desktop: 24
-  motion:
-    duration:
-      fast: 500
-      normal: 1000
-    easing: "ease-in-out"
+    bg: { primary: "rgba(255, 255, 255, 0.4)", secondary: "rgba(255, 255, 255, 0.2)" }
+    brand: { primary: "#6366F1", accent: "#EC4899" }
+  radius: { lg: 32 }
+  blur: { strong: "blur(20px)" }
+  shadow: { glass: "0 8px 32px rgba(0,0,0,0.1)" }
   typography:
-    font:
-      serif:
-        primary: "Amatic SC"
-        fallback:
-          - "cursive"
-      body:
-        primary: "Lato"
-        fallback:
-          - "sans-serif"
-    scale:
-      h1: { size: 56, line: 68, weight: 700, tracking: 0.02 }
-      h2: { size: 42, line: 54, weight: 600, tracking: 0.01 }
-      h3: { size: 28, line: 38, weight: 600, tracking: 0 }
-      body: { size: 16, line: 28, weight: 400, tracking: 0 }
-      small: { size: 14, line: 22, weight: 400, tracking: 0 }
-  spacing:
-    base: 8
-    section_py:
-      mobile: [64, 80]
-      desktop: [112, 144]
+    font: { sans: { primary: "Inter", fallback: ["sans-serif"] } }
+    scale: { h1: { size: 56, line: 64, weight: 600 } }
 \`\`\``,
   },
   'S50': {
-    paletteStrategy: 'Mixed media colors, newsprint greys, bright cutouts.',
-    typography: 'Ransom note style, mixed fonts.',
-    radiusPolicy: 'Rough cut edges (scissors).',
-    shadowPolicy: 'Hard drop shadows to suggest layered paper.',
-    borderLanguage: 'White paper borders, torn edges.',
-    patterns: 'Halftones, ripped paper, tape textures.',
-    motion: 'Stop motion, jerky movements.',
-    dos: ['Mix retro photos', 'Use tape textures', 'Overlapping elements', 'Look handmade'],
-    donts: ['Don\'t align perfectly', 'Don\'t be clean', 'Don\'t use flat digital colors', 'Don\'t use gradients'],
+    paletteStrategy: 'Windows Fluent inspired. Semi-transparent noise-textured surfaces. Adaptive dark/light.',
+    typography: 'System fonts (Segoe UI/Inter). Precise and clear.',
+    radiusPolicy: 'Small radius (4-8px) for a modern software look.',
+    shadowPolicy: 'Soft, layered shadows. Depth through transparency.',
+    borderLanguage: 'Reflective 1px borders.',
+    patterns: 'Acrylic noise/grain texture, soft focus backgrounds.',
+    motion: 'Fast, responsive, native-feeling transitions.',
+    dos: ['Use acrylic transparency', 'Add subtle noise texture', 'Keep corners clean and small', 'Prioritize readability'],
+    donts: ['Don\'t over-blur like glassmorphism', 'Don\'t use large organic blobs', 'Don\'t use clashing colors', 'Don\'t use heavy textures'],
     tokens: `\`\`\`yaml
 tokens:
   meta:
     style_id: "S50"
-    style_name: "Collage"
+    style_name: "Acrylic"
     industry: "SaaS"
     use_case: "Full Landing Page"
   color:
-    bg:
-      primary: "#EAEAEA"
-      secondary: "#F5F5F5"
-    text:
-      primary: "#1A1A1A"
-      secondary: "#4A4A4A"
-      muted: "#7A7A7A"
-    brand:
-      primary: "#D32F2F"
-      accent: "#FBC02D"
-    accent:
-      red: "#D32F2F"
-      yellow: "#FBC02D"
-      tape: "rgba(255, 255, 255, 0.6)"
-    border:
-      strong: "#1A1A1A"
-      subtle: "#AAAAAA"
-    state:
-      success: "#388E3C"
-      warning: "#FBC02D"
-      error: "#D32F2F"
-    focus:
-      ring: "#1A1A1A"
-  radius:
-    none: 0
-    sm: 2
-    md: 4
-    lg: 8
-    rough: 2
-  border:
-    width:
-      paper: 2
-      medium: 3
-      strong: 4
-  shadow:
-    paper: "4px 4px 0 rgba(0,0,0,0.2)"
-    stack: "6px 6px 0 rgba(0,0,0,0.25)"
-  layout:
-    container:
-      content: 1080
-      wide: 1200
-    grid:
-      desktop: 12
-      tablet: 8
-      mobile: 4
-    gutter:
-      mobile: 16
-      desktop: 24
-  motion:
-    duration:
-      fast: 100
-      normal: 200
-    easing: "steps(3)"
+    bg: { primary: "rgba(255, 255, 255, 0.7)", secondary: "rgba(243, 244, 246, 0.5)" }
+    brand: { primary: "#0078D4", accent: "#2B2B2B" }
+  radius: { sm: 4, md: 8 }
+  blur: { acrylic: "blur(30px)" }
+  shadow: { soft: "0 4px 12px rgba(0,0,0,0.05)" }
   typography:
-    font:
-      display:
-        primary: "Abril Fatface"
-        fallback:
-          - "serif"
-      body:
-        primary: "Permanent Marker"
-        fallback:
-          - "cursive"
-    scale:
-      h1: { size: 56, line: 64, weight: 400, tracking: 0 }
-      h2: { size: 40, line: 48, weight: 400, tracking: 0 }
-      h3: { size: 28, line: 36, weight: 400, tracking: 0 }
-      body: { size: 16, line: 26, weight: 400, tracking: 0 }
-      small: { size: 14, line: 22, weight: 400, tracking: 0 }
-  spacing:
-    base: 8
-    section_py:
-      mobile: [48, 64]
-      desktop: [80, 104]
+    font: { sans: { primary: "Segoe UI", fallback: ["Inter", "sans-serif"] } }
+    scale: { h1: { size: 48, line: 56, weight: 600 } }
 \`\`\``,
   },
   'S51': {
@@ -209,81 +75,13 @@ tokens:
     industry: "SaaS"
     use_case: "Full Landing Page"
   color:
-    bg:
-      primary: "#FFFFFF"
-      secondary: "#FDFBF7"
-    text:
-      primary: "#2C3E50"
-      secondary: "#4A5568"
-      muted: "#718096"
-    brand:
-      primary: "#2C3E50"
-      accent: "#E74C3C"
-    ink:
-      primary: "#2C3E50"
-      accent: "#E74C3C"
-      blue: "#3B82F6"
-    border:
-      strong: "#2C3E50"
-      subtle: "rgba(44,62,80,0.3)"
-    state:
-      success: "#48BB78"
-      warning: "#ECC94B"
-      error: "#E74C3C"
-    focus:
-      ring: "#2C3E50"
-  radius:
-    none: 0
-    sm: 4
-    md: 8
-    lg: 16
-    sketch: "255px 15px 225px 15px / 15px 225px 15px 255px"
-  border:
-    width:
-      stroke: 2
-      medium: 3
-      strong: 4
-  shadow:
-    sketch: "2px 2px 0 rgba(44,62,80,0.1)"
-    none: "none"
-  layout:
-    container:
-      content: 960
-      wide: 1080
-    grid:
-      desktop: 12
-      tablet: 8
-      mobile: 4
-    gutter:
-      mobile: 16
-      desktop: 24
-  motion:
-    duration:
-      fast: 300
-      normal: 600
-    easing: "ease-out"
+    bg: { primary: "#FFFFFF", secondary: "#FDFBF7" }
+    brand: { primary: "#2C3E50", accent: "#E74C3C" }
+  radius: { sketch: "255px 15px 225px 15px / 15px 225px 15px 255px" }
+  border: { width: { stroke: 2 } }
   typography:
-    font:
-      sans:
-        primary: "Patrick Hand"
-        fallback:
-          - "Caveat"
-          - "cursive"
-      display:
-        primary: "Kalam"
-        fallback:
-          - "cursive"
-    scale:
-      h1: { size: 52, line: 64, weight: 400, tracking: 0 }
-      h2: { size: 40, line: 52, weight: 400, tracking: 0 }
-      h3: { size: 28, line: 38, weight: 400, tracking: 0 }
-      body: { size: 18, line: 30, weight: 400, tracking: 0 }
-      small: { size: 16, line: 26, weight: 400, tracking: 0 }
-  spacing:
-    base: 8
-    section_py:
-      mobile: [56, 72]
-      desktop: [96, 120]
+    font: { sans: { primary: "Patrick Hand", fallback: ["cursive"] } }
+    scale: { h1: { size: 52, line: 64, weight: 400 } }
 \`\`\``,
   },
   'S52': {
@@ -304,82 +102,14 @@ tokens:
     industry: "SaaS"
     use_case: "Full Landing Page"
   color:
-    bg:
-      primary: "#FFFFFF"
-      secondary: "#F0F0F0"
-    text:
-      primary: "#000000"
-      secondary: "#333333"
-      muted: "#666666"
-    brand:
-      primary: "#EC008C"
-      accent: "#00ADEF"
-    accent:
-      cyan: "#00ADEF"
-      magenta: "#EC008C"
-      yellow: "#FFF200"
-      black: "#000000"
-    border:
-      strong: "#000000"
-      subtle: "#333333"
-    state:
-      success: "#00FF00"
-      warning: "#FFF200"
-      error: "#FF0000"
-    focus:
-      ring: "#00ADEF"
-  radius:
-    none: 0
-    sm: 4
-    md: 8
-    lg: 16
-  border:
-    width:
-      outline: 4
-      medium: 6
-      strong: 8
-  shadow:
-    halftone: "8px 8px 0 #000"
-    pop: "12px 12px 0 #000"
-  layout:
-    container:
-      content: 1080
-      wide: 1200
-    grid:
-      desktop: 12
-      tablet: 8
-      mobile: 4
-    gutter:
-      mobile: 16
-      desktop: 24
-  motion:
-    duration:
-      fast: 150
-      normal: 300
-    easing: "cubic-bezier(0.68, -0.55, 0.27, 1.55)"
+    bg: { primary: "#FFFFFF", secondary: "#F0F0F0" }
+    brand: { primary: "#EC008C", accent: "#00ADEF" }
+  radius: { md: 8 }
+  border: { width: { outline: 4 } }
+  shadow: { halftone: "8px 8px 0 #000" }
   typography:
-    font:
-      sans:
-        primary: "Bangers"
-        fallback:
-          - "Impact"
-          - "sans-serif"
-      body:
-        primary: "Comic Neue"
-        fallback:
-          - "Comic Sans MS"
-          - "cursive"
-    scale:
-      h1: { size: 64, line: 68, weight: 400, tracking: 0.02 }
-      h2: { size: 48, line: 52, weight: 400, tracking: 0.01 }
-      h3: { size: 32, line: 38, weight: 400, tracking: 0 }
-      body: { size: 16, line: 26, weight: 400, tracking: 0 }
-      small: { size: 14, line: 22, weight: 400, tracking: 0 }
-  spacing:
-    base: 8
-    section_py:
-      mobile: [56, 72]
-      desktop: [96, 120]
+    font: { sans: { primary: "Bangers", fallback: ["Impact"] } }
+    scale: { h1: { size: 64, line: 68, weight: 400 } }
 \`\`\``,
   },
   'S53': {
@@ -400,81 +130,13 @@ tokens:
     industry: "SaaS"
     use_case: "Full Landing Page"
   color:
-    bg:
-      primary: "#1A1A1A"
-      secondary: "#333333"
-    text:
-      primary: "#FFFFFF"
-      secondary: "#E0E0E0"
-      muted: "#999999"
-    brand:
-      primary: "#39FF14"
-      accent: "#FF00FF"
-    spray:
-      green: "#39FF14"
-      pink: "#FF00FF"
-      cyan: "#00FFFF"
-      yellow: "#FFFF00"
-    border:
-      strong: "#39FF14"
-      subtle: "rgba(57,255,20,0.3)"
-    state:
-      success: "#39FF14"
-      warning: "#FFFF00"
-      error: "#FF0040"
-    focus:
-      ring: "#39FF14"
-  radius:
-    none: 0
-    sm: 4
-    md: 8
-    lg: 16
-  border:
-    width:
-      spray: 3
-      medium: 4
-      strong: 6
-  shadow:
-    spray: "0 0 20px rgba(57,255,20,0.5)"
-    drip: "0 8px 0 rgba(0,0,0,0.3)"
-  layout:
-    container:
-      content: 1080
-      wide: 1200
-    grid:
-      desktop: 12
-      tablet: 8
-      mobile: 4
-    gutter:
-      mobile: 16
-      desktop: 24
-  motion:
-    duration:
-      fast: 200
-      normal: 400
-    easing: "ease-out"
+    bg: { primary: "#1A1A1A", secondary: "#111" }
+    brand: { primary: "#39FF14", accent: "#FF00FF" }
+  radius: { none: 0 }
+  shadow: { spray: "0 0 20px rgba(57,255,20,0.5)" }
   typography:
-    font:
-      sans:
-        primary: "Creepster"
-        fallback:
-          - "Permanent Marker"
-          - "cursive"
-      display:
-        primary: "Bungee Shade"
-        fallback:
-          - "sans-serif"
-    scale:
-      h1: { size: 64, line: 72, weight: 400, tracking: 0.03 }
-      h2: { size: 48, line: 56, weight: 400, tracking: 0.02 }
-      h3: { size: 32, line: 40, weight: 400, tracking: 0.01 }
-      body: { size: 16, line: 26, weight: 400, tracking: 0 }
-      small: { size: 14, line: 22, weight: 400, tracking: 0 }
-  spacing:
-    base: 8
-    section_py:
-      mobile: [56, 72]
-      desktop: [96, 120]
+    font: { sans: { primary: "Creepster", fallback: ["cursive"] } }
+    scale: { h1: { size: 64, line: 72, weight: 400 } }
 \`\`\``,
   },
   'S54': {
@@ -495,81 +157,13 @@ tokens:
     industry: "SaaS"
     use_case: "Full Landing Page"
   color:
-    bg:
-      primary: "#F5F5DC"
-      secondary: "#EADDCA"
-    text:
-      primary: "#3D3D3D"
-      secondary: "#5A5A5A"
-      muted: "#7A7A7A"
-    brand:
-      primary: "#C5A059"
-      accent: "#556B2F"
-    accent:
-      gold: "#C5A059"
-      green: "#556B2F"
-      red: "#8B4513"
-    border:
-      strong: "#8B7355"
-      subtle: "#C4B896"
-    state:
-      success: "#556B2F"
-      warning: "#C5A059"
-      error: "#8B4513"
-    focus:
-      ring: "#C5A059"
-  radius:
-    none: 0
-    sm: 8
-    md: 16
-    lg: 24
-    ornate: 16
-  border:
-    width:
-      delicate: 1
-      medium: 2
-      ornate: 3
-  shadow:
-    soft: "0 4px 16px rgba(0,0,0,0.1)"
-    nature: "0 8px 24px rgba(107,85,53,0.15)"
-  layout:
-    container:
-      content: 1000
-      wide: 1120
-    grid:
-      desktop: 12
-      tablet: 8
-      mobile: 4
-    gutter:
-      mobile: 16
-      desktop: 24
-  motion:
-    duration:
-      fast: 400
-      normal: 800
-    easing: "ease-in-out"
+    bg: { primary: "#F5F5DC", secondary: "#EADDCA" }
+    brand: { primary: "#C5A059", accent: "#556B2F" }
+  radius: { ornate: 16 }
+  shadow: { soft: "0 4px 16px rgba(0,0,0,0.1)" }
   typography:
-    font:
-      serif:
-        primary: "Cinzel Decorative"
-        fallback:
-          - "serif"
-      body:
-        primary: "Playfair Display"
-        fallback:
-          - "Georgia"
-          - "serif"
-    scale:
-      h1: { size: 52, line: 64, weight: 400, tracking: 0.02 }
-      h2: { size: 40, line: 52, weight: 400, tracking: 0.01 }
-      h3: { size: 28, line: 38, weight: 400, tracking: 0 }
-      body: { size: 16, line: 28, weight: 400, tracking: 0 }
-      small: { size: 14, line: 22, weight: 400, tracking: 0 }
-  spacing:
-    base: 8
-    section_py:
-      mobile: [64, 80]
-      desktop: [112, 144]
+    font: { serif: { primary: "Cinzel Decorative", fallback: ["serif"] } }
+    scale: { h1: { size: 52, line: 64, weight: 400 } }
 \`\`\``,
   },
 };

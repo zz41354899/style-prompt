@@ -20,20 +20,19 @@ export const SubPageLayout: React.FC<SubPageLayoutProps> = ({
     variant = 'free'
 }) => {
     const { t, i18n } = useTranslation();
-    const isPro = variant === 'pro';
 
     const toggleLanguage = () => {
         const nextLang = i18n.language === 'zh-TW' ? 'en' : 'zh-TW';
         i18n.changeLanguage(nextLang);
     };
 
-    const homeLink = isPro ? '/pro' : '/';
-    const editorLink = isPro ? '/pro/S01' : '/S01';
-    const backText = isPro ? t('pro.legal.backToHome') : t('pages.backToHome');
-    const ctaText = isPro ? t('pro.hero.browseCTA') : t('landing.nav.enterEditor');
-    const copyrightKey = isPro ? 'pro.footer.copyright' : 'landing.footer.copyright';
-    const bgGradient1 = isPro ? 'bg-purple-900/10' : 'bg-purple-900/5';
-    const bgGradient2 = isPro ? 'bg-fuchsia-900/10' : 'bg-blue-900/5';
+    const homeLink = '/';
+    const editorLink = '/S01';
+    const backText = t('pages.backToHome');
+    const ctaText = t('landing.nav.enterEditor');
+    const copyrightKey = 'landing.footer.copyright';
+    const bgGradient1 = 'bg-purple-900/5';
+    const bgGradient2 = 'bg-blue-900/5';
 
     return (
         <div className="min-h-screen bg-[#030303] text-white selection:bg-purple-500/30">
@@ -48,19 +47,9 @@ export const SubPageLayout: React.FC<SubPageLayoutProps> = ({
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16">
                         <Link href={homeLink} className="flex items-center gap-2 group">
-                            {isPro && (
-                                <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-fuchsia-600 rounded-lg flex items-center justify-center">
-                                    <Sparkles className="w-4 h-4 text-white" />
-                                </div>
-                            )}
                             <span className="text-xl font-bold tracking-tight">
                                 Style<span className="text-purple-400">Prompts</span>
                             </span>
-                            {isPro && (
-                                <span className="px-2 py-0.5 bg-purple-500/20 border border-purple-500/30 rounded text-[10px] font-black text-purple-300 tracking-wider">
-                                    PRO
-                                </span>
-                            )}
                         </Link>
 
                         <div className="flex items-center space-x-4">

@@ -1,17 +1,12 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { hasProVersion } from '@/data/styles';
-import { useDeviceMode, type DeviceMode } from '@/hooks/useDeviceMode';
 
-// Re-export type
-export type { DeviceMode } from '@/hooks/useDeviceMode';
-export type PreviewTier = 'free' | 'pro';
+export type PreviewTier = 'free';
+export type DeviceMode = 'desktop' | 'tablet' | 'mobile';
 
 export interface LayoutContextType {
-    deviceMode: DeviceMode;
-    setDeviceMode: (mode: DeviceMode) => void;
     selectedStyle: string;
     previewTier: PreviewTier;
     setPreviewTier: (tier: PreviewTier) => void;
@@ -53,18 +48,10 @@ interface LayoutProviderProps {
 export const LayoutProvider: React.FC<LayoutProviderProps> = ({ children }) => {
     const pathname = usePathname();
     const router = useRouter();
-    const { deviceMode, setDeviceMode } = useDeviceMode();
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [previewTier, setPreviewTier] = useState<PreviewTier>('free');
 
     const selectedStyle = extractStyleId(pathname);
-
-    // Update previewTier when selectedStyle changes
-    useEffect(() => {
-        if (previewTier === 'pro' && !hasProVersion(selectedStyle)) {
-            setPreviewTier('free');
-        }
-    }, [selectedStyle, previewTier]);
 
     const handleStyleSelect = (newStyleId: string) => {
         router.push(`/${newStyleId}`);
@@ -73,8 +60,6 @@ export const LayoutProvider: React.FC<LayoutProviderProps> = ({ children }) => {
     return (
         <LayoutContext.Provider
             value={{
-                deviceMode,
-                setDeviceMode,
                 selectedStyle,
                 previewTier,
                 setPreviewTier,

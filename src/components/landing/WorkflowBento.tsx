@@ -14,7 +14,7 @@ export interface BentoItem {
 }
 
 interface WorkflowBentoProps {
-    onSelectBento: (id: number) => void;
+    onSelectBento?: (id: number) => void;
 }
 
 export const WorkflowBento: React.FC<WorkflowBentoProps> = ({ onSelectBento }) => {
@@ -55,8 +55,8 @@ export const WorkflowBento: React.FC<WorkflowBentoProps> = ({ onSelectBento }) =
                                 key={item.id}
                                 variants={fadeIn}
                                 whileHover={{ scale: 0.995 }}
-                                onClick={() => onSelectBento(item.id)}
-                                className={`${isLarge ? 'md:col-span-8' : 'md:col-span-4'} bg-[#0a0a0a] rounded-[2.5rem] p-10 border border-white/5 flex flex-col group text-left transition-all hover:bg-white/[0.02] hover:border-purple-500/20 relative overflow-hidden`}
+                                onClick={() => onSelectBento?.(item.id)}
+                                className={`${isLarge ? 'md:col-span-8' : 'md:col-span-4'} bg-[#0a0a0a] rounded-[2.5rem] p-10 border border-white/5 flex flex-col group text-left transition-all hover:bg-white/[0.02] hover:border-purple-500/20 relative overflow-hidden cursor-pointer`}
                             >
                                 <div className={`mb-8 ${isLarge ? 'max-w-sm' : ''}`}>
                                     <h3 className="text-2xl font-bold mb-3 text-white">{item.title}</h3>

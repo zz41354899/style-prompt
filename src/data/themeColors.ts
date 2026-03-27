@@ -1,106 +1,35 @@
 // 主題顏色映射 - 每個樣式 ID 對應的主題色
 export const themeColors: Record<string, string> = {
-    'S01': '#3B82F6',
-    'S02': '#6B7280',
-    'S03': 'rgb(0, 71, 171)',
-    'S04': '#E53935',
-    'S05': '#00FF66',
-    'S06': '#22D3EE',
-    'S07': '#FF4FD8',
-    'S08': '#FF6B35',
-    'S09': '#FFEB3B',
-    'S10': '#8B7355',
-    'S11': '#D4A574',
-    'S12': '#8B7355',
-    'S13': '#6750A4',
-    'S14': '#A855F7',
-    'S15': '#E4E9F0',
-    'S16': '#58a6ff',
-    'S17': '#FF0000',
-    'S18': 'rgb(92, 255, 177)',
-    'S19': '#8B5CF6',
-    'S20': '#00D9FF',
-    'S21': '#D4A574',
-    'S22': '#00D9FF',
-    'S23': '#FF6B9D',
-    'S24': '#06B6D4',
-    'S25': '#F97316',
-    'S26': '#10B981',
-    'S27': '#EC4899',
-    'S28': '#8B5CF6',
-    'S29': '#14B8A6',
-    'S30': '#F59E0B',
-    'S31': '#EF4444',
-    'S32': '#6366F1',
-    'S33': '#84CC16',
-    'S34': '#F472B6',
-    'S35': '#22D3EE',
-    'S36': '#A78BFA',
-    'S37': '#FB923C',
-    'S38': '#4ADE80',
-    'S39': '#F87171',
-    'S40': '#818CF8',
-    'S41': '#FCD34D',
-    'S42': '#2DD4BF',
-    'S43': '#FB7185',
-    'S44': '#A3E635',
-    'S45': '#38BDF8',
-    'S46': '#C084FC',
-    'S47': '#FBBF24',
-    'S48': '#34D399',
-    'S49': '#F472B6',
-    'S50': '#60A5FA',
-    'S51': '#A855F7',
-    'S52': '#FCA5A5',
-    'S53': '#86EFAC',
-    'S54': '#93C5FD',
-    'S55': '#D8B4FE',
-    'S56': '#FDE047',
-    'S57': '#5EEAD4',
-    'S58': '#FDA4AF',
-    'S59': '#BEF264',
-    'S60': '#7DD3FC',
-    'S61': '#E879F9',
-    'S62': '#FDBA74',
-    'S63': '#6EE7B7',
-    'S64': '#A5B4FC',
-    'S65': '#F9A8D4',
-    'S66': '#FEF08A',
-    'S67': '#99F6E4',
-    'S68': '#FECACA',
-    'S69': '#D9F99D',
-    'S70': '#BAE6FD',
-    'S71': '#F5D0FE',
-    'S72': '#FED7AA',
-    'S73': '#A7F3D0',
-    'S74': '#C7D2FE',
-    'S75': '#FBCFE8',
-    'S76': '#FEF9C3',
-    'S77': '#A5F3FC',
-    'S78': '#FECDD3',
-    'S79': '#D4D4D8',
-    'S80': '#E2E8F0',
-    'S81': '#FF6B6B',
-    'S82': '#4ECDC4',
-    'S83': '#FFE66D',
-    'S84': '#95E1D3',
-    'S85': '#F38181',
-    'S86': '#AA96DA',
-    'S87': '#FCBAD3',
-    'S88': '#FFFFD2',
-    'S89': '#A8D8EA',
-    'S90': '#AA96DA',
-    'S91': '#FCBAD3',
-    'S92': '#FFE5B4',
-    'S93': '#98D8C8',
-    'S94': '#F7DC6F',
-    'S95': '#BB8FCE',
-    'S96': '#85C1E9',
-    'S97': '#F1948A',
-    'S98': '#82E0AA',
-    'S99': '#6750A4',
-    'S100': '#F39C12',
-    'S101': '#C41E3A',
+  'S01': '#3B82F6', // Tech Minimal
+  'S02': '#6B7280', // Minimalist Monochrome
+  'S03': 'rgb(0, 71, 171)', // Swiss
+  'S04': '#E53935', // Brutalist
+  'S05': '#00FF66', // Japanese Minimal
+  'S06': '#22D3EE', // Bauhaus
+  'S07': '#FF4FD8', // Glassmorphism
+  'S08': '#FF6B35', // Dark Mode Elegance
+  'S09': '#FFEB3B', // Corporate Clean
+  'S10': '#D4A574', // Memphis (Old S11)
+  'S11': '#8B7355', // Neo-Brutalism (Old S12)
+  'S12': '#6750A4', // Doodle Sketch (Old S13)
+  'S13': '#E4E9F0', // Art Deco (Old S15)
+  'S14': '#FF0000', // Art Nouveau (Old S17)
+  'S15': 'rgb(92, 255, 177)', // Gothic (Old S18)
+  'S16': '#8B5CF6', // Cyberpunk (Old S19)
+  'S17': '#00D9FF', // Synthwave (Old S20)
+  'S18': '#00D9FF', // Y2K (Old S22)
+  'S19': '#F97316', // Luxury Editorial (Old S25)
+  'S20': '#10B981', // Nature Organic (Old S26)
+  'S21': '#EC4899', // Solarpunk (Old S27)
+  'S22': '#14B8A6', // Luxury Gold (Old S29)
+  'S23': '#F59E0B', // Luxury Silver (Old S30)
+  'S24': '#EF4444', // Minimalist Serif (Old S31)
+  'S25': '#6366F1', // Startup Vibrant (Old S32)
+  'S26': '#84CC16', // Enterprise Blue (Old S33)
+  'S27': '#F472B6', // Fintech Trust (Old S34)
+  'S28': '#4ADE80', // Claymorphism (Old S40)
+  'S29': '#DC2626', // Cyber-Bio Noir (Old S45)
+  'S30': '#C084FC', // Aurora Borealis (Old S46)
 };
 
 // 取得樣式主題色，若不存在則回傳預設色

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
@@ -8,17 +8,11 @@ import { X, Menu, Home, Eye } from 'lucide-react';
 import { styles } from '@/data/styles';
 import { getThemeColor } from '@/data/themeColors';
 import { useLayoutContext } from './LayoutContext';
-import { useAuth } from '@/components/providers/AuthProvider';
-import { UserDropdown } from './UserDropdown';
-import { AuthModal } from '@/components/common';
 
 export const Header: React.FC = () => {
     const pathname = usePathname();
     const { t } = useTranslation();
     const { selectedStyle, sidebarOpen, setSidebarOpen } = useLayoutContext();
-    const { user, loading } = useAuth();
-
-    const [authModalOpen, setAuthModalOpen] = useState(false);
 
     const currentStyle = styles.find(s => s.id === selectedStyle);
     const themeColor = getThemeColor(selectedStyle);
@@ -32,7 +26,7 @@ export const Header: React.FC = () => {
 
     return (
         <>
-            <header className="flex-shrink-0 h-12 md:h-14 border-b border-white/10 bg-[#0a0a0a] flex items-center justify-between px-2 md:px-4 lg:px-6 pb-6">
+            <header className="flex-shrink-0 h-12 md:h-14 border-b border-white/10 bg-[#0a0a0a] flex items-center justify-between px-2 md:px-4 lg:px-6 pb-6 mt-2 md:mt-3">
                 {/* Left Logo */}
                 <div className="flex items-center gap-2 md:gap-3 flex-shrink-0">
                     <button
@@ -91,7 +85,7 @@ export const Header: React.FC = () => {
                     </Link>
                 </div>
 
-                {/* Right - 只保留樣式顯示和頭像 */}
+                {/* Right - 樣式顯示 */}
                 <div className="flex items-center gap-3">
                     {/* Current Style Display */}
                     {currentStyle && (
@@ -105,19 +99,8 @@ export const Header: React.FC = () => {
                             </div>
                         </div>
                     )}
-
-                    {/* Auth - 只顯示用戶頭像 */}
-                    {!loading && user && (
-                        <UserDropdown />
-                    )}
                 </div>
             </header>
-
-            <AuthModal
-                isOpen={authModalOpen}
-                onClose={() => setAuthModalOpen(false)}
-                defaultMode="signin"
-            />
         </>
     );
 };
