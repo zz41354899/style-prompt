@@ -7,12 +7,12 @@ import { QueryProvider } from '@/components/providers/QueryProvider';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://styleprompts.com'),
+  metadataBase: new URL('https://styleprompt.zeabur.app/'),
   title: {
     default: 'StylePrompts - AI 視覺風格提示詞資源庫',
     template: '%s | StylePrompts',
   },
-  description: '您的 AI 視覺風格資源庫。100+ 種精選風格，一鍵複製高品質提示詞，加速您的 UI 開發流程。支援 ChatGPT、Claude、Cursor 等主流 AI 工具。',
+  description: '您的 AI 視覺風格資源庫。30 種精選風格，一鍵複製高品質提示詞，加速您的 UI 開發流程。支援 ChatGPT、Claude、Cursor 等主流 AI 工具。',
   keywords: [
     'AI',
     'UI 設計',
@@ -45,24 +45,24 @@ export const metadata: Metadata = {
     type: 'website',
     siteName: 'StylePrompts',
     title: 'StylePrompts - AI 視覺風格提示詞資源庫',
-    description: '100+ 種精選視覺風格，一鍵複製高品質提示詞，加速您的 UI 開發流程。',
+    description: '30 種精選視覺風格，一鍵複製高品質提示詞，加速您的 UI 開發流程。',
     locale: 'zh_TW',
     alternateLocale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'StylePrompts - AI 視覺風格提示詞資源庫',
-    description: '100+ 種精選視覺風格，一鍵複製高品質提示詞，加速您的 UI 開發流程。',
+    description: '30 種精選視覺風格，一鍵複製高品質提示詞，加速您的 UI 開發流程。',
     creator: '@styleprompts',
   },
   verification: {
     google: 'your-google-verification-code',
   },
   alternates: {
-    canonical: 'https://styleprompts.com',
+    canonical: 'https://styleprompt.zeabur.app/',
     languages: {
-      'zh-TW': 'https://styleprompts.com',
-      'en': 'https://styleprompts.com',
+      'zh-TW': 'https://styleprompt.zeabur.app/',
+      'en': 'https://styleprompt.zeabur.app/',
     },
   },
   category: 'technology',

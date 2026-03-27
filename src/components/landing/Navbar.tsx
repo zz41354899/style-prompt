@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
+import { motion } from 'framer-motion';
 import { ChevronRight, Coffee } from 'lucide-react';
 import { BaseNavbar } from '@/components/shared';
 
@@ -30,13 +31,25 @@ export const Navbar: React.FC<NavbarProps> = ({
             toggleLanguage={toggleLanguage}
             currentLang={currentLang}
             extraNavLinks={
-                <Link
-                    href="/coffee"
-                    className="flex items-center gap-1.5 text-amber-400 hover:text-amber-300 transition-colors"
-                >
-                    <Coffee className="w-3.5 h-3.5" />
-                    贊助咖啡
-                </Link>
+                <>
+                    <Link
+                        href="/install"
+                        className="hover:text-white transition-colors relative group"
+                    >
+                        {t('landing.nav.install')}
+                        <motion.span
+                            className="absolute -bottom-1 left-0 w-0 h-px bg-purple-500"
+                            whileHover={{ width: '100%' }}
+                        />
+                    </Link>
+                    <Link
+                        href="/coffee"
+                        className="flex items-center gap-1.5 text-amber-400 hover:text-amber-300 transition-colors"
+                    >
+                        <Coffee className="w-3.5 h-3.5" />
+                        {t('layout.buyMeACoffee')}
+                    </Link>
+                </>
             }
             rightContent={
                 <Link
@@ -49,6 +62,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             }
             mobileExtraContent={
                 <>
+                    <Link
+                        href="/install"
+                        className="block w-full py-3 text-left text-white/60 hover:text-white active:text-purple-400 transition-colors font-medium border-b border-white/5"
+                    >
+                        {t('landing.nav.install')}
+                    </Link>
                     <Link
                         href="/S01"
                         className="block w-full py-4 bg-purple-600 text-white text-sm font-bold rounded-2xl hover:bg-purple-500 active:bg-purple-700 transition-all text-center mt-4"

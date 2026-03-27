@@ -1,6 +1,6 @@
 {
   "promo": {
-    "banner": "Introducing StylePrompts Pro — Unlock 30+ Premium Style Templates"
+    "banner": "Introducing StylePrompts Pro — Unlock 30 Premium Style Templates"
   },
   "common": {
     "language": "Language",
@@ -121,7 +121,7 @@
     "feature2": "Complete Design System Prompts",
     "feature3": "Lifetime Free Updates",
     "feature4": "Commercial Use License",
-    "feature1_title": "30+ Premium Styles",
+    "feature1_title": "30 Premium Styles",
     "feature2_title": "Full Source Prompts",
     "feature3_title": "Prioritized Updates",
     "upgradeCTA": "Upgrade Pro",
@@ -173,7 +173,7 @@
       "upgradeCTA": "Support Us"
     },
     "hero": {
-      "badge": "30+ Premium Style Templates",
+      "badge": "30 Premium Style Templates",
       "title1": "Generate",
       "title2": "Pro-Level UI with AI",
       "subtitle": "Say goodbye to mediocre AI output. Precision-tuned design system prompts for professional results every time.",
@@ -191,10 +191,10 @@
       "title": "Save Hours of Design Time",
       "subtitle": "Stop tweaking prompts endlessly. Get proven, professional design systems instantly.",
       "proStyles": {
-        "title": "30+ Pro Styles",
+        "title": "30 Pro Styles",
         "subtitle": "Every design aesthetic covered",
         "description": "From tech minimal to cyberpunk, from Japanese zen to European luxury. Each style comes with complete design prompts, ready to copy and use.",
-        "stats": "30+ Styles"
+        "stats": "30 Styles"
       },
       "templates": {
         "title": "6 Industry Templates",
@@ -279,7 +279,7 @@
       "sponsorNote": "Your support helps us develop more features",
       "note": "Secure Payment • Instant Delivery • Digital product, no refunds",
       "features": {
-        "f1": "30+ Pro Exclusive Style Templates",
+        "f1": "30 Pro Exclusive Style Templates",
         "f2": "6 Industry Landing Page Templates",
         "f3": "Complete Design System Prompts",
         "f4": "All Future Updates Free",
@@ -296,9 +296,9 @@
       "badge": "FAQ",
       "title": "Questions? We've Got Answers",
       "q1": "What's included in Pro?",
-      "a1": "Now everything is completely free! Pro includes 30+ carefully designed advanced style templates, 6 industry Landing Page templates, each with complete design system prompts.",
+      "a1": "Now everything is completely free! Pro includes 30 carefully designed advanced style templates, 6 industry Landing Page templates, each with complete design system prompts.",
       "q2": "How do I start using all styles?",
-      "a2": "Click 'Start Using All Styles' to browse all 30+ style templates instantly. No registration or payment required, and you can copy complete prompts directly.",
+      "a2": "Click 'Start Using All Styles' to browse all 30 style templates instantly. No registration or payment required, and you can copy complete prompts directly.",
       "q3": "How can I support this project?",
       "a3": "You can sponsor us via Buy Me a Coffee to help us continue developing more features and style templates.",
       "q4": "Will there be more styles in the future?",
@@ -409,7 +409,7 @@
         "f1": "All Basic Style Templates",
         "f2": "Unlimited Browsing",
         "f3": "Full Prompt Copy",
-        "f4": "30+ Pro Exclusive Styles",
+        "f4": "30 Pro Exclusive Styles",
         "f5": "Commercial Use License",
         "f6": "All Future Updates Free"
       },
@@ -517,12 +517,13 @@
       "workflow": "How It Works",
       "pricing": "Pricing",
       "faq": "FAQ",
+      "install": "Installation",
       "enterEditor": "Explore Styles"
     },
     "hero": {
-      "badge": "30+ Curated Visual Styles",
+      "badge": "30 Curated Visual Styles",
       "title": "Your AI Visual Style Library",
-      "subtitle": "StylePrompts offers 30+ carefully crafted visual style prompts. From tech minimal to retro cyberpunk, apply with one click to generate brand-aligned UI design instructions.",
+      "subtitle": "StylePrompts offers 30 carefully crafted visual style prompts. From tech minimal to retro cyberpunk, apply with one click to generate brand-aligned UI design instructions.",
       "cta": {
         "primary": "Browse Styles",
         "secondary": "Learn More"
@@ -532,7 +533,7 @@
       "title": "Why StylePrompts?",
       "subtitle": "A visual style library built for designers and developers",
       "f1": {
-        "title": "30+ Curated Styles",
+        "title": "30 Curated Styles",
         "desc": "From tech minimal and cyberpunk to Japanese zen, covering all visual aesthetics for any project."
       },
       "f2": {
@@ -549,7 +550,7 @@
       "subtitle": "From choosing a style to getting your prompt, it only takes seconds.",
       "b1": {
         "title": "Choose a Visual Style",
-        "desc": "Browse 30+ styles and find the perfect visual language for your brand."
+        "desc": "Browse 30 styles and find the perfect visual language for your brand."
       },
       "b2": {
         "title": "Select Industry & Use Case",
@@ -601,7 +602,7 @@
         "name": "Pro",
         "use": "Advanced Styles + Lifetime Updates",
         "price": "2000",
-        "f1": "30+ Advanced Visual Styles",
+        "f1": "30 Advanced Visual Styles",
         "f2": "All Future Updates Free",
         "f3": "Full Prompt Copy",
         "f4": "Priority Support & New Features"
@@ -617,7 +618,7 @@
       "a3": "This is a completely free open-source project! If you find it helpful, feel free to support us via 'Buy Me a Coffee' to help us continue developing more features and styles."
     },
     "footer": {
-      "description": "Your AI visual style library. 30+ curated styles, one-click prompt generation, accelerating your UI development.",
+      "description": "Your AI visual style library. 30 curated styles, one-click prompt generation, accelerating your UI development.",
       "system": "Product",
       "coreTech": "Style Library",
       "visualWorkflow": "User Guide",
@@ -631,11 +632,50 @@
     }
   },
   "finalCta": {
-    "title": "Explore 30+ Visual Styles",
+    "title": "Explore 30 Visual Styles",
     "subtitle": "Browse all styles for free and find the perfect visual language for your project.",
     "button": "Get Started"
   },
   "pages": {
+    "install": {
+      "title": "Install Style Prompt Skill",
+      "subtitle": "A portable Agents Skill providing 30 unique UI design styles for React and Tailwind CSS.",
+      "features": {
+        "title": "Features",
+        "item1": "30 Design Styles",
+        "item2": "Multi-IDE Support",
+        "item3": "Agentic Design"
+      },
+      "quickStart": {
+        "title": "Quick Start",
+        "npx": {
+          "title": "1. Run via npx (No installation required)",
+          "desc": "Go to your project root and run:"
+        },
+        "manual": {
+          "title": "2. Manual Installation",
+          "desc": "If you prefer to keep it in your package.json:"
+        }
+      },
+      "howItWorks": {
+        "title": "How it Works",
+        "desc": "When you run init, the CLI:",
+        "step1": "Copies the style specification library to your project's .agents/skills/ directory.",
+        "step2": "Creates tool-specific configuration files (e.g., .cursor/rules/*.mdc) so your AI assistant knows about the library immediately."
+      },
+      "supportedTools": {
+        "title": "Supported Tools",
+        "cursor": "Cursor AI: Automatically generates .cursor/rules/prompt-skill.mdc.",
+        "windsurf": "Windsurf IDE: Automatically generates .windsurf/rules/style-prompt.md.",
+        "claude": "Claude Code: Automatically sets up the .claude/skills/ structure.",
+        "footer": "Created for seamless AI-assisted design work."
+      },
+      "structure": {
+        "title": "Structure",
+        "item1": "SKILL.md: The main entry point for AI agents.",
+        "item2": "references/: 30 individual markdown files containing Design DNA, tokens, and prompts."
+      }
+    },
     "coreTech": {
       "title": "Style Library Features",
       "subtitle": "StylePrompts offers 30 curated visual styles, each carefully designed to help you find the perfect visual language for your project.",
@@ -842,13 +882,13 @@
     "subtitle": "Upgrade to Pro for the complete design system",
     "free": {
       "badge": "Currently Using",
-      "feature1": "100+ Free Style Templates",
+      "feature1": "30 Free Style Templates",
       "feature2": "Basic Preview Features",
       "feature3": "Community Support"
     },
     "pro": {
       "recommended": "Recommended",
-      "feature1": "100 Pro Exclusive Styles",
+      "feature1": "30 Pro Exclusive Styles",
       "feature2": "6 Industry Landing Page Templates",
       "feature3": "Commercial License",
       "feature4": "Free Future Updates"

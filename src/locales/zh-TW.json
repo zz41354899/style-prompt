@@ -1,6 +1,6 @@
 {
   "promo": {
-    "banner": "全新推出 StylePrompts Pro — 解鎖 30+ 進階風格模板"
+    "banner": "全新推出 StylePrompts Pro — 解鎖 30 進階風格模板"
   },
   "common": {
     "language": "語言",
@@ -48,7 +48,7 @@
     "desktop": "桌面版",
     "tablet": "平板版",
     "mobile": "手機版",
-    "buyMeACoffee": "贊助咖啡",
+    "buyMeACoffee": "專屬支持",
     "currentStyle": "當前風格",
     "designStyles": "設計風格庫",
     "stylesAvailable": "共有 {{count}} 種風格",
@@ -133,7 +133,7 @@
     "feature2": "完整設計系統指示詞",
     "feature3": "終身免費更新",
     "feature4": "商業使用授權",
-    "feature1_title": "30+ 進階風格",
+    "feature1_title": "30 進階風格",
     "feature2_title": "完整原始碼 Prompt",
     "feature3_title": "優先更新支援",
     "upgradeCTA": "升級 Pro",
@@ -185,7 +185,7 @@
       "upgradeCTA": "贊助支持"
     },
     "hero": {
-      "badge": "30+ 精選風格模板",
+      "badge": "30 精選風格模板",
       "title1": "用 AI 生成",
       "title2": "專業級介面設計",
       "subtitle": "告別平淡無奇的 AI 產出。精心調校的設計系統 Prompt，讓每次生成都達到專業水準。",
@@ -203,10 +203,10 @@
       "title": "省下數十小時的設計時間",
       "subtitle": "不再需要反覆調整 Prompt，直接獲得經過驗證的專業設計系統",
       "proStyles": {
-        "title": "30+ 專業風格",
+        "title": "30 專業風格",
         "subtitle": "涵蓋各種設計美學",
         "description": "從極簡科技到賽博龐克，從日式禪意到歐洲奢華。每個風格都附帶完整的設計指示詞，一鍵複製即可使用。",
-        "stats": "30+ 風格"
+        "stats": "30 風格"
       },
       "templates": {
         "title": "6 種產業模板",
@@ -291,7 +291,7 @@
       "sponsorNote": "您的贊助將幫助我們持續開發更多功能",
       "note": "安全付款 • 即時交付 • 數位商品售出不退",
       "features": {
-        "f1": "30+ Pro 專屬風格模板",
+        "f1": "30 Pro 專屬風格模板",
         "f2": "6 種產業 Landing Page Template",
         "f3": "完整設計系統指示詞",
         "f4": "未來所有更新免費",
@@ -308,9 +308,9 @@
       "badge": "常見問題",
       "title": "有疑問？我們來解答",
       "q1": "Pro 版包含哪些內容？",
-      "a1": "現在所有功能完全免費開放！包含 30+ 精心設計的進階風格模板、6 種產業 Landing Page Template，每個模板都附有完整的設計系統指示詞。",
+      "a1": "現在所有功能完全免費開放！包含 30 精心設計的進階風格模板、6 種產業 Landing Page Template，每個模板都附有完整的設計系統指示詞。",
       "q2": "如何開始使用所有風格？",
-      "a2": "直接點擊「開始使用所有風格」即可瀏覽全部 30+ 種風格模板，無需註冊或付費，每個風格都可直接複製完整指示詞。",
+      "a2": "直接點擊「開始使用所有風格」即可瀏覽全部 30 種風格模板，無需註冊或付費，每個風格都可直接複製完整指示詞。",
       "q3": "如何贊助支持這個專案？",
       "a3": "您可以透過 Buy Me a Coffee 贊助支持，讓我們持續開發更多功能和風格模板。",
       "q4": "未來會有更多風格嗎？",
@@ -419,7 +419,7 @@
         "f1": "所有基礎風格模板",
         "f2": "無限制瀏覽",
         "f3": "完整指示詞複製",
-        "f4": "30+ Pro 專屬風格",
+        "f4": "30 Pro 專屬風格",
         "f5": "商業使用授權",
         "f6": "未來所有更新免費"
       },
@@ -527,12 +527,13 @@
       "workflow": "使用方式",
       "pricing": "方案價格",
       "faq": "常見問題",
+      "install": "安裝指南",
       "enterEditor": "瀏覽風格庫"
     },
     "hero": {
-      "badge": "30+ 精選視覺風格",
+      "badge": "30 精選視覺風格",
       "title": "您的 AI 視覺風格資源庫",
-      "subtitle": "StylePrompts 彙整 30+ 種精心設計的視覺風格提示詞，從極簡科技到復古賽博，一鍵套用即可生成符合品牌調性的 UI 設計指令。",
+      "subtitle": "StylePrompts 彙整 30 種精心設計的視覺風格提示詞，從極簡科技到復古賽博，一鍵套用即可生成符合品牌調性的 UI 設計指令。",
       "cta": {
         "primary": "瀏覽風格庫",
         "secondary": "了解更多"
@@ -542,7 +543,7 @@
       "title": "為什麼選擇 StylePrompts 資源庫？",
       "subtitle": "專為設計師與開發者打造的視覺風格資源庫",
       "f1": {
-        "title": "30+ 精選風格",
+        "title": "30 精選風格",
         "desc": "從科技極簡、賽博龐克到日式和風，涵蓋各類視覺美學，滿足不同專案需求。"
       },
       "f2": {
@@ -559,7 +560,7 @@
       "subtitle": "從選擇風格到獲得提示詞，只需幾秒鐘。",
       "b1": {
         "title": "選擇視覺風格",
-        "desc": "瀏覽 30+ 種風格，找到最符合您品牌調性的視覺語言。"
+        "desc": "瀏覽 30 種風格，找到最符合您品牌調性的視覺語言。"
       },
       "b2": {
         "title": "智能優化配置",
@@ -611,7 +612,7 @@
         "name": "專業版",
         "use": "解鎖進階樣式 + 持續更新",
         "price": "2000",
-        "f1": "30+ 種進階視覺風格",
+        "f1": "30 種進階視覺風格",
         "f2": "未來所有更新免費",
         "f3": "完整指示詞複製",
         "f4": "優先支援與新功能"
@@ -624,10 +625,10 @@
       "q2": "如何使用這些風格提示詞？",
       "a2": "瀏覽風格庫選擇喜歡的風格，點擊複製提示詞，然後貼入 ChatGPT、Claude、Cursor 或任何 AI 工具即可開始生成專業級 UI 設計。",
       "q3": "如何支持這個專案？",
-      "a3": "這是一個完全免費的開源專案！如果您覺得有幫助，歡迎透過「贊助咖啡」支持我們，讓我們能持續開發更多功能和風格。"
+      "a3": "這是一個完全免費的開源專案！如果您覺得有幫助，歡迎透過「專屬支持」支持我們，讓我們能持續開發更多功能和風格。"
     },
     "footer": {
-      "description": "您的 AI 視覺風格資源庫。30+ 種精選風格,一鍵生成高品質提示詞,加速您的 UI 開發流程.",
+      "description": "您的 AI 視覺風格資源庫。30 種精選風格,一鍵生成高品質提示詞,加速您的 UI 開發流程.",
       "system": "產品",
       "coreTech": "風格庫",
       "visualWorkflow": "使用指南",
@@ -636,16 +637,55 @@
       "security": "法律聲明",
       "privacy": "隱私政策",
       "terms": "使用條款",
-      "coffee": "贊助我",
+      "coffee": "專屬支持",
       "copyright": " 2026 STYLEPROMPTS. 視覺風格資源庫."
     }
   },
   "finalCta": {
-    "title": "開始探索 30+ 視覺風格",
+    "title": "開始探索 30 視覺風格",
     "subtitle": "免費瀏覽所有風格，找到最適合您專案的視覺語言。",
     "button": "立即開始"
   },
   "pages": {
+    "install": {
+      "title": "安裝 Style Prompt Skill",
+      "subtitle": "一個便攜式的「Agents Skill」，為 React 和 Tailwind CSS 提供 30 種獨特的 UI 設計風格。",
+      "features": {
+        "title": "特色",
+        "item1": "30 種設計風格",
+        "item2": "多 IDE 支援",
+        "item3": "Agentic Design"
+      },
+      "quickStart": {
+        "title": "快速開始",
+        "npx": {
+          "title": "1. 透過 npx 執行（無需安裝）",
+          "desc": "前往您的專案根目錄並執行："
+        },
+        "manual": {
+          "title": "2. 手動安裝",
+          "desc": "如果您偏好將其保留在 package.json 中："
+        }
+      },
+      "howItWorks": {
+        "title": "運作原理",
+        "desc": "當您執行 init 時，CLI 會：",
+        "step1": "將風格規範庫複製到您專案的 .agents/skills/ 目錄中。",
+        "step2": "建立工具特定的設定檔（例如 .cursor/rules/*.mdc），讓您的 AI 助手立即了解該庫。"
+      },
+      "supportedTools": {
+        "title": "支援工具",
+        "cursor": "Cursor AI：自動產生 .cursor/rules/prompt-skill.mdc。",
+        "windsurf": "Windsurf IDE：自動產生 .windsurf/rules/style-prompt.md。",
+        "claude": "Claude Code：自動設定 .claude/skills/ 結構。",
+        "footer": "為無縫的 AI 輔助設計工作而打造。"
+      },
+      "structure": {
+        "title": "結構",
+        "item1": "SKILL.md：AI Agents 的主要進入點。",
+        "item2": "references/：30 個獨立的 markdown 檔案，包含設計 DNA、Token 和提示詞。"
+      }
+    },
     "coreTech": {
       "title": "風格庫特色",
       "subtitle": "StylePrompts 彙整了 30 種精選視覺風格，每個風格都經過精心設計，讓您快速找到適合專案的視覺語言。",
@@ -825,11 +865,11 @@
       "lastUpdate": "最後更新日期：2025 年 12 月 25 日"
     },
     "coffee": {
-      "title": "贊助我一杯咖啡",
-      "subtitle": "如果 StylePrompts 對您有幫助，歡迎請我喝杯咖啡，支持這個專案持續發展！",
-      "cta": "請我喝杯咖啡 ☕",
+      "title": "專屬支持",
+      "subtitle": "如果 StylePrompts 對您有幫助，歡迎專屬支持我們，支持這個專案持續發展！",
+      "cta": "專屬支持我們 ☕",
       "ctaDesc": "您的支持是我持續開發和維護這個專案的最大動力。每一杯咖啡都代表著您的認可與鼓勵！",
-      "buyButton": "Buy me a coffee",
+      "buyButton": "請我喝杯咖啡",
       "whyTitle": "為什麼支持我們？",
       "reason1": {
         "title": "獨立開發者",
@@ -852,13 +892,13 @@
     "subtitle": "升級 Pro 版獲得完整設計系統",
     "free": {
       "badge": "目前使用中",
-      "feature1": "100+ 免費風格模板",
+      "feature1": "30 免費風格模板",
       "feature2": "基礎預覽功能",
       "feature3": "社群支援"
     },
     "pro": {
       "recommended": "推薦",
-      "feature1": "100 Pro 專屬風格",
+      "feature1": "30 Pro 專屬風格",
       "feature2": "6 種產業 Landing Page 模板",
       "feature3": "商業使用授權",
       "feature4": "未來更新免費"

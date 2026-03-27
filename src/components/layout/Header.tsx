@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
-import { X, Menu, Home, Eye } from 'lucide-react';
+import { X, Menu, Home, Eye, Zap } from 'lucide-react';
 import { styles } from '@/data/styles';
 import { getThemeColor } from '@/data/themeColors';
 import { useLayoutContext } from './LayoutContext';
@@ -74,8 +74,19 @@ export const Header: React.FC = () => {
                     </Link>
                     <div className="w-px h-4 bg-white/5 mx-1" />
                     <Link
+                        href="/install"
+                        className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${pathname === '/install'
+                            ? 'bg-white/10 text-white shadow-sm shadow-black/20'
+                            : 'text-white/40 hover:text-white hover:bg-white/5'
+                            }`}
+                    >
+                        <Zap className="w-4 h-4" />
+                        <span>{t('landing.nav.install')}</span>
+                    </Link>
+                    <div className="w-px h-4 bg-white/5 mx-1" />
+                    <Link
                         href={`/${selectedStyle || 'S01'}`}
-                        className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${pathname !== '/'
+                        className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${pathname !== '/' && pathname !== '/install'
                             ? 'bg-white/10 text-white shadow-sm shadow-black/20'
                             : 'text-white/40 hover:text-white hover:bg-white/5'
                             }`}
