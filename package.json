@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate:configs": "tsx scripts/generate-style-configs-json.ts"
+    "generate:configs": "tsx scripts/generate-style-configs-json.ts",
+    "deploy": "vercel",
+    "deploy:prod": "vercel --prod"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -34,6 +36,7 @@
     "tailwindcss": "^4.1.18",
     "tsx": "^4.19.2",
     "typescript": "~5.9.3",
-    "typescript-eslint": "^8.46.4"
+    "typescript-eslint": "^8.46.4",
+    "vercel": "^51.4.0"
   }
 }
